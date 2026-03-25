@@ -29,11 +29,19 @@ Un scientifique disparu (Dr. E. Voss) a passé 30 ans à repousser les limites d
 ### Âges 0-1-2 : La Captivité (Compact Machines)
 
 ```
-ÂGE 0 — L'Éveil (salle 5x5 → 7x7 → 9x9)
-  Étape 1 : Ex Nihilo — cogner les murs, tamis, tonneau
+ÂGE 0 — L'Éveil (salle 3x3x3 → 5x5 → 7x7 → 9x9)
+  DÉPART : Compact Machine 3x3x3 avec coffre contenant :
+    - 1x Livre de Lore du Dr. Voss (Patchouli)
+    - 1x Tamis Ex Nihilo en bois
+    - 4x Graines variées (blé, carotte, pomme de terre, betterave)
+    - 8x Pain (nourriture basique)
+  Étape 1 : Ex Nihilo — cogner les murs → Compact Machine Dust → tamis → ressources
   Étape 2 : Bonsai Trees + Pam's HarvestCraft + Fonderie Tinkers
-  Étape 3 : Thaumonomicon RETIRÉ → remplacé par intro Blood Magic Phase 1
-  MODS : Ex Nihilo Creatio, Tinkers Construct, Bonsai Trees, Pam's HarvestCraft, Spice of Life
+  Étape 3 : Intro Blood Magic Phase 1 (Thaumcraft retiré)
+  CROP DUSTING : mobs → poop → accélère cultures Pam's + Bonsai → nourriture variée → cœurs
+  CRAFT CUSTOM POSSIBLE : poop = composant engrais Âge 0
+  MODS : Ex Nihilo Creatio, Tinkers Construct, Bonsai Trees, Pam's HarvestCraft,
+         Spice of Life Carrot Edition, Crop Dusting, Soul Shards Respawn
 
 ÂGE 1 — La Mécanique Brute (salle 9x9 → 11x11 → 13x13)
   Étape 4 : Thermal Expansion — première dynamo, 1M RF
