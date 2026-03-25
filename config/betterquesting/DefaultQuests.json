@@ -28,7 +28,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "name:8": "§lL'Eveil",
-          "desc:8": "§7Tu te reveilles dans une boite.\n§7Les murs sont blancs.\n\n§o§fSi tu lis ceci, tu as survecu a la compression.\n§o§fBien. Cogne les murs. — Dr. E. Voss\n\n§7Recupere le livre dans le coffre."
+          "desc:8": "\n\n\n§7Tu te reveilles dans une boite.\n§7Les murs sont blancs.\n\n§o§fSi tu lis ceci, tu as survecu a la compression.\n§o§fBien. Cogne les murs. — Dr. E. Voss\n\n§7Recupere le livre dans le coffre."
         }
       },
       "tasks:9": {
@@ -74,7 +74,7 @@
           "visibility:8": "ALWAYS",
           "simultaneous:1": 0,
           "icon:10": {
-            "id:8": "exnihilocreatio:dust_compressed_cobblestone",
+            "id:8": "minecraft:cobblestone",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -87,7 +87,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lPremier Contact",
-          "desc:8": "§7Casse les murs de la Compact Machine.\n§7Tu obtiens du §fCompact Machine Dust§7.\n\n§7C'est ta premiere ressource."
+          "desc:8": "\n\n\n§7Casse les murs de la Compact Machine.\n§7Tu obtiens du §fcobblestone§7.\n\n§7C'est ta premiere ressource.\n§7Tamise-le pour obtenir des materiaux."
         }
       },
       "tasks:9": {
@@ -100,7 +100,7 @@
           "consume:1": 0,
           "requiredItems:9": {
             "0:10": {
-              "id:8": "exnihilocreatio:dust_compressed_cobblestone",
+              "id:8": "minecraft:cobblestone",
               "Count:3": 16,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -147,7 +147,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLe Tamis",
-          "desc:8": "§7Le tamis transforme le dust en ressources.\n§7Clic droit pour tamiser.\n\n§o§fLa matiere ne disparait pas. — Dr. E. Voss"
+          "desc:8": "\n\n\n§7Le tamis transforme le dust en ressources.\n§7Clic droit pour tamiser.\n\n§o§fLa matiere ne disparait pas. — Dr. E. Voss"
         }
       },
       "tasks:9": {
@@ -200,7 +200,7 @@
           "visibility:8": "ALWAYS",
           "simultaneous:1": 0,
           "icon:10": {
-            "id:8": "exnihilocreatio:barrel",
+            "id:8": "exnihilocreatio:block_barrel0",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -213,7 +213,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lL'Eau de la Vie",
-          "desc:8": "§7Place un Tonneau Ex Nihilo.\n§7Mets des materiaux organiques dedans.\n\n§o§fJ'ai passe 3 jours sans eau. — Dr. Voss"
+          "desc:8": "\n\n\n§7Place un Tonneau Ex Nihilo.\n§7Mets des materiaux organiques dedans.\n\n§o§fJ'ai passe 3 jours sans eau. — Dr. Voss"
         }
       },
       "tasks:9": {
@@ -226,7 +226,7 @@
           "consume:1": 0,
           "requiredItems:9": {
             "0:10": {
-              "id:8": "exnihilocreatio:barrel",
+              "id:8": "exnihilocreatio:block_barrel0",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -285,7 +285,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa Premiere Terre",
-          "desc:8": "§7Compost + eau dans le Tonneau = §fDirt§7.\n§7Ta premiere parcelle dans cette boite.\n§cNote : §7Les graines du coffre en ont besoin."
+          "desc:8": "\n\n\n§7Compost + eau dans le Tonneau = §fDirt§7.\n§7Ta premiere parcelle dans cette boite.\n§cNote : §7Les graines du coffre en ont besoin."
         }
       },
       "tasks:9": {
@@ -357,7 +357,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa Fonderie Primitive",
-          "desc:8": "§7Tinkers Construct remplace le four vanilla.\n§7Fabrique une §fPattern Table§7.\n\n§cIMPORTANT : §7Le four vanilla est desactive."
+          "desc:8": "\n\n\n§7Tinkers Construct remplace le four vanilla.\n§7Fabrique une §fPattern Table§7.\n\n§cIMPORTANT : §7Le four vanilla est desactive."
         }
       },
       "tasks:9": {
@@ -429,32 +429,13 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lPremiers Outils Tinkers",
-          "desc:8": "§7Fabrique une §fpioche§7 et une §fpelle§7 en pierre.\n§7Les outils Tinkers sont §fmodulaires§7.\n\n§7Le Dr. Voss avait une pioche nommee Sylvestre."
+          "desc:8": "\n\n\n§7Fabrique une §fpioche§7 et une §fpelle§7 en pierre.\n§7Les outils Tinkers sont §fmodulaires§7.\n\n§7Le Dr. Voss avait une pioche nommee Sylvestre.\n\n§eCoche quand tu as tes premiers outils Tinkers."
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
           "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "tconstruct:pickaxe",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            },
-            "1:10": {
-              "id:8": "tconstruct:shovel",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
+          "taskID:8": "bq_standard:checkbox"
         }
       },
       "rewards:9": {
@@ -496,7 +477,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lConstruction de la Smeltery",
-          "desc:8": "§7La Smeltery est le coeur de Tinkers. Multibloc 3x2x3.\n\n§71. §fSeared Bricks§7 (sable + gravier tonneau)\n§72. Structure 3x2x3\n§73. §fSmeltery Controller§7 sur un cote"
+          "desc:8": "\n\n\n§7La Smeltery est le coeur de Tinkers. Multibloc 3x2x3.\n\n§71. §fSeared Bricks§7 (sable + gravier tonneau)\n§72. Structure 3x2x3\n§73. §fSmeltery Controller§7 sur un cote"
         }
       },
       "tasks:9": {
@@ -568,7 +549,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lPremier Lingot de Fer",
-          "desc:8": "§7Le tamis du gravier donne des pepites de fer.\n§7Mets-les dans la Smeltery et coule du fer.\n§79 pepites = 1 lingot.\n\n§7Fabrique 64 lingots de fer."
+          "desc:8": "\n\n\n§7Le tamis du gravier donne des pepites de fer.\n§7Mets-les dans la Smeltery et coule du fer.\n§79 pepites = 1 lingot.\n\n§7Fabrique 64 lingots de fer."
         }
       },
       "tasks:9": {
@@ -640,7 +621,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lL'Alliage — Le Bronze",
-          "desc:8": "§7La Smeltery cree des §falliages§7.\n§7Recette Bronze : §fCuivre (3) + Etain (1)§7.\n§7Le Bronze est plus solide que le fer."
+          "desc:8": "\n\n\n§7La Smeltery cree des §falliages§7.\n§7Recette Bronze : §fCuivre (3) + Etain (1)§7.\n§7Le Bronze est plus solide que le fer."
         }
       },
       "tasks:9": {
@@ -712,7 +693,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa Foret dans une Boite",
-          "desc:8": "§7Bonsai Trees fait pousser des arbres miniatures.\n§7Source §fautomatique§7 de bois.\n\n§7Un arbre dans une boite. Poetique, non ?"
+          "desc:8": "\n\n\n§7Bonsai Trees fait pousser des arbres miniatures.\n§7Source §fautomatique§7 de bois.\n\n§7Un arbre dans une boite. Poetique, non ?"
         }
       },
       "tasks:9": {
@@ -784,7 +765,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa Foret Automatique",
-          "desc:8": "§75 Bonsai Pots = source de bois infinie.\n§7Hopper sous chaque pot pour collecter auto."
+          "desc:8": "\n\n\n§75 Bonsai Pots = source de bois infinie.\n§7Hopper sous chaque pot pour collecter auto."
         }
       },
       "tasks:9": {
@@ -857,26 +838,13 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa Table de Cuisine",
-          "desc:8": "§7Pam's HarvestCraft = 200+ cultures et recettes.\n§7Commence par la §fCooking Station§7.\n\n§o§fNe jamais manger deux fois la meme chose. — Dr. Voss"
+          "desc:8": "\n\n\n§7Pam's HarvestCraft = 200+ cultures et recettes.\n§7Commence par la §fCooking Station§7.\n\n§o§fNe jamais manger deux fois la meme chose. — Dr. Voss\n\n§eCoche quand tu as un outil de cuisine Pam's."
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
           "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "harvestcraft:presseritem",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
+          "taskID:8": "bq_standard:checkbox"
         }
       },
       "rewards:9": {
@@ -929,7 +897,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLe Nutritionniste",
-          "desc:8": "§7Spice of Life recompense la variete alimentaire.\n§710 aliments differents = §f+2 coeurs permanents§7.\n\n§eCoche manuellement quand c'est fait."
+          "desc:8": "\n\n\n§7Spice of Life recompense la variete alimentaire.\n§710 aliments differents = §f+2 coeurs permanents§7.\n\n§eCoche manuellement quand c'est fait."
         }
       },
       "tasks:9": {
@@ -976,7 +944,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa Science du Fumier",
-          "desc:8": "§7Les animaux produisent du §fDung§7 (poop).\n§7Crop Dusting accelere la pousse des cultures.\n\n§7Le Dr. Voss avait un poulet nomme Newton.\n§7Ne pose pas de questions sur Newton."
+          "desc:8": "\n\n\n§7Les animaux produisent du §fDung§7 (poop).\n§7Crop Dusting accelere la pousse des cultures.\n\n§7Le Dr. Voss avait un poulet nomme Newton.\n§7Ne pose pas de questions sur Newton."
         }
       },
       "tasks:9": {
@@ -1048,7 +1016,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lL'Ame Capturee",
-          "desc:8": "§7Soul Shards capture les ames des mobs tues.\n§7Chaque kill remplit le shard.\n\n§7Poulets = oeufs + plumes + poop"
+          "desc:8": "\n\n\n§7Soul Shards capture les ames des mobs tues.\n§7Chaque kill remplit le shard.\n\n§7Poulets = oeufs + plumes + poop"
         }
       },
       "tasks:9": {
@@ -1120,26 +1088,13 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lProtection de Base",
-          "desc:8": "§7Construct's Armory : armures modulaires Tinkers.\n§7Fabrique des §fbottes§7 en fer au minimum."
+          "desc:8": "\n\n\n§7Construct's Armory : armures modulaires Tinkers.\n§7Fabrique des §fbottes§7 en fer au minimum.\n\n§eCoche quand tu portes une armure Tinkers."
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
           "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "conarm:boots",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
+          "taskID:8": "bq_standard:checkbox"
         }
       },
       "rewards:9": {
@@ -1182,7 +1137,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "name:8": "§2§lExpansion — Salle 5x5",
-          "desc:8": "§aLa boite s'agrandit.\n§7Place la nouvelle machine et entre dedans.\n§aBienvenue dans l'espace. Relatif."
+          "desc:8": "\n\n\n§aLa boite s'agrandit.\n§7Place la nouvelle machine et entre dedans.\n§aBienvenue dans l'espace. Relatif."
         }
       },
       "tasks:9": {
@@ -1254,7 +1209,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lPremiere Automatisation",
-          "desc:8": "§7Utilise des §fHoppers§7 pour automatiser :\n§7 - Collecte des Bonsai Pots\n§7 - Alimentation du tamis\n§7 - Stockage dans des coffres tries"
+          "desc:8": "\n\n\n§7Utilise des §fHoppers§7 pour automatiser :\n§7 - Collecte des Bonsai Pots\n§7 - Alimentation du tamis\n§7 - Stockage dans des coffres tries"
         }
       },
       "tasks:9": {
@@ -1326,7 +1281,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lDix Saveurs",
-          "desc:8": "§710 aliments differents consommes.\n§7+2 coeurs permanents debloques.\n\n§eCoche quand tu as +2 coeurs bonus."
+          "desc:8": "\n\n\n§710 aliments differents consommes.\n§7+2 coeurs permanents debloques.\n\n§eCoche quand tu as +2 coeurs bonus."
         }
       },
       "tasks:9": {
@@ -1385,7 +1340,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa Chance du Tamis",
-          "desc:8": "§7Le gravier donne des pepites d'or.\n§7Le sable donne du cuivre, etain, plomb.\n§7Tamise §fbeaucoup§7. La RNG est ton amie."
+          "desc:8": "\n\n\n§7Le gravier donne des pepites d'or.\n§7Le sable donne du cuivre, etain, plomb.\n§7Tamise §fbeaucoup§7. La RNG est ton amie."
         }
       },
       "tasks:9": {
@@ -1458,7 +1413,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "name:8": "§2§lExpansion — Salle 7x7",
-          "desc:8": "§aEncore plus grand.\n§7Avec 7x7 tu as de la place pour un vrai labo.\n\n§o§fL'espace ne fait pas le savant. — Dr. Voss"
+          "desc:8": "\n\n\n§aEncore plus grand.\n§7Avec 7x7 tu as de la place pour un vrai labo.\n\n§o§fL'espace ne fait pas le savant. — Dr. Voss"
         }
       },
       "tasks:9": {
@@ -1530,7 +1485,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lTamis de Pierre",
-          "desc:8": "§7Le tamis en bois est limite.\n§7Un tamis en §fpierre§7 donne plus de ressources.\n§7Ameliore-le progressivement."
+          "desc:8": "\n\n\n§7Le tamis en bois est limite.\n§7Un tamis en §fpierre§7 donne plus de ressources.\n§7Ameliore-le progressivement."
         }
       },
       "tasks:9": {
@@ -1602,7 +1557,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lL'Organisation",
-          "desc:8": "§7Storage Drawers : un tiroir = des milliers d'items.\n§7La desorganisation tue les modpacks."
+          "desc:8": "\n\n\n§7Storage Drawers : un tiroir = des milliers d'items.\n§7La desorganisation tue les modpacks."
         }
       },
       "tasks:9": {
@@ -1675,7 +1630,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "name:8": "§2§lExpansion — Salle 9x9",
-          "desc:8": "§aLa salle maximale de l'Age 0.\n§79x9. C'est presque confortable."
+          "desc:8": "\n\n\n§aLa salle maximale de l'Age 0.\n§79x9. C'est presque confortable."
         }
       },
       "tasks:9": {
@@ -1747,7 +1702,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lL'Outil qui Grandit",
-          "desc:8": "§7Tinker Tool Leveling : tes outils gagnent de l'XP.\n§7Un outil niveau 5+ gagne des modificateurs bonus.\n\n§eCoche quand un outil a atteint niveau 5."
+          "desc:8": "\n\n\n§7Tinker Tool Leveling : tes outils gagnent de l'XP.\n§7Un outil niveau 5+ gagne des modificateurs bonus.\n\n§eCoche quand un outil a atteint niveau 5."
         }
       },
       "tasks:9": {
@@ -1794,7 +1749,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lPremiere Ferme a Mobs",
-          "desc:8": "§7Fabrique une §fSoul Cage§7 = spawner automatique.\n\n§7Poulet = oeufs + plumes + poop\n§7Vache = cuir + boeuf"
+          "desc:8": "\n\n\n§7Fabrique une §fSoul Cage§7 = spawner automatique.\n\n§7Poulet = oeufs + plumes + poop\n§7Vache = cuir + boeuf"
         }
       },
       "tasks:9": {
@@ -1867,7 +1822,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lCharbon de Bois",
-          "desc:8": "§7Mets du bois dans la Smeltery = §fCharbon de bois§7.\n§7Avec les Bonsai Pots, bois infini."
+          "desc:8": "\n\n\n§7Mets du bois dans la Smeltery = §fCharbon de bois§7.\n§7Avec les Bonsai Pots, bois infini."
         }
       },
       "tasks:9": {
@@ -1939,7 +1894,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLes Notes du Laboratoire",
-          "desc:8": "§7Tu trouves une trappe cachee dans la salle.\n§7Dedans : les §fnotes du Dr. Voss§7.\n\n§o§fL'energie RF est la cle. — Dr. Voss, Cahier n3"
+          "desc:8": "\n\n\n§7Tu trouves une trappe cachee dans la salle.\n§7Dedans : les §fnotes du Dr. Voss§7.\n\n§o§fL'energie RF est la cle. — Dr. Voss, Cahier n3"
         }
       },
       "tasks:9": {
@@ -2013,7 +1968,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "name:8": "§6§lFIN DE L'AGE 0",
-          "desc:8": "§7Tu as maitrise les bases de la survie.\n\n§a- Maitrise Ex Nihilo\n§a- Construit une Smeltery\n§a- Automatise le bois et les cultures\n§a- Atteint la salle 9x9\n\n§6La trappe est ouverte. L'Age 1 commence.\n\n§o§fTu as appris comment survivre.\n§o§fMaintenant tu vas apprendre comment tout controler.\n§o§f— Dr. E. Voss"
+          "desc:8": "\n\n\n§7Tu as maitrise les bases de la survie.\n\n§a- Maitrise Ex Nihilo\n§a- Construit une Smeltery\n§a- Automatise le bois et les cultures\n§a- Atteint la salle 9x9\n\n§6La trappe est ouverte. L'Age 1 commence.\n\n§o§fTu as appris comment survivre.\n§o§fMaintenant tu vas apprendre comment tout controler.\n§o§f— Dr. E. Voss"
         }
       },
       "tasks:9": {
