@@ -1,0 +1,7 @@
+mods/
+saves/
+logs/
+crash-reports/
+*.jar
+resourcepacks/
+shaderpacks/
