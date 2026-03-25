@@ -1,925 +1,1057 @@
 {
-	id: "0000000000000001",
-	group: "",
+	always_invisible: false,
+	group: 0,
 	order_index: 0,
 	filename: "age0_leveil",
 	title: "§0§lÂge 0 — L'Éveil",
 	icon: "compactmachines3:personal_shrinking_device",
-	default_quest_shape: "circle",
-	default_hide_dependency_lines: false,
+	default_quest_shape: "",
 	quests: [
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-01 — L'Éveil
-		// ═══════════════════════════════════════════════
 		{
 			x: 0.0d,
 			y: 0.0d,
 			shape: "hexagon",
-			id: "0000000000000100",
+			id: "1A000001",
 			title: "§lL'Éveil",
 			icon: "compactmachines3:personal_shrinking_device",
-			description: ["§7Tu te réveilles dans une boîte.", "§7Les murs sont blancs. L'air est immobile.", "§7Une note est posée devant toi :", "", "§o§f\"Si tu lis ceci, tu as survécu à la compression.", "§o§fBien. Les murs contiennent tout ce dont tu as besoin.", "§o§fCogne-les. Apprends. — Dr. E. Voss\"", "", "§7Récupère le livre dans le coffre. Ta survie en dépend."],
+			description: [
+				"§7Tu te réveilles dans une boîte.",
+				"§7Les murs sont blancs. L'air est immobile.",
+				"",
+				"§o§f\"Si tu lis ceci, tu as survécu à la compression.",
+				"§o§fBien. Les murs contiennent tout ce dont tu as besoin.",
+				"§o§fCogne-les. Apprends. — Dr. E. Voss\"",
+				"",
+				"§7Récupère le livre dans le coffre."
+			],
 			dependencies: [],
 			tasks: [{
-				id: "0000000000000101",
+				id: "1A000002",
 				type: "item",
-				item: "patchouli:guide_book",
-				count: 1L
+				item: {
+					id: "patchouli:guide_book",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000000102",
+				id: "1A000003",
 				type: "xp",
 				xp: 10
 			}, {
-				id: "0000000000000103",
+				id: "1A000004",
 				type: "item",
-				item: "minecraft:bread",
-				count: 4
+				item: {
+					id: "minecraft:bread",
+					Count: 4
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-02 — Premier Contact
-		// ═══════════════════════════════════════════════
 		{
 			x: 2.0d,
 			y: 0.0d,
-			id: "0000000000000200",
+			id: "1A000010",
 			title: "§lPremier Contact",
 			icon: "exnihilocreatio:dust_compressed_cobblestone",
-			description: ["§7Les murs de la Compact Machine sont faits d'un matériau spécial.", "§7En les cassant avec tes poings, tu obtiens du §fCompact Machine Dust§7.", "", "§7C'est ta première ressource.", "§7C'est tout ce que tu as.", "", "§cConseil : §7Casse les blocs §fde plancher§7 en priorité —", "§7ils repoussent plus vite que les murs."],
-			dependencies: ["0000000000000100"],
+			description: [
+				"§7Casse les murs de la Compact Machine.",
+				"§7Tu obtiens du §fCompact Machine Dust§7.",
+				"",
+				"§7C'est ta première ressource. C'est tout ce que tu as.",
+				"",
+				"§cConseil : §7Casse le plancher en priorité — il repousse vite."
+			],
+			dependencies: ["1A000001"],
 			tasks: [{
-				id: "0000000000000201",
+				id: "1A000011",
 				type: "item",
-				item: "exnihilocreatio:dust_compressed_cobblestone",
-				count: 16L
+				item: {
+					id: "exnihilocreatio:dust_compressed_cobblestone",
+					Count: 16
+				}
 			}],
 			rewards: [{
-				id: "0000000000000202",
+				id: "1A000012",
 				type: "xp",
 				xp: 15
-			}, {
-				id: "0000000000000203",
-				type: "item",
-				item: "exnihilocreatio:sieve",
-				count: 1
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-03 — Le Tamis
-		// ═══════════════════════════════════════════════
 		{
 			x: 4.0d,
 			y: 0.0d,
-			id: "0000000000000300",
+			id: "1A000020",
 			title: "§lLe Tamis",
 			icon: "exnihilocreatio:sieve",
-			description: ["§7Le tamis transforme le Compact Machine Dust en ressources.", "", "§7Fais-le glisser dans le tamis et clic droit pour tamiser.", "§7Tu obtiendras du gravier, du sable, de la pierre.", "", "§7Le Dr. Voss notait : §o§f\"La matière ne disparaît pas.", "§o§fElle se transforme. Le tamis est ta première preuve.\""],
-			dependencies: ["0000000000000200"],
+			description: [
+				"§7Le tamis transforme le Compact Machine Dust en ressources.",
+				"§7Glisse le dust dedans et clic droit pour tamiser.",
+				"",
+				"§o§f\"La matière ne disparaît pas. Elle se transforme.",
+				"§o§fLe tamis est ta première preuve.\" — Dr. E. Voss"
+			],
+			dependencies: ["1A000010"],
 			tasks: [{
-				id: "0000000000000301",
+				id: "1A000021",
 				type: "item",
-				item: "minecraft:gravel",
-				count: 8L
+				item: {
+					id: "minecraft:gravel",
+					Count: 8
+				}
 			}, {
-				id: "0000000000000302",
+				id: "1A000022",
 				type: "item",
-				item: "minecraft:sand",
-				count: 8L
+				item: {
+					id: "minecraft:sand",
+					Count: 8
+				}
 			}],
 			rewards: [{
-				id: "0000000000000303",
+				id: "1A000023",
 				type: "xp",
 				xp: 20
-			}, {
-				id: "0000000000000304",
-				type: "item",
-				item: "exnihilocreatio:sieve",
-				count: 1
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-04 — L'Eau de la Vie (WTF)
-		// ═══════════════════════════════════════════════
 		{
 			x: 4.0d,
 			y: 2.0d,
-			id: "0000000000000400",
+			id: "1A000030",
 			title: "§lL'Eau de la Vie",
 			icon: "exnihilocreatio:barrel",
-			description: ["§7Sans eau, pas de vie. Sans vie, pas de science.", "", "§7Place un Tonneau Ex Nihilo et remplis-le avec de l'eau.", "§7Ensuite mets 8 matériaux organiques dedans pour créer du compost.", "", "§o§f\"J'ai passé 3 jours dans ma première Compact Machine", "§o§fsans eau. Ne reproduis pas mes erreurs.\"", "§o§f— Dr. E. Voss, Journal Personnel, Jour 1"],
-			dependencies: ["0000000000000200"],
+			description: [
+				"§7Place un Tonneau Ex Nihilo et remplis-le avec de l'eau.",
+				"§7Mets des matériaux organiques dedans → Compost.",
+				"",
+				"§o§f\"J'ai passé 3 jours sans eau dans ma première Compact Machine.",
+				"§o§fNe reproduis pas mes erreurs.\" — Dr. E. Voss, Jour 1"
+			],
+			dependencies: ["1A000010"],
 			tasks: [{
-				id: "0000000000000401",
+				id: "1A000031",
 				type: "item",
-				item: "exnihilocreatio:barrel",
-				count: 1L
+				item: {
+					id: "exnihilocreatio:barrel",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000000402",
+				id: "1A000032",
 				type: "xp",
 				xp: 15
 			}, {
-				id: "0000000000000403",
+				id: "1A000033",
 				type: "item",
-				item: "minecraft:water_bucket",
-				count: 2
+				item: {
+					id: "minecraft:water_bucket",
+					Count: 2
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-05 — La Terre
-		// ═══════════════════════════════════════════════
 		{
 			x: 6.0d,
 			y: 2.0d,
-			id: "0000000000000500",
+			id: "1A000040",
 			title: "§lLa Première Terre",
 			icon: "minecraft:dirt",
-			description: ["§7Le Tonneau rempli d'eau + matériaux organiques = Compost.", "§7Le Compost + eau dans le Tonneau = §fDirt§7.", "", "§7Ta première Dirt. Ta première parcelle de terrain dans cette boîte.", "", "§cNote : §7Les graines dans le coffre de départ ont besoin de cette Dirt."],
-			dependencies: ["0000000000000400"],
+			description: [
+				"§7Tonneau + eau + matériaux organiques = Compost.",
+				"§7Compost + eau dans le Tonneau = §fDirt§7.",
+				"",
+				"§7Ta première Dirt. Ta première parcelle dans cette boîte.",
+				"§cNote : §7Les graines du coffre de départ en ont besoin."
+			],
+			dependencies: ["1A000030"],
 			tasks: [{
-				id: "0000000000000501",
+				id: "1A000041",
 				type: "item",
-				item: "minecraft:dirt",
-				count: 16L
+				item: {
+					id: "minecraft:dirt",
+					Count: 16
+				}
 			}],
 			rewards: [{
-				id: "0000000000000502",
+				id: "1A000042",
 				type: "xp",
 				xp: 20
 			}, {
-				id: "0000000000000503",
+				id: "1A000043",
 				type: "item",
-				item: "minecraft:dirt",
-				count: 16
+				item: {
+					id: "minecraft:dirt",
+					Count: 16
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-06 — La Fonderie
-		// ═══════════════════════════════════════════════
 		{
 			x: 6.0d,
 			y: 0.0d,
-			id: "0000000000000600",
+			id: "1A000050",
 			title: "§lLa Fonderie Primitive",
 			icon: "tconstruct:pattern",
-			description: ["§7Tinkers Construct remplace entièrement le four et la table de craft vanilla.", "§7Ici, il n'y a pas d'autre choix.", "", "§7Fabrique une §fPattern Table§7, puis une §fPart Builder§7.", "", "§cIMPORTANT : §7Le four vanilla est §cdésactivé§7 dans ce modpack.", "§7Toute fonte passe par la Fonderie Tinkers."],
-			dependencies: ["0000000000000300"],
+			description: [
+				"§7Tinkers Construct remplace le four vanilla.",
+				"§7Fabrique une §fPattern Table§7 puis une §fPart Builder§7.",
+				"",
+				"§cIMPORTANT : §7Le four vanilla est §cdésactivé§7 dans ce modpack.",
+				"§7Toute fonte passe par la Fonderie Tinkers."
+			],
+			dependencies: ["1A000020"],
 			tasks: [{
-				id: "0000000000000601",
+				id: "1A000051",
 				type: "item",
-				item: "tconstruct:pattern",
-				count: 1L
+				item: {
+					id: "tconstruct:pattern",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000000602",
+				id: "1A000052",
 				type: "xp",
 				xp: 25
 			}, {
-				id: "0000000000000603",
+				id: "1A000053",
 				type: "item",
-				item: "tconstruct:pattern",
-				count: 4
+				item: {
+					id: "tconstruct:pattern",
+					Count: 4
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-07 — Premiers Outils
-		// ═══════════════════════════════════════════════
 		{
 			x: 8.0d,
 			y: 0.0d,
-			id: "0000000000000700",
+			id: "1A000060",
 			title: "§lPremiers Outils Tinkers",
 			icon: "tconstruct:pickaxe",
-			description: ["§7Avec la Part Builder, fabrique tes premiers outils Tinkers.", "§7Commence par une §fpioche§7 et une §fpelle§7 en pierre.", "", "§7Les outils Tinkers sont §fmodulairesr§7 — chaque partie peut être",  "§7remplacée et améliorée séparément.", "", "§7Le Dr. Voss avait une pioche en Cobalt qu'il appelait §o§f'Sylvestre'.§r", "§7Tu n'en es pas encore là."],
-			dependencies: ["0000000000000600"],
+			description: [
+				"§7Fabrique une §fpioche§7 et une §fpelle§7 en pierre.",
+				"§7Les outils Tinkers sont §fmodulaires§7 — chaque partie",
+				"§7peut être remplacée et améliorée séparément.",
+				"",
+				"§7Le Dr. Voss avait une pioche en Cobalt nommée §o§f'Sylvestre'.",
+				"§7Tu n'en es pas encore là."
+			],
+			dependencies: ["1A000050"],
 			tasks: [{
-				id: "0000000000000701",
+				id: "1A000061",
 				type: "item",
-				item: "tconstruct:pickaxe",
-				count: 1L
+				item: {
+					id: "tconstruct:pickaxe",
+					Count: 1
+				}
 			}, {
-				id: "0000000000000702",
+				id: "1A000062",
 				type: "item",
-				item: "tconstruct:shovel",
-				count: 1L
+				item: {
+					id: "tconstruct:shovel",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000000703",
+				id: "1A000063",
 				type: "xp",
 				xp: 30
-			}, {
-				id: "0000000000000704",
-				type: "item",
-				item: "tconstruct:materials",
-				count: 2,
-				nbt: "{Material:\"stone\"}"
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-08 — La Fonderie Tinkers (Smeltery)
-		// ═══════════════════════════════════════════════
 		{
 			x: 8.0d,
 			y: 2.0d,
-			id: "0000000000000800",
+			id: "1A000070",
 			title: "§lConstruction de la Smeltery",
 			icon: "tconstruct:smeltery_controller",
-			description: ["§7La Smeltery est le cœur de Tinkers Construct.", "§7C'est un multibloc 3x2x3 minimum.", "", "§7Pour la construire :", "§71. Fabrique des §fSeared Bricks§7 (sable + gravier dans le tonneau)",  "§72. Construis la structure 3x2x3", "§73. Place le §fSmeltery Controller§7 sur un côté", "", "§7La Smeltery permet de fondre les métaux §fet de les couler§7 en composants."],
-			dependencies: ["0000000000000700", "0000000000000500"],
+			description: [
+				"§7La Smeltery est le cœur de Tinkers. Multibloc 3x2x3.",
+				"",
+				"§71. §fSeared Bricks§7 (sable + gravier dans le tonneau)",
+				"§72. Construis la structure 3x2x3",
+				"§73. Place le §fSmeltery Controller§7 sur un côté"
+			],
+			dependencies: ["1A000060", "1A000040"],
 			tasks: [{
-				id: "0000000000000801",
+				id: "1A000071",
 				type: "item",
-				item: "tconstruct:smeltery_controller",
-				count: 1L
+				item: {
+					id: "tconstruct:smeltery_controller",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000000802",
+				id: "1A000072",
 				type: "xp",
 				xp: 50
 			}, {
-				id: "0000000000000803",
+				id: "1A000073",
 				type: "item",
-				item: "tconstruct:seared_brick",
-				count: 16
+				item: {
+					id: "tconstruct:seared_brick",
+					Count: 16
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-09 — Premier Métal (WTF)
-		// ═══════════════════════════════════════════════
 		{
 			x: 10.0d,
 			y: 2.0d,
-			id: "0000000000000900",
-			title: "§lPremier Lingot",
+			id: "1A000080",
+			title: "§lPremier Lingot de Fer",
 			icon: "minecraft:iron_ingot",
-			description: ["§7Le tamis du gravier peut donner des pépites de fer.", "§7Mets-les dans la Smeltery et coule du fer.", "", "§79 pépites = 1 lingot. Basique. Fondamental. Indispensable.", "", "§c💀 QUÊTE WTF : §7Fabrique 64 lingots de fer.", "§7Le Dr. Voss a rempli 3 carnets sur les propriétés du fer pur.", "§7Tu peux t'en passer. Lui non."],
-			dependencies: ["0000000000000800"],
+			description: [
+				"§7Le tamis du gravier donne des pépites de fer.",
+				"§7Mets-les dans la Smeltery et coule du fer.",
+				"§79 pépites = 1 lingot.",
+				"",
+				"§c💀 QUÊTE WTF : §7Fabrique 64 lingots de fer.",
+				"§7Le Dr. Voss a rempli 3 carnets sur les propriétés du fer.",
+				"§7Il était passionné. Jusqu'à sa disparition."
+			],
+			dependencies: ["1A000070"],
 			tasks: [{
-				id: "0000000000000901",
+				id: "1A000081",
 				type: "item",
-				item: "minecraft:iron_ingot",
-				count: 64L
+				item: {
+					id: "minecraft:iron_ingot",
+					Count: 64
+				}
 			}],
 			rewards: [{
-				id: "0000000000000902",
+				id: "1A000082",
 				type: "xp",
 				xp: 75
 			}, {
-				id: "0000000000000903",
+				id: "1A000083",
 				type: "item",
-				item: "minecraft:iron_ingot",
-				count: 16
-			}, {
-				id: "0000000000000904",
-				type: "item",
-				item: "tconstruct:pickaxe",
-				count: 1,
-				nbt: "{ExtraAttributes:{Material:\"iron\"}}"
+				item: {
+					id: "minecraft:iron_ingot",
+					Count: 16
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-10 — Le Bronze
-		// ═══════════════════════════════════════════════
 		{
 			x: 10.0d,
 			y: 0.0d,
-			id: "0000000000001000",
+			id: "1A000090",
 			title: "§lL'Alliage — Le Bronze",
-			icon: "tconstruct:ingots",
-			description: ["§7La Smeltery peut créer des §falliages§7 en mélangeant des métaux fondus.", "", "§7Recette Bronze : §fCuivre (3) + Étain (1)§7 en état liquide.", "", "§7Le Bronze est plus solide que le fer pour les outils Tinkers.", "§7C'est ton premier vrai upgrade."],
-			dependencies: ["0000000000000900"],
+			icon: "minecraft:iron_ingot",
+			description: [
+				"§7La Smeltery crée des §falliages§7 en mélangeant des métaux fondus.",
+				"",
+				"§7Recette Bronze : §fCuivre (3) + Étain (1)§7 en liquide.",
+				"§7Le Bronze est plus solide que le fer pour les outils."
+			],
+			dependencies: ["1A000080"],
 			tasks: [{
-				id: "0000000000001001",
+				id: "1A000091",
 				type: "item",
-				item: "tconstruct:ingots",
-				count: 16L,
-				nbt: "{Material:\"bronze\"}"
+				item: {
+					id: "thermalfoundation:material",
+					Count: 8,
+					Damage: 132
+				}
 			}],
 			rewards: [{
-				id: "0000000000001002",
+				id: "1A000092",
 				type: "xp",
 				xp: 60
 			}, {
-				id: "0000000000001003",
+				id: "1A000093",
 				type: "item",
-				item: "tconstruct:ingots",
-				count: 8,
-				nbt: "{Material:\"bronze\"}"
+				item: {
+					id: "thermalfoundation:material",
+					Count: 8,
+					Damage: 132
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-11 — Les Bonsais
-		// ═══════════════════════════════════════════════
 		{
 			x: 2.0d,
 			y: -2.0d,
-			id: "0000000000001100",
+			id: "1A000100",
 			title: "§lLa Forêt dans une Boîte",
 			icon: "bonsaitrees:bonsaipot",
-			description: ["§7Bonsai Trees permet de faire pousser des arbres miniatures dans des pots.", "§7C'est ta première source §fautomatique§7 de bois.", "", "§7Place un §fBonsai Pot§7, glisse une graine dedans,", "§7et l'arbre pousse tout seul en collectant les ressources.", "", "§7Un arbre dans une boîte. Poétique, non ?"],
-			dependencies: ["0000000000000500"],
+			description: [
+				"§7Bonsai Trees fait pousser des arbres miniatures dans des pots.",
+				"§7C'est ta première source §fautomatique§7 de bois.",
+				"",
+				"§7Place un §fBonsai Pot§7, glisse une graine dedans.",
+				"§7Un arbre dans une boîte. Poétique, non ?"
+			],
+			dependencies: ["1A000040"],
 			tasks: [{
-				id: "0000000000001101",
+				id: "1A000101",
 				type: "item",
-				item: "bonsaitrees:bonsaipot",
-				count: 1L
+				item: {
+					id: "bonsaitrees:bonsaipot",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000001102",
+				id: "1A000102",
 				type: "xp",
 				xp: 30
 			}, {
-				id: "0000000000001103",
+				id: "1A000103",
 				type: "item",
-				item: "bonsaitrees:bonsaipot",
-				count: 2
+				item: {
+					id: "bonsaitrees:bonsaipot",
+					Count: 2
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-12 — La Forêt Automatique
-		// ═══════════════════════════════════════════════
 		{
 			x: 4.0d,
 			y: -2.0d,
-			id: "0000000000001200",
+			id: "1A000110",
 			title: "§lLa Forêt Automatique",
 			icon: "minecraft:log",
-			description: ["§75 Bonsai Pots actifs = source de bois infinie.", "", "§7Utilise un §fHopper§7 sous chaque pot pour collecter automatiquement.", "§7Différents arbres donnent différentes ressources :", "§7 - Chêne → pommes, bâtons, bois",  "§7 - Bouleau → bois blanc, poudre blanche",  "§7 - Sapin → résine, cônes"],
-			dependencies: ["0000000000001100"],
+			description: [
+				"§75 Bonsai Pots actifs = source de bois infinie.",
+				"§7Hopper sous chaque pot pour collecter automatiquement.",
+				"",
+				"§7Chêne → pommes / Bouleau → bois blanc / Sapin → résine"
+			],
+			dependencies: ["1A000100"],
 			tasks: [{
-				id: "0000000000001201",
+				id: "1A000111",
 				type: "item",
-				item: "bonsaitrees:bonsaipot",
-				count: 5L
+				item: {
+					id: "bonsaitrees:bonsaipot",
+					Count: 5
+				}
 			}],
 			rewards: [{
-				id: "0000000000001202",
+				id: "1A000112",
 				type: "xp",
 				xp: 40
 			}, {
-				id: "0000000000001203",
+				id: "1A000113",
 				type: "item",
-				item: "minecraft:hopper",
-				count: 5
+				item: {
+					id: "minecraft:hopper",
+					Count: 5
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-13 — Pam's HarvestCraft
-		// ═══════════════════════════════════════════════
 		{
 			x: 6.0d,
 			y: -2.0d,
-			id: "0000000000001300",
+			id: "1A000120",
 			title: "§lLa Table de Cuisine",
 			icon: "harvestcraft:presseritem",
-			description: ["§7Pam's HarvestCraft débloque plus de 200 cultures et recettes.", "", "§7Commence par la §fCooking Station§7 — c'est la base.",  "§7Elle permet de cuisiner des repas complexes qui donnent", "§7plus de saturation qu'un simple pain.", "", "§7Le Dr. Voss avait une règle : §o§f\"Ne jamais manger deux fois la même chose.\"", "§o§fC'est aussi une règle de survie ici."],
-			dependencies: ["0000000000001100", "0000000000000500"],
+			description: [
+				"§7Pam's HarvestCraft débloque plus de 200 cultures et recettes.",
+				"§7Commence par la §fCooking Station§7.",
+				"",
+				"§o§f\"Ne jamais manger deux fois la même chose.\"",
+				"§o§f— Dr. E. Voss (règle de survie aussi)"
+			],
+			dependencies: ["1A000100", "1A000040"],
 			tasks: [{
-				id: "0000000000001301",
+				id: "1A000121",
 				type: "item",
-				item: "harvestcraft:presseritem",
-				count: 1L
+				item: {
+					id: "harvestcraft:presseritem",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000001302",
+				id: "1A000122",
 				type: "xp",
 				xp: 35
 			}, {
-				id: "0000000000001303",
+				id: "1A000123",
 				type: "item",
-				item: "harvestcraft:bakewareitem",
-				count: 1
+				item: {
+					id: "harvestcraft:bakewareitem",
+					Count: 1
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-14 — Spice of Life (WTF)
-		// ═══════════════════════════════════════════════
 		{
 			x: 8.0d,
 			y: -2.0d,
-			id: "0000000000001400",
+			id: "1A000130",
 			title: "§lLe Nutritionniste",
 			icon: "harvestcraft:cabbageseeditem",
-			description: ["§7Spice of Life Carrot Edition récompense la variété alimentaire.", "§7Plus tu manges d'aliments différents, plus tu gagnes des §fcœurs§7.", "", "§7Objectif : §f10 aliments différents§7 = §f+2 cœurs permanents§7.", "", "§c💀 QUÊTE WTF : §7Mange 20 aliments différents.", "§7Le Dr. Voss a documenté 847 repas différents dans sa carrière.", "§7Il était en très bonne santé. Jusqu'à sa disparition."],
-			dependencies: ["0000000000001300"],
+			description: [
+				"§7Spice of Life récompense la variété alimentaire.",
+				"§710 aliments différents = §f+2 cœurs permanents§7.",
+				"",
+				"§c💀 QUÊTE WTF : §7Mange 20 aliments différents.",
+				"§7Le Dr. Voss documentait 847 repas différents.",
+				"§7Il était en parfaite santé. Jusqu'à sa disparition."
+			],
+			dependencies: ["1A000120"],
 			tasks: [{
-				id: "0000000000001401",
-				type: "advancement",
-				advancement: "harvestcraft:crops/crops",
-				criterion: ""
-			}],
-			rewards: [{
-				id: "0000000000001402",
-				type: "xp",
-				xp: 50
-			}, {
-				id: "0000000000001403",
-				type: "item",
-				item: "harvestcraft:apricotjuiceitem",
-				count: 4
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-15 — Crop Dusting
-		// ═══════════════════════════════════════════════
-		{
-			x: 6.0d,
-			y: -4.0d,
-			id: "0000000000001500",
-			title: "§lLa Science du Fumier",
-			icon: "cropdusting:dung",
-			description: ["§7Les animaux produisent du §fDung§7 (poop) utilisable comme engrais.", "§7Crop Dusting l'utilise pour §faccélérer la pousse§7 de tes cultures.", "", "§7Pour avoir des animaux dans ta Compact Machine :", "§71. Utilise §fSoul Shards§7 pour capturer des âmes de mobs",  "§72. Crée un spawner customisé", "", "§7Le Dr. Voss avait un poulet dans son laboratoire.", "§7Il s'appelait Newton.", "§7Ne pose pas de questions sur Newton."],
-			dependencies: ["0000000000001300"],
-			tasks: [{
-				id: "0000000000001501",
-				type: "item",
-				item: "cropdusting:dung",
-				count: 16L
-			}],
-			rewards: [{
-				id: "0000000000001502",
-				type: "xp",
-				xp: 40
-			}, {
-				id: "0000000000001503",
-				type: "item",
-				item: "harvestcraft:fertilizerseeditem",
-				count: 8
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-16 — Soul Shards
-		// ═══════════════════════════════════════════════
-		{
-			x: 4.0d,
-			y: -4.0d,
-			id: "0000000000001600",
-			title: "§lL'Âme Capturée",
-			icon: "soulshardsrespawn:shard",
-			description: ["§7Soul Shards permet de capturer les âmes des mobs tués", "§7et de créer des spawners customisés.", "", "§7Chaque kill d'un même type de mob remplie le shard.", "§7Quand il est plein, tu peux créer un §fSoul Cage§7", "§7qui spawn ce mob en continu.", "", "§7Utilité dans l'Âge 0 : spawner des poulets → œufs + plumes + poop 😄"],
-			dependencies: ["0000000000001100"],
-			tasks: [{
-				id: "0000000000001601",
-				type: "item",
-				item: "soulshardsrespawn:shard",
-				count: 1L
-			}],
-			rewards: [{
-				id: "0000000000001602",
-				type: "xp",
-				xp: 45
-			}, {
-				id: "0000000000001603",
-				type: "item",
-				item: "soulshardsrespawn:shard",
-				count: 1
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-17 — Première Armure Tinkers
-		// ═══════════════════════════════════════════════
-		{
-			x: 12.0d,
-			y: 0.0d,
-			id: "0000000000001700",
-			title: "§lProtection de Base",
-			icon: "conarm:boots",
-			description: ["§7Construct's Armory (ConArm) ajoute des armures modulaires Tinkers.", "§7Comme les outils, chaque pièce est §fcustomisable§7.", "", "§7Fabrique au minimum des §fbottes§7 et un §fCasque§7 en fer.", "§7Ça semble peu. C'est déjà mieux que rien dans cette boîte."],
-			dependencies: ["0000000000001000"],
-			tasks: [{
-				id: "0000000000001701",
-				type: "item",
-				item: "conarm:boots",
-				count: 1L
-			}],
-			rewards: [{
-				id: "0000000000001702",
-				type: "xp",
-				xp: 55
-			}, {
-				id: "0000000000001703",
-				type: "item",
-				item: "tconstruct:materials",
-				count: 4,
-				nbt: "{Material:\"iron\"}"
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-18 — Expansion 5x5
-		// ═══════════════════════════════════════════════
-		{
-			x: 14.0d,
-			y: 0.0d,
-			shape: "hexagon",
-			id: "0000000000001800",
-			title: "§2§lExpansion — Salle 5x5",
-			icon: "compactmachines3:machine_wall_breakable",
-			description: ["§aLa boîte s'agrandit.", "", "§7Pour passer en salle 5x5, tu dois obtenir une §fCompact Machine§7",  "§7de niveau supérieur et t'y téléporter.", "", "§7Utilise le §fPersonal Shrinking Device§7 pour sortir temporairement,",  "§7place la nouvelle machine, et entre dedans.", "", "§aBienvenue dans l'espace. Relatif."],
-			dependencies: ["0000000000001700", "0000000000001400", "0000000000000900"],
-			tasks: [{
-				id: "0000000000001801",
-				type: "item",
-				item: "compactmachines3:machine_wall_breakable",
-				count: 4L
-			}],
-			rewards: [{
-				id: "0000000000001802",
-				type: "xp",
-				xp: 100
-			}, {
-				id: "0000000000001803",
-				type: "item",
-				item: "minecraft:chest",
-				count: 2
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-19 — Automatisation des ressources
-		// ═══════════════════════════════════════════════
-		{
-			x: 14.0d,
-			y: -2.0d,
-			id: "0000000000001900",
-			title: "§lPremière Automatisation",
-			icon: "minecraft:hopper",
-			description: ["§7Dans une boîte, l'espace est précieux.", "§7Chaque action manuelle est une perte de temps.", "", "§7Utilise des §fHoppers§7 pour automatiser :", "§7 - Collecte des Bonsai Pots",  "§7 - Alimentation du tamis (via dispenser)",  "§7 - Stockage dans des coffres triés", "", "§7C'est les bases de toute automatisation.", "§7Et tu vas en faire §fbeaucoup§7."],
-			dependencies: ["0000000000001800"],
-			tasks: [{
-				id: "0000000000001901",
-				type: "item",
-				item: "minecraft:hopper",
-				count: 8L
-			}],
-			rewards: [{
-				id: "0000000000001902",
-				type: "xp",
-				xp: 40
-			}, {
-				id: "0000000000001903",
-				type: "item",
-				item: "minecraft:hopper",
-				count: 4
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-20 — Nourriture variée x10
-		// ═══════════════════════════════════════════════
-		{
-			x: 10.0d,
-			y: -2.0d,
-			id: "0000000000002000",
-			title: "§lDix Saveurs",
-			icon: "harvestcraft:pineappleitem",
-			description: ["§710 aliments différents consommés.", "§7Spice of Life t'a accordé §f+2 cœurs permanents§7.", "", "§7C'est un début.", "§7Le Dr. Voss avait §f20 cœurs§7 quand il a disparu.", "§7Coïncidence ?", "", "§c→ §7Continue à manger varié. Chaque 10 nouveaux aliments = +2 cœurs."],
-			dependencies: ["0000000000001400"],
-			tasks: [{
-				id: "0000000000002001",
+				id: "1A000131",
 				type: "stat",
 				stat: "minecraft:foodEaten",
 				value: 10L,
 				compare_type: ">="
 			}],
 			rewards: [{
-				id: "0000000000002002",
+				id: "1A000132",
 				type: "xp",
-				xp: 60
-			}, {
-				id: "0000000000002003",
-				type: "item",
-				item: "harvestcraft:cookingpotitem",
-				count: 1
+				xp: 50
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-21 — Minerais rares du tamis
-		// ═══════════════════════════════════════════════
 		{
-			x: 12.0d,
-			y: -2.0d,
-			id: "0000000000002100",
-			title: "§lLa Chance du Tamis",
-			icon: "minecraft:gold_ingot",
-			description: ["§7Le gravier peut donner des pépites d'or.", "§7Le sable peut donner des pépites de cuivre, étain, plomb.", "", "§7Tamise §fbeaucoup§7. La RNG est ton amie.", "", "§cObjectif : §7Obtenir chacun de ces métaux via le tamis uniquement :", "§7Or, Cuivre, Étain, Plomb."],
-			dependencies: ["0000000000000300"],
+			x: 6.0d,
+			y: -4.0d,
+			id: "1A000140",
+			title: "§lLa Science du Fumier",
+			icon: "cropdusting:dung",
+			description: [
+				"§7Les animaux produisent du §fDung§7 (poop).",
+				"§7Crop Dusting l'utilise pour §faccélérer la pousse§7 des cultures.",
+				"",
+				"§7Le Dr. Voss avait un poulet dans son labo.",
+				"§7Il s'appelait Newton.",
+				"§7Ne pose pas de questions sur Newton."
+			],
+			dependencies: ["1A000120"],
 			tasks: [{
-				id: "0000000000002101",
+				id: "1A000141",
 				type: "item",
-				item: "minecraft:gold_nugget",
-				count: 9L
-			}, {
-				id: "0000000000002102",
-				type: "item",
-				item: "thermalfoundation:material",
-				count: 9L,
-				nbt: "{type:\"nugget\",metal:\"copper\"}"
+				item: {
+					id: "cropdusting:dung",
+					Count: 16
+				}
 			}],
 			rewards: [{
-				id: "0000000000002103",
+				id: "1A000142",
 				type: "xp",
-				xp: 55
+				xp: 40
 			}, {
-				id: "0000000000002104",
+				id: "1A000143",
 				type: "item",
-				item: "minecraft:gold_ingot",
-				count: 4
+				item: {
+					id: "harvestcraft:fertilizerseeditem",
+					Count: 8
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-22 — Expansion 7x7
-		// ═══════════════════════════════════════════════
 		{
-			x: 16.0d,
-			y: 0.0d,
-			shape: "hexagon",
-			id: "0000000000002200",
-			title: "§2§lExpansion — Salle 7x7",
-			icon: "compactmachines3:machine_wall_breakable",
-			description: ["§aEncore plus grand.", "", "§7Avec 7x7 tu as enfin assez de place pour construire", "§7quelque chose qui ressemble à un laboratoire.", "", "§7Le Dr. Voss travaillait dans un espace de 6x6.", "§7§o§fIl disait que §fl'espace ne fait pas le savant§r.", "§7Mais il n'a jamais refusé plus de place non plus."],
-			dependencies: ["0000000000001900", "0000000000002100"],
+			x: 4.0d,
+			y: -4.0d,
+			id: "1A000150",
+			title: "§lL'Âme Capturée",
+			icon: "soulshardsrespawn:shard",
+			description: [
+				"§7Soul Shards capture les âmes des mobs tués.",
+				"§7Chaque kill remplit le shard → §fSoul Cage§7 = spawner.",
+				"",
+				"§7Utilité Âge 0 : poulets → œufs + plumes + poop 😄"
+			],
+			dependencies: ["1A000110"],
 			tasks: [{
-				id: "0000000000002201",
+				id: "1A000151",
 				type: "item",
-				item: "compactmachines3:machine_wall_breakable",
-				count: 8L
+				item: {
+					id: "soulshardsrespawn:shard",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000002202",
-				type: "xp",
-				xp: 150
-			}, {
-				id: "0000000000002203",
-				type: "item",
-				item: "ironchest:iron_chest",
-				count: 2
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-23 — Le Charbon de Bois
-		// ═══════════════════════════════════════════════
-		{
-			x: 10.0d,
-			y: 2.0d,
-			id: "0000000000002300",
-			title: "§lCharbon de Bois",
-			icon: "minecraft:coal",
-			description: ["§7Le charbon de bois se fabrique en mettant du bois dans la Smeltery.", "§7C'est ton §fpremier combustible§7 digne de ce nom.", "", "§7Avec les Bonsai Pots en mode automatique,", "§7tu ne manqueras jamais de bois — ni de charbon."],
-			dependencies: ["0000000000001200", "0000000000000800"],
-			tasks: [{
-				id: "0000000000002301",
-				type: "item",
-				item: "minecraft:coal",
-				count: 32L
-			}],
-			rewards: [{
-				id: "0000000000002302",
-				type: "xp",
-				xp: 30
-			}, {
-				id: "0000000000002303",
-				type: "item",
-				item: "minecraft:coal",
-				count: 16
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-24 — Tamis amélioré
-		// ═══════════════════════════════════════════════
-		{
-			x: 16.0d,
-			y: -2.0d,
-			id: "0000000000002400",
-			title: "§lTamis de Pierre",
-			icon: "exnihilocreatio:sieve",
-			description: ["§7Le tamis en bois est limité.", "§7Un tamis en §fpierre§7 donne plus de ressources par tamis.", "", "§7Et un tamis en §ffer§7 encore plus.", "§7Et un tamis en §fdiamant§7... tu verras ça plus tard.", "", "§7Améliore-le progressivement."],
-			dependencies: ["0000000000002200"],
-			tasks: [{
-				id: "0000000000002401",
-				type: "item",
-				item: "exnihilocreatio:sieve",
-				count: 1L,
-				nbt: "{MeshTag:{id:\"exnihilocreatio:mesh_stone\"}}"
-			}],
-			rewards: [{
-				id: "0000000000002402",
-				type: "xp",
-				xp: 60
-			}, {
-				id: "0000000000002403",
-				type: "item",
-				item: "exnihilocreatio:mesh_iron",
-				count: 1
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-25 — Stockage organisé
-		// ═══════════════════════════════════════════════
-		{
-			x: 18.0d,
-			y: -2.0d,
-			id: "0000000000002500",
-			title: "§lL'Organisation",
-			icon: "storagedrawers:basicdrawers_1",
-			description: ["§7Storage Drawers est ta première vraie solution de stockage.", "§7Un tiroir peut stocker §fdes milliers§7 d'items du même type.", "", "§7Organisation recommandée :", "§7 - Tiroirs pour les minerais bruts",  "§7 - Tiroirs pour les lingots",  "§7 - Coffres pour les outils et équipements", "", "§7La désorganisation tue les modpacks. Ne laisse pas ça t'arriver."],
-			dependencies: ["0000000000002200"],
-			tasks: [{
-				id: "0000000000002501",
-				type: "item",
-				item: "storagedrawers:basicdrawers_1",
-				count: 4L
-			}],
-			rewards: [{
-				id: "0000000000002502",
+				id: "1A000152",
 				type: "xp",
 				xp: 45
 			}, {
-				id: "0000000000002503",
+				id: "1A000153",
 				type: "item",
-				item: "storagedrawers:basicdrawers_2",
-				count: 2
+				item: {
+					id: "soulshardsrespawn:shard",
+					Count: 1
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-26 — Expansion 9x9
-		// ═══════════════════════════════════════════════
+		{
+			x: 12.0d,
+			y: 0.0d,
+			id: "1A000160",
+			title: "§lProtection de Base",
+			icon: "conarm:boots",
+			description: [
+				"§7Construct's Armory ajoute des armures modulaires Tinkers.",
+				"§7Fabrique des §fbottes§7 et un §fcasque§7 en fer au minimum.",
+				"§7Ça semble peu. C'est mieux que rien dans cette boîte."
+			],
+			dependencies: ["1A000090"],
+			tasks: [{
+				id: "1A000161",
+				type: "item",
+				item: {
+					id: "conarm:boots",
+					Count: 1
+				}
+			}],
+			rewards: [{
+				id: "1A000162",
+				type: "xp",
+				xp: 55
+			}]
+		},
+		{
+			x: 14.0d,
+			y: 0.0d,
+			shape: "hexagon",
+			id: "1A000170",
+			title: "§2§lExpansion — Salle 5x5",
+			icon: "compactmachines3:machine_wall_breakable",
+			description: [
+				"§aLa boîte s'agrandit.",
+				"",
+				"§7Obtiens une §fCompact Machine§7 de niveau supérieur,",
+				"§7sors avec le §fPersonal Shrinking Device§7,",
+				"§7place la nouvelle machine et entre dedans.",
+				"",
+				"§aBienvenue dans l'espace. Relatif."
+			],
+			dependencies: ["1A000160", "1A000130", "1A000080"],
+			tasks: [{
+				id: "1A000171",
+				type: "item",
+				item: {
+					id: "compactmachines3:machine_wall_breakable",
+					Count: 4
+				}
+			}],
+			rewards: [{
+				id: "1A000172",
+				type: "xp",
+				xp: 100
+			}, {
+				id: "1A000173",
+				type: "item",
+				item: {
+					id: "minecraft:chest",
+					Count: 2
+				}
+			}]
+		},
+		{
+			x: 14.0d,
+			y: -2.0d,
+			id: "1A000180",
+			title: "§lPremière Automatisation",
+			icon: "minecraft:hopper",
+			description: [
+				"§7Dans une boîte, l'espace est précieux.",
+				"§7Utilise des §fHoppers§7 pour automatiser :",
+				"§7 - Collecte des Bonsai Pots",
+				"§7 - Alimentation du tamis",
+				"§7 - Stockage dans des coffres triés"
+			],
+			dependencies: ["1A000170"],
+			tasks: [{
+				id: "1A000181",
+				type: "item",
+				item: {
+					id: "minecraft:hopper",
+					Count: 8
+				}
+			}],
+			rewards: [{
+				id: "1A000182",
+				type: "xp",
+				xp: 40
+			}, {
+				id: "1A000183",
+				type: "item",
+				item: {
+					id: "minecraft:hopper",
+					Count: 4
+				}
+			}]
+		},
+		{
+			x: 10.0d,
+			y: -2.0d,
+			id: "1A000190",
+			title: "§lDix Saveurs",
+			icon: "harvestcraft:pineappleitem",
+			description: [
+				"§710 aliments différents consommés.",
+				"§7Spice of Life t'a accordé §f+2 cœurs permanents§7.",
+				"",
+				"§7Le Dr. Voss avait §f20 cœurs§7 quand il a disparu.",
+				"§7Coïncidence ?"
+			],
+			dependencies: ["1A000130"],
+			tasks: [{
+				id: "1A000191",
+				type: "stat",
+				stat: "minecraft:foodEaten",
+				value: 20L,
+				compare_type: ">="
+			}],
+			rewards: [{
+				id: "1A000192",
+				type: "xp",
+				xp: 60
+			}, {
+				id: "1A000193",
+				type: "item",
+				item: {
+					id: "harvestcraft:cookingpotitem",
+					Count: 1
+				}
+			}]
+		},
+		{
+			x: 12.0d,
+			y: -2.0d,
+			id: "1A000200",
+			title: "§lLa Chance du Tamis",
+			icon: "minecraft:gold_ingot",
+			description: [
+				"§7Le gravier peut donner des pépites d'or.",
+				"§7Le sable peut donner du cuivre, étain, plomb.",
+				"",
+				"§7Tamise §fbeaucoup§7. La RNG est ton amie."
+			],
+			dependencies: ["1A000020"],
+			tasks: [{
+				id: "1A000201",
+				type: "item",
+				item: {
+					id: "minecraft:gold_nugget",
+					Count: 9
+				}
+			}],
+			rewards: [{
+				id: "1A000202",
+				type: "xp",
+				xp: 55
+			}, {
+				id: "1A000203",
+				type: "item",
+				item: {
+					id: "minecraft:gold_ingot",
+					Count: 4
+				}
+			}]
+		},
+		{
+			x: 16.0d,
+			y: 0.0d,
+			shape: "hexagon",
+			id: "1A000210",
+			title: "§2§lExpansion — Salle 7x7",
+			icon: "compactmachines3:machine_wall_breakable",
+			description: [
+				"§aEncore plus grand.",
+				"",
+				"§7Avec 7x7 tu as enfin assez de place pour un vrai labo.",
+				"",
+				"§o§f\"L'espace ne fait pas le savant.\" — Dr. E. Voss",
+				"§7(Il n'a jamais refusé plus de place non plus.)"
+			],
+			dependencies: ["1A000180", "1A000200"],
+			tasks: [{
+				id: "1A000211",
+				type: "item",
+				item: {
+					id: "compactmachines3:machine_wall_breakable",
+					Count: 8
+				}
+			}],
+			rewards: [{
+				id: "1A000212",
+				type: "xp",
+				xp: 150
+			}, {
+				id: "1A000213",
+				type: "item",
+				item: {
+					id: "ironchest:iron_chest",
+					Count: 2
+				}
+			}]
+		},
+		{
+			x: 10.0d,
+			y: 2.0d,
+			id: "1A000220",
+			title: "§lCharbon de Bois",
+			icon: "minecraft:coal",
+			description: [
+				"§7Mets du bois dans la Smeltery → §fCharbon de bois§7.",
+				"§7Avec les Bonsai Pots auto, tu ne manqueras jamais de bois."
+			],
+			dependencies: ["1A000110", "1A000070"],
+			tasks: [{
+				id: "1A000221",
+				type: "item",
+				item: {
+					id: "minecraft:coal",
+					Count: 32
+				}
+			}],
+			rewards: [{
+				id: "1A000222",
+				type: "xp",
+				xp: 30
+			}, {
+				id: "1A000223",
+				type: "item",
+				item: {
+					id: "minecraft:coal",
+					Count: 16
+				}
+			}]
+		},
+		{
+			x: 16.0d,
+			y: -2.0d,
+			id: "1A000230",
+			title: "§lTamis de Pierre",
+			icon: "exnihilocreatio:mesh_stone",
+			description: [
+				"§7Le tamis en bois est limité.",
+				"§7Un tamis en §fpierre§7 donne plus de ressources.",
+				"§7Un tamis en §ffer§7 encore plus.",
+				"§7Améliore-le progressivement."
+			],
+			dependencies: ["1A000210"],
+			tasks: [{
+				id: "1A000231",
+				type: "item",
+				item: {
+					id: "exnihilocreatio:mesh_stone",
+					Count: 1
+				}
+			}],
+			rewards: [{
+				id: "1A000232",
+				type: "xp",
+				xp: 60
+			}, {
+				id: "1A000233",
+				type: "item",
+				item: {
+					id: "exnihilocreatio:mesh_iron",
+					Count: 1
+				}
+			}]
+		},
+		{
+			x: 18.0d,
+			y: -2.0d,
+			id: "1A000240",
+			title: "§lL'Organisation",
+			icon: "storagedrawers:basicdrawers_1",
+			description: [
+				"§7Storage Drawers : un tiroir = des milliers d'items du même type.",
+				"",
+				"§7 - Tiroirs pour les minerais bruts",
+				"§7 - Tiroirs pour les lingots",
+				"§7 - Coffres pour les outils",
+				"",
+				"§7La désorganisation tue les modpacks."
+			],
+			dependencies: ["1A000210"],
+			tasks: [{
+				id: "1A000241",
+				type: "item",
+				item: {
+					id: "storagedrawers:basicdrawers_1",
+					Count: 4
+				}
+			}],
+			rewards: [{
+				id: "1A000242",
+				type: "xp",
+				xp: 45
+			}, {
+				id: "1A000243",
+				type: "item",
+				item: {
+					id: "storagedrawers:basicdrawers_2",
+					Count: 2
+				}
+			}]
+		},
 		{
 			x: 18.0d,
 			y: 0.0d,
 			shape: "hexagon",
-			id: "0000000000002600",
+			id: "1A000250",
 			title: "§2§lExpansion — Salle 9x9",
 			icon: "compactmachines3:machine_wall_breakable",
-			description: ["§aLa salle maximale de l'Âge 0.", "", "§79x9. C'est presque confortable.", "§7Tu as maintenant assez d'espace pour préparer ce qui arrive.", "", "§7Âge 1 au prochain message."],
-			dependencies: ["0000000000002500", "0000000000002400"],
+			description: [
+				"§aLa salle maximale de l'Âge 0.",
+				"",
+				"§79x9. C'est presque confortable.",
+				"§7Tu as maintenant assez d'espace pour préparer ce qui arrive."
+			],
+			dependencies: ["1A000240", "1A000230"],
 			tasks: [{
-				id: "0000000000002601",
+				id: "1A000251",
 				type: "item",
-				item: "compactmachines3:machine_wall_breakable",
-				count: 12L
+				item: {
+					id: "compactmachines3:machine_wall_breakable",
+					Count: 12
+				}
 			}],
 			rewards: [{
-				id: "0000000000002602",
+				id: "1A000252",
 				type: "xp",
 				xp: 200
 			}, {
-				id: "0000000000002603",
+				id: "1A000253",
 				type: "item",
-				item: "ironchest:gold_chest",
-				count: 1
+				item: {
+					id: "ironchest:gold_chest",
+					Count: 1
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-27 — Préparation Âge 1 (lore)
-		// ═══════════════════════════════════════════════
-		{
-			x: 20.0d,
-			y: 0.0d,
-			id: "0000000000002700",
-			title: "§lLes Notes du Laboratoire",
-			icon: "patchouli:guide_book",
-			description: ["§7En agrandissant la salle, tu trouves §fsous le plancher§7", "§7une trappe cachée.", "", "§7Dedans : des §fnotes du Dr. Voss§7 sur la conversion d'énergie.", "§7Des schémas de machines. Des formules.", "", "§o§f\"L'énergie RF est la clé. Tout peut être converti.", "§o§fLa matière. Le mouvement. La chaleur.", "§o§fTout est énergie. Tout peut être mesuré.", "§o§fTout peut être exploité.\" — Dr. E. Voss, Cahier n°3"],
-			dependencies: ["0000000000002600"],
-			tasks: [{
-				id: "0000000000002701",
-				type: "item",
-				item: "minecraft:paper",
-				count: 1L
-			}],
-			rewards: [{
-				id: "0000000000002702",
-				type: "xp",
-				xp: 50
-			}, {
-				id: "0000000000002703",
-				type: "item",
-				item: "patchouli:guide_book",
-				count: 1
-			}]
-		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-28 — Tinker Tool Leveling
-		// ═══════════════════════════════════════════════
 		{
 			x: 14.0d,
 			y: -4.0d,
-			id: "0000000000002800",
+			id: "1A000260",
 			title: "§lL'Outil qui Grandit",
 			icon: "tconstruct:pickaxe",
-			description: ["§7Tinker Tool Leveling permet à tes outils §fde gagner de l'expérience§7.",  "§7Plus tu t'en sers, plus ils deviennent puissants.", "", "§7Un outil de niveau 5+ peut recevoir des modificateurs supplémentaires.", "", "§7Mine, mine, mine. Tes outils t'en seront reconnaissants."],
-			dependencies: ["0000000000001700"],
+			description: [
+				"§7Tinker Tool Leveling : tes outils gagnent de l'XP.",
+				"§7Plus tu t'en sers, plus ils deviennent puissants.",
+				"§7Un outil niveau 5+ reçoit des modificateurs supplémentaires."
+			],
+			dependencies: ["1A000160"],
 			tasks: [{
-				id: "0000000000002801",
+				id: "1A000261",
 				type: "stat",
 				stat: "minecraft:mineBlock",
 				value: 500L,
 				compare_type: ">="
 			}],
 			rewards: [{
-				id: "0000000000002802",
+				id: "1A000262",
 				type: "xp",
 				xp: 75
-			}, {
-				id: "0000000000002803",
-				type: "item",
-				item: "tconstruct:modifiers",
-				count: 1,
-				nbt: "{Modifiers:{id:\"tconstruct:extra_modifier\"}}"
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-29 — Soul Cage (mob farm)
-		// ═══════════════════════════════════════════════
 		{
 			x: 2.0d,
 			y: -4.0d,
-			id: "0000000000002900",
+			id: "1A000270",
 			title: "§lPremière Ferme à Mobs",
 			icon: "soulshardsrespawn:soul_cage",
-			description: ["§7Avec assez d'âmes capturées, fabrique une §fSoul Cage§7.", "§7Place-la et elle spawne automatiquement le mob de ton choix.", "", "§7Recommandé pour l'Âge 0 :", "§7 - §fPoulet§7 → œufs, plumes, §fpoop§7 (Crop Dusting)", "§7 - §fVache§7 → cuir, bœuf cru",  "§7 - §fCochon§7 → porc cru"],
-			dependencies: ["0000000000001600"],
+			description: [
+				"§7Fabrique une §fSoul Cage§7 et spawne automatiquement tes mobs.",
+				"",
+				"§7Recommandé :",
+				"§7 - §fPoulet§7 → œufs, plumes, poop",
+				"§7 - §fVache§7 → cuir, bœuf",
+				"§7 - §fCochon§7 → porc"
+			],
+			dependencies: ["1A000150"],
 			tasks: [{
-				id: "0000000000002901",
+				id: "1A000271",
 				type: "item",
-				item: "soulshardsrespawn:soul_cage",
-				count: 1L
+				item: {
+					id: "soulshardsrespawn:soul_cage",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000002902",
+				id: "1A000272",
 				type: "xp",
 				xp: 80
 			}, {
-				id: "0000000000002903",
+				id: "1A000273",
 				type: "item",
-				item: "soulshardsrespawn:shard",
-				count: 2
+				item: {
+					id: "soulshardsrespawn:shard",
+					Count: 2
+				}
 			}]
 		},
-
-		// ═══════════════════════════════════════════════
-		// QUÊTE 0-30 — Fin de l'Âge 0 (boss)
-		// ═══════════════════════════════════════════════
+		{
+			x: 20.0d,
+			y: 0.0d,
+			id: "1A000280",
+			title: "§lLes Notes du Laboratoire",
+			icon: "patchouli:guide_book",
+			description: [
+				"§7En agrandissant la salle, tu trouves une trappe cachée.",
+				"§7Dedans : les §fnotes du Dr. Voss§7 sur la conversion d'énergie.",
+				"",
+				"§o§f\"L'énergie RF est la clé. Tout peut être converti.",
+				"§o§fTout est énergie. Tout peut être exploité.",
+				"§o§f— Dr. E. Voss, Cahier n°3\""
+			],
+			dependencies: ["1A000250"],
+			tasks: [{
+				id: "1A000281",
+				type: "item",
+				item: {
+					id: "minecraft:paper",
+					Count: 1
+				}
+			}],
+			rewards: [{
+				id: "1A000282",
+				type: "xp",
+				xp: 50
+			}, {
+				id: "1A000283",
+				type: "item",
+				item: {
+					id: "patchouli:guide_book",
+					Count: 1
+				}
+			}]
+		},
 		{
 			x: 22.0d,
 			y: 0.0d,
 			shape: "hexagon",
-			id: "0000000000003000",
-			title: "§6§l⬡ FIN DE L'ÂGE 0 — L'Éveil",
+			id: "1A000290",
+			title: "§6§l⬡ FIN DE L'ÂGE 0",
 			icon: "minecraft:nether_star",
-			description: ["§7Tu as maîtrisé les bases de la survie dans une boîte.", "", "§aTu as :", "§a✔ §7Maîtrisé Ex Nihilo",  "§a✔ §7Construit une Smeltery Tinkers",  "§a✔ §7Automatisé le bois et les cultures",  "§a✔ §7Atteint la salle 9x9", "", "§6La trappe est ouverte.", "§6L'Âge 1 commence.", "", "§o§f\"Tu as appris comment survivre.", "§o§fMaintenant tu vas apprendre comment tout contrôler.\"", "§o§f— Dr. E. Voss"],
-			dependencies: ["0000000000002700", "0000000000002900", "0000000000002800"],
+			description: [
+				"§7Tu as maîtrisé les bases de la survie dans une boîte.",
+				"",
+				"§aTu as :",
+				"§a✔ §7Maîtrisé Ex Nihilo",
+				"§a✔ §7Construit une Smeltery Tinkers",
+				"§a✔ §7Automatisé le bois et les cultures",
+				"§a✔ §7Atteint la salle 9x9",
+				"",
+				"§6La trappe est ouverte. L'Âge 1 commence.",
+				"",
+				"§o§f\"Tu as appris comment survivre.",
+				"§o§fMaintenant tu vas apprendre comment tout contrôler.\"",
+				"§o§f— Dr. E. Voss"
+			],
+			dependencies: ["1A000280", "1A000270", "1A000260"],
 			tasks: [{
-				id: "0000000000003001",
+				id: "1A000291",
 				type: "item",
-				item: "compactmachines3:personal_shrinking_device",
-				count: 1L
+				item: {
+					id: "compactmachines3:personal_shrinking_device",
+					Count: 1
+				}
 			}],
 			rewards: [{
-				id: "0000000000003002",
+				id: "1A000292",
 				type: "xp",
 				xp: 500
 			}, {
-				id: "0000000000003003",
+				id: "1A000293",
 				type: "item",
-				item: "thermalfoundation:material",
-				count: 16,
-				nbt: "{type:\"ingot\",metal:\"copper\"}"
+				item: {
+					id: "thermalfoundation:material",
+					Count: 16,
+					Damage: 128
+				}
 			}, {
-				id: "0000000000003004",
+				id: "1A000294",
 				type: "item",
-				item: "thermalfoundation:material",
-				count: 16,
-				nbt: "{type:\"ingot\",metal:\"tin\"}"
+				item: {
+					id: "thermalfoundation:material",
+					Count: 16,
+					Damage: 129
+				}
 			}]
 		}
-
 	]
 }
