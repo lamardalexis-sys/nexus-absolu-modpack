@@ -1,5 +1,5 @@
 // ============================================
-// NEXUS ABSOLU — Globals.zs
+// NEXUS ABSOLU -- Globals.zs
 // Utility functions used by all scripts
 // ============================================
 

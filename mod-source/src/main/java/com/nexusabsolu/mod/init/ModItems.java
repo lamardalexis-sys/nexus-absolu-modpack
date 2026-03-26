@@ -40,6 +40,13 @@ public class ModItems {
     public static final Item COMPACT_KEY_13X13 = new ItemBase("compact_key_13x13");
     public static final Item LAB_KEY = new ItemBase("lab_key");
 
+    // === CATALYSEURS DE PHASE (for Condenseur) ===
+    public static final Item CATALYSEUR_INSTABLE = new ItemBase("catalyseur_instable");
+    public static final Item CATALYSEUR_VOLATILE = new ItemBase("catalyseur_volatile");
+    public static final Item CATALYSEUR_CRITIQUE = new ItemBase("catalyseur_critique");
+    public static final Item CATALYSEUR_RESONANT = new ItemBase("catalyseur_resonant");
+    public static final Item CATALYSEUR_ABSOLU = new ItemBase("catalyseur_absolu");
+
     // === INTER-MOD COMPONENTS ===
     public static final Item INFUSED_CIRCUIT = new ItemBase("infused_circuit");
     public static final Item RESONANT_COIL = new ItemBase("resonant_coil");
@@ -58,56 +65,48 @@ public class ModItems {
         "La matiere obeit. Donnez-lui les bonnes instructions.",
         TextFormatting.GOLD, EnumParticleTypes.FLAME
     );
-
     public static final Item FRAGMENT_ORGANIQUE = new ItemFragment(
         "fragment_organique",
         "La Persistance du Vivant",
         "La vie ne se contente pas d'exister. Elle insiste.",
         TextFormatting.GREEN, EnumParticleTypes.VILLAGER_HAPPY
     );
-
     public static final Item FRAGMENT_STELLAIRE = new ItemFragment(
         "fragment_stellaire",
         "La Memoire de l'Infini",
         "Les etoiles ne brillent pas. Elles se souviennent.",
         TextFormatting.BLUE, EnumParticleTypes.END_ROD
     );
-
     public static final Item COMPOSE_X77 = new ItemFragment(
         "compose_x77",
         "L'Etat Intermediaire",
         "77 tentatives. 76 explosions. Tu es pret pour la 77eme.",
         TextFormatting.RED, EnumParticleTypes.SMOKE_NORMAL
     );
-
     public static final Item COEUR_DE_DONNEES = new ItemFragment(
         "coeur_de_donnees",
         "La Conscience de la Matiere",
         "Ce programme ne resout pas un probleme. Ce programme EST le probleme.",
         TextFormatting.AQUA, EnumParticleTypes.ENCHANTMENT_TABLE
     );
-
     public static final Item NOYAU_FISSILE = new ItemFragment(
         "noyau_fissile",
         "La Destruction Creatrice",
         "Briser un atome, c'est tuer un monde. Parfois c'est necessaire.",
         TextFormatting.YELLOW, EnumParticleTypes.LAVA
     );
-
     public static final Item FRAGMENT_ESPACE_TEMPS = new ItemFragment(
         "fragment_espace_temps",
         "La Geometrie du Possible",
         "L'espace n'est pas une distance. L'espace est un choix.",
         TextFormatting.DARK_PURPLE, EnumParticleTypes.PORTAL
     );
-
     public static final Item CODEX_TRANSCENDANT = new ItemFragment(
         "codex_transcendant",
         "La Synthese des Contraires",
         "Un livre qui ne se lit pas. Un livre qui vous lit.",
         TextFormatting.DARK_RED, EnumParticleTypes.SPELL_WITCH
     );
-
     public static final Item PRISME_TRANSCENDANCE = new ItemFragment(
         "prisme_transcendance",
         "L'Instant de la Transformation",

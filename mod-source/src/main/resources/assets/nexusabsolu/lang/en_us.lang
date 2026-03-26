@@ -59,3 +59,10 @@ tile.nexusabsolu.claustrite_ore.name=Minerai de Claustrite
 
 # Condenseur Dimensionnel
 tile.nexusabsolu.condenseur.name=Condenseur Dimensionnel
+
+# Catalyseurs de Phase
+item.nexusabsolu.catalyseur_instable.name=Catalyseur de Phase Instable
+item.nexusabsolu.catalyseur_volatile.name=Catalyseur de Phase Volatile
+item.nexusabsolu.catalyseur_critique.name=Catalyseur de Phase Critique
+item.nexusabsolu.catalyseur_resonant.name=Catalyseur de Phase Resonant
+item.nexusabsolu.catalyseur_absolu.name=Catalyseur de Phase Absolu

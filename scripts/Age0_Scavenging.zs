@@ -1,5 +1,5 @@
 // ============================================
-// NEXUS ABSOLU — Age0_Scavenging.zs
+// NEXUS ABSOLU -- Age0_Scavenging.zs
 // Nexus Wall recipes, grits, fragments
 // ============================================
 
@@ -8,18 +8,18 @@
 // Ce script gere les RECETTES de conversion des drops
 
 // ==========================================
-// NEXUS WALL — Renewable crafting
+// NEXUS WALL -- Renewable crafting
 // ==========================================
 
-// 4 wall dust → 2 nexus walls (boucle infinie)
+// 4 wall dust -> 2 nexus walls (boucle infinie)
 recipes.addShaped("nexus_wall_craft", <nexusabsolu:nexus_wall> * 2,
     [[<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>],
      [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]]);
 
 // ==========================================
-// GRITS → NUGGETS (furnace, inefficace)
+// GRITS -> NUGGETS (furnace, inefficace)
 // 1 grit = 1 nugget, il faut 9 grits pour 1 lingot
-// C'est LENT et INTENTIONNEL — le tamis Ex Nihilo est mieux
+// C'est LENT et INTENTIONNEL -- le tamis Ex Nihilo est mieux
 // ==========================================
 
 furnace.addRecipe(<minecraft:iron_nugget>, <nexusabsolu:iron_grit>);
@@ -32,31 +32,31 @@ furnace.addRecipe(<minecraft:gold_nugget>, <nexusabsolu:gold_grit>);
 furnace.addRecipe(<mekanism:nugget:1>, <nexusabsolu:osmium_grit>);               // osmium nugget
 
 // ==========================================
-// FRAGMENTS → Items complets
+// FRAGMENTS -> Items complets
 // ==========================================
 
-// 4 cobblestone fragments → 1 cobblestone
+// 4 cobblestone fragments -> 1 cobblestone
 recipes.addShaped("cobble_from_fragments", <minecraft:cobblestone>,
     [[<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>],
      [<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>]]);
 
-// 4 diamond fragments → 1 diamond
+// 4 diamond fragments -> 1 diamond
 recipes.addShaped("diamond_from_fragments", <minecraft:diamond>,
     [[<nexusabsolu:diamond_fragment>, <nexusabsolu:diamond_fragment>],
      [<nexusabsolu:diamond_fragment>, <nexusabsolu:diamond_fragment>]]);
 
-// 4 emerald fragments → 1 emerald
+// 4 emerald fragments -> 1 emerald
 recipes.addShaped("emerald_from_fragments", <minecraft:emerald>,
     [[<nexusabsolu:emerald_fragment>, <nexusabsolu:emerald_fragment>],
      [<nexusabsolu:emerald_fragment>, <nexusabsolu:emerald_fragment>]]);
 
-// 8 ender pearl fragments → 1 ender pearl (plus rare)
+// 8 ender pearl fragments -> 1 ender pearl (plus rare)
 recipes.addShaped("ender_pearl_from_fragments", <minecraft:ender_pearl>,
     [[<nexusabsolu:ender_pearl_fragment>, <nexusabsolu:ender_pearl_fragment>, <nexusabsolu:ender_pearl_fragment>],
      [<nexusabsolu:ender_pearl_fragment>, null, <nexusabsolu:ender_pearl_fragment>],
      [<nexusabsolu:ender_pearl_fragment>, <nexusabsolu:ender_pearl_fragment>, <nexusabsolu:ender_pearl_fragment>]]);
 
-// 4 obsidian fragments → 1 obsidian
+// 4 obsidian fragments -> 1 obsidian
 recipes.addShaped("obsidian_from_fragments", <minecraft:obsidian>,
     [[<nexusabsolu:obsidian_fragment>, <nexusabsolu:obsidian_fragment>],
      [<nexusabsolu:obsidian_fragment>, <nexusabsolu:obsidian_fragment>]]);

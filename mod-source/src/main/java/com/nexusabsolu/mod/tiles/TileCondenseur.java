@@ -21,7 +21,8 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     private ItemStack[] inventory = new ItemStack[5];
     private InternalEnergyStorage energyStorage = new InternalEnergyStorage(50000, 100); // 50K max, 100 RF/t input
     private int processTime = 0;
-    private int maxProcessTime = 200; // 10 seconds at 20 ticks/sec
+    private int maxProcessTime = 200;
+    private CondenseurRecipes.Recipe currentRecipe = null; // 10 seconds at 20 ticks/sec
     private boolean processing = false;
 
     // Quote system
@@ -75,39 +76,25 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     }
 
     private boolean canProcess() {
-        // Check if slots 0-3 have valid input and slot 4 is empty
-        // Slot 0,1 = Compact Machines (same type, 2 of them)
-        // Slot 2 = Key
-        // Slot 3 = Catalyst
-        if (inventory[0].isEmpty() || inventory[1].isEmpty() ||
-            inventory[2].isEmpty() || inventory[3].isEmpty()) {
-            return false;
-        }
         if (!inventory[4].isEmpty()) return false;
-
-        // Check that slots 0 and 1 are the same item
-        if (!inventory[0].isItemEqual(inventory[1])) return false;
-
-        return true;
+        currentRecipe = CondenseurRecipes.findRecipe(
+            inventory[0], inventory[1], inventory[2], inventory[3]);
+        if (currentRecipe != null) {
+            maxProcessTime = currentRecipe.processTime;
+        }
+        return currentRecipe != null;
     }
 
     private void processItem() {
-        // For now, simple: consume all 4 inputs, produce output
-        // The actual recipe mapping will be done via a lookup
-        ItemStack result = getOutputForInputs();
+        if (currentRecipe == null) return;
+        ItemStack result = currentRecipe.getOutput();
         if (!result.isEmpty()) {
             inventory[4] = result.copy();
             for (int i = 0; i < 4; i++) {
                 inventory[i].shrink(1);
             }
         }
-    }
-
-    private ItemStack getOutputForInputs() {
-        // Recipe lookup -- matches input CM type + key to output CM
-        // This will be expanded with proper recipe matching
-        // For now return empty -- recipes defined via CraftTweaker or hardcoded later
-        return ItemStack.EMPTY;
+        currentRecipe = null;
     }
 
     // Energy
