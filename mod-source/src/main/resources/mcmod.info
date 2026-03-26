@@ -1,0 +1,12 @@
+[
+  {
+    "modid": "nexusabsolu",
+    "name": "Nexus Absolu",
+    "description": "Le mod custom du modpack Nexus Absolu. Scavenging, fragments, minerais et machines du Dr. Voss.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/lamardalexis-sys/nexus-absolu-modpack",
+    "authorList": ["NexusAbsoluTeam"],
+    "credits": "Dr. E. Voss"
+  }
+]
