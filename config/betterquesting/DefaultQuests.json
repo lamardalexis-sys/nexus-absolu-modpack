@@ -2022,6 +2022,2272 @@
           }
         }
       }
+    },
+    "100:10": {
+      "questID:3": 100,
+      "preRequisites:11": [
+        29
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:dynamo",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§lBienvenue dans l'Age 1",
+          "desc:8": "§7Tu as quitte la boite. Enfin, presque.\n§7L'Age 1 est celui de l'§fenergie RF§7.\n\n§o§fL'electricite est la premiere revolution. — Dr. Voss"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 50,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "101:10": {
+      "questID:3": 101,
+      "preRequisites:11": [
+        100
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:dynamo",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lPremiere Dynamo",
+          "desc:8": "§7La §fSteam Dynamo§7 brule du charbon pour produire du RF.\n§7C'est ta premiere source d'energie."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:dynamo",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 30,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:coal",
+              "Count:3": 32,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "102:10": {
+      "questID:3": 102,
+      "preRequisites:11": [
+        101
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermaldynamics:duct_0",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lTransport d'Energie",
+          "desc:8": "§7Les §fFluxducts§7 transportent le RF.\n§7Leadstone = tier de base. Connecte ta dynamo a tes machines."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermaldynamics:duct_0",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 25,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermaldynamics:duct_0",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "103:10": {
+      "questID:3": 103,
+      "preRequisites:11": [
+        102
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:machine",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lRedstone Furnace",
+          "desc:8": "§7Le four Thermal. Plus rapide, upgradable, automatisable.\n§7Remplace definitivement le four vanilla."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:machine",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 40,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:redstone",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "104:10": {
+      "questID:3": 104,
+      "preRequisites:11": [
+        102
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:machine",
+            "Count:3": 1,
+            "Damage:2": 1,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§lPulverizer",
+          "desc:8": "§7Broie les minerais en §f2x dust§7. Chaque dust fond en 1 lingot.\n§7Resultat : §f2x lingots par minerai§7. Essentiel."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:machine",
+              "Count:3": 1,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 50,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 8,
+              "Damage:2": 128,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "105:10": {
+      "questID:3": 105,
+      "preRequisites:11": [
+        104
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:machine",
+            "Count:3": 1,
+            "Damage:2": 3,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lInduction Smelter",
+          "desc:8": "§7Fond 2 items ensemble. Cree des alliages : §fBronze§7, §fInvar§7, §fElectrum§7.\n§7Combine avec le Pulverizer pour la chaine complete."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:machine",
+              "Count:3": 1,
+              "Damage:2": 3,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 50,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 4,
+              "Damage:2": 162,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "106:10": {
+      "questID:3": 106,
+      "preRequisites:11": [
+        105
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalfoundation:material",
+            "Count:3": 1,
+            "Damage:2": 162,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lInvar — L'Alliage Cle",
+          "desc:8": "§7§fInvar§7 = Fer (2) + Nickel (1) dans l'Induction Smelter.\n§7Necessaire pour les machines Thermal avancees."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 16,
+              "Damage:2": 162,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 40,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 8,
+              "Damage:2": 162,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "107:10": {
+      "questID:3": 107,
+      "preRequisites:11": [
+        105
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalfoundation:material",
+            "Count:3": 1,
+            "Damage:2": 161,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lElectrum",
+          "desc:8": "§7§fElectrum§7 = Or (1) + Argent (1). Alliage conducteur.\n§7Utilise dans les circuits et les conduits avances."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 8,
+              "Damage:2": 161,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 35,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "108:10": {
+      "questID:3": 108,
+      "preRequisites:11": [
+        106
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:dynamo",
+            "Count:3": 1,
+            "Damage:2": 1,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lMagmatic Dynamo",
+          "desc:8": "§7Brule de la lave pour du RF. Plus puissant que la Steam.\n§7Lave infinie = RF infini. Trouve un moyen d'en produire."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:dynamo",
+              "Count:3": 1,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 60,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:lava_bucket",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "109:10": {
+      "questID:3": 109,
+      "preRequisites:11": [
+        106
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:machine",
+            "Count:3": 1,
+            "Damage:2": 7,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lFluid Transposer",
+          "desc:8": "§7Remplit ou vide des items avec des fluides.\n§7Essentiel pour le Destabilized Redstone, Energized Glowstone..."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:machine",
+              "Count:3": 1,
+              "Damage:2": 7,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 45,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "110:10": {
+      "questID:3": 110,
+      "preRequisites:11": [
+        106
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalfoundation:upgrade",
+            "Count:3": 1,
+            "Damage:2": 1,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lUpgrade Hardened",
+          "desc:8": "§7Les machines Thermal ont 4 tiers.\n§7L'upgrade §fHardened§7 augmente vitesse et slots d'augments."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:upgrade",
+              "Count:3": 1,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 55,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:upgrade",
+              "Count:3": 1,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "120:10": {
+      "questID:3": 120,
+      "preRequisites:11": [
+        105
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "enderio:item_alloy_ingot",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lElectrical Steel",
+          "desc:8": "§7§fElectrical Steel§7 = base de EnderIO.\n§7Fond du fer + silicium + charbon dans l'Alloy Smelter ou l'Induction Smelter."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "enderio:item_alloy_ingot",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 40,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "enderio:item_alloy_ingot",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "121:10": {
+      "questID:3": 121,
+      "preRequisites:11": [
+        120
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "enderio:item_power_conduit",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lEnergy Conduit",
+          "desc:8": "§7Les conduits EnderIO transportent §fRF, items, fluides§7 dans un seul bloc.\n§7Commence par l'§fEnergy Conduit§7."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "enderio:item_power_conduit",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 35,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "enderio:item_power_conduit",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "122:10": {
+      "questID:3": 122,
+      "preRequisites:11": [
+        121
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "enderio:item_item_conduit",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lItem Conduit",
+          "desc:8": "§7Transporte les items automatiquement entre machines.\n§7Combine avec les filtres pour trier."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "enderio:item_item_conduit",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 35,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "enderio:item_item_conduit",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "123:10": {
+      "questID:3": 123,
+      "preRequisites:11": [
+        121
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "enderio:item_liquid_conduit",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lFluid Conduit",
+          "desc:8": "§7Transporte les fluides : lave, eau, Destabilized Redstone...\n§7Un seul cable pour tout."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "enderio:item_liquid_conduit",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 35,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "124:10": {
+      "questID:3": 124,
+      "preRequisites:11": [
+        120
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "enderio:block_alloy_smelter",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lAlloy Smelter",
+          "desc:8": "§7La fonderie d'alliages EnderIO.\n§7Cree §fElectrical Steel§7, §fDark Steel§7, §fPulsating Iron§7..."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "enderio:block_alloy_smelter",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 50,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "enderio:item_alloy_ingot",
+              "Count:3": 4,
+              "Damage:2": 6,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "125:10": {
+      "questID:3": 125,
+      "preRequisites:11": [
+        124
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "enderio:item_alloy_ingot",
+            "Count:3": 1,
+            "Damage:2": 6,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lDark Steel",
+          "desc:8": "§7§fDark Steel§7 = fer + charbon + obsidienne dans l'Alloy Smelter.\n§7Base des outils et armures EnderIO."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "enderio:item_alloy_ingot",
+              "Count:3": 8,
+              "Damage:2": 6,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 45,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "130:10": {
+      "questID:3": 130,
+      "preRequisites:11": [
+        100
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "immersiveengineering:stone_decoration",
+            "Count:3": 1,
+            "Damage:2": 1,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§lCoke Oven",
+          "desc:8": "§7Multibloc 3x3x3 en §fCoke Bricks§7.\n§7Transforme le charbon en §fCoal Coke§7 + §fCreosote Oil§7.\n§7Le Coal Coke brule 2x plus longtemps."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "immersiveengineering:stone_decoration",
+              "Count:3": 1,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 50,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "immersiveengineering:material",
+              "Count:3": 8,
+              "Damage:2": 6,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "131:10": {
+      "questID:3": 131,
+      "preRequisites:11": [
+        130
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "immersiveengineering:treated_wood",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lBois Traite",
+          "desc:8": "§7Plonge des planches dans la §fCreosote Oil§7.\n§7Le §fTreated Wood§7 est la base de toutes les machines IE."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "immersiveengineering:treated_wood",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 30,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "immersiveengineering:treated_wood",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "132:10": {
+      "questID:3": 132,
+      "preRequisites:11": [
+        131
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "immersiveengineering:wooden_device0",
+            "Count:3": 1,
+            "Damage:2": 2,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lEngineer's Workbench",
+          "desc:8": "§7La table de craft IE. Necessaire pour les blueprints.\n§7Fabrique des §fcomposants§7 et des §fconnectors§7."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "immersiveengineering:wooden_device0",
+              "Count:3": 1,
+              "Damage:2": 2,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 40,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "133:10": {
+      "questID:3": 133,
+      "preRequisites:11": [
+        132
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "immersiveengineering:stone_decoration",
+            "Count:3": 1,
+            "Damage:2": 2,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§lBlast Furnace IE",
+          "desc:8": "§7Multibloc 3x3x3 en §fBlast Bricks§7.\n§7Transforme le fer en §fSteel§7. L'acier est partout a partir de maintenant."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "immersiveengineering:stone_decoration",
+              "Count:3": 1,
+              "Damage:2": 2,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 60,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 4,
+              "Damage:2": 160,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "134:10": {
+      "questID:3": 134,
+      "preRequisites:11": [
+        133
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalfoundation:material",
+            "Count:3": 1,
+            "Damage:2": 160,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lAcier",
+          "desc:8": "§7L'§fAcier§7 est le metal mid-game par excellence.\n§7Machines, outils, armures — tout en a besoin."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 32,
+              "Damage:2": 160,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 50,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 8,
+              "Damage:2": 160,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "135:10": {
+      "questID:3": 135,
+      "preRequisites:11": [
+        134
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "immersiveengineering:metal_decoration0",
+            "Count:3": 1,
+            "Damage:2": 5,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lIE Crusher",
+          "desc:8": "§7Multibloc qui broie les minerais comme le Pulverizer.\n§7Plus lent mais traite en masse."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 55,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "136:10": {
+      "questID:3": 136,
+      "preRequisites:11": [
+        132
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "immersiveengineering:connector",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lConnectors & Wire",
+          "desc:8": "§7Le systeme de cables IE : connecte des machines a distance.\n§7§fLV Connector§7 + §fCopper Wire§7 pour commencer."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "immersiveengineering:connector",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 30,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "immersiveengineering:wirecoil",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "140:10": {
+      "questID:3": 140,
+      "preRequisites:11": [
+        102
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "actuallyadditions:block_atomic_reconstructor",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lAtomic Reconstructor",
+          "desc:8": "§7Tire un rayon qui transforme les items et blocs.\n§7Cree des §fCristaux§7 a partir de minerais."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "actuallyadditions:block_atomic_reconstructor",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 50,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "141:10": {
+      "questID:3": 141,
+      "preRequisites:11": [
+        140
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "actuallyadditions:item_crystal",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lCristaux AA",
+          "desc:8": "§7Les cristaux Actually Additions sont utilises dans plein de crafts.\n§7Pointe l'Atomic Reconstructor vers des blocs de minerai."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "actuallyadditions:item_crystal",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 40,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "142:10": {
+      "questID:3": 142,
+      "preRequisites:11": [
+        140
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "actuallyadditions:block_coal_generator",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lCoal Generator AA",
+          "desc:8": "§7Un generateur simple d'Actually Additions.\n§7Bon complement aux dynamos Thermal."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "actuallyadditions:block_coal_generator",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 30,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "150:10": {
+      "questID:3": 150,
+      "preRequisites:11": [
+        110
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "simplyjetpacks:itemjetpack",
+            "Count:3": 1,
+            "Damage:2": 1,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lPremier Jetpack",
+          "desc:8": "§7Simply Jetpacks : le vol a portee de main.\n§7Le tier 1 est lent mais te sauve des chutes."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 60,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "151:10": {
+      "questID:3": 151,
+      "preRequisites:11": [
+        150
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "simplyjetpacks:itemjetpack",
+            "Count:3": 1,
+            "Damage:2": 2,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lJetpack Ameliore",
+          "desc:8": "§7Le tier 2 est plus rapide et tient plus longtemps.\n§7Tu commences a te sentir libre."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 80,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "160:10": {
+      "questID:3": 160,
+      "preRequisites:11": [
+        108
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:cell",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§e§l1 000 000 RF",
+          "desc:8": "§7Stocke 1 million de RF dans un §fEnergy Cell§7 ou equivalent.\n§7C'est le seuil pour alimenter un vrai labo."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 100,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:capacitor",
+              "Count:3": 1,
+              "Damage:2": 2,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "161:10": {
+      "questID:3": 161,
+      "preRequisites:11": [
+        104,
+        103,
+        122
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:machine",
+            "Count:3": 1,
+            "Damage:2": 1,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§a§lChaine x2 Complete",
+          "desc:8": "§7Pulverizer + Redstone Furnace = §f2 lingots par minerai§7.\n§7Automatise cette chaine avec des conduits."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 75,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:diamond",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "170:10": {
+      "questID:3": 170,
+      "preRequisites:11": [
+        160
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "compactmachines3:machine_wall_breakable",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§2§lExpansion — Salle 11x11",
+          "desc:8": "§7La technologie prend de la place.\n§7Agrandis ta Compact Machine."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "compactmachines3:machine_wall_breakable",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 150,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "ironchest:iron_chest",
+              "Count:3": 2,
+              "Damage:2": 3,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "171:10": {
+      "questID:3": 171,
+      "preRequisites:11": [
+        170,
+        135,
+        125
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "compactmachines3:machine_wall_breakable",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§2§lExpansion — Salle 13x13",
+          "desc:8": "§7La salle maximale de l'Age 1.\n§713x13. Un vrai labo de recherche."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "compactmachines3:machine_wall_breakable",
+              "Count:3": 24,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 200,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "ironchest:gold_chest",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "180:10": {
+      "questID:3": 180,
+      "preRequisites:11": [
+        171,
+        161,
+        151
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "minecraft:nether_star",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§6§lFragment Mecanique",
+          "desc:8": "§7Le premier des 9 fragments du Nexus.\n§7Combine les technologies de l'Age 1.\n\n§o§fLa mecanique est la base de tout. — Dr. Voss"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 300,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 16,
+              "Damage:2": 160,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "181:10": {
+      "questID:3": 181,
+      "preRequisites:11": [
+        180
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "minecraft:nether_star",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§6§lFIN DE L'AGE 1",
+          "desc:8": "§7Tu maitrises l'energie RF et les machines.\n\n§a- Thermal Expansion operationnel\n§a- EnderIO conduits en place\n§a- Acier produit\n§a- Premier jetpack\n\n§6L'Age 2 t'attend. La magie entre en scene.\n\n§o§fLa science sans magie est incomplete. — Dr. Voss"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "amount:3": 500,
+          "rewardID:8": "bq_standard:xp",
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
     }
   },
   "questLines:9": {
@@ -2255,6 +4521,272 @@
         }
       },
       "order:3": 0
+    },
+    "1:10": {
+      "quests:9": {
+        "0:10": {
+          "sizeX:3": 40,
+          "x:3": 0,
+          "y:3": 0,
+          "id:3": 100,
+          "sizeY:3": 40
+        },
+        "1:10": {
+          "sizeX:3": 24,
+          "x:3": 48,
+          "y:3": 0,
+          "id:3": 101,
+          "sizeY:3": 24
+        },
+        "2:10": {
+          "sizeX:3": 24,
+          "x:3": 96,
+          "y:3": 0,
+          "id:3": 102,
+          "sizeY:3": 24
+        },
+        "3:10": {
+          "sizeX:3": 24,
+          "x:3": 144,
+          "y:3": -48,
+          "id:3": 103,
+          "sizeY:3": 24
+        },
+        "4:10": {
+          "sizeX:3": 24,
+          "x:3": 144,
+          "y:3": 0,
+          "id:3": 104,
+          "sizeY:3": 24
+        },
+        "5:10": {
+          "sizeX:3": 24,
+          "x:3": 192,
+          "y:3": 0,
+          "id:3": 105,
+          "sizeY:3": 24
+        },
+        "6:10": {
+          "sizeX:3": 24,
+          "x:3": 240,
+          "y:3": 0,
+          "id:3": 106,
+          "sizeY:3": 24
+        },
+        "7:10": {
+          "sizeX:3": 24,
+          "x:3": 240,
+          "y:3": -48,
+          "id:3": 107,
+          "sizeY:3": 24
+        },
+        "8:10": {
+          "sizeX:3": 24,
+          "x:3": 288,
+          "y:3": 0,
+          "id:3": 108,
+          "sizeY:3": 24
+        },
+        "9:10": {
+          "sizeX:3": 24,
+          "x:3": 288,
+          "y:3": -48,
+          "id:3": 109,
+          "sizeY:3": 24
+        },
+        "10:10": {
+          "sizeX:3": 24,
+          "x:3": 288,
+          "y:3": 48,
+          "id:3": 110,
+          "sizeY:3": 24
+        },
+        "11:10": {
+          "sizeX:3": 24,
+          "x:3": 192,
+          "y:3": 96,
+          "id:3": 120,
+          "sizeY:3": 24
+        },
+        "12:10": {
+          "sizeX:3": 24,
+          "x:3": 240,
+          "y:3": 96,
+          "id:3": 121,
+          "sizeY:3": 24
+        },
+        "13:10": {
+          "sizeX:3": 24,
+          "x:3": 288,
+          "y:3": 96,
+          "id:3": 122,
+          "sizeY:3": 24
+        },
+        "14:10": {
+          "sizeX:3": 24,
+          "x:3": 288,
+          "y:3": 144,
+          "id:3": 123,
+          "sizeY:3": 24
+        },
+        "15:10": {
+          "sizeX:3": 24,
+          "x:3": 240,
+          "y:3": 144,
+          "id:3": 124,
+          "sizeY:3": 24
+        },
+        "16:10": {
+          "sizeX:3": 24,
+          "x:3": 288,
+          "y:3": 192,
+          "id:3": 125,
+          "sizeY:3": 24
+        },
+        "17:10": {
+          "sizeX:3": 24,
+          "x:3": 48,
+          "y:3": -96,
+          "id:3": 130,
+          "sizeY:3": 24
+        },
+        "18:10": {
+          "sizeX:3": 24,
+          "x:3": 96,
+          "y:3": -96,
+          "id:3": 131,
+          "sizeY:3": 24
+        },
+        "19:10": {
+          "sizeX:3": 24,
+          "x:3": 144,
+          "y:3": -96,
+          "id:3": 132,
+          "sizeY:3": 24
+        },
+        "20:10": {
+          "sizeX:3": 24,
+          "x:3": 192,
+          "y:3": -96,
+          "id:3": 133,
+          "sizeY:3": 24
+        },
+        "21:10": {
+          "sizeX:3": 24,
+          "x:3": 240,
+          "y:3": -96,
+          "id:3": 134,
+          "sizeY:3": 24
+        },
+        "22:10": {
+          "sizeX:3": 24,
+          "x:3": 288,
+          "y:3": -96,
+          "id:3": 135,
+          "sizeY:3": 24
+        },
+        "23:10": {
+          "sizeX:3": 24,
+          "x:3": 144,
+          "y:3": -144,
+          "id:3": 136,
+          "sizeY:3": 24
+        },
+        "24:10": {
+          "sizeX:3": 24,
+          "x:3": 96,
+          "y:3": 96,
+          "id:3": 140,
+          "sizeY:3": 24
+        },
+        "25:10": {
+          "sizeX:3": 24,
+          "x:3": 144,
+          "y:3": 96,
+          "id:3": 141,
+          "sizeY:3": 24
+        },
+        "26:10": {
+          "sizeX:3": 24,
+          "x:3": 96,
+          "y:3": 144,
+          "id:3": 142,
+          "sizeY:3": 24
+        },
+        "27:10": {
+          "sizeX:3": 24,
+          "x:3": 336,
+          "y:3": 48,
+          "id:3": 150,
+          "sizeY:3": 24
+        },
+        "28:10": {
+          "sizeX:3": 24,
+          "x:3": 384,
+          "y:3": 48,
+          "id:3": 151,
+          "sizeY:3": 24
+        },
+        "29:10": {
+          "sizeX:3": 24,
+          "x:3": 336,
+          "y:3": 0,
+          "id:3": 160,
+          "sizeY:3": 24
+        },
+        "30:10": {
+          "sizeX:3": 24,
+          "x:3": 336,
+          "y:3": -48,
+          "id:3": 161,
+          "sizeY:3": 24
+        },
+        "31:10": {
+          "sizeX:3": 32,
+          "x:3": 384,
+          "y:3": 0,
+          "id:3": 170,
+          "sizeY:3": 32
+        },
+        "32:10": {
+          "sizeX:3": 32,
+          "x:3": 432,
+          "y:3": 0,
+          "id:3": 171,
+          "sizeY:3": 32
+        },
+        "33:10": {
+          "sizeX:3": 40,
+          "x:3": 480,
+          "y:3": 0,
+          "id:3": 180,
+          "sizeY:3": 40
+        },
+        "34:10": {
+          "sizeX:3": 40,
+          "x:3": 528,
+          "y:3": 0,
+          "id:3": 181,
+          "sizeY:3": 40
+        }
+      },
+      "lineID:3": 1,
+      "properties:10": {
+        "betterquesting:10": {
+          "visibility:8": "NORMAL",
+          "name:8": "Age 1 — La Mecanique Brute",
+          "icon:10": {
+            "id:8": "thermalexpansion:dynamo",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "bg_image:8": "",
+          "bg_size:3": 256,
+          "desc:8": "L'energie RF est la cle. Maitrise Thermal, EnderIO et Immersive Engineering."
+        }
+      },
+      "order:3": 1
     }
   }
 }
