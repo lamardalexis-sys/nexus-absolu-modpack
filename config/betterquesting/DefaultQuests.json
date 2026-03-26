@@ -4510,7 +4510,7 @@
           "visibility:8": "NORMAL",
           "name:8": "Age 0 — L'Eveil",
           "icon:10": {
-            "id:8": "compactmachines3:personal_shrinking_device",
+            "id:8": "minecraft:book",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
