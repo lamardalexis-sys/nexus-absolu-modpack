@@ -28,7 +28,7 @@ public class BlockNexusWall extends Block implements IHasModel {
 
     public BlockNexusWall() {
         super(Material.ROCK);
-        setUnlocalizedName("nexus_wall");
+        setUnlocalizedName(Reference.MOD_ID + "." + "nexus_wall");
         setRegistryName(Reference.MOD_ID, "nexus_wall");
         setCreativeTab(NexusAbsoluMod.CREATIVE_TAB);
         setHardness(2.5F);

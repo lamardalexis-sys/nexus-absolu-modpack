@@ -26,7 +26,7 @@ public class BlockNexusOre extends Block implements IHasModel {
 
     public BlockNexusOre(String name, float hardness, int harvestLevel, int expMin, int expMax) {
         super(Material.ROCK);
-        setUnlocalizedName(name);
+        setUnlocalizedName(Reference.MOD_ID + "." + name);
         setRegistryName(Reference.MOD_ID, name);
         setCreativeTab(NexusAbsoluMod.CREATIVE_TAB);
         setHardness(hardness);

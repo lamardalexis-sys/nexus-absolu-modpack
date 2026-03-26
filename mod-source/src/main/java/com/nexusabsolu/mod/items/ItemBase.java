@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBase extends Item implements IHasModel {
     public ItemBase(String name) {
-        setUnlocalizedName(name);
+        setUnlocalizedName(Reference.MOD_ID + "." + name);
         setRegistryName(Reference.MOD_ID, name);
         setCreativeTab(NexusAbsoluMod.CREATIVE_TAB);
         ModItems.ITEMS.add(this);
