@@ -15,13 +15,18 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 public class BlockNexusOre extends Block implements IHasModel {
     private final int expMin, expMax;
+    private static final Random RAND = new Random();
 
     public BlockNexusOre(String name, float hardness, int harvestLevel, int expMin, int expMax) {
         super(Material.ROCK);
-        setTranslationKey(name);
+        setUnlocalizedName(name);
         setRegistryName(Reference.MOD_ID, name);
         setCreativeTab(NexusAbsoluMod.CREATIVE_TAB);
         setHardness(hardness);
@@ -36,10 +41,11 @@ public class BlockNexusOre extends Block implements IHasModel {
 
     @Override
     public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
-        return expMin + RANDOM.nextInt(Math.max(1, expMax - expMin + 1));
+        return expMin + RAND.nextInt(Math.max(1, expMax - expMin + 1));
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerModels() {
         ModelLoader.setCustomModelResourceLocation(
             Item.getItemFromBlock(this), 0,
