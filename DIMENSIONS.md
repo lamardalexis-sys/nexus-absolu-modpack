@@ -14,7 +14,7 @@
                 │
                 ├──→ Nether (dim -1)         ← flint & steel gatée
                 │
-                ├──→ Âge 4-5 : The End (dim 1)  ← Ender Eyes gatés
+                ├──→ Âge 4 : The End (dim 1)    ← Ender Eyes gatés
                 │
                 ├──→ Âge 6 : Lune (GC)       ← Fusée Tier 1 gatée
                 │     ├──→ Mars (GC)          ← Fusée Tier 2
@@ -140,24 +140,24 @@ recipes.addShaped("nexus_flint_steel", <minecraft:flint_and_steel>,
 
 ---
 
-### 4. The End (Âge 5)
+### 4. The End (Âge 4)
 **Accès :** Ender Eyes modifiés
 
 ```zenscript
-// Ender Eye nécessite composants Mekanism + Astral
+// Ender Eye nécessite composants EnderIO + Astral
 recipes.remove(<minecraft:ender_eye>);
 recipes.addShaped("nexus_ender_eye", <minecraft:ender_eye>,
   [[null, <astralsorcery:itemcraftingcomponent:2>, null],
    [<ore:ingotPulsatingIron>, <minecraft:ender_pearl>, <ore:ingotPulsatingIron>],
-   [null, <mekanism:controlcircuit:1>, null]]);
+   [null, <enderio:item_material:1>, null]]);
 ```
 
-**Pourquoi Âge 5 (pas avant) :**
-- Le Dragon drop le Dragon Egg → nécessaire plus tard
-- End Stone → composants EnderIO End Steel
-- Shulker Boxes → stockage
-- Chorus Fruit → craft avancés
-- L'Ender Dragon est un gate boss naturel
+**Pourquoi Âge 4 :**
+- End Stone → EnderIO End Steel (nécessaire pour Âge 4-5)
+- Shulker Boxes → stockage (complément AE2)
+- Chorus Fruit → crafts avancés
+- Dragon Egg → composant pour plus tard
+- Le joueur a déjà Thermal, EnderIO, IE, Mekanism, les 3 magies
 
 **Gate supplémentaire possible :**
 - Stronghold non généré → utiliser un item custom pour le faire spawner
@@ -278,7 +278,7 @@ recipes.addShaped("nexus_dim_builder", <rftools:dimension_builder>,
 | 0-2 | CM expansions | Clés custom (5x5→13x13) | ✅ |
 | 3 | Overworld | lab_key (3 Fragments) | ✅ |
 | 3 | Nether | Flint & Steel (acier IE) | ✅ |
-| 5 | The End | Ender Eyes modifiés | ✅ |
+| 4 | The End | Ender Eyes modifiés | ✅ |
 | 6 | Lune (GC) | Fusée T1 (inter-mods) | ✅ (Fragment E-T) |
 | 6 | Mars (GC) | Fusée T2 (Desh) | ✅ (pour T3) |
 | 6+ | Extra Planets | Fusées T3+ | ⚠️ Semi |
