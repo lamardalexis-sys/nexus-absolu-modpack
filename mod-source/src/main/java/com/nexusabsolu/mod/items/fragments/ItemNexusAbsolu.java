@@ -40,7 +40,7 @@ public class ItemNexusAbsolu extends ItemBase {
         tooltip.add("");
         tooltip.add(TextFormatting.ITALIC + "" + TextFormatting.GRAY + "\"Tu as trouve le Nexus.");
         tooltip.add(TextFormatting.ITALIC + "" + TextFormatting.GRAY + " Ou le Nexus t'a trouve.\"");
-        tooltip.add(TextFormatting.DARK_GRAY + "  — Dr. Elias Nathaniel Voss");
+        tooltip.add(TextFormatting.DARK_GRAY + "  -- Dr. Elias Nathaniel Voss");
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ItemNexusAbsolu extends ItemBase {
         if (!world.isRemote) return;
         if (!isHeld) return;
 
-        // Massive particle effect when held — portal + enchant + end rod
+        // Massive particle effect when held -- portal + enchant + end rod
         for (int i = 0; i < 3; i++) {
             double angle = world.rand.nextDouble() * Math.PI * 2;
             double radius = 0.8 + world.rand.nextDouble() * 0.5;

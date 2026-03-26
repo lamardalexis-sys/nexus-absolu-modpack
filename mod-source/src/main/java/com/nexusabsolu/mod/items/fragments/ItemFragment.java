@@ -38,7 +38,7 @@ public class ItemFragment extends ItemBase {
 
     @Override
     public boolean hasEffect(ItemStack stack) {
-        return true; // Enchantment glint — all fragments shimmer
+        return true; // Enchantment glint -- all fragments shimmer
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ItemFragment extends ItemBase {
         tooltip.add(color + loreText);
         tooltip.add("");
         tooltip.add(TextFormatting.ITALIC + "" + TextFormatting.DARK_GRAY + "\"" + vossQuote + "\"");
-        tooltip.add(TextFormatting.DARK_GRAY + "  — Dr. E. Voss");
+        tooltip.add(TextFormatting.DARK_GRAY + "  -- Dr. E. Voss");
     }
 
     @Override

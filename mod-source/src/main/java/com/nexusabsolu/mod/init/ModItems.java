@@ -14,7 +14,7 @@ import java.util.List;
 public class ModItems {
     public static final List<Item> ITEMS = new ArrayList<>();
 
-    // ═══ GRITS (scavenging) ═══
+    // === GRITS (scavenging) ===
     public static final Item WALL_DUST = new ItemBase("wall_dust");
     public static final Item IRON_GRIT = new ItemGrit("iron_grit", "Iron");
     public static final Item COPPER_GRIT = new ItemGrit("copper_grit", "Copper");
@@ -25,14 +25,14 @@ public class ModItems {
     public static final Item GOLD_GRIT = new ItemGrit("gold_grit", "Gold");
     public static final Item OSMIUM_GRIT = new ItemGrit("osmium_grit", "Osmium");
 
-    // ═══ FRAGMENTS (from scavenging) ═══
+    // === FRAGMENTS (from scavenging) ===
     public static final Item COBBLESTONE_FRAGMENT = new ItemBase("cobblestone_fragment");
     public static final Item DIAMOND_FRAGMENT = new ItemBase("diamond_fragment");
     public static final Item EMERALD_FRAGMENT = new ItemBase("emerald_fragment");
     public static final Item ENDER_PEARL_FRAGMENT = new ItemBase("ender_pearl_fragment");
     public static final Item OBSIDIAN_FRAGMENT = new ItemBase("obsidian_fragment");
 
-    // ═══ EXPANSION KEYS ═══
+    // === EXPANSION KEYS ===
     public static final Item COMPACT_KEY_5X5 = new ItemBase("compact_key_5x5");
     public static final Item COMPACT_KEY_7X7 = new ItemBase("compact_key_7x7");
     public static final Item COMPACT_KEY_9X9 = new ItemBase("compact_key_9x9");
@@ -40,18 +40,18 @@ public class ModItems {
     public static final Item COMPACT_KEY_13X13 = new ItemBase("compact_key_13x13");
     public static final Item LAB_KEY = new ItemBase("lab_key");
 
-    // ═══ INTER-MOD COMPONENTS ═══
+    // === INTER-MOD COMPONENTS ===
     public static final Item INFUSED_CIRCUIT = new ItemBase("infused_circuit");
     public static final Item RESONANT_COIL = new ItemBase("resonant_coil");
     public static final Item ORGANIC_CATALYST = new ItemBase("organic_catalyst");
 
-    // ═══ CUSTOM MATERIALS ═══
+    // === CUSTOM MATERIALS ===
     public static final Item VOSSIUM_INGOT = new ItemBase("vossium_ingot");
     public static final Item NEXIUM_INGOT = new ItemBase("nexium_ingot");
     public static final Item CLAUSTRITE_GEM = new ItemBase("claustrite_gem");
     public static final Item SUPER_FERTILIZER = new ItemBase("super_fertilizer");
 
-    // ═══ THE 9 FRAGMENTS ═══
+    // === THE 9 FRAGMENTS ===
     public static final Item FRAGMENT_MECANIQUE = new ItemFragment(
         "fragment_mecanique",
         "L'Obeissance de la Matiere",
@@ -115,6 +115,6 @@ public class ModItems {
         TextFormatting.WHITE, EnumParticleTypes.FIREWORKS_SPARK
     );
 
-    // ═══ THE NEXUS ABSOLU ═══
+    // === THE NEXUS ABSOLU ===
     public static final Item NEXUS_ABSOLU = new ItemNexusAbsolu();
 }

@@ -26,19 +26,19 @@ public class NexusAbsoluMod {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        LOGGER.info("Nexus Absolu — Pre-Initialization");
+        LOGGER.info("Nexus Absolu -- Pre-Initialization");
         proxy.preInit(event);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        LOGGER.info("Nexus Absolu — Initialization");
+        LOGGER.info("Nexus Absolu -- Initialization");
         proxy.init(event);
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        LOGGER.info("Nexus Absolu — Post-Initialization");
+        LOGGER.info("Nexus Absolu -- Post-Initialization");
         proxy.postInit(event);
     }
 }

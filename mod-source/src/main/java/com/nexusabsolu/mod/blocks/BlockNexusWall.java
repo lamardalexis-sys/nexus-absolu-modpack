@@ -38,7 +38,7 @@ public class BlockNexusWall extends Block implements IHasModel {
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
 
-    // No normal drops — the ScavengeEventHandler handles drops
+    // No normal drops -- the ScavengeEventHandler handles drops
     @Override
     public int quantityDropped(Random random) {
         return 0;

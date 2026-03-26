@@ -12,10 +12,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import net.minecraft.item.Item;
 import java.util.Random;
 
 /**
- * The Scavenging System — core mechanic of Nexus Absolu.
+ * The Scavenging System -- core mechanic of Nexus Absolu.
  * When a Nexus Wall is broken, drops depend on the tool used.
  * Different pickaxe harvest levels yield different grits.
  */

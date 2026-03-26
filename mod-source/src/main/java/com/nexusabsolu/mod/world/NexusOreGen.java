@@ -21,7 +21,7 @@ public class NexusOreGen implements IWorldGenerator {
 
         // Overworld
         if (dim == 0) {
-            // Vossium — rare, deep, Y 5-20
+            // Vossium -- rare, deep, Y 5-20
             generateOre(world, random, chunkX, chunkZ,
                 ModBlocks.VOSSIUM_ORE.getDefaultState(),
                 Blocks.STONE.getDefaultState(),
@@ -30,7 +30,7 @@ public class NexusOreGen implements IWorldGenerator {
 
         // End
         if (dim == 1) {
-            // Nexium — End only, Y 10-60
+            // Nexium -- End only, Y 10-60
             generateOre(world, random, chunkX, chunkZ,
                 ModBlocks.NEXIUM_ORE.getDefaultState(),
                 Blocks.END_STONE.getDefaultState(),
@@ -39,7 +39,7 @@ public class NexusOreGen implements IWorldGenerator {
 
         // Compact Machine dimension (144)
         if (dim == 144) {
-            // Claustrite — Compact Machine dimension only
+            // Claustrite -- Compact Machine dimension only
             // Spawns in the walls near the edges
             generateOre(world, random, chunkX, chunkZ,
                 ModBlocks.CLAUSTRITE_ORE.getDefaultState(),
