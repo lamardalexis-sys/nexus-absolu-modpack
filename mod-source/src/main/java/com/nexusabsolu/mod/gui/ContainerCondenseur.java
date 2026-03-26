@@ -21,29 +21,26 @@ public class ContainerCondenseur extends Container {
     public ContainerCondenseur(InventoryPlayer playerInv, TileCondenseur tile) {
         this.tile = tile;
 
-        // Input slots (2x2 grid on the left)
-        // Slot 0: Compact Machine 1 (x=26, y=22)
-        addSlotToContainer(new Slot(tile, 0, 26, 22));
-        // Slot 1: Compact Machine 2 (x=50, y=22)
-        addSlotToContainer(new Slot(tile, 1, 50, 22));
-        // Slot 2: Key (x=26, y=46)
-        addSlotToContainer(new Slot(tile, 2, 26, 46));
-        // Slot 3: Catalyst (x=50, y=46)
-        addSlotToContainer(new Slot(tile, 3, 50, 46));
+        // Input slots (2x2) - positions match GUI
+        addSlotToContainer(new Slot(tile, 0, 36, 39));   // CM slot 1
+        addSlotToContainer(new Slot(tile, 1, 60, 39));   // CM slot 2
+        addSlotToContainer(new Slot(tile, 2, 36, 63));   // Key slot
+        addSlotToContainer(new Slot(tile, 3, 60, 63));   // Catalyst slot
 
-        // Output slot (right side, x=130, y=34)
-        addSlotToContainer(new SlotOutput(tile, 4, 130, 34));
+        // Output slot
+        addSlotToContainer(new SlotOutput(tile, 4, 160, 50));
 
-        // Player inventory (3 rows)
+        // Player inventory (offset down for bigger GUI)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                addSlotToContainer(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
+                addSlotToContainer(new Slot(playerInv, col + row * 9 + 9,
+                    30 + col * 18, 130 + row * 18));
             }
         }
 
         // Player hotbar
         for (int col = 0; col < 9; col++) {
-            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 142));
+            addSlotToContainer(new Slot(playerInv, col, 30 + col * 18, 192));
         }
     }
 
@@ -86,16 +83,11 @@ public class ContainerCondenseur extends Container {
             ItemStack stackInSlot = slot.getStack();
             itemstack = stackInSlot.copy();
 
-            // Output slot -> player inventory
             if (index == 4) {
                 if (!mergeItemStack(stackInSlot, 5, 41, true)) return ItemStack.EMPTY;
-            }
-            // Player inventory -> input slots
-            else if (index >= 5) {
+            } else if (index >= 5) {
                 if (!mergeItemStack(stackInSlot, 0, 4, false)) return ItemStack.EMPTY;
-            }
-            // Input slots -> player inventory
-            else {
+            } else {
                 if (!mergeItemStack(stackInSlot, 5, 41, false)) return ItemStack.EMPTY;
             }
 
@@ -105,7 +97,6 @@ public class ContainerCondenseur extends Container {
         return itemstack;
     }
 
-    // Output-only slot
     static class SlotOutput extends Slot {
         public SlotOutput(TileCondenseur tile, int index, int x, int y) {
             super(tile, index, x, y);
@@ -113,7 +104,7 @@ public class ContainerCondenseur extends Container {
 
         @Override
         public boolean isItemValid(ItemStack stack) {
-            return false; // Can't put items in output
+            return false;
         }
     }
 }
