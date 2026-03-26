@@ -56,3 +56,6 @@ tile.nexusabsolu.nexus_wall.name=Mur du Nexus
 tile.nexusabsolu.vossium_ore.name=Minerai de Vossium
 tile.nexusabsolu.nexium_ore.name=Minerai de Nexium
 tile.nexusabsolu.claustrite_ore.name=Minerai de Claustrite
+
+# Condenseur Dimensionnel
+tile.nexusabsolu.condenseur.name=Condenseur Dimensionnel
