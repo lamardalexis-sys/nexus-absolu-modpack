@@ -48,24 +48,24 @@ public class ItemNexusAbsolu extends ItemBase {
         if (!world.isRemote) return;
         if (!isHeld) return;
 
-        // Massive particle effect when held -- portal + enchant + end rod
-        for (int i = 0; i < 3; i++) {
-            double angle = world.rand.nextDouble() * Math.PI * 2;
-            double radius = 0.8 + world.rand.nextDouble() * 0.5;
-            double x = entity.posX + Math.cos(angle) * radius;
-            double y = entity.posY + 0.5 + world.rand.nextDouble() * 1.5;
-            double z = entity.posZ + Math.sin(angle) * radius;
-            world.spawnParticle(EnumParticleTypes.PORTAL, x, y, z,
-                (world.rand.nextDouble() - 0.5) * 0.2,
-                world.rand.nextDouble() * 0.2,
-                (world.rand.nextDouble() - 0.5) * 0.2);
+        // Purple portal particles every ~5 seconds (100 ticks)
+        if (world.getTotalWorldTime() % 100 == 0) {
+            for (int i = 0; i < 5; i++) {
+                double angle = world.rand.nextDouble() * Math.PI * 2;
+                double radius = 0.8 + world.rand.nextDouble() * 0.5;
+                double x = entity.posX + Math.cos(angle) * radius;
+                double y = entity.posY + 0.5 + world.rand.nextDouble() * 1.5;
+                double z = entity.posZ + Math.sin(angle) * radius;
+                world.spawnParticle(EnumParticleTypes.PORTAL, x, y, z, 0, 0.05, 0);
+            }
         }
 
-        if (world.rand.nextInt(3) == 0) {
-            double x = entity.posX + (world.rand.nextDouble() - 0.5) * 2;
+        // Single end rod particle occasionally
+        if (world.rand.nextInt(80) == 0) {
+            double x = entity.posX + (world.rand.nextDouble() - 0.5) * 1.5;
             double y = entity.posY + 1 + world.rand.nextDouble();
-            double z = entity.posZ + (world.rand.nextDouble() - 0.5) * 2;
-            world.spawnParticle(EnumParticleTypes.END_ROD, x, y, z, 0, 0.1, 0);
+            double z = entity.posZ + (world.rand.nextDouble() - 0.5) * 1.5;
+            world.spawnParticle(EnumParticleTypes.END_ROD, x, y, z, 0, 0.05, 0);
         }
     }
 }
