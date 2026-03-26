@@ -16,8 +16,9 @@
                 │
                 ├──→ Âge 4 : The End (dim 1)    ← Ender Eyes gatés
                 │
-                ├──→ Âge 6 : Lune (GC)       ← Fusée Tier 1 gatée
-                │     ├──→ Mars (GC)          ← Fusée Tier 2
+                ├──→ Âge 5 : Lune (GC)       ← Fusée Tier 1 gatée
+                │
+                ├──→ Âge 6 : Mars (GC)        ← Fusée Tier 2
                 │     ├──→ Extra Planets       ← Fusée Tier 3+
                 │     └──→ Station orbitale    ← Adv. Rocketry
                 │
@@ -165,17 +166,24 @@ recipes.addShaped("nexus_ender_eye", <minecraft:ender_eye>,
 
 ---
 
-### 5. Galacticraft — Lune (Âge 6)
+### 5. Galacticraft — Lune (Âge 5)
 **Accès :** Fusée Tier 1 modifiée
 
 La fusée vanilla Galacticraft nécessite juste du fer et de l'étain.
-On la rend BEAUCOUP plus chère :
+On la rend plus chère mais accessible à l'Âge 5 (le joueur a le nucléaire) :
 
 ```zenscript
 // NASA Workbench — recette fusée T1 modifiée
-// Nécessite : Acier IE + Signalum Thermal + Osmium Mekanism + NuclearCraft composants
-// (la recette exacte sera dans le NASA Workbench config)
+// Nécessite : Acier IE + Invar Thermal + Osmium Mekanism
+// Pas encore NuclearCraft (c'est pour découvrir l'espace)
+// Les isotopes NC seront nécessaires pour la T2+ (Âge 6)
 ```
+
+**Pourquoi Âge 5 :**
+- Le joueur vient de débloquer le nucléaire → thème "science avancée"
+- La Lune = première sortie de la Terre, moment wow
+- Pas besoin d'avoir tout NuclearCraft, juste les bases
+- Ça prépare l'Âge 6 (Mars, stations, Fragment Espace-Temps)
 
 **Ce que la Lune apporte :**
 - Cheese (Pam's compat?)
@@ -279,7 +287,7 @@ recipes.addShaped("nexus_dim_builder", <rftools:dimension_builder>,
 | 3 | Overworld | lab_key (3 Fragments) | ✅ |
 | 3 | Nether | Flint & Steel (acier IE) | ✅ |
 | 4 | The End | Ender Eyes modifiés | ✅ |
-| 6 | Lune (GC) | Fusée T1 (inter-mods) | ✅ (Fragment E-T) |
+| 5 | Lune (GC) | Fusée T1 (inter-mods) | ✅ (découverte espace) |
 | 6 | Mars (GC) | Fusée T2 (Desh) | ✅ (pour T3) |
 | 6+ | Extra Planets | Fusées T3+ | ⚠️ Semi |
 | 6 | Station orbitale (AR) | Gate par GC | ✅ (Fragment E-T) |
