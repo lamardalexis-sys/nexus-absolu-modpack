@@ -173,6 +173,8 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         switch (id) {
             case 0: processTime = value; break;
             case 1: maxProcessTime = value; break;
+            case 2: energyStorage.setEnergy(value); break;
+            case 3: break; // maxEnergy is fixed
         }
     }
     @Override public int getFieldCount() { return 4; }
