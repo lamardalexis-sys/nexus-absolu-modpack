@@ -23,7 +23,8 @@ minecraft {
 }
 
 repositories {
-    maven { url "https://dvs1.progwml6.com/files/maven/" }
+    maven { url = 'https://maven.minecraftforge.net/' }
+    maven { url = 'https://dvs1.progwml6.com/files/maven/' }
 }
 
 dependencies {
