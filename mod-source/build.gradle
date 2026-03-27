@@ -22,7 +22,12 @@ minecraft {
     mappings = "stable_39"
 }
 
+repositories {
+    maven { url "https://dvs1.progwml6.com/files/maven/" }
+}
+
 dependencies {
+    deobfCompile "mezz.jei:jei_1.12.2:4.16.1.302"
 }
 
 processResources {

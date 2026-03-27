@@ -90,14 +90,14 @@ public class GuiCondenseur extends GuiContainer {
         // === ENERGY BAR ===
         // Background
         drawRect(x + 198, y + 20, x + 212, y + 100, 0xFF141018);
-        drawRect(x + 198, y + 20, x + 212, y + 100, 0xFF00C8F0); // Cyan border
+        drawRect(x + 198, y + 20, x + 212, y + 100, 0xFFE03020); // Red border
 
-        // Fill (cyan from bottom)
+        // Fill (red from bottom)
         if (tile.getMaxEnergyStored() > 0 && tile.getEnergyStored() > 0) {
             int energyHeight = (tile.getEnergyStored() * 78) / tile.getMaxEnergyStored();
             for (int py = 0; py < energyHeight; py++) {
                 int intensity = (int)(80 + (py / 78.0) * 175);
-                int color = 0xFF000000 | (0x00 << 16) | (intensity << 8) | Math.min(255, intensity + 30);
+                int color = 0xFF000000 | (Math.min(255, intensity + 30) << 16) | ((intensity / 6) << 8) | 0x00;
                 drawRect(x + 199, y + 99 - py, x + 211, y + 100 - py, color);
             }
         }

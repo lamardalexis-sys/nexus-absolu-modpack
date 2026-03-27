@@ -12,6 +12,8 @@ public class CondenseurRecipes {
 
     private static final List<Recipe> RECIPES = new ArrayList<>();
 
+    public static List<Recipe> getRecipes() { return RECIPES; }
+
     static {
         // Format: 2x input CM, key item, catalyst item, output CM, process time, RF cost
         // Tier 1: 2x Tiny(3x3) + Key5x5 + Catalyseur Instable -> Small(5x5)
