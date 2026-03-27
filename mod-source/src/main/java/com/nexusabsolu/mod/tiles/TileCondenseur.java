@@ -24,6 +24,10 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     private boolean processing = false;
     private boolean structureFormed = false;
 
+    // Multiblock direction: offset from master to the diagonal corner
+    private int multiDX = 1;
+    private int multiDZ = 1;
+
     private int currentQuote = 0;
     public static final String[] QUOTES = {
         "Deux espaces negocient...",
@@ -45,6 +49,10 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     public boolean isStructureValid() { return structureFormed; }
     public void setStructureFormed(boolean formed) { this.structureFormed = formed; }
 
+    public int getMultiDX() { return multiDX; }
+    public int getMultiDZ() { return multiDZ; }
+    public void setMultiDirection(int dx, int dz) { this.multiDX = dx; this.multiDZ = dz; }
+
     private void syncToClient() {
         if (world != null && !world.isRemote) {
             IBlockState state = world.getBlockState(pos);
@@ -55,6 +63,11 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     @Override
     public void update() {
         if (world.isRemote) return;
+
+        // Redstone block in structure generates passive RF
+        if (structureFormed) {
+            energyStorage.receiveEnergy(40, false);
+        }
 
         if (structureFormed && canProcess()) {
             if (energyStorage.getEnergyStored() >= 20) {
@@ -202,6 +215,8 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         compound.setInteger("Energy", energyStorage.getEnergyStored());
         compound.setBoolean("Formed", structureFormed);
         compound.setBoolean("Processing", processing);
+        compound.setInteger("MultiDX", multiDX);
+        compound.setInteger("MultiDZ", multiDZ);
         NBTTagList list = new NBTTagList();
         for (int i = 0; i < inventory.length; i++) {
             if (!inventory[i].isEmpty()) {
@@ -225,6 +240,10 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         energyStorage = new InternalEnergyStorage(50000, 100, energy);
         structureFormed = compound.getBoolean("Formed");
         processing = compound.getBoolean("Processing");
+        multiDX = compound.getInteger("MultiDX");
+        multiDZ = compound.getInteger("MultiDZ");
+        if (multiDX == 0) multiDX = 1;
+        if (multiDZ == 0) multiDZ = 1;
         NBTTagList list = compound.getTagList("Items", 10);
         for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound tag = list.getCompoundTagAt(i);

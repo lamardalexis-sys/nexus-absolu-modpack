@@ -108,13 +108,13 @@ public class BlockCondenseur extends Block implements IHasModel {
             if (glass != 3 || wall != 1) continue;
 
             // VALID! Form the multiblock
-            formMultiblock(world, pos, p1, p2, p3, t0, t1, t2, t3);
+            formMultiblock(world, pos, dx, dz, p1, p2, p3, t0, t1, t2, t3);
             return true;
         }
         return false;
     }
 
-    private void formMultiblock(World world, BlockPos master,
+    private void formMultiblock(World world, BlockPos master, int dx, int dz,
             BlockPos b1, BlockPos b2, BlockPos b3,
             BlockPos t0, BlockPos t1, BlockPos t2, BlockPos t3) {
 
@@ -161,6 +161,7 @@ public class BlockCondenseur extends Block implements IHasModel {
             if (newTe instanceof TileCondenseur) {
                 newTe.readFromNBT(savedData);
                 ((TileCondenseur) newTe).setStructureFormed(true);
+                ((TileCondenseur) newTe).setMultiDirection(dx, dz);
             }
         }
     }
