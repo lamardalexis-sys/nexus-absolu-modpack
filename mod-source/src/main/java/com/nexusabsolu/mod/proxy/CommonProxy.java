@@ -5,6 +5,7 @@ import com.nexusabsolu.mod.Reference;
 import com.nexusabsolu.mod.gui.GuiHandler;
 import com.nexusabsolu.mod.scavenging.ScavengeEventHandler;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
+import com.nexusabsolu.mod.tiles.TileCondenseurEnergy;
 import com.nexusabsolu.mod.world.NexusOreGen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,6 +20,8 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new ScavengeEventHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
+        GameRegistry.registerTileEntity(TileCondenseurEnergy.class,
+            new ResourceLocation(Reference.MOD_ID, "condenseur_energy"));
     }
 
     public void init(FMLInitializationEvent event) {

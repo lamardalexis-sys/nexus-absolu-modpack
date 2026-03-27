@@ -64,11 +64,6 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     public void update() {
         if (world.isRemote) return;
 
-        // Redstone block in structure generates passive RF
-        if (structureFormed) {
-            energyStorage.receiveEnergy(40, false);
-        }
-
         if (structureFormed && canProcess()) {
             if (energyStorage.getEnergyStored() >= 20) {
                 energyStorage.drainInternal(20);

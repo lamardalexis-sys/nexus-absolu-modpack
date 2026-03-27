@@ -5,6 +5,7 @@ import com.nexusabsolu.mod.Reference;
 import com.nexusabsolu.mod.init.ModBlocks;
 import com.nexusabsolu.mod.init.ModItems;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
+import com.nexusabsolu.mod.tiles.TileCondenseurEnergy;
 import com.nexusabsolu.mod.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -101,13 +102,18 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
     // Only position 0 (master) has a TileEntity
     @Override
     public boolean hasTileEntity(IBlockState state) {
-        return state.getValue(POSITION) == 0;
+        int pos = state.getValue(POSITION);
+        return pos == 0 || pos == 3;
     }
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        if (state.getValue(POSITION) == 0) {
+        int pos = state.getValue(POSITION);
+        if (pos == 0) {
             return new TileCondenseur();
+        }
+        if (pos == 3) {
+            return new TileCondenseurEnergy();
         }
         return null;
     }
