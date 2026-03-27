@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven { url = uri("${projectDir}/libs/repo") }
+        maven { url = 'https://maven.creeperhost.net/' }
         maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
     }
@@ -17,8 +17,10 @@ archivesBaseName = "NexusAbsolu"
 
 sourceCompatibility = targetCompatibility = '1.8'
 
-repositories {
-    maven { url = uri("${projectDir}/libs/repo") }
+allprojects {
+    repositories {
+        maven { url = 'https://maven.creeperhost.net/' }
+    }
 }
 
 minecraft {
