@@ -143,7 +143,7 @@ public class GuiCondenseur extends GuiContainer {
         // Progress percentage
         if (!tile.isStructureValid()) {
             this.fontRenderer.drawString("Structure incomplete !", 80, 70, 0xFF4444);
-            this.fontRenderer.drawString("2x2x2: 3 Nexus Wall + 3 Glass", 50, 82, 0x666666);
+            this.fontRenderer.drawString("2 NexusWall + 1 Redstone + 3 Glass", 35, 82, 0x666666);
         } else if (tile.isProcessing()) {
             String percent = "Phase: " + tile.getProcessPercent() + "%";
             this.fontRenderer.drawString(percent, 92, 70, 0xBB86FC);

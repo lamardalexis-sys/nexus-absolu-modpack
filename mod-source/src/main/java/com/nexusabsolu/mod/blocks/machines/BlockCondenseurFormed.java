@@ -180,8 +180,11 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
                             int p = s.getValue(POSITION);
                             if (p == 0) {
                                 world.setBlockState(check, ModBlocks.CONDENSEUR.getDefaultState());
-                            } else if (p >= 1 && p <= 3) {
+                            } else if (p == 1 || p == 2) {
                                 world.setBlockState(check, ModBlocks.NEXUS_WALL.getDefaultState());
+                            } else if (p == 3) {
+                                // Energy input = redstone block
+                                world.setBlockState(check, net.minecraft.init.Blocks.REDSTONE_BLOCK.getDefaultState());
                             } else {
                                 world.setBlockState(check, net.minecraft.init.Blocks.GLASS.getDefaultState());
                             }

@@ -89,10 +89,14 @@ public class BlockCondenseur extends Block implements IHasModel {
             BlockPos t2 = pos.add(0, 1, dz);
             BlockPos t3 = pos.add(dx, 1, dz);
 
-            // Bottom: 3x Nexus Wall
-            if (!isNexusWall(world, p1)) continue;
-            if (!isNexusWall(world, p2)) continue;
-            if (!isNexusWall(world, p3)) continue;
+            // Bottom: 2x Nexus Wall + 1x Redstone Block (energy input)
+            int walls = 0; int redstone = 0;
+            BlockPos[] bottoms = {p1, p2, p3};
+            for (BlockPos bp : bottoms) {
+                if (isNexusWall(world, bp)) walls++;
+                else if (isRedstone(world, bp)) redstone++;
+            }
+            if (walls != 2 || redstone != 1) continue;
 
             // Top: count glass and nexus wall
             int glass = 0; int wall = 0;
@@ -127,13 +131,19 @@ public class BlockCondenseur extends Block implements IHasModel {
         world.setBlockState(master, formed.getDefaultState()
             .withProperty(BlockCondenseurFormed.POSITION, 0), 2);
 
-        // Positions 1-3 = bottom slaves
-        world.setBlockState(b1, formed.getDefaultState()
-            .withProperty(BlockCondenseurFormed.POSITION, 1), 2);
-        world.setBlockState(b2, formed.getDefaultState()
-            .withProperty(BlockCondenseurFormed.POSITION, 2), 2);
-        world.setBlockState(b3, formed.getDefaultState()
-            .withProperty(BlockCondenseurFormed.POSITION, 3), 2);
+        // Bottom slaves: position 3 = redstone (energy), 1-2 = nexus wall
+        BlockPos[] bots = {b1, b2, b3};
+        int wallIdx = 1;
+        for (BlockPos bp : bots) {
+            if (isRedstone(world, bp)) {
+                world.setBlockState(bp, formed.getDefaultState()
+                    .withProperty(BlockCondenseurFormed.POSITION, 3), 2);
+            } else {
+                world.setBlockState(bp, formed.getDefaultState()
+                    .withProperty(BlockCondenseurFormed.POSITION, wallIdx), 2);
+                wallIdx++;
+            }
+        }
 
         // Positions 4-7 = top layer
         world.setBlockState(t0, formed.getDefaultState()
@@ -162,6 +172,10 @@ public class BlockCondenseur extends Block implements IHasModel {
     private boolean isGlass(World world, BlockPos pos) {
         Block b = world.getBlockState(pos).getBlock();
         return b == Blocks.GLASS || b == Blocks.STAINED_GLASS;
+    }
+
+    private boolean isRedstone(World world, BlockPos pos) {
+        return world.getBlockState(pos).getBlock() == Blocks.REDSTONE_BLOCK;
     }
 
     @Override
