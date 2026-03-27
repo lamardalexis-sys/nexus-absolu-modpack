@@ -17,10 +17,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -59,6 +61,41 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(POSITION, meta & 7);
+    }
+
+    // Glass positions are see-through
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        int pos = state.getValue(POSITION);
+        return pos >= 0 && pos <= 3; // bottom = opaque, top glass = transparent
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        int pos = state.getValue(POSITION);
+        return pos >= 0 && pos <= 3;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world,
+            BlockPos pos, EnumFacing side) {
+        int position = state.getValue(POSITION);
+        if (position >= 4 && position <= 6) {
+            // Glass: don't render face if neighbor is same block
+            IBlockState neighbor = world.getBlockState(pos.offset(side));
+            if (neighbor.getBlock() == this) {
+                int nPos = neighbor.getValue(POSITION);
+                if (nPos >= 4 && nPos <= 6) return false;
+            }
+        }
+        return super.shouldSideBeRendered(state, world, pos, side);
     }
 
     // Only position 0 (master) has a TileEntity
@@ -156,24 +193,61 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
         super.breakBlock(world, pos, state);
     }
 
-    // Particles when processing
+    // Particles inside the multibloc - visible through glass
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-        if (state.getValue(POSITION) != 0) return;
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof TileCondenseur && ((TileCondenseur) te).isProcessing()) {
-            for (int i = 0; i < 3; i++) {
-                double x = pos.getX() + 0.5 + (rand.nextDouble() - 0.5) * 2;
-                double y = pos.getY() + 1.5 + rand.nextDouble();
-                double z = pos.getZ() + 0.5 + (rand.nextDouble() - 0.5) * 2;
-                world.spawnParticle(EnumParticleTypes.PORTAL, x, y, z, 0, 0.1, 0);
+        int position = state.getValue(POSITION);
+
+        // Glass blocks (4-6): always show subtle idle particles inside
+        if (position >= 4 && position <= 6) {
+            // Subtle portal swirl inside - always active
+            if (rand.nextInt(4) == 0) {
+                double x = pos.getX() + 0.2 + rand.nextDouble() * 0.6;
+                double y = pos.getY() + 0.1 + rand.nextDouble() * 0.8;
+                double z = pos.getZ() + 0.2 + rand.nextDouble() * 0.6;
+                world.spawnParticle(EnumParticleTypes.PORTAL, x, y, z,
+                    (rand.nextDouble() - 0.5) * 0.3, rand.nextDouble() * 0.2, (rand.nextDouble() - 0.5) * 0.3);
             }
-            if (rand.nextInt(3) == 0) {
-                double x = pos.getX() + rand.nextDouble() * 2;
-                double y = pos.getY() + 1.9;
-                double z = pos.getZ() + rand.nextDouble() * 2;
-                world.spawnParticle(EnumParticleTypes.DRIP_LAVA, x, y, z, 0, 0, 0);
+            // Enchantment sparkle
+            if (rand.nextInt(8) == 0) {
+                double x = pos.getX() + 0.2 + rand.nextDouble() * 0.6;
+                double y = pos.getY() + 0.2 + rand.nextDouble() * 0.6;
+                double z = pos.getZ() + 0.2 + rand.nextDouble() * 0.6;
+                world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, x, y, z, 0, 0.1, 0);
+            }
+        }
+
+        // Master block (0): intense effects when processing
+        if (position == 0) {
+            TileEntity te = world.getTileEntity(pos);
+            if (te instanceof TileCondenseur && ((TileCondenseur) te).isProcessing()) {
+                // Intense portal burst above
+                for (int i = 0; i < 5; i++) {
+                    double x = pos.getX() + 0.5 + (rand.nextDouble() - 0.5) * 1.5;
+                    double y = pos.getY() + 1.2 + rand.nextDouble() * 0.8;
+                    double z = pos.getZ() + 0.5 + (rand.nextDouble() - 0.5) * 1.5;
+                    world.spawnParticle(EnumParticleTypes.PORTAL, x, y, z,
+                        (rand.nextDouble() - 0.5) * 0.5, 0.2 + rand.nextDouble() * 0.3, (rand.nextDouble() - 0.5) * 0.5);
+                }
+                // Drip from glass ceiling
+                if (rand.nextInt(2) == 0) {
+                    double x = pos.getX() + rand.nextDouble() * 2;
+                    double y = pos.getY() + 1.95;
+                    double z = pos.getZ() + rand.nextDouble() * 2;
+                    world.spawnParticle(EnumParticleTypes.DRIP_LAVA, x, y, z, 0, 0, 0);
+                }
+                // Smoke from bottom
+                if (rand.nextInt(3) == 0) {
+                    double x = pos.getX() + rand.nextDouble() * 2;
+                    double y = pos.getY() + 0.5;
+                    double z = pos.getZ() + rand.nextDouble() * 2;
+                    world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0, 0.05, 0);
+                }
+                // Redstone sparkle on edges
+                world.spawnParticle(EnumParticleTypes.REDSTONE,
+                    pos.getX() + rand.nextInt(2) * 2.0, pos.getY() + rand.nextDouble() * 2,
+                    pos.getZ() + rand.nextInt(2) * 2.0, 0.5, 0.0, 1.0);
             }
         }
     }
