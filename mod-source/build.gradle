@@ -1,6 +1,5 @@
 buildscript {
     repositories {
-        maven { url = 'https://maven.creeperhost.net/' }
         maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
     }
@@ -17,12 +16,6 @@ archivesBaseName = "NexusAbsolu"
 
 sourceCompatibility = targetCompatibility = '1.8'
 
-allprojects {
-    repositories {
-        maven { url = 'https://maven.creeperhost.net/' }
-    }
-}
-
 minecraft {
     version = "1.12.2-14.23.5.2860"
     runDir = "run"
@@ -30,7 +23,6 @@ minecraft {
 }
 
 dependencies {
-    compileOnly files('libs/jei.jar')
 }
 
 processResources {
