@@ -12,19 +12,18 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
 
 public class BlockCondenseur extends Block implements IHasModel {
 
@@ -36,7 +35,7 @@ public class BlockCondenseur extends Block implements IHasModel {
         setHardness(5.0F);
         setResistance(15.0F);
         setSoundType(SoundType.METAL);
-        setLightLevel(0.5F); // Subtle glow
+        setLightLevel(0.5F);
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
@@ -56,12 +55,113 @@ public class BlockCondenseur extends Block implements IHasModel {
             EntityPlayer player, EnumHand hand, EnumFacing facing,
             float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
+            // Try to form multibloc first
+            if (tryFormMultiblock(world, pos)) {
+                return true;
+            }
+            // If not formed, open the GUI anyway (shows "Structure incomplete")
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof TileCondenseur) {
                 player.openGui(NexusAbsoluMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
             }
         }
         return true;
+    }
+
+    // Try all 4 orientations of the 2x2x2 structure
+    public boolean tryFormMultiblock(World world, BlockPos pos) {
+        int[][] directions = {
+            {1, 1},   // +X +Z
+            {-1, 1},  // -X +Z
+            {1, -1},  // +X -Z
+            {-1, -1}  // -X -Z
+        };
+
+        for (int[] dir : directions) {
+            int dx = dir[0];
+            int dz = dir[1];
+
+            BlockPos p1 = pos.add(dx, 0, 0);
+            BlockPos p2 = pos.add(0, 0, dz);
+            BlockPos p3 = pos.add(dx, 0, dz);
+            BlockPos t0 = pos.add(0, 1, 0);
+            BlockPos t1 = pos.add(dx, 1, 0);
+            BlockPos t2 = pos.add(0, 1, dz);
+            BlockPos t3 = pos.add(dx, 1, dz);
+
+            // Bottom: 3x Nexus Wall
+            if (!isNexusWall(world, p1)) continue;
+            if (!isNexusWall(world, p2)) continue;
+            if (!isNexusWall(world, p3)) continue;
+
+            // Top: count glass and nexus wall
+            int glass = 0; int wall = 0;
+            BlockPos[] tops = {t0, t1, t2, t3};
+            for (BlockPos tp : tops) {
+                if (isGlass(world, tp)) glass++;
+                else if (isNexusWall(world, tp)) wall++;
+            }
+            if (glass != 3 || wall != 1) continue;
+
+            // VALID! Form the multiblock
+            formMultiblock(world, pos, p1, p2, p3, t0, t1, t2, t3);
+            return true;
+        }
+        return false;
+    }
+
+    private void formMultiblock(World world, BlockPos master,
+            BlockPos b1, BlockPos b2, BlockPos b3,
+            BlockPos t0, BlockPos t1, BlockPos t2, BlockPos t3) {
+
+        // Save TileEntity data before replacing blocks
+        TileEntity te = world.getTileEntity(master);
+        NBTTagCompound savedData = null;
+        if (te instanceof TileCondenseur) {
+            savedData = te.writeToNBT(new NBTTagCompound());
+        }
+
+        Block formed = ModBlocks.CONDENSEUR_FORMED;
+
+        // Position 0 = master (condenseur location)
+        world.setBlockState(master, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 0), 2);
+
+        // Positions 1-3 = bottom slaves
+        world.setBlockState(b1, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 1), 2);
+        world.setBlockState(b2, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 2), 2);
+        world.setBlockState(b3, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 3), 2);
+
+        // Positions 4-7 = top layer
+        world.setBlockState(t0, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 4), 2);
+        world.setBlockState(t1, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 5), 2);
+        world.setBlockState(t2, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 6), 2);
+        world.setBlockState(t3, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 7), 2);
+
+        // Restore TileEntity data to the master position
+        if (savedData != null) {
+            TileEntity newTe = world.getTileEntity(master);
+            if (newTe instanceof TileCondenseur) {
+                newTe.readFromNBT(savedData);
+                ((TileCondenseur) newTe).setStructureFormed(true);
+            }
+        }
+    }
+
+    private boolean isNexusWall(World world, BlockPos pos) {
+        return world.getBlockState(pos).getBlock() == ModBlocks.NEXUS_WALL;
+    }
+
+    private boolean isGlass(World world, BlockPos pos) {
+        Block b = world.getBlockState(pos).getBlock();
+        return b == Blocks.GLASS || b == Blocks.STAINED_GLASS;
     }
 
     @Override
@@ -76,37 +176,6 @@ public class BlockCondenseur extends Block implements IHasModel {
             }
         }
         super.breakBlock(world, pos, state);
-    }
-
-    // Purple particles when processing
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof TileCondenseur && ((TileCondenseur) te).isProcessing()) {
-            // Purple portal particles
-            for (int i = 0; i < 3; i++) {
-                double x = pos.getX() + 0.5 + (rand.nextDouble() - 0.5) * 1.2;
-                double y = pos.getY() + 0.5 + (rand.nextDouble() - 0.5) * 1.2;
-                double z = pos.getZ() + 0.5 + (rand.nextDouble() - 0.5) * 1.2;
-                world.spawnParticle(EnumParticleTypes.PORTAL, x, y, z, 0, 0.1, 0);
-            }
-            // Drip particles (the "goop dripping" effect)
-            if (rand.nextInt(3) == 0) {
-                double x = pos.getX() + 0.2 + rand.nextDouble() * 0.6;
-                double y = pos.getY() + 0.9;
-                double z = pos.getZ() + 0.2 + rand.nextDouble() * 0.6;
-                world.spawnParticle(EnumParticleTypes.DRIP_LAVA, x, y, z, 0, 0, 0);
-            }
-            // Enchantment particles
-            if (rand.nextInt(4) == 0) {
-                double x = pos.getX() + 0.5 + (rand.nextDouble() - 0.5) * 2;
-                double y = pos.getY() + rand.nextDouble() * 2;
-                double z = pos.getZ() + 0.5 + (rand.nextDouble() - 0.5) * 2;
-                world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, x, y, z,
-                    (pos.getX() + 0.5 - x), (pos.getY() + 0.5 - y), (pos.getZ() + 0.5 - z));
-            }
-        }
     }
 
     @Override

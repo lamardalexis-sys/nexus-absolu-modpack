@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "nexusabsolu:blocks/condenseur_formed_top"
+    }
+}

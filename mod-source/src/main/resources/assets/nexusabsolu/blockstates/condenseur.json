@@ -1,5 +1,6 @@
 {
     "variants": {
-        "normal": { "model": "nexusabsolu:condenseur" }
+        "formed=false": { "model": "nexusabsolu:condenseur_unformed" },
+        "formed=true": { "model": "nexusabsolu:condenseur_formed_master" }
     }
 }

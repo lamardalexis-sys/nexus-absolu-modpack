@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "position=0": { "model": "nexusabsolu:condenseur_formed_master" },
+        "position=1": { "model": "nexusabsolu:condenseur_formed_bottom" },
+        "position=2": { "model": "nexusabsolu:condenseur_formed_bottom" },
+        "position=3": { "model": "nexusabsolu:condenseur_formed_bottom" },
+        "position=4": { "model": "nexusabsolu:condenseur_formed_top_glass" },
+        "position=5": { "model": "nexusabsolu:condenseur_formed_top_glass" },
+        "position=6": { "model": "nexusabsolu:condenseur_formed_top_glass" },
+        "position=7": { "model": "nexusabsolu:condenseur_formed_top_wall" }
+    }
+}
