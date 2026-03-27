@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        mavenLocal()
+        maven { url = uri("${projectDir}/libs/repo") }
         maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
     }
@@ -18,7 +18,7 @@ archivesBaseName = "NexusAbsolu"
 sourceCompatibility = targetCompatibility = '1.8'
 
 repositories {
-    mavenLocal()
+    maven { url = uri("${projectDir}/libs/repo") }
 }
 
 minecraft {
