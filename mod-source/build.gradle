@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        mavenLocal()
         maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
     }
@@ -15,6 +16,10 @@ group = "com.nexusabsolu"
 archivesBaseName = "NexusAbsolu"
 
 sourceCompatibility = targetCompatibility = '1.8'
+
+repositories {
+    mavenLocal()
+}
 
 minecraft {
     version = "1.12.2-14.23.5.2860"
