@@ -1,5 +1,6 @@
 package com.nexusabsolu.mod.tiles;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -44,6 +45,13 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     public boolean isStructureValid() { return structureFormed; }
     public void setStructureFormed(boolean formed) { this.structureFormed = formed; }
 
+    private void syncToClient() {
+        if (world != null && !world.isRemote) {
+            IBlockState state = world.getBlockState(pos);
+            world.notifyBlockUpdate(pos, state, state, 3);
+        }
+    }
+
     @Override
     public void update() {
         if (world.isRemote) return;
@@ -60,6 +68,11 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
                     processItem();
                     processTime = 0;
                     processing = false;
+                    syncToClient();
+                }
+                // Sync to client every 10 ticks for TESR
+                if (processTime % 10 == 0) {
+                    syncToClient();
                 }
                 markDirty();
             }
@@ -68,6 +81,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
                 processTime = 0;
                 processing = false;
                 markDirty();
+                syncToClient();
             }
         }
     }
@@ -141,6 +155,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit())
             stack.setCount(getInventoryStackLimit());
         markDirty();
+        syncToClient();
     }
 
     @Override public int getInventoryStackLimit() { return 64; }
@@ -183,8 +198,10 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setInteger("ProcessTime", processTime);
+        compound.setInteger("MaxProcessTime", maxProcessTime);
         compound.setInteger("Energy", energyStorage.getEnergyStored());
         compound.setBoolean("Formed", structureFormed);
+        compound.setBoolean("Processing", processing);
         NBTTagList list = new NBTTagList();
         for (int i = 0; i < inventory.length; i++) {
             if (!inventory[i].isEmpty()) {
@@ -202,9 +219,12 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         processTime = compound.getInteger("ProcessTime");
+        maxProcessTime = compound.getInteger("MaxProcessTime");
+        if (maxProcessTime == 0) maxProcessTime = 200;
         int energy = compound.getInteger("Energy");
         energyStorage = new InternalEnergyStorage(50000, 100, energy);
         structureFormed = compound.getBoolean("Formed");
+        processing = compound.getBoolean("Processing");
         NBTTagList list = compound.getTagList("Items", 10);
         for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound tag = list.getCompoundTagAt(i);
@@ -226,5 +246,28 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         if (capability == CapabilityEnergy.ENERGY)
             return CapabilityEnergy.ENERGY.cast(energyStorage);
         return super.getCapability(capability, facing);
+    }
+
+    // Client sync for TESR rendering
+    @Override
+    public net.minecraft.network.play.server.SPacketUpdateTileEntity getUpdatePacket() {
+        return new net.minecraft.network.play.server.SPacketUpdateTileEntity(
+            pos, 1, getUpdateTag());
+    }
+
+    @Override
+    public void onDataPacket(net.minecraft.network.NetworkManager net,
+            net.minecraft.network.play.server.SPacketUpdateTileEntity pkt) {
+        readFromNBT(pkt.getNbtCompound());
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        return writeToNBT(new NBTTagCompound());
+    }
+
+    @Override
+    public void handleUpdateTag(NBTTagCompound tag) {
+        readFromNBT(tag);
     }
 }
