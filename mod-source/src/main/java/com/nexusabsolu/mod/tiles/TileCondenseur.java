@@ -1,6 +1,9 @@
 package com.nexusabsolu.mod.tiles;
 
+import com.nexusabsolu.mod.init.ModBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -8,6 +11,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
@@ -19,11 +23,13 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
 
     // 4 input slots + 1 output slot = 5 total
     private ItemStack[] inventory = new ItemStack[5];
-    private InternalEnergyStorage energyStorage = new InternalEnergyStorage(50000, 100); // 50K max, 100 RF/t input
+    private InternalEnergyStorage energyStorage = new InternalEnergyStorage(50000, 100);
     private int processTime = 0;
     private int maxProcessTime = 200;
-    private CondenseurRecipes.Recipe currentRecipe = null; // 10 seconds at 20 ticks/sec
+    private CondenseurRecipes.Recipe currentRecipe = null;
     private boolean processing = false;
+    private boolean structureValid = false;
+    private int structureCheckTimer = 0;
 
     // Quote system
     private int currentQuote = 0;
@@ -44,17 +50,79 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         }
     }
 
+    // ==========================================
+    // MULTIBLOC 2x2x2 STRUCTURE CHECK
+    // Condenseur is at (0,0,0). Check all 4 possible orientations.
+    // Bottom layer: Condenseur + 3x Nexus Wall
+    // Top layer: 3x Glass + 1x Nexus Wall
+    // ==========================================
+    private boolean checkStructure() {
+        // Try all 4 rotations of the 2x2x2 structure
+        // The condenseur can be in any of the 4 corners of the bottom layer
+        int[][] offsets = {
+            {1, 0, 0, 0, 0, 1, 1, 0, 1},  // +X, +Z
+            {-1, 0, 0, 0, 0, 1, -1, 0, 1}, // -X, +Z
+            {1, 0, 0, 0, 0, -1, 1, 0, -1}, // +X, -Z
+            {-1, 0, 0, 0, 0, -1, -1, 0, -1} // -X, -Z
+        };
+
+        for (int[] o : offsets) {
+            BlockPos p1 = pos.add(o[0], o[1], o[2]); // bottom neighbor 1
+            BlockPos p2 = pos.add(o[3], o[4], o[5]); // bottom neighbor 2
+            BlockPos p3 = pos.add(o[6], o[7], o[8]); // bottom diagonal
+
+            BlockPos t0 = pos.add(0, 1, 0);           // top above condenseur
+            BlockPos t1 = p1.add(0, 1, 0);             // top above neighbor 1
+            BlockPos t2 = p2.add(0, 1, 0);             // top above neighbor 2
+            BlockPos t3 = p3.add(0, 1, 0);             // top above diagonal
+
+            // Bottom: 3x Nexus Wall
+            boolean bottomOk = isNexusWall(p1) && isNexusWall(p2) && isNexusWall(p3);
+
+            // Top: 3x Glass + 1x Nexus Wall (any arrangement)
+            int glassCount = 0;
+            int wallCount = 0;
+            for (BlockPos tp : new BlockPos[]{t0, t1, t2, t3}) {
+                if (isGlass(tp)) glassCount++;
+                else if (isNexusWall(tp)) wallCount++;
+            }
+            boolean topOk = (glassCount == 3 && wallCount == 1);
+
+            if (bottomOk && topOk) return true;
+        }
+        return false;
+    }
+
+    private boolean isNexusWall(BlockPos p) {
+        return world.getBlockState(p).getBlock() == ModBlocks.NEXUS_WALL;
+    }
+
+    private boolean isGlass(BlockPos p) {
+        Block b = world.getBlockState(p).getBlock();
+        return b == Blocks.GLASS || b == Blocks.STAINED_GLASS;
+    }
+
+    public boolean isStructureValid() {
+        return structureValid;
+    }
+
     @Override
     public void update() {
         if (world.isRemote) return;
 
-        if (canProcess()) {
-            if (energyStorage.getEnergyStored() >= 20) { // 20 RF/tick
+        // Check structure every 20 ticks (1 second)
+        structureCheckTimer++;
+        if (structureCheckTimer >= 20) {
+            structureValid = checkStructure();
+            structureCheckTimer = 0;
+        }
+
+        if (structureValid && canProcess()) {
+            if (energyStorage.getEnergyStored() >= 20) {
                 energyStorage.drainInternal(20);
                 processTime++;
                 processing = true;
 
-                // Change quote every 2 seconds
                 if (processTime % 40 == 0) {
                     currentQuote = (currentQuote + 1) % QUOTES.length;
                 }
@@ -166,6 +234,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
             case 1: return maxProcessTime;
             case 2: return energyStorage.getEnergyStored();
             case 3: return energyStorage.getMaxEnergyStored();
+            case 4: return structureValid ? 1 : 0;
             default: return 0;
         }
     }
@@ -174,10 +243,11 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
             case 0: processTime = value; break;
             case 1: maxProcessTime = value; break;
             case 2: energyStorage.setEnergy(value); break;
-            case 3: break; // maxEnergy is fixed
+            case 3: break;
+            case 4: structureValid = (value == 1); break;
         }
     }
-    @Override public int getFieldCount() { return 4; }
+    @Override public int getFieldCount() { return 5; }
     @Override public void clear() {
         for (int i = 0; i < inventory.length; i++) inventory[i] = ItemStack.EMPTY;
     }

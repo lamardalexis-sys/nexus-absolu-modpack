@@ -141,7 +141,10 @@ public class GuiCondenseur extends GuiContainer {
         this.fontRenderer.drawString("OUT", 160, 42, 0x888888);
 
         // Progress percentage
-        if (tile.isProcessing()) {
+        if (!tile.isStructureValid()) {
+            this.fontRenderer.drawString("Structure incomplete !", 80, 70, 0xFF4444);
+            this.fontRenderer.drawString("2x2x2: 3 Nexus Wall + 3 Glass", 50, 82, 0x666666);
+        } else if (tile.isProcessing()) {
             String percent = "Phase: " + tile.getProcessPercent() + "%";
             this.fontRenderer.drawString(percent, 92, 70, 0xBB86FC);
 
@@ -149,7 +152,7 @@ public class GuiCondenseur extends GuiContainer {
             String quote = "\"" + tile.getCurrentQuote() + "\"";
             this.fontRenderer.drawString(quote, 10, 100, 0x666666);
         } else {
-            this.fontRenderer.drawString("En attente...", 95, 70, 0x444444);
+            this.fontRenderer.drawString("Pret.", 95, 70, 0x44FF44);
         }
 
         // Energy text

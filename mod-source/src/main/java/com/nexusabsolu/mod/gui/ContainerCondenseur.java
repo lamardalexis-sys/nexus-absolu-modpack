@@ -17,6 +17,7 @@ public class ContainerCondenseur extends Container {
     private int maxProcessTime;
     private int energy;
     private int maxEnergy;
+    private int structureValid;
 
     public ContainerCondenseur(InventoryPlayer playerInv, TileCondenseur tile) {
         this.tile = tile;
@@ -56,11 +57,14 @@ public class ContainerCondenseur extends Container {
                 listener.sendWindowProperty(this, 2, tile.getField(2));
             if (maxEnergy != tile.getField(3))
                 listener.sendWindowProperty(this, 3, tile.getField(3));
+            if (structureValid != tile.getField(4))
+                listener.sendWindowProperty(this, 4, tile.getField(4));
         }
         processTime = tile.getField(0);
         maxProcessTime = tile.getField(1);
         energy = tile.getField(2);
         maxEnergy = tile.getField(3);
+        structureValid = tile.getField(4);
     }
 
     @Override
