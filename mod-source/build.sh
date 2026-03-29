@@ -26,6 +26,7 @@ git pull
 # Step 2: Copy sources
 echo "[2/6] Copying sources..."
 cp -r mod-source/src/* /c/Dev/NexusAbsoluMod/src/
+cp mod-source/build.gradle /c/Dev/NexusAbsoluMod/build.gradle
 rm -rf /c/Dev/NexusAbsoluMod/src/main/java/com/example
 
 # Read version from build.gradle
