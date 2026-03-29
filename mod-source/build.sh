@@ -28,6 +28,10 @@ echo "[2/6] Copying sources..."
 cp -r mod-source/src/* /c/Dev/NexusAbsoluMod/src/
 rm -rf /c/Dev/NexusAbsoluMod/src/main/java/com/example
 
+# Read version from build.gradle
+VERSION=$(grep 'version = ' /c/Dev/NexusAbsoluMod/build.gradle | head -1 | sed 's/.*"\(.*\)".*/\1/')
+echo "Version: $VERSION"
+
 # Step 3: Compile
 echo "[3/6] Compiling..."
 cd /c/Dev/NexusAbsoluMod
@@ -44,20 +48,21 @@ fi
 echo "[4/6] Packaging..."
 cp -r src/main/resources/* build/classes/
 cd build/classes
-jar cf ../libs/NexusAbsolu-1.0.0-dev.jar .
+jar cf ../libs/NexusAbsolu-$VERSION-dev.jar .
 cd ../..
 
 # Step 5: Reobfuscate (MCP names -> SRG names)
 echo "[5/6] Reobfuscating..."
-java -cp "$SPECIALSOURCE;$FORGE" net.md_5.specialsource.SpecialSource --in-jar build/libs/NexusAbsolu-1.0.0-dev.jar --out-jar build/libs/NexusAbsolu-1.0.0.jar --srg-in "$SRG" -l 2>&1
+java -cp "$SPECIALSOURCE;$FORGE" net.md_5.specialsource.SpecialSource --in-jar build/libs/NexusAbsolu-$VERSION-dev.jar --out-jar build/libs/NexusAbsolu-$VERSION.jar --srg-in "$SRG" -l 2>&1
 if [ $? -ne 0 ]; then
     echo "REOBF FAILED!"
     exit 1
 fi
 
 # Step 6: Deploy
-echo "[6/6] Deploying to modpack..."
-cp build/libs/NexusAbsolu-1.0.0.jar "/c/Users/lamar/curseforge/minecraft/Instances/Nexus Absolu/mods/"
+echo "[6/6] Deploying v$VERSION to modpack..."
+rm -f "/c/Users/lamar/curseforge/minecraft/Instances/Nexus Absolu/mods/"NexusAbsolu-*.jar
+cp build/libs/NexusAbsolu-$VERSION.jar "/c/Users/lamar/curseforge/minecraft/Instances/Nexus Absolu/mods/"
 
 echo "=== BUILD SUCCESSFUL ==="
 echo "Launch the game!"
