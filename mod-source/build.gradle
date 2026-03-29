@@ -22,7 +22,13 @@ minecraft {
     mappings = "snapshot_20171003"
 }
 
-// Fix: replace the broken forgeBin with the correctly mapped jar from forge_gradle cache
+// Fix: disable broken deobfMcMCP and use pre-mapped jar from forge_gradle cache
+tasks.whenTaskAdded { task ->
+    if (task.name == 'deobfMcMCP') {
+        task.enabled = false
+    }
+}
+
 task fixForgeBin {
     doLast {
         def mappedJar = file("${System.getProperty('user.home')}/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.12.2-14.23.5.2860_mapped_snapshot_20171003-1.12/forge-1.12.2-14.23.5.2860_mapped_snapshot_20171003-1.12.jar")
