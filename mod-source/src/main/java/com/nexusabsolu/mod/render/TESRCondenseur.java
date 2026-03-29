@@ -174,6 +174,7 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
         GlStateManager.enableTexture2D();
         GlStateManager.enableLighting();
         GlStateManager.popMatrix();
+    }
 
     private void renderItems(TileCondenseur te, double x, double y, double z,
                              float time, float cx, float cz) {
