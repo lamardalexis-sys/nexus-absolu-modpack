@@ -57,12 +57,10 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
         // dx>0: west face visible, dx<0: east face visible
         // dz>0: north face visible, dz<0: south face visible
 
-        float offset = 0.001F; // tiny offset to prevent z-fighting
+        float offset = 0.001F;
 
-        if (processing) {
-            GlStateManager.enableBlend();
-            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        }
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
@@ -73,14 +71,21 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
             float flipL = dx > 0 ? 1.0F - scrLeft : scrLeft;
             float flipR = dx > 0 ? 1.0F - scrRight : scrRight;
 
+            // Screen background - always visible
+            float bgR, bgG, bgB;
             if (processing) {
-                // Green screen background glow
-                buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-                buf.pos(faceX, scrBottom, flipR).color(0.0F, 0.08F, 0.0F, 0.9F).endVertex();
-                buf.pos(faceX, scrBottom, flipL).color(0.0F, 0.08F, 0.0F, 0.9F).endVertex();
-                buf.pos(faceX, scrTop, flipL).color(0.0F, 0.12F, 0.0F, 0.9F).endVertex();
-                buf.pos(faceX, scrTop, flipR).color(0.0F, 0.12F, 0.0F, 0.9F).endVertex();
-                tess.draw();
+                bgR = 0.0F; bgG = 0.08F; bgB = 0.0F;
+            } else {
+                bgR = 0.02F; bgG = 0.02F; bgB = 0.04F; // dim blue-grey when off
+            }
+            buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(faceX, scrBottom, flipR).color(bgR, bgG, bgB, 0.95F).endVertex();
+            buf.pos(faceX, scrBottom, flipL).color(bgR, bgG, bgB, 0.95F).endVertex();
+            buf.pos(faceX, scrTop, flipL).color(bgR * 1.5F, bgG * 1.5F, bgB * 1.5F, 0.95F).endVertex();
+            buf.pos(faceX, scrTop, flipR).color(bgR * 1.5F, bgG * 1.5F, bgB * 1.5F, 0.95F).endVertex();
+            tess.draw();
+
+            if (processing) {
 
                 // Scrolling green "text" lines
                 float scrollOffset = (time * 0.8F) % 1.0F;
@@ -118,9 +123,29 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
                         tess.draw();
                     }
                 }
-            }
+            } else {
+                // IDLE screen: slow scanning line + dim "standby" bar
+                float scanY = scrBottom + ((time * 0.15F) % 1.0F) * (scrTop - scrBottom);
+                float scanL = Math.min(flipL, flipR) + 0.02F;
+                float scanR = Math.max(flipL, flipR) - 0.02F;
+                buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+                buf.pos(faceX, scanY, scanL).color(0.05F, 0.05F, 0.12F, 0.6F).endVertex();
+                buf.pos(faceX, scanY, scanR).color(0.05F, 0.05F, 0.12F, 0.6F).endVertex();
+                buf.pos(faceX, scanY + 0.02F, scanR).color(0.08F, 0.08F, 0.18F, 0.4F).endVertex();
+                buf.pos(faceX, scanY + 0.02F, scanL).color(0.08F, 0.08F, 0.18F, 0.4F).endVertex();
+                tess.draw();
 
-            // Status LED - green when processing, red when idle
+                // Dim center dot (standby indicator)
+                float dotY = (scrBottom + scrTop) / 2.0F;
+                float dotZ = (Math.min(flipL, flipR) + Math.max(flipL, flipR)) / 2.0F;
+                float pulse = 0.03F + 0.015F * (float)Math.sin(time * 1.5);
+                buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+                buf.pos(faceX, dotY - pulse, dotZ - pulse).color(0.15F, 0.05F, 0.25F, 0.7F).endVertex();
+                buf.pos(faceX, dotY - pulse, dotZ + pulse).color(0.15F, 0.05F, 0.25F, 0.7F).endVertex();
+                buf.pos(faceX, dotY + pulse, dotZ + pulse).color(0.15F, 0.05F, 0.25F, 0.7F).endVertex();
+                buf.pos(faceX, dotY + pulse, dotZ - pulse).color(0.15F, 0.05F, 0.25F, 0.7F).endVertex();
+                tess.draw();
+            }
             float ledY = 0.28125F; // pixel 23 from top = (32-23)/32
             float ledX1 = dx > 0 ? 1.0F - 25.0F/32.0F : 25.0F/32.0F;
             float ledX2 = dx > 0 ? 1.0F - 27.0F/32.0F : 27.0F/32.0F;
@@ -140,14 +165,21 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
             float flipL = dz > 0 ? scrLeft : 1.0F - scrLeft;
             float flipR = dz > 0 ? scrRight : 1.0F - scrRight;
 
+            // Screen background - always visible
+            float bgR2, bgG2, bgB2;
             if (processing) {
-                buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-                buf.pos(Math.min(flipL, flipR), scrBottom, faceZ).color(0.0F, 0.08F, 0.0F, 0.9F).endVertex();
-                buf.pos(Math.max(flipL, flipR), scrBottom, faceZ).color(0.0F, 0.08F, 0.0F, 0.9F).endVertex();
-                buf.pos(Math.max(flipL, flipR), scrTop, faceZ).color(0.0F, 0.12F, 0.0F, 0.9F).endVertex();
-                buf.pos(Math.min(flipL, flipR), scrTop, faceZ).color(0.0F, 0.12F, 0.0F, 0.9F).endVertex();
-                tess.draw();
+                bgR2 = 0.0F; bgG2 = 0.08F; bgB2 = 0.0F;
+            } else {
+                bgR2 = 0.02F; bgG2 = 0.02F; bgB2 = 0.04F;
+            }
+            buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(Math.min(flipL, flipR), scrBottom, faceZ).color(bgR2, bgG2, bgB2, 0.95F).endVertex();
+            buf.pos(Math.max(flipL, flipR), scrBottom, faceZ).color(bgR2, bgG2, bgB2, 0.95F).endVertex();
+            buf.pos(Math.max(flipL, flipR), scrTop, faceZ).color(bgR2*1.5F, bgG2*1.5F, bgB2*1.5F, 0.95F).endVertex();
+            buf.pos(Math.min(flipL, flipR), scrTop, faceZ).color(bgR2*1.5F, bgG2*1.5F, bgB2*1.5F, 0.95F).endVertex();
+            tess.draw();
 
+            if (processing) {
                 float scrollOffset = (time * 0.8F) % 1.0F;
                 float lineH = 0.04F;
                 float lineGap = 0.06F;
@@ -165,12 +197,21 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
                     buf.pos(Math.min(lineStart, lineEnd), ly + lineH, faceZ).color(0.0F, bright * 0.7F, 0.0F, 0.8F).endVertex();
                     tess.draw();
                 }
+            } else {
+                // Idle scanline
+                float scanY = scrBottom + ((time * 0.15F) % 1.0F) * (scrTop - scrBottom);
+                float scanL2 = Math.min(flipL, flipR) + 0.02F;
+                float scanR2 = Math.max(flipL, flipR) - 0.02F;
+                buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+                buf.pos(scanL2, scanY, faceZ).color(0.05F, 0.05F, 0.12F, 0.6F).endVertex();
+                buf.pos(scanR2, scanY, faceZ).color(0.05F, 0.05F, 0.12F, 0.6F).endVertex();
+                buf.pos(scanR2, scanY + 0.02F, faceZ).color(0.08F, 0.08F, 0.18F, 0.4F).endVertex();
+                buf.pos(scanL2, scanY + 0.02F, faceZ).color(0.08F, 0.08F, 0.18F, 0.4F).endVertex();
+                tess.draw();
             }
         }
 
-        if (processing) {
-            GlStateManager.disableBlend();
-        }
+        GlStateManager.disableBlend();
         GlStateManager.enableTexture2D();
         GlStateManager.enableLighting();
         GlStateManager.popMatrix();
