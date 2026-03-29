@@ -64,17 +64,17 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
         return getDefaultState().withProperty(POSITION, meta & 7);
     }
 
-    // Only glass position (4) is see-through
+    // Glass positions (4,5,6) are see-through
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         int pos = state.getValue(POSITION);
-        return pos != 4; // only glass is transparent
+        return !(pos >= 4 && pos <= 6);
     }
 
     @Override
     public boolean isFullCube(IBlockState state) {
         int pos = state.getValue(POSITION);
-        return pos != 4;
+        return !(pos >= 4 && pos <= 6);
     }
 
     @Override
@@ -88,21 +88,25 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
     public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world,
             BlockPos pos, EnumFacing side) {
         int position = state.getValue(POSITION);
-        // Hide faces between top wall blocks (5,6,7) for seamless look
-        if (position >= 5 && position <= 7) {
-            IBlockState neighbor = world.getBlockState(pos.offset(side));
-            if (neighbor.getBlock() == this) {
-                int nPos = neighbor.getValue(POSITION);
-                if (nPos >= 5 && nPos <= 7) return false;
-            }
-        }
-        // Glass: hide face toward adjacent top blocks
-        if (position == 4) {
-            IBlockState neighbor = world.getBlockState(pos.offset(side));
-            if (neighbor.getBlock() == this) {
-                int nPos = neighbor.getValue(POSITION);
-                if (nPos >= 4 && nPos <= 7) return false;
-            }
+        boolean isGlass = (position >= 4 && position <= 6);
+
+        IBlockState neighbor = world.getBlockState(pos.offset(side));
+        if (neighbor.getBlock() == this) {
+            int nPos = neighbor.getValue(POSITION);
+            boolean nIsGlass = (nPos >= 4 && nPos <= 6);
+
+            // Glass touching glass: always hide (seamless)
+            if (isGlass && nIsGlass) return false;
+
+            // Glass touching solid: hide the solid's face toward glass
+            // (so we don't see the bottom of wall or top of bottom blocks through glass)
+            if (!isGlass && nIsGlass) return false;
+
+            // Solid touching solid: hide internal faces
+            if (!isGlass && !nIsGlass) return false;
+
+            // Glass touching solid: show the glass face (we want the frame visible)
+            // This case: isGlass && !nIsGlass -> fall through to super
         }
         return super.shouldSideBeRendered(state, world, pos, side);
     }
