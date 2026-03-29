@@ -2,19 +2,19 @@ version:1343
 invertYMouse:false
 mouseSensitivity:0.5
 fov:0.75
-gamma:0.0
+gamma:1.0
 saturation:0.0
 renderDistance:12
-guiScale:0
+guiScale:3
 particles:0
 bobView:true
 anaglyph3d:false
-maxFps:120
+maxFps:260
 fboEnable:true
 difficulty:2
 fancyGraphics:true
 ao:2
-renderClouds:true
+renderClouds:false
 resourcePacks:[]
 incompatibleResourcePacks:[]
 lastServer:
@@ -49,7 +49,7 @@ attackIndicator:1
 showSubtitles:false
 realmsNotifications:true
 enableWeakAttacks:false
-autoJump:true
+autoJump:false
 narrator:0
 tutorialStep:none
 key_key.attack:-100
@@ -85,17 +85,14 @@ key_key.hotbar.6:7
 key_key.hotbar.7:8
 key_key.hotbar.8:9
 key_key.hotbar.9:10
-key_Change Caster Focus:33
-key_Misc Caster Toggle:34
 key_keybind.baublesinventory:48
 key_quark.keybind.dropoff:0
-key_quark.keybind.changeHotbar:44
+key_quark.keybind.changeHotbar:71
 key_quark.keybind.chestSort:0
 key_quark.keybind.chestDropoff:0
 key_quark.keybind.chestMerge:0
 key_quark.keybind.chestRestock:0
 key_quark.keybind.chestExtract:0
-key_quark.keybind.lockBuilding:37
 key_quark.emote.no:0
 key_quark.emote.yes:0
 key_quark.emote.wave:0
@@ -115,14 +112,20 @@ key_quark.emote.jet:0
 key_quark.emote.exorcist:0
 key_quark.emote.zombie:0
 key_quark.keybind.toggleAutojump:48
+key_quark.keybind.lockBuilding:37
 key_ae2stuff.keybinding.adv_wireless_second:29
 key_key.toggle_shaders:0
+key_key.xu2.searchforitems:20
 key_Galaxy Map:50
 key_Open Spaceship Inventory:33
 key_Toggle Sensor Goggles Mode:37
+key_key.betterquesting.quests:41
 key_bloodmagic.keybind.open_holding:35
 key_bloodmagic.keybind.cycle_holding_pos:13:SHIFT
 key_bloodmagic.keybind.cycle_holding_neg:12:SHIFT
+key_key.conarm.toggle_helm.desc:34
+key_key.conarm.toggle_chest.desc:35
+key_key.conarm.toggle_leg.desc:36
 key_key.ftbutilities.nbt:49:ALT
 key_key.ftbutilities.trash:211
 key_key.ftbquests.quests:0
@@ -226,6 +229,10 @@ key_Open Pre Launch Checklist GUI:25
 key_Open Portable NASA Workbench GUI:24
 key_key.clipboardPaste:210
 key_key.ae2fc.open_wireless_fluid_pattern_terminal.desc:0
+key_key.dragon_fireAttack:19
+key_key.dragon_strike:34
+key_key.dragon_down:45
+key_key.dragon_change_view:65
 key_invtweaks.key.sort:19
 key_pi.key.open_pi:23
 key_pi.key.et_gui:23
@@ -234,6 +241,11 @@ key_key.porterNextDestination:27
 key_key.porterPrevDestination:26
 key_key.debugDumpNBTItem:0
 key_key.debugDumpNBTBlock:0
+key_keybind.simplyjetpacks.gui:44
+key_keybind.simplyjetpacks.engine:34
+key_keybind.simplyjetpacks.charger:25
+key_keybind.simplyjetpacks.hover:38
+key_keybind.simplyjetpacks.emergency_hover:0
 key_key.trashslot.toggle:20
 key_key.trashslot.delete:211
 key_key.trashslot.deleteAll:211:SHIFT
@@ -244,7 +256,6 @@ key_Rotate Vehicle Right:32
 key_Rotate Vehicle Left:30
 key_Move Vehicle Up:44
 key_Move Vehicle Down:45
-key_key.control:29
 key_key.journeymap.zoom_in:13
 key_key.journeymap.zoom_out:12
 key_key.journeymap.minimap_type:26
@@ -261,6 +272,7 @@ key_key.journeymap.fullscreen.north:200
 key_key.journeymap.fullscreen.south:208
 key_key.journeymap.fullscreen.east:205
 key_key.journeymap.fullscreen.west:203
+key_key.control:29
 key_enderio.keybind.inventory:23
 key_enderio.keybind.dsu:0
 key_enderio.keybind.glidertoggle:34
@@ -282,15 +294,15 @@ key_enderio.keybind.fovplus:0
 key_enderio.keybind.fovminus:0
 key_enderio.keybind.fovplusfast:0
 key_enderio.keybind.fovminusfast:0
-soundCategory_master:1.0
-soundCategory_music:1.0
+soundCategory_master:0.31456953
+soundCategory_music:0.0
 soundCategory_record:1.0
 soundCategory_weather:1.0
 soundCategory_block:1.0
 soundCategory_hostile:1.0
 soundCategory_neutral:1.0
 soundCategory_player:1.0
-soundCategory_ambient:1.0
+soundCategory_ambient:0.0
 soundCategory_voice:1.0
 modelPart_cape:true
 modelPart_jacket:true

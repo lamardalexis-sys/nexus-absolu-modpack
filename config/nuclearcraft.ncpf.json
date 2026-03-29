@@ -616,9 +616,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 234,
-                      "time": 125.0,
+                      "time": 62.5,
                       "self_priming": false
                     }
                   }
@@ -634,9 +634,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.1,
+                      "efficiency": 5.5,
                       "criticality": 78,
-                      "time": 23.25,
+                      "time": 11.625,
                       "self_priming": false
                     }
                   }
@@ -652,9 +652,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 39,
-                      "time": 23.25,
+                      "time": 11.625,
                       "self_priming": false
                     }
                   }
@@ -670,9 +670,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.0,
+                      "efficiency": 5.0,
                       "criticality": 102,
-                      "time": 41.666666666666664,
+                      "time": 20.833333333333332,
                       "self_priming": false
                     }
                   }
@@ -688,9 +688,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.05,
+                      "efficiency": 5.25,
                       "criticality": 51,
-                      "time": 41.666666666666664,
+                      "time": 20.833333333333332,
                       "self_priming": false
                     }
                   }
@@ -706,9 +706,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.1,
+                      "efficiency": 5.5,
                       "criticality": 70,
-                      "time": 17.09722222222222,
+                      "time": 8.54861111111111,
                       "self_priming": false
                     }
                   }
@@ -724,9 +724,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 35,
-                      "time": 17.09722222222222,
+                      "time": 8.54861111111111,
                       "self_priming": false
                     }
                   }
@@ -742,9 +742,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.2,
+                      "efficiency": 6.0,
                       "criticality": 99,
-                      "time": 40.0,
+                      "time": 20.0,
                       "self_priming": false
                     }
                   }
@@ -760,9 +760,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 49,
-                      "time": 40.0,
+                      "time": 20.0,
                       "self_priming": false
                     }
                   }
@@ -778,9 +778,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 84,
-                      "time": 27.40277777777778,
+                      "time": 13.70138888888889,
                       "self_priming": false
                     }
                   }
@@ -796,9 +796,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.3,
+                      "efficiency": 6.5,
                       "criticality": 42,
-                      "time": 27.40277777777778,
+                      "time": 13.70138888888889,
                       "self_priming": false
                     }
                   }
@@ -814,9 +814,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.05,
+                      "efficiency": 5.25,
                       "criticality": 94,
-                      "time": 38.09722222222222,
+                      "time": 19.04861111111111,
                       "self_priming": false
                     }
                   }
@@ -832,9 +832,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 80,
-                      "time": 26.09722222222222,
+                      "time": 13.04861111111111,
                       "self_priming": false
                     }
                   }
@@ -850,9 +850,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.35,
+                      "efficiency": 6.75,
                       "criticality": 65,
-                      "time": 12.819444444444445,
+                      "time": 6.409722222222222,
                       "self_priming": false
                     }
                   }
@@ -868,9 +868,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.4,
+                      "efficiency": 7.0,
                       "criticality": 32,
-                      "time": 12.819444444444445,
+                      "time": 6.409722222222222,
                       "self_priming": false
                     }
                   }
@@ -886,9 +886,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.45,
+                      "efficiency": 7.25,
                       "criticality": 66,
-                      "time": 12.98611111111111,
+                      "time": 6.493055555555555,
                       "self_priming": false
                     }
                   }
@@ -904,9 +904,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.5,
+                      "efficiency": 7.5,
                       "criticality": 33,
-                      "time": 12.98611111111111,
+                      "time": 6.493055555555555,
                       "self_priming": false
                     }
                   }
@@ -922,9 +922,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.5,
+                      "efficiency": 7.5,
                       "criticality": 75,
-                      "time": 21.055555555555557,
+                      "time": 10.527777777777779,
                       "self_priming": false
                     }
                   }
@@ -940,9 +940,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.55,
+                      "efficiency": 7.75,
                       "criticality": 37,
-                      "time": 21.055555555555557,
+                      "time": 10.527777777777779,
                       "self_priming": false
                     }
                   }
@@ -958,9 +958,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.55,
+                      "efficiency": 7.75,
                       "criticality": 72,
-                      "time": 18.694444444444443,
+                      "time": 9.347222222222221,
                       "self_priming": false
                     }
                   }
@@ -976,9 +976,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.6,
+                      "efficiency": 8.0,
                       "criticality": 36,
-                      "time": 18.694444444444443,
+                      "time": 9.347222222222221,
                       "self_priming": false
                     }
                   }
@@ -994,9 +994,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.65,
+                      "efficiency": 8.25,
                       "criticality": 73,
-                      "time": 18.86111111111111,
+                      "time": 9.430555555555555,
                       "self_priming": false
                     }
                   }
@@ -1012,9 +1012,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.7,
+                      "efficiency": 8.5,
                       "criticality": 36,
-                      "time": 18.86111111111111,
+                      "time": 9.430555555555555,
                       "self_priming": false
                     }
                   }
@@ -1030,9 +1030,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.75,
+                      "efficiency": 8.75,
                       "criticality": 60,
-                      "time": 9.26388888888889,
+                      "time": 4.631944444444445,
                       "self_priming": true
                     }
                   }
@@ -1048,9 +1048,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.8,
+                      "efficiency": 9.0,
                       "criticality": 30,
-                      "time": 9.26388888888889,
+                      "time": 4.631944444444445,
                       "self_priming": true
                     }
                   }
@@ -1066,9 +1066,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.8,
+                      "efficiency": 9.0,
                       "criticality": 71,
-                      "time": 17.38888888888889,
+                      "time": 8.694444444444445,
                       "self_priming": true
                     }
                   }
@@ -1084,9 +1084,9 @@
                         "type": "legacy_fluid",
                         "modules": {}
                       },
-                      "efficiency": 1.85,
+                      "efficiency": 9.25,
                       "criticality": 35,
-                      "time": 17.38888888888889,
+                      "time": 8.694444444444445,
                       "self_priming": true
                     }
                   }
@@ -5705,9 +5705,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 234,
-                      "time": 14400,
+                      "time": 7200,
                       "self_priming": false
                     }
                   }
@@ -5723,9 +5723,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 293,
-                      "time": 18000,
+                      "time": 9000,
                       "self_priming": false
                     }
                   }
@@ -5741,9 +5741,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 199,
-                      "time": 11520,
+                      "time": 5760,
                       "self_priming": false
                     }
                   }
@@ -5759,9 +5759,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.1,
+                      "efficiency": 5.5,
                       "criticality": 78,
-                      "time": 2666,
+                      "time": 1333,
                       "self_priming": false
                     }
                   }
@@ -5777,9 +5777,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.1,
+                      "efficiency": 5.5,
                       "criticality": 98,
-                      "time": 3348,
+                      "time": 1674,
                       "self_priming": false
                     }
                   }
@@ -5795,9 +5795,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.1,
+                      "efficiency": 5.5,
                       "criticality": 66,
-                      "time": 2134,
+                      "time": 1067,
                       "self_priming": false
                     }
                   }
@@ -5813,9 +5813,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 39,
-                      "time": 2666,
+                      "time": 1333,
                       "self_priming": false
                     }
                   }
@@ -5831,9 +5831,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 49,
-                      "time": 3348,
+                      "time": 1674,
                       "self_priming": false
                     }
                   }
@@ -5849,9 +5849,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 33,
-                      "time": 2134,
+                      "time": 1067,
                       "self_priming": false
                     }
                   }
@@ -5867,9 +5867,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.0,
+                      "efficiency": 5.0,
                       "criticality": 102,
-                      "time": 4800,
+                      "time": 2400,
                       "self_priming": false
                     }
                   }
@@ -5885,9 +5885,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.0,
+                      "efficiency": 5.0,
                       "criticality": 128,
-                      "time": 6000,
+                      "time": 3000,
                       "self_priming": false
                     }
                   }
@@ -5903,9 +5903,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.0,
+                      "efficiency": 5.0,
                       "criticality": 87,
-                      "time": 3840,
+                      "time": 1920,
                       "self_priming": false
                     }
                   }
@@ -5921,9 +5921,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.05,
+                      "efficiency": 5.25,
                       "criticality": 51,
-                      "time": 4800,
+                      "time": 2400,
                       "self_priming": false
                     }
                   }
@@ -5939,9 +5939,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.05,
+                      "efficiency": 5.25,
                       "criticality": 64,
-                      "time": 6000,
+                      "time": 3000,
                       "self_priming": false
                     }
                   }
@@ -5957,9 +5957,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.05,
+                      "efficiency": 5.25,
                       "criticality": 43,
-                      "time": 3840,
+                      "time": 1920,
                       "self_priming": false
                     }
                   }
@@ -5975,9 +5975,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.1,
+                      "efficiency": 5.5,
                       "criticality": 70,
-                      "time": 1972,
+                      "time": 986,
                       "self_priming": false
                     }
                   }
@@ -5993,9 +5993,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.1,
+                      "efficiency": 5.5,
                       "criticality": 88,
-                      "time": 2462,
+                      "time": 1231,
                       "self_priming": false
                     }
                   }
@@ -6011,9 +6011,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.1,
+                      "efficiency": 5.5,
                       "criticality": 60,
-                      "time": 1574,
+                      "time": 787,
                       "self_priming": false
                     }
                   }
@@ -6029,9 +6029,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 35,
-                      "time": 1972,
+                      "time": 986,
                       "self_priming": false
                     }
                   }
@@ -6047,9 +6047,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 44,
-                      "time": 2462,
+                      "time": 1231,
                       "self_priming": false
                     }
                   }
@@ -6065,9 +6065,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 30,
-                      "time": 1574,
+                      "time": 787,
                       "self_priming": false
                     }
                   }
@@ -6083,9 +6083,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.2,
+                      "efficiency": 6.0,
                       "criticality": 99,
-                      "time": 4572,
+                      "time": 2286,
                       "self_priming": false
                     }
                   }
@@ -6101,9 +6101,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.2,
+                      "efficiency": 6.0,
                       "criticality": 124,
-                      "time": 5760,
+                      "time": 2880,
                       "self_priming": false
                     }
                   }
@@ -6119,9 +6119,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.2,
+                      "efficiency": 6.0,
                       "criticality": 84,
-                      "time": 3646,
+                      "time": 1823,
                       "self_priming": false
                     }
                   }
@@ -6137,9 +6137,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 49,
-                      "time": 4572,
+                      "time": 2286,
                       "self_priming": false
                     }
                   }
@@ -6155,9 +6155,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 62,
-                      "time": 5760,
+                      "time": 2880,
                       "self_priming": false
                     }
                   }
@@ -6173,9 +6173,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 42,
-                      "time": 3646,
+                      "time": 1823,
                       "self_priming": false
                     }
                   }
@@ -6191,9 +6191,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 84,
-                      "time": 3164,
+                      "time": 1582,
                       "self_priming": false
                     }
                   }
@@ -6209,9 +6209,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 105,
-                      "time": 3946,
+                      "time": 1973,
                       "self_priming": false
                     }
                   }
@@ -6227,9 +6227,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.25,
+                      "efficiency": 6.25,
                       "criticality": 71,
-                      "time": 2526,
+                      "time": 1263,
                       "self_priming": false
                     }
                   }
@@ -6245,9 +6245,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.3,
+                      "efficiency": 6.5,
                       "criticality": 42,
-                      "time": 3164,
+                      "time": 1582,
                       "self_priming": false
                     }
                   }
@@ -6263,9 +6263,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.3,
+                      "efficiency": 6.5,
                       "criticality": 52,
-                      "time": 3946,
+                      "time": 1973,
                       "self_priming": false
                     }
                   }
@@ -6281,9 +6281,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.3,
+                      "efficiency": 6.5,
                       "criticality": 35,
-                      "time": 2526,
+                      "time": 1263,
                       "self_priming": false
                     }
                   }
@@ -6299,9 +6299,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.05,
+                      "efficiency": 5.25,
                       "criticality": 94,
-                      "time": 4354,
+                      "time": 2177,
                       "self_priming": false
                     }
                   }
@@ -6317,9 +6317,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.05,
+                      "efficiency": 5.25,
                       "criticality": 118,
-                      "time": 5486,
+                      "time": 2743,
                       "self_priming": false
                     }
                   }
@@ -6335,9 +6335,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.05,
+                      "efficiency": 5.25,
                       "criticality": 80,
-                      "time": 3472,
+                      "time": 1736,
                       "self_priming": false
                     }
                   }
@@ -6353,9 +6353,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 80,
-                      "time": 3014,
+                      "time": 1507,
                       "self_priming": false
                     }
                   }
@@ -6371,9 +6371,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 100,
-                      "time": 3758,
+                      "time": 1879,
                       "self_priming": false
                     }
                   }
@@ -6389,9 +6389,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.15,
+                      "efficiency": 5.75,
                       "criticality": 68,
-                      "time": 2406,
+                      "time": 1203,
                       "self_priming": false
                     }
                   }
@@ -6407,9 +6407,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.35,
+                      "efficiency": 6.75,
                       "criticality": 65,
-                      "time": 1476,
+                      "time": 738,
                       "self_priming": false
                     }
                   }
@@ -6425,9 +6425,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.35,
+                      "efficiency": 6.75,
                       "criticality": 81,
-                      "time": 1846,
+                      "time": 923,
                       "self_priming": false
                     }
                   }
@@ -6443,9 +6443,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.35,
+                      "efficiency": 6.75,
                       "criticality": 55,
-                      "time": 1180,
+                      "time": 590,
                       "self_priming": false
                     }
                   }
@@ -6461,9 +6461,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.4,
+                      "efficiency": 7.0,
                       "criticality": 32,
-                      "time": 1476,
+                      "time": 738,
                       "self_priming": false
                     }
                   }
@@ -6479,9 +6479,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.4,
+                      "efficiency": 7.0,
                       "criticality": 40,
-                      "time": 1846,
+                      "time": 923,
                       "self_priming": false
                     }
                   }
@@ -6497,9 +6497,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.4,
+                      "efficiency": 7.0,
                       "criticality": 27,
-                      "time": 1180,
+                      "time": 590,
                       "self_priming": false
                     }
                   }
@@ -6515,9 +6515,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.45,
+                      "efficiency": 7.25,
                       "criticality": 66,
-                      "time": 1500,
+                      "time": 750,
                       "self_priming": false
                     }
                   }
@@ -6533,9 +6533,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.45,
+                      "efficiency": 7.25,
                       "criticality": 83,
-                      "time": 1870,
+                      "time": 935,
                       "self_priming": false
                     }
                   }
@@ -6551,9 +6551,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.45,
+                      "efficiency": 7.25,
                       "criticality": 56,
-                      "time": 1200,
+                      "time": 600,
                       "self_priming": false
                     }
                   }
@@ -6569,9 +6569,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.5,
+                      "efficiency": 7.5,
                       "criticality": 33,
-                      "time": 1500,
+                      "time": 750,
                       "self_priming": false
                     }
                   }
@@ -6587,9 +6587,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.5,
+                      "efficiency": 7.5,
                       "criticality": 41,
-                      "time": 1870,
+                      "time": 935,
                       "self_priming": false
                     }
                   }
@@ -6605,9 +6605,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.5,
+                      "efficiency": 7.5,
                       "criticality": 28,
-                      "time": 1200,
+                      "time": 600,
                       "self_priming": false
                     }
                   }
@@ -6623,9 +6623,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.5,
+                      "efficiency": 7.5,
                       "criticality": 75,
-                      "time": 2420,
+                      "time": 1210,
                       "self_priming": false
                     }
                   }
@@ -6641,9 +6641,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.5,
+                      "efficiency": 7.5,
                       "criticality": 94,
-                      "time": 3032,
+                      "time": 1516,
                       "self_priming": false
                     }
                   }
@@ -6659,9 +6659,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.5,
+                      "efficiency": 7.5,
                       "criticality": 64,
-                      "time": 1932,
+                      "time": 966,
                       "self_priming": false
                     }
                   }
@@ -6677,9 +6677,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.55,
+                      "efficiency": 7.75,
                       "criticality": 37,
-                      "time": 2420,
+                      "time": 1210,
                       "self_priming": false
                     }
                   }
@@ -6695,9 +6695,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.55,
+                      "efficiency": 7.75,
                       "criticality": 47,
-                      "time": 3032,
+                      "time": 1516,
                       "self_priming": false
                     }
                   }
@@ -6713,9 +6713,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.55,
+                      "efficiency": 7.75,
                       "criticality": 32,
-                      "time": 1932,
+                      "time": 966,
                       "self_priming": false
                     }
                   }
@@ -6731,9 +6731,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.55,
+                      "efficiency": 7.75,
                       "criticality": 72,
-                      "time": 2150,
+                      "time": 1075,
                       "self_priming": false
                     }
                   }
@@ -6749,9 +6749,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.55,
+                      "efficiency": 7.75,
                       "criticality": 90,
-                      "time": 2692,
+                      "time": 1346,
                       "self_priming": false
                     }
                   }
@@ -6767,9 +6767,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.55,
+                      "efficiency": 7.75,
                       "criticality": 61,
-                      "time": 1714,
+                      "time": 857,
                       "self_priming": false
                     }
                   }
@@ -6785,9 +6785,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.6,
+                      "efficiency": 8.0,
                       "criticality": 36,
-                      "time": 2150,
+                      "time": 1075,
                       "self_priming": false
                     }
                   }
@@ -6803,9 +6803,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.6,
+                      "efficiency": 8.0,
                       "criticality": 45,
-                      "time": 2692,
+                      "time": 1346,
                       "self_priming": false
                     }
                   }
@@ -6821,9 +6821,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.6,
+                      "efficiency": 8.0,
                       "criticality": 30,
-                      "time": 1714,
+                      "time": 857,
                       "self_priming": false
                     }
                   }
@@ -6839,9 +6839,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.65,
+                      "efficiency": 8.25,
                       "criticality": 73,
-                      "time": 2166,
+                      "time": 1083,
                       "self_priming": false
                     }
                   }
@@ -6857,9 +6857,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.65,
+                      "efficiency": 8.25,
                       "criticality": 91,
-                      "time": 2716,
+                      "time": 1358,
                       "self_priming": false
                     }
                   }
@@ -6875,9 +6875,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.65,
+                      "efficiency": 8.25,
                       "criticality": 62,
-                      "time": 1734,
+                      "time": 867,
                       "self_priming": false
                     }
                   }
@@ -6893,9 +6893,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.7,
+                      "efficiency": 8.5,
                       "criticality": 36,
-                      "time": 2166,
+                      "time": 1083,
                       "self_priming": false
                     }
                   }
@@ -6911,9 +6911,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.7,
+                      "efficiency": 8.5,
                       "criticality": 45,
-                      "time": 2716,
+                      "time": 1358,
                       "self_priming": false
                     }
                   }
@@ -6929,9 +6929,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.7,
+                      "efficiency": 8.5,
                       "criticality": 31,
-                      "time": 1734,
+                      "time": 867,
                       "self_priming": false
                     }
                   }
@@ -6947,9 +6947,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.75,
+                      "efficiency": 8.75,
                       "criticality": 60,
-                      "time": 1066,
+                      "time": 533,
                       "self_priming": true
                     }
                   }
@@ -6965,9 +6965,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.75,
+                      "efficiency": 8.75,
                       "criticality": 75,
-                      "time": 1334,
+                      "time": 667,
                       "self_priming": true
                     }
                   }
@@ -6983,9 +6983,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.75,
+                      "efficiency": 8.75,
                       "criticality": 51,
-                      "time": 852,
+                      "time": 426,
                       "self_priming": true
                     }
                   }
@@ -7001,9 +7001,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.8,
+                      "efficiency": 9.0,
                       "criticality": 30,
-                      "time": 1066,
+                      "time": 533,
                       "self_priming": true
                     }
                   }
@@ -7019,9 +7019,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.8,
+                      "efficiency": 9.0,
                       "criticality": 37,
-                      "time": 1334,
+                      "time": 667,
                       "self_priming": true
                     }
                   }
@@ -7037,9 +7037,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.8,
+                      "efficiency": 9.0,
                       "criticality": 25,
-                      "time": 852,
+                      "time": 426,
                       "self_priming": true
                     }
                   }
@@ -7055,9 +7055,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.8,
+                      "efficiency": 9.0,
                       "criticality": 71,
-                      "time": 2000,
+                      "time": 1000,
                       "self_priming": true
                     }
                   }
@@ -7073,9 +7073,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.8,
+                      "efficiency": 9.0,
                       "criticality": 89,
-                      "time": 2504,
+                      "time": 1252,
                       "self_priming": true
                     }
                   }
@@ -7091,9 +7091,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.8,
+                      "efficiency": 9.0,
                       "criticality": 60,
-                      "time": 1600,
+                      "time": 800,
                       "self_priming": true
                     }
                   }
@@ -7109,9 +7109,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.85,
+                      "efficiency": 9.25,
                       "criticality": 35,
-                      "time": 2000,
+                      "time": 1000,
                       "self_priming": true
                     }
                   }
@@ -7127,9 +7127,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.85,
+                      "efficiency": 9.25,
                       "criticality": 44,
-                      "time": 2504,
+                      "time": 1252,
                       "self_priming": true
                     }
                   }
@@ -7145,9 +7145,9 @@
                         "type": "oredict",
                         "modules": {}
                       },
-                      "efficiency": 1.85,
+                      "efficiency": 9.25,
                       "criticality": 30,
-                      "time": 1600,
+                      "time": 800,
                       "self_priming": true
                     }
                   }
