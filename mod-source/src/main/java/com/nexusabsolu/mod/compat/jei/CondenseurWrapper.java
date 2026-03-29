@@ -39,7 +39,10 @@ public class CondenseurWrapper implements IRecipeWrapper {
         minecraft.fontRenderer.drawString("\u2192", 68, 24, 0xBB86FC);
         String time = recipe.processTime / 20 + "s";
         minecraft.fontRenderer.drawString(time, 65, 45, 0x888888);
-        String rf = recipe.rfCost + " RF";
+        String rf = recipe.rfPerTick + " RF/t";
         minecraft.fontRenderer.drawString(rf, 58, 5, 0xCC3333);
+        int totalRF = recipe.rfPerTick * recipe.processTime;
+        String total = totalRF / 1000 + "k RF";
+        minecraft.fontRenderer.drawString(total, 110, 5, 0x888888);
     }
 }

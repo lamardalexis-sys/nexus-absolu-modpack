@@ -15,31 +15,31 @@ public class CondenseurRecipes {
     public static List<Recipe> getRecipes() { return RECIPES; }
 
     static {
-        // Format: 2x input CM, key item, catalyst item, output CM, process time, RF cost
-        // Tier 1: 2x Tiny(3x3) + Key5x5 + Catalyseur Instable -> Small(5x5)
+        // Format: 2x input CM, key, catalyst, output CM, process time (ticks), RF/tick
+        // Tier 1: 2x Tiny(3x3) -> Small(5x5) | 60s @ 50 RF/t = 60,000 RF total
         addRecipe("compactmachines3:machine", 0,
                   ModItems.COMPACT_KEY_5X5, ModItems.CATALYSEUR_INSTABLE,
-                  "compactmachines3:machine", 1, 200, 1000);
+                  "compactmachines3:machine", 1, 1200, 50);
 
-        // Tier 2: 2x Small(5x5) + Key7x7 + Catalyseur Volatile -> Normal(7x7)
+        // Tier 2: 2x Small(5x5) -> Normal(7x7) | 90s @ 80 RF/t = 144,000 RF
         addRecipe("compactmachines3:machine", 1,
                   ModItems.COMPACT_KEY_7X7, ModItems.CATALYSEUR_VOLATILE,
-                  "compactmachines3:machine", 2, 400, 3000);
+                  "compactmachines3:machine", 2, 1800, 80);
 
-        // Tier 3: 2x Normal(7x7) + Key9x9 + Catalyseur Critique -> Large(9x9)
+        // Tier 3: 2x Normal(7x7) -> Large(9x9) | 120s @ 120 RF/t = 288,000 RF
         addRecipe("compactmachines3:machine", 2,
                   ModItems.COMPACT_KEY_9X9, ModItems.CATALYSEUR_CRITIQUE,
-                  "compactmachines3:machine", 3, 600, 8000);
+                  "compactmachines3:machine", 3, 2400, 120);
 
-        // Tier 4: 2x Large(9x9) + Key11x11 + Catalyseur Resonant -> Giant(11x11)
+        // Tier 4: 2x Large(9x9) -> Giant(11x11) | 180s @ 200 RF/t = 720,000 RF
         addRecipe("compactmachines3:machine", 3,
                   ModItems.COMPACT_KEY_11X11, ModItems.CATALYSEUR_RESONANT,
-                  "compactmachines3:machine", 4, 800, 20000);
+                  "compactmachines3:machine", 4, 3600, 200);
 
-        // Tier 5: 2x Giant(11x11) + Key13x13 + Catalyseur Absolu -> Maximum(13x13)
+        // Tier 5: 2x Giant(11x11) -> Maximum(13x13) | 300s @ 350 RF/t = 2,100,000 RF
         addRecipe("compactmachines3:machine", 4,
                   ModItems.COMPACT_KEY_13X13, ModItems.CATALYSEUR_ABSOLU,
-                  "compactmachines3:machine", 5, 1200, 50000);
+                  "compactmachines3:machine", 5, 6000, 350);
     }
 
     private static void addRecipe(String inputId, int inputMeta,
@@ -66,10 +66,10 @@ public class CondenseurRecipes {
         public final String outputId;
         public final int outputMeta;
         public final int processTime;
-        public final int rfCost;
+        public final int rfPerTick;
 
         public Recipe(String inputId, int inputMeta, Item key, Item catalyst,
-                     String outputId, int outputMeta, int processTime, int rfCost) {
+                     String outputId, int outputMeta, int processTime, int rfPerTick) {
             this.inputId = inputId;
             this.inputMeta = inputMeta;
             this.key = key;
@@ -77,7 +77,7 @@ public class CondenseurRecipes {
             this.outputId = outputId;
             this.outputMeta = outputMeta;
             this.processTime = processTime;
-            this.rfCost = rfCost;
+            this.rfPerTick = rfPerTick;
         }
 
         public boolean matches(ItemStack cm1, ItemStack cm2, ItemStack keyStack, ItemStack catalystStack) {

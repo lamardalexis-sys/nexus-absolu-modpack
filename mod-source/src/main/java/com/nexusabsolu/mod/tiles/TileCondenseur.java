@@ -18,9 +18,9 @@ import net.minecraftforge.energy.CapabilityEnergy;
 public class TileCondenseur extends TileEntity implements ITickable, IInventory {
 
     private ItemStack[] inventory = new ItemStack[5];
-    private InternalEnergyStorage energyStorage = new InternalEnergyStorage(50000, 100);
+    private InternalEnergyStorage energyStorage = new InternalEnergyStorage(500000, 500);
     private int processTime = 0;
-    private int maxProcessTime = 200;
+    private int maxProcessTime = 1200;
     private CondenseurRecipes.Recipe currentRecipe = null;
     private boolean processing = false;
     private boolean structureFormed = false;
@@ -84,8 +84,9 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         if (world.isRemote) return;
 
         if (structureFormed && canProcess() && (autoMode || processing)) {
-            if (energyStorage.getEnergyStored() >= 20) {
-                energyStorage.drainInternal(20);
+            int rfPerTick = currentRecipe != null ? currentRecipe.rfPerTick : 50;
+            if (energyStorage.getEnergyStored() >= rfPerTick) {
+                energyStorage.drainInternal(rfPerTick);
                 processTime++;
                 processing = true;
                 if (processTime % 40 == 0) {
@@ -254,9 +255,9 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         super.readFromNBT(compound);
         processTime = compound.getInteger("ProcessTime");
         maxProcessTime = compound.getInteger("MaxProcessTime");
-        if (maxProcessTime == 0) maxProcessTime = 200;
+        if (maxProcessTime == 0) maxProcessTime = 1200;
         int energy = compound.getInteger("Energy");
-        energyStorage = new InternalEnergyStorage(50000, 100, energy);
+        energyStorage = new InternalEnergyStorage(500000, 500, energy);
         structureFormed = compound.getBoolean("Formed");
         processing = compound.getBoolean("Processing");
         autoMode = compound.hasKey("AutoMode") ? compound.getBoolean("AutoMode") : true;
