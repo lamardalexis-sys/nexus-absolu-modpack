@@ -15,6 +15,11 @@ import org.lwjgl.opengl.GL11;
 public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
 
     @Override
+    public boolean isGlobalRenderer(TileCondenseur te) {
+        return true;
+    }
+
+    @Override
     public void render(TileCondenseur te, double x, double y, double z,
                        float partialTicks, int destroyStage, float alpha) {
         if (!te.isStructureValid()) return;
@@ -23,6 +28,8 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
         int dz = te.getMultiDZ();
         float cx = 0.5F + dx * 0.5F;
         float cz = 0.5F + dz * 0.5F;
+
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         renderArms(te, x, y, z, time, cx, cz, dx, dz);
         renderItems(te, x, y, z, time, cx, cz);
         renderFluid(te, x, y, z, time, dx, dz);
@@ -78,43 +85,41 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
         GlStateManager.pushMatrix();
         GlStateManager.translate(bx, by, bz);
 
-        // === BASE: flat plate ===
-        drawBox(-0.1F, -0.06F, -0.1F, 0.1F, 0.0F, 0.1F,
-                0.15F, 0.15F, 0.2F);
+        // === BASE: flat plate === BRIGHT RED
+        drawBox(-0.12F, -0.08F, -0.12F, 0.12F, 0.0F, 0.12F,
+                0.8F, 0.1F, 0.1F);
 
-        // === SHOULDER: vertical cylinder ===
-        drawBox(-0.06F, 0.0F, -0.06F, 0.06F, 0.15F, 0.06F,
-                0.3F, 0.12F, 0.4F);
+        // === SHOULDER: vertical part === BRIGHT PURPLE
+        drawBox(-0.07F, 0.0F, -0.07F, 0.07F, 0.18F, 0.07F,
+                0.6F, 0.15F, 0.7F);
 
         // === ROTATE to face center ===
-        GlStateManager.translate(0, 0.15F, 0);
+        GlStateManager.translate(0, 0.18F, 0);
         GlStateManager.rotate(-yaw + swing, 0, 1, 0);
 
-        // === UPPER ARM ===
+        // === UPPER ARM === DARK METAL
         drawBox(-0.08F, -0.06F, -0.06F, 0.08F, 0.06F, armLen,
-                0.2F, 0.2F, 0.28F);
+                0.35F, 0.35F, 0.4F);
 
-        // === ELBOW ===
+        // === ELBOW === BRIGHT PURPLE
         GlStateManager.translate(0, 0, armLen);
-        drawBox(-0.07F, -0.07F, -0.04F, 0.07F, 0.07F, 0.04F,
-                0.45F, 0.18F, 0.55F);
+        drawBox(-0.08F, -0.08F, -0.04F, 0.08F, 0.08F, 0.04F,
+                0.7F, 0.2F, 0.8F);
 
         // === FOREARM (slight bend down) ===
         float bend = 12.0F + 6.0F * (float)Math.sin(time * 0.8);
         GlStateManager.rotate(bend, 1, 0, 0);
         float foreLen = armLen * 0.8F;
-        drawBox(-0.065F, -0.05F, 0.0F, 0.065F, 0.05F, foreLen,
-                0.18F, 0.18F, 0.25F);
+        drawBox(-0.07F, -0.05F, 0.0F, 0.07F, 0.05F, foreLen,
+                0.3F, 0.3F, 0.35F);
 
-        // === CLAW ===
+        // === CLAW === BRIGHT CYAN
         GlStateManager.translate(0, 0, foreLen);
         float open = 0.05F + 0.02F * (float)Math.sin(time * 2.0);
-        // Left finger
         drawBox(-open - 0.03F, -0.04F, 0, -open, 0.04F, 0.08F,
-                0.5F, 0.15F, 0.6F);
-        // Right finger
+                0.1F, 0.7F, 0.8F);
         drawBox(open, -0.04F, 0, open + 0.03F, 0.04F, 0.08F,
-                0.5F, 0.15F, 0.6F);
+                0.1F, 0.7F, 0.8F);
 
         GlStateManager.popMatrix();
     }

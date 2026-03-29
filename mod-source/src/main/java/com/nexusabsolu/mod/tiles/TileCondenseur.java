@@ -55,11 +55,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
 
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
-        // Cover the full 2x2x2 multiblock so TESR renders everywhere
-        return new AxisAlignedBB(
-            pos.getX() + Math.min(0, multiDX), pos.getY(), pos.getZ() + Math.min(0, multiDZ),
-            pos.getX() + Math.max(0, multiDX) + 1, pos.getY() + 2, pos.getZ() + Math.max(0, multiDZ) + 1
-        );
+        return INFINITE_EXTENT_AABB;
     }
     public boolean isAutoMode() { return autoMode; }
     public void toggleAutoMode() { autoMode = !autoMode; markDirty(); syncToClient(); }
