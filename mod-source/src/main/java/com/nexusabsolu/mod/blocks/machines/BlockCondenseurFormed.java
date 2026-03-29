@@ -98,12 +98,6 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
 
             // Glass next to glass: hide for seamless panel
             if (isGlass && nIsGlass) return false;
-
-            // Solid block facing glass: hide face (no bottom of wall through glass)
-            if (!isGlass && nIsGlass) return false;
-
-            // Solid facing solid: hide internal faces
-            if (!isGlass && !nIsGlass) return false;
         }
         return super.shouldSideBeRendered(state, world, pos, side);
     }
