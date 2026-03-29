@@ -33,140 +33,133 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
         float proc = te.getProcessPercent() / 100.0F;
         boolean processing = te.isProcessing();
 
-        // Top layer: glass above (0,0), (dx,0), (0,dz). WALL above (dx,dz).
-        // Bottom layer: master at (0,0), blocks at (dx,0), (0,dz), (dx,dz).
-        //
-        // Arms must go through GLASS, not wall. So only blocks with glass above:
-        //   (0,0) = master (the hole) - no arm here
-        //   (dx,0) = block with glass above - ARM 1 + ARM 3 (side by side)
-        //   (0,dz) = block with glass above - ARM 2
-        //   (dx,dz) = block with WALL above - NO ARM (blocked by wall)
-
-        float armY = 1.05F;
+        // Glass is above: (0,0), (dx,0), (0,dz). Wall above (dx,dz).
+        // Arms on blocks (dx,0) and (0,dz) - these have glass above.
+        // 2 arms on (dx,0), 1 arm on (0,dz).
 
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, z);
         GlStateManager.disableTexture2D();
         GlStateManager.disableLighting();
+        GlStateManager.disableCull();
 
-        // Arm 1 on block (dx, 0) - compacts (slots 0,1) - offset toward master on Z
-        float a1x = dx + 0.5F;
-        float a1z = 0.3F;
+        // All arms render in the GLASS layer: y+1.0 to y+2.0
+        // Arm base at y+1.15 (above the block boundary)
+
+        // Arm 1 - compacts (slots 0,1) - on block (dx,0), left side
         boolean has1 = !te.getStackInSlot(0).isEmpty() || !te.getStackInSlot(1).isEmpty();
-        float swing1 = processing ? 0 : (float)Math.sin(time * 0.6) * 5.0F;
-        float reach1 = has1 ? (processing ? 0.55F + proc * 0.2F : 0.5F) : 0.3F;
-        drawArm(a1x, armY, a1z, cx, cz, swing1, reach1, time, has1 ? 1.0F : 0.5F);
+        float swing1 = processing ? 0 : (float)Math.sin(time * 0.5) * 8.0F;
+        drawArm(dx + 0.3F, 1.15F, 0.5F, cx, cz, swing1, time, has1, processing, proc);
 
-        // Arm 2 on block (0, dz) - catalyst (slot 3)
-        float a2x = 0.3F;
-        float a2z = dz + 0.5F;
+        // Arm 2 - catalyst (slot 3) - on block (0,dz)
         boolean has2 = !te.getStackInSlot(3).isEmpty();
-        float swing2 = processing ? 0 : (float)Math.sin(time * 0.6 + 2.1) * 5.0F;
-        float reach2 = has2 ? (processing ? 0.55F + proc * 0.2F : 0.5F) : 0.3F;
-        drawArm(a2x, armY, a2z, cx, cz, swing2, reach2, time, has2 ? 1.0F : 0.5F);
+        float swing2 = processing ? 0 : (float)Math.sin(time * 0.5 + 2.0) * 8.0F;
+        drawArm(0.5F, 1.15F, dz + 0.5F, cx, cz, swing2, time, has2, processing, proc);
 
-        // Arm 3 ALSO on block (dx, 0) - key (slot 2) - offset away from master on Z
-        float a3x = dx + 0.5F;
-        float a3z = 0.7F;
+        // Arm 3 - key (slot 2) - on block (dx,0), right side
         boolean has3 = !te.getStackInSlot(2).isEmpty();
-        float swing3 = processing ? 0 : (float)Math.sin(time * 0.6 + 4.2) * 5.0F;
-        float reach3 = has3 ? (processing ? 0.55F + proc * 0.2F : 0.5F) : 0.3F;
-        drawArm(a3x, armY, a3z, cx, cz, swing3, reach3, time, has3 ? 1.0F : 0.5F);
+        float swing3 = processing ? 0 : (float)Math.sin(time * 0.5 + 4.0) * 8.0F;
+        drawArm(dx + 0.7F, 1.15F, 0.5F, cx, cz, swing3, time, has3, processing, proc);
 
+        GlStateManager.enableCull();
         GlStateManager.enableTexture2D();
         GlStateManager.enableLighting();
         GlStateManager.popMatrix();
     }
 
-    private void drawArm(float ax, float ay, float az,
+    private void drawArm(float bx, float by, float bz,
                          float tx, float tz,
-                         float swing, float reach, float time, float brightness) {
-        float deltaX = tx - ax;
-        float deltaZ = tz - az;
-        float yaw = (float)Math.toDegrees(Math.atan2(deltaX, deltaZ));
-
-        float w = 0.06F, h = 0.06F;
-        float s1 = reach * 0.55F, s2 = reach * 0.5F;
-        float bR=0.22F*brightness, bG=0.22F*brightness, bB=0.28F*brightness;
-        float jR=0.4F*brightness, jG=0.15F*brightness, jB=0.5F*brightness;
-        float cR=0.45F*brightness, cG=0.15F*brightness, cB=0.55F*brightness;
+                         float swing, float time,
+                         boolean hasItem, boolean processing, float proc) {
+        float yaw = (float)Math.toDegrees(Math.atan2(tx - bx, tz - bz));
+        float armLen = hasItem ? 0.35F : 0.2F;
+        if (processing) armLen = 0.35F + proc * 0.15F;
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate(ax, ay, az);
+        GlStateManager.translate(bx, by, bz);
 
-        // Base plate on top of block
-        drawBox(-0.09F, -0.05F, -0.09F, 0.09F, 0.05F, 0.09F,
-                0.18F*brightness, 0.18F*brightness, 0.22F*brightness, 1.0F);
+        // === BASE: flat plate ===
+        drawBox(-0.1F, -0.06F, -0.1F, 0.1F, 0.0F, 0.1F,
+                0.15F, 0.15F, 0.2F);
 
-        // Vertical piston going up into glass
-        drawBox(-0.04F, 0.05F, -0.04F, 0.04F, 0.30F, 0.04F,
-                bR*0.8F, bG*0.8F, bB*0.8F, 1.0F);
+        // === SHOULDER: vertical cylinder ===
+        drawBox(-0.06F, 0.0F, -0.06F, 0.06F, 0.15F, 0.06F,
+                0.3F, 0.12F, 0.4F);
 
-        // Shoulder at top
-        GlStateManager.translate(0, 0.30F, 0);
-        drawBox(-0.07F, -0.03F, -0.07F, 0.07F, 0.03F, 0.07F, jR, jG, jB, 1.0F);
-
-        // Face center + swing
+        // === ROTATE to face center ===
+        GlStateManager.translate(0, 0.15F, 0);
         GlStateManager.rotate(-yaw + swing, 0, 1, 0);
 
-        // Upper arm
-        drawBox(-w, -h, 0, w, h, s1, bR, bG, bB, 1.0F);
+        // === UPPER ARM ===
+        drawBox(-0.08F, -0.06F, -0.06F, 0.08F, 0.06F, armLen,
+                0.2F, 0.2F, 0.28F);
 
-        // Elbow
-        GlStateManager.translate(0, 0, s1);
-        drawBox(-0.065F, -0.065F, -0.025F, 0.065F, 0.065F, 0.025F, jR, jG, jB, 1.0F);
-        float bend = 10.0F + 5.0F * (float)Math.sin(time * 1.0);
+        // === ELBOW ===
+        GlStateManager.translate(0, 0, armLen);
+        drawBox(-0.07F, -0.07F, -0.04F, 0.07F, 0.07F, 0.04F,
+                0.45F, 0.18F, 0.55F);
+
+        // === FOREARM (slight bend down) ===
+        float bend = 12.0F + 6.0F * (float)Math.sin(time * 0.8);
         GlStateManager.rotate(bend, 1, 0, 0);
+        float foreLen = armLen * 0.8F;
+        drawBox(-0.065F, -0.05F, 0.0F, 0.065F, 0.05F, foreLen,
+                0.18F, 0.18F, 0.25F);
 
-        // Forearm
-        drawBox(-w*0.8F, -h*0.8F, 0, w*0.8F, h*0.8F, s2,
-                bR*0.9F, bG*0.9F, bB*0.9F, 1.0F);
-
-        // Gripper
-        GlStateManager.translate(0, 0, s2);
-        float co = 0.04F + 0.015F * (float)Math.sin(time * 2.0);
-        drawBox(-co-0.02F, -0.025F, 0, -co+0.005F, 0.025F, 0.06F, cR, cG, cB, 1.0F);
-        drawBox(co-0.005F, -0.025F, 0, co+0.02F, 0.025F, 0.06F, cR, cG, cB, 1.0F);
+        // === CLAW ===
+        GlStateManager.translate(0, 0, foreLen);
+        float open = 0.05F + 0.02F * (float)Math.sin(time * 2.0);
+        // Left finger
+        drawBox(-open - 0.03F, -0.04F, 0, -open, 0.04F, 0.08F,
+                0.5F, 0.15F, 0.6F);
+        // Right finger
+        drawBox(open, -0.04F, 0, open + 0.03F, 0.04F, 0.08F,
+                0.5F, 0.15F, 0.6F);
 
         GlStateManager.popMatrix();
     }
 
     private void drawBox(float x1, float y1, float z1, float x2, float y2, float z2,
-                         float r, float g, float b, float a) {
+                         float r, float g, float b) {
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
-        r=Math.min(1,r); g=Math.min(1,g); b=Math.min(1,b);
         buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-        buf.pos(x1,y2,z1).color(r*1.1F,g*1.1F,b*1.1F,a).endVertex();
-        buf.pos(x2,y2,z1).color(r*1.1F,g*1.1F,b*1.1F,a).endVertex();
-        buf.pos(x2,y2,z2).color(r*1.1F,g*1.1F,b*1.1F,a).endVertex();
-        buf.pos(x1,y2,z2).color(r*1.1F,g*1.1F,b*1.1F,a).endVertex();
-        buf.pos(x1,y1,z2).color(r*0.6F,g*0.6F,b*0.6F,a).endVertex();
-        buf.pos(x2,y1,z2).color(r*0.6F,g*0.6F,b*0.6F,a).endVertex();
-        buf.pos(x2,y1,z1).color(r*0.6F,g*0.6F,b*0.6F,a).endVertex();
-        buf.pos(x1,y1,z1).color(r*0.6F,g*0.6F,b*0.6F,a).endVertex();
-        buf.pos(x1,y1,z1).color(r*0.8F,g*0.8F,b*0.8F,a).endVertex();
-        buf.pos(x2,y1,z1).color(r*0.8F,g*0.8F,b*0.8F,a).endVertex();
-        buf.pos(x2,y2,z1).color(r,g,b,a).endVertex();
-        buf.pos(x1,y2,z1).color(r,g,b,a).endVertex();
-        buf.pos(x2,y1,z2).color(r*0.8F,g*0.8F,b*0.8F,a).endVertex();
-        buf.pos(x1,y1,z2).color(r*0.8F,g*0.8F,b*0.8F,a).endVertex();
-        buf.pos(x1,y2,z2).color(r,g,b,a).endVertex();
-        buf.pos(x2,y2,z2).color(r,g,b,a).endVertex();
-        buf.pos(x1,y1,z2).color(r*0.7F,g*0.7F,b*0.7F,a).endVertex();
-        buf.pos(x1,y1,z1).color(r*0.7F,g*0.7F,b*0.7F,a).endVertex();
-        buf.pos(x1,y2,z1).color(r*0.9F,g*0.9F,b*0.9F,a).endVertex();
-        buf.pos(x1,y2,z2).color(r*0.9F,g*0.9F,b*0.9F,a).endVertex();
-        buf.pos(x2,y1,z1).color(r*0.7F,g*0.7F,b*0.7F,a).endVertex();
-        buf.pos(x2,y1,z2).color(r*0.7F,g*0.7F,b*0.7F,a).endVertex();
-        buf.pos(x2,y2,z2).color(r*0.9F,g*0.9F,b*0.9F,a).endVertex();
-        buf.pos(x2,y2,z1).color(r*0.9F,g*0.9F,b*0.9F,a).endVertex();
+        // Top
+        buf.pos(x1,y2,z1).color(r*1.2F,g*1.2F,b*1.2F,1F).endVertex();
+        buf.pos(x2,y2,z1).color(r*1.2F,g*1.2F,b*1.2F,1F).endVertex();
+        buf.pos(x2,y2,z2).color(r*1.2F,g*1.2F,b*1.2F,1F).endVertex();
+        buf.pos(x1,y2,z2).color(r*1.2F,g*1.2F,b*1.2F,1F).endVertex();
+        // Bottom
+        buf.pos(x1,y1,z2).color(r*0.5F,g*0.5F,b*0.5F,1F).endVertex();
+        buf.pos(x2,y1,z2).color(r*0.5F,g*0.5F,b*0.5F,1F).endVertex();
+        buf.pos(x2,y1,z1).color(r*0.5F,g*0.5F,b*0.5F,1F).endVertex();
+        buf.pos(x1,y1,z1).color(r*0.5F,g*0.5F,b*0.5F,1F).endVertex();
+        // South (+Z)
+        buf.pos(x1,y1,z2).color(r*0.9F,g*0.9F,b*0.9F,1F).endVertex();
+        buf.pos(x1,y2,z2).color(r,g,b,1F).endVertex();
+        buf.pos(x2,y2,z2).color(r,g,b,1F).endVertex();
+        buf.pos(x2,y1,z2).color(r*0.9F,g*0.9F,b*0.9F,1F).endVertex();
+        // North (-Z)
+        buf.pos(x2,y1,z1).color(r*0.9F,g*0.9F,b*0.9F,1F).endVertex();
+        buf.pos(x2,y2,z1).color(r,g,b,1F).endVertex();
+        buf.pos(x1,y2,z1).color(r,g,b,1F).endVertex();
+        buf.pos(x1,y1,z1).color(r*0.9F,g*0.9F,b*0.9F,1F).endVertex();
+        // West (-X)
+        buf.pos(x1,y1,z1).color(r*0.7F,g*0.7F,b*0.7F,1F).endVertex();
+        buf.pos(x1,y2,z1).color(r*0.8F,g*0.8F,b*0.8F,1F).endVertex();
+        buf.pos(x1,y2,z2).color(r*0.8F,g*0.8F,b*0.8F,1F).endVertex();
+        buf.pos(x1,y1,z2).color(r*0.7F,g*0.7F,b*0.7F,1F).endVertex();
+        // East (+X)
+        buf.pos(x2,y1,z2).color(r*0.7F,g*0.7F,b*0.7F,1F).endVertex();
+        buf.pos(x2,y2,z2).color(r*0.8F,g*0.8F,b*0.8F,1F).endVertex();
+        buf.pos(x2,y2,z1).color(r*0.8F,g*0.8F,b*0.8F,1F).endVertex();
+        buf.pos(x2,y1,z1).color(r*0.7F,g*0.7F,b*0.7F,1F).endVertex();
         tess.draw();
     }
 
     private void renderItems(TileCondenseur te, double x, double y, double z,
                              float time, float cx, float cz) {
-        float baseY = 1.35F;
+        float baseY = 1.5F;
         float proc = te.getProcessPercent() / 100.0F;
         boolean processing = te.isProcessing();
         float[][] off = {{-0.25F,-0.25F},{0.25F,-0.25F},{-0.25F,0.25F},{0.25F,0.25F}};
@@ -176,7 +169,7 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
             float ox = off[i][0], oz = off[i][1];
             if (processing) { ox *= (1-proc*0.95F); oz *= (1-proc*0.95F); }
             float bob = (float)Math.sin(time*1.5+i*1.5)*0.03F;
-            float sink = processing ? -proc * 0.7F : 0;
+            float sink = processing ? -proc * 0.8F : 0;
             GlStateManager.pushMatrix();
             GlStateManager.translate(x+cx+ox, y+baseY+bob+sink, z+cz+oz);
             GlStateManager.rotate((time*40+i*90)%360, 0, 1, 0);
@@ -204,10 +197,10 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
                              float time, int dx, int dz) {
         if (!te.isProcessing()) return;
         float p = te.getProcessPercent() / 100.0F;
-        float i = 0.12F;
+        float i = 0.15F;
         float x0=Math.min(0,dx)+i, x1=Math.max(0,dx)+1-i;
         float z0=Math.min(0,dz)+i, z1=Math.max(0,dz)+1-i;
-        float fY=1.02F, tY=fY+p*0.9F;
+        float fY=1.02F, tY=fY+p*0.85F;
         float w1=0.02F*(float)Math.sin(time*2.5), w2=0.02F*(float)Math.sin(time*3.1+1.5);
         float r=0.4F+p*0.5F, g=0.02F+p*0.08F, b=0.6F-p*0.35F;
         float a=0.5F+0.1F*(float)Math.sin(time*2), sa=a*0.7F;
