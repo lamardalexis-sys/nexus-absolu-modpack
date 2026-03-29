@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
@@ -51,6 +52,15 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
 
     public boolean isStructureValid() { return structureFormed; }
     public void setStructureFormed(boolean formed) { this.structureFormed = formed; }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        // Cover the full 2x2x2 multiblock so TESR renders everywhere
+        return new AxisAlignedBB(
+            pos.getX() + Math.min(0, multiDX), pos.getY(), pos.getZ() + Math.min(0, multiDZ),
+            pos.getX() + Math.max(0, multiDX) + 1, pos.getY() + 2, pos.getZ() + Math.max(0, multiDZ) + 1
+        );
+    }
     public boolean isAutoMode() { return autoMode; }
     public void toggleAutoMode() { autoMode = !autoMode; markDirty(); syncToClient(); }
     public void manualStart() {
