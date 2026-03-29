@@ -64,17 +64,17 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
         return getDefaultState().withProperty(POSITION, meta & 7);
     }
 
-    // Glass positions are see-through
+    // Only glass position (4) is see-through
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         int pos = state.getValue(POSITION);
-        return pos >= 0 && pos <= 3; // bottom = opaque, top glass = transparent
+        return pos != 4; // only glass is transparent
     }
 
     @Override
     public boolean isFullCube(IBlockState state) {
         int pos = state.getValue(POSITION);
-        return pos >= 0 && pos <= 3;
+        return pos != 4;
     }
 
     @Override
@@ -88,8 +88,16 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
     public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world,
             BlockPos pos, EnumFacing side) {
         int position = state.getValue(POSITION);
-        // Top layer (glass 4-6 + wall 7): hide faces between adjacent top blocks
-        if (position >= 4 && position <= 7) {
+        // Hide faces between top wall blocks (5,6,7) for seamless look
+        if (position >= 5 && position <= 7) {
+            IBlockState neighbor = world.getBlockState(pos.offset(side));
+            if (neighbor.getBlock() == this) {
+                int nPos = neighbor.getValue(POSITION);
+                if (nPos >= 5 && nPos <= 7) return false;
+            }
+        }
+        // Glass: hide face toward adjacent top blocks
+        if (position == 4) {
             IBlockState neighbor = world.getBlockState(pos.offset(side));
             if (neighbor.getBlock() == this) {
                 int nPos = neighbor.getValue(POSITION);

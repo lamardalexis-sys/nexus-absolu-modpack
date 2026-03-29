@@ -28,6 +28,8 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     // Multiblock direction: offset from master to the diagonal corner
     private int multiDX = 1;
     private int multiDZ = 1;
+    private int glassOffX = 0;
+    private int glassOffZ = 0;
 
     private int currentQuote = 0;
     public static final String[] QUOTES = {
@@ -60,6 +62,9 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     public int getMultiDX() { return multiDX; }
     public int getMultiDZ() { return multiDZ; }
     public void setMultiDirection(int dx, int dz) { this.multiDX = dx; this.multiDZ = dz; }
+    public int getGlassOffX() { return glassOffX; }
+    public int getGlassOffZ() { return glassOffZ; }
+    public void setGlassOffset(int gx, int gz) { this.glassOffX = gx; this.glassOffZ = gz; }
 
     private void syncToClient() {
         if (world != null && !world.isRemote) {
@@ -223,6 +228,8 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         compound.setBoolean("AutoMode", autoMode);
         compound.setInteger("MultiDX", multiDX);
         compound.setInteger("MultiDZ", multiDZ);
+        compound.setInteger("GlassOffX", glassOffX);
+        compound.setInteger("GlassOffZ", glassOffZ);
         NBTTagList list = new NBTTagList();
         for (int i = 0; i < inventory.length; i++) {
             if (!inventory[i].isEmpty()) {
@@ -249,6 +256,8 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         autoMode = compound.hasKey("AutoMode") ? compound.getBoolean("AutoMode") : true;
         multiDX = compound.getInteger("MultiDX");
         multiDZ = compound.getInteger("MultiDZ");
+        glassOffX = compound.getInteger("GlassOffX");
+        glassOffZ = compound.getInteger("GlassOffZ");
         if (multiDX == 0) multiDX = 1;
         if (multiDZ == 0) multiDZ = 1;
         NBTTagList list = compound.getTagList("Items", 10);
