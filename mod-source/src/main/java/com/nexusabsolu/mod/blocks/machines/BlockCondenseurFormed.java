@@ -80,16 +80,7 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.SOLID;
-    }
-
-    @Override
-    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-        int pos = state.getValue(POSITION);
-        if (pos >= 4 && pos <= 6) {
-            return layer == BlockRenderLayer.TRANSLUCENT;
-        }
-        return layer == BlockRenderLayer.SOLID;
+        return BlockRenderLayer.TRANSLUCENT;
     }
 
     @Override
