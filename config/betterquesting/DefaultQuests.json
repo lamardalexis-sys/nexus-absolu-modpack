@@ -1,2032 +1,10 @@
 {
   "format:8": "2.0.0",
   "questDatabase:9": {
-    "0:10": {
-      "questID:3": 0,
-      "preRequisites:11": [],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "compactmachines3:personal_shrinking_device",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "name:8": "§lL'Eveil",
-          "desc:8": "\n\n\n§7Tu te reveilles dans une boite.\n§7Les murs sont blancs.\n\n§o§fSi tu lis ceci, tu as survecu a la compression.\n§o§fBien. Cogne les murs. — Dr. E. Voss\n\n§7Recupere le livre dans le coffre."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 10,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:bread",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "1:10": {
-      "questID:3": 1,
-      "preRequisites:11": [
-        0
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "minecraft:cobblestone",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lPremier Contact",
-          "desc:8": "\n\n\n§7Casse les murs de la Compact Machine.\n§7Tu obtiens du §fcobblestone§7.\n\n§7C'est ta premiere ressource.\n§7Tamise-le pour obtenir des materiaux."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:cobblestone",
-              "Count:3": 16,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 15,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        }
-      }
-    },
-    "2:10": {
-      "questID:3": 2,
-      "preRequisites:11": [
-        1
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "exnihilocreatio:sieve",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLe Tamis",
-          "desc:8": "\n\n\n§7Le tamis transforme le dust en ressources.\n§7Clic droit pour tamiser.\n\n§o§fLa matiere ne disparait pas. — Dr. E. Voss"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:gravel",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            },
-            "1:10": {
-              "id:8": "minecraft:sand",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 20,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        }
-      }
-    },
-    "3:10": {
-      "questID:3": 3,
-      "preRequisites:11": [
-        1
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "exnihilocreatio:block_barrel0",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lL'Eau de la Vie",
-          "desc:8": "\n\n\n§7Place un Tonneau Ex Nihilo.\n§7Mets des materiaux organiques dedans.\n\n§o§fJ'ai passe 3 jours sans eau. — Dr. Voss"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "exnihilocreatio:block_barrel0",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 15,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:water_bucket",
-              "Count:3": 2,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "4:10": {
-      "questID:3": 4,
-      "preRequisites:11": [
-        3
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "minecraft:dirt",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLa Premiere Terre",
-          "desc:8": "\n\n\n§7Compost + eau dans le Tonneau = §fDirt§7.\n§7Ta premiere parcelle dans cette boite.\n§cNote : §7Les graines du coffre en ont besoin."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:dirt",
-              "Count:3": 16,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 20,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:dirt",
-              "Count:3": 16,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "5:10": {
-      "questID:3": 5,
-      "preRequisites:11": [
-        2
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "tconstruct:pattern",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLa Fonderie Primitive",
-          "desc:8": "\n\n\n§7Tinkers Construct remplace le four vanilla.\n§7Fabrique une §fPattern Table§7.\n\n§cIMPORTANT : §7Le four vanilla est desactive."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "tconstruct:pattern",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 25,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "tconstruct:pattern",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "6:10": {
-      "questID:3": 6,
-      "preRequisites:11": [
-        5
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "tconstruct:pickaxe",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lPremiers Outils Tinkers",
-          "desc:8": "\n\n\n§7Fabrique une §fpioche§7 et une §fpelle§7 en pierre.\n§7Les outils Tinkers sont §fmodulaires§7.\n\n§7Le Dr. Voss avait une pioche nommee Sylvestre.\n\n§eCoche quand tu as tes premiers outils Tinkers."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 30,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        }
-      }
-    },
-    "7:10": {
-      "questID:3": 7,
-      "preRequisites:11": [
-        6,
-        4
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "tconstruct:smeltery_controller",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lConstruction de la Smeltery",
-          "desc:8": "\n\n\n§7La Smeltery est le coeur de Tinkers. Multibloc 3x2x3.\n\n§71. §fSeared Bricks§7 (sable + gravier tonneau)\n§72. Structure 3x2x3\n§73. §fSmeltery Controller§7 sur un cote"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "tconstruct:smeltery_controller",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 50,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "tconstruct:seared_brick",
-              "Count:3": 16,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "8:10": {
-      "questID:3": 8,
-      "preRequisites:11": [
-        7
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "minecraft:iron_ingot",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lPremier Lingot de Fer",
-          "desc:8": "\n\n\n§7Le tamis du gravier donne des pepites de fer.\n§7Mets-les dans la Smeltery et coule du fer.\n§79 pepites = 1 lingot.\n\n§7Fabrique 64 lingots de fer."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:iron_ingot",
-              "Count:3": 64,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 75,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:iron_ingot",
-              "Count:3": 16,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "9:10": {
-      "questID:3": 9,
-      "preRequisites:11": [
-        8
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "thermalfoundation:material",
-            "Count:3": 1,
-            "Damage:2": 132,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lL'Alliage — Le Bronze",
-          "desc:8": "\n\n\n§7La Smeltery cree des §falliages§7.\n§7Recette Bronze : §fCuivre (3) + Etain (1)§7.\n§7Le Bronze est plus solide que le fer."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "thermalfoundation:material",
-              "Count:3": 8,
-              "Damage:2": 132,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 60,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "thermalfoundation:material",
-              "Count:3": 8,
-              "Damage:2": 132,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "10:10": {
-      "questID:3": 10,
-      "preRequisites:11": [
-        4
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "bonsaitrees:bonsaipot",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLa Foret dans une Boite",
-          "desc:8": "\n\n\n§7Bonsai Trees fait pousser des arbres miniatures.\n§7Source §fautomatique§7 de bois.\n\n§7Un arbre dans une boite. Poetique, non ?"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "bonsaitrees:bonsaipot",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 30,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "bonsaitrees:bonsaipot",
-              "Count:3": 2,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "11:10": {
-      "questID:3": 11,
-      "preRequisites:11": [
-        10
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "minecraft:log",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLa Foret Automatique",
-          "desc:8": "\n\n\n§75 Bonsai Pots = source de bois infinie.\n§7Hopper sous chaque pot pour collecter auto."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "bonsaitrees:bonsaipot",
-              "Count:3": 5,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 40,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:hopper",
-              "Count:3": 5,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "12:10": {
-      "questID:3": 12,
-      "preRequisites:11": [
-        10,
-        4
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "harvestcraft:presseritem",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLa Table de Cuisine",
-          "desc:8": "\n\n\n§7Pam's HarvestCraft = 200+ cultures et recettes.\n§7Commence par la §fCooking Station§7.\n\n§o§fNe jamais manger deux fois la meme chose. — Dr. Voss\n\n§eCoche quand tu as un outil de cuisine Pam's."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 35,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "harvestcraft:bakewareitem",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "13:10": {
-      "questID:3": 13,
-      "preRequisites:11": [
-        12
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "harvestcraft:cabbageseeditem",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLe Nutritionniste",
-          "desc:8": "\n\n\n§7Spice of Life recompense la variete alimentaire.\n§710 aliments differents = §f+2 coeurs permanents§7.\n\n§eCoche manuellement quand c'est fait."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 50,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        }
-      }
-    },
-    "14:10": {
-      "questID:3": 14,
-      "preRequisites:11": [
-        12
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "cropdusting:dung",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLa Science du Fumier",
-          "desc:8": "\n\n\n§7Les animaux produisent du §fDung§7 (poop).\n§7Crop Dusting accelere la pousse des cultures.\n\n§7Le Dr. Voss avait un poulet nomme Newton.\n§7Ne pose pas de questions sur Newton."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "cropdusting:dung",
-              "Count:3": 16,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 40,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "harvestcraft:fertilizerseeditem",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "15:10": {
-      "questID:3": 15,
-      "preRequisites:11": [
-        11
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "soulshardsrespawn:shard",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lL'Ame Capturee",
-          "desc:8": "\n\n\n§7Soul Shards capture les ames des mobs tues.\n§7Chaque kill remplit le shard.\n\n§7Poulets = oeufs + plumes + poop"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "soulshardsrespawn:shard",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 45,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "soulshardsrespawn:shard",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "16:10": {
-      "questID:3": 16,
-      "preRequisites:11": [
-        9
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "conarm:boots",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lProtection de Base",
-          "desc:8": "\n\n\n§7Construct's Armory : armures modulaires Tinkers.\n§7Fabrique des §fbottes§7 en fer au minimum.\n\n§eCoche quand tu portes une armure Tinkers."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 55,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        }
-      }
-    },
-    "17:10": {
-      "questID:3": 17,
-      "preRequisites:11": [
-        16,
-        13,
-        8
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "compactmachines3:machine_wall_breakable",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "name:8": "§2§lExpansion — Salle 5x5",
-          "desc:8": "\n\n\n§aLa boite s'agrandit.\n§7Place la nouvelle machine et entre dedans.\n§aBienvenue dans l'espace. Relatif."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "compactmachines3:machine_wall_breakable",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 100,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:chest",
-              "Count:3": 2,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "18:10": {
-      "questID:3": 18,
-      "preRequisites:11": [
-        17
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "minecraft:hopper",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lPremiere Automatisation",
-          "desc:8": "\n\n\n§7Utilise des §fHoppers§7 pour automatiser :\n§7 - Collecte des Bonsai Pots\n§7 - Alimentation du tamis\n§7 - Stockage dans des coffres tries"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:hopper",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 40,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:hopper",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "19:10": {
-      "questID:3": 19,
-      "preRequisites:11": [
-        13
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "harvestcraft:pineappleitem",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lDix Saveurs",
-          "desc:8": "\n\n\n§710 aliments differents consommes.\n§7+2 coeurs permanents debloques.\n\n§eCoche quand tu as +2 coeurs bonus."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 60,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "harvestcraft:cookingpotitem",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "20:10": {
-      "questID:3": 20,
-      "preRequisites:11": [
-        2
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "minecraft:gold_ingot",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLa Chance du Tamis",
-          "desc:8": "\n\n\n§7Le gravier donne des pepites d'or.\n§7Le sable donne du cuivre, etain, plomb.\n§7Tamise §fbeaucoup§7. La RNG est ton amie."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:gold_nugget",
-              "Count:3": 9,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 55,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:gold_ingot",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "21:10": {
-      "questID:3": 21,
-      "preRequisites:11": [
-        18,
-        20
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "compactmachines3:machine_wall_breakable",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "name:8": "§2§lExpansion — Salle 7x7",
-          "desc:8": "\n\n\n§aEncore plus grand.\n§7Avec 7x7 tu as de la place pour un vrai labo.\n\n§o§fL'espace ne fait pas le savant. — Dr. Voss"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "compactmachines3:machine_wall_breakable",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 150,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "ironchest:iron_chest",
-              "Count:3": 2,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "22:10": {
-      "questID:3": 22,
-      "preRequisites:11": [
-        21
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "exnihilocreatio:mesh_stone",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lTamis de Pierre",
-          "desc:8": "\n\n\n§7Le tamis en bois est limite.\n§7Un tamis en §fpierre§7 donne plus de ressources.\n§7Ameliore-le progressivement."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "exnihilocreatio:mesh_stone",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 60,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "exnihilocreatio:mesh_iron",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "23:10": {
-      "questID:3": 23,
-      "preRequisites:11": [
-        21
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "storagedrawers:basicdrawers_1",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lL'Organisation",
-          "desc:8": "\n\n\n§7Storage Drawers : un tiroir = des milliers d'items.\n§7La desorganisation tue les modpacks."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "storagedrawers:basicdrawers_1",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 45,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "storagedrawers:basicdrawers_2",
-              "Count:3": 2,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "24:10": {
-      "questID:3": 24,
-      "preRequisites:11": [
-        23,
-        22
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "compactmachines3:machine_wall_breakable",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "name:8": "§2§lExpansion — Salle 9x9",
-          "desc:8": "\n\n\n§aLa salle maximale de l'Age 0.\n§79x9. C'est presque confortable."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "compactmachines3:machine_wall_breakable",
-              "Count:3": 12,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 200,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "ironchest:gold_chest",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "25:10": {
-      "questID:3": 25,
-      "preRequisites:11": [
-        16
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "tconstruct:pickaxe",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lL'Outil qui Grandit",
-          "desc:8": "\n\n\n§7Tinker Tool Leveling : tes outils gagnent de l'XP.\n§7Un outil niveau 5+ gagne des modificateurs bonus.\n\n§eCoche quand un outil a atteint niveau 5."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 75,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        }
-      }
-    },
-    "26:10": {
-      "questID:3": 26,
-      "preRequisites:11": [
-        15
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "soulshardsrespawn:soul_cage",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lPremiere Ferme a Mobs",
-          "desc:8": "\n\n\n§7Fabrique une §fSoul Cage§7 = spawner automatique.\n\n§7Poulet = oeufs + plumes + poop\n§7Vache = cuir + boeuf"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "soulshardsrespawn:soul_cage",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 80,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "soulshardsrespawn:shard",
-              "Count:3": 2,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "27:10": {
-      "questID:3": 27,
-      "preRequisites:11": [
-        11,
-        7
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "minecraft:coal",
-            "Count:3": 1,
-            "Damage:2": 1,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lCharbon de Bois",
-          "desc:8": "\n\n\n§7Mets du bois dans la Smeltery = §fCharbon de bois§7.\n§7Avec les Bonsai Pots, bois infini."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:coal",
-              "Count:3": 32,
-              "Damage:2": 1,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 30,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:coal",
-              "Count:3": 16,
-              "Damage:2": 1,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "28:10": {
-      "questID:3": 28,
-      "preRequisites:11": [
-        24
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "patchouli:guide_book",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLes Notes du Laboratoire",
-          "desc:8": "\n\n\n§7Tu trouves une trappe cachee dans la salle.\n§7Dedans : les §fnotes du Dr. Voss§7.\n\n§o§fL'energie RF est la cle. — Dr. Voss, Cahier n3"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:paper",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 50,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "patchouli:guide_book",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "29:10": {
-      "questID:3": 29,
-      "preRequisites:11": [
-        28,
-        26,
-        25
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "minecraft:nether_star",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "name:8": "§6§lFIN DE L'AGE 0",
-          "desc:8": "\n\n\n§7Tu as maitrise les bases de la survie.\n\n§a- Maitrise Ex Nihilo\n§a- Construit une Smeltery\n§a- Automatise le bois et les cultures\n§a- Atteint la salle 9x9\n\n§6La trappe est ouverte. L'Age 1 commence.\n\n§o§fTu as appris comment survivre.\n§o§fMaintenant tu vas apprendre comment tout controler.\n§o§f— Dr. E. Voss"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "compactmachines3:personal_shrinking_device",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "amount:3": 500,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 1,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "thermalfoundation:material",
-              "Count:3": 16,
-              "Damage:2": 128,
-              "OreDict:8": ""
-            }
-          }
-        },
-        "2:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 2,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "thermalfoundation:material",
-              "Count:3": 16,
-              "Damage:2": 129,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
     "100:10": {
       "questID:3": 100,
       "preRequisites:11": [
-        29
+        12
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -4288,239 +2266,985 @@
           "index:3": 0
         }
       }
+    },
+    "0:10": {
+      "questID:3": 0,
+      "preRequisites:11": [],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "patchouli:guide_book",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§l§5Les yeux s'ouvrent",
+          "desc:8": "§7Tu te reveilles.\n\n§7L'air est lourd. Les murs sont blancs.\n§7Un coffre se trouve devant toi.\n\n§oSi tu lis ceci, la compression dimensionnelle a fonctionne.\nLe livre t'expliquera le reste. — Dr. E. Voss§r\n\n§e> Ouvre le coffre et lis le livre."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "taskID:8": "bq_standard:checkbox",
+          "index:3": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 10,
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "1:10": {
+      "questID:3": 1,
+      "preRequisites:11": [
+        0
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "minecraft:cobblestone",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lLes murs te parlent",
+          "desc:8": "§7Les murs ne sont pas que decoratifs.\n§7Cogne-les. Frappe-les. Avec tes mains s'il faut.\n\n§7Chaque bloc casse donne de la §fpoussiere de machine§7.\n§7C'est ta premiere ressource ici.\n\n§oDans cette boite, tout est recyclable.\nMeme les murs. — Dr. E. Voss§r\n\n§e> Recupere 16 blocs de cobblestone."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:cobblestone",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 15,
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "2:10": {
+      "questID:3": 2,
+      "preRequisites:11": [
+        1
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "exnihilocreatio:block_sieve0",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lLa poussiere revele ses secrets",
+          "desc:8": "§7Le tamis en bois transforme la matiere brute.\n\n§7Cobblestone → Gravier → Sable → Poussiere\n§7Chaque etape revele des fragments de minerai.\n\n§7Place le tamis, pose un bloc dessus,\n§7et clique droit plusieurs fois.\n\n§oLa matiere n'est jamais inutile.\nElle est juste mal comprise. — Dr. E. Voss§r\n\n§e> Tamise du gravel et obtiens des pepites."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:gravel",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:sand",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 20,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:iron_nugget",
+              "Count:3": 9,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "3:10": {
+      "questID:3": 3,
+      "preRequisites:11": [
+        1
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "minecraft:crafting_table",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lLe premier souffle",
+          "desc:8": "§7L'essentiel d'abord.\n\n§7Un etabli pour crafter.\n§7Un four pour cuire.\n\n§7Avec ces deux blocs, tout devient possible.\n\n§eLe Dr. Voss a note dans ses carnets :\n§o\"L'etabli est le premier acte de civilisation.\nLe four est le deuxieme.\"§r\n\n§e> Fabrique un etabli et un four."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:crafting_table",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:furnace",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 15,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:coal",
+              "Count:3": 8,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "4:10": {
+      "questID:3": 4,
+      "preRequisites:11": [
+        3
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "minecraft:bread",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lLa faim te ronge",
+          "desc:8": "§7Le pain du coffre ne durera pas.\n\n§7Tu as des graines. Tu as de la terre\n§7(compost + tonneau Ex Nihilo = dirt).\n§7Plante. Attend. Recolte.\n\n§7Pam's HarvestCraft ouvre un monde\n§7de possibilites culinaires.\n\n§oJ'ai passe 3 ans a ne manger que du ble.\nNe fais pas la meme erreur. — Dr. E. Voss§r\n\n§e> Recolte du ble et fais du pain."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:bread",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 20,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:carrot",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "5:10": {
+      "questID:3": 5,
+      "preRequisites:11": [
+        4
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "bonsaitrees:bonsaipot",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lL'arbre dans la boite",
+          "desc:8": "§7Pas de foret ici. Mais les Bonsai Trees\n§7font pousser des arbres miniatures.\n\n§7Place un pot, mets-y un semis.\n§7Le bois pousse tout seul.\n\n§7Hopper dessous = collecte automatique.\n§7Bois infini dans un espace minuscule.\n\n§oLa nature trouve toujours un chemin.\nMeme dans une boite. — Dr. E. Voss§r\n\n§e> Place 3 Bonsai Pots."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "bonsaitrees:bonsaipot",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 25,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:sapling",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "6:10": {
+      "questID:3": 6,
+      "preRequisites:11": [
+        2,
+        5
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "tconstruct:smeltery_controller",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lLes entrailles de la terre",
+          "desc:8": "§7Tinkers' Construct change tout.\n\n§7Construis une §fSmeltery§7 — un multibloc\n§7qui fond les metaux et cree des alliages.\n\n§7Seared Bricks : gravier + sable dans un tonneau.\n§7Puis fonds tes pepites en lingots.\n\n§oLa premiere fois que j'ai vu du fer couler\ndans la Smeltery, j'ai compris que\ntout etait possible. — Dr. E. Voss§r\n\n§e> Construis une Smeltery et fonds ton premier lingot de fer."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:iron_ingot",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 50,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:iron_ingot",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "7:10": {
+      "questID:3": 7,
+      "preRequisites:11": [
+        4
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "minecraft:golden_apple",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lLe gout de la variete",
+          "desc:8": "§7Manger la meme chose = mourir lentement.\n\n§7Spice of Life recompense la diversite.\n§7Chaque nouvel aliment = bonus de sante.\n§75 plats differents = §f+1 coeur permanent§7.\n\n§7Pam's HarvestCraft + tes cultures\n§7= des dizaines de recettes.\n\n§oLe gout est la derniere frontiere\nde la dignite humaine. — Dr. E. Voss§r\n\n§e> Mange 5 plats differents."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "taskID:8": "bq_standard:checkbox",
+          "index:3": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 40,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:golden_apple",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "8:10": {
+      "questID:3": 8,
+      "preRequisites:11": [
+        6
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "thermalexpansion:dynamo",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§lL'etincelle",
+          "desc:8": "§7Le tamis donne de la §fredstone§7.\n§7La Smeltery transforme tes metaux.\n\n§7Combine les deux : §fStirling Dynamo§7.\n§7Ta premiere source d'energie RF.\n\n§7Elle va alimenter le Condenseur.\n§7Sans elle, pas d'expansion.\n\n§oCette etincelle est le debut de tout.\nProtege-la. — Dr. E. Voss§r\n\n§e> Fabrique une Stirling Dynamo et genere du RF."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:dynamo",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 60,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:redstone",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "9:10": {
+      "questID:3": 9,
+      "preRequisites:11": [
+        6
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "bloodmagic:altar",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "name:8": "§4§lLe sang qui murmure",
+          "desc:8": "§7Blood Magic.\n\n§7Un autel, un couteau, ton propre sang.\n§7Les Life Points coulent comme une riviere rouge.\n\n§7Chaque goutte a un prix.\n§7Chaque rituel a un pouvoir.\n\n§4Certaines portes ne s'ouvrent qu'avec du sang.§r\n\n§oJ'ai hesite longtemps devant l'autel.\nPuis j'ai compris : la peur est le vrai prix,\npas le sang. — Dr. E. Voss§r\n\n§e> Construis un Blood Altar et genere 1000 LP."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "bloodmagic:altar",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 50,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "bloodmagic:sacrificial_dagger",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "10:10": {
+      "questID:3": 10,
+      "preRequisites:11": [
+        8,
+        9
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "nexusabsolu:condenseur",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§d§lLa machine qui respire",
+          "desc:8": "§7Le §dCondenseur Dimensionnel§7.\n\n§7Un multibloc 2x2x2 :\n§7- 1x Condenseur (bloc master)\n§7- 2x Nexus Wall\n§7- 1x Redstone Block (energie)\n§7- 3x Glass (vitres)\n§7- 1x Nexus Wall (haut)\n\n§7Place le Condenseur, les blocs autour,\n§7et clic droit pour former la structure.\n\n§oQuand la machine s'est allumee pour la premiere fois,\nj'ai vu les murs trembler.\nJ'ai su que c'etait possible. — Dr. E. Voss§r\n\n§e> Construis le Condenseur Dimensionnel 2x2x2."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:condenseur",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "nexusabsolu:nexus_wall",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 100,
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
+    },
+    "11:10": {
+      "questID:3": 11,
+      "preRequisites:11": [
+        10
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "compactmachines3:machine",
+            "Count:3": 1,
+            "Damage:2": 1,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§d§lLa fissure dimensionnelle",
+          "desc:8": "§7Le Condenseur est pret.\n§7L'energie coule.\n\n§7Place §f2x Compact Machine Tiny§7 (3x3)\n§7+ la §fCle 5x5§7 + le §fCatalyseur Instable§7.\n\n§7Appuie sur §aSTART§7.\n§760 secondes. 50 RF/tick.\n§7Et la realite §dse plie§7.\n\n§oLa premiere fois que j'ai condense deux espaces\nen un seul, j'ai entendu un son.\nComme un soupir. — Dr. E. Voss§r\n\n§e> Utilise le Condenseur pour crafter une Compact Machine 5x5."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "compactmachines3:machine",
+              "Count:3": 1,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 150,
+          "isLevels:1": 0,
+          "index:3": 0
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 1,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "compactmachines3:personal_shrinking_device",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
+    },
+    "12:10": {
+      "questID:3": 12,
+      "preRequisites:11": [
+        11
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "icon:10": {
+            "id:8": "compactmachines3:personal_shrinking_device",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "name:8": "§6§lL'evasion",
+          "desc:8": "§7La Compact Machine 5x5 est prete.\n\n§7Place-la. Utilise le §fPersonal Shrinking Device§7.\n§7Entre dedans.\n\n§a5x5x5.\n§aPlus d'espace. Plus de possibilites.\n§aL'Age 1 commence.\n\n§oChaque boite plus grande est un pas\nvers la liberte.\nMais la vraie liberte...\nc'est dehors. — Dr. E. Voss§r\n\n§6> Entre dans la Compact Machine 5x5."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "taskID:8": "bq_standard:checkbox",
+          "index:3": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 500,
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
     }
   },
   "questLines:9": {
     "0:10": {
       "quests:9": {
         "0:10": {
-          "sizeX:3": 40,
-          "x:3": 0,
-          "y:3": 0,
           "id:3": 0,
-          "sizeY:3": 40
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 0
         },
         "1:10": {
-          "sizeX:3": 24,
-          "x:3": 48,
-          "y:3": 0,
           "id:3": 1,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 24
         },
         "2:10": {
-          "sizeX:3": 24,
-          "x:3": 96,
-          "y:3": 0,
           "id:3": 2,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": -24,
+          "y:3": 48
         },
         "3:10": {
-          "sizeX:3": 24,
-          "x:3": 96,
-          "y:3": 48,
           "id:3": 3,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 24,
+          "y:3": 48
         },
         "4:10": {
-          "sizeX:3": 24,
-          "x:3": 144,
-          "y:3": 48,
           "id:3": 4,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 24,
+          "y:3": 72
         },
         "5:10": {
-          "sizeX:3": 24,
-          "x:3": 144,
-          "y:3": 0,
           "id:3": 5,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 24,
+          "y:3": 96
         },
         "6:10": {
-          "sizeX:3": 24,
-          "x:3": 192,
-          "y:3": 0,
           "id:3": 6,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 120
         },
         "7:10": {
-          "sizeX:3": 24,
-          "x:3": 192,
-          "y:3": 48,
           "id:3": 7,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 48,
+          "y:3": 96
         },
         "8:10": {
-          "sizeX:3": 24,
-          "x:3": 240,
-          "y:3": 48,
           "id:3": 8,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": -24,
+          "y:3": 144
         },
         "9:10": {
-          "sizeX:3": 24,
-          "x:3": 240,
-          "y:3": 0,
           "id:3": 9,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 24,
+          "y:3": 144
         },
         "10:10": {
-          "sizeX:3": 24,
-          "x:3": 48,
-          "y:3": -48,
           "id:3": 10,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 168
         },
         "11:10": {
-          "sizeX:3": 24,
-          "x:3": 96,
-          "y:3": -48,
           "id:3": 11,
-          "sizeY:3": 24
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 192
         },
         "12:10": {
-          "sizeX:3": 24,
-          "x:3": 144,
-          "y:3": -48,
           "id:3": 12,
-          "sizeY:3": 24
-        },
-        "13:10": {
           "sizeX:3": 24,
-          "x:3": 192,
-          "y:3": -48,
-          "id:3": 13,
-          "sizeY:3": 24
-        },
-        "14:10": {
-          "sizeX:3": 24,
-          "x:3": 144,
-          "y:3": -96,
-          "id:3": 14,
-          "sizeY:3": 24
-        },
-        "15:10": {
-          "sizeX:3": 24,
-          "x:3": 96,
-          "y:3": -96,
-          "id:3": 15,
-          "sizeY:3": 24
-        },
-        "16:10": {
-          "sizeX:3": 24,
-          "x:3": 288,
-          "y:3": 0,
-          "id:3": 16,
-          "sizeY:3": 24
-        },
-        "17:10": {
-          "sizeX:3": 32,
-          "x:3": 336,
-          "y:3": 0,
-          "id:3": 17,
-          "sizeY:3": 32
-        },
-        "18:10": {
-          "sizeX:3": 24,
-          "x:3": 336,
-          "y:3": -48,
-          "id:3": 18,
-          "sizeY:3": 24
-        },
-        "19:10": {
-          "sizeX:3": 24,
-          "x:3": 240,
-          "y:3": -48,
-          "id:3": 19,
-          "sizeY:3": 24
-        },
-        "20:10": {
-          "sizeX:3": 24,
-          "x:3": 288,
-          "y:3": -48,
-          "id:3": 20,
-          "sizeY:3": 24
-        },
-        "21:10": {
-          "sizeX:3": 32,
-          "x:3": 384,
-          "y:3": 0,
-          "id:3": 21,
-          "sizeY:3": 32
-        },
-        "22:10": {
-          "sizeX:3": 24,
-          "x:3": 384,
-          "y:3": -48,
-          "id:3": 22,
-          "sizeY:3": 24
-        },
-        "23:10": {
-          "sizeX:3": 24,
-          "x:3": 432,
-          "y:3": -48,
-          "id:3": 23,
-          "sizeY:3": 24
-        },
-        "24:10": {
-          "sizeX:3": 32,
-          "x:3": 432,
-          "y:3": 0,
-          "id:3": 24,
-          "sizeY:3": 32
-        },
-        "25:10": {
-          "sizeX:3": 24,
-          "x:3": 336,
-          "y:3": -96,
-          "id:3": 25,
-          "sizeY:3": 24
-        },
-        "26:10": {
-          "sizeX:3": 24,
-          "x:3": 48,
-          "y:3": -96,
-          "id:3": 26,
-          "sizeY:3": 24
-        },
-        "27:10": {
-          "sizeX:3": 24,
-          "x:3": 288,
-          "y:3": 96,
-          "id:3": 27,
-          "sizeY:3": 24
-        },
-        "28:10": {
-          "sizeX:3": 24,
-          "x:3": 480,
-          "y:3": 0,
-          "id:3": 28,
-          "sizeY:3": 24
-        },
-        "29:10": {
-          "sizeX:3": 40,
-          "x:3": 528,
-          "y:3": 0,
-          "id:3": 29,
-          "sizeY:3": 40
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 216
         }
       },
-      "lineID:3": 0,
       "properties:10": {
         "betterquesting:10": {
-          "visibility:8": "NORMAL",
           "name:8": "Age 0 — L'Eveil",
+          "desc:8": "Tu te reveilles dans une Compact Machine 3x3x3. Survis. Apprends. Echappe-toi.",
+          "visibility:8": "NORMAL",
+          "bg_image:8": "",
+          "bg_size:3": 256,
           "icon:10": {
-            "id:8": "minecraft:book",
+            "id:8": "compactmachines3:machine",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
-          },
-          "bg_image:8": "",
-          "bg_size:3": 256,
-          "desc:8": "Tu te reveilles dans une Compact Machine. Suis les traces du Dr. E. Voss."
+          }
         }
-      },
-      "order:3": 0
+      }
     },
     "1:10": {
       "quests:9": {
