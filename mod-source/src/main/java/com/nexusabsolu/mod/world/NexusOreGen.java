@@ -19,32 +19,34 @@ public class NexusOreGen implements IWorldGenerator {
                         IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         int dim = world.provider.getDimension();
 
-        // Overworld
-        if (dim == 0) {
-            // Vossium -- rare, deep, Y 5-20
+        // Only spawn on planets (not overworld, nether, end, or compact machines)
+        // Galacticraft: Moon=-28, Mars=-29, Venus=-31, Asteroids=-30
+        // Advanced Rocketry: typically dim 100+
+        // Skip vanilla dims and compact machines (144)
+        if (dim == 0 || dim == -1 || dim == 1 || dim == 144) return;
+
+        // Vossium -- Moon & Mars, rare, deep
+        if (dim == -28 || dim == -29) {
             generateOre(world, random, chunkX, chunkZ,
                 ModBlocks.VOSSIUM_ORE.getDefaultState(),
                 Blocks.STONE.getDefaultState(),
-                3, 5, 20, 2); // veinSize=3, minY=5, maxY=20, chances=2
+                4, 5, 40, 3);
         }
 
-        // End
-        if (dim == 1) {
-            // Nexium -- End only, Y 10-60
+        // Nexium -- Venus & Asteroids, very rare
+        if (dim == -31 || dim == -30) {
             generateOre(world, random, chunkX, chunkZ,
                 ModBlocks.NEXIUM_ORE.getDefaultState(),
-                Blocks.END_STONE.getDefaultState(),
-                4, 10, 60, 3);
+                Blocks.STONE.getDefaultState(),
+                3, 10, 60, 2);
         }
 
-        // Compact Machine dimension (144)
-        if (dim == 144) {
-            // Claustrite -- Compact Machine dimension only
-            // Spawns in the walls near the edges
+        // Claustrite -- Advanced Rocketry planets (dim 100+)
+        if (dim >= 100 && dim != 144) {
             generateOre(world, random, chunkX, chunkZ,
                 ModBlocks.CLAUSTRITE_ORE.getDefaultState(),
                 Blocks.STONE.getDefaultState(),
-                2, 1, 15, 1);
+                2, 5, 30, 2);
         }
     }
 
