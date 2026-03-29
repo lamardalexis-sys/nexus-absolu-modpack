@@ -10,10 +10,11 @@ LOG4J_CORE="C:/Users/lamar/.gradle/caches/modules-2/files-2.1/org.apache.logging
 JSR="C:/Users/lamar/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar"
 LWJGL="C:/Users/lamar/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl/2.9.4-nightly-20150209/697517568c68e78ae0b4544145af031c81082dfe/lwjgl-2.9.4-nightly-20150209.jar"
 GUAVA="C:/Users/lamar/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/21.0/3a3d111be1be1b745edfa7d91678a12d7ed38709/guava-21.0.jar"
+JEI="C:/Users/lamar/curseforge/minecraft/Instances/Nexus Absolu/mods/jei_1.12.2-4.16.1.301.jar"
 SPECIALSOURCE="C:/Users/lamar/.gradle/caches/forge_gradle/maven_downloader/net/md-5/SpecialSource/1.8.3/SpecialSource-1.8.3-shaded.jar"
 SRG="C:/Users/lamar/.gradle/caches/minecraft/de/oceanlabs/mcp/mcp_snapshot/20171003/1.12.2/srgs/mcp-srg.srg"
 
-CP="$FORGE;$LOG4J_API;$LOG4J_CORE;$JSR;$LWJGL;$GUAVA"
+CP="$FORGE;$LOG4J_API;$LOG4J_CORE;$JSR;$LWJGL;$GUAVA;$JEI"
 
 echo "=== Nexus Absolu Build ==="
 
