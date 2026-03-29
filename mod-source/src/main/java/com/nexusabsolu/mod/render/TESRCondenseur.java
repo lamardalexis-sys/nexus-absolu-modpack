@@ -30,9 +30,150 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
         float cz = 0.5F + dz * 0.5F;
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        renderScreen(te, x, y, z, time, dx, dz);
         renderItems(te, x, y, z, time, cx, cz);
         renderFluid(te, x, y, z, time, dx, dz);
     }
+
+    private void renderScreen(TileCondenseur te, double x, double y, double z,
+                              float time, int dx, int dz) {
+        if (!te.isStructureValid()) return;
+
+        boolean processing = te.isProcessing();
+
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x, y, z);
+        GlStateManager.disableLighting();
+        GlStateManager.disableTexture2D();
+
+        // Screen area on texture: pixels 6-25 x, 5-15 y on 32x32
+        // In block coords: x=0.1875-0.78125, y=0.53125-0.84375 (from bottom)
+        float scrLeft = 6.0F / 32.0F;
+        float scrRight = 26.0F / 32.0F;
+        float scrBottom = 1.0F - (16.0F / 32.0F); // 0.5
+        float scrTop = 1.0F - (4.0F / 32.0F);     // 0.875
+
+        // Determine outward faces of master block
+        // dx>0: west face visible, dx<0: east face visible
+        // dz>0: north face visible, dz<0: south face visible
+
+        float offset = 0.001F; // tiny offset to prevent z-fighting
+
+        if (processing) {
+            GlStateManager.enableBlend();
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        }
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+
+        // Render on the X-facing outward side
+        {
+            float faceX = dx > 0 ? -offset : 1.0F + offset;
+            float flipL = dx > 0 ? 1.0F - scrLeft : scrLeft;
+            float flipR = dx > 0 ? 1.0F - scrRight : scrRight;
+
+            if (processing) {
+                // Green screen background glow
+                buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+                buf.pos(faceX, scrBottom, flipR).color(0.0F, 0.08F, 0.0F, 0.9F).endVertex();
+                buf.pos(faceX, scrBottom, flipL).color(0.0F, 0.08F, 0.0F, 0.9F).endVertex();
+                buf.pos(faceX, scrTop, flipL).color(0.0F, 0.12F, 0.0F, 0.9F).endVertex();
+                buf.pos(faceX, scrTop, flipR).color(0.0F, 0.12F, 0.0F, 0.9F).endVertex();
+                tess.draw();
+
+                // Scrolling green "text" lines
+                float scrollOffset = (time * 0.8F) % 1.0F;
+                float lineH = 0.04F;
+                float lineGap = 0.06F;
+                for (int line = 0; line < 6; line++) {
+                    float ly = scrBottom + 0.02F + line * lineGap + scrollOffset * lineGap;
+                    if (ly < scrBottom || ly + lineH > scrTop) continue;
+
+                    // Vary line width to look like different text
+                    float lw = 0.3F + 0.15F * (float)Math.sin(line * 2.7 + time * 0.5);
+                    float lineL = dx > 0 ? 1.0F - scrLeft - 0.02F : scrLeft + 0.02F;
+                    float lineR = dx > 0 ? lineL - lw : lineL + lw;
+
+                    float bright = 0.4F + 0.3F * (float)Math.sin(time * 3.0 + line * 1.5);
+                    buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+                    buf.pos(faceX, ly, Math.min(lineL, lineR)).color(0.0F, bright, 0.0F, 0.8F).endVertex();
+                    buf.pos(faceX, ly, Math.max(lineL, lineR)).color(0.0F, bright, 0.0F, 0.8F).endVertex();
+                    buf.pos(faceX, ly + lineH, Math.max(lineL, lineR)).color(0.0F, bright * 0.7F, 0.0F, 0.8F).endVertex();
+                    buf.pos(faceX, ly + lineH, Math.min(lineL, lineR)).color(0.0F, bright * 0.7F, 0.0F, 0.8F).endVertex();
+                    tess.draw();
+                }
+
+                // Blinking cursor
+                if ((int)(time * 2) % 2 == 0) {
+                    float curY = scrBottom + 0.02F + 5 * lineGap + scrollOffset * lineGap;
+                    if (curY + lineH < scrTop) {
+                        float curL = dx > 0 ? 1.0F - scrLeft - 0.02F : scrLeft + 0.02F;
+                        float curR = dx > 0 ? curL - 0.03F : curL + 0.03F;
+                        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+                        buf.pos(faceX, curY, Math.min(curL, curR)).color(0.0F, 0.9F, 0.0F, 1.0F).endVertex();
+                        buf.pos(faceX, curY, Math.max(curL, curR)).color(0.0F, 0.9F, 0.0F, 1.0F).endVertex();
+                        buf.pos(faceX, curY + lineH, Math.max(curL, curR)).color(0.0F, 0.9F, 0.0F, 1.0F).endVertex();
+                        buf.pos(faceX, curY + lineH, Math.min(curL, curR)).color(0.0F, 0.9F, 0.0F, 1.0F).endVertex();
+                        tess.draw();
+                    }
+                }
+            }
+
+            // Status LED - green when processing, red when idle
+            float ledY = 0.28125F; // pixel 23 from top = (32-23)/32
+            float ledX1 = dx > 0 ? 1.0F - 25.0F/32.0F : 25.0F/32.0F;
+            float ledX2 = dx > 0 ? 1.0F - 27.0F/32.0F : 27.0F/32.0F;
+            float ledR = processing ? 0.0F : 0.8F;
+            float ledG = processing ? 0.9F : 0.1F;
+            buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(faceX, ledY, Math.min(ledX1, ledX2)).color(ledR, ledG, 0.0F, 1.0F).endVertex();
+            buf.pos(faceX, ledY, Math.max(ledX1, ledX2)).color(ledR, ledG, 0.0F, 1.0F).endVertex();
+            buf.pos(faceX, ledY + 0.03F, Math.max(ledX1, ledX2)).color(ledR, ledG, 0.0F, 1.0F).endVertex();
+            buf.pos(faceX, ledY + 0.03F, Math.min(ledX1, ledX2)).color(ledR, ledG, 0.0F, 1.0F).endVertex();
+            tess.draw();
+        }
+
+        // Render on the Z-facing outward side
+        {
+            float faceZ = dz > 0 ? -offset : 1.0F + offset;
+            float flipL = dz > 0 ? scrLeft : 1.0F - scrLeft;
+            float flipR = dz > 0 ? scrRight : 1.0F - scrRight;
+
+            if (processing) {
+                buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+                buf.pos(Math.min(flipL, flipR), scrBottom, faceZ).color(0.0F, 0.08F, 0.0F, 0.9F).endVertex();
+                buf.pos(Math.max(flipL, flipR), scrBottom, faceZ).color(0.0F, 0.08F, 0.0F, 0.9F).endVertex();
+                buf.pos(Math.max(flipL, flipR), scrTop, faceZ).color(0.0F, 0.12F, 0.0F, 0.9F).endVertex();
+                buf.pos(Math.min(flipL, flipR), scrTop, faceZ).color(0.0F, 0.12F, 0.0F, 0.9F).endVertex();
+                tess.draw();
+
+                float scrollOffset = (time * 0.8F) % 1.0F;
+                float lineH = 0.04F;
+                float lineGap = 0.06F;
+                for (int line = 0; line < 6; line++) {
+                    float ly = scrBottom + 0.02F + line * lineGap + scrollOffset * lineGap;
+                    if (ly < scrBottom || ly + lineH > scrTop) continue;
+                    float lw = 0.3F + 0.15F * (float)Math.sin(line * 2.7 + time * 0.5);
+                    float lineStart = dz > 0 ? scrLeft + 0.02F : 1.0F - scrLeft - 0.02F;
+                    float lineEnd = dz > 0 ? lineStart + lw : lineStart - lw;
+                    float bright = 0.4F + 0.3F * (float)Math.sin(time * 3.0 + line * 1.5);
+                    buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+                    buf.pos(Math.min(lineStart, lineEnd), ly, faceZ).color(0.0F, bright, 0.0F, 0.8F).endVertex();
+                    buf.pos(Math.max(lineStart, lineEnd), ly, faceZ).color(0.0F, bright, 0.0F, 0.8F).endVertex();
+                    buf.pos(Math.max(lineStart, lineEnd), ly + lineH, faceZ).color(0.0F, bright * 0.7F, 0.0F, 0.8F).endVertex();
+                    buf.pos(Math.min(lineStart, lineEnd), ly + lineH, faceZ).color(0.0F, bright * 0.7F, 0.0F, 0.8F).endVertex();
+                    tess.draw();
+                }
+            }
+        }
+
+        if (processing) {
+            GlStateManager.disableBlend();
+        }
+        GlStateManager.enableTexture2D();
+        GlStateManager.enableLighting();
+        GlStateManager.popMatrix();
 
     private void renderItems(TileCondenseur te, double x, double y, double z,
                              float time, float cx, float cz) {
