@@ -96,8 +96,14 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
             int nPos = neighbor.getValue(POSITION);
             boolean nIsGlass = (nPos >= 4 && nPos <= 6);
 
-            // Glass next to glass: hide for seamless look
+            // Glass next to glass: hide for seamless panel
             if (isGlass && nIsGlass) return false;
+
+            // Solid block facing glass: hide face (no bottom of wall through glass)
+            if (!isGlass && nIsGlass) return false;
+
+            // Solid facing solid: hide internal faces
+            if (!isGlass && !nIsGlass) return false;
         }
         return super.shouldSideBeRendered(state, world, pos, side);
     }
