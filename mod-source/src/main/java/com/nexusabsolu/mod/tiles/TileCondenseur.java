@@ -23,6 +23,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     private CondenseurRecipes.Recipe currentRecipe = null;
     private boolean processing = false;
     private boolean structureFormed = false;
+    private boolean autoMode = true; // Auto by default
 
     // Multiblock direction: offset from master to the diagonal corner
     private int multiDX = 1;
@@ -48,6 +49,13 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
 
     public boolean isStructureValid() { return structureFormed; }
     public void setStructureFormed(boolean formed) { this.structureFormed = formed; }
+    public boolean isAutoMode() { return autoMode; }
+    public void toggleAutoMode() { autoMode = !autoMode; markDirty(); syncToClient(); }
+    public void manualStart() {
+        if (!autoMode && structureFormed && canProcess() && !processing) {
+            processing = true; markDirty(); syncToClient();
+        }
+    }
 
     public int getMultiDX() { return multiDX; }
     public int getMultiDZ() { return multiDZ; }
@@ -64,7 +72,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
     public void update() {
         if (world.isRemote) return;
 
-        if (structureFormed && canProcess()) {
+        if (structureFormed && canProcess() && (autoMode || processing)) {
             if (energyStorage.getEnergyStored() >= 20) {
                 energyStorage.drainInternal(20);
                 processTime++;
@@ -182,6 +190,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
             case 2: return energyStorage.getEnergyStored();
             case 3: return energyStorage.getMaxEnergyStored();
             case 4: return structureFormed ? 1 : 0;
+            case 5: return autoMode ? 1 : 0;
             default: return 0;
         }
     }
@@ -192,9 +201,10 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
             case 2: energyStorage.setEnergy(value); break;
             case 3: break;
             case 4: structureFormed = (value == 1); break;
+            case 5: autoMode = (value == 1); break;
         }
     }
-    @Override public int getFieldCount() { return 5; }
+    @Override public int getFieldCount() { return 6; }
     @Override public void clear() {
         for (int i = 0; i < inventory.length; i++) inventory[i] = ItemStack.EMPTY;
     }
@@ -210,6 +220,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         compound.setInteger("Energy", energyStorage.getEnergyStored());
         compound.setBoolean("Formed", structureFormed);
         compound.setBoolean("Processing", processing);
+        compound.setBoolean("AutoMode", autoMode);
         compound.setInteger("MultiDX", multiDX);
         compound.setInteger("MultiDZ", multiDZ);
         NBTTagList list = new NBTTagList();
@@ -235,6 +246,7 @@ public class TileCondenseur extends TileEntity implements ITickable, IInventory 
         energyStorage = new InternalEnergyStorage(50000, 100, energy);
         structureFormed = compound.getBoolean("Formed");
         processing = compound.getBoolean("Processing");
+        autoMode = compound.hasKey("AutoMode") ? compound.getBoolean("AutoMode") : true;
         multiDX = compound.getInteger("MultiDX");
         multiDZ = compound.getInteger("MultiDZ");
         if (multiDX == 0) multiDX = 1;

@@ -18,6 +18,7 @@ public class ContainerCondenseur extends Container {
     private int energy;
     private int maxEnergy;
     private int structureValid;
+    private int autoMode;
 
     public ContainerCondenseur(InventoryPlayer playerInv, TileCondenseur tile) {
         this.tile = tile;
@@ -59,18 +60,35 @@ public class ContainerCondenseur extends Container {
                 listener.sendWindowProperty(this, 3, tile.getField(3));
             if (structureValid != tile.getField(4))
                 listener.sendWindowProperty(this, 4, tile.getField(4));
+            if (autoMode != tile.getField(5))
+                listener.sendWindowProperty(this, 5, tile.getField(5));
         }
         processTime = tile.getField(0);
         maxProcessTime = tile.getField(1);
         energy = tile.getField(2);
         maxEnergy = tile.getField(3);
         structureValid = tile.getField(4);
+        autoMode = tile.getField(5);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
         tile.setField(id, data);
+    }
+
+    @Override
+    public boolean enchantItem(EntityPlayer player, int action) {
+        // action 0 = toggle auto/manual
+        // action 1 = manual start
+        if (action == 0) {
+            tile.toggleAutoMode();
+            return true;
+        } else if (action == 1) {
+            tile.manualStart();
+            return true;
+        }
+        return false;
     }
 
     @Override
