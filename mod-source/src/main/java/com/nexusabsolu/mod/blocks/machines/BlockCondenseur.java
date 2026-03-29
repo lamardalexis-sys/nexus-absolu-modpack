@@ -98,14 +98,14 @@ public class BlockCondenseur extends Block implements IHasModel {
             }
             if (walls != 2 || redstone != 1) continue;
 
-            // Top: 1x Glass + 3x Nexus Wall (arms on walls)
+            // Top: 3x Glass + 1x Nexus Wall
             int glass = 0; int wall = 0;
             BlockPos[] tops = {t0, t1, t2, t3};
             for (BlockPos tp : tops) {
                 if (isGlass(world, tp)) glass++;
                 else if (isNexusWall(world, tp)) wall++;
             }
-            if (glass != 1 || wall != 3) continue;
+            if (glass != 3 || wall != 1) continue;
 
             // VALID! Form the multiblock
             formMultiblock(world, pos, dx, dz, p1, p2, p3, t0, t1, t2, t3);
@@ -145,23 +145,18 @@ public class BlockCondenseur extends Block implements IHasModel {
             }
         }
 
-        // Top layer: position 4 = glass, 5-7 = nexus walls (arms mount here)
-        // Detect glass position offset for TESR
-        int glassOffX = 0, glassOffZ = 0;
+        // Top layer: positions 4,5,6 = glass, 7 = nexus wall
         BlockPos[] topBlocks = {t0, t1, t2, t3};
-        int[][] topOffsets = {{0,0}, {dx,0}, {0,dz}, {dx,dz}};
-        int topWallIdx = 5;
+        int glassIdx = 4;
         for (int i = 0; i < 4; i++) {
             BlockPos tp = topBlocks[i];
             if (isGlass(world, tp)) {
                 world.setBlockState(tp, formed.getDefaultState()
-                    .withProperty(BlockCondenseurFormed.POSITION, 4), 2);
-                glassOffX = topOffsets[i][0];
-                glassOffZ = topOffsets[i][1];
+                    .withProperty(BlockCondenseurFormed.POSITION, glassIdx), 2);
+                glassIdx++;
             } else {
                 world.setBlockState(tp, formed.getDefaultState()
-                    .withProperty(BlockCondenseurFormed.POSITION, topWallIdx), 2);
-                topWallIdx++;
+                    .withProperty(BlockCondenseurFormed.POSITION, 7), 2);
             }
         }
 
@@ -172,7 +167,6 @@ public class BlockCondenseur extends Block implements IHasModel {
                 newTe.readFromNBT(savedData);
                 ((TileCondenseur) newTe).setStructureFormed(true);
                 ((TileCondenseur) newTe).setMultiDirection(dx, dz);
-                ((TileCondenseur) newTe).setGlassOffset(glassOffX, glassOffZ);
             }
         }
     }
