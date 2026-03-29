@@ -22,29 +22,18 @@ minecraft {
     mappings = "snapshot_20171003"
 }
 
-// Fix: disable broken deobfMcMCP and use pre-mapped jar from forge_gradle cache
-tasks.whenTaskAdded { task ->
-    if (task.name == 'deobfMcMCP') {
-        task.enabled = false
-    }
+dependencies {
+    compile files(System.getProperty('user.home') + '/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.12.2-14.23.5.2860_mapped_snapshot_20171003-1.12/forge-1.12.2-14.23.5.2860_mapped_snapshot_20171003-1.12.jar')
 }
 
-task fixForgeBin {
-    doLast {
-        def mappedJar = file("${System.getProperty('user.home')}/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.12.2-14.23.5.2860_mapped_snapshot_20171003-1.12/forge-1.12.2-14.23.5.2860_mapped_snapshot_20171003-1.12.jar")
-        if (mappedJar.exists()) {
-            def forgeBinDir = file("${gradle.gradleUserHomeDir}/caches/minecraft/net/minecraftforge/forge/1.12.2-14.23.5.2860/snapshot/20171003")
-            forgeBinDir.mkdirs()
-            def target = new File(forgeBinDir, "forgeBin-1.12.2-14.23.5.2860.jar")
-            mappedJar.withInputStream { is -> target.withOutputStream { os -> os << is } }
-            println "Fixed forgeBin with mapped jar"
+// Disable all broken MC processing tasks - we use the pre-mapped jar directly
+['deobfMcMCP', 'deobfMcSRG', 'applyBinaryPatches', 'mergeJars',
+ 'splitServerJar', 'downloadClient', 'downloadServer'].each { taskName ->
+    tasks.whenTaskAdded { task ->
+        if (task.name == taskName) {
+            task.enabled = false
         }
     }
-}
-tasks.findByName('compileJava')?.dependsOn('fixForgeBin')
-fixForgeBin.mustRunAfter('deobfMcMCP')
-
-dependencies {
 }
 
 processResources {
