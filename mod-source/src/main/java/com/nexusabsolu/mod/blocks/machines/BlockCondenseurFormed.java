@@ -88,12 +88,12 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
     public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world,
             BlockPos pos, EnumFacing side) {
         int position = state.getValue(POSITION);
-        if (position >= 4 && position <= 6) {
-            // Glass: don't render face if neighbor is same block
+        // Top layer (glass 4-6 + wall 7): hide faces between adjacent top blocks
+        if (position >= 4 && position <= 7) {
             IBlockState neighbor = world.getBlockState(pos.offset(side));
             if (neighbor.getBlock() == this) {
                 int nPos = neighbor.getValue(POSITION);
-                if (nPos >= 4 && nPos <= 6) return false;
+                if (nPos >= 4 && nPos <= 7) return false;
             }
         }
         return super.shouldSideBeRendered(state, world, pos, side);

@@ -88,12 +88,15 @@ public class GuiCondenseur extends GuiContainer {
         }
 
         // === ENERGY BAR ===
+        boolean hasEnergy = tile.getEnergyStored() > 0;
+        int borderColor = hasEnergy ? 0xFFE03020 : 0xFF444444; // Red if RF, grey if empty
+
         // Background
         drawRect(x + 198, y + 20, x + 212, y + 100, 0xFF141018);
-        drawRect(x + 198, y + 20, x + 212, y + 100, 0xFFE03020); // Red border
+        drawRect(x + 198, y + 20, x + 212, y + 100, borderColor);
 
-        // Fill (red from bottom)
-        if (tile.getMaxEnergyStored() > 0 && tile.getEnergyStored() > 0) {
+        // Fill (red from bottom, only if energy present)
+        if (tile.getMaxEnergyStored() > 0 && hasEnergy) {
             int energyHeight = (tile.getEnergyStored() * 78) / tile.getMaxEnergyStored();
             for (int py = 0; py < energyHeight; py++) {
                 int intensity = (int)(80 + (py / 78.0) * 175);
