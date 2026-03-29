@@ -48,7 +48,7 @@ cd ../..
 
 # Step 5: Reobfuscate (MCP names -> SRG names)
 echo "[5/6] Reobfuscating..."
-java -jar "$SPECIALSOURCE" --in-jar build/libs/NexusAbsolu-1.0.0-dev.jar --out-jar build/libs/NexusAbsolu-1.0.0.jar --srg-in "$SRG" -L 2>&1
+java -cp "$SPECIALSOURCE;$FORGE" net.md_5.specialsource.SpecialSource --in-jar build/libs/NexusAbsolu-1.0.0-dev.jar --out-jar build/libs/NexusAbsolu-1.0.0.jar --srg-in "$SRG" -L 2>&1
 if [ $? -ne 0 ]; then
     echo "REOBF FAILED!"
     exit 1
