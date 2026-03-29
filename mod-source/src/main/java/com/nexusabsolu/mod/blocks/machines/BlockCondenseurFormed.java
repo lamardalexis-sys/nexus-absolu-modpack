@@ -80,30 +80,24 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world,
             BlockPos pos, EnumFacing side) {
-        // In MC 1.12.2: pos = NEIGHBOR position, state = THIS block's state
         int position = state.getValue(POSITION);
         boolean isGlass = (position >= 4 && position <= 6);
 
+        // pos = neighbor position in MC 1.12.2
         IBlockState neighbor = world.getBlockState(pos);
         if (neighbor.getBlock() == this) {
             int nPos = neighbor.getValue(POSITION);
             boolean nIsGlass = (nPos >= 4 && nPos <= 6);
 
-            // Glass-glass: seamless, hide
+            // Glass next to glass: hide for seamless look
             if (isGlass && nIsGlass) return false;
-
-            // Solid facing glass: hide (no top of bottom blocks through glass)
-            if (!isGlass && nIsGlass) return false;
-
-            // Solid facing solid: hide internal faces
-            if (!isGlass && !nIsGlass) return false;
         }
         return super.shouldSideBeRendered(state, world, pos, side);
     }
