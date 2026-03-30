@@ -108,3 +108,49 @@ recipes.addShaped("nexus_atelier_craft",
      [<ore:cobblestone>, <ore:cobblestone>, <ore:cobblestone>]]);
 
 print("Age0_Scavenging.zs loaded!");
+
+// === IRON INGOT -> 8 NUGGETS (vanilla is 9, we want 8) ===
+recipes.removeShapeless(<minecraft:iron_nugget> * 9, [<minecraft:iron_ingot>]);
+recipes.addShapeless("nexus_iron_to_nuggets",
+    <minecraft:iron_nugget> * 8,
+    [<minecraft:iron_ingot>]);
+
+// === 9x COMPOSE -> BLOC DE COMPOSE ===
+recipes.addShaped("nexus_compose_block_a",
+    <nexusabsolu:compose_block_a>,
+    [[<nexusabsolu:compose_a>, <nexusabsolu:compose_a>, <nexusabsolu:compose_a>],
+     [<nexusabsolu:compose_a>, <nexusabsolu:compose_a>, <nexusabsolu:compose_a>],
+     [<nexusabsolu:compose_a>, <nexusabsolu:compose_a>, <nexusabsolu:compose_a>]]);
+
+recipes.addShaped("nexus_compose_block_b",
+    <nexusabsolu:compose_block_b>,
+    [[<nexusabsolu:compose_b>, <nexusabsolu:compose_b>, <nexusabsolu:compose_b>],
+     [<nexusabsolu:compose_b>, <nexusabsolu:compose_b>, <nexusabsolu:compose_b>],
+     [<nexusabsolu:compose_b>, <nexusabsolu:compose_b>, <nexusabsolu:compose_b>]]);
+
+recipes.addShaped("nexus_compose_block_c",
+    <nexusabsolu:compose_block_c>,
+    [[<nexusabsolu:compose_c>, <nexusabsolu:compose_c>, <nexusabsolu:compose_c>],
+     [<nexusabsolu:compose_c>, <nexusabsolu:compose_c>, <nexusabsolu:compose_c>],
+     [<nexusabsolu:compose_c>, <nexusabsolu:compose_c>, <nexusabsolu:compose_c>]]);
+
+recipes.addShaped("nexus_compose_block_d",
+    <nexusabsolu:compose_block_d>,
+    [[<nexusabsolu:compose_d>, <nexusabsolu:compose_d>, <nexusabsolu:compose_d>],
+     [<nexusabsolu:compose_d>, <nexusabsolu:compose_d>, <nexusabsolu:compose_d>],
+     [<nexusabsolu:compose_d>, <nexusabsolu:compose_d>, <nexusabsolu:compose_d>]]);
+
+recipes.addShaped("nexus_compose_block_e",
+    <nexusabsolu:compose_block_e>,
+    [[<nexusabsolu:compose_e>, <nexusabsolu:compose_e>, <nexusabsolu:compose_e>],
+     [<nexusabsolu:compose_e>, <nexusabsolu:compose_e>, <nexusabsolu:compose_e>],
+     [<nexusabsolu:compose_e>, <nexusabsolu:compose_e>, <nexusabsolu:compose_e>]]);
+
+// === CONVERTISSEUR RECIPE ===
+recipes.addShaped("nexus_convertisseur_craft",
+    <nexusabsolu:convertisseur_voss>,
+    [[<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>],
+     [<minecraft:redstone>, <nexusabsolu:compose_a>, <minecraft:redstone>],
+     [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
+
+print("Age0_Energy.zs loaded!");

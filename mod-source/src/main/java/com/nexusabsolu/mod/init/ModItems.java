@@ -1,6 +1,7 @@
 package com.nexusabsolu.mod.init;
 
 import com.nexusabsolu.mod.items.ItemBase;
+import com.nexusabsolu.mod.items.ItemCompose;
 import com.nexusabsolu.mod.items.ItemGrit;
 import com.nexusabsolu.mod.items.ItemPioche;
 import com.nexusabsolu.mod.items.fragments.ItemFragment;
@@ -64,6 +65,13 @@ public class ModItems {
     public static final Item NEXIUM_INGOT = new ItemBase("nexium_ingot");
     public static final Item CLAUSTRITE_GEM = new ItemBase("claustrite_gem");
     public static final Item SUPER_FERTILIZER = new ItemBase("super_fertilizer");
+
+    // === COMPOSES ENERGETIQUES (A-E) ===
+    public static final Item COMPOSE_A = new ItemCompose("compose_a", "A", 25);
+    public static final Item COMPOSE_B = new ItemCompose("compose_b", "B", 75);
+    public static final Item COMPOSE_C = new ItemCompose("compose_c", "C", 150);
+    public static final Item COMPOSE_D = new ItemCompose("compose_d", "D", 300);
+    public static final Item COMPOSE_E = new ItemCompose("compose_e", "E", 500);
 
     // === THE 9 FRAGMENTS ===
     public static final Item FRAGMENT_MECANIQUE = new ItemFragment(

@@ -75,3 +75,20 @@ tile.nexusabsolu.atelier_voss.name=Atelier du Dr. Voss
 # Pioches Custom
 item.nexusabsolu.pioche_fragmentee.name=Pioche Fragmentee
 item.nexusabsolu.pioche_renforcee.name=Pioche Renforcee
+
+# Composes Energetiques
+item.nexusabsolu.compose_a.name=Compose A
+item.nexusabsolu.compose_b.name=Compose B
+item.nexusabsolu.compose_c.name=Compose C
+item.nexusabsolu.compose_d.name=Compose D
+item.nexusabsolu.compose_e.name=Compose E
+
+# Blocs de Compose
+tile.nexusabsolu.compose_block_a.name=Bloc de Compose A
+tile.nexusabsolu.compose_block_b.name=Bloc de Compose B
+tile.nexusabsolu.compose_block_c.name=Bloc de Compose C
+tile.nexusabsolu.compose_block_d.name=Bloc de Compose D
+tile.nexusabsolu.compose_block_e.name=Bloc de Compose E
+
+# Convertisseur
+tile.nexusabsolu.convertisseur_voss.name=Convertisseur du Dr. Voss

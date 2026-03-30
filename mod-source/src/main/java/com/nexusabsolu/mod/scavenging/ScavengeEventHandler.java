@@ -77,6 +77,7 @@ public class ScavengeEventHandler {
                 else if (r < 0.42) spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
                 else if (r < 0.52) spawnDrop(world, player, new ItemStack(Items.COAL, 1));
                 else if (r < 0.60) spawnDrop(world, player, new ItemStack(Items.REDSTONE, 1));
+                else if (r < 0.63) spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
                 else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             }
 
