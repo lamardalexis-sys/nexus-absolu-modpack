@@ -1,30 +1,7 @@
 [
   {
     "dimension": 144,
-    "mob": ["minecraft:zombie", "minecraft:skeleton", "minecraft:spider", "minecraft:creeper"],
-    "result": "allow",
-    "maxcount": 4,
-    "comment": "Hostile mobs in compact machines - limited quantity"
-  },
-  {
-    "dimension": 144,
-    "mob": "minecraft:enderman",
-    "result": "allow",
-    "maxcount": 1,
-    "comment": "Rare enderman for ender pearl fragments"
-  },
-  {
-    "dimension": 144,
-    "mob": ["minecraft:chicken", "minecraft:cow", "minecraft:pig"],
-    "result": "allow",
-    "maxcount": 2,
-    "comment": "Passive mobs for Crop Dusting poop + food"
-  },
-  {
-    "dimension": 144,
-    "mob": "minecraft:witch",
-    "result": "allow",
-    "maxcount": 1,
-    "comment": "Witch for glowstone dust drops (pre-Nether)"
+    "result": "deny",
+    "comment": "No mob spawning in Compact Machines"
   }
 ]

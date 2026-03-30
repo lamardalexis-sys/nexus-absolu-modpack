@@ -105,12 +105,14 @@ public class GuiConvertisseur extends GuiContainer {
             fontRenderer.drawStringWithShadow(letter, sx + (sqSize - lw) / 2.0F, sqY + 3, lColor);
         }
 
-        // CFG button (top-right, next to energy bar)
-        int cbx = x + 130;
-        int cby = y + 5;
-        drawRect(cbx - 1, cby - 1, cbx + 17, cby + 11, 0xFF6B3FA0);
-        drawRect(cbx, cby, cbx + 16, cby + 10, configOpen ? 0xFF4A2A70 : 0xFF261440);
-        fontRenderer.drawStringWithShadow("*", cbx + 5, cby + 1, 0xCCCCCC);
+        // CFG tab (right edge of GUI, like Thermal tabs)
+        int cbx = x + xSize - 2;
+        int cby = y + 18;
+        drawRect(cbx, cby, cbx + 14, cby + 16, configOpen ? 0xFF4A2A70 : 0xFF261440);
+        drawRect(cbx, cby, cbx + 14, cby + 1, 0xFF6B3FA0);
+        drawRect(cbx, cby + 15, cbx + 14, cby + 16, 0xFF3A1F5E);
+        drawRect(cbx + 13, cby, cbx + 14, cby + 16, 0xFF6B3FA0);
+        fontRenderer.drawStringWithShadow("*", cbx + 4, cby + 4, 0xCCCCCC);
 
         // Inventory
         fontRenderer.drawStringWithShadow("Inventaire", x + 8, y + 84, 0x8866AA);
@@ -211,8 +213,8 @@ public class GuiConvertisseur extends GuiContainer {
         int x = this.guiLeft;
         int y = this.guiTop;
 
-        // CFG button (top-right)
-        if (mouseX >= x + 129 && mouseX <= x + 147 && mouseY >= y + 4 && mouseY <= y + 15) {
+        // CFG tab (right edge)
+        if (mouseX >= x + xSize - 2 && mouseX <= x + xSize + 12 && mouseY >= y + 18 && mouseY <= y + 34) {
             configOpen = !configOpen;
             return;
         }
