@@ -6,22 +6,27 @@
 // ============================================
 
 // ==========================================
-// SIEVE RECIPES -- Ce que le tamis donne
-// Ces recettes sont deja dans Ex Nihilo par defaut
-// On en AJOUTE pour nos materiaux custom
+// SIEVE DROPS -- Override gravel drops
+// En compact: on veut SEULEMENT coal, flint, iron nugget
+// Pas de pieces/chunks (trop de raccourcis)
 // ==========================================
 
-// Gravel dans le tamis (mesh string) -- basique
-// Default Ex Nihilo deja donne : Iron, Gold, Diamond, Emerald, Coal, Lapis, Redstone
-// On ne touche pas aux defaults
+// Remove ALL default gravel sieve recipes
+mods.exnihilocreatio.Sieve.removeAll(<minecraft:gravel>);
 
-// Sand dans le tamis (mesh flint) -- metaux moddes
-// Ex Nihilo a deja les supports Thermal Foundation
-// Verification : copper, tin, silver, lead, nickel pieces
+// Gravel + String Mesh: just basics
+mods.exnihilocreatio.Sieve.addStringMeshRecipe(<minecraft:gravel>, <minecraft:flint>, 0.25);
+mods.exnihilocreatio.Sieve.addStringMeshRecipe(<minecraft:gravel>, <minecraft:coal>, 0.15);
 
-// Dust dans le tamis (mesh iron) -- materiaux rares
-// Ajouter Osmium pieces pour preparer Mekanism (meme si c'est Age 3)
-// Le joueur peut stocker de l'osmium pour plus tard
+// Gravel + Flint Mesh: coal, flint, iron nugget
+mods.exnihilocreatio.Sieve.addFlintMeshRecipe(<minecraft:gravel>, <minecraft:flint>, 0.20);
+mods.exnihilocreatio.Sieve.addFlintMeshRecipe(<minecraft:gravel>, <minecraft:coal>, 0.25);
+mods.exnihilocreatio.Sieve.addFlintMeshRecipe(<minecraft:gravel>, <minecraft:iron_nugget>, 0.25);
+
+// Gravel + Iron Mesh: more nuggets + copper/tin nuggets
+mods.exnihilocreatio.Sieve.addIronMeshRecipe(<minecraft:gravel>, <minecraft:iron_nugget>, 0.35);
+mods.exnihilocreatio.Sieve.addIronMeshRecipe(<minecraft:gravel>, <minecraft:coal>, 0.20);
+mods.exnihilocreatio.Sieve.addIronMeshRecipe(<minecraft:gravel>, <minecraft:flint>, 0.15);
 
 // ==========================================
 // CRUCIBLE -- Source de lave en compact
