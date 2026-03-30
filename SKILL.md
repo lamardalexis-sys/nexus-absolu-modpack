@@ -368,3 +368,33 @@ bash mod-source/build.sh
 ---
 
 *Dernière mise à jour : Session 4 — Multibloc TESR + écran dynamique + build system + recherche modpacks*
+
+---
+
+## 11. METHODOLOGIE DE DEVELOPPEMENT (Superpowers)
+
+Référence : https://github.com/obra/superpowers
+
+### Avant chaque changement de code :
+1. **DESIGN** — Discuter le design avec Alexis AVANT de coder
+2. **PLAN** — Lister les fichiers exacts à modifier/créer, avec le contenu prévu
+3. **PETITES TACHES** — Chaque changement = 2-5 min max, pas de gros blocs
+
+### Avant chaque push :
+4. **VERIFIER COMPILATION** — Compter les accolades { }, vérifier les imports
+5. **REVIEW SYSTEMATIQUE** — Relire chaque fichier modifié pour :
+   - Accolades équilibrées
+   - Imports corrects (pas de classes manquantes)
+   - Pas de méthodes qui ne se reobfusquent pas (canRenderInLayer, etc.)
+   - Cohérence avec le reste du code existant
+   - Version bumpée dans build.gradle
+6. **PUSH** — Seulement après vérification
+
+### Erreurs connues à ne JAMAIS refaire :
+- ❌ Oublier une accolade fermante (renderScreen v1.0.23)
+- ❌ Utiliser canRenderInLayer (ne se reobfusque pas)
+- ❌ shouldSideBeRendered : pos EST le voisin, PAS pos.offset(side)
+- ❌ Mettre TRANSLUCENT pour tous les blocs (rend les solides transparents)
+- ❌ Blockstate inversé (vérifier glass=3, wall=1 pas l'inverse)
+- ❌ Pusher du code sans vérifier que les braces sont équilibrées
+- ❌ Hardcoder des valeurs (rfPerTick, maxProcessTime) au lieu de lire la recette
