@@ -1,71 +1,67 @@
-// ============================================
-// NEXUS ABSOLU -- Age0_Scavenging.zs
-// Nexus Wall recipes, grits, fragments
-// ============================================
+// =============================================
+// AGE 0 — Scavenging & Early Resources
+// Nexus Absolu — rechargeable avec /ct reload
+// =============================================
 
-// NOTE: Le scavenging des murs (drops quand on casse un Nexus Wall)
-// est geree par le mod Java (ScavengeEventHandler.java)
-// Ce script gere les RECETTES de conversion des drops
+// === WALL DUST CONVERSIONS ===
+// 4x wall_dust -> 1 cobblestone
+recipes.addShapeless("nexus_walldust_to_cobble",
+    <minecraft:cobblestone>,
+    [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]);
 
-// ==========================================
-// NEXUS WALL -- Renewable crafting
-// ==========================================
+// 2x wall_dust -> 1 gravel
+recipes.addShapeless("nexus_walldust_to_gravel",
+    <minecraft:gravel>,
+    [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]);
 
-// 4 wall dust -> 2 nexus walls (boucle infinie)
-recipes.addShaped("nexus_wall_craft", <nexusabsolu:nexus_wall> * 2,
-    [[<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>],
-     [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]]);
+// 2x cobblestone_fragment -> 1 cobblestone
+recipes.addShapeless("nexus_fragment_to_cobble",
+    <minecraft:cobblestone>,
+    [<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>]);
 
-// ==========================================
-// GRITS -> NUGGETS (furnace, inefficace)
-// 1 grit = 1 nugget, il faut 9 grits pour 1 lingot
-// C'est LENT et INTENTIONNEL -- le tamis Ex Nihilo est mieux
-// ==========================================
+// === GRITS -> FURNACE -> INGOTS ===
+furnace.addRecipe(<minecraft:iron_ingot>, <nexusabsolu:iron_grit>);
+furnace.addRecipe(<thermalfoundation:material:128>, <nexusabsolu:copper_grit>);  // copper ingot
+furnace.addRecipe(<thermalfoundation:material:129>, <nexusabsolu:tin_grit>);     // tin ingot
+furnace.addRecipe(<thermalfoundation:material:130>, <nexusabsolu:silver_grit>);  // silver ingot
+furnace.addRecipe(<thermalfoundation:material:133>, <nexusabsolu:nickel_grit>);  // nickel ingot
+furnace.addRecipe(<thermalfoundation:material:131>, <nexusabsolu:lead_grit>);    // lead ingot
+furnace.addRecipe(<minecraft:gold_ingot>, <nexusabsolu:gold_grit>);
+furnace.addRecipe(<mekanism:ingot:1>, <nexusabsolu:osmium_grit>);               // osmium ingot
 
-furnace.addRecipe(<minecraft:iron_nugget>, <nexusabsolu:iron_grit>);
-furnace.addRecipe(<thermalfoundation:material:192>, <nexusabsolu:copper_grit>);   // copper nugget
-furnace.addRecipe(<thermalfoundation:material:193>, <nexusabsolu:tin_grit>);      // tin nugget
-furnace.addRecipe(<thermalfoundation:material:194>, <nexusabsolu:silver_grit>);   // silver nugget
-furnace.addRecipe(<thermalfoundation:material:195>, <nexusabsolu:lead_grit>);     // lead nugget
-furnace.addRecipe(<thermalfoundation:material:197>, <nexusabsolu:nickel_grit>);   // nickel nugget
-furnace.addRecipe(<minecraft:gold_nugget>, <nexusabsolu:gold_grit>);
-furnace.addRecipe(<mekanism:nugget:1>, <nexusabsolu:osmium_grit>);               // osmium nugget
+// === EARLY TOOLS (backup crafting table recipes) ===
+// Si l'Atelier bug, le joueur peut crafter sur la table
+recipes.addShaped("nexus_pioche_frag_backup",
+    <nexusabsolu:pioche_fragmentee>,
+    [[<ore:plankWood>, <ore:plankWood>],
+     [null, <minecraft:stick>],
+     [null, <minecraft:stick>]]);
 
-// ==========================================
-// FRAGMENTS -> Items complets
-// ==========================================
+recipes.addShaped("nexus_pioche_renf_backup",
+    <nexusabsolu:pioche_renforcee>,
+    [[<minecraft:iron_nugget>, <nexusabsolu:wall_dust>, <minecraft:iron_nugget>],
+     [null, <minecraft:stick>, null],
+     [null, <minecraft:stick>, null]]);
 
-// 4 cobblestone fragments -> 1 cobblestone
-recipes.addShaped("cobble_from_fragments", <minecraft:cobblestone>,
-    [[<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>],
-     [<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>]]);
+// === NEXUS WALL RECIPE (re-craft from wall_dust) ===
+recipes.addShaped("nexus_wall_craft",
+    <nexusabsolu:nexus_wall> * 2,
+    [[<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>],
+     [<nexusabsolu:wall_dust>, <minecraft:iron_nugget>, <nexusabsolu:wall_dust>],
+     [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]]);
 
-// 4 diamond fragments -> 1 diamond
-recipes.addShaped("diamond_from_fragments", <minecraft:diamond>,
-    [[<nexusabsolu:diamond_fragment>, <nexusabsolu:diamond_fragment>],
-     [<nexusabsolu:diamond_fragment>, <nexusabsolu:diamond_fragment>]]);
+// === CONDENSEUR RECIPE ===
+recipes.addShaped("nexus_condenseur_craft",
+    <nexusabsolu:condenseur>,
+    [[<minecraft:iron_ingot>, <nexusabsolu:wall_dust>, <minecraft:iron_ingot>],
+     [<nexusabsolu:wall_dust>, <minecraft:redstone>, <nexusabsolu:wall_dust>],
+     [<minecraft:iron_ingot>, <nexusabsolu:wall_dust>, <minecraft:iron_ingot>]]);
 
-// 4 emerald fragments -> 1 emerald
-recipes.addShaped("emerald_from_fragments", <minecraft:emerald>,
-    [[<nexusabsolu:emerald_fragment>, <nexusabsolu:emerald_fragment>],
-     [<nexusabsolu:emerald_fragment>, <nexusabsolu:emerald_fragment>]]);
+// === ATELIER RECIPE ===
+recipes.addShaped("nexus_atelier_craft",
+    <nexusabsolu:atelier_voss>,
+    [[<ore:plankWood>, <ore:plankWood>, <ore:plankWood>],
+     [<nexusabsolu:wall_dust>, null, <nexusabsolu:wall_dust>],
+     [<ore:cobblestone>, <ore:cobblestone>, <ore:cobblestone>]]);
 
-// 8 ender pearl fragments -> 1 ender pearl (plus rare)
-recipes.addShaped("ender_pearl_from_fragments", <minecraft:ender_pearl>,
-    [[<nexusabsolu:ender_pearl_fragment>, <nexusabsolu:ender_pearl_fragment>, <nexusabsolu:ender_pearl_fragment>],
-     [<nexusabsolu:ender_pearl_fragment>, null, <nexusabsolu:ender_pearl_fragment>],
-     [<nexusabsolu:ender_pearl_fragment>, <nexusabsolu:ender_pearl_fragment>, <nexusabsolu:ender_pearl_fragment>]]);
-
-// 4 obsidian fragments -> 1 obsidian
-recipes.addShaped("obsidian_from_fragments", <minecraft:obsidian>,
-    [[<nexusabsolu:obsidian_fragment>, <nexusabsolu:obsidian_fragment>],
-     [<nexusabsolu:obsidian_fragment>, <nexusabsolu:obsidian_fragment>]]);
-
-// ==========================================
-// SUPER FERTILIZER (poop + bonemeal)
-// ==========================================
-
-recipes.addShapeless("super_fertilizer", <nexusabsolu:super_fertilizer> * 4,
-    [<cropdusting:poop>, <minecraft:dye:15>, <minecraft:dye:15>]);
-
-print("[Nexus Absolu] Age0_Scavenging.zs loaded");
+print("Age0_Scavenging.zs loaded!");

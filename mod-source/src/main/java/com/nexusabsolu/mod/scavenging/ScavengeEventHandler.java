@@ -67,26 +67,23 @@ public class ScavengeEventHandler {
         // Swing arm
         player.swingArm(EnumHand.MAIN_HAND);
 
-        // Always drop wall_dust
-        spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1 + rand.nextInt(2) * multiplier));
-
-        // Bonus drops based on pioche tier
+        // Drops based on pioche tier
         double r = rand.nextDouble();
 
         if (multiplier <= 1) {
-            // Pioche Fragmentee (wood tier)
+            // Pioche Fragmentee: always wall_dust + bonus
+            spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1 + rand.nextInt(2)));
             if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
             else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
             else if (r < 0.65) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
-            // else: nothing extra
         } else {
-            // Pioche Renforcee (iron tier)
-            if (r < 0.25)      spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
-            else if (r < 0.45) spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
-            else if (r < 0.60) spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
-            else if (r < 0.75) spawnDrop(world, player, new ItemStack(Items.COAL, 1));
-            else if (r < 0.85) spawnDrop(world, player, new ItemStack(Items.REDSTONE, 1));
-            // else: nothing extra
+            // Pioche Renforcee: 40% wall_dust, 60% direct grits (better!)
+            if (r < 0.15)      spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
+            else if (r < 0.30) spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
+            else if (r < 0.42) spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
+            else if (r < 0.52) spawnDrop(world, player, new ItemStack(Items.COAL, 1));
+            else if (r < 0.60) spawnDrop(world, player, new ItemStack(Items.REDSTONE, 1));
+            else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
         }
 
         // Add exhaustion (hunger cost)
