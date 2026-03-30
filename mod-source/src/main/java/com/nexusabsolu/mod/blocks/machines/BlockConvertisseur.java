@@ -77,7 +77,7 @@ public class BlockConvertisseur extends Block implements IHasModel {
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
         tooltip.add("\u00a77Convertit l'energie des Composes en RF");
         tooltip.add("\u00a77Place des Blocs de Compose a cote");
-        tooltip.add("\u00a7dRF/t = baseRF x n x facteur decroissant");
+        tooltip.add("\u00a77Plus de blocs = plus de RF");
     }
 
     @Override
