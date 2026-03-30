@@ -151,4 +151,20 @@ recipes.addShaped("nexus_convertisseur_craft",
      [<minecraft:redstone>, <nexusabsolu:compose_a>, <minecraft:redstone>],
      [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
 
+// === ENGRENAGE DE COMPOSE A ===
+// 4 Compose A en croix + 1 iron ingot au centre
+recipes.addShaped("nexus_compose_gear_a",
+    <nexusabsolu:compose_gear_a>,
+    [[null, <nexusabsolu:compose_a>, null],
+     [<nexusabsolu:compose_a>, <minecraft:iron_ingot>, <nexusabsolu:compose_a>],
+     [null, <nexusabsolu:compose_a>, null]]);
+
+// === STIRLING DYNAMO CUSTOM (necessite Engrenage de Compose A) ===
+recipes.remove(<thermalexpansion:dynamo:0>);
+recipes.addShaped("nexus_stirling_dynamo",
+    <thermalexpansion:dynamo:0>,
+    [[null, <nexusabsolu:compose_gear_a>, null],
+     [<minecraft:cobblestone>, <minecraft:redstone>, <minecraft:cobblestone>],
+     [<ore:ingotCopper>, <minecraft:redstone>, <ore:ingotCopper>]]);
+
 print("Age0_Energy.zs loaded!");

@@ -82,6 +82,7 @@ item.nexusabsolu.compose_b.name=Compose B
 item.nexusabsolu.compose_c.name=Compose C
 item.nexusabsolu.compose_d.name=Compose D
 item.nexusabsolu.compose_e.name=Compose E
+item.nexusabsolu.compose_gear_a.name=Engrenage de Compose A
 
 # Blocs de Compose
 tile.nexusabsolu.compose_block_a.name=Bloc de Compose A

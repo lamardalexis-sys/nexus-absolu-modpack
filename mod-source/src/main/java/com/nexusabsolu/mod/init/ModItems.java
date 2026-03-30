@@ -73,6 +73,9 @@ public class ModItems {
     public static final Item COMPOSE_D = new ItemCompose("compose_d", "D", 300);
     public static final Item COMPOSE_E = new ItemCompose("compose_e", "E", 500);
 
+    // === COMPOSE COMPONENTS ===
+    public static final Item COMPOSE_GEAR_A = new ItemBase("compose_gear_a");
+
     // === THE 9 FRAGMENTS ===
     public static final Item FRAGMENT_MECANIQUE = new ItemFragment(
         "fragment_mecanique",
