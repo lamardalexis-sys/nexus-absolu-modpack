@@ -6,9 +6,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -25,7 +25,8 @@ public class ScavengeEventHandler {
 
     private static final Random rand = new Random();
     private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private static final long COOLDOWN_MS = 500L;
+    private static final long COOLDOWN_PIOCHE = 500L;
+    private static final long COOLDOWN_BARE = 800L;
 
     @SubscribeEvent
     public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
@@ -42,52 +43,64 @@ public class ScavengeEventHandler {
         String regName = block.getRegistryName().toString();
         if (!regName.equals("compactmachines3:wall")) return;
 
-        // Must hold a custom pioche
-        ItemStack tool = player.getHeldItem(EnumHand.MAIN_HAND);
-        if (tool.isEmpty() || !(tool.getItem() instanceof ItemPioche)) return;
-
-        // Cooldown check
         UUID uuid = player.getUniqueID();
         long now = System.currentTimeMillis();
-        if (cooldowns.containsKey(uuid)) {
-            if (now - cooldowns.get(uuid) < COOLDOWN_MS) return;
-        }
-        cooldowns.put(uuid, now);
 
-        ItemPioche pioche = (ItemPioche) tool.getItem();
-        int multiplier = pioche.getDustMultiplier();
+        ItemStack tool = player.getHeldItem(EnumHand.MAIN_HAND);
+        boolean hasPioche = !tool.isEmpty() && tool.getItem() instanceof ItemPioche;
 
-        // Damage the tool
-        tool.damageItem(1, player);
+        if (hasPioche) {
+            // === PIOCHE MINING ===
+            if (cooldowns.containsKey(uuid) && now - cooldowns.get(uuid) < COOLDOWN_PIOCHE) return;
+            cooldowns.put(uuid, now);
 
-        // Play sound
-        world.playSound(null, pos, SoundEvents.BLOCK_STONE_HIT, SoundCategory.BLOCKS,
-            1.0F, 0.8F + rand.nextFloat() * 0.4F);
+            ItemPioche pioche = (ItemPioche) tool.getItem();
+            int multiplier = pioche.getDustMultiplier();
 
-        // Swing arm
-        player.swingArm(EnumHand.MAIN_HAND);
+            tool.damageItem(1, player);
+            world.playSound(null, pos, SoundEvents.BLOCK_STONE_HIT, SoundCategory.BLOCKS,
+                1.0F, 0.8F + rand.nextFloat() * 0.4F);
+            player.swingArm(EnumHand.MAIN_HAND);
 
-        // Drops based on pioche tier
-        double r = rand.nextDouble();
+            double r = rand.nextDouble();
 
-        if (multiplier <= 1) {
-            // Pioche Fragmentee: always wall_dust + bonus
-            spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1 + rand.nextInt(2)));
-            if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
-            else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
-            else if (r < 0.65) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
+            if (multiplier <= 1) {
+                // Pioche Fragmentee: always wall_dust + bonus
+                spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1 + rand.nextInt(2)));
+                if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
+                else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
+                else if (r < 0.65) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
+            } else {
+                // Pioche Renforcee: 60% grits, 40% wall_dust
+                if (r < 0.15)      spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
+                else if (r < 0.30) spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
+                else if (r < 0.42) spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
+                else if (r < 0.52) spawnDrop(world, player, new ItemStack(Items.COAL, 1));
+                else if (r < 0.60) spawnDrop(world, player, new ItemStack(Items.REDSTONE, 1));
+                else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            }
+
+            player.addExhaustion(0.5F);
+
         } else {
-            // Pioche Renforcee: 40% wall_dust, 60% direct grits (better!)
-            if (r < 0.15)      spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
-            else if (r < 0.30) spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
-            else if (r < 0.42) spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
-            else if (r < 0.52) spawnDrop(world, player, new ItemStack(Items.COAL, 1));
-            else if (r < 0.60) spawnDrop(world, player, new ItemStack(Items.REDSTONE, 1));
-            else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
-        }
+            // === BARE HANDS ===
+            if (cooldowns.containsKey(uuid) && now - cooldowns.get(uuid) < COOLDOWN_BARE) return;
+            cooldowns.put(uuid, now);
 
-        // Add exhaustion (hunger cost)
-        player.addExhaustion(0.5F);
+            world.playSound(null, pos, SoundEvents.BLOCK_STONE_HIT, SoundCategory.BLOCKS,
+                0.7F, 0.6F + rand.nextFloat() * 0.3F);
+            player.swingArm(EnumHand.MAIN_HAND);
+
+            double r = rand.nextDouble();
+
+            if (r < 0.20)      spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            else if (r < 0.45) spawnDrop(world, player, new ItemStack(Items.STICK, 1));
+            else if (r < 0.65) spawnDrop(world, player, new ItemStack(Blocks.PLANKS, 1));
+            else if (r < 0.75) spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
+            // else: nothing
+
+            player.addExhaustion(0.8F);
+        }
     }
 
     private void spawnDrop(World world, EntityPlayer player, ItemStack stack) {
