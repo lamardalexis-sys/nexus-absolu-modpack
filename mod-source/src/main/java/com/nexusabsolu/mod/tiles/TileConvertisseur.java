@@ -8,45 +8,36 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileConvertisseur extends TileEntity implements ITickable {
 
-    private final InternalEnergyStorage energy = new InternalEnergyStorage(100000, 0, 1000, 0);
+    private final InternalEnergyStorage energy = new InternalEnergyStorage(50000, 0, 500, 0);
     private int currentRFPerTick = 0;
     private int composeCount = 0;
 
-    // Per-face data: 0=empty, 1=A, 2=B, 3=C, 4=D, 5=E
-    // Order: DOWN, UP, NORTH, SOUTH, WEST, EAST (EnumFacing ordinals)
+    // Per-face: 0=empty, 1=A, 2=B, 3=C, 4=D, 5=E
     private int[] faceData = new int[6];
 
-    // Facteurs decroissants par nombre de blocs
+    // Output config: which faces push energy
+    private boolean[] outputFaces = {true, true, true, true, true, true};
+
     private static final float[] DECAY = {
-        0.0F,   // 0 blocs
-        1.0F,   // 1 bloc  = 100%
-        0.85F,  // 2 blocs = 85%
-        0.75F,  // 3 blocs = 75%
-        0.65F,  // 4 blocs = 65%
-        0.55F,  // 5 blocs = 55%
-        0.50F   // 6 blocs = 50%
+        0.0F, 1.0F, 0.85F, 0.75F, 0.65F, 0.55F, 0.50F
     };
 
     @Override
     public void update() {
         if (world.isRemote) return;
 
-        // Scan every 20 ticks (1 seconde)
         if (world.getTotalWorldTime() % 20 == 0) {
             scanAdjacentBlocks();
         }
 
-        // Generate RF
         if (currentRFPerTick > 0) {
             energy.generateInternal(currentRFPerTick);
         }
 
-        // Push RF to adjacent machines
         if (energy.getEnergyStored() > 0) {
             pushEnergy();
         }
@@ -75,8 +66,7 @@ public class TileConvertisseur extends TileEntity implements ITickable {
         composeCount = count;
 
         if (count > 0 && count <= 6) {
-            float decay = DECAY[count];
-            currentRFPerTick = (int)(totalRF * decay);
+            currentRFPerTick = (int)(totalRF * DECAY[count]);
         } else {
             currentRFPerTick = 0;
         }
@@ -84,12 +74,13 @@ public class TileConvertisseur extends TileEntity implements ITickable {
 
     private void pushEnergy() {
         for (EnumFacing facing : EnumFacing.VALUES) {
+            if (!outputFaces[facing.ordinal()]) continue;
             TileEntity te = world.getTileEntity(pos.offset(facing));
             if (te == null) continue;
             if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
                 IEnergyStorage target = te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
                 if (target != null && target.canReceive()) {
-                    int toSend = Math.min(energy.getEnergyStored(), 1000);
+                    int toSend = Math.min(energy.getEnergyStored(), 500);
                     int sent = target.receiveEnergy(toSend, false);
                     if (sent > 0) {
                         energy.drainInternal(sent);
@@ -99,38 +90,49 @@ public class TileConvertisseur extends TileEntity implements ITickable {
         }
     }
 
+    public void toggleOutputFace(int face) {
+        if (face >= 0 && face < 6) {
+            outputFaces[face] = !outputFaces[face];
+            markDirty();
+        }
+    }
+
+    public boolean isOutputFace(int face) {
+        return face >= 0 && face < 6 && outputFaces[face];
+    }
+
     public int getCurrentRFPerTick() { return currentRFPerTick; }
     public int getComposeCount() { return composeCount; }
     public int getEnergyStored() { return energy.getEnergyStored(); }
     public int getMaxEnergyStored() { return energy.getMaxEnergyStored(); }
     public int[] getFaceData() { return faceData; }
 
-    // Field sync for Container: 0=energy, 1=rfPerTick, 2=count, 3-8=faceData
+    // Fields: 0=energy, 1=rfPerTick, 2=count, 3-8=faceData, 9-14=outputFaces
     public int getField(int id) {
-        switch (id) {
-            case 0: return energy.getEnergyStored();
-            case 1: return currentRFPerTick;
-            case 2: return composeCount;
-            default:
-                if (id >= 3 && id <= 8) return faceData[id - 3];
-                return 0;
-        }
+        if (id == 0) return energy.getEnergyStored();
+        if (id == 1) return currentRFPerTick;
+        if (id == 2) return composeCount;
+        if (id >= 3 && id <= 8) return faceData[id - 3];
+        if (id >= 9 && id <= 14) return outputFaces[id - 9] ? 1 : 0;
+        return 0;
     }
 
     public void setField(int id, int value) {
-        switch (id) {
-            case 0:
-                energy.drainInternal(energy.getEnergyStored());
-                energy.generateInternal(value);
-                break;
-            case 1: currentRFPerTick = value; break;
-            case 2: composeCount = value; break;
-            default:
-                if (id >= 3 && id <= 8) faceData[id - 3] = value;
+        if (id == 0) {
+            energy.drainInternal(energy.getEnergyStored());
+            energy.generateInternal(value);
+        } else if (id == 1) {
+            currentRFPerTick = value;
+        } else if (id == 2) {
+            composeCount = value;
+        } else if (id >= 3 && id <= 8) {
+            faceData[id - 3] = value;
+        } else if (id >= 9 && id <= 14) {
+            outputFaces[id - 9] = value != 0;
         }
     }
 
-    public int getFieldCount() { return 9; }
+    public int getFieldCount() { return 15; }
 
     @Override
     public boolean hasCapability(Capability<?> cap, EnumFacing facing) {
@@ -150,6 +152,11 @@ public class TileConvertisseur extends TileEntity implements ITickable {
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setInteger("Energy", energy.getEnergyStored());
+        byte flags = 0;
+        for (int i = 0; i < 6; i++) {
+            if (outputFaces[i]) flags |= (1 << i);
+        }
+        compound.setByte("OutputFaces", flags);
         return compound;
     }
 
@@ -159,6 +166,12 @@ public class TileConvertisseur extends TileEntity implements ITickable {
         int stored = compound.getInteger("Energy");
         energy.drainInternal(energy.getEnergyStored());
         energy.generateInternal(stored);
+        if (compound.hasKey("OutputFaces")) {
+            byte flags = compound.getByte("OutputFaces");
+            for (int i = 0; i < 6; i++) {
+                outputFaces[i] = (flags & (1 << i)) != 0;
+            }
+        }
     }
 
     @Override
