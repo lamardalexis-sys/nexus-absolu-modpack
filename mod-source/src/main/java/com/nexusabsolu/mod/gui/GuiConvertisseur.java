@@ -11,6 +11,11 @@ public class GuiConvertisseur extends GuiContainer {
     private final TileConvertisseur tile;
     private boolean configOpen = false;
 
+    public boolean isConfigOpen() { return configOpen; }
+    public int getGuiLeft() { return guiLeft; }
+    public int getGuiTop() { return guiTop; }
+    public int getXSize() { return xSize; }
+
     private static final int[] TIER_COLORS = {
         0xFF2A1A3E, 0xFFCC4CFF, 0xFFB299E6, 0xFF80CCB2, 0xFF4CE680, 0xFF33FF4C
     };

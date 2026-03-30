@@ -33,6 +33,9 @@ public class NexusJEIPlugin implements IModPlugin {
         registry.addRecipes(wrappers, CondenseurCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.CONDENSEUR), CondenseurCategory.UID);
 
+        // JEI exclusion zone for Convertisseur config panel
+        registry.addAdvancedGuiHandlers(new ConvertisseurGuiHandler());
+
         // === PIOCHE RENFORCEE DROPS ===
         String renfHeader = "Pioche Renforcee sur mur Compact Machine:\n\n";
         String renfDrops =
