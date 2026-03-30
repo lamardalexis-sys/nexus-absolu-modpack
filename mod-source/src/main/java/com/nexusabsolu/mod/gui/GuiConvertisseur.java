@@ -214,13 +214,27 @@ public class GuiConvertisseur extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        int mx = mouseX - guiLeft;
-        int my = mouseY - guiTop;
+        // Empty - tooltips drawn in drawScreen to render over JEI
+    }
 
-        // Output button tooltips only
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+
+        // Energy bar tooltip (renders AFTER JEI)
+        if (mouseX >= guiLeft + 150 && mouseX <= guiLeft + 166 &&
+            mouseY >= guiTop + 18 && mouseY <= guiTop + 84) {
+            drawHoveringText(java.util.Collections.singletonList(
+                tile.getEnergyStored() + " / " + tile.getMaxEnergyStored() + " RF"),
+                mouseX, mouseY);
+        }
+
+        // Config button tooltips
         if (configOpen) {
-            int cx = 50;
-            int cy = 32;
+            int cx = guiLeft + 50;
+            int cy = guiTop + 32;
             int[][] buttons = {
                 {1, cx + BTN + GAP, cy},
                 {4, cx, cy + BTN + GAP},
@@ -233,10 +247,11 @@ public class GuiConvertisseur extends GuiContainer {
                 int face = btn[0];
                 int bx = btn[1];
                 int by = btn[2];
-                if (mx >= bx && mx <= bx + BTN && my >= by && my <= by + BTN) {
+                if (mouseX >= bx && mouseX <= bx + BTN &&
+                    mouseY >= by && mouseY <= by + BTN) {
                     String state = tile.isOutputFace(face) ? "ON" : "OFF";
                     drawHoveringText(java.util.Collections.singletonList(
-                        FACE_NAMES[face] + ": " + state), mx, my);
+                        FACE_NAMES[face] + ": " + state), mouseX, mouseY);
                 }
             }
         }
