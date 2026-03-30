@@ -11,10 +11,8 @@ recipes.addShapeless("nexus_walldust_to_string",
     <minecraft:string>,
     [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]);
 
-// 2x wall_dust -> 1 gravel
-recipes.addShapeless("nexus_walldust_to_gravel",
-    <minecraft:gravel>,
-    [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]);
+// GRAVEL: Ex Nihilo hammer cobble -> gravel (pas de raccourci wall_dust)
+// Chemin: wall_dust -> cobble (via fragments) -> hammer -> gravel -> sieve
 
 // 2x cobblestone_fragment -> 1 cobblestone
 recipes.addShapeless("nexus_fragment_to_cobble",
