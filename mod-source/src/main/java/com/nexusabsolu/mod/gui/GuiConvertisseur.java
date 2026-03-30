@@ -105,14 +105,12 @@ public class GuiConvertisseur extends GuiContainer {
             fontRenderer.drawStringWithShadow(letter, sx + (sqSize - lw) / 2.0F, sqY + 3, lColor);
         }
 
-        // CFG button
-        int cbx = x + 110;
-        int cby = y + 74;
-        drawRect(cbx - 1, cby - 1, cbx + 25, cby + 11, 0xFF6B3FA0);
-        drawRect(cbx, cby, cbx + 24, cby + 10, 0xFF261440);
-        String cl = configOpen ? "< OK" : "CFG";
-        int cw = fontRenderer.getStringWidth(cl);
-        fontRenderer.drawStringWithShadow(cl, cbx + (24 - cw) / 2.0F, cby + 1, 0xCCCCCC);
+        // CFG button (top-right, next to energy bar)
+        int cbx = x + 130;
+        int cby = y + 5;
+        drawRect(cbx - 1, cby - 1, cbx + 17, cby + 11, 0xFF6B3FA0);
+        drawRect(cbx, cby, cbx + 16, cby + 10, configOpen ? 0xFF4A2A70 : 0xFF261440);
+        fontRenderer.drawStringWithShadow("*", cbx + 5, cby + 1, 0xCCCCCC);
 
         // Inventory
         fontRenderer.drawStringWithShadow("Inventaire", x + 8, y + 84, 0x8866AA);
@@ -210,12 +208,11 @@ public class GuiConvertisseur extends GuiContainer {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws java.io.IOException {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
         int x = this.guiLeft;
         int y = this.guiTop;
 
-        // CFG button
-        if (mouseX >= x + 110 && mouseX <= x + 134 && mouseY >= y + 74 && mouseY <= y + 84) {
+        // CFG button (top-right)
+        if (mouseX >= x + 129 && mouseX <= x + 147 && mouseY >= y + 4 && mouseY <= y + 15) {
             configOpen = !configOpen;
             return;
         }
@@ -241,10 +238,12 @@ public class GuiConvertisseur extends GuiContainer {
                 if (mouseX >= bx && mouseX <= bx + BTN &&
                     mouseY >= by && mouseY <= by + BTN) {
                     mc.playerController.sendEnchantPacket(this.inventorySlots.windowId, face);
-                    break;
+                    return;
                 }
             }
         }
+
+        super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     private String formatNumber(int n) {
