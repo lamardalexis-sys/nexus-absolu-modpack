@@ -60,15 +60,45 @@ recipes.addShapeless("nexus_nugget_to_osmium_grit",
     [<ore:nuggetOsmium>, <ore:nuggetOsmium>, <ore:nuggetOsmium>, <ore:nuggetOsmium>,
      <ore:nuggetOsmium>, <ore:nuggetOsmium>, <ore:nuggetOsmium>, <ore:nuggetOsmium>]);
 
-// === GRITS -> FURNACE -> INGOTS ===
-furnace.addRecipe(<minecraft:iron_ingot>, <nexusabsolu:iron_grit>);
-furnace.addRecipe(<thermalfoundation:material:128>, <nexusabsolu:copper_grit>);  // copper ingot
-furnace.addRecipe(<thermalfoundation:material:129>, <nexusabsolu:tin_grit>);     // tin ingot
-furnace.addRecipe(<thermalfoundation:material:130>, <nexusabsolu:silver_grit>);  // silver ingot
-furnace.addRecipe(<thermalfoundation:material:133>, <nexusabsolu:nickel_grit>);  // nickel ingot
-furnace.addRecipe(<thermalfoundation:material:131>, <nexusabsolu:lead_grit>);    // lead ingot
-furnace.addRecipe(<minecraft:gold_ingot>, <nexusabsolu:gold_grit>);
-furnace.addRecipe(<mekanism:ingot:1>, <nexusabsolu:osmium_grit>);               // osmium ingot
+// === GRITS -> RAW GRITS (4 grits = 1 raw grit) ===
+recipes.addShapeless("nexus_raw_iron_grit",
+    <nexusabsolu:raw_iron_grit>,
+    [<nexusabsolu:iron_grit>, <nexusabsolu:iron_grit>, <nexusabsolu:iron_grit>, <nexusabsolu:iron_grit>]);
+recipes.addShapeless("nexus_raw_copper_grit",
+    <nexusabsolu:raw_copper_grit>,
+    [<nexusabsolu:copper_grit>, <nexusabsolu:copper_grit>, <nexusabsolu:copper_grit>, <nexusabsolu:copper_grit>]);
+recipes.addShapeless("nexus_raw_tin_grit",
+    <nexusabsolu:raw_tin_grit>,
+    [<nexusabsolu:tin_grit>, <nexusabsolu:tin_grit>, <nexusabsolu:tin_grit>, <nexusabsolu:tin_grit>]);
+recipes.addShapeless("nexus_raw_gold_grit",
+    <nexusabsolu:raw_gold_grit>,
+    [<nexusabsolu:gold_grit>, <nexusabsolu:gold_grit>, <nexusabsolu:gold_grit>, <nexusabsolu:gold_grit>]);
+recipes.addShapeless("nexus_raw_silver_grit",
+    <nexusabsolu:raw_silver_grit>,
+    [<nexusabsolu:silver_grit>, <nexusabsolu:silver_grit>, <nexusabsolu:silver_grit>, <nexusabsolu:silver_grit>]);
+recipes.addShapeless("nexus_raw_lead_grit",
+    <nexusabsolu:raw_lead_grit>,
+    [<nexusabsolu:lead_grit>, <nexusabsolu:lead_grit>, <nexusabsolu:lead_grit>, <nexusabsolu:lead_grit>]);
+recipes.addShapeless("nexus_raw_nickel_grit",
+    <nexusabsolu:raw_nickel_grit>,
+    [<nexusabsolu:nickel_grit>, <nexusabsolu:nickel_grit>, <nexusabsolu:nickel_grit>, <nexusabsolu:nickel_grit>]);
+recipes.addShapeless("nexus_raw_osmium_grit",
+    <nexusabsolu:raw_osmium_grit>,
+    [<nexusabsolu:osmium_grit>, <nexusabsolu:osmium_grit>, <nexusabsolu:osmium_grit>, <nexusabsolu:osmium_grit>]);
+
+// === RAW GRITS -> FURNACE -> INGOTS ===
+furnace.addRecipe(<minecraft:iron_ingot>, <nexusabsolu:raw_iron_grit>);
+furnace.addRecipe(<thermalfoundation:material:128>, <nexusabsolu:raw_copper_grit>);
+furnace.addRecipe(<thermalfoundation:material:129>, <nexusabsolu:raw_tin_grit>);
+furnace.addRecipe(<thermalfoundation:material:130>, <nexusabsolu:raw_silver_grit>);
+furnace.addRecipe(<thermalfoundation:material:133>, <nexusabsolu:raw_nickel_grit>);
+furnace.addRecipe(<thermalfoundation:material:131>, <nexusabsolu:raw_lead_grit>);
+furnace.addRecipe(<minecraft:gold_ingot>, <nexusabsolu:raw_gold_grit>);
+furnace.addRecipe(<mekanism:ingot:1>, <nexusabsolu:raw_osmium_grit>);
+
+// === BLOCK VANILLA NUGGETS -> INGOT ===
+recipes.removeByRecipeName("minecraft:iron_ingot_from_nuggets");
+recipes.removeByRecipeName("minecraft:gold_ingot_from_nuggets");
 
 // === EARLY TOOLS (backup crafting table recipes) ===
 // Si l'Atelier bug, le joueur peut crafter sur la table

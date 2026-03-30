@@ -3368,7 +3368,7 @@
           "visibility:8": "ALWAYS",
           "simultaneous:1": 0,
           "icon:10": {
-            "id:8": "harvestcraft:cookingstation",
+            "id:8": "harvestcraft:potitem",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3380,8 +3380,8 @@
           "autoclaim:1": 0,
           "ismain:1": 0,
           "repeat_relative:1": 1,
-          "name:8": "§lLa table de cuisine",
-          "desc:8": "§7La Cooking Station de Pam's\n§7transforme les ingredients en vrais plats.\n§7Fini le pain sec.\n\n§e> Craft 1 Cooking Station (Pam's HarvestCraft)."
+          "name:8": "§lLa marmite",
+          "desc:8": "§7La marmite de Pam's HarvestCraft\n§7permet de cuisiner des plats chauds.\n\n§e> Craft 1 marmite (Pot)."
         }
       },
       "tasks:9": {
@@ -3394,7 +3394,7 @@
           "consume:1": 0,
           "requiredItems:9": {
             "0:10": {
-              "id:8": "harvestcraft:cookingstation",
+              "id:8": "harvestcraft:potitem",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -3535,7 +3535,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa patience du tamis",
-          "desc:8": "§7Continue de tamiser. Les pepites s'accumulent.\n§78 pepites de fer = 1 grit de fer.\n§7La patience est ta forge.\n\n§e> Obtiens 8 iron nuggets."
+          "desc:8": "§7Continue de tamiser. Les pepites s'accumulent.\n§78 pepites = 1 grit. 4 grits = 1 grit brut.\n§7Il te faudra 32 pepites pour 1 lingot...\n\n§e> Obtiens 32 iron nuggets."
         }
       },
       "tasks:9": {
@@ -3549,7 +3549,7 @@
           "requiredItems:9": {
             "0:10": {
               "id:8": "minecraft:iron_nugget",
-              "Count:3": 8,
+              "Count:3": 32,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3582,7 +3582,7 @@
           "visibility:8": "ALWAYS",
           "simultaneous:1": 0,
           "icon:10": {
-            "id:8": "nexusabsolu:iron_grit",
+            "id:8": "nexusabsolu:raw_iron_grit",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3594,8 +3594,8 @@
           "autoclaim:1": 0,
           "ismain:1": 0,
           "repeat_relative:1": 1,
-          "name:8": "§lLe grit compresse",
-          "desc:8": "§7Compresse 8 pepites en 1 grit.\n§7Le grit est un concentre de metal brut.\n§7Pret pour la fusion.\n\n§o§dLa compression change tout.\nDemandez au carbone ce qu'il en pense.\nIl vous repondra en diamant.\n— Dr. E. Voss§r\n\n§e> Craft 1 iron_grit (8 nuggets)."
+          "name:8": "§lLe grit brut",
+          "desc:8": "§7Compresse 4 grits en 1 grit brut.\n§7Le grit brut est pret pour la fusion.\n\n§o§dLa compression change tout.\nDemandez au carbone ce qu'il en pense.\nIl vous repondra en diamant.\n— Dr. E. Voss§r\n\n§e> Craft 1 grit brut de fer (4 iron grits)."
         }
       },
       "tasks:9": {
@@ -3608,7 +3608,7 @@
           "consume:1": 0,
           "requiredItems:9": {
             "0:10": {
-              "id:8": "nexusabsolu:iron_grit",
+              "id:8": "nexusabsolu:raw_iron_grit",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -4065,7 +4065,8 @@
       "questID:3": 32,
       "preRequisites:11": [
         31,
-        28
+        28,
+        26
       ],
       "properties:10": {
         "betterquesting:10": {

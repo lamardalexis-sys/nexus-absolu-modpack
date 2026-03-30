@@ -93,3 +93,13 @@ tile.nexusabsolu.compose_block_e.name=Bloc de Compose E
 
 # Convertisseur
 tile.nexusabsolu.convertisseur_voss.name=Convertisseur du Dr. Voss
+
+# Raw Grits
+item.nexusabsolu.raw_iron_grit.name=Grit Brut de Fer
+item.nexusabsolu.raw_copper_grit.name=Grit Brut de Cuivre
+item.nexusabsolu.raw_tin_grit.name=Grit Brut d'Etain
+item.nexusabsolu.raw_silver_grit.name=Grit Brut d'Argent
+item.nexusabsolu.raw_nickel_grit.name=Grit Brut de Nickel
+item.nexusabsolu.raw_lead_grit.name=Grit Brut de Plomb
+item.nexusabsolu.raw_gold_grit.name=Grit Brut d'Or
+item.nexusabsolu.raw_osmium_grit.name=Grit Brut d'Osmium

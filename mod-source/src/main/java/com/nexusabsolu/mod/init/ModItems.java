@@ -33,6 +33,16 @@ public class ModItems {
     public static final Item GOLD_GRIT = new ItemGrit("gold_grit", "Gold");
     public static final Item OSMIUM_GRIT = new ItemGrit("osmium_grit", "Osmium");
 
+    // === RAW GRITS (4 grits -> 1 raw grit -> furnace -> ingot) ===
+    public static final Item RAW_IRON_GRIT = new ItemBase("raw_iron_grit");
+    public static final Item RAW_COPPER_GRIT = new ItemBase("raw_copper_grit");
+    public static final Item RAW_TIN_GRIT = new ItemBase("raw_tin_grit");
+    public static final Item RAW_SILVER_GRIT = new ItemBase("raw_silver_grit");
+    public static final Item RAW_NICKEL_GRIT = new ItemBase("raw_nickel_grit");
+    public static final Item RAW_LEAD_GRIT = new ItemBase("raw_lead_grit");
+    public static final Item RAW_GOLD_GRIT = new ItemBase("raw_gold_grit");
+    public static final Item RAW_OSMIUM_GRIT = new ItemBase("raw_osmium_grit");
+
     // === FRAGMENTS (from scavenging) ===
     public static final Item COBBLESTONE_FRAGMENT = new ItemBase("cobblestone_fragment");
     public static final Item DIAMOND_FRAGMENT = new ItemBase("diamond_fragment");
