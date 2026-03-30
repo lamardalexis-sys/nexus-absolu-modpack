@@ -139,28 +139,37 @@ public class GuiConvertisseur extends GuiContainer {
         if (configOpen) {
             int px = guiLeft + xSize + 4;
             int py = guiTop + 10;
+            int pw = 100;
+            int ph = 108;
 
-            // Panel background
-            drawRect(px - 1, py - 1, px + PANEL_W + 1, py + PANEL_H + 1, 0xFF6B3FA0);
-            drawRect(px, py, px + PANEL_W, py + PANEL_H, 0xFF12081C);
-            drawRect(px + 1, py + 1, px + PANEL_W - 1, py + PANEL_H - 1, 0xFF1A1030);
+            // Panel 3D border (Thermal style: light top-left, dark bottom-right)
+            drawRect(px - 2, py - 2, px + pw + 2, py + ph + 2, 0xFF3A1F5E);
+            drawRect(px - 1, py - 1, px + pw + 1, py + ph + 1, 0xFF8855BB);
+            drawRect(px, py, px + pw, py + ph, 0xFF1A1030);
+            // Inner lighter border
+            drawRect(px + 1, py + 1, px + pw - 1, py + 14, 0xFF261440);
 
-            // Title
-            fontRenderer.drawStringWithShadow("Sortie", px + 6, py + 4, 0xDD88FF);
+            // Title bar
+            fontRenderer.drawStringWithShadow("\u00a7d\u2699 Configuration", px + 5, py + 3, 0xDD88FF);
 
-            // Cross layout centered in panel
-            int cx = px + (PANEL_W - (BTN * 3 + BGAP * 2)) / 2;
-            int cy = py + 18;
+            // Separator line
+            drawRect(px + 3, py + 14, px + pw - 3, py + 15, 0xFF6B3FA0);
+
+            // Cross layout - 24x24 buttons
+            int bs = 24;
+            int bg = 2;
+            int cx = px + (pw - (bs * 3 + bg * 2)) / 2;
+            int cy = py + 20;
 
             //        [H]
             //  [O]   [N]   [E]
             //  [B]   [S]
-            drawOutputBtn(cx + BTN + BGAP, cy, 1);
-            drawOutputBtn(cx, cy + BTN + BGAP, 4);
-            drawOutputBtn(cx + BTN + BGAP, cy + BTN + BGAP, 2);
-            drawOutputBtn(cx + (BTN + BGAP) * 2, cy + BTN + BGAP, 5);
-            drawOutputBtn(cx, cy + (BTN + BGAP) * 2, 0);
-            drawOutputBtn(cx + BTN + BGAP, cy + (BTN + BGAP) * 2, 3);
+            drawOutputBtn3D(cx + bs + bg, cy, bs, 1, mouseX, mouseY);
+            drawOutputBtn3D(cx, cy + bs + bg, bs, 4, mouseX, mouseY);
+            drawOutputBtn3D(cx + bs + bg, cy + bs + bg, bs, 2, mouseX, mouseY);
+            drawOutputBtn3D(cx + (bs + bg) * 2, cy + bs + bg, bs, 5, mouseX, mouseY);
+            drawOutputBtn3D(cx, cy + (bs + bg) * 2, bs, 0, mouseX, mouseY);
+            drawOutputBtn3D(cx + bs + bg, cy + (bs + bg) * 2, bs, 3, mouseX, mouseY);
         }
 
         // === TOOLTIPS (drawn last, over everything) ===
@@ -174,23 +183,26 @@ public class GuiConvertisseur extends GuiContainer {
         if (configOpen) {
             int px = guiLeft + xSize + 4;
             int py = guiTop + 10;
-            int cx = px + (PANEL_W - (BTN * 3 + BGAP * 2)) / 2;
-            int cy = py + 18;
+            int pw = 100;
+            int bs = 24;
+            int bg = 2;
+            int cx = px + (pw - (bs * 3 + bg * 2)) / 2;
+            int cy = py + 20;
             int[][] buttons = {
-                {1, cx + BTN + BGAP, cy},
-                {4, cx, cy + BTN + BGAP},
-                {2, cx + BTN + BGAP, cy + BTN + BGAP},
-                {5, cx + (BTN + BGAP) * 2, cy + BTN + BGAP},
-                {0, cx, cy + (BTN + BGAP) * 2},
-                {3, cx + BTN + BGAP, cy + (BTN + BGAP) * 2}
+                {1, cx + bs + bg, cy},
+                {4, cx, cy + bs + bg},
+                {2, cx + bs + bg, cy + bs + bg},
+                {5, cx + (bs + bg) * 2, cy + bs + bg},
+                {0, cx, cy + (bs + bg) * 2},
+                {3, cx + bs + bg, cy + (bs + bg) * 2}
             };
             for (int[] btn : buttons) {
                 int face = btn[0];
                 int bx = btn[1];
                 int by = btn[2];
-                if (mouseX >= bx && mouseX <= bx + BTN &&
-                    mouseY >= by && mouseY <= by + BTN) {
-                    String state = tile.isOutputFace(face) ? "ON" : "OFF";
+                if (mouseX >= bx && mouseX <= bx + bs &&
+                    mouseY >= by && mouseY <= by + bs) {
+                    String state = tile.isOutputFace(face) ? "\u00a7aON" : "\u00a7cOFF";
                     drawHoveringText(java.util.Collections.singletonList(
                         FACE_NAMES[face] + ": " + state), mouseX, mouseY);
                 }
@@ -198,14 +210,36 @@ public class GuiConvertisseur extends GuiContainer {
         }
     }
 
-    private void drawOutputBtn(int bx, int by, int face) {
+    private void drawOutputBtn3D(int bx, int by, int sz, int face, int mx, int my) {
         boolean on = tile.isOutputFace(face);
-        drawRect(bx - 1, by - 1, bx + BTN + 1, by + BTN + 1, 0xFF6B3FA0);
-        drawRect(bx, by, bx + BTN, by + BTN, on ? 0xFFE67300 : 0xFF1A1030);
+        boolean hovered = mx >= bx && mx <= bx + sz && my >= by && my <= by + sz;
+
+        // 3D outer border (light top-left, dark bottom-right)
+        drawRect(bx - 1, by - 1, bx + sz + 1, by, hovered ? 0xFFAA77DD : 0xFF8855BB);
+        drawRect(bx - 1, by - 1, bx, by + sz + 1, hovered ? 0xFFAA77DD : 0xFF8855BB);
+        drawRect(bx, by + sz, bx + sz + 1, by + sz + 1, 0xFF2A1540);
+        drawRect(bx + sz, by, bx + sz + 1, by + sz + 1, 0xFF2A1540);
+
+        if (on) {
+            // Active: orange center with inner glow
+            drawRect(bx, by, bx + sz, by + sz, 0xFF994D00);
+            drawRect(bx + 1, by + 1, bx + sz - 1, by + sz - 1, 0xFFE67300);
+            drawRect(bx + 2, by + 2, bx + sz - 2, by + sz - 2, 0xFFFF8811);
+            // Inner bright spot
+            drawRect(bx + 3, by + 3, bx + sz - 3, by + sz - 3, 0xFFE67300);
+        } else {
+            // Inactive: dark recessed
+            drawRect(bx, by, bx + sz, by + sz, 0xFF0E0818);
+            drawRect(bx + 1, by + 1, bx + sz - 1, by + sz - 1, 0xFF1A1030);
+            drawRect(bx + 2, by + 2, bx + sz - 2, by + sz - 2, 0xFF221540);
+        }
+
+        // Face label centered
         String lbl = FACE_LABELS[face];
         int lw = fontRenderer.getStringWidth(lbl);
-        int lColor = on ? 0xFFFFFF : 0x554466;
-        fontRenderer.drawStringWithShadow(lbl, bx + (BTN - lw) / 2.0F, by + 6, lColor);
+        int lColor = on ? 0xFFFFFF : 0xFF554466;
+        fontRenderer.drawStringWithShadow(lbl,
+            bx + (sz - lw) / 2.0F, by + (sz - 8) / 2.0F, lColor);
     }
 
     @Override
@@ -223,22 +257,25 @@ public class GuiConvertisseur extends GuiContainer {
         if (configOpen) {
             int px = x + xSize + 4;
             int py = y + 10;
-            int cx = px + (PANEL_W - (BTN * 3 + BGAP * 2)) / 2;
-            int cy = py + 18;
+            int pw = 100;
+            int bs = 24;
+            int bg = 2;
+            int cx = px + (pw - (bs * 3 + bg * 2)) / 2;
+            int cy = py + 20;
             int[][] buttons = {
-                {1, cx + BTN + BGAP, cy},
-                {4, cx, cy + BTN + BGAP},
-                {2, cx + BTN + BGAP, cy + BTN + BGAP},
-                {5, cx + (BTN + BGAP) * 2, cy + BTN + BGAP},
-                {0, cx, cy + (BTN + BGAP) * 2},
-                {3, cx + BTN + BGAP, cy + (BTN + BGAP) * 2}
+                {1, cx + bs + bg, cy},
+                {4, cx, cy + bs + bg},
+                {2, cx + bs + bg, cy + bs + bg},
+                {5, cx + (bs + bg) * 2, cy + bs + bg},
+                {0, cx, cy + (bs + bg) * 2},
+                {3, cx + bs + bg, cy + (bs + bg) * 2}
             };
             for (int[] btn : buttons) {
                 int face = btn[0];
                 int bx = btn[1];
                 int by = btn[2];
-                if (mouseX >= bx && mouseX <= bx + BTN &&
-                    mouseY >= by && mouseY <= by + BTN) {
+                if (mouseX >= bx && mouseX <= bx + bs &&
+                    mouseY >= by && mouseY <= by + bs) {
                     mc.playerController.sendEnchantPacket(this.inventorySlots.windowId, face);
                     return;
                 }
