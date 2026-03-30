@@ -107,17 +107,22 @@ recipes.addShaped("nexus_atelier_craft",
 
 print("Age0_Scavenging.zs loaded!");
 
-// === IRON INGOT -> 8 NUGGETS (vanilla is 9, we want 8) ===
-recipes.removeShapeless(<minecraft:iron_nugget> * 9, [<minecraft:iron_ingot>]);
+// === IRON INGOT -> 8 NUGGETS (remove ALL 9-nugget recipes) ===
+recipes.remove(<minecraft:iron_nugget>);
 recipes.addShapeless("nexus_iron_to_nuggets",
     <minecraft:iron_nugget> * 8,
     [<minecraft:iron_ingot>]);
 
-// === 9x COMPOSE -> BLOC DE COMPOSE ===
+// === BRONZE (3 copper + 1 tin = 4 bronze, shapeless) ===
+recipes.addShapeless("nexus_bronze_craft",
+    <thermalfoundation:material:163> * 4,
+    [<ore:ingotCopper>, <ore:ingotCopper>, <ore:ingotCopper>, <ore:ingotTin>]);
+
+// === 9x COMPOSE -> BLOC DE COMPOSE (A needs gear center) ===
 recipes.addShaped("nexus_compose_block_a",
     <nexusabsolu:compose_block_a>,
     [[<nexusabsolu:compose_a>, <nexusabsolu:compose_a>, <nexusabsolu:compose_a>],
-     [<nexusabsolu:compose_a>, <nexusabsolu:compose_a>, <nexusabsolu:compose_a>],
+     [<nexusabsolu:compose_a>, <nexusabsolu:compose_gear_a>, <nexusabsolu:compose_a>],
      [<nexusabsolu:compose_a>, <nexusabsolu:compose_a>, <nexusabsolu:compose_a>]]);
 
 recipes.addShaped("nexus_compose_block_b",
@@ -159,12 +164,12 @@ recipes.addShaped("nexus_compose_gear_a",
      [<nexusabsolu:compose_a>, <minecraft:iron_ingot>, <nexusabsolu:compose_a>],
      [null, <nexusabsolu:compose_a>, null]]);
 
-// === STIRLING DYNAMO CUSTOM (necessite Engrenage de Compose A) ===
+// === STIRLING DYNAMO (pour plus tard - necessite bronze) ===
 recipes.remove(<thermalexpansion:dynamo:0>);
 recipes.addShaped("nexus_stirling_dynamo",
     <thermalexpansion:dynamo:0>,
     [[null, <nexusabsolu:compose_gear_a>, null],
      [<minecraft:cobblestone>, <minecraft:redstone>, <minecraft:cobblestone>],
-     [<ore:ingotCopper>, <minecraft:redstone>, <ore:ingotCopper>]]);
+     [<ore:ingotBronze>, <minecraft:redstone>, <ore:ingotBronze>]]);
 
 print("Age0_Energy.zs loaded!");

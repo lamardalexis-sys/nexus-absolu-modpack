@@ -44,8 +44,8 @@ public class NexusJEIPlugin implements IModPlugin {
             "12%  Grit d'Etain\n" +
             "10%  Charbon\n" +
             "8%   Redstone\n" +
-            "3%   Compose A\n" +
-            "37%  Poussiere de Mur";
+            "5.5% Compose A\n" +
+            "34.5% Poussiere de Mur";
 
         registry.addIngredientInfo(new ItemStack(ModItems.IRON_GRIT),
             VanillaTypes.ITEM, renfHeader + renfDrops);

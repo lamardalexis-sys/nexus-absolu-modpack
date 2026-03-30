@@ -3842,7 +3842,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLe bronze primitif",
-          "desc:8": "§7Le cuivre et l'etain fondus deviennent du bronze.\n§7Ou presque. Pour l'instant, fonds-les separement.\n§7L'alliage viendra plus tard.\n\n§e> Fonds 1 copper_grit + 1 tin_grit en lingots."
+          "desc:8": "§7Le cuivre et l'etain fusionnent en bronze.\n§73 cuivre + 1 etain = 4 lingots de bronze.\n§7Le bronze est essentiel pour les machines avancees.\n\n§o§dL'alliage est une conversation entre metaux.\nLe cuivre parle, l'etain ecoute.\nLe bronze est leur compromis.\n— Dr. E. Voss§r\n\n§e> Craft 4 lingots de bronze."
         }
       },
       "tasks:9": {
@@ -3856,14 +3856,8 @@
           "requiredItems:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
-              "Count:3": 1,
-              "Damage:2": 128,
-              "OreDict:8": ""
-            },
-            "1:10": {
-              "id:8": "thermalfoundation:material",
-              "Count:3": 1,
-              "Damage:2": 129,
+              "Count:3": 4,
+              "Damage:2": 163,
               "OreDict:8": ""
             }
           },
@@ -3942,8 +3936,8 @@
     "28:10": {
       "questID:3": 28,
       "preRequisites:11": [
-        27,
-        23
+        24,
+        27
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -3956,7 +3950,7 @@
           "visibility:8": "ALWAYS",
           "simultaneous:1": 0,
           "icon:10": {
-            "id:8": "thermalexpansion:dynamo",
+            "id:8": "nexusabsolu:convertisseur_voss",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3969,7 +3963,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "name:8": "§l§eL'etincelle",
-          "desc:8": "§7La Stirling Dynamo brule du charbon pour generer du RF.\n§7Le Redstone Flux est l'energie universelle.\n§7Tout fonctionne au RF.\n\n§o§dLe premier watt que j'ai genere dans la boite\na fait trembler les murs pendant 0.7 secondes.\nLa dimension n'aime pas l'electricite.\nTant pis pour elle.\n— Dr. E. Voss§r\n\n§e> Craft 1 Stirling Dynamo."
+          "desc:8": "§7Le Convertisseur du Dr. Voss transforme\n§7l'energie des Composes en RF.\n§7Place un Bloc de Compose A a cote du Convertisseur.\n§725 RF/t. C'est peu. Mais c'est un debut.\n\n§o§dJ'ai decouvert que certains cristaux vibrent\na une frequence qui genere de l'electricite.\nJe les ai appeles Composes.\nPersonne ne m'a cru.\n— Dr. E. Voss§r\n\n§e> Craft 1 Convertisseur + 1 Bloc de Compose A."
         }
       },
       "tasks:9": {
@@ -3982,7 +3976,13 @@
           "consume:1": 0,
           "requiredItems:9": {
             "0:10": {
-              "id:8": "thermalexpansion:dynamo",
+              "id:8": "nexusabsolu:convertisseur_voss",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "nexusabsolu:compose_block_a",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -3995,113 +3995,6 @@
         "0:10": {
           "rewardID:8": "bq_standard:xp",
           "amount:3": 40,
-          "isLevels:1": 0,
-          "index:3": 0
-        }
-      }
-    },
-    "29:10": {
-      "questID:3": 29,
-      "preRequisites:11": [
-        23
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "bloodmagic:altar",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§l§4Le sang qui murmure",
-          "desc:8": "§7Le Blood Altar est un autel de sang.\n§7Ton sang. Le tien.\n§7La magie commence ici.\n\n§o§dJ'ai decouvert que le sang interagit\navec le champ dimensionnel.\nJe ne sais pas pourquoi.\nJe ne suis pas sur de vouloir savoir.\n— Dr. E. Voss§r\n\n§e> Craft 1 Blood Altar."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "bloodmagic:altar",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "taskID:8": "bq_standard:retrieval"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 35,
-          "isLevels:1": 0,
-          "index:3": 0
-        }
-      }
-    },
-    "30:10": {
-      "questID:3": 30,
-      "preRequisites:11": [
-        29
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "icon:10": {
-            "id:8": "bloodmagic:altar",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "name:8": "§lLes premiers LP",
-          "desc:8": "§7Sacrifie-toi sur l'autel. Litteralement.\n§7Ton sang genere des Life Points.\n§7500 LP pour commencer.\n\n§o§dLe sang est un carburant.\nJe sais que ca sonne mal.\nMais c'est la verite.\n— Dr. E. Voss§r\n\n§e> Genere 500 LP dans le Blood Altar."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 30,
           "isLevels:1": 0,
           "index:3": 0
         }
@@ -4172,7 +4065,7 @@
       "questID:3": 32,
       "preRequisites:11": [
         31,
-        27
+        28
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -4292,8 +4185,7 @@
     "34:10": {
       "questID:3": 34,
       "preRequisites:11": [
-        33,
-        28
+        33
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -4608,45 +4500,31 @@
           "sizeX:3": 24,
           "sizeY:3": 24,
           "x:3": 192,
-          "y:3": 480,
-          "id:3": 29
-        },
-        "30:10": {
-          "sizeX:3": 24,
-          "sizeY:3": 24,
-          "x:3": 192,
-          "y:3": 520,
-          "id:3": 30
-        },
-        "31:10": {
-          "sizeX:3": 24,
-          "sizeY:3": 24,
-          "x:3": 192,
           "y:3": 600,
           "id:3": 31
         },
-        "32:10": {
+        "30:10": {
           "sizeX:3": 24,
           "sizeY:3": 24,
           "x:3": 192,
           "y:3": 640,
           "id:3": 32
         },
-        "33:10": {
+        "31:10": {
           "sizeX:3": 24,
           "sizeY:3": 24,
           "x:3": 192,
           "y:3": 680,
           "id:3": 33
         },
-        "34:10": {
+        "32:10": {
           "sizeX:3": 24,
           "sizeY:3": 24,
           "x:3": 192,
           "y:3": 720,
           "id:3": 34
         },
-        "35:10": {
+        "33:10": {
           "sizeX:3": 24,
           "sizeY:3": 24,
           "x:3": 192,
