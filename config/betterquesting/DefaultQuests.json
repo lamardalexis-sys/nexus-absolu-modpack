@@ -3509,7 +3509,7 @@
     "21:10": {
       "questID:3": 21,
       "preRequisites:11": [
-        9
+        24
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -3522,7 +3522,7 @@
           "visibility:8": "ALWAYS",
           "simultaneous:1": 0,
           "icon:10": {
-            "id:8": "minecraft:iron_nugget",
+            "id:8": "nexusabsolu:iron_grit",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3534,8 +3534,8 @@
           "autoclaim:1": 0,
           "ismain:1": 0,
           "repeat_relative:1": 1,
-          "name:8": "§lLa patience du tamis",
-          "desc:8": "§7Continue de tamiser. Les pepites s'accumulent.\n§78 pepites = 1 grit. 4 grits = 1 grit brut.\n§7Il te faudra 32 pepites pour 1 lingot...\n\n§e> Obtiens 32 iron nuggets."
+          "name:8": "§lLe grind du metal",
+          "desc:8": "§7La pioche renforcee extrait des grits\n§7directement des murs. Pas de raccourci.\n§74 grits = 1 grit brut = 1 lingot.\n\n§o§dLa patience est la forge des fous.\nEt les fous changent le monde.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 iron grits (pioche renforcee)."
         }
       },
       "tasks:9": {
@@ -3548,8 +3548,8 @@
           "consume:1": 0,
           "requiredItems:9": {
             "0:10": {
-              "id:8": "minecraft:iron_nugget",
-              "Count:3": 32,
+              "id:8": "nexusabsolu:iron_grit",
+              "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3690,7 +3690,7 @@
     "24:10": {
       "questID:3": 24,
       "preRequisites:11": [
-        23
+        9
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -3716,7 +3716,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "name:8": "§lLa pioche renforcee",
-          "desc:8": "§7Avec du fer, tu forges une pioche superieure.\n§7Elle extrait des grits directement des murs.\n§7Plus besoin de tamiser pour le fer.\n\n§o§dL'evolution des outils est l'evolution de l'espece.\n— Dr. E. Voss§r\n\n§e> Craft 1 Pioche Renforcee a l'Atelier."
+          "desc:8": "§7Avec des pepites de fer et de la poussiere,\n§7l'Atelier forge une pioche superieure.\n§7Elle extrait des grits directement des murs.\n\n§o§dL'evolution des outils est l'evolution de l'espece.\n— Dr. E. Voss§r\n\n§e> Craft 1 Pioche Renforcee a l'Atelier."
         }
       },
       "tasks:9": {

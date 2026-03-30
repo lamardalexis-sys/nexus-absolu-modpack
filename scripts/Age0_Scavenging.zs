@@ -19,46 +19,8 @@ recipes.addShapeless("nexus_fragment_to_cobble",
     <minecraft:cobblestone>,
     [<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>]);
 
-// === NUGGETS -> GRITS (8 nuggets = 1 grit) ===
-recipes.addShapeless("nexus_nugget_to_iron_grit",
-    <nexusabsolu:iron_grit>,
-    [<minecraft:iron_nugget>, <minecraft:iron_nugget>, <minecraft:iron_nugget>, <minecraft:iron_nugget>,
-     <minecraft:iron_nugget>, <minecraft:iron_nugget>, <minecraft:iron_nugget>, <minecraft:iron_nugget>]);
-
-recipes.addShapeless("nexus_nugget_to_copper_grit",
-    <nexusabsolu:copper_grit>,
-    [<ore:nuggetCopper>, <ore:nuggetCopper>, <ore:nuggetCopper>, <ore:nuggetCopper>,
-     <ore:nuggetCopper>, <ore:nuggetCopper>, <ore:nuggetCopper>, <ore:nuggetCopper>]);
-
-recipes.addShapeless("nexus_nugget_to_tin_grit",
-    <nexusabsolu:tin_grit>,
-    [<ore:nuggetTin>, <ore:nuggetTin>, <ore:nuggetTin>, <ore:nuggetTin>,
-     <ore:nuggetTin>, <ore:nuggetTin>, <ore:nuggetTin>, <ore:nuggetTin>]);
-
-recipes.addShapeless("nexus_nugget_to_gold_grit",
-    <nexusabsolu:gold_grit>,
-    [<minecraft:gold_nugget>, <minecraft:gold_nugget>, <minecraft:gold_nugget>, <minecraft:gold_nugget>,
-     <minecraft:gold_nugget>, <minecraft:gold_nugget>, <minecraft:gold_nugget>, <minecraft:gold_nugget>]);
-
-recipes.addShapeless("nexus_nugget_to_silver_grit",
-    <nexusabsolu:silver_grit>,
-    [<ore:nuggetSilver>, <ore:nuggetSilver>, <ore:nuggetSilver>, <ore:nuggetSilver>,
-     <ore:nuggetSilver>, <ore:nuggetSilver>, <ore:nuggetSilver>, <ore:nuggetSilver>]);
-
-recipes.addShapeless("nexus_nugget_to_lead_grit",
-    <nexusabsolu:lead_grit>,
-    [<ore:nuggetLead>, <ore:nuggetLead>, <ore:nuggetLead>, <ore:nuggetLead>,
-     <ore:nuggetLead>, <ore:nuggetLead>, <ore:nuggetLead>, <ore:nuggetLead>]);
-
-recipes.addShapeless("nexus_nugget_to_nickel_grit",
-    <nexusabsolu:nickel_grit>,
-    [<ore:nuggetNickel>, <ore:nuggetNickel>, <ore:nuggetNickel>, <ore:nuggetNickel>,
-     <ore:nuggetNickel>, <ore:nuggetNickel>, <ore:nuggetNickel>, <ore:nuggetNickel>]);
-
-recipes.addShapeless("nexus_nugget_to_osmium_grit",
-    <nexusabsolu:osmium_grit>,
-    [<ore:nuggetOsmium>, <ore:nuggetOsmium>, <ore:nuggetOsmium>, <ore:nuggetOsmium>,
-     <ore:nuggetOsmium>, <ore:nuggetOsmium>, <ore:nuggetOsmium>, <ore:nuggetOsmium>]);
+// === GRITS: ONLY from Pioche Renforcee (no nugget crafting) ===
+// Pioche Renforcee → drop grits directly → 4 grits = 1 raw grit → furnace → lingot
 
 // === GRITS -> RAW GRITS (4 grits = 1 raw grit) ===
 recipes.addShapeless("nexus_raw_iron_grit",
