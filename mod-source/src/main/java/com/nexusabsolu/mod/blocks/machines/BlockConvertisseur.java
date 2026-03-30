@@ -62,7 +62,7 @@ public class BlockConvertisseur extends Block implements IHasModel {
                 int rfTick = conv.getCurrentRFPerTick();
                 int stored = conv.getEnergyStored();
                 int max = conv.getMaxEnergyStored();
-                int blocks = conv.getComposeBlockCount();
+                int blocks = conv.getComposeCount();
                 player.sendMessage(new TextComponentString(
                     "\u00a7d[Convertisseur] \u00a77" + blocks + " blocs detectes | " +
                     "\u00a7e" + rfTick + " RF/t \u00a77| " +
