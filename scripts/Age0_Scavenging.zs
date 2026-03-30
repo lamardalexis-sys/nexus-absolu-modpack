@@ -4,9 +4,11 @@
 // =============================================
 
 // === WALL DUST CONVERSIONS ===
-// 4x wall_dust -> 1 cobblestone
-recipes.addShapeless("nexus_walldust_to_cobble",
-    <minecraft:cobblestone>,
+// wall_dust -> matériaux de construction uniquement (PAS de cobble directement)
+
+// 4x wall_dust -> 1 string (fibres des murs de la CM)
+recipes.addShapeless("nexus_walldust_to_string",
+    <minecraft:string>,
     [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]);
 
 // 2x wall_dust -> 1 gravel
