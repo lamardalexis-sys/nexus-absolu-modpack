@@ -17,7 +17,11 @@ public class TileConvertisseur extends TileEntity implements ITickable {
     private int currentRFPerTick = 0;
     private int composeCount = 0;
 
-    // Facteurs décroissants par nombre de blocs
+    // Per-face data: 0=empty, 1=A, 2=B, 3=C, 4=D, 5=E
+    // Order: DOWN, UP, NORTH, SOUTH, WEST, EAST (EnumFacing ordinals)
+    private int[] faceData = new int[6];
+
+    // Facteurs decroissants par nombre de blocs
     private static final float[] DECAY = {
         0.0F,   // 0 blocs
         1.0F,   // 1 bloc  = 100%
@@ -58,6 +62,13 @@ public class TileConvertisseur extends TileEntity implements ITickable {
                 BlockCompose compose = (BlockCompose) neighbor;
                 count++;
                 totalRF += compose.getBaseRF();
+                String t = compose.getTier();
+                int tier = t.equals("A") ? 1 : t.equals("B") ? 2 :
+                           t.equals("C") ? 3 : t.equals("D") ? 4 :
+                           t.equals("E") ? 5 : 0;
+                faceData[facing.ordinal()] = tier;
+            } else {
+                faceData[facing.ordinal()] = 0;
             }
         }
 
@@ -92,6 +103,34 @@ public class TileConvertisseur extends TileEntity implements ITickable {
     public int getComposeCount() { return composeCount; }
     public int getEnergyStored() { return energy.getEnergyStored(); }
     public int getMaxEnergyStored() { return energy.getMaxEnergyStored(); }
+    public int[] getFaceData() { return faceData; }
+
+    // Field sync for Container: 0=energy, 1=rfPerTick, 2=count, 3-8=faceData
+    public int getField(int id) {
+        switch (id) {
+            case 0: return energy.getEnergyStored();
+            case 1: return currentRFPerTick;
+            case 2: return composeCount;
+            default:
+                if (id >= 3 && id <= 8) return faceData[id - 3];
+                return 0;
+        }
+    }
+
+    public void setField(int id, int value) {
+        switch (id) {
+            case 0:
+                energy.drainInternal(energy.getEnergyStored());
+                energy.generateInternal(value);
+                break;
+            case 1: currentRFPerTick = value; break;
+            case 2: composeCount = value; break;
+            default:
+                if (id >= 3 && id <= 8) faceData[id - 3] = value;
+        }
+    }
+
+    public int getFieldCount() { return 9; }
 
     @Override
     public boolean hasCapability(Capability<?> cap, EnumFacing facing) {

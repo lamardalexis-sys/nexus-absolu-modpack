@@ -2,6 +2,7 @@ package com.nexusabsolu.mod.blocks.machines;
 
 import com.nexusabsolu.mod.NexusAbsoluMod;
 import com.nexusabsolu.mod.Reference;
+import com.nexusabsolu.mod.gui.GuiHandler;
 import com.nexusabsolu.mod.init.ModBlocks;
 import com.nexusabsolu.mod.init.ModItems;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
@@ -20,7 +21,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -56,18 +56,8 @@ public class BlockConvertisseur extends Block implements IHasModel {
             EntityPlayer player, EnumHand hand, EnumFacing facing,
             float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            TileEntity te = world.getTileEntity(pos);
-            if (te instanceof TileConvertisseur) {
-                TileConvertisseur conv = (TileConvertisseur) te;
-                int rfTick = conv.getCurrentRFPerTick();
-                int stored = conv.getEnergyStored();
-                int max = conv.getMaxEnergyStored();
-                int blocks = conv.getComposeCount();
-                player.sendMessage(new TextComponentString(
-                    "\u00a7d[Convertisseur] \u00a77" + blocks + " blocs detectes | " +
-                    "\u00a7e" + rfTick + " RF/t \u00a77| " +
-                    "\u00a7a" + stored + "/" + max + " RF"));
-            }
+            player.openGui(NexusAbsoluMod.instance, GuiHandler.CONVERTISSEUR_GUI,
+                world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
     }

@@ -2,6 +2,7 @@ package com.nexusabsolu.mod.gui;
 
 import com.nexusabsolu.mod.tiles.TileAtelier;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
+import com.nexusabsolu.mod.tiles.TileConvertisseur;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +13,7 @@ public class GuiHandler implements IGuiHandler {
 
     public static final int CONDENSEUR_GUI = 0;
     public static final int ATELIER_GUI = 1;
+    public static final int CONVERTISSEUR_GUI = 2;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -21,6 +23,9 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == ATELIER_GUI && te instanceof TileAtelier) {
             return new ContainerAtelier(player.inventory, (TileAtelier) te);
+        }
+        if (ID == CONVERTISSEUR_GUI && te instanceof TileConvertisseur) {
+            return new ContainerConvertisseur(player.inventory, (TileConvertisseur) te);
         }
         return null;
     }
@@ -33,6 +38,9 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == ATELIER_GUI && te instanceof TileAtelier) {
             return new GuiAtelier(player.inventory, (TileAtelier) te);
+        }
+        if (ID == CONVERTISSEUR_GUI && te instanceof TileConvertisseur) {
+            return new GuiConvertisseur(player.inventory, (TileConvertisseur) te);
         }
         return null;
     }
