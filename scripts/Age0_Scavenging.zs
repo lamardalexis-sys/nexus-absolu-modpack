@@ -99,8 +99,8 @@ recipes.addShaped("nexus_atelier_craft",
 
 print("Age0_Scavenging.zs loaded!");
 
-// === IRON INGOT -> 8 NUGGETS (remove ALL 9-nugget recipes) ===
-recipes.remove(<minecraft:iron_nugget>);
+// === IRON INGOT -> 8 NUGGETS (not 9) ===
+recipes.removeByRecipeName("minecraft:iron_nugget");
 recipes.addShapeless("nexus_iron_to_nuggets",
     <minecraft:iron_nugget> * 8,
     [<minecraft:iron_ingot>]);
