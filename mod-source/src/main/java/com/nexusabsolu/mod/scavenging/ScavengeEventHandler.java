@@ -1,96 +1,102 @@
 package com.nexusabsolu.mod.scavenging;
 
-import com.nexusabsolu.mod.init.ModBlocks;
 import com.nexusabsolu.mod.init.ModItems;
 import com.nexusabsolu.mod.items.ItemPioche;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
 
 public class ScavengeEventHandler {
 
     private static final Random rand = new Random();
+    private static final HashMap<UUID, Long> cooldowns = new HashMap<>();
+    private static final long COOLDOWN_MS = 500L;
 
     @SubscribeEvent
-    public void onBlockBreak(BlockEvent.HarvestDropsEvent event) {
-        IBlockState state = event.getState();
+    public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+        World world = event.getWorld();
+        if (world.isRemote) return;
+
+        EntityPlayer player = event.getEntityPlayer();
+        BlockPos pos = event.getPos();
+        IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
-        // Check if it's a Nexus Wall or a Compact Machine wall
-        boolean isNexusWall = (block == ModBlocks.NEXUS_WALL);
-        boolean isCMWall = block.getRegistryName() != null &&
-            block.getRegistryName().toString().equals("compactmachines3:wall");
+        // Only works on Compact Machine walls
+        if (block.getRegistryName() == null) return;
+        String regName = block.getRegistryName().toString();
+        if (!regName.equals("compactmachines3:wall")) return;
 
-        if (!isNexusWall && !isCMWall) return;
+        // Must hold a custom pioche
+        ItemStack tool = player.getHeldItem(EnumHand.MAIN_HAND);
+        if (tool.isEmpty() || !(tool.getItem() instanceof ItemPioche)) return;
 
-        EntityPlayer player = event.getHarvester();
-        if (player == null) return;
-
-        // Clear default drops
-        event.getDrops().clear();
-
-        ItemStack tool = player.getHeldItemMainhand();
-        int dustMultiplier = 1;
-        int harvestLevel = -1;
-
-        // Check for custom pioche
-        if (!tool.isEmpty() && tool.getItem() instanceof ItemPioche) {
-            ItemPioche pioche = (ItemPioche) tool.getItem();
-            dustMultiplier = pioche.getDustMultiplier();
-            harvestLevel = pioche.getHarvestLevel(tool, "pickaxe", player, state);
-        } else if (!tool.isEmpty() && tool.getItem().getToolClasses(tool).contains("pickaxe")) {
-            harvestLevel = tool.getItem().getHarvestLevel(tool, "pickaxe", player, state);
+        // Cooldown check
+        UUID uuid = player.getUniqueID();
+        long now = System.currentTimeMillis();
+        if (cooldowns.containsKey(uuid)) {
+            if (now - cooldowns.get(uuid) < COOLDOWN_MS) return;
         }
+        cooldowns.put(uuid, now);
 
-        // Always drop wall dust (multiplied by pioche bonus)
-        event.getDrops().add(new ItemStack(ModItems.WALL_DUST, 2 * dustMultiplier));
+        ItemPioche pioche = (ItemPioche) tool.getItem();
+        int multiplier = pioche.getDustMultiplier();
 
-        // Fist or no pickaxe
-        if (harvestLevel < 0) {
-            return; // just wall dust
-        }
+        // Damage the tool
+        tool.damageItem(1, player);
 
+        // Play sound
+        world.playSound(null, pos, SoundEvents.BLOCK_STONE_HIT, SoundCategory.BLOCKS,
+            1.0F, 0.8F + rand.nextFloat() * 0.4F);
+
+        // Swing arm
+        player.swingArm(EnumHand.MAIN_HAND);
+
+        // Always drop wall_dust
+        spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1 + rand.nextInt(2) * multiplier));
+
+        // Bonus drops based on pioche tier
         double r = rand.nextDouble();
 
-        // Wood pickaxe / Pioche Fragmentee (harvest 0)
-        if (harvestLevel == 0) {
-            if (r < 0.40)      addDrop(event, ModItems.COBBLESTONE_FRAGMENT, 1 * dustMultiplier);
-            else if (r < 0.70) addDrop(event, ModItems.WALL_DUST, 2 * dustMultiplier);
-            else if (r < 0.90) addDrop(event, Items.FLINT, 1);
-            else               addDrop(event, Items.CLAY_BALL, 1);
+        if (multiplier <= 1) {
+            // Pioche Fragmentee (wood tier)
+            if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
+            else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
+            else if (r < 0.65) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
+            // else: nothing extra
+        } else {
+            // Pioche Renforcee (iron tier)
+            if (r < 0.25)      spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
+            else if (r < 0.45) spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
+            else if (r < 0.60) spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
+            else if (r < 0.75) spawnDrop(world, player, new ItemStack(Items.COAL, 1));
+            else if (r < 0.85) spawnDrop(world, player, new ItemStack(Items.REDSTONE, 1));
+            // else: nothing extra
         }
-        // Stone pickaxe (harvest 1)
-        else if (harvestLevel == 1) {
-            if (r < 0.35)      addDrop(event, ModItems.IRON_GRIT, 1 * dustMultiplier);
-            else if (r < 0.65) addDrop(event, ModItems.COPPER_GRIT, 1 * dustMultiplier);
-            else if (r < 0.90) addDrop(event, ModItems.TIN_GRIT, 1 * dustMultiplier);
-            else               addDrop(event, Items.COAL, 1);
-        }
-        // Iron pickaxe / Pioche Renforcee (harvest 2)
-        else if (harvestLevel == 2) {
-            if (r < 0.30)      addDrop(event, ModItems.SILVER_GRIT, 1 * dustMultiplier);
-            else if (r < 0.60) addDrop(event, ModItems.NICKEL_GRIT, 1 * dustMultiplier);
-            else if (r < 0.85) addDrop(event, ModItems.LEAD_GRIT, 1 * dustMultiplier);
-            else               addDrop(event, Items.REDSTONE, 1);
-        }
-        // Diamond pickaxe (harvest 3+)
-        else {
-            if (r < 0.30)      addDrop(event, ModItems.GOLD_GRIT, 1 * dustMultiplier);
-            else if (r < 0.55) addDrop(event, ModItems.OSMIUM_GRIT, 1 * dustMultiplier);
-            else if (r < 0.75) addDrop(event, ModItems.DIAMOND_FRAGMENT, 1);
-            else if (r < 0.90) addDrop(event, Items.REDSTONE, 3);
-            else               addDrop(event, ModItems.ENDER_PEARL_FRAGMENT, 1);
-        }
+
+        // Add exhaustion (hunger cost)
+        player.addExhaustion(0.5F);
     }
 
-    private void addDrop(BlockEvent.HarvestDropsEvent event, Item item, int count) {
-        event.getDrops().add(new ItemStack(item, count));
+    private void spawnDrop(World world, EntityPlayer player, ItemStack stack) {
+        EntityItem entity = new EntityItem(world,
+            player.posX, player.posY + 0.5, player.posZ, stack);
+        entity.setNoPickupDelay();
+        world.spawnEntity(entity);
     }
 }
