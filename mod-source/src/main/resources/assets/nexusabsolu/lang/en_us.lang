@@ -68,3 +68,10 @@ item.nexusabsolu.catalyseur_resonant.name=Catalyseur de Phase Resonant
 item.nexusabsolu.catalyseur_absolu.name=Catalyseur de Phase Absolu
 tile.nexusabsolu.condenseur_formed.name=Condenseur Dimensionnel [Forme]
 tile.nexusabsolu.condenseur_formed.name=Condenseur Dimensionnel [Forme]
+
+# Atelier du Dr. Voss
+tile.nexusabsolu.atelier_voss.name=Atelier du Dr. Voss
+
+# Pioches Custom
+item.nexusabsolu.pioche_fragmentee.name=Pioche Fragmentee
+item.nexusabsolu.pioche_renforcee.name=Pioche Renforcee

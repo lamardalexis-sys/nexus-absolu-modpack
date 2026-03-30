@@ -2,6 +2,7 @@ package com.nexusabsolu.mod.init;
 
 import com.nexusabsolu.mod.items.ItemBase;
 import com.nexusabsolu.mod.items.ItemGrit;
+import com.nexusabsolu.mod.items.ItemPioche;
 import com.nexusabsolu.mod.items.fragments.ItemFragment;
 import com.nexusabsolu.mod.items.fragments.ItemNexusAbsolu;
 import net.minecraft.item.Item;
@@ -13,6 +14,12 @@ import java.util.List;
 
 public class ModItems {
     public static final List<Item> ITEMS = new ArrayList<>();
+
+    // === PIOCHES CUSTOM ===
+    public static final Item PIOCHE_FRAGMENTEE = new ItemPioche("pioche_fragmentee",
+        Item.ToolMaterial.WOOD, 1);
+    public static final Item PIOCHE_RENFORCEE = new ItemPioche("pioche_renforcee",
+        Item.ToolMaterial.IRON, 2);
 
     // === GRITS (scavenging) ===
     public static final Item WALL_DUST = new ItemBase("wall_dust");

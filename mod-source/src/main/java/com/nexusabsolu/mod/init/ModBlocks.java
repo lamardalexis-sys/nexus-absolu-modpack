@@ -2,6 +2,7 @@ package com.nexusabsolu.mod.init;
 
 import com.nexusabsolu.mod.blocks.BlockNexusOre;
 import com.nexusabsolu.mod.blocks.BlockNexusWall;
+import com.nexusabsolu.mod.blocks.machines.BlockAtelier;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseur;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurFormed;
 import net.minecraft.block.Block;
@@ -24,6 +25,7 @@ public class ModBlocks {
     // === MACHINES ===
     public static final BlockCondenseur CONDENSEUR = new BlockCondenseur();
     public static final BlockCondenseurFormed CONDENSEUR_FORMED = new BlockCondenseurFormed();
+    public static final BlockAtelier ATELIER = new BlockAtelier();
 
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }

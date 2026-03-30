@@ -4,6 +4,7 @@ import com.nexusabsolu.mod.NexusAbsoluMod;
 import com.nexusabsolu.mod.Reference;
 import com.nexusabsolu.mod.gui.GuiHandler;
 import com.nexusabsolu.mod.scavenging.ScavengeEventHandler;
+import com.nexusabsolu.mod.tiles.TileAtelier;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
 import com.nexusabsolu.mod.tiles.TileCondenseurEnergy;
 import com.nexusabsolu.mod.world.NexusOreGen;
@@ -22,6 +23,8 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
         GameRegistry.registerTileEntity(TileCondenseurEnergy.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur_energy"));
+        GameRegistry.registerTileEntity(TileAtelier.class,
+            new ResourceLocation(Reference.MOD_ID, "atelier_voss"));
     }
 
     public void init(FMLInitializationEvent event) {
