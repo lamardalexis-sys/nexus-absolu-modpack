@@ -217,13 +217,7 @@ public class GuiConvertisseur extends GuiContainer {
         int mx = mouseX - guiLeft;
         int my = mouseY - guiTop;
 
-        // Energy bar tooltip
-        if (mx >= 150 && mx <= 166 && my >= 18 && my <= 84) {
-            drawHoveringText(java.util.Collections.singletonList(
-                tile.getEnergyStored() + " / " + tile.getMaxEnergyStored() + " RF"), mx, my);
-        }
-
-        // Output button tooltips
+        // Output button tooltips only
         if (configOpen) {
             int cx = 50;
             int cy = 32;
