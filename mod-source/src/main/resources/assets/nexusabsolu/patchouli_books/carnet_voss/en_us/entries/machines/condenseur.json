@@ -16,23 +16,20 @@
       "multiblock": {
         "pattern": [
           [
-            "GG",
+            "GW",
             "GW"
           ],
           [
-            "CW",
+            "0W",
             "WW"
           ]
         ],
         "mapping": {
-          "C": "nexusabsolu:condenseur",
           "W": "nexusabsolu:nexus_wall",
-          "G": "minecraft:glass",
-          "0": "nexusabsolu:condenseur"
-        },
-        "symmetrical": false
+          "G": "minecraft:glass"
+        }
       },
-      "text": "$(bold)Bas :$() 1 Condenseur (coin) + 3 Nexus Wall$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall$(br2)Alimente en RF via Fluxducts."
+      "text": "$(bold)Bas :$() 1 Condenseur (0) + 3 Nexus Wall$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall"
     },
     {
       "type": "text",
