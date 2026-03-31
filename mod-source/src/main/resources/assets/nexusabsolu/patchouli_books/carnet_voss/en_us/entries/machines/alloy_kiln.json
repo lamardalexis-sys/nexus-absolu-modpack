@@ -33,7 +33,7 @@
     {
       "type": "text",
       "title": "Recettes",
-      "text": "$(bold)Bronze :$() 3 cuivre + 1 etain + charbon$(br)$(bold)Invar :$() 2 fer + 1 nickel + charbon$(br2)$(bold)Kiln Bricks :$()$(br)1. Argile au four = brique$(br)2. 4 sable = sandstone$(br)3. 2 briques + 2 sandstone = 2 Kiln Bricks$(br2)$(italics)La premiere verite : la matiere obeit. Donnez-lui les bonnes instructions et elle se pliera.$(br)- Dr. E. Voss, Theoreme I$()"
+      "text": "$(bold)Bronze :$() 3 cuivre + 1 etain + charbon$(br)$(bold)Invar :$() 2 fer + 1 nickel + charbon$(br2)$(bold)Kiln Bricks :$()$(br)Argile au four = brique$(br)4 sable = sandstone$(br)2 briques + 2 sandstone = 2 Kiln Bricks"
     }
   ]
 }

@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(italics)Trois mentions dans les carnets de Voss. Toujours en marge. Toujours dans une encre differente.$(br2)'L'Operateur dit que le troisieme isotope est instable. Il a raison.'$(br2)'L'Operateur refuse de me dire ce qu'il y a de l'autre cote. Il dit que ca gacherait la surprise.'$(br2)'L'Operateur a ri aujourd'hui. Je ne savais pas qu'il pouvait rire.'$()",
+      "text": "$(italics)Trois mentions dans les carnets de Voss :$(br2)'L'Operateur dit que le troisieme isotope est instable. Il a raison.'$(br2)'L'Operateur refuse de me dire ce qu'il y a de l'autre cote.'$(br2)'L'Operateur a ri aujourd'hui.'$()",
       "title": "Les messages"
     },
     {

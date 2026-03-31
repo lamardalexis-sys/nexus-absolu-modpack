@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "Les lingots purs ne suffisent pas. Il faut des $(thing)alliages$().$(br2)$(bold)Alloy Kiln (IE) :$()$(br)Structure 2x2x2 de Kiln Bricks.$(br)Fonctionne au charbon. Pas de RF.$(br2)$(bold)Comment crafter des Kiln Bricks :$()$(br)- Argile au four = brique$(br)- 4 sable = 1 sandstone$(br)- 2 briques + 2 sandstone = 2 Kiln Bricks$(br)- 8 Kiln Bricks = Alloy Kiln",
+      "text": "Les lingots purs ne suffisent pas. Il faut des $(thing)alliages$().$(br2)$(bold)Alloy Kiln (IE) :$()$(br)2x2x2 de Kiln Bricks. Charbon, pas de RF.$(br2)$(bold)Kiln Bricks :$()$(br)Argile au four = brique$(br)4 sable = sandstone$(br)2 briques + 2 sandstone = 2 Kiln Bricks",
       "title": "Le Alloy Kiln"
     },
     {
       "type": "text",
-      "text": "$(bold)Bronze :$() 3 cuivre + 1 etain$(br)Le bronze est la base des machines avancees.$(br2)$(bold)Invar :$() 2 fer + 1 nickel$(br)L'invar resiste a la chaleur dimensionnelle. Essentiel pour le Condenseur.$(br2)$(italics)L'invar ne se dilate pas. Meme quand l'univers autour de lui change. C'est le metal le plus tetu que je connaisse. Apres moi.$(br)- Dr. E. Voss$()",
+      "text": "$(bold)Bronze :$() 3 cuivre + 1 etain$(br)Base des machines avancees.$(br2)$(bold)Invar :$() 2 fer + 1 nickel$(br)Resiste a la chaleur dimensionnelle.$(br2)$(italics)L'invar ne se dilate pas. C'est le metal le plus tetu que je connaisse.$(br)- Dr. E. Voss$()",
       "title": "Bronze et Invar"
     }
   ]
