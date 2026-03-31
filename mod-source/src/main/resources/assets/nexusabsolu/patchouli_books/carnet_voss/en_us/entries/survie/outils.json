@@ -5,13 +5,13 @@
   "sortnum": 1,
   "pages": [
     {
-      "type": "patchouli:spotlight",
+      "type": "spotlight",
       "item": "nexusabsolu:pioche_fragmentee",
       "text": "Deux planches, un fragment de roche, deux batons. Ce n'est pas un outil. C'est un acte de foi. Elle extrait du silex, de l'argile et des fragments.",
       "title": "Pioche Fragmentee"
     },
     {
-      "type": "patchouli:spotlight",
+      "type": "spotlight",
       "item": "nexusabsolu:pioche_renforcee",
       "text": "Pepites de fer, silex, ficelle, batons. Elle mord le mur au lieu de le gratter. Elle extrait des $(thing)grits$() : des eclats metalliques presque vivants.$(br2)$(italics)4 grits = 1 grit brut = 1 lingot au four.$()",
       "title": "Pioche Renforcee"

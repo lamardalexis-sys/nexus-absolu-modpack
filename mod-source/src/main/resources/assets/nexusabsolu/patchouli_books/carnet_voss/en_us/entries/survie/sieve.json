@@ -5,12 +5,12 @@
   "sortnum": 3,
   "pages": [
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "Le tamis separe le gravier en ressources. Ameliore le mesh pour de meilleurs drops.$(br2)$(bold)String Mesh :$() Silex, charbon$(br)$(bold)Flint Mesh :$() Charbon, pepites fer, silex, grit fer$(br)$(bold)Iron Mesh :$() Pepites fer, grits fer/cuivre/etain$(br)$(bold)Diamond Mesh :$() Grits fer/cuivre/etain/nickel",
       "title": "Tamise et separe"
     },
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "$(bold)Comment obtenir du gravier :$()$(br)1. Fragments de roche (mains nues ou pioche frag)$(br)2. 2 fragments = 1 cobblestone$(br)3. Marteau Ex Nihilo sur cobblestone = gravel$(br)4. Gravel dans le tamis$(br2)$(italics)Le tamis est l'instrument le plus sous-estime de l'histoire des sciences.$(br)- Dr. E. Voss$()",
       "title": "Le chemin du gravier"
     }

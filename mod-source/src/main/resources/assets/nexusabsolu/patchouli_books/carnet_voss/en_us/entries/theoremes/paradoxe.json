@@ -5,12 +5,12 @@
   "sortnum": 1,
   "pages": [
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "$(italics)La vie n'est pas un accident de la chimie. La vie est la chimie qui a decide de se regarder dans un miroir.$()",
       "title": "Theoreme II"
     },
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "Certaines formes d'energie ne peuvent etre generees que par des systemes vivants. Voss a appele ca le Mana, non par superstition, mais parce que c'etait le mot le plus ancien pour decrire une force incomprise.$(br2)Les fleurs de Botania ne font pas de photosynthese. Ce sont des antennes biologiques qui captent l'energie residuelle de la conscience vegetale.$(br2)$(bold)Mods lies :$() Botania, Pam's HarvestCraft, Mystical Agriculture"
     }
   ]

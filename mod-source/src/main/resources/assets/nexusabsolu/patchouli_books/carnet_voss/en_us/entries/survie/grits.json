@@ -5,12 +5,12 @@
   "sortnum": 2,
   "pages": [
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "Les $(thing)grits$() sont des eclats metalliques extraits des murs par la Pioche Renforcee. Chaque metal a son grit : fer, cuivre, etain, nickel.$(br2)$(bold)Le chemin vers le lingot :$()$(br)1. Pioche Renforcee sur mur$(br)2. 4 grits du meme metal$(br)3. Craft shapeless : 4 grits = 1 grit brut$(br)4. Grit brut au four = 1 lingot",
       "title": "Du mur au lingot"
     },
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "$(bold)Taux de drop (Pioche Renforcee) :$()$(br)- Fer : 12%$(br)- Cuivre : 13%$(br)- Etain : 10%$(br)- Nickel : 5%$(br)- Charbon : 10%$(br)- Redstone : 8%$(br)- Compose A : 5.5%$(br)- Poussiere : 36.5%$(br2)Le $(thing)tamis$() donne aussi des grits avec les mesh avances. Plus lent, mais AFK-able.",
       "title": "Pourcentages"
     }

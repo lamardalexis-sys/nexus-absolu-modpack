@@ -5,12 +5,12 @@
   "sortnum": 0,
   "pages": [
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "$(italics)Premier jour dans la boite. Ou deuxieme. Difficile a dire sans soleil.$(br2)Les murs cedent des morceaux quand je tape dessus. C'est soit un defaut de fabrication, soit un indice. Connaissant le Dr. Voss, c'est un indice.$(br2)J'ai trouve du bois et de la poussiere. Avec un peu d'imagination et beaucoup de desespoir, j'ai fabrique une table de craft.$(br2)C'est un debut.$()",
       "title": "Notes du prisonnier"
     },
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "$(italics)Les murs ont une texture etrange. Comme s'ils etaient tisses plutot que construits. La poussiere qui s'en detache brille legerement dans l'obscurite.$(br2)Quatre pincees de cette poussiere, ecrasees ensemble, forment de la ficelle. Ce n'est pas normal. Rien n'est normal ici.$(br2)Mais au moins j'ai de la ficelle.$()"
     }
   ]

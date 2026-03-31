@@ -5,12 +5,12 @@
   "sortnum": 0,
   "pages": [
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "Tu te reveilles dans une boite. Les murs sont blancs. L'air est immobile.$(br2)Il y a un coffre. Et un livre. Ce livre.$(br2)Tu ne sais pas comment tu es arrive la. Tu ne sais pas qui tu es. Mais les murs cedent quand tu tapes dessus. C'est un debut.",
       "title": "Ou suis-je ?"
     },
     {
-      "type": "patchouli:text",
+      "type": "text",
       "text": "Il y a 30 ans, un homme a disparu. Pas mort. Pas parti. Disparu, comme si l'univers avait decide qu'Elias Voss n'avait plus sa place dans la realite.$(br2)Tu es dans l'une de ses machines. Une $(thing)Compact Machine$(). Une poche de realite de 3 metres sur 3.$(br2)$(italics)Qu'est-ce que le Nexus Absolu ?$()",
       "title": "Le Dr. Voss"
     }
