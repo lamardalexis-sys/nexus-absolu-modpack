@@ -2294,7 +2294,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§5Les yeux s'ouvrent",
-          "desc:8": "§7Tu te reveilles dans une boite. Un coffre. Un livre.\n§o§dSi vous lisez ceci, l'experience a reussi. Bonne chance.\n— Dr. E. Voss§r\n\n§e> Lis le livre."
+          "desc:8": "§7Tu te reveilles. L'air est immobile.\n§7Les murs sont blancs. Ou gris. Ou les deux.\n§7Il y a un coffre. Et un livre.\n\n§o§dSi vous lisez ceci, l'experience a reussi.\nFelicitations. Ou condoleances.\nTout depend de votre point de vue.\n— Dr. E. Voss, Carnet n°1§r\n\n§e> Lis le livre du Dr. Voss."
         }
       },
       "tasks:9": {
@@ -2354,7 +2354,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes murs cachent des secrets",
-          "desc:8": "§7Frappe les murs a mains nues. Ils cedent des morceaux.\n§e> Obtiens 4 sticks."
+          "desc:8": "§7Les murs ne sont pas solides. Pas vraiment.\n§7Tape dessus. Des morceaux tombent.\n§7Des batons. Des planches. Comme si quelqu'un\n§7avait construit cette prison a la hate.\n\n§o§dLes murs de mes Compact Machines ne sont pas\ndes murs. Ce sont des memoires compressees.\nChaque fragment contient un souvenir de la\nmatiere qu'il etait avant.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 sticks en frappant les murs."
         }
       },
       "tasks:9": {
@@ -2414,7 +2414,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe plan de travail",
-          "desc:8": "§7Avec des planches, tu construis une table de craft.\n§e> Craft 1 crafting table."
+          "desc:8": "§7Quatre planches. Un carre.\n§7C'est tout ce qu'il faut pour commencer\n§7a imposer ta volonte sur la matiere.\n\n§o§dPremiere regle de la survie en boite :\nune table de craft est plus importante\nqu'un plan de sortie.\n— Dr. E. Voss§r\n\n§e> Craft 1 table de craft."
         }
       },
       "tasks:9": {
@@ -2474,7 +2474,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLa pioche de fortune",
-          "desc:8": "§7Deux planches, un baton. C'est rudimentaire. Mais ca suffit.\n§e> Craft 1 Pioche Fragmentee."
+          "desc:8": "§7Deux planches, un fragment de roche, deux batons.\n§7Ce n'est pas un outil. C'est un acte de foi.\n\n§o§dMon premier outil etait une cuillere en bois.\nJ'ai creuse pendant six heures.\nLa cuillere a casse. Pas moi.\n— Dr. E. Voss, Carnet n°2§r\n\n§e> Craft 1 Pioche Fragmentee."
         }
       },
       "tasks:9": {
@@ -2534,7 +2534,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLa poussiere des murs",
-          "desc:8": "§7La pioche arrache bien plus que tes mains.\n§e> Obtiens 16 wall_dust."
+          "desc:8": "§7La pioche arrache ce que tes mains ne pouvaient pas.\n§7De la poussiere fine, presque lumineuse.\n§7Les murs n'aiment pas qu'on les gratte.\n\n§o§dCette poussiere n'est pas de la poussiere.\nC'est de la matiere dimensionnelle comprimee.\nChaque grain contient un univers potentiel.\nMais pour l'instant, ca fait de bonnes ficelles.\n— Dr. E. Voss§r\n\n§e> Obtiens 16 Wall Dust."
         }
       },
       "tasks:9": {
@@ -2594,7 +2594,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes fibres de la machine",
-          "desc:8": "§74 pincees de poussiere = 1 ficelle.\n§e> Craft 4 ficelles."
+          "desc:8": "§7Quatre pincees de poussiere.\n§7Ecrase-les. Tords-les. De la ficelle apparait.\n§7Les murs de la Compact Machine sont tisses\n§7de fibres impossibles.\n\n§e> Craft 4 ficelles."
         }
       },
       "tasks:9": {
@@ -2654,7 +2654,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes debris solides",
-          "desc:8": "§72 fragments de roche = 1 cobblestone.\n§e> Obtiens 4 cobblestone."
+          "desc:8": "§7Deux fragments de roche = un bloc entier.\n§7La matiere se reconstitue.\n§7Voss avait raison sur la Conservation Absolue.\n\n§o§dRien ne se perd. Meme dans une boite.\nSurtout dans une boite.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 cobblestone."
         }
       },
       "tasks:9": {
@@ -2715,7 +2715,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lL'etabli du savant",
-          "desc:8": "§7L'Atelier du Dr. Voss est un etabli avance.\n§e> Craft 1 Atelier."
+          "desc:8": "§7L'Atelier du Dr. Voss n'est pas une simple table.\n§7C'est un etabli dimensionnel. Les objets qu'on y pose\n§7semblent... cooperer entre eux.\n\n§o§dJ'ai construit mon premier Atelier avec des restes.\nDu bois, de la ficelle, un caillou pointu.\nIl m'a permis de construire tout le reste.\nParfois, le debut est plus important que la fin.\n— Dr. E. Voss, Carnet n°3§r\n\n§e> Craft 1 Atelier du Dr. Voss."
         }
       },
       "tasks:9": {
@@ -2775,7 +2775,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe gravier",
-          "desc:8": "§7Le marteau Ex Nihilo ecrase la pierre en gravier.\n§e> Obtiens 8 gravel."
+          "desc:8": "§7Le marteau transforme la pierre en gravier.\n§7La matiere se decompose. C'est normal.\n§7Tout se decompose, si on tape assez fort.\n\n§e> Obtiens 8 gravel (marteau sur cobblestone)."
         }
       },
       "tasks:9": {
@@ -2836,7 +2836,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe tamis primitif",
-          "desc:8": "§7Le tamis separe le gravier en pepites de metal.\n§e> Craft 1 tamis Ex Nihilo."
+          "desc:8": "§7Un cadre en bois. De la ficelle tendue.\n§7Verse le gravier. Regarde ce qui tombe.\n§7C'est de la science a l'etat brut :\n§7on separe, on observe, on apprend.\n\n§o§dLe tamis est l'instrument le plus sous-estime\nde l'histoire des sciences. Newton n'avait\npas de tamis. C'est pour ca qu'il a mis\nsi longtemps a comprendre la gravite.\n— Dr. E. Voss§r\n\n§e> Craft 1 tamis Ex Nihilo."
         }
       },
       "tasks:9": {
@@ -2896,7 +2896,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes premiers grains",
-          "desc:8": "§7Tamise du gravier. Des pepites de fer tombent.\n§e> Obtiens 4 iron nuggets."
+          "desc:8": "§7Des pepites. Minuscules. Brillantes.\n§7Du fer. Cache dans le gravier des murs.\n§7Quelqu'un a mis du metal dans cette prison.\n§7Ou alors la prison a genere du metal.\n\n§o§dQuestion : qui met des pepites de fer\ndans les murs d'une cellule ?\nReponse : quelqu'un qui veut que le\nprisonnier s'echappe.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 iron nuggets (tamis + gravel)."
         }
       },
       "tasks:9": {
@@ -2956,7 +2956,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe four primitif",
-          "desc:8": "§7Cobble, flint, clay. Un four basique.\n§e> Craft 1 four."
+          "desc:8": "§7De la pierre. Du silex. De l'argile.\n§7La chaleur est la premiere forme de controle\n§7que l'homme a impose a la matiere.\n\n§o§dLe feu n'est pas une decouverte.\nC'est une declaration de guerre\ncontre l'entropie.\n— Dr. E. Voss§r\n\n§e> Craft 1 four."
         }
       },
       "tasks:9": {
@@ -3016,7 +3016,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe combustible",
-          "desc:8": "§7Le four a besoin de charbon.\n§e> Obtiens 8 charbon."
+          "desc:8": "§7Le four a besoin de quelque chose qui brule.\n§7Le charbon se cache dans le gravier.\n§7Tamise. Accumule. Patiente.\n\n§e> Obtiens 8 charbon."
         }
       },
       "tasks:9": {
@@ -3076,7 +3076,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lL'eau de la vie",
-          "desc:8": "§7Le tonneau Ex Nihilo collecte l'eau.\n§e> Craft 1 tonneau."
+          "desc:8": "§7Un tonneau en bois. Expose a l'air.\n§7L'eau se condense. Goutte a goutte.\n§7D'ou vient l'eau dans une boite scellee ?\n§7Ne pose pas la question. Pas encore.\n\n§o§dL'eau dans les Compact Machines provient\nde la condensation dimensionnelle.\nOu de mes larmes. Les deux sont possibles.\n— Dr. E. Voss§r\n\n§e> Craft 1 tonneau Ex Nihilo."
         }
       },
       "tasks:9": {
@@ -3136,7 +3136,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLa terre promise",
-          "desc:8": "§7Le compost dans le tonneau cree de la terre.\n§e> Obtiens 16 dirt."
+          "desc:8": "§7Des feuilles. Des graines. Du compost.\n§7Le tonneau transforme les dechets en terre.\n§7La vie nait de la decomposition.\n§7Voss appelait ca le Paradoxe Organique.\n\n§e> Obtiens 16 dirt."
         }
       },
       "tasks:9": {
@@ -3196,7 +3196,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes graines de l'espoir",
-          "desc:8": "§7Plante du ble sur la terre.\n§e> Recolte 4 ble."
+          "desc:8": "§7Du ble. Dans une boite de 3 metres.\n§7C'est absurde. C'est magnifique.\n§7La vie insiste, meme quand l'espace\n§7lui dit de ne pas exister.\n\n§o§dLa deuxieme verite : la vie ne se contente\npas d'exister. Elle insiste.\n— Dr. E. Voss, Theoreme II§r\n\n§e> Recolte 4 ble."
         }
       },
       "tasks:9": {
@@ -3256,7 +3256,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe premier repas",
-          "desc:8": "§7Le pain. Simple. Efficace.\n§e> Craft 8 pains."
+          "desc:8": "§7Du pain. Chaud. Croustillant.\n§7Le premier vrai repas depuis ton reveil.\n§7Ca a un gout de victoire.\n§7Ou de desespoir bien cuit. Ca depend des jours.\n\n§e> Craft 8 pains."
         }
       },
       "tasks:9": {
@@ -3316,7 +3316,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lL'arbre dans la boite",
-          "desc:8": "§7Les Bonsai Pots font pousser des arbres miniatures.\n§e> Place 3 Bonsai Pots."
+          "desc:8": "§7Un pot. Un sapling. Un arbre miniature.\n§7La nature, comprimee, refuse de mourir.\n\n§o§dJ'ai plante un chene dans une CM de 3 blocs.\nIl a grandi. Pas beaucoup.\nMais il a grandi.\nJ'ai appele ca de l'optimisme vegetal.\n— Dr. E. Voss§r\n\n§e> Place 3 Bonsai Pots."
         }
       },
       "tasks:9": {
@@ -3376,7 +3376,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLa marmite",
-          "desc:8": "§7La marmite de Pam's permet de cuisiner.\n§e> Craft 1 marmite."
+          "desc:8": "§7Une marmite. Pour cuisiner de vrais plats.\n§7Le pain c'est bien.\n§7Mais l'homme ne vit pas que de pain.\n§7Surtout quand l'homme est enferme dans un cube.\n\n§e> Craft 1 marmite (Pot)."
         }
       },
       "tasks:9": {
@@ -3436,7 +3436,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe gout de la variete",
-          "desc:8": "§7Mange 3 plats differents. Spice of Life recompense.\n§e> Mange 3 plats differents."
+          "desc:8": "§7Trois plats differents. Trois gouts.\n§7Ton corps s'adapte. Tes coeurs augmentent.\n§7Spice of Life recompense ceux qui osent\n§7la diversite culinaire, meme en captivite.\n\n§o§dLa variete est le sel de la vie.\nEt le sel est la variete du sel.\nCette phrase ne veut rien dire.\nJ'ai faim.\n— Dr. E. Voss§r\n\n§e> Mange 3 plats differents."
         }
       },
       "tasks:9": {
@@ -3483,7 +3483,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§aLe festin du prisonnier",
-          "desc:8": "§75 plats = coeurs bonus.\n§e> Mange 5 plats differents."
+          "desc:8": "§7Cinq plats. Un festin.\n§7Dans un cube de 3 metres.\n§7Le Dr. Voss serait fier.\n§7Ou jaloux. Il mangeait surtout du pain.\n\n§e> Mange 5 plats differents."
         }
       },
       "tasks:9": {
@@ -3530,8 +3530,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§lLa pioche renforcee",
-          "desc:8": "§7Nuggets + flint + string = pioche superieure.\nElle extrait des grits directement.\n§e> Craft 1 Pioche Renforcee."
+          "name:8": "§l§eLa pioche renforcee",
+          "desc:8": "§7Des pepites de fer. Du silex. De la ficelle.\n§7Un outil qui mord le mur au lieu de le gratter.\n§7Avec ca, les murs cedent des choses nouvelles.\n§7Des grits. Des cristaux. De la redstone.\n\n§o§dL'evolution des outils est l'evolution\nde l'espece. Un singe avec un baton\nest un singe. Un singe avec une pioche\nest un ingenieur.\n— Dr. E. Voss, Carnet n°7§r\n\n§e> Craft 1 Pioche Renforcee."
         }
       },
       "tasks:9": {
@@ -3591,7 +3591,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe grind du metal",
-          "desc:8": "§7La pioche renforcee arrache des grits des murs.\n4 grits = 1 grit brut.\n§e> Obtiens 4 iron grits."
+          "desc:8": "§7Les murs cedent des grits sous la pioche.\n§7Des eclats metalliques, presque vivants.\n§74 grits = 1 grit brut = 1 lingot.\n§7Le chemin est long. C'est voulu.\n\n§o§dLa compression change tout.\nDemandez au carbone ce qu'il en pense.\nIl vous repondra en diamant.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 iron grits."
         }
       },
       "tasks:9": {
@@ -3651,8 +3651,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§lLe premier lingot",
-          "desc:8": "§7Grit brut au four = lingot.\n§e> Fonds 1 raw iron grit en lingot."
+          "name:8": "§l§eLe premier lingot",
+          "desc:8": "§7Du grit brut dans le four.\n§7La chaleur fait le reste.\n§7Un lingot de fer. Le premier.\n§7C'est un miracle silencieux.\n\n§o§dMon premier lingot m'a pris 3 jours.\nJe l'ai tenu dans ma main pendant une heure.\nPuis je l'ai utilise pour faire un boulon.\nC'est ca, le progres : transformer\nl'emerveillement en boulon.\n— Dr. E. Voss§r\n\n§e> Fonds 1 raw iron grit au four."
         }
       },
       "tasks:9": {
@@ -3712,7 +3712,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes metaux varies",
-          "desc:8": "§7Cuivre, etain, nickel... chaque metal a son utilite.\n§e> Obtiens 1 copper + 1 tin + 1 nickel grit."
+          "desc:8": "§7Cuivre, etain, nickel.\n§7Chaque metal a sa couleur. Son poids.\n§7Son utilite. Les murs contenaient tout ca.\n§7Depuis le debut.\n\n§e> Obtiens 1 copper grit + 1 tin grit + 1 nickel grit."
         }
       },
       "tasks:9": {
@@ -3785,7 +3785,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes lingots etrangers",
-          "desc:8": "§7Cuivre, etain et nickel au four.\n§e> Fonds 1 copper + 1 tin + 1 nickel lingot."
+          "desc:8": "§7Du cuivre. De l'etain. Du nickel.\n§7Trois metaux qui ne demandent qu'a etre\n§7melanges. Mais pas comme ca.\n§7Pas a la main. Il faut un four d'alliage.\n\n§e> Fonds 1 copper + 1 tin + 1 nickel lingot."
         }
       },
       "tasks:9": {
@@ -3858,7 +3858,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes briques du Kiln",
-          "desc:8": "§7Clay au four = bricks. Sand = sandstone.\n2 bricks + 2 sandstone = 2 Kiln Bricks.\n§e> Craft 4 Kiln Bricks."
+          "desc:8": "§7De l'argile au four = des briques.\n§7Du sable compresse = du sandstone.\n§7Deux briques + deux sandstone = Kiln Bricks.\n§7La base d'un four d'alliages.\n\n§o§dIl y a une elegance dans les briques.\nChacune est identique. Ensemble, elles\ndeviennent quelque chose de plus grand.\nComme les atomes. Comme nous.\n— Dr. E. Voss§r\n\n§e> Craft 4 Kiln Bricks."
         }
       },
       "tasks:9": {
@@ -3917,8 +3917,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§lLe Alloy Kiln",
-          "desc:8": "§7Un four d'alliages 2x2x2. Charbon seulement, pas de RF.\nIl transforme les metaux purs en alliages.\n§e> Construis l'Alloy Kiln (4 Kiln Bricks en 2x2x2)."
+          "name:8": "§l§6Le Alloy Kiln",
+          "desc:8": "§7Un cube de 2x2x2 Kiln Bricks.\n§7Le premier four d'alliages.\n§7Charbon + deux metaux = un alliage.\n§7Pas de RF. Pas d'electricite.\n§7Juste la chaleur et la patience.\n\n§o§dLa premiere verite : la matiere obeit.\nDonnez-lui les bonnes instructions\net elle se pliera.\n— Dr. E. Voss, Theoreme I§r\n\n§e> Construis l'Alloy Kiln (2x2x2)."
         }
       },
       "tasks:9": {
@@ -3965,7 +3965,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6Le bronze",
-          "desc:8": "§73 cuivre + 1 etain = 4 bronze.\nLe bronze est la base des machines avancees.\n§e> Fais 4 lingots de bronze dans le Kiln."
+          "desc:8": "§73 cuivre + 1 etain + du charbon.\n§7Le Kiln chauffe. Les metaux fusionnent.\n§7Le bronze. L'alliage des civilisations.\n\n§o§dL'age du bronze a dure 2000 ans.\nVous, vous avez environ 20 minutes.\nLa compression temporelle est un effet\nsecondaire des Compact Machines.\nOu de l'impatience. Les deux sont possibles.\n— Dr. E. Voss§r\n\n§e> Fais 4 lingots de bronze dans le Kiln."
         }
       },
       "tasks:9": {
@@ -4037,7 +4037,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6L'invar",
-          "desc:8": "§72 fer + 1 nickel = 3 invar.\nL'invar est resistant a la chaleur dimensionnelle.\n§e> Fais 3 lingots d'invar dans le Kiln."
+          "desc:8": "§72 fer + 1 nickel + du charbon.\n§7L'invar. Un alliage qui resiste a la chaleur.\n§7Essentiel pour les machines dimensionnelles.\n\n§o§dL'invar ne se dilate pas.\nMeme quand l'univers autour de lui change.\nC'est le metal le plus tetu que je connaisse.\nApres moi.\n— Dr. E. Voss§r\n\n§e> Fais 3 lingots d'invar dans le Kiln."
         }
       },
       "tasks:9": {
@@ -4109,7 +4109,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLa redstone cachee",
-          "desc:8": "§7La pioche renforcee extrait parfois de la redstone.\n§e> Obtiens 8 redstone."
+          "desc:8": "§7La pioche renforcee extrait parfois\n§7de la poussiere rouge des murs.\n§7De la redstone. De l'energie a l'etat pur.\n§7Cache dans les murs depuis le debut.\n\n§o§dLa redstone n'est pas un minerai.\nC'est du sang cristallise de l'univers.\nNe le repetez pas aux physiciens.\nIls n'ont pas le sens de l'humour.\n— Dr. E. Voss§r\n\n§e> Obtiens 8 redstone."
         }
       },
       "tasks:9": {
@@ -4170,7 +4170,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dL'Engrenage de Compose",
-          "desc:8": "§74 Compose A en croix + 1 bronze au centre.\nL'engrenage est le coeur des machines Voss.\n§e> Craft 1 Compose Gear A."
+          "desc:8": "§74 cristaux de Compose A en croix.\n§7Du bronze au centre. Un axe.\n§7L'engrenage vibre quand on le touche.\n§7Comme s'il attendait quelque chose.\n\n§o§dLe Compose n'est pas un cristal.\nC'est de l'energie qui a oublie\nqu'elle etait de l'energie.\nElle pense etre solide.\nNe la detrompez pas.\n— Dr. E. Voss§r\n\n§e> Craft 1 Engrenage de Compose A."
         }
       },
       "tasks:9": {
@@ -4230,7 +4230,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLe Bloc de Compose A",
-          "desc:8": "§78 Compose A + 1 Gear au centre.\n§e> Craft 1 Bloc de Compose A."
+          "desc:8": "§78 cristaux de Compose A.\n§7L'engrenage au centre.\n§7Le bloc pulse. Une lueur violette.\n§7Ce n'est plus un materiau. C'est une batterie.\n\n§e> Craft 1 Bloc de Compose A."
         }
       },
       "tasks:9": {
@@ -4291,7 +4291,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§eL'etincelle",
-          "desc:8": "§7Le Convertisseur transforme l'energie des Composes en RF.\nPlace le Bloc de Compose A a cote.\n25 RF/t. C'est un debut.\n§e> Craft le Convertisseur."
+          "desc:8": "§7Le Convertisseur du Dr. Voss.\n§7La machine qui transforme l'impossible en RF.\n§7Place le Bloc de Compose A a cote.\n§725 RF/t. Ce n'est pas beaucoup.\n§7Mais c'est une etincelle.\n§7Et les incendies commencent tous pareil.\n\n§o§dLe Convertisseur est ma plus belle invention.\nPas la plus puissante. La plus belle.\nIl prend ce qui ne devrait pas etre de l'energie\net il en fait de l'energie quand meme.\nC'est de la poesie en RF.\n— Dr. E. Voss, Carnet n°12§r\n\n§e> Craft le Convertisseur du Dr. Voss."
         }
       },
       "tasks:9": {
@@ -4351,7 +4351,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe flux d'energie",
-          "desc:8": "§7Les Fluxducts transportent le RF.\n§e> Craft 4 Fluxducts Leadstone."
+          "desc:8": "§7L'energie ne sert a rien si elle reste sur place.\n§7Les Fluxducts la transportent. D'un point a un autre.\n§7Argile pour l'isolation. Ficelle pour la conduction.\n§7Simple. Elegant. Fonctionnel.\n\n§o§dL'electricite est comme l'eau.\nElle cherche le chemin le plus court.\nDonnez-lui un tuyau et elle obeira.\nDonnez-lui un trou et elle vous electrocutera.\n— Dr. E. Voss§r\n\n§e> Craft 4 Fluxducts Leadstone."
         }
       },
       "tasks:9": {
@@ -4423,7 +4423,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLa connexion",
-          "desc:8": "§7Connecte le Convertisseur au Condenseur.\n§e> Relie les machines via Fluxducts."
+          "desc:8": "§7Le Convertisseur genere du RF.\n§7Le Condenseur en consomme.\n§7Le Fluxduct les relie.\n§7Trois machines. Un tuyau.\n§7C'est tout ce qu'il faut\n§7pour defier la physique.\n\n§e> Connecte le Convertisseur au Condenseur."
         }
       },
       "tasks:9": {
@@ -4482,7 +4482,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLes murs du Nexus",
-          "desc:8": "§7Dust + cobble + clay + nugget = Nexus Walls.\n§e> Craft 3 Nexus Walls."
+          "desc:8": "§7Cobblestone. Argile. Silex. Pepites de fer.\n§7Les Nexus Walls ne sont pas de simples murs.\n§7Ce sont des interfaces dimensionnelles.\n§7Ils separent ce qui est de ce qui pourrait etre.\n\n§o§dLes murs ne protegent pas.\nIls definissent. Un mur est une decision :\nde ce cote, la realite.\nDe l'autre, tout le reste.\n— Dr. E. Voss§r\n\n§e> Craft 3 Nexus Walls."
         }
       },
       "tasks:9": {
@@ -4545,7 +4545,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLa machine qui respire",
-          "desc:8": "§7Le Condenseur Dimensionnel. Bronze, invar, redstone, compose.\nMultibloc 2x2x2.\n§e> Craft le Condenseur et forme le multibloc."
+          "desc:8": "§7Le Condenseur Dimensionnel.\n§7Bronze, invar, redstone, Compose.\n§7La machine que Voss a construite\n§7pour fusionner les dimensions.\n§7Elle respire quand on l'alimente en RF.\n§7Comme si elle etait vivante.\n\n§o§dLe Condenseur n'est pas une machine.\nC'est une question posee a l'univers.\nLa question : 'Et si deux espaces\nn'en faisaient qu'un ?'\nL'univers n'a pas encore repondu non.\n— Dr. E. Voss, Carnet n°15§r\n\n§e> Craft le Condenseur et forme le multibloc."
         }
       },
       "tasks:9": {
@@ -4605,7 +4605,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLa cle dimensionnelle",
-          "desc:8": "§7La Cle d'Expansion 5x5 ouvre la dimension suivante.\n§e> Craft 1 Cle d'Expansion 5x5."
+          "desc:8": "§7La Cle d'Expansion 5x5.\n§7Elle vibre d'une frequence que tu\n§7ne peux pas entendre mais que tu\n§7sens dans les dents.\n\n§o§dChaque cle ouvre une seule porte.\nMais parfois, la porte ouvre la cle.\nCette phrase a plus de sens qu'il n'y parait.\n— Dr. E. Voss§r\n\n§e> Craft 1 Cle d'Expansion 5x5."
         }
       },
       "tasks:9": {
@@ -4665,7 +4665,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLa fissure dimensionnelle",
-          "desc:8": "§7Mets tout dans le Condenseur. 2 CM 3x3 + Cle + Catalyseur.\nAlimente en RF. Attends 60 secondes.\n§e> Utilise le Condenseur pour craft une CM 5x5."
+          "desc:8": "§7Deux Compact Machines 3x3.\n§7Une cle. Un catalyseur. Du RF.\n§7Le Condenseur vibre. L'air craque.\n§7La dimension se plie.\n§760 secondes. Puis... une CM 5x5.\n\n§o§dQuand deux espaces fusionnent,\nil y a un instant, une fraction de seconde,\nou les lois de la physique n'existent pas.\nUn instant de liberte absolue.\nC'est le plus beau son que j'aie entendu.\n— Dr. E. Voss§r\n\n§e> Utilise le Condenseur."
         }
       },
       "tasks:9": {
@@ -4725,7 +4725,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6L'evasion",
-          "desc:8": "§7La CM 5x5 est la. Pose-la. Entre dedans.\n§o§dFelicitations. Vous avez survecu a la boite.\n— Dr. E. Voss§r\n§e> Entre dans la CM 5x5."
+          "desc:8": "§7La CM 5x5 est devant toi.\n§7Un espace plus grand. Plus de possibilites.\n§7Tu as survecu a la boite.\n\n§7Ce n'est pas la fin.\n§7C'est le moment ou tu realises\n§7que la boite n'etait que le debut.\n\n§o§dFelicitations.\nVous avez prouve que meme enferme\ndans un cube de 3 metres, l'esprit humain\nrefuse de rester petit.\n\nBienvenue dans la suite.\nCa ne fait que commencer.\n— Dr. E. Voss§r\n\n§e> Entre dans la CM 5x5."
         }
       },
       "tasks:9": {
@@ -4772,7 +4772,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe premier coffre",
-          "desc:8": "§7L'organisation est une question de survie.\n§e> Craft 1 coffre."
+          "desc:8": "§7L'organisation est la premiere etape\n§7vers la liberation. Ou vers la folie.\n§7Les deux se ressemblent.\n\n§o§dMon premier coffre contenait 3 items.\nAu bout de 6 mois, j'en avais 47.\nL'accumulation est un instinct de survie.\nLe rangement est un luxe.\n— Dr. E. Voss§r\n\n§e> Craft 1 coffre."
         }
       },
       "tasks:9": {
@@ -4844,7 +4844,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lL'organisation",
-          "desc:8": "§7Trois coffres. Metaux, nourriture, le reste.\n§e> Craft 3 coffres."
+          "desc:8": "§7Trois coffres. Metaux. Nourriture. Le reste.\n§7Un systeme. Un debut d'ordre.\n\n§o§dUn scientifique desordonne est un scientifique\nqui a oublie ou il a mis l'explosif.\nNe soyez pas ce scientifique.\n— Dr. E. Voss§r\n\n§e> Craft 3 coffres."
         }
       },
       "tasks:9": {

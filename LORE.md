@@ -8,13 +8,13 @@
 
 Il y a 30 ans, un homme a disparu.
 
-Pas mort. Pas parti. **Disparu** — comme si l'univers lui-même avait décidé qu'Elias Voss n'avait plus sa place dans la réalité.
+Pas mort. Pas parti. Disparu, comme si l'univers avait décidé qu'Elias Voss n'avait plus sa place dans la réalité.
 
 Personne ne l'a cherché. Les rares qui se souvenaient de lui pensaient qu'il avait simplement... cessé. Comme une bougie qu'on oublie sur une étagère et qui finit par s'éteindre d'elle-même.
 
-Mais les bougies ne laissent pas derrière elles des Compact Machines contenant des dimensions entières. Les bougies ne laissent pas des carnets remplis d'équations qui font pleurer les physiciens. Les bougies ne laissent pas un trou dans le tissu de la réalité en forme de point d'interrogation.
+Sauf que les bougies ne laissent pas derrière elles des Compact Machines contenant des dimensions entières. Elles ne laissent pas des carnets remplis d'équations qui font pleurer les physiciens. Elles ne laissent pas un trou dans le tissu de la réalité en forme de point d'interrogation.
 
-**Tu t'es réveillé dans l'une de ses machines.**
+Tu t'es réveillé dans l'une de ses machines.
 
 Tu ne sais pas comment tu es arrivé là. Tu ne sais pas qui tu es. Tout ce que tu as, c'est une boîte de 3 mètres sur 3, un coffre avec du pain et un livre, et une question qui brûle :
 
@@ -29,20 +29,20 @@ Tu ne sais pas comment tu es arrivé là. Tu ne sais pas qui tu es. Tout ce que 
 **Nom complet :** Dr. Elias Nathaniel Voss
 **Né :** Date inconnue. Les registres ont été... altérés.
 **Disciplines :** Physique quantique, transmutation de la matière, ingénierie dimensionnelle
-**Dernière position connue :** Directeur du Projet Nexus, Laboratoire Ω-7 (localisaton : CLASSIFIÉ)
+**Dernière position connue :** Directeur du Projet Nexus, Laboratoire Ω-7 (localisation : CLASSIFIÉ)
 **Statut :** DISPARU — Déclaré "non-existant" par le Bureau des Réalités Parallèles
 
-Elias Voss n'était pas un génie ordinaire. Les génies ordinaires découvrent les lois de l'univers. Voss les **réécrivait**.
+Elias Voss n'était pas un génie ordinaire. Les génies ordinaires découvrent les lois de l'univers. Voss les réécrivait.
 
-À 23 ans, il avait résolu le Problème de la Convergence Thermique — prouvant que toute énergie pouvait être convertie en toute autre forme d'énergie avec un taux de perte de zéro. Les physiciens ont ri. Puis ils ont essayé de reproduire ses résultats. Puis ils ont arrêté de rire.
+À 23 ans, il avait résolu le Problème de la Convergence Thermique, prouvant que toute énergie pouvait être convertie en toute autre forme avec un taux de perte de zéro. Les physiciens ont ri. Puis ils ont essayé de reproduire ses résultats. Puis ils ont arrêté de rire.
 
-À 31 ans, il avait construit la première Compact Machine — un espace de 3x3x3 blocs contenu dans un cube d'un mètre de côté. Les ingénieurs dimensionnels ont dit que c'était impossible. Voss a dit que "l'impossibilité n'est qu'un manque d'imagination doublé d'un excès de prudence."
+À 31 ans, il avait construit la première Compact Machine : un espace de 3x3x3 blocs contenu dans un cube d'un mètre de côté. Les ingénieurs dimensionnels ont dit que c'était impossible. Voss a répondu que "l'impossibilité n'est qu'un manque d'imagination doublé d'un excès de prudence."
 
-À 42 ans, il a publié son dernier article : *"De la Nature Absolue de la Matière : Vers une Théorie Unifiée de la Transmutation"*. L'article décrivait un objet théorique — le **Nexus Absolu** — capable de transcender les lois fondamentales de la physique. Un point de convergence où matière, énergie, magie et information deviennent une seule et même chose.
+À 42 ans, il a publié son dernier article : *"De la Nature Absolue de la Matière : Vers une Théorie Unifiée de la Transmutation"*. L'article décrivait un objet théorique, le Nexus Absolu, capable de transcender les lois fondamentales de la physique. Un point de convergence où matière, énergie, magie et information deviennent une seule et même chose.
 
 Le lendemain de la publication, Elias Voss a disparu.
 
-Son laboratoire a été retrouvé vide. Pas abandonné — **vide**. Comme si la matière elle-même avait décidé de partir avec lui. Seules restaient ses Compact Machines, ses carnets, et une note griffonnée sur le mur :
+Son laboratoire a été retrouvé vide. Pas abandonné, vide. Comme si la matière elle-même avait décidé de partir avec lui. Seules restaient ses Compact Machines, ses carnets, et une note griffonnée sur le mur :
 
 *"J'y suis presque. Le Nexus existe. Il m'appelle. Si quelqu'un lit ceci — suivez les fragments. Ils sont la clé. Neuf fragments. Neuf vérités. Un seul point de convergence."*
 
@@ -52,48 +52,48 @@ Son laboratoire a été retrouvé vide. Pas abandonné — **vide**. Comme si la
 
 ### Chapitre 2 : Le Projet Nexus — Les Cinq Théorèmes de Voss
 
-Avant sa disparition, Voss avait formulé cinq théorèmes qui constituent la base théorique du Nexus Absolu. Chacun correspond à une découverte fondamentale et à une branche technologique ou magique :
+Avant sa disparition, Voss avait formulé cinq théorèmes qui constituent la base théorique du Nexus Absolu. Chacun correspond à une découverte et à une branche technologique ou magique :
 
 #### Théorème I — La Conservation Absolue
 *"Rien ne se perd, rien ne se crée, tout se transforme — y compris les lois qui régissent la transformation."*
 
-C'est le théorème qui a fondé le **traitement thermique de la matière**. Voss a prouvé que chaque atome contient en lui l'énergie de sa propre transformation. Un lingot de cuivre n'est pas simplement du cuivre — c'est de l'énergie condensée en forme de cuivre. En appliquant les bonnes fréquences (ce que Voss appelait la "Résonance Fondamentale"), on pouvait décomposer n'importe quel matériau en énergie pure et le recomposer sous une autre forme.
+Le théorème qui a fondé le traitement thermique de la matière. Voss a prouvé que chaque atome contient en lui l'énergie de sa propre transformation. Un lingot de cuivre n'est pas simplement du cuivre ; c'est de l'énergie condensée en forme de cuivre. En appliquant les bonnes fréquences (ce qu'il appelait la "Résonance Fondamentale"), on peut décomposer n'importe quel matériau en énergie pure et le recomposer sous une autre forme.
 
 **Mods liés :** Thermal Expansion (machines RF), Mekanism (processing chain), Pulverizer (décomposition), Induction Smelter (recomposition)
 
 #### Théorème II — Le Paradoxe Organique
 *"La vie n'est pas un accident de la chimie. La vie est la chimie qui a décidé de se regarder dans un miroir."*
 
-Voss a découvert que certaines formes d'énergie ne pouvaient être générées que par des systèmes **vivants**. Il a appelé ça le "Mana" — non pas par superstition, mais parce que c'était le mot le plus ancien que l'humanité avait inventé pour décrire une force qu'elle ne comprenait pas. Le Mana n'est pas magique. Le Mana est ce qui se passe quand la matière organique devient **consciente de sa propre existence**.
+Voss a découvert que certaines formes d'énergie ne pouvaient être générées que par des systèmes vivants. Il a appelé ça le "Mana", non par superstition, mais parce que c'était le mot le plus ancien que l'humanité avait inventé pour décrire une force qu'elle ne comprenait pas. Le Mana n'a rien de surnaturel. C'est ce qui se passe quand la matière organique prend conscience de sa propre existence.
 
-Les fleurs de Botania ne sont pas des fleurs. Ce sont des **antennes biologiques** qui captent l'énergie résiduelle de la conscience végétale.
+Les fleurs de Botania ne font pas de photosynthèse. Ce sont des antennes biologiques qui captent l'énergie résiduelle de la conscience végétale.
 
 **Mods liés :** Botania (Mana), Pam's HarvestCraft (agriculture = vie = énergie), Bonsai Trees (vie miniaturisée), Crop Dusting (cycle organique), Mystical Agriculture (programmation génétique)
 
 #### Théorème III — La Mémoire Stellaire
 *"Les étoiles ne brillent pas. Elles se souviennent. Chaque photon est un souvenir de ce que l'univers était avant d'exister."*
 
-Le théorème le plus controversé de Voss. Il prétendait que la lumière des étoiles contenait de l'**information** — pas de l'énergie, pas de la chaleur, mais de véritables données encodées dans les fréquences lumineuses. En construisant des structures cristallines capables de "lire" cette lumière (ce qu'il appelait la "Sorcellerie Astrale"), on pouvait accéder à des connaissances que la physique conventionnelle ne pouvait pas expliquer.
+Le théorème le plus controversé de Voss. Il prétendait que la lumière des étoiles contenait de l'information, pas de l'énergie ni de la chaleur, mais de véritables données encodées dans les fréquences lumineuses. En construisant des structures cristallines capables de "lire" cette lumière (ce qu'il appelait la "Sorcellerie Astrale"), on pouvait accéder à des connaissances que la physique conventionnelle ne pouvait pas expliquer.
 
-Les cristaux d'Astral Sorcery ne captent pas la lumière des étoiles. Ils **décodent les souvenirs de l'univers**.
+Les cristaux d'Astral Sorcery ne captent pas la lumière des étoiles. Ils décodent les souvenirs de l'univers.
 
 **Mods liés :** Astral Sorcery (Starlight = information stellaire), NuclearCraft (fission = libérer la mémoire de l'atome), Solar Flux (captation passive de souvenirs stellaires)
 
 #### Théorème IV — L'Équation Sanguine
 *"Le sang n'est pas un fluide. C'est un réseau. Chaque cellule est un nœud. Chaque battement de cœur est un pulse de données."*
 
-Voss a découvert que le sang — spécifiquement le sang d'entités conscientes — contenait une forme d'énergie qu'aucun instrument ne pouvait mesurer directement. Il l'a appelée "Life Points" par ironie, parce que les jeux vidéo de son époque utilisaient le même concept. Mais les LP ne sont pas une métaphore. Chaque goutte de sang contient l'**essence computationnelle** de l'organisme qui l'a produite.
+Voss a découvert que le sang des entités conscientes contenait une forme d'énergie qu'aucun instrument ne pouvait mesurer directement. Il l'a appelée "Life Points" par ironie, parce que les jeux vidéo de son époque utilisaient déjà le concept. Mais les LP ne sont pas une métaphore. Chaque goutte de sang contient l'essence computationnelle de l'organisme qui l'a produite.
 
-L'Autel de Blood Magic n'est pas un autel sacrificiel. C'est un **processeur biologique** qui extrait l'information encodée dans le sang.
+L'Autel de Blood Magic n'a rien d'un autel sacrificiel. C'est un processeur biologique qui extrait l'information encodée dans le sang.
 
 **Mods liés :** Blood Magic (LP = énergie informationnelle du sang), Soul Shards (capture de l'essence d'un être), Twilight Forest (dimension née du rêve collectif des âmes)
 
 #### Théorème V — La Brisure Dimensionnelle
 *"L'espace n'est pas vide. L'espace est plein de tout ce qui n'a pas encore décidé d'exister."*
 
-Le dernier théorème. Celui qui a probablement causé la disparition de Voss. Il affirmait que la réalité n'est qu'une **couche** parmi une infinité d'autres. Les Compact Machines ne compriment pas l'espace — elles créent des **poches de réalité alternative** où les lois physiques peuvent être légèrement différentes. En empilant suffisamment de ces poches, en les connectant avec les bonnes fréquences...
+Le dernier théorème. Celui qui a probablement causé la disparition de Voss. Il affirmait que la réalité n'est qu'une couche parmi une infinité d'autres. Les Compact Machines ne compriment pas l'espace ; elles créent des poches de réalité alternative où les lois physiques peuvent être légèrement différentes. En empilant suffisamment de ces poches, en les connectant avec les bonnes fréquences...
 
-On peut créer un point où **toutes les réalités convergent simultanément**.
+On peut créer un point où toutes les réalités convergent simultanément.
 
 Ce point, c'est le Nexus Absolu.
 
@@ -105,9 +105,9 @@ Ce point, c'est le Nexus Absolu.
 
 ### La Théorie des Fragments
 
-Voss a calculé que le Nexus Absolu ne pouvait pas être créé directement. La quantité d'énergie nécessaire dépassait tout ce qui est mesurable. Mais il a trouvé une faille : si on pouvait isoler **neuf aspects fondamentaux de la réalité** et les condenser dans des objets physiques, alors ces neuf objets, réunis selon la bonne configuration, catalyseraient spontanément la création du Nexus.
+Voss a calculé que le Nexus Absolu ne pouvait pas être créé directement. La quantité d'énergie nécessaire dépassait tout ce qui est mesurable. Mais il a trouvé une faille : en isolant neuf aspects fondamentaux de la réalité et en les condensant dans des objets physiques, ces neuf objets, réunis selon la bonne configuration, catalyseraient spontanément la création du Nexus.
 
-Chaque fragment représente un **aspect de l'existence** :
+Chaque fragment représente un aspect de l'existence :
 
 ---
 
@@ -116,13 +116,13 @@ Chaque fragment représente un **aspect de l'existence** :
 
 **Aspect :** L'Obéissance de la Matière
 **Composants :** Thermal Expansion + Immersive Engineering + EnderIO
-**Lore :** 
+**Lore :**
 
-Le premier fragment est le plus simple — et c'est précisément ce qui le rend insaisissable. Il incarne le principe selon lequel la matière brute peut être façonnée, transformée et maîtrisée par l'ingéniosité mécanique.
+Le premier fragment est le plus simple, et c'est précisément ce qui le rend insaisissable. Il incarne le principe selon lequel la matière brute peut être façonnée et maîtrisée par l'ingéniosité mécanique pure.
 
-Voss a créé ce fragment en fusionnant trois expressions de la maîtrise mécanique : la **précision thermique** (les machines Thermal qui contrôlent chaque calorie), la **brutalité industrielle** (les structures massives d'Immersive Engineering qui plient l'acier par la force), et la **connexion universelle** (les conduits EnderIO qui relient tout à tout).
+Voss l'a créé en fusionnant trois expressions de cette maîtrise : la précision thermique des machines Thermal qui contrôlent chaque calorie, la brutalité industrielle des structures massives d'Immersive Engineering qui plient l'acier par la force, et les conduits EnderIO qui relient tout à tout.
 
-Le Fragment Mécanique vibre quand on le tient. Pas parce qu'il contient de l'énergie — mais parce qu'il **est** l'énergie, condensée sous une forme si pure qu'elle ne peut s'empêcher de résonner.
+Le Fragment Mécanique vibre quand on le tient. Pas parce qu'il contient de l'énergie, mais parce qu'il est de l'énergie condensée sous une forme si pure qu'elle ne peut s'empêcher de résonner.
 
 *"Première leçon du Dr. Voss : si ta machine ne vibre pas, c'est qu'elle n'est pas encore assez puissante." — Carnet n°7*
 
@@ -135,9 +135,9 @@ Le Fragment Mécanique vibre quand on le tient. Pas parce qu'il contient de l'é
 **Composants :** Botania + Blood Magic + Pam's HarvestCraft
 **Lore :**
 
-Ce fragment est le seul qui ne peut pas être créé par des machines. Il doit être **cultivé**.
+Ce fragment est le seul qui ne peut pas être créé par des machines. Il doit être cultivé.
 
-Voss a passé trois ans à étudier les fleurs de Botania — ces étranges plantes qui convertissent la lumière en énergie pure. Il a réalisé qu'elles ne faisaient pas de la photosynthèse. Elles faisaient quelque chose de bien plus ancien : elles **négociaient avec la réalité**. Chaque pétale est un contrat entre la vie et l'univers, un accord silencieux qui dit "je vais continuer à exister, que tu le veuilles ou non."
+Voss a passé trois ans à étudier les fleurs de Botania, ces plantes étranges qui convertissent la lumière en énergie pure. Elles ne font pas de photosynthèse. Elles font quelque chose de bien plus ancien : elles négocient avec la réalité. Chaque pétale est un contrat entre la vie et l'univers, un accord silencieux qui dit "je vais continuer à exister, que tu le veuilles ou non."
 
 Le Fragment Organique sent la terre humide et le sang frais. Il pulse comme un cœur. Parfois, quand personne ne regarde, il bourgeonne.
 
@@ -152,11 +152,11 @@ Le Fragment Organique sent la terre humide et le sang frais. Il pulse comme un c
 **Composants :** Astral Sorcery + NuclearCraft (isotopes) + Environmental Tech
 **Lore :**
 
-Le Fragment Stellaire n'a pas été fabriqué. Il a été **reçu**.
+Le Fragment Stellaire n'a pas été fabriqué. Il a été reçu.
 
-Voss avait construit un réseau de cristaux d'Astral Sorcery si complexe qu'il captait non seulement la lumière des étoiles actuelles, mais aussi celle des étoiles qui avaient cessé d'exister des millions d'années auparavant. Un soir — le 12 mars, date qu'il a soulignée trois fois dans son carnet — les cristaux se sont alignés d'eux-mêmes et ont focalisé toute la lumière sur un seul point.
+Voss avait construit un réseau de cristaux d'Astral Sorcery si complexe qu'il captait non seulement la lumière des étoiles actuelles, mais aussi celle des étoiles mortes depuis des millions d'années. Un soir, le 12 mars (date qu'il a soulignée trois fois dans son carnet), les cristaux se sont alignés d'eux-mêmes et ont focalisé toute la lumière sur un seul point.
 
-Au matin, il y avait un cristal là où il n'y en avait pas. Un cristal qui ne réfléchissait aucune lumière mais qui semblait **en être fait**.
+Au matin, il y avait un cristal là où il n'y en avait pas. Un cristal qui ne réfléchissait aucune lumière mais qui semblait en être fait.
 
 *"Le Fragment Stellaire ne brille pas. Il est la brillance elle-même. Si vous le regardez suffisamment longtemps, vous verrez des constellations qui n'existent pas encore." — Journal de Voss, entrée finale avant le Silence*
 
@@ -169,7 +169,7 @@ Au matin, il y avait un cristal là où il n'y en avait pas. Un cristal qui ne r
 **Composants :** Mekanism (gaz) + Thermal (alliages) + Astral (cristaux) + PneumaticCraft (pression)
 **Lore :**
 
-Le Composé X-77 est le nom que Voss a donné à une substance qui ne devrait pas exister. Ce n'est pas un solide. Ce n'est pas un liquide. Ce n'est pas un gaz. C'est un état de la matière qui ne se maintient que grâce à un équilibre absurde entre trois forces contradictoires : la pression mécanique (PneumaticCraft), la transformation gazeuse (Mekanism) et la résonance cristalline (Astral Sorcery).
+Le Composé X-77 est le nom que Voss a donné à une substance qui ne devrait pas exister. Ni solide, ni liquide, ni gaz. Un état de la matière qui ne se maintient que grâce à un équilibre absurde entre trois forces contradictoires : la pression mécanique de PneumaticCraft, la transformation gazeuse de Mekanism et la résonance cristalline d'Astral Sorcery.
 
 Le X-77 est transparent, mais il a une ombre. Il n'a pas de température, mais il brûle quand on le touche. Il pèse exactement le même poids que l'objet qu'il remplacera un jour.
 
@@ -184,9 +184,9 @@ Le X-77 est transparent, mais il a une ombre. Il n'a pas de température, mais i
 **Composants :** AE2 (ME system complet) + OpenComputers + Modular Machinery
 **Lore :**
 
-Le Cœur de Données n'est pas un processeur. C'est un **cerveau**.
+Le Cœur de Données est un cerveau.
 
-Voss a compris que pour créer le Nexus, il ne suffisait pas de réunir de l'énergie et de la matière. Il fallait aussi de l'**information** — une quantité d'information si vaste qu'aucun disque dur, aucune bibliothèque, aucun réseau ne pouvait la contenir. Sauf un réseau ME d'Applied Energistics poussé à ses limites absolues, connecté à un ordinateur OpenComputers exécutant un programme que Voss a mis sept ans à écrire.
+Voss avait compris que pour créer le Nexus, réunir de l'énergie et de la matière ne suffisait pas. Il lui fallait de l'information, une quantité si vaste qu'aucun disque dur, aucune bibliothèque, aucun réseau ne pouvait la contenir. Sauf un réseau ME d'Applied Energistics poussé à ses limites, connecté à un ordinateur OpenComputers exécutant un programme que Voss a mis sept ans à écrire.
 
 Le programme s'appelle NEXUS.lua. Personne ne l'a jamais lu en entier. Les trois premières lignes sont : `-- Ce programme ne résout pas un problème.` / `-- Ce programme EST le problème.` / `-- La solution, c'est toi.`
 
@@ -201,9 +201,9 @@ Le programme s'appelle NEXUS.lua. Personne ne l'a jamais lu en entier. Les trois
 **Composants :** NuclearCraft (isotopes + réacteur) + Extreme Reactors + Mekanism (fusion)
 **Lore :**
 
-Le Noyau Fissile est un paradoxe condensé. Il est simultanément l'objet le plus dangereux et le plus stable que Voss ait jamais créé. À l'intérieur, un processus de fission nucléaire se produit en permanence — des atomes se brisent, libèrent leur énergie, créent de nouveaux éléments, qui se brisent à leur tour. Mais au lieu de résulter en une explosion, le processus est **contenu dans une boucle parfaite**. Chaque destruction alimente une création qui alimente une destruction.
+Le Noyau Fissile est un paradoxe condensé : simultanément l'objet le plus dangereux et le plus stable que Voss ait jamais créé. À l'intérieur, un processus de fission se produit en permanence. Des atomes se brisent, libèrent leur énergie, créent de nouveaux éléments, qui se brisent à leur tour. Mais au lieu de résulter en une explosion, le processus est contenu dans une boucle parfaite. Chaque destruction alimente une création qui alimente une destruction.
 
-Le Noyau ne s'arrête jamais. Il ne peut pas être éteint. Si on le lâche, il tombe. Si on le jette, il revient. Pas physiquement — il **réapparaît** dans l'inventaire de la dernière personne qui l'a touché.
+Le Noyau ne s'arrête jamais. Il ne peut pas être éteint. Si on le lâche, il tombe. Si on le jette, il revient. Pas physiquement : il réapparaît dans l'inventaire de la dernière personne qui l'a touché.
 
 *"Le Noyau Fissile a survécu à 3 explosions de réacteur, un bain d'acide, et une tentative de Newton de s'asseoir dessus. Je commence à penser qu'il est plus résistant que moi." — Carnet n°38*
 
@@ -216,28 +216,28 @@ Le Noyau ne s'arrête jamais. Il ne peut pas être éteint. Si on le lâche, il 
 **Composants :** Galacticraft (station orbitale) + Advanced Rocketry + RFTools Dimensions
 **Lore :**
 
-Ce fragment ne peut être obtenu que dans l'espace. Pas en orbite basse — **vraiment** dans l'espace. Au point exact où la gravité terrestre cesse d'avoir une opinion sur votre existence.
+Ce fragment ne peut être obtenu que dans l'espace. Pas en orbite basse. Vraiment dans l'espace, au point exact où la gravité terrestre cesse d'avoir une opinion sur votre existence.
 
-Voss a construit une station orbitale uniquement pour fabriquer ce fragment. La station était équipée de générateurs dimensionnels RFTools qui créaient et détruisaient des micro-dimensions à un rythme de 400 par seconde. Chaque micro-dimension existait pendant exactement 2.5 millisecondes — juste assez longtemps pour laisser une **empreinte** dans le tissu de la réalité.
+Voss a construit une station orbitale uniquement pour le fabriquer. La station était équipée de générateurs dimensionnels RFTools qui créaient et détruisaient des micro-dimensions au rythme de 400 par seconde. Chaque micro-dimension existait pendant exactement 2,5 millisecondes, juste assez longtemps pour laisser une empreinte dans le tissu de la réalité.
 
 Après 77 jours de fonctionnement ininterrompu, ces empreintes se sont cristallisées en un seul objet. Un fragment de réalité si dense qu'il courbe la lumière autour de lui.
 
-*"Je flotte en gravité zéro avec un morceau d'espace-temps dans la main. Il est froid. Non — il n'est pas froid. Il est l'absence de température. Il est ce qui existe entre les choses qui existent." — Transmission radio depuis la Station Ω, dernière communication interceptée*
+*"Je flotte en gravité zéro avec un morceau d'espace-temps dans la main. Il est froid. Non, il n'est pas froid. Il est l'absence de température. Il est ce qui existe entre les choses qui existent." — Transmission radio depuis la Station Ω, dernière communication interceptée*
 
 ---
 
 ### Fragment VIII — Le Codex Transcendant (Âge 7)
-*"La huitième vérité : la frontière entre la vie et la mort n'est pas une ligne. C'est une porte. Et certains portes s'ouvrent dans les deux sens."*
+*"La huitième vérité : la frontière entre la vie et la mort n'est pas une ligne. C'est une porte. Et certaines portes s'ouvrent dans les deux sens."*
 
 **Aspect :** La Synthèse des Contraires
 **Composants :** Blood Magic (Tier 6) + Draconic Evolution + Twilight Forest
 **Lore :**
 
-Le Codex Transcendant est un livre. Mais pas un livre qu'on lit — un livre qui vous lit.
+Le Codex Transcendant est un livre. Pas un livre qu'on lit, un livre qui vous lit.
 
-Voss l'a créé en combinant trois choses qui n'auraient jamais dû être combinées : le sang d'un rituel Blood Magic de Tier 6 (contenant l'essence computationnelle de mille créatures), un Awakened Draconium Core (contenant l'énergie d'un dragon millénaire), et une page arrachée au cœur de la Twilight Forest (contenant le rêve collectif d'une dimension entière).
+Voss l'a créé en combinant trois choses qui n'auraient jamais dû être combinées : le sang d'un rituel Blood Magic de Tier 6 contenant l'essence computationnelle de mille créatures, un Awakened Draconium Core contenant l'énergie d'un dragon millénaire, et une page arrachée au cœur de la Twilight Forest contenant le rêve collectif d'une dimension entière.
 
-Le résultat est un codex qui contient **toute la connaissance qui n'a jamais été pensée**. Pas la connaissance existante — la connaissance **possible**. Quand on l'ouvre, on ne voit pas des mots. On voit des réponses à des questions qu'on n'a pas encore posées.
+Le résultat est un codex qui renferme toute la connaissance qui n'a jamais été pensée. Pas la connaissance existante, la connaissance possible. Quand on l'ouvre, on ne voit pas des mots. On voit des réponses à des questions qu'on n'a pas encore posées.
 
 *"Le Codex m'a montré comment créer le Nexus. Puis il m'a montré pourquoi je ne devrais pas. Puis il m'a montré pourquoi j'allais le faire quand même. Il avait raison sur les trois points." — Dernière page connue du Carnet n°42*
 
@@ -250,11 +250,11 @@ Le résultat est un codex qui contient **toute la connaissance qui n'a jamais é
 **Composants :** Draconic Evolution (max tier) + Avaritia (Infinity Ingot) + Extended Crafting
 **Lore :**
 
-Le dernier fragment. Le plus difficile à obtenir. Le plus dangereux à manipuler.
+Le dernier fragment. Le plus difficile à obtenir, le plus dangereux à manipuler.
 
-Le Prisme de Transcendance est fait d'Infinity — le matériau qui n'a pas de propriétés parce qu'il a **toutes les propriétés simultanément**. Pour le créer, il faut d'abord maîtriser le Neutronium (la matière la plus dense de l'univers), puis le Cosmic Neutronium (la matière la plus dense de TOUS les univers), puis l'Infinity Ingot (la matière qui a décidé qu'être dense ne suffisait pas et qu'elle voulait aussi être éternelle).
+Le Prisme de Transcendance est fait d'Infinity, le matériau qui n'a pas de propriétés parce qu'il les a toutes en même temps. Pour le créer, il faut d'abord maîtriser le Neutronium (la matière la plus dense de l'univers), puis le Cosmic Neutronium (la matière la plus dense de tous les univers), puis l'Infinity Ingot (la matière qui a décidé qu'être dense ne suffisait pas et qu'elle voulait aussi être éternelle).
 
-Le Prisme ne réfléchit pas la lumière. Il la **transcende**. Quand la lumière entre dans le Prisme, elle en ressort sous une forme que les yeux humains ne peuvent pas percevoir mais que l'âme reconnaît instantanément.
+Le Prisme ne réfléchit pas la lumière. Il la transcende. Quand la lumière entre dans le Prisme, elle en ressort sous une forme que les yeux humains ne peuvent pas percevoir mais que l'âme reconnaît instantanément.
 
 *"Le Prisme est terminé. Neuf fragments. Neuf vérités. Il ne reste plus qu'à les assembler. Mes mains tremblent. Ce n'est pas de la peur. C'est de l'anticipation. Ou peut-être que c'est la réalité elle-même qui tremble." — Message final du Dr. Voss, gravé dans le sol de son laboratoire*
 
@@ -264,25 +264,25 @@ Le Prisme ne réfléchit pas la lumière. Il la **transcende**. Quand la lumièr
 
 ### La Table des Neuf
 
-La recette finale. Neuf fragments disposés sur une table de craft 9x9 d'Extended Crafting. Pas une recette — un **rituel scientifique**. Chaque fragment doit être placé à une position précise. Chaque rangée de la table représente une couche de réalité. Chaque colonne représente un aspect de l'existence.
+La recette finale. Neuf fragments disposés sur une table de craft 9x9 d'Extended Crafting. Pas une recette, un rituel scientifique. Chaque fragment doit être placé à une position précise. Chaque rangée de la table représente une couche de réalité. Chaque colonne représente un aspect de l'existence.
 
 Quand les neuf fragments sont en place et que le processus est lancé, la table ne craft pas un item.
 
-**Elle ouvre une porte.**
+Elle ouvre une porte.
 
 ### Qu'est-ce que le Nexus Absolu ?
 
-Le Nexus Absolu n'est pas un objet. C'est un **point de convergence**.
+Le Nexus Absolu n'est pas un objet. C'est un point de convergence.
 
-Un point où la mécanique (Fragment I) rencontre la vie (Fragment II). Où les souvenirs des étoiles (Fragment III) se mêlent aux états impossibles de la matière (Fragment IV). Où l'information pure (Fragment V) fusionne avec la destruction créatrice (Fragment VI). Où l'espace-temps (Fragment VII) s'ouvre sur la connaissance impossible (Fragment VIII) à travers le prisme de la transformation éternelle (Fragment IX).
+La mécanique (Fragment I) rencontre la vie (Fragment II). Les souvenirs des étoiles (Fragment III) se mêlent aux états impossibles de la matière (Fragment IV). L'information pure (Fragment V) fusionne avec la destruction créatrice (Fragment VI). L'espace-temps (Fragment VII) s'ouvre sur la connaissance impossible (Fragment VIII) à travers le prisme de la transformation éternelle (Fragment IX).
 
-Quand ces neuf vérités convergent, elles annulent leurs contradictions mutuelles et créent quelque chose de nouveau. Quelque chose qui n'est ni matière, ni énergie, ni information, ni magie, ni vie, ni mort, ni espace, ni temps.
+Quand ces neuf vérités convergent, elles annulent leurs contradictions mutuelles et créent quelque chose de nouveau. Quelque chose qui n'est ni matière, ni énergie, ni information, ni magie.
 
-Quelque chose d'**Absolu**.
+Quelque chose d'Absolu.
 
 ### Et Voss ?
 
-Personne ne sait ce qui est arrivé à Elias Voss. Le Codex Transcendant suggère qu'il a réussi — qu'il a créé le premier Nexus Absolu et qu'il l'a traversé. Vers quoi ? Le Codex ne le dit pas. Ou peut-être qu'il le dit, mais dans un langage que personne n'a encore appris à lire.
+Personne ne sait ce qui est arrivé à Elias Voss. Le Codex Transcendant suggère qu'il a réussi, qu'il a créé le premier Nexus et qu'il l'a traversé. Vers quoi ? Le Codex ne le dit pas. Ou peut-être qu'il le dit, mais dans un langage que personne n'a encore appris à lire.
 
 Ce que l'on sait, c'est qu'il a laissé cette machine. Cette boîte de 3x3x3. Ce coffre. Ce livre. Et cette note :
 
@@ -297,14 +297,14 @@ Ce que l'on sait, c'est qu'il a laissé cette machine. Cette boîte de 3x3x3. Ce
 ## PARTIE IV — LES PERSONNAGES SECONDAIRES
 
 ### Newton (Le Poulet)
-Le poulet de laboratoire du Dr. Voss. Nommé d'après Isaac Newton (parce que "la gravité est une suggestion, pas une loi" — Voss). Newton apparaît dans de nombreuses notes de Voss et semble avoir survécu à des conditions impossibles. Certaines théories suggèrent que Newton a été le premier sujet d'expérience de Voss — et qu'il est bien plus qu'un simple poulet.
+Le poulet de laboratoire du Dr. Voss. Nommé d'après Isaac Newton (parce que "la gravité est une suggestion, pas une loi" selon Voss). Newton apparaît dans de nombreuses notes de Voss et semble avoir survécu à des conditions impossibles. Certaines théories suggèrent qu'il a été le premier sujet d'expérience de Voss, et qu'il est bien plus qu'un simple poulet.
 
 Newton est mentionné dans les quêtes Crop Dusting, Soul Shards et Blood Magic. Son ombre apparaît parfois dans les Compact Machines. C'est probablement rien.
 
 Probablement.
 
 ### L'Opérateur
-Une entité mentionnée trois fois dans les carnets de Voss, toujours en marge, toujours dans une encre différente. Voss semble avoir communiqué avec quelqu'un — ou quelque chose — qu'il appelait "l'Opérateur". Les messages sont courts et cryptiques :
+Une entité mentionnée trois fois dans les carnets de Voss, toujours en marge, toujours dans une encre différente. Voss semble avoir communiqué avec quelqu'un, ou quelque chose, qu'il appelait "l'Opérateur". Les messages sont courts et cryptiques :
 
 - *"L'Opérateur dit que le troisième isotope est instable. Il a raison."*
 - *"L'Opérateur refuse de me dire ce qu'il y a de l'autre côté. Il dit que ça gâcherait la surprise."*
@@ -313,11 +313,11 @@ Une entité mentionnée trois fois dans les carnets de Voss, toujours en marge, 
 L'identité de l'Opérateur reste un mystère. Certains pensent que c'est le Nexus lui-même, communiquant à travers le temps. D'autres pensent que c'est Voss du futur. D'autres encore pensent que c'est Newton.
 
 ### Le Bureau des Réalités Parallèles
-L'organisation qui a classifié les travaux de Voss et déclaré son existence "non-pertinente". Mentionné dans les documents de lore des Âges 4-6. Le Bureau surveille toute tentative de créer un Nexus Absolu et considère l'objet comme une menace de Classe Omega — "capable de redéfinir les constantes fondamentales de la réalité".
+L'organisation qui a classifié les travaux de Voss et déclaré son existence "non-pertinente". Mentionné dans les documents de lore des Âges 4 à 6. Le Bureau surveille toute tentative de créer un Nexus Absolu et considère l'objet comme une menace de Classe Omega, "capable de redéfinir les constantes fondamentales de la réalité".
 
 Le joueur est, techniquement, en violation de 47 lois interdimensionnelles en suivant les traces de Voss. Le Bureau ne le sait pas encore.
 
-**Encore.**
+Encore.
 
 ---
 
@@ -325,37 +325,37 @@ Le joueur est, techniquement, en violation de 47 lois interdimensionnelles en su
 
 ### Âge 0 — L'Éveil
 *Thème : La confusion, la survie, la première étincelle*
-Le joueur se réveille. Il ne sait rien. Les murs sont blancs. L'air est immobile. C'est l'acte I d'un récit en dix chapitres.
+Le joueur se réveille. Il ne sait rien. Les murs sont blancs. L'air est immobile.
 
 **Ton des quêtes :** Mystérieux, légèrement inquiétant, avec des touches d'humour noir (Newton, les blagues de Voss)
 
 ### Âge 1 — La Mécanique Brute
 *Thème : La maîtrise, le contrôle, la première puissance*
-Le joueur apprend à plier la matière. RF, machines, alliages. C'est le moment "montage" du film — celui où le héros s'entraîne.
+Le joueur apprend à plier la matière. RF, machines, alliages. Le moment "montage" du film, celui où le héros s'entraîne.
 
 **Ton des quêtes :** Confiant, technique, avec des citations de Voss sur l'ingénierie
 
 ### Âge 2 — Le Paradoxe Organique
 *Thème : La découverte de la magie, le doute, l'émerveillement*
-Le joueur réalise que la science seule ne suffit pas. Le Mana, le Starlight, le Sang — des forces que les machines ne peuvent pas expliquer.
+Le joueur réalise que la science seule ne suffit pas. Le Mana, le Starlight, le Sang : des forces que les machines ne peuvent pas expliquer.
 
 **Ton des quêtes :** Philosophique, poétique, avec des moments de beauté inattendue
 
 ### Âge 3 — La Chimie du Chaos
 *Thème : L'expérimentation dangereuse, les premiers risques*
-Le monde ouvert s'ouvre. Le joueur sort de la boîte. Le X-77 est volatile. Les réactions sont imprévisibles. C'est le moment où le héros commence à jouer avec le feu.
+Le monde ouvert s'ouvre. Le joueur sort de la boîte. Le X-77 est volatile. Les réactions sont imprévisibles. C'est là que le héros commence à jouer avec le feu.
 
 **Ton des quêtes :** Tendu, excitant, avec des avertissements de Voss ("Si ça explose, recommence. Si tu exploses, c'est que tu as fait une erreur.")
 
 ### Âge 4 — L'Intelligence des Réseaux
 *Thème : L'information, la conscience, les questions existentielles*
-AE2 et OpenComputers. Le joueur construit un cerveau numérique. Le Cœur de Données commence à "penser". C'est le moment philosophique du récit.
+AE2 et OpenComputers. Le joueur construit un cerveau numérique. Le Cœur de Données commence à "penser".
 
 **Ton des quêtes :** Introspectif, avec des dialogues entre le joueur et le Cœur de Données
 
 ### Âge 5 — La Fission de l'Impossible
 *Thème : La puissance nucléaire, la responsabilité, le prix du progrès*
-Le joueur brise des atomes. Le Noyau Fissile est créé. C'est le moment "Oppenheimer" — la puissance est là, mais à quel prix ?
+Le joueur brise des atomes. Le Noyau Fissile est créé. Le moment Oppenheimer : la puissance est là, mais à quel prix ?
 
 **Ton des quêtes :** Grave, avec des citations de Voss sur les conséquences de la connaissance
 
@@ -367,7 +367,7 @@ Le joueur quitte la Terre. L'espace est vaste, froid, silencieux. Le Fragment Es
 
 ### Âge 7 — La Synthèse des Mondes
 *Thème : La convergence Tech/Magie, le combat contre l'impossible*
-Blood Magic au maximum. Draconic Evolution. Twilight Forest. Le joueur combine des forces qui n'auraient jamais dû être combinées. Le Codex Transcendant est créé.
+Blood Magic au maximum. Draconic Evolution. Twilight Forest. Le joueur combine des forces qui n'auraient jamais dû être combinées.
 
 **Ton des quêtes :** Épique, dangereux, avec un sentiment croissant que quelque chose observe le joueur
 
@@ -400,7 +400,7 @@ Les neuf fragments sont réunis. La table 9x9 est prête. Un seul craft. Un seul
 - Hints narratifs
 - Humour (Newton)
 
-**2. Livre Patchouli du Dr. Voss** — Lore profond
+**2. Livre Patchouli du Dr. Voss** — Lore en profondeur
 - Chapitres complets par âge
 - Les 5 Théorèmes expliqués
 - Descriptions des fragments
