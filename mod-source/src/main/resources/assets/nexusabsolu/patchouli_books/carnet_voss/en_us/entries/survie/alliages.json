@@ -6,13 +6,13 @@
   "pages": [
     {
       "type": "text",
-      "text": "Les lingots purs ne suffisent pas. Il faut des $(thing)alliages$().$(br2)$(bold)Alloy Kiln (IE) :$()$(br)2x2x2 de Kiln Bricks. Charbon, pas de RF.$(br2)$(bold)Kiln Bricks :$()$(br)Argile au four = brique$(br)4 sable = sandstone$(br)2 briques + 2 sandstone = 2 Kiln Bricks",
-      "title": "Le Alloy Kiln"
+      "title": "Le Alloy Kiln",
+      "text": "Les lingots purs ne suffisent pas. Il faut des $(thing)alliages$().$(br2)$(bold)Alloy Kiln (IE) :$()$(br)2x2x2 de Kiln Bricks.$(br)Charbon seulement, pas de RF.$(br2)$(bold)Kiln Bricks :$()$(br)Argile au four = brique$(br)2 briques + 2 sandstone = 2 Kiln Bricks"
     },
     {
       "type": "text",
-      "text": "$(bold)Bronze :$() 3 cuivre + 1 etain$(br)Base des machines avancees.$(br2)$(bold)Invar :$() 2 fer + 1 nickel$(br)Resiste a la chaleur dimensionnelle.$(br2)$(italics)L'invar ne se dilate pas. C'est le metal le plus tetu que je connaisse.$(br)- Dr. E. Voss$()",
-      "title": "Bronze et Invar"
+      "title": "Bronze et Invar",
+      "text": "$(bold)Bronze :$() 3 cuivre + 1 etain$(br2)$(bold)Invar :$() 2 fer + 1 nickel$(br)Essentiel pour le Condenseur."
     }
   ]
 }
