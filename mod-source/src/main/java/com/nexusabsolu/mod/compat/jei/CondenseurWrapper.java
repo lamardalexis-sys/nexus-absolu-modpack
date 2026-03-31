@@ -5,7 +5,6 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -22,13 +21,10 @@ public class CondenseurWrapper implements IRecipeWrapper {
     @Override
     public void getIngredients(IIngredients ingredients) {
         List<ItemStack> inputs = new ArrayList<>();
-        Item inputItem = Item.getByNameOrId(recipe.inputId);
-        if (inputItem != null) {
-            inputs.add(new ItemStack(inputItem, 1, recipe.inputMeta));
-            inputs.add(new ItemStack(inputItem, 1, recipe.inputMeta));
-        }
-        inputs.add(new ItemStack(recipe.key));
-        inputs.add(new ItemStack(recipe.catalyst));
+        inputs.add(recipe.getSlot0());
+        inputs.add(recipe.getSlot1());
+        inputs.add(recipe.getSlot2());
+        inputs.add(recipe.getSlot3());
 
         ingredients.setInputs(VanillaTypes.ITEM, inputs);
         ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
