@@ -1,28 +1,28 @@
 // =============================================
 // AGE 0 — Scavenging & Early Resources
-// Nexus Absolu — rechargeable avec /ct reload
+// Nexus Absolu
+// Recettes basees sur les patterns E2E:
+//   - Symetrie gauche-droite
+//   - Centre = composant cle
+//   - Haut = fonction, Bas = base/power
+//   - Cotes = structure
 // =============================================
 
 // === WALL DUST CONVERSIONS ===
-// wall_dust -> matériaux de construction uniquement (PAS de cobble directement)
-
-// 4x wall_dust -> 1 string (fibres des murs de la CM)
+// 4x wall_dust -> 1 string (fibres des murs)
 recipes.addShapeless("nexus_walldust_to_string",
     <minecraft:string>,
     [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]);
 
-// GRAVEL: Ex Nihilo hammer cobble -> gravel (pas de raccourci wall_dust)
-// Chemin: wall_dust -> cobble (via fragments) -> hammer -> gravel -> sieve
-
+// GRAVEL: Ex Nihilo hammer cobble -> gravel -> sieve
 // 2x cobblestone_fragment -> 1 cobblestone
 recipes.addShapeless("nexus_fragment_to_cobble",
     <minecraft:cobblestone>,
     [<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>]);
 
-// === GRITS: ONLY from Pioche Renforcee (no nugget crafting) ===
-// Pioche Renforcee → drop grits directly → 4 grits = 1 raw grit → furnace → lingot
+// === GRITS: ONLY from Pioche Renforcee ===
+// 4 grits = 1 raw grit -> furnace -> lingot
 
-// === GRITS -> RAW GRITS (4 grits = 1 raw grit) ===
 recipes.addShapeless("nexus_raw_iron_grit",
     <nexusabsolu:raw_iron_grit>,
     [<nexusabsolu:iron_grit>, <nexusabsolu:iron_grit>, <nexusabsolu:iron_grit>, <nexusabsolu:iron_grit>]);
@@ -62,106 +62,191 @@ furnace.addRecipe(<mekanism:ingot:1>, <nexusabsolu:raw_osmium_grit>);
 recipes.removeByRecipeName("minecraft:iron_ingot_from_nuggets");
 recipes.removeByRecipeName("minecraft:gold_ingot_from_nuggets");
 
-// === EARLY TOOLS (backup crafting table recipes) ===
-// Si l'Atelier bug, le joueur peut crafter sur la table
-recipes.addShaped("nexus_pioche_frag_backup",
-    <nexusabsolu:pioche_fragmentee>,
-    [[<ore:plankWood>, <ore:plankWood>],
-     [null, <minecraft:stick>],
-     [null, <minecraft:stick>]]);
-
-recipes.addShaped("nexus_pioche_renf_backup",
-    <nexusabsolu:pioche_renforcee>,
-    [[<minecraft:iron_nugget>, <nexusabsolu:wall_dust>, <minecraft:iron_nugget>],
-     [null, <minecraft:stick>, null],
-     [null, <minecraft:stick>, null]]);
-
-// === NEXUS WALL RECIPE (re-craft from wall_dust) ===
-recipes.addShaped("nexus_wall_craft",
-    <nexusabsolu:nexus_wall> * 2,
-    [[<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>],
-     [<nexusabsolu:wall_dust>, <minecraft:iron_nugget>, <nexusabsolu:wall_dust>],
-     [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]]);
-
-// === CONDENSEUR RECIPE ===
-recipes.addShaped("nexus_condenseur_craft",
-    <nexusabsolu:condenseur>,
-    [[<minecraft:iron_ingot>, <nexusabsolu:wall_dust>, <minecraft:iron_ingot>],
-     [<nexusabsolu:wall_dust>, <minecraft:redstone>, <nexusabsolu:wall_dust>],
-     [<minecraft:iron_ingot>, <nexusabsolu:wall_dust>, <minecraft:iron_ingot>]]);
-
-// === ATELIER RECIPE ===
-recipes.addShaped("nexus_atelier_craft",
-    <nexusabsolu:atelier_voss>,
-    [[<ore:plankWood>, <ore:plankWood>, <ore:plankWood>],
-     [<nexusabsolu:wall_dust>, null, <nexusabsolu:wall_dust>],
-     [<ore:cobblestone>, <ore:cobblestone>, <ore:cobblestone>]]);
-
-print("Age0_Scavenging.zs loaded!");
-
 // === IRON INGOT -> 8 NUGGETS (not 9) ===
 recipes.removeByRecipeName("minecraft:iron_nugget");
 recipes.addShapeless("nexus_iron_to_nuggets",
     <minecraft:iron_nugget> * 8,
     [<minecraft:iron_ingot>]);
 
-// === BRONZE (3 copper + 1 tin = 4 bronze, shapeless) ===
+// === BRONZE (3 copper + 1 tin = 4 bronze) ===
 recipes.addShapeless("nexus_bronze_craft",
     <thermalfoundation:material:163> * 4,
     [<ore:ingotCopper>, <ore:ingotCopper>, <ore:ingotCopper>, <ore:ingotTin>]);
 
-// === 9x COMPOSE -> BLOC DE COMPOSE (A needs gear center) ===
+// =============================================
+// TOOLS — forme classique outil (tete/binding/manche)
+// =============================================
+
+// Pioche Fragmentee: tete bois simple
+//   [plank] [plank] [null]
+//   [null]  [stick] [null]
+//   [null]  [stick] [null]
+recipes.remove(<nexusabsolu:pioche_fragmentee>);
+recipes.addShaped("nexus_pioche_frag",
+    <nexusabsolu:pioche_fragmentee>,
+    [[<ore:plankWood>, <ore:plankWood>, null],
+     [null, <minecraft:stick>, null],
+     [null, <minecraft:stick>, null]]);
+
+// Pioche Renforcee: tete metal + flint + binding string
+//   [nugget] [flint]  [nugget]    <- tete: metal edges + flint pointe
+//   [null]   [string] [null]      <- binding
+//   [null]   [stick]  [null]      <- manche
+recipes.remove(<nexusabsolu:pioche_renforcee>);
+recipes.addShaped("nexus_pioche_renf",
+    <nexusabsolu:pioche_renforcee>,
+    [[<minecraft:iron_nugget>, <minecraft:flint>, <minecraft:iron_nugget>],
+     [null, <minecraft:string>, null],
+     [null, <minecraft:stick>, null]]);
+
+// =============================================
+// BLOCS & MACHINES — pattern E2E (symetrique, core au centre)
+// =============================================
+
+// Atelier du Dr. Voss: table de travail
+//   [plank]  [string] [plank]    <- surface + ficelle
+//   [cobble] [flint]  [cobble]   <- structure + outil
+//   [stick]  [cobble] [stick]    <- pieds + base
+recipes.remove(<nexusabsolu:atelier_voss>);
+recipes.addShaped("nexus_atelier_craft",
+    <nexusabsolu:atelier_voss>,
+    [[<ore:plankWood>, <minecraft:string>, <ore:plankWood>],
+     [<ore:cobblestone>, <minecraft:flint>, <ore:cobblestone>],
+     [<minecraft:stick>, <ore:cobblestone>, <minecraft:stick>]]);
+
+// Four vanilla override: boite de pierre + flint allumeur + clay isolation
+//   [cobble] [cobble] [cobble]   <- murs
+//   [cobble] [flint]  [cobble]   <- allumeur au centre
+//   [cobble] [clay]   [cobble]   <- base isolante
+recipes.remove(<minecraft:furnace>);
+recipes.addShaped("nexus_furnace",
+    <minecraft:furnace>,
+    [[<ore:cobblestone>, <ore:cobblestone>, <ore:cobblestone>],
+     [<ore:cobblestone>, <minecraft:flint>, <ore:cobblestone>],
+     [<ore:cobblestone>, <minecraft:clay_ball>, <ore:cobblestone>]]);
+
+// Nexus Wall x2: mur renforce (pattern brique alternee)
+//   [dust]   [cobble] [dust]     <- couche externe
+//   [clay]   [nugget] [clay]     <- mortier + armature fer
+//   [dust]   [cobble] [dust]     <- couche externe
+recipes.remove(<nexusabsolu:nexus_wall>);
+recipes.addShaped("nexus_wall_craft",
+    <nexusabsolu:nexus_wall> * 2,
+    [[<nexusabsolu:wall_dust>, <ore:cobblestone>, <nexusabsolu:wall_dust>],
+     [<minecraft:clay_ball>, <minecraft:iron_nugget>, <minecraft:clay_ball>],
+     [<nexusabsolu:wall_dust>, <ore:cobblestone>, <nexusabsolu:wall_dust>]]);
+
+// Condenseur: machine a fusionner les dimensions
+//   [bronze]  [redstone] [bronze]    <- contacts energetiques
+//   [iron]    [compose]  [iron]      <- structure + coeur compose
+//   [iron]    [redstone] [iron]      <- base + sortie energie
+recipes.remove(<nexusabsolu:condenseur>);
+recipes.addShaped("nexus_condenseur_craft",
+    <nexusabsolu:condenseur>,
+    [[<ore:ingotBronze>, <minecraft:redstone>, <ore:ingotBronze>],
+     [<minecraft:iron_ingot>, <nexusabsolu:compose_a>, <minecraft:iron_ingot>],
+     [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
+
+// Convertisseur du Dr. Voss: transforme compose en RF
+//   [iron]     [compose]  [iron]     <- compose en haut (source energie)
+//   [redstone] [cobble]   [redstone] <- transfert + isolant
+//   [iron]     [redstone] [iron]     <- structure + sortie RF
+recipes.remove(<nexusabsolu:convertisseur_voss>);
+recipes.addShaped("nexus_convertisseur_craft",
+    <nexusabsolu:convertisseur_voss>,
+    [[<minecraft:iron_ingot>, <nexusabsolu:compose_a>, <minecraft:iron_ingot>],
+     [<minecraft:redstone>, <ore:cobblestone>, <minecraft:redstone>],
+     [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
+
+// Engrenage de Compose A: croix + axe bronze
+//   [null]     [compose] [null]      <- dent haut
+//   [compose]  [bronze]  [compose]   <- axe bronze + dents laterales
+//   [null]     [compose] [null]      <- dent bas
+recipes.remove(<nexusabsolu:compose_gear_a>);
+recipes.addShaped("nexus_compose_gear_a",
+    <nexusabsolu:compose_gear_a>,
+    [[null, <nexusabsolu:compose_a>, null],
+     [<nexusabsolu:compose_a>, <ore:ingotBronze>, <nexusabsolu:compose_a>],
+     [null, <nexusabsolu:compose_a>, null]]);
+
+// Compose Block A: 8 compose + gear au centre
+recipes.remove(<nexusabsolu:compose_block_a>);
 recipes.addShaped("nexus_compose_block_a",
     <nexusabsolu:compose_block_a>,
     [[<nexusabsolu:compose_a>, <nexusabsolu:compose_a>, <nexusabsolu:compose_a>],
      [<nexusabsolu:compose_a>, <nexusabsolu:compose_gear_a>, <nexusabsolu:compose_a>],
      [<nexusabsolu:compose_a>, <nexusabsolu:compose_a>, <nexusabsolu:compose_a>]]);
 
+// Compose Blocks B-E: 9x compose (pas de gear)
+recipes.remove(<nexusabsolu:compose_block_b>);
 recipes.addShaped("nexus_compose_block_b",
     <nexusabsolu:compose_block_b>,
     [[<nexusabsolu:compose_b>, <nexusabsolu:compose_b>, <nexusabsolu:compose_b>],
      [<nexusabsolu:compose_b>, <nexusabsolu:compose_b>, <nexusabsolu:compose_b>],
      [<nexusabsolu:compose_b>, <nexusabsolu:compose_b>, <nexusabsolu:compose_b>]]);
-
+recipes.remove(<nexusabsolu:compose_block_c>);
 recipes.addShaped("nexus_compose_block_c",
     <nexusabsolu:compose_block_c>,
     [[<nexusabsolu:compose_c>, <nexusabsolu:compose_c>, <nexusabsolu:compose_c>],
      [<nexusabsolu:compose_c>, <nexusabsolu:compose_c>, <nexusabsolu:compose_c>],
      [<nexusabsolu:compose_c>, <nexusabsolu:compose_c>, <nexusabsolu:compose_c>]]);
-
+recipes.remove(<nexusabsolu:compose_block_d>);
 recipes.addShaped("nexus_compose_block_d",
     <nexusabsolu:compose_block_d>,
     [[<nexusabsolu:compose_d>, <nexusabsolu:compose_d>, <nexusabsolu:compose_d>],
      [<nexusabsolu:compose_d>, <nexusabsolu:compose_d>, <nexusabsolu:compose_d>],
      [<nexusabsolu:compose_d>, <nexusabsolu:compose_d>, <nexusabsolu:compose_d>]]);
-
+recipes.remove(<nexusabsolu:compose_block_e>);
 recipes.addShaped("nexus_compose_block_e",
     <nexusabsolu:compose_block_e>,
     [[<nexusabsolu:compose_e>, <nexusabsolu:compose_e>, <nexusabsolu:compose_e>],
      [<nexusabsolu:compose_e>, <nexusabsolu:compose_e>, <nexusabsolu:compose_e>],
      [<nexusabsolu:compose_e>, <nexusabsolu:compose_e>, <nexusabsolu:compose_e>]]);
 
-// === CONVERTISSEUR RECIPE ===
-recipes.addShaped("nexus_convertisseur_craft",
-    <nexusabsolu:convertisseur_voss>,
-    [[<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>],
-     [<minecraft:redstone>, <nexusabsolu:compose_a>, <minecraft:redstone>],
-     [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
+// =============================================
+// ENERGIE — Stirling Dynamo (gatee derriere bronze)
+// =============================================
 
-// === ENGRENAGE DE COMPOSE A ===
-// 4 Compose A en croix + 1 iron ingot au centre
-recipes.addShaped("nexus_compose_gear_a",
-    <nexusabsolu:compose_gear_a>,
-    [[null, <nexusabsolu:compose_a>, null],
-     [<nexusabsolu:compose_a>, <minecraft:iron_ingot>, <nexusabsolu:compose_a>],
-     [null, <nexusabsolu:compose_a>, null]]);
-
-// === STIRLING DYNAMO (pour plus tard - necessite bronze) ===
+// Stirling Dynamo: gear mecanique + boitier + base bronze
+//   [null]   [gear]     [null]      <- conversion mecanique
+//   [cobble] [redstone] [cobble]    <- boitier + transfert
+//   [bronze] [redstone] [bronze]    <- base bronze + sortie
 recipes.remove(<thermalexpansion:dynamo:0>);
 recipes.addShaped("nexus_stirling_dynamo",
     <thermalexpansion:dynamo:0>,
     [[null, <nexusabsolu:compose_gear_a>, null],
-     [<minecraft:cobblestone>, <minecraft:redstone>, <minecraft:cobblestone>],
+     [<ore:cobblestone>, <minecraft:redstone>, <ore:cobblestone>],
      [<ore:ingotBronze>, <minecraft:redstone>, <ore:ingotBronze>]]);
 
+// =============================================
+// TRANSPORT ENERGIE — Fluxduct Leadstone
+// =============================================
+
+// Fluxduct Leadstone x4: tuyau isole avec conducteur
+//   [dust]   [nugget]   [dust]     <- isolation + conducteur
+//   [dust]   [redstone] [dust]     <- isolation + energie
+//   [dust]   [nugget]   [dust]     <- isolation + conducteur
+recipes.remove(<thermaldynamics:duct_0>);
+recipes.addShaped("nexus_fluxduct_leadstone",
+    <thermaldynamics:duct_0> * 4,
+    [[<nexusabsolu:wall_dust>, <minecraft:iron_nugget>, <nexusabsolu:wall_dust>],
+     [<nexusabsolu:wall_dust>, <minecraft:redstone>, <nexusabsolu:wall_dust>],
+     [<nexusabsolu:wall_dust>, <minecraft:iron_nugget>, <nexusabsolu:wall_dust>]]);
+
+// =============================================
+// STOCKAGE — Silver Chest custom
+// =============================================
+
+// Silver Chest: coffre renforce
+//   [bronze] [iron]   [bronze]    <- couvercle renforce
+//   [iron]   [chest]  [iron]      <- structure + coffre vanilla
+//   [bronze] [string] [bronze]    <- base + mecanisme fermeture
+recipes.remove(<ironchest:iron_chest:4>);
+recipes.addShaped("nexus_silver_chest",
+    <ironchest:iron_chest:4>,
+    [[<ore:ingotBronze>, <minecraft:iron_ingot>, <ore:ingotBronze>],
+     [<minecraft:iron_ingot>, <minecraft:chest>, <minecraft:iron_ingot>],
+     [<ore:ingotBronze>, <minecraft:string>, <ore:ingotBronze>]]);
+
+print("Age0_Scavenging.zs loaded!");
 print("Age0_Energy.zs loaded!");
