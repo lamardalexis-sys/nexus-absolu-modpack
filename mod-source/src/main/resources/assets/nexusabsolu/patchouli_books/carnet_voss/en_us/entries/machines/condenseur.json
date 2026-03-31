@@ -11,6 +11,30 @@
       "title": "La Machine qui Respire"
     },
     {
+      "type": "patchouli:multiblock",
+      "name": "Condenseur Dimensionnel",
+      "multiblock": {
+        "pattern": [
+          [
+            "GG",
+            "GW"
+          ],
+          [
+            "CW",
+            "WW"
+          ]
+        ],
+        "mapping": {
+          "C": "nexusabsolu:condenseur",
+          "W": "nexusabsolu:nexus_wall",
+          "G": "minecraft:glass",
+          "0": "nexusabsolu:condenseur"
+        },
+        "symmetrical": false
+      },
+      "text": "$(bold)Bas :$() 1 Condenseur (coin) + 3 Nexus Wall$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall$(br2)Alimente en RF via Fluxducts."
+    },
+    {
       "type": "patchouli:text",
       "text": "$(bold)Recette du Condenseur :$()$(br)Bronze + Compose A en haut$(br)Invar + $(thing)Machine Frame$() au centre$(br)Invar + $(thing)Bloc de Redstone$() en bas$(br2)$(bold)Utilisation :$()$(br)1. Forme le multibloc 2x2x2$(br)2. Connecte du RF via Fluxducts$(br)3. Insere les ingredients$(br)4. Attends...$(br2)$(italics)Le Condenseur n'est pas une machine. C'est une question posee a l'univers.$(br)- Dr. E. Voss$()"
     }
