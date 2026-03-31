@@ -14,11 +14,7 @@ recipes.remove(<compactmachines3:machine:4>);
 recipes.remove(<compactmachines3:machine:5>);
 
 // === CONDENSEUR BLOCK RECIPE ===
-// Craftable tres tot avec des materiaux de base
-recipes.addShaped("condenseur_craft", <nexusabsolu:condenseur>,
-    [[<ore:cobblestone>, <nexusabsolu:iron_grit>, <ore:cobblestone>],
-     [<nexusabsolu:iron_grit>, <minecraft:redstone>, <nexusabsolu:iron_grit>],
-     [<ore:cobblestone>, <nexusabsolu:iron_grit>, <ore:cobblestone>]]);
+// Recette dans Age0_Scavenging.zs (Machine Frame + invar + bronze)
 
 // === CLES D'EXPANSION ===
 
