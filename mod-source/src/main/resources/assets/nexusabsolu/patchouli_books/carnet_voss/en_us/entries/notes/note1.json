@@ -7,7 +7,7 @@
     {
       "type": "text",
       "title": "Notes du prisonnier",
-      "text": "$(italics)Premier jour dans la boite. Les murs cedent des morceaux quand je tape dessus. C'est un indice.$(br2)J'ai trouve du bois et de la poussiere. J'ai fabrique une table de craft.$()"
+      "text": "$(italics)Premier jour. Les murs cedent quand je tape dessus. C'est un indice.$(br2)J'ai fabrique une table de craft. C'est un debut.$()"
     },
     {
       "type": "text",

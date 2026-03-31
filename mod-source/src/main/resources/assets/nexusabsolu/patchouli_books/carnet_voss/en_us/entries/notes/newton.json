@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(italics)Il y a un poulet dans la boite.$(br2)Je ne sais pas d'ou il vient. Il me regarde. Il ne bouge pas.$(br2)Je l'ai appele Newton. Parce que la gravite fonctionne normalement. Au moins ca.$(br2)Newton ne pond pas d'oeufs. Newton me regarde.$()",
-      "title": "Le poulet"
+      "title": "Le poulet",
+      "text": "$(italics)Il y a un poulet dans la boite.$(br2)Il me regarde. Il ne bouge pas.$(br2)Je l'ai appele Newton.$()"
     },
     {
       "type": "text",
-      "text": "$(italics)Newton a fait 'bock' aujourd'hui.$(br2)Voss mentionne Newton trois fois :$(br)'Newton sait.' (Carnet 7)$(br)'Newton refuse de cooperer.' (Carnet 12)$(br)'Newton a raison.' (Carnet 15)$(br2)C'est un poulet.$(br)...N'est-ce pas ?$()"
+      "text": "$(italics)Voss le mentionne trois fois :$(br)'Newton sait.'$(br)'Newton refuse de cooperer.'$(br)'Newton a raison.'$(br2)C'est un poulet. ...Non ?$()"
     }
   ]
 }

@@ -7,7 +7,7 @@
     {
       "type": "text",
       "title": "Les messages",
-      "text": "$(italics)Trois mentions dans les carnets de Voss :$(br2)'L'Operateur dit que le troisieme isotope est instable.'$(br2)'L'Operateur refuse de me dire ce qu'il y a de l'autre cote.'$()"
+      "text": "$(italics)Trois mentions dans les carnets :$(br2)'L'Operateur dit que l'isotope est instable.'$(br2)'Il refuse de me dire ce qu'il y a de l'autre cote.'$()"
     },
     {
       "type": "text",
