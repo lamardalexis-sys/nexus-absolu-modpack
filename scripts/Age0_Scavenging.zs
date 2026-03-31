@@ -140,14 +140,14 @@ recipes.addShaped("nexus_wall_craft",
 
 // Condenseur: machine a fusionner les dimensions
 //   [bronze]  [redstone] [bronze]    <- contacts energetiques
-//   [iron]    [compose]  [iron]      <- structure + coeur compose
-//   [iron]    [redstone] [iron]      <- base + sortie energie
+//   [invar]   [compose]  [invar]     <- structure invar + coeur compose
+//   [invar]   [redstone] [invar]     <- base invar + sortie energie
 recipes.remove(<nexusabsolu:condenseur>);
 recipes.addShaped("nexus_condenseur_craft",
     <nexusabsolu:condenseur>,
     [[<ore:ingotBronze>, <minecraft:redstone>, <ore:ingotBronze>],
-     [<minecraft:iron_ingot>, <nexusabsolu:compose_a>, <minecraft:iron_ingot>],
-     [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
+     [<ore:ingotInvar>, <nexusabsolu:compose_a>, <ore:ingotInvar>],
+     [<ore:ingotInvar>, <minecraft:redstone>, <ore:ingotInvar>]]);
 
 // Convertisseur du Dr. Voss: transforme compose en RF
 //   [iron]     [compose]  [iron]     <- compose en haut (source energie)
@@ -252,3 +252,7 @@ recipes.addShaped("nexus_silver_chest",
 
 print("Age0_Scavenging.zs loaded!");
 print("Age0_Energy.zs loaded!");
+
+// === REMOVE VANILLA MACHINE FRAME (stone+sandstone recipe) ===
+// On garde seulement la recette avec les metaux
+recipes.removeByRecipeName("thermalexpansion:machine_frame");
