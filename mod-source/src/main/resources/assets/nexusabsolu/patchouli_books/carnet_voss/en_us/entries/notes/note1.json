@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(italics)Premier jour dans la boite. Les murs cedent quand je tape dessus. C'est soit un defaut, soit un indice.$(br2)J'ai trouve du bois et de la poussiere. Avec de l'imagination et du desespoir, j'ai fabrique une table de craft.$(br2)C'est un debut.$()",
-      "title": "Notes du prisonnier"
+      "title": "Notes du prisonnier",
+      "text": "$(italics)Premier jour dans la boite. Les murs cedent des morceaux quand je tape dessus. C'est un indice.$(br2)J'ai trouve du bois et de la poussiere. J'ai fabrique une table de craft.$()"
     },
     {
       "type": "text",
-      "text": "$(italics)Les murs ont une texture etrange. Comme s'ils etaient tisses plutot que construits. La poussiere qui s'en detache brille legerement dans l'obscurite.$(br2)Quatre pincees de cette poussiere, ecrasees ensemble, forment de la ficelle. Ce n'est pas normal. Rien n'est normal ici.$(br2)Mais au moins j'ai de la ficelle.$()"
+      "text": "$(italics)La poussiere brille dans l'obscurite. Quatre pincees forment de la ficelle.$(br2)Rien n'est normal ici.$(br2)Mais au moins j'ai de la ficelle.$()"
     }
   ]
 }

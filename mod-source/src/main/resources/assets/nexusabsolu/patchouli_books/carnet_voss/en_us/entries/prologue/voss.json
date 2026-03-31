@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Dr. Elias Nathaniel Voss$()$(br)Disciplines : Physique quantique, transmutation, ingenierie dimensionnelle$(br)Statut : DISPARU$(br2)A 23 ans, il a resolu le Probleme de la Convergence Thermique. Les physiciens ont ri. Puis ils ont essaye de reproduire ses resultats. Puis ils ont arrete de rire.",
-      "title": "L'Architecte"
+      "title": "L'Architecte",
+      "text": "$(bold)Dr. Elias Nathaniel Voss$()$(br)Physique quantique, ingenierie dimensionnelle$(br)Statut : DISPARU$(br2)A 23 ans, il a resolu la Convergence Thermique. A 31 ans, la premiere Compact Machine."
     },
     {
       "type": "text",
-      "text": "A 31 ans, premiere Compact Machine. A 42 ans, son dernier article decrit le $(thing)Nexus Absolu$() : un point ou matiere, energie et magie convergent.$(br2)Le lendemain, il a disparu. Son labo etait vide. Seules restaient ses machines, ses carnets, et toi."
+      "text": "A 42 ans, il a decrit le $(thing)Nexus Absolu$() : un point ou matiere, energie et magie convergent.$(br2)Le lendemain, il a disparu. Son labo etait vide."
     }
   ]
 }

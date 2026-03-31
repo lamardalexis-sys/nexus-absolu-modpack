@@ -7,12 +7,13 @@
     {
       "type": "spotlight",
       "item": "nexusabsolu:atelier_voss",
-      "text": "L'Atelier n'est pas une simple table de craft. C'est un etabli dimensionnel. Les objets qu'on y pose semblent cooperer entre eux.$(br2)Il permet de crafter les pioches et certains outils speciaux.",
-      "title": "L'Etabli Avance"
+      "text": "Un etabli avance. Les objets qu'on y pose semblent cooperer entre eux.",
+      "title": "L'Etabli"
     },
     {
       "type": "text",
-      "text": "$(bold)Recette :$()$(br)Planches + ficelle en haut$(br)Cobble + planche au centre$(br)Batons + cobble en bas$(br2)$(italics)J'ai construit mon premier Atelier avec des restes. Du bois, de la ficelle, un caillou pointu. Il m'a permis de construire tout le reste.$(br)- Dr. E. Voss, Carnet n.3$()"
+      "title": "Recette",
+      "text": "Planches + ficelle en haut$(br)Cobble + planche au centre$(br)Batons + cobble en bas"
     }
   ]
 }

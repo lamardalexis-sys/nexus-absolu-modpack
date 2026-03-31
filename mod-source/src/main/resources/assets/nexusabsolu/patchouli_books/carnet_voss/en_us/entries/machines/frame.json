@@ -7,12 +7,13 @@
     {
       "type": "spotlight",
       "item": "thermalexpansion:frame",
-      "text": "Le squelette de toutes les machines. Fer pour la structure, verre pour voir a travers, engrenage pour donner un coeur.$(br2)$(bold)Recette :$()$(br)Fer + verre en alternance$(br)$(thing)Engrenage de Compose A$() au centre",
+      "text": "Fer pour la structure, verre pour voir, engrenage pour le coeur.",
       "title": "Le Squelette"
     },
     {
       "type": "text",
-      "text": "$(bold)Chaine de crafts :$()$(br)1. 4 Compose A (pioche renforcee)$(br)2. Compose A + Bronze = Engrenage$(br)3. 4 Fer + 4 Verre + Engrenage = Frame$(br2)Le Machine Frame entre dans le $(thing)Convertisseur$() et le $(thing)Condenseur$().$(br2)$(italics)Chaque machine que j'ai construite commence par un cadre.$(br)- Dr. E. Voss, Carnet n.9$()"
+      "title": "Chaine de crafts",
+      "text": "1. 4 Compose A + Bronze = Gear$(br)2. 4 Fer + 4 Verre + Gear = Frame$(br2)Le Frame entre dans le Convertisseur et le Condenseur."
     }
   ]
 }

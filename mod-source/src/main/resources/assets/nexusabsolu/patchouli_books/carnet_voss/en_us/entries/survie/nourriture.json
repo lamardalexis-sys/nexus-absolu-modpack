@@ -6,12 +6,13 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(bold)Le tonneau$() collecte l'eau par condensation. Remplis-le de feuilles et de graines pour creer du $(thing)compost$() qui se transforme en terre.$(br2)$(bold)Le cycle :$()$(br)1. Tonneau + matiere organique = dirt$(br)2. Dirt + eau + graines = farming$(br)3. Ble = pain",
-      "title": "L'eau et la terre"
+      "title": "L'eau et la terre",
+      "text": "$(bold)Tonneau$() = eau par condensation.$(br)Compost = feuilles/graines dans tonneau = dirt.$(br2)$(bold)Cycle :$() Dirt + eau + graines = farming$(br)Ble = pain"
     },
     {
       "type": "text",
-      "text": "$(bold)Spice of Life :$() Plats varies = coeurs bonus.$(br2)$(bold)Bonsai Pots :$() Sapling + pot = bois infini.$(br2)$(bold)La Marmite :$() Cuisine de vrais plats (Pam's)."
+      "title": "Cuisine",
+      "text": "$(bold)Spice of Life :$() Variete = coeurs bonus.$(br)$(bold)Bonsai Pots :$() Bois infini.$(br)$(bold)Marmite :$() Plats cuisines."
     }
   ]
 }

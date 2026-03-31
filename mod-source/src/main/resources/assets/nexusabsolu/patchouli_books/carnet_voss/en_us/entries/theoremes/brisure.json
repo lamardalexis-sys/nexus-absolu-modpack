@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(italics)L'espace n'est pas vide. L'espace est plein de tout ce qui n'a pas encore decide d'exister.$()",
-      "title": "Theoreme V"
+      "title": "Theoreme V",
+      "text": "$(italics)L'espace n'est pas vide. L'espace est plein de tout ce qui n'a pas encore decide d'exister.$()"
     },
     {
       "type": "text",
-      "text": "Les Compact Machines creent des poches de realite alternative. En les empilant et les connectant, on peut creer un point de convergence.$(br2)Ce point, c'est le $(thing)Nexus Absolu$().$(br2)$(bold)Mods :$() Compact Machines, RFTools Dim, Galacticraft"
+      "text": "Les Compact Machines creent des poches de realite alternative.$(br2)Le $(thing)Nexus Absolu$() est le point ou toutes convergent.$(br2)$(bold)Mods :$() Compact Machines, RFTools Dim"
     }
   ]
 }

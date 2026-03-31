@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(italics)Les etoiles ne brillent pas. Elles se souviennent. Chaque photon est un souvenir de ce que l'univers etait avant d'exister.$()",
-      "title": "Theoreme III"
+      "title": "Theoreme III",
+      "text": "$(italics)Les etoiles ne brillent pas. Elles se souviennent. Chaque photon est un souvenir de l'univers.$()"
     },
     {
       "type": "text",
-      "text": "La lumiere des etoiles contient de l'information. Pas de l'energie ni de la chaleur, mais de veritables donnees encodees dans les frequences lumineuses.$(br2)Les cristaux d'Astral Sorcery ne captent pas la lumiere des etoiles. Ils decodent les souvenirs de l'univers.$(br2)$(bold)Mods lies :$() Astral Sorcery, NuclearCraft, Solar Flux"
+      "text": "La lumiere des etoiles contient de l'information encodee dans les frequences.$(br2)Les cristaux d'Astral Sorcery decodent ces souvenirs.$(br2)$(bold)Mods :$() Astral Sorcery, NuclearCraft"
     }
   ]
 }

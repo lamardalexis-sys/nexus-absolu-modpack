@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(italics)Le sang n'est pas un fluide. C'est un reseau. Chaque cellule est un noeud. Chaque battement de coeur est un pulse de donnees.$()",
-      "title": "Theoreme IV"
+      "title": "Theoreme IV",
+      "text": "$(italics)Le sang n'est pas un fluide. C'est un reseau. Chaque battement de coeur est un pulse de donnees.$()"
     },
     {
       "type": "text",
-      "text": "Le sang des entites conscientes contient une forme d'energie qu'aucun instrument ne peut mesurer. Voss l'a appelee Life Points par ironie.$(br2)L'Autel de Blood Magic n'a rien d'un autel sacrificiel. C'est un processeur biologique qui extrait l'information encodee dans le sang.$(br2)$(bold)Mods lies :$() Blood Magic, Soul Shards, Twilight Forest"
+      "text": "Le sang contient une energie que Voss appelait Life Points.$(br2)L'Autel de Blood Magic est un processeur biologique.$(br2)$(bold)Mods :$() Blood Magic, Soul Shards"
     }
   ]
 }

@@ -6,12 +6,12 @@
   "pages": [
     {
       "type": "text",
-      "text": "$(italics)Trois mentions dans les carnets de Voss :$(br2)'L'Operateur dit que le troisieme isotope est instable. Il a raison.'$(br2)'L'Operateur refuse de me dire ce qu'il y a de l'autre cote.'$(br2)'L'Operateur a ri aujourd'hui.'$()",
-      "title": "Les messages"
+      "title": "Les messages",
+      "text": "$(italics)Trois mentions dans les carnets de Voss :$(br2)'L'Operateur dit que le troisieme isotope est instable.'$(br2)'L'Operateur refuse de me dire ce qu'il y a de l'autre cote.'$()"
     },
     {
       "type": "text",
-      "text": "$(italics)L'identite de l'Operateur reste un mystere. Certains pensent que c'est le Nexus lui-meme, communiquant a travers le temps. D'autres pensent que c'est Voss du futur.$(br2)D'autres encore pensent que c'est Newton.$(br2)...$(br2)Ne riez pas. C'est une hypothese scientifiquement valide.$(br2)Probablement.$()"
+      "text": "$(italics)'L'Operateur a ri aujourd'hui.'$(br2)Certains pensent que c'est le Nexus lui-meme. D'autres que c'est Voss du futur. D'autres que c'est Newton.$()"
     }
   ]
 }

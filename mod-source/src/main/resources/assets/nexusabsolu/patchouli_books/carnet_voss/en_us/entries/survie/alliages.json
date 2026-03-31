@@ -7,12 +7,12 @@
     {
       "type": "text",
       "title": "Le Alloy Kiln",
-      "text": "Les lingots purs ne suffisent pas. Il faut des $(thing)alliages$().$(br2)$(bold)Alloy Kiln (IE) :$()$(br)2x2x2 de Kiln Bricks.$(br)Charbon seulement, pas de RF.$(br2)$(bold)Kiln Bricks :$()$(br)Argile au four = brique$(br)2 briques + 2 sandstone = 2 Kiln Bricks"
+      "text": "2x2x2 de Kiln Bricks. Charbon, pas de RF.$(br2)$(bold)Kiln Bricks :$()$(br)Argile au four = brique$(br)2 briques + 2 sandstone = 2 Kiln Bricks"
     },
     {
       "type": "text",
       "title": "Bronze et Invar",
-      "text": "$(bold)Bronze :$() 3 cuivre + 1 etain$(br2)$(bold)Invar :$() 2 fer + 1 nickel$(br)Essentiel pour le Condenseur."
+      "text": "$(bold)Bronze :$() 3 cuivre + 1 etain$(br)$(bold)Invar :$() 2 fer + 1 nickel$(br2)Essentiel pour le Condenseur."
     }
   ]
 }
