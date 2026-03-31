@@ -1,0 +1,17 @@
+{
+  "name": "I - Conservation Absolue",
+  "category": "nexusabsolu:carnet_voss/theoremes",
+  "icon": "thermalexpansion:machine:1",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(italics)Rien ne se perd, rien ne se cree, tout se transforme - y compris les lois qui regissent la transformation.$()",
+      "title": "Theoreme I"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Voss a prouve que chaque atome contient l'energie de sa propre transformation. Un lingot de cuivre n'est pas simplement du cuivre ; c'est de l'energie condensee en forme de cuivre.$(br2)En appliquant les bonnes frequences, on peut decomposer n'importe quel materiau en energie pure et le recomposer sous une autre forme.$(br2)$(bold)Mods lies :$() Thermal Expansion, Mekanism, Immersive Engineering"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "V - Brisure Dimensionnelle",
+  "category": "nexusabsolu:carnet_voss/theoremes",
+  "icon": "compactmachines3:machine",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(italics)L'espace n'est pas vide. L'espace est plein de tout ce qui n'a pas encore decide d'exister.$()",
+      "title": "Theoreme V"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Les Compact Machines ne compriment pas l'espace ; elles creent des poches de realite alternative. En empilant suffisamment de ces poches, en les connectant avec les bonnes frequences...$(br2)On peut creer un point ou toutes les realites convergent simultanement.$(br2)Ce point, c'est le $(thing)Nexus Absolu$().$(br2)$(bold)Mods lies :$() Compact Machines, RFTools Dim, Galacticraft, Draconic Evolution"
+    }
+  ]
+}

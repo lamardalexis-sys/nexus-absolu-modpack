@@ -1,0 +1,17 @@
+{
+  "name": "Les Murs",
+  "category": "nexusabsolu:carnet_voss/survie",
+  "icon": "nexusabsolu:wall_dust",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Les murs de la Compact Machine ne sont pas de simples murs. Ce sont des $(thing)memoires compressees$(). Chaque fragment contient un souvenir de la matiere qu'il etait avant.$(br2)$(bold)A mains nues :$()$(br)- Poussiere de mur$(br)- Batons$(br)- Planches$(br)- Fragments de roche",
+      "title": "Frappe les murs"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Avec la Pioche Fragmentee :$()$(br)- Poussiere de mur$(br)- Fragments de roche$(br)- Silex$(br)- Argile$(br2)$(bold)Avec la Pioche Renforcee :$()$(br)- Grits de fer, cuivre, etain, nickel$(br)- Charbon, Redstone$(br)- Compose A (rare)$(br)- Poussiere de mur$(br2)$(italics)Chaque outil revele une couche differente.$()"
+    }
+  ]
+}

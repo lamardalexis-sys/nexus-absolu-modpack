@@ -1,0 +1,18 @@
+{
+  "name": "Convertisseur du Dr. Voss",
+  "category": "nexusabsolu:carnet_voss/machines",
+  "icon": "nexusabsolu:convertisseur_voss",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "nexusabsolu:convertisseur_voss",
+      "text": "La machine qui transforme l'impossible en RF. Place un $(thing)Bloc de Compose A$() a cote. 25 RF/t.$(br2)Ce n'est pas beaucoup. Mais c'est une etincelle. Et les incendies commencent tous pareil.",
+      "title": "L'Etincelle"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Recette :$()$(br)Fer + Compose A en haut$(br)Redstone + $(thing)Machine Frame$() au centre$(br)Fer + redstone en bas$(br2)$(bold)Le Compose A$() est un cristal d'energie extrait des murs (5.5% pioche renforcee). 4 Compose A en croix + 1 bronze = Engrenage. 8 Compose A + Engrenage = Bloc.$(br2)$(italics)Le Convertisseur est ma plus belle invention. Pas la plus puissante. La plus belle.$(br)- Dr. E. Voss$()"
+    }
+  ]
+}

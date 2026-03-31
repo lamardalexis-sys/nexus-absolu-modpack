@@ -1,0 +1,18 @@
+{
+  "name": "Condenseur Dimensionnel",
+  "category": "nexusabsolu:carnet_voss/machines",
+  "icon": "nexusabsolu:condenseur",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "nexusabsolu:condenseur",
+      "text": "Le Condenseur fusionne deux Compact Machines en une seule, plus grande. C'est la cle de la progression.$(br2)$(bold)Multibloc 2x2x2 :$()$(br)Bas : 1 Condenseur + 3 Nexus Walls$(br)Haut : 3 Glass + 1 Nexus Wall",
+      "title": "La Machine qui Respire"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Recette du Condenseur :$()$(br)Bronze + Compose A en haut$(br)Invar + $(thing)Machine Frame$() au centre$(br)Invar + $(thing)Bloc de Redstone$() en bas$(br2)$(bold)Utilisation :$()$(br)1. Forme le multibloc 2x2x2$(br)2. Connecte du RF via Fluxducts$(br)3. Insere les ingredients$(br)4. Attends...$(br2)$(italics)Le Condenseur n'est pas une machine. C'est une question posee a l'univers.$(br)- Dr. E. Voss$()"
+    }
+  ]
+}

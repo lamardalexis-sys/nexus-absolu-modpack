@@ -1,0 +1,17 @@
+{
+  "name": "Se Nourrir",
+  "category": "nexusabsolu:carnet_voss/survie",
+  "icon": "minecraft:bread",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Le tonneau$() collecte l'eau par condensation. Remplis-le de feuilles et de graines pour creer du $(thing)compost$() qui se transforme en terre.$(br2)$(bold)Le cycle :$()$(br)1. Tonneau + matiere organique = dirt$(br)2. Dirt + eau + graines = farming$(br)3. Ble = pain",
+      "title": "L'eau et la terre"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Spice of Life :$() Mange des plats varies pour gagner des coeurs bonus. La diversite culinaire est recompensee.$(br2)$(bold)Bonsai Pots :$() Un sapling dans un pot = bois infini. Place-en plusieurs pour accelerer.$(br2)$(bold)La Marmite :$() Craft une marmite (Pam's HarvestCraft) pour cuisiner de vrais plats.$(br2)$(italics)La variete est le sel de la vie. Et le sel est la variete du sel. Cette phrase ne veut rien dire. J'ai faim.$(br)- Dr. E. Voss$()"
+    }
+  ]
+}

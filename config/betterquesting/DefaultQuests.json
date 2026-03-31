@@ -2291,7 +2291,10 @@
             "id:8": "patchouli:guide_book",
             "Count:3": 1,
             "Damage:2": 0,
-            "OreDict:8": ""
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss"
+            }
           },
           "name:8": "§l§5Les yeux s'ouvrent",
           "desc:8": "§7Tu te reveilles. L'air est immobile.\n§7Les murs sont blancs. Ou gris. Ou les deux.\n§7Il y a un coffre. Et un livre.\n\n§o§dSi vous lisez ceci, l'experience a reussi.\nFelicitations. Ou condoleances.\nTout depend de votre point de vue.\n— Dr. E. Voss, Carnet n°1§r\n\n§e> Lis le livre du Dr. Voss."
@@ -2310,7 +2313,10 @@
               "id:8": "patchouli:guide_book",
               "Count:3": 1,
               "Damage:2": 0,
-              "OreDict:8": ""
+              "OreDict:8": "",
+              "tag:10": {
+                "patchouli:book:8": "nexusabsolu:carnet_voss"
+              }
             }
           },
           "taskID:8": "bq_standard:retrieval"

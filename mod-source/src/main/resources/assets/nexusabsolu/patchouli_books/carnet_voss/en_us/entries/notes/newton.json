@@ -1,0 +1,17 @@
+{
+  "name": "Newton",
+  "category": "nexusabsolu:carnet_voss/notes",
+  "icon": "minecraft:egg",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(italics)Il y a un poulet dans la boite.$(br2)Je ne sais pas d'ou il vient. Il etait la quand je me suis reveille. Il me regarde. Il ne bouge pas beaucoup.$(br2)Je l'ai appele Newton. Parce que la gravite, ici, a l'air de fonctionner normalement. Au moins ca.$(br2)Newton ne pond pas d'oeufs. Newton ne fait rien. Newton me regarde.$(br2)Je commence a penser que Newton en sait plus que moi.$()",
+      "title": "Le poulet"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(italics)Mise a jour : Newton a fait 'bock' aujourd'hui. C'est la premiere fois en trois jours. Je ne sais pas ce que ca signifie.$(br2)Voss mentionne Newton dans ses carnets. Trois fois. Toujours en marge. Toujours dans une encre differente.$(br2)Carnet n.7 : 'Newton sait.'$(br)Carnet n.12 : 'Newton refuse de cooperer.'$(br)Carnet n.15 : 'Newton a raison. Comme toujours.'$(br2)C'est un poulet.$(br2)...N'est-ce pas ?$()"
+    }
+  ]
+}

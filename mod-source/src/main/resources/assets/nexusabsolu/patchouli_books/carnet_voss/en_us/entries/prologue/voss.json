@@ -1,0 +1,17 @@
+{
+  "name": "Qui etait Elias Voss ?",
+  "category": "nexusabsolu:carnet_voss/prologue",
+  "icon": "minecraft:skull",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(bold)Dr. Elias Nathaniel Voss$()$(br)Disciplines : Physique quantique, transmutation, ingenierie dimensionnelle$(br)Statut : DISPARU$(br2)A 23 ans, il a resolu le Probleme de la Convergence Thermique. Les physiciens ont ri. Puis ils ont essaye de reproduire ses resultats. Puis ils ont arrete de rire.",
+      "title": "L'Architecte"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A 31 ans, il a construit la premiere Compact Machine. A 42 ans, il a publie son dernier article decrivant le $(thing)Nexus Absolu$() : un point de convergence ou matiere, energie, magie et information deviennent une seule et meme chose.$(br2)Le lendemain, il a disparu.$(br2)Son laboratoire etait vide. Pas abandonne. $(italics)Vide.$()$(br2)Seules restaient ses machines, ses carnets, et toi."
+    }
+  ]
+}
