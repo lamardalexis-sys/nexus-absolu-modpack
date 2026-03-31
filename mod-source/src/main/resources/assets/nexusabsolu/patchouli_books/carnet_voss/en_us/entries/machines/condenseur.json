@@ -17,19 +17,19 @@
         "pattern": [
           [
             "GG",
-            "GS"
+            "GW"
           ],
           [
-            "0S",
-            "SS"
+            "0W",
+            "WW"
           ]
         ],
         "mapping": {
-          "S": "minecraft:stonebrick",
+          "W": "minecraft:stonebrick",
           "G": "minecraft:glass"
         }
       },
-      "text": "$(bold)Bas :$() Condenseur (0) + 3 Nexus Wall (pierre)$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall (pierre)"
+      "text": "$(bold)Bas :$() Condenseur (0) + 3 Nexus Wall (pierre)$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall$(br2)Connecte du RF via Fluxducts."
     },
     {
       "type": "text",
