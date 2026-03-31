@@ -25,11 +25,11 @@
           ]
         ],
         "mapping": {
-          "W": "minecraft:stonebrick",
+          "W": "nexusabsolu:nexus_wall",
           "G": "minecraft:glass"
         }
       },
-      "text": "$(bold)Bas :$() Condenseur (0) + 3 Nexus Wall (pierre)$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall$(br2)Connecte du RF via Fluxducts."
+      "text": "$(bold)Bas :$() Condenseur (0) + 3 Nexus Wall$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall$(br2)Connecte du RF via Fluxducts."
     },
     {
       "type": "text",
