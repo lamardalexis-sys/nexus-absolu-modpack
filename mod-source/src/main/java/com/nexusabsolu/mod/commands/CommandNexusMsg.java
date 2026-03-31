@@ -32,12 +32,17 @@ public class CommandNexusMsg extends CommandBase {
     @Override public String getName() { return "nexusmsg"; }
     @Override public String getUsage(ICommandSender sender) { return "/nexusmsg <player>"; }
     @Override public int getRequiredPermissionLevel() { return 2; }
+    @Override public boolean isUsernameIndex(String[] args, int index) { return index == 0; }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         EntityPlayerMP player = null;
         if (args.length > 0) {
-            player = server.getPlayerList().getPlayerByUsername(args[0]);
+            try {
+                player = getPlayer(server, sender, args[0]);
+            } catch (Exception e) {
+                player = null;
+            }
         }
         if (player == null && sender instanceof EntityPlayerMP) {
             player = (EntityPlayerMP) sender;
