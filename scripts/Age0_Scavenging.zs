@@ -139,26 +139,37 @@ recipes.addShaped("nexus_wall_craft",
      [<minecraft:clay_ball>, <minecraft:iron_nugget>, <minecraft:clay_ball>],
      [<ore:cobblestone>, <minecraft:flint>, <ore:cobblestone>]]);
 
-// Condenseur: machine a fusionner les dimensions
-//   [bronze]  [redstone] [bronze]    <- contacts energetiques
-//   [invar]   [compose]  [invar]     <- structure invar + coeur compose
-//   [invar]   [redstone] [invar]     <- base invar + sortie energie
+// Machine Frame: composant central de toutes les machines (pattern E2E)
+//   [iron]  [glass] [iron]     <- structure metallique
+//   [glass] [gear]  [glass]    <- coeur: engrenage compose + vision
+//   [iron]  [glass] [iron]     <- structure metallique
+recipes.remove(<thermalexpansion:frame>);
+recipes.addShaped("nexus_machine_frame",
+    <thermalexpansion:frame>,
+    [[<minecraft:iron_ingot>, <ore:blockGlass>, <minecraft:iron_ingot>],
+     [<ore:blockGlass>, <nexusabsolu:compose_gear_a>, <ore:blockGlass>],
+     [<minecraft:iron_ingot>, <ore:blockGlass>, <minecraft:iron_ingot>]]);
+
+// Condenseur Dimensionnel: fusionne deux CMs
+//   [bronze] [compose]  [bronze]      <- contacts energetiques
+//   [invar]  [frame]    [invar]       <- coeur: machine frame + structure invar
+//   [invar]  [red_bloc] [invar]       <- base: redstone bloc (9 redstone!)
 recipes.remove(<nexusabsolu:condenseur>);
 recipes.addShaped("nexus_condenseur_craft",
     <nexusabsolu:condenseur>,
-    [[<ore:ingotBronze>, <minecraft:redstone>, <ore:ingotBronze>],
-     [<ore:ingotInvar>, <nexusabsolu:compose_a>, <ore:ingotInvar>],
-     [<ore:ingotInvar>, <minecraft:redstone>, <ore:ingotInvar>]]);
+    [[<ore:ingotBronze>, <nexusabsolu:compose_a>, <ore:ingotBronze>],
+     [<ore:ingotInvar>, <thermalexpansion:frame>, <ore:ingotInvar>],
+     [<ore:ingotInvar>, <minecraft:redstone_block>, <ore:ingotInvar>]]);
 
 // Convertisseur du Dr. Voss: transforme compose en RF
-//   [iron]     [compose]  [iron]     <- compose en haut (source energie)
-//   [redstone] [flint]    [redstone] <- transfert + allumeur d'energie
-//   [iron]     [redstone] [iron]     <- structure + sortie RF
+//   [iron]     [compose] [iron]       <- compose en haut (source energie)
+//   [redstone] [frame]   [redstone]   <- coeur: machine frame + transfert
+//   [iron]     [redstone][iron]       <- structure + sortie RF
 recipes.remove(<nexusabsolu:convertisseur_voss>);
 recipes.addShaped("nexus_convertisseur_craft",
     <nexusabsolu:convertisseur_voss>,
     [[<minecraft:iron_ingot>, <nexusabsolu:compose_a>, <minecraft:iron_ingot>],
-     [<minecraft:redstone>, <minecraft:flint>, <minecraft:redstone>],
+     [<minecraft:redstone>, <thermalexpansion:frame>, <minecraft:redstone>],
      [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
 
 // Engrenage de Compose A: croix + axe bronze

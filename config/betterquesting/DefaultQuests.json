@@ -4264,7 +4264,7 @@
     "33:10": {
       "questID:3": 33,
       "preRequisites:11": [
-        32,
+        43,
         23
       ],
       "properties:10": {
@@ -4886,6 +4886,66 @@
           }
         }
       }
+    },
+    "43:10": {
+      "questID:3": 43,
+      "preRequisites:11": [
+        31
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "thermalexpansion:frame",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dLe Machine Frame",
+          "desc:8": "§7Fer, verre, et un Engrenage de Compose au centre.\n§7Le Machine Frame est le squelette\n§7de toutes les machines du Dr. Voss.\n\n§o§dChaque machine que j'ai construite\ncommence par un cadre. Un squelette.\nLe verre pour voir a travers.\nLe fer pour tenir debout.\nL'engrenage pour donner un coeur.\nLe reste n'est que decoration.\n— Dr. E. Voss, Carnet n°9§r\n\n§e> Craft 1 Machine Frame."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:frame",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:xp",
+          "amount:3": 50,
+          "isLevels:1": 0,
+          "index:3": 0
+        }
+      }
     }
   },
   "questLines:9": {
@@ -5191,6 +5251,13 @@
           "x:3": 264,
           "y:3": 120,
           "id:3": 42
+        },
+        "43:10": {
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 96,
+          "y:3": 720,
+          "id:3": 43
         }
       },
       "properties:10": {
