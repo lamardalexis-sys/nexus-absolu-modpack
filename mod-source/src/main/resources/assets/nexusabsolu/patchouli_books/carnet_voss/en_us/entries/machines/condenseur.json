@@ -16,20 +16,20 @@
       "multiblock": {
         "pattern": [
           [
-            "GW",
-            "GW"
+            "GG",
+            "GS"
           ],
           [
-            "0W",
-            "WW"
+            "0S",
+            "SS"
           ]
         ],
         "mapping": {
-          "W": "nexusabsolu:nexus_wall",
+          "S": "minecraft:stonebrick",
           "G": "minecraft:glass"
         }
       },
-      "text": "$(bold)Bas :$() 1 Condenseur (0) + 3 Nexus Wall$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall"
+      "text": "$(bold)Bas :$() Condenseur (0) + 3 Nexus Wall (pierre)$(br)$(bold)Haut :$() 3 Glass + 1 Nexus Wall (pierre)"
     },
     {
       "type": "text",

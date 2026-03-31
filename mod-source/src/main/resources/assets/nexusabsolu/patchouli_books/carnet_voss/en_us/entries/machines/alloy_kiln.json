@@ -16,19 +16,19 @@
       "multiblock": {
         "pattern": [
           [
-            "KK",
-            "KK"
+            "BB",
+            "BB"
           ],
           [
-            "0K",
-            "KK"
+            "0B",
+            "BB"
           ]
         ],
         "mapping": {
-          "K": "immersiveengineering:stone_decoration:10"
+          "B": "minecraft:brick_block"
         }
       },
-      "text": "$(bold)8 Kiln Bricks$() en cube 2x2x2.$(br)Le 0 est le bloc ou cliquer."
+      "text": "$(bold)8 Kiln Bricks$() en cube 2x2x2.$(br)Les briques representent les Kiln Bricks."
     },
     {
       "type": "text",
