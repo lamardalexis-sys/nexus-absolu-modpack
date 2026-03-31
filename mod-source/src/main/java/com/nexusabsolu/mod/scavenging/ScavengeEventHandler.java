@@ -71,13 +71,14 @@ public class ScavengeEventHandler {
                 else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
                 else if (r < 0.65) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
             } else {
-                // Pioche Renforcee: 60% grits, 5.5% compose, 34.5% wall_dust
-                if (r < 0.15)       spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
-                else if (r < 0.30)  spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
-                else if (r < 0.42)  spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
-                else if (r < 0.52)  spawnDrop(world, player, new ItemStack(Items.COAL, 1));
-                else if (r < 0.60)  spawnDrop(world, player, new ItemStack(Items.REDSTONE, 1));
-                else if (r < 0.655) spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
+                // Pioche Renforcee: grits + compose + wall_dust
+                if (r < 0.12)       spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
+                else if (r < 0.25)  spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
+                else if (r < 0.35)  spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
+                else if (r < 0.45)  spawnDrop(world, player, new ItemStack(Items.COAL, 1));
+                else if (r < 0.53)  spawnDrop(world, player, new ItemStack(Items.REDSTONE, 1));
+                else if (r < 0.58)  spawnDrop(world, player, new ItemStack(ModItems.NICKEL_GRIT, 1));
+                else if (r < 0.635) spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
                 else                spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             }
 

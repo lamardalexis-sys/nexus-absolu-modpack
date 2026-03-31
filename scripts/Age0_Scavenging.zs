@@ -68,10 +68,12 @@ recipes.addShapeless("nexus_iron_to_nuggets",
     <minecraft:iron_nugget> * 8,
     [<minecraft:iron_ingot>]);
 
-// === BRONZE (3 copper + 1 tin = 4 bronze) ===
-recipes.addShapeless("nexus_bronze_craft",
-    <thermalfoundation:material:163> * 4,
-    [<ore:ingotCopper>, <ore:ingotCopper>, <ore:ingotCopper>, <ore:ingotTin>]);
+// === BRONZE: Alloy Kiln (IE) seulement ===
+// Pas de craft shapeless — uniquement via Alloy Kiln + charbon
+// Copper + Tin = Bronze
+mods.immersiveengineering.AlloySmelter.addRecipe(<thermalfoundation:material:163> * 4, <ore:ingotCopper> * 3, <ore:ingotTin>, 400);
+// Iron + Nickel = Invar
+mods.immersiveengineering.AlloySmelter.addRecipe(<thermalfoundation:material:162> * 3, <ore:ingotIron> * 2, <ore:ingotNickel>, 400);
 
 // =============================================
 // TOOLS — forme classique outil (tete/binding/manche)
