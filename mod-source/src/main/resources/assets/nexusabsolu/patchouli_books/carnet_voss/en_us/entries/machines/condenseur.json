@@ -1,6 +1,6 @@
 {
   "name": "Condenseur Dimensionnel",
-  "category": "nexusabsolu:carnet_voss/machines",
+  "category": "nexusabsolu:machines",
   "icon": "nexusabsolu:condenseur",
   "sortnum": 2,
   "pages": [

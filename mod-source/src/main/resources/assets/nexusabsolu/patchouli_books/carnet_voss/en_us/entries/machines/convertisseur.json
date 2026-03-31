@@ -1,6 +1,6 @@
 {
   "name": "Convertisseur du Dr. Voss",
-  "category": "nexusabsolu:carnet_voss/machines",
+  "category": "nexusabsolu:machines",
   "icon": "nexusabsolu:convertisseur_voss",
   "sortnum": 1,
   "pages": [

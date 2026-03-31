@@ -1,6 +1,6 @@
 {
   "name": "Machine Frame",
-  "category": "nexusabsolu:carnet_voss/machines",
+  "category": "nexusabsolu:machines",
   "icon": "thermalexpansion:frame",
   "sortnum": 3,
   "pages": [

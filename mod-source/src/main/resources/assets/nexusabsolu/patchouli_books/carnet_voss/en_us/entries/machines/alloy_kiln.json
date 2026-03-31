@@ -1,6 +1,6 @@
 {
   "name": "Alloy Kiln",
-  "category": "nexusabsolu:carnet_voss/machines",
+  "category": "nexusabsolu:machines",
   "icon": "immersiveengineering:stone_decoration:10",
   "sortnum": 4,
   "pages": [

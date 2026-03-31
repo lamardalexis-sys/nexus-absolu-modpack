@@ -1,6 +1,6 @@
 {
   "name": "Atelier du Dr. Voss",
-  "category": "nexusabsolu:carnet_voss/machines",
+  "category": "nexusabsolu:machines",
   "icon": "nexusabsolu:atelier_voss",
   "sortnum": 0,
   "pages": [
