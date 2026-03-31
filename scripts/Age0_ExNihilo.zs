@@ -11,22 +11,9 @@
 // Pas de pieces/chunks (trop de raccourcis)
 // ==========================================
 
-// Remove ALL default gravel sieve recipes
-mods.exnihilocreatio.Sieve.removeAll(<minecraft:gravel>);
-
-// Gravel + String Mesh: just basics
-mods.exnihilocreatio.Sieve.addStringMeshRecipe(<minecraft:gravel>, <minecraft:flint>, 0.25);
-mods.exnihilocreatio.Sieve.addStringMeshRecipe(<minecraft:gravel>, <minecraft:coal>, 0.15);
-
-// Gravel + Flint Mesh: coal, flint, iron nugget
-mods.exnihilocreatio.Sieve.addFlintMeshRecipe(<minecraft:gravel>, <minecraft:flint>, 0.20);
-mods.exnihilocreatio.Sieve.addFlintMeshRecipe(<minecraft:gravel>, <minecraft:coal>, 0.25);
-mods.exnihilocreatio.Sieve.addFlintMeshRecipe(<minecraft:gravel>, <minecraft:iron_nugget>, 0.25);
-
-// Gravel + Iron Mesh: more nuggets + copper/tin nuggets
-mods.exnihilocreatio.Sieve.addIronMeshRecipe(<minecraft:gravel>, <minecraft:iron_nugget>, 0.35);
-mods.exnihilocreatio.Sieve.addIronMeshRecipe(<minecraft:gravel>, <minecraft:coal>, 0.20);
-mods.exnihilocreatio.Sieve.addIronMeshRecipe(<minecraft:gravel>, <minecraft:flint>, 0.15);
+// Sieve drops are configured via JSON in config/exnihilocreatio/SieveRegistry.json
+// (enableJSONLoading=true in ExNihiloCreatio.cfg)
+// Gravel drops: coal, flint, iron nuggets SEULEMENT
 
 // ==========================================
 // CRUCIBLE -- Source de lave en compact
