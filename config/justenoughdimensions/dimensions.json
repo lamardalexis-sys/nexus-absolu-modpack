@@ -1,4 +1,8 @@
 {
+    "config_version": {
+        "id": "__default",
+        "version": 0
+    },
     "dimensions": [
         {
             "dim": 0,
@@ -14,9 +18,10 @@
                 "SpawnX": 0,
                 "SpawnY": 73,
                 "SpawnZ": 0,
-                "GameRules": {
-                    "spawnRadius": "0"
-                }
+            "GameRules": 
+            {
+                "spawnRadius": "0"
+            }
             }
         }
     ]
