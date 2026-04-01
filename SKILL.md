@@ -8,7 +8,7 @@
 ### Identité
 - **Nom** : Nexus Absolu
 - **Version Minecraft** : 1.12.2 Forge 14.23.5.2860
-- **Version Mod** : 1.0.27 (incrémentée à chaque changement)
+- **Version Mod** : 1.0.52 (incrémentée à chaque changement)
 - **GitHub** : https://github.com/lamardalexis-sys/nexus-absolu-modpack
 - **Instance CurseForge** : `C:\Users\lamar\curseforge\minecraft\Instances\Nexus Absolu`
 - **MDK** : `C:\Dev\NexusAbsoluMod`
@@ -331,9 +331,12 @@ src/main/java/com/nexusabsolu/mod/
 - Mettre TickCentral → conflit CoFHWorld
 - Mettre Phosphor → conflit CoFHWorld
 - Mettre VanillaFix → conflit MixinBooter
+- Mettre Corail Tombstone → crash NullPointer dans DIM144 (WorldBorder)
+- Mettre GalaxySpace → conflit ExtraPlanets
+- Mettre 2 versions AE2 (ae2-uel + appliedenergistics2-rv6) → crash
+- Mettre AE2WTLib 1.0.34 → crash IndexOutOfBounds creative tab
 - Utiliser `canRenderInLayer` → ne se reobfusque pas, rend blocs invisibles
 - `getBlockLayer()` en TRANSLUCENT pour tous → rend blocs solides semi-transparents
-- Cacher faces solid-solid dans shouldSideBeRendered → rend blocs invisibles
 
 ### Reobfuscation
 Certaines méthodes Forge ne se reobfusquent pas correctement via SpecialSource :
@@ -346,6 +349,60 @@ Certaines méthodes Forge ne se reobfusquent pas correctement via SpecialSource 
 - Fichiers Java : ASCII-safe (Cp1252 sur Windows casse les unicode)
 - `setUnlocalizedName` pas `setTranslationKey` (1.12.2)
 - `getTabIconItem` pas `createIcon`
+
+---
+
+## 9.5. SYSTÈME DE SPAWN — SALLE OVERWORLD
+
+### Architecture (comme Compact Claustrophobia)
+Le joueur spawn dans une **salle overworld** (pas DIM144). La salle est auto-générée par JED via `spawn_structure`.
+
+### Fichiers clés
+- `config/justenoughdimensions/nexus_salle.schematic` — la structure de la salle
+- `config/justenoughdimensions/dimensions.json` — config spawn_structure centré au spawn
+- `config/worldprimer.cfg` — adventure mode dans la salle, survival dehors
+
+### Flow joueur
+```
+Crée un monde → JED place nexus_salle.schematic au spawn
+→ spawn dans la salle en adventure mode (World Primer, rayon 15 blocs)
+→ lit les 4 écrans OpenComputers (lore, objectif, peur, tuto)
+→ prend le PSD + livre Patchouli
+→ clic droit sur le bloc CM 3x3 → entre dans l'Âge 0
+→ World Primer passe en survival automatiquement
+```
+
+### World Primer — commandes clés
+```
+timedCommands:
+  %10 ticks → adventure mode rayon 15 blocs du spawn (0,73,0)
+  %10 ticks → survival mode hors rayon 15
+
+playerChangedDimensionEnterCommands:
+  DIM144 → gamemode survival
+
+postWorldCreationCommands:
+  setworldspawn 0 73 0
+```
+
+### Écrans OpenComputers (4 écrans T3 dans la salle)
+Chaque écran = 1 PC OC T3 avec autorun.lua :
+1. **Accueil/Status** — titre Voss, status système, intro lore
+2. **Objectif** — explication du Nexus Absolu, 9 fragments, 9 âges
+3. **Peur** — avertissement sécurité, sujets précédents disparus
+4. **Tuto** — instructions de survie, clic droit sur la CM
+
+### Livres de spawn désactivés
+Configs modifiées pour ne pas polluer l'inventaire :
+- Astral Sorcery: `giveJournalAtFirstJoin=false`
+- OpenBlocks: `infoBook=false`
+- The One Probe: `spawnNote=false`
+- OpenComputers: `giveManualToNewPlayers=false`
+- Guide-API: `canSpawnWithBooks=false`
+- Tinkers: `spawnWithBook=false`
+
+### Tombes à la mort
+**Tombstone supprimé** (crash DIM144). **OpenBlocks Graves** gère les tombes.
 
 ---
 
@@ -367,7 +424,7 @@ bash mod-source/build.sh
 
 ---
 
-*Dernière mise à jour : Session 4 — Multibloc TESR + écran dynamique + build system + recherche modpacks*
+*Dernière mise à jour : Session 7 — Reinstallation instance, salle overworld, JED spawn_structure, World Primer*
 
 ---
 
@@ -398,3 +455,4 @@ Référence : https://github.com/obra/superpowers
 - ❌ Blockstate inversé (vérifier glass=3, wall=1 pas l'inverse)
 - ❌ Pusher du code sans vérifier que les braces sont équilibrées
 - ❌ Hardcoder des valeurs (rfPerTick, maxProcessTime) au lieu de lire la recette
+- ❌ JEI path dans build.sh doit matcher la version installée (ex: 4.16.1.1013 pas .301)
