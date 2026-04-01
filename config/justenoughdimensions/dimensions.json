@@ -1,12 +1,22 @@
 {
     "dimensions": [
         {
-            "dim": 144,
-            "override": true,
-            "worldinfo": {
-                "SpawnX": 3,
-                "SpawnY": 45,
-                "SpawnZ": 3
+            "dim": 0,
+            "dimensiontype": {
+                "existing_dimensiontype": "overworld"
+            },
+            "spawn_structure": {
+                "name": "nexus_salle.nbt",
+                "offset": [0, -5, 0],
+                "centered": true
+            },
+            "worldinfo_onetime": {
+                "SpawnX": 0,
+                "SpawnY": 73,
+                "SpawnZ": 0,
+                "GameRules": {
+                    "spawnRadius": "0"
+                }
             }
         }
     ]
