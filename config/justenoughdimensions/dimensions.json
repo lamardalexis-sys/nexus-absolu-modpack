@@ -6,7 +6,7 @@
                 "existing_dimensiontype": "overworld"
             },
             "spawn_structure": {
-                "name": "nexus_salle.nbt",
+                "name": "nexus_salle.schematic",
                 "offset": [0, -5, 0],
                 "centered": true
             },
