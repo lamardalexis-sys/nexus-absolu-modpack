@@ -21,6 +21,9 @@ item.contenttweaker.infused_circuit.name=Circuit Infuse
 item.contenttweaker.resonant_coil.name=Bobine Resonante
 item.contenttweaker.organic_catalyst.name=Catalyseur Organique
 
+item.contenttweaker.invarium_ingot.name=Lingot d'Invarium
+item.contenttweaker.vossium_ingot.name=Lingot de Vossium
+
 item.contenttweaker.fragment_mecanique.name=Fragment Mecanique
 item.contenttweaker.fragment_organique.name=Fragment Organique
 item.contenttweaker.fragment_stellaire.name=Fragment Stellaire
