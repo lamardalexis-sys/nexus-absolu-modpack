@@ -15,10 +15,10 @@ recipes.addShapeless("nexus_walldust_to_string",
     [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]);
 
 // GRAVEL: Ex Nihilo hammer cobble -> gravel -> sieve
-// 2x cobblestone_fragment -> 1 cobblestone
+// 4x cobblestone_fragment -> 1 cobblestone
 recipes.addShapeless("nexus_fragment_to_cobble",
     <minecraft:cobblestone>,
-    [<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>]);
+    [<nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>, <nexusabsolu:cobblestone_fragment>]);
 
 // === GRITS: ONLY from Pioche Renforcee ===
 // 4 grits = 1 raw grit -> furnace -> lingot
@@ -79,15 +79,15 @@ mods.immersiveengineering.AlloySmelter.addRecipe(<thermalfoundation:material:162
 // TOOLS — forme classique outil (tete/binding/manche)
 // =============================================
 
-// Pioche Fragmentee: tete bois + pointe fragment (symetrique)
-//   [plank]    [fragment] [plank]    <- tete: bois + pointe roche
+// Pioche Fragmentee: tete bois + pointe cobble (symetrique)
+//   [plank]    [cobble]   [plank]    <- tete: bois + pointe roche
 //   [null]     [stick]    [null]     <- manche
 //   [null]     [stick]    [null]
-// NOTE: fragment dispo mains nues, flint NON (vient de pioche frag)
+// NOTE: cobble = 4 fragments, donc progression naturelle
 recipes.remove(<nexusabsolu:pioche_fragmentee>);
 recipes.addShaped("nexus_pioche_frag",
     <nexusabsolu:pioche_fragmentee>,
-    [[<ore:plankWood>, <nexusabsolu:cobblestone_fragment>, <ore:plankWood>],
+    [[<ore:plankWood>, <ore:cobblestone>, <ore:plankWood>],
      [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 

@@ -51,11 +51,11 @@ recipes.addShaped("compact_key_13x13", <nexusabsolu:compact_key_13x13>,
 // === CATALYSEURS DE PHASE ===
 // Chaque catalyseur est de plus en plus fou
 
-// Catalyseur Instable -- poop + grits (Voss etait desespere)
+// Catalyseur Instable -- lingots cuits + cobblestone (premier catalyseur)
 recipes.addShaped("catalyseur_instable", <nexusabsolu:catalyseur_instable>,
-    [[<nexusabsolu:wall_dust>, <cropdusting:poop>, <nexusabsolu:wall_dust>],
-     [<nexusabsolu:iron_grit>, <minecraft:redstone>, <nexusabsolu:copper_grit>],
-     [<nexusabsolu:wall_dust>, <cropdusting:poop>, <nexusabsolu:wall_dust>]]);
+    [[<ore:cobblestone>, <minecraft:iron_ingot>, <ore:cobblestone>],
+     [<thermalfoundation:material:128>, <minecraft:redstone>, <thermalfoundation:material:129>],
+     [<ore:cobblestone>, <minecraft:iron_ingot>, <ore:cobblestone>]]);
 
 // Catalyseur Volatile -- lingots + redstone + lapis
 recipes.addShaped("catalyseur_volatile", <nexusabsolu:catalyseur_volatile>,
