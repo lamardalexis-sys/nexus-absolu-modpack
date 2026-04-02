@@ -84,45 +84,45 @@ recipes.addShaped("nexus_atomic_reconstructor",
 
 // === PIOCHES SPECIALISEES (Age 1) ===
 // Chaque pioche cible des grits specifiques
-// Pattern outil: tete / binding / manche
+// Pattern pioche standard: 3 materiaux en haut + 2 sticks
 
 // Pioche Cuivree: copper + tin + nickel grits (1500 uses)
-//   [copper]  [bronze]  [copper]   <- tete cuivre + pointe bronze
-//   [null]    [string]  [null]     <- binding
-//   [null]    [stick]   [null]     <- manche
+//   [copper] [bronze] [copper]
+//   [null]   [stick]  [null]
+//   [null]   [stick]  [null]
 recipes.addShaped("nexus_pioche_cuivree",
     <nexusabsolu:pioche_cuivree>,
     [[<ore:ingotCopper>, <ore:ingotBronze>, <ore:ingotCopper>],
-     [null, <minecraft:string>, null],
+     [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
 // Pioche Ferree: iron + lead + silver grits (1500 uses)
-//   [iron]    [invar]   [iron]     <- tete fer + pointe invar
-//   [null]    [string]  [null]
-//   [null]    [stick]   [null]
+//   [iron]  [invar]  [iron]
+//   [null]  [stick]  [null]
+//   [null]  [stick]  [null]
 recipes.addShaped("nexus_pioche_ferree",
     <nexusabsolu:pioche_ferree>,
     [[<minecraft:iron_ingot>, <ore:ingotInvar>, <minecraft:iron_ingot>],
-     [null, <minecraft:string>, null],
+     [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
 // Pioche Precieuse: gold + osmium grits (1500 uses)
-//   [gold]    [electrum] [gold]    <- tete or + pointe electrum
-//   [null]    [string]   [null]
-//   [null]    [stick]    [null]
+//   [gold]  [electrum] [gold]
+//   [null]  [stick]    [null]
+//   [null]  [stick]    [null]
 recipes.addShaped("nexus_pioche_precieuse",
     <nexusabsolu:pioche_precieuse>,
     [[<minecraft:gold_ingot>, <ore:ingotElectrum>, <minecraft:gold_ingot>],
-     [null, <minecraft:string>, null],
+     [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
 // Pioche Vossium: compose_a only (2500 uses, 70% drop rate!)
-//   [vossium] [invarium] [vossium] <- tete Vossium + pointe Invarium
-//   [null]    [redstone]  [null]   <- binding energise
-//   [null]    [stick]     [null]
+//   [vossium]  [invarium] [vossium]
+//   [null]     [stick]    [null]
+//   [null]     [stick]    [null]
 recipes.addShaped("nexus_pioche_vossium",
     <nexusabsolu:pioche_vossium>,
     [[<contenttweaker:vossium_ingot>, <contenttweaker:invarium_ingot>, <contenttweaker:vossium_ingot>],
-     [null, <minecraft:redstone>, null],
+     [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
