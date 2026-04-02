@@ -11,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
@@ -18,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 
 public class BlockItemOutput extends Block implements IHasModel {
 
@@ -27,7 +29,7 @@ public class BlockItemOutput extends Block implements IHasModel {
         setRegistryName(Reference.MOD_ID, "item_output");
         setHardness(5.0F);
         setResistance(10.0F);
-        setCreativeTab(NexusAbsoluMod.nexusTab);
+        setCreativeTab(NexusAbsoluMod.CREATIVE_TAB);
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
@@ -80,7 +82,8 @@ public class BlockItemOutput extends Block implements IHasModel {
 
     @Override
     public void registerModels() {
-        NexusAbsoluMod.proxy.registerItemRenderer(
-            Item.getItemFromBlock(this), 0, "item_output");
+        ModelLoader.setCustomModelResourceLocation(
+            Item.getItemFromBlock(this), 0,
+            new ModelResourceLocation(getRegistryName(), "inventory"));
     }
 }
