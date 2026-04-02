@@ -4034,19 +4034,19 @@
           "requiredItems:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
-              "Count:3": 1,
+              "Count:3": 12,
               "Damage:2": 128,
               "OreDict:8": ""
             },
             "1:10": {
               "id:8": "thermalfoundation:material",
-              "Count:3": 1,
+              "Count:3": 12,
               "Damage:2": 129,
               "OreDict:8": ""
             },
             "2:10": {
               "id:8": "thermalfoundation:material",
-              "Count:3": 1,
+              "Count:3": 12,
               "Damage:2": 133,
               "OreDict:8": ""
             }
