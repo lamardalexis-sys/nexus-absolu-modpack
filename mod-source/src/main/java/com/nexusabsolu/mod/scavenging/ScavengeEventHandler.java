@@ -175,10 +175,10 @@ public class ScavengeEventHandler {
 
         double r = rand.nextDouble();
 
-        if (r < 0.20)      spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
-        else if (r < 0.45) spawnDrop(world, player, new ItemStack(Items.STICK, 1));
-        else if (r < 0.65) spawnDrop(world, player, new ItemStack(Blocks.PLANKS, 1));
-        else if (r < 0.75) spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
+        if (r < 0.18)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
+        else if (r < 0.43) spawnDrop(world, player, new ItemStack(Items.STICK, 1));
+        else if (r < 0.63) spawnDrop(world, player, new ItemStack(Blocks.PLANKS, 1));
+        else if (r < 0.75) spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
 
         player.addExhaustion(0.8F);
     }
