@@ -17,6 +17,18 @@
                     "spawnRadius": "0"
                 }
             }
+        },
+        {
+            "dim": 144,
+            "worldinfo": {
+                "raining": false,
+                "thundering": false,
+                "rainTime": 0,
+                "thunderTime": 0,
+                "GameRules": {
+                    "doWeatherCycle": "false"
+                }
+            }
         }
     ]
 }
