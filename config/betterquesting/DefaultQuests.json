@@ -101,14 +101,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 30,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:coal",
@@ -173,14 +167,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 25,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermaldynamics:duct_0",
@@ -245,14 +233,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 40,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:redstone",
@@ -317,14 +299,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 50,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -389,14 +365,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 50,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -461,14 +431,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 40,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -593,14 +557,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 60,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:lava_bucket",
@@ -725,14 +683,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 55,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:upgrade",
@@ -797,14 +749,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 40,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "enderio:item_alloy_ingot",
@@ -869,14 +815,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 35,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "enderio:item_power_conduit",
@@ -941,14 +881,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 35,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "enderio:item_item_conduit",
@@ -1073,14 +1007,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 50,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "enderio:item_alloy_ingot",
@@ -1205,14 +1133,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 50,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "immersiveengineering:material",
@@ -1277,14 +1199,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 30,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "immersiveengineering:treated_wood",
@@ -1409,14 +1325,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 60,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -1481,14 +1391,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 50,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -1600,14 +1504,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 30,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "immersiveengineering:wirecoil",
@@ -1933,14 +1831,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 100,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalexpansion:capacitor",
@@ -1994,14 +1886,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 75,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:diamond",
@@ -2066,14 +1952,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 150,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "ironchest:iron_chest",
@@ -2140,14 +2020,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 200,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "ironchest:gold_chest",
@@ -2201,14 +2075,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "amount:3": 300,
-          "rewardID:8": "bq_standard:xp",
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -2308,14 +2176,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 10,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:torch",
@@ -2380,14 +2242,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:planks",
@@ -2452,14 +2308,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:stick",
@@ -2530,14 +2380,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:wall_dust",
@@ -2602,14 +2446,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:string",
@@ -2674,14 +2512,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:cobblestone_fragment",
@@ -2746,14 +2578,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:flint",
@@ -2819,14 +2645,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:wall_dust",
@@ -2897,14 +2717,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:flint",
@@ -2970,14 +2784,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 30,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:gravel",
@@ -3042,14 +2850,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:gravel",
@@ -3114,14 +2916,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:coal",
@@ -3186,14 +2982,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:torch",
@@ -3258,14 +3048,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:clay_ball",
@@ -3330,14 +3114,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:wheat_seeds",
@@ -3402,14 +3180,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:bread",
@@ -3480,14 +3252,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:melon_seeds",
@@ -3552,14 +3318,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:sapling",
@@ -3624,14 +3384,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:bread",
@@ -3689,14 +3443,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:apple",
@@ -3748,14 +3496,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 30,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:golden_apple",
@@ -3821,14 +3563,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:iron_grit",
@@ -3893,14 +3629,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:coal",
@@ -3966,14 +3696,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 30,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:iron_nugget",
@@ -4050,14 +3774,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:coal",
@@ -4135,14 +3853,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:iron_ingot",
@@ -4208,14 +3920,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:clay_ball",
@@ -4267,14 +3973,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -4345,14 +4045,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -4417,14 +4111,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -4489,14 +4177,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:redstone",
@@ -4568,14 +4250,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:compose_a",
@@ -4640,14 +4316,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 25,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:compose_a",
@@ -4713,14 +4383,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 30,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:redstone",
@@ -4785,14 +4449,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermaldynamics:duct_0",
@@ -4844,14 +4502,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:compose_a",
@@ -4916,14 +4568,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:glass",
@@ -5009,14 +4655,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 30,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:compose_a",
@@ -5087,14 +4727,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 30,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:compose_a",
@@ -5159,14 +4793,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 40,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:iron_ingot",
@@ -5218,14 +4846,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 50,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "minecraft:iron_ingot",
@@ -5296,14 +4918,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "ironchest:iron_chest",
@@ -5368,14 +4984,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 20,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
@@ -5440,14 +5050,8 @@
       },
       "rewards:9": {
         "0:10": {
-          "rewardID:8": "bq_standard:xp",
-          "amount:3": 50,
-          "isLevels:1": 0,
-          "index:3": 0
-        },
-        "1:10": {
           "rewardID:8": "bq_standard:item",
-          "index:3": 1,
+          "index:3": 0,
           "rewards:9": {
             "0:10": {
               "id:8": "thermalfoundation:material",
