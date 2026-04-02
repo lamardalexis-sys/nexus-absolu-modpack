@@ -11,7 +11,7 @@
             },
             "worldinfo_onetime": {
                 "SpawnX": 0,
-                "SpawnY": 74,
+                "SpawnY": 72,
                 "SpawnZ": 0,
                 "GameRules": {
                     "spawnRadius": "0"
