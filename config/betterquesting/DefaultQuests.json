@@ -3949,19 +3949,19 @@
           "requiredItems:9": {
             "0:10": {
               "id:8": "nexusabsolu:copper_grit",
-              "Count:3": 1,
+              "Count:3": 12,
               "Damage:2": 0,
               "OreDict:8": ""
             },
             "1:10": {
               "id:8": "nexusabsolu:tin_grit",
-              "Count:3": 1,
+              "Count:3": 12,
               "Damage:2": 0,
               "OreDict:8": ""
             },
             "2:10": {
               "id:8": "nexusabsolu:nickel_grit",
-              "Count:3": 1,
+              "Count:3": 12,
               "Damage:2": 0,
               "OreDict:8": ""
             }
