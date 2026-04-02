@@ -47,12 +47,12 @@ public class ContainerAutoScavenger extends Container {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (IContainerListener listener : listeners) {
-            if (processTime != tile.getProcessTime())
-                listener.sendWindowProperty(this, 0, tile.getProcessTime());
+            if (processTime != tile.getMineTimer())
+                listener.sendWindowProperty(this, 0, tile.getMineTimer());
             if (energy != tile.getEnergyStored())
                 listener.sendWindowProperty(this, 1, tile.getEnergyStored());
         }
-        processTime = tile.getProcessTime();
+        processTime = tile.getMineTimer();
         energy = tile.getEnergyStored();
     }
 
