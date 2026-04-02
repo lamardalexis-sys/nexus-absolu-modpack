@@ -31,7 +31,7 @@
             }
           },
           "name:8": "§l§5Les yeux s'ouvrent",
-          "desc:8": "§7Tu te reveilles. L'air est immobile.\n§7Les murs sont blancs. Ou gris. Ou les deux.\n§7Il y a un coffre. Et un livre.\n\n§o§dSi vous lisez ceci, l'experience a reussi.\nFelicitations. Ou condoleances.\nTout depend de votre point de vue.\n— Dr. E. Voss, Carnet n°1§r\n\n§e> Lis le livre du Dr. Voss."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_reveil.png;180;100;180;100{Embed}\n\n§7Tu te reveilles. L'air est immobile.\n§7Les murs sont blancs. Ou gris. Ou les deux.\n§7Il y a un coffre. Et un livre.\n\n§8§o\"Sujet inconnu. Etat : inconscient. Transfert en cellule d'observation complete.\nProtocole Voss-7 active.\"\n— Journal automatise, entree 1§r\n\n§eBienvenue dans Nexus Absolu.\n§7Ouvre le coffre. Lis le livre."
         }
       },
       "tasks:9": {
@@ -58,6 +58,26 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/gamestage add @p age_0"
+        },
+        "2:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 2,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r se reveille dans la §l§5Compact Machine§r. L'Age 0 commence."
         }
       }
     },
@@ -601,7 +621,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe tamis primitif",
-          "desc:8": "§7Un cadre en bois. De la ficelle tendue.\n§7Verse le gravier. Regarde ce qui tombe.\n§7C'est de la science a l'etat brut :\n§7on separe, on observe, on apprend.\n\n§o§dLe tamis est l'instrument le plus sous-estime\nde l'histoire des sciences. Newton n'avait\npas de tamis. C'est pour ca qu'il a mis\nsi longtemps a comprendre la gravite.\n— Dr. E. Voss§r\n\n§e> Craft 1 tamis Ex Nihilo."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_tamis.png;180;100;180;100{Embed}\n\n§7Un cadre en bois. De la ficelle tendue.\n§7Verse le gravier. Regarde ce qui tombe.\n§7C'est de la science a l'etat brut :\n§7on separe, on observe, on apprend.\n\n§o§dLe tamis est l'instrument le plus sous-estime\nde l'histoire des sciences. Newton n'avait\npas de tamis. C'est pour ca qu'il a mis\nsi longtemps a comprendre la gravite.\n— Dr. E. Voss§r\n\n§e> Craft 1 tamis Ex Nihilo."
         }
       },
       "tasks:9": {
@@ -641,6 +661,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §7[Progression]§r §7VAR_NAME§r a construit son §lpremier tamis§r"
         }
       }
     },
@@ -709,6 +739,30 @@
             "1:10": {
               "id:8": "minecraft:experience_bottle",
               "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:choice",
+          "index:3": 1,
+          "choices:9": {
+            "0:10": {
+              "id:8": "minecraft:coal",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:flint",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:clay_ball",
+              "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -1419,6 +1473,30 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:choice",
+          "index:3": 1,
+          "choices:9": {
+            "0:10": {
+              "id:8": "minecraft:pumpkin_seeds",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:melon_seeds",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:beetroot_seeds",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
         }
       }
     },
@@ -1452,7 +1530,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§eLa pioche renforcee",
-          "desc:8": "§7Des pepites de fer. Du silex. De la ficelle.\n§7Un outil qui mord le mur au lieu de le gratter.\n§7Avec ca, les murs cedent des choses nouvelles.\n§7Des grits. Des cristaux. De la redstone.\n\n§o§dL'evolution des outils est l'evolution\nde l'espece. Un singe avec un baton\nest un singe. Un singe avec une pioche\nest un ingenieur.\n— Dr. E. Voss, Carnet n°7§r\n\n§e> Craft 1 Pioche Renforcee."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_pioche_renforcee.png;180;100;180;100{Embed}\n\n§7Des pepites de fer. Du silex. De la ficelle.\n§7Un outil qui mord le mur au lieu de le gratter.\n\n§8§o\"La Pioche Renforcee extrait des grits — eclats metalliques bruts.\n4 grits = 1 grit brut. Le four fait le reste.\"\n— Notes du Dr. Voss, annexe 12§r\n\n§eLa pioche renforcee change tout.\n§7Les murs deviennent une mine."
         }
       },
       "tasks:9": {
@@ -1492,6 +1570,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §e[Milestone]§r §7VAR_NAME§r a forge la §l§ePioche Renforcee§r"
         }
       }
     },
@@ -1633,6 +1721,40 @@
             "1:10": {
               "id:8": "minecraft:experience_bottle",
               "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §e[Milestone]§r §7VAR_NAME§r a fondu son §l§epremier lingot de fer§r"
+        },
+        "2:10": {
+          "rewardID:8": "bq_standard:choice",
+          "index:3": 2,
+          "choices:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:iron_grit",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "nexusabsolu:copper_grit",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "nexusabsolu:tin_grit",
+              "Count:3": 8,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -1911,7 +2033,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6Le Alloy Kiln",
-          "desc:8": "§7Un cube de 2x2x2 Kiln Bricks.\n§7Le premier four d'alliages.\n§7Charbon + deux metaux = un alliage.\n§7Pas de RF. Pas d'electricite.\n§7Juste la chaleur et la patience.\n\n§o§dLa premiere verite : la matiere obeit.\nDonnez-lui les bonnes instructions\net elle se pliera.\n— Dr. E. Voss, Theoreme I§r\n\n§e> Construis l'Alloy Kiln (2x2x2)."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_alloy_kiln.png;180;100;180;100{Embed}\n\n§7Un cube de 2x2x2 Kiln Bricks.\n§7Le premier four d'alliages.\n§7Charbon + deux metaux = un alliage.\n§7Pas de RF. Pas d'electricite. Juste de la chaleur.\n\n§8§o\"L'Alloy Kiln est primitif mais essentiel. Bronze et Invar — les deux piliers de l'Age 0.\"\n— Dr. E. Voss§r\n\n§63 cuivre + 1 etain = Bronze\n§62 fer + 1 nickel = Invar"
         }
       },
       "tasks:9": {
@@ -1944,6 +2066,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §6[Dr. Voss]§r §7VAR_NAME§r a construit le §l§6Alloy Kiln§r"
         }
       }
     },
@@ -2344,7 +2476,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§eL'etincelle",
-          "desc:8": "§7Le Convertisseur du Dr. Voss.\n§7La machine qui transforme l'impossible en RF.\n§7Place le Bloc de Compose A a cote.\n§725 RF/t. Ce n'est pas beaucoup.\n§7Mais c'est une etincelle.\n§7Et les incendies commencent tous pareil.\n\n§o§dLe Convertisseur est ma plus belle invention.\nPas la plus puissante. La plus belle.\nIl prend ce qui ne devrait pas etre de l'energie\net il en fait de l'energie quand meme.\nC'est de la poesie en RF.\n— Dr. E. Voss, Carnet n°12§r\n\n§e> Craft le Convertisseur du Dr. Voss."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_etincelle.png;180;100;180;100{Embed}\n\n§7Le Convertisseur du Dr. Voss.\n§7La machine qui transforme l'impossible en RF.\n§7Place le Bloc de Compose A a cote.\n§725 RF/t. C'est peu. Mais c'est tout.\n\n§8§o\"L'energie dimensionnelle cristallisee peut alimenter des machines. J'ai appele ce processus la Conversion Voss.\"\n— Carnet n°3§r\n\n§ePremieres etincelles d'energie dans la boite."
         }
       },
       "tasks:9": {
@@ -2384,6 +2516,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §e[Milestone]§r §7VAR_NAME§r a active le §l§eConvertisseur Voss§r — premiers RF !"
         }
       }
     },
@@ -2622,7 +2764,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLa machine qui respire",
-          "desc:8": "§7Le Condenseur Dimensionnel.\n§7Bronze, invar, redstone, Compose.\n§7La machine que Voss a construite\n§7pour fusionner les dimensions.\n§7Elle respire quand on l'alimente en RF.\n§7Comme si elle etait vivante.\n\n§o§dLe Condenseur n'est pas une machine.\nC'est une question posee a l'univers.\nLa question : 'Et si deux espaces\nn'en faisaient qu'un ?'\nL'univers n'a pas encore repondu non.\n— Dr. E. Voss, Carnet n°15§r\n\n§e> Craft le Condenseur et forme le multibloc."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_condenseur.png;180;100;180;100{Embed}\n\n§7Le Condenseur Dimensionnel.\n§7Bronze, invar, redstone, Compose.\n§7La machine que Voss a construite\n§7pour fusionner les dimensions.\n\n§8§o\"Le Condenseur plie l'espace. Deux CM identiques + une Cle + du RF = une CM plus grande. La physique proteste. Je l'ignore.\"\n— Dr. E. Voss§r\n\n§d2x2x2 multibloc : Condenseur + Nexus Walls + Verre + Redstone Block"
         }
       },
       "tasks:9": {
@@ -2682,6 +2824,40 @@
             "2:10": {
               "id:8": "minecraft:experience_bottle",
               "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §d[Nexus Absolu]§r §7VAR_NAME§r a construit le §l§dCondenseur Dimensionnel§r"
+        },
+        "2:10": {
+          "rewardID:8": "bq_standard:choice",
+          "index:3": 2,
+          "choices:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:compose_a",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:iron_ingot",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:redstone",
+              "Count:3": 16,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -2790,7 +2966,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLa fissure dimensionnelle",
-          "desc:8": "§7Deux Compact Machines 3x3.\n§7Une cle. Un catalyseur. Du RF.\n§7Le Condenseur vibre. L'air craque.\n§7La dimension se plie.\n§760 secondes. Puis... une CM 5x5.\n\n§o§dQuand deux espaces fusionnent,\nil y a un instant, une fraction de seconde,\nou les lois de la physique n'existent pas.\nUn instant de liberte absolue.\nC'est le plus beau son que j'aie entendu.\n— Dr. E. Voss§r\n\n§e> Utilise le Condenseur."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_fissure.png;180;100;180;100{Embed}\n\n§7Deux Compact Machines 3x3.\n§7Une cle. Un catalyseur. Du RF.\n§7Le Condenseur vibre. L'air craque.\n§7La dimension se plie.\n\n§d§lUne Compact Machine 5x5 apparait.§r\n\n§8§o\"Premier test de fusion reussi. La CM resultante est stable. Les murs tiennent. Le sujet peut continuer.\"\n— Journal automatise, entree 47§r"
         }
       },
       "tasks:9": {
@@ -2830,6 +3006,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §d[Nexus Absolu]§r §7VAR_NAME§r a cree sa premiere §l§dCompact Machine 5x5§r !"
         }
       }
     },
@@ -2862,7 +3048,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6L'evasion",
-          "desc:8": "§7La CM 5x5 est devant toi.\n§7Un espace plus grand. Plus de possibilites.\n§7Tu as survecu a la boite.\n\n§7Ce n'est pas la fin.\n§7C'est le moment ou tu realises\n§7que la boite n'etait que le debut.\n\n§o§dFelicitations.\nVous avez prouve que meme enferme\ndans un cube de 3 metres, l'esprit humain\nrefuse de rester petit.\n\nBienvenue dans la suite.\nCa ne fait que commencer.\n— Dr. E. Voss§r\n\n§e> Entre dans la CM 5x5."
+          "desc:8": "§7La CM 5x5 est devant toi.\n§7Un espace plus grand. Plus de possibilites.\n§7Tu as survecu a la boite.\n\n§7Ce n'est pas la liberte.\n§7C'est une boite plus grande.\n\n§5§l→ L'Age 1 — La Mecanique Brute — commence.§r\n\n§8§o\"Le sujet progresse plus vite que prevu. Passage au protocole Phase 2.\"\n— Journal automatise§r"
         }
       },
       "tasks:9": {
@@ -2891,6 +3077,50 @@
             "2:10": {
               "id:8": "minecraft:experience_bottle",
               "Count:3": 6,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/gamestage add @p age_1"
+        },
+        "2:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 2,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r entre dans la CM 5x5. §l§5L'Age 0 est termine.§r"
+        },
+        "3:10": {
+          "rewardID:8": "bq_standard:choice",
+          "index:3": 3,
+          "choices:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 8,
+              "Damage:2": 128,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 8,
+              "Damage:2": 129,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "contenttweaker:invarium_ingot",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3277,7 +3507,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§5Le Vossium",
-          "desc:8": "§7Invarium et Compose A dans le Alloy Kiln.\n§7Le Compose s'infiltre dans les frontieres de l'Invarium.\n§7Un reseau de canaux dimensionnels s'ouvre.\n\n§o§dL'alliage resiste a toute analyse. Inerte. Inutile.\n§o§dJ'abandonne.\n— Dr. E. Voss, Carnet n°3§r\n\n§o§aIl ne savait pas qu'il lui manquait un catalyseur.\n§o§aVous avez reussi la ou le genie a echoue.§r\n\n§e> Fabrique un lingot de Vossium."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_vossium.png;180;100;180;100{Embed}\n\n§7Invarium et Compose A dans le Alloy Kiln.\n§7Le Compose s'infiltre dans les frontieres de l'Invarium.\n§7Un reseau de canaux dimensionnels s'active.\n\n§5§lLe Vossium est ne.§r\n\n§8§o\"Cet alliage n'existe dans aucun manuel. Il conduit l'energie dimensionnelle.\nJe l'ai appele Vossium. Par modestie, evidemment.\"\n— Dr. E. Voss§r"
         }
       },
       "tasks:9": {
@@ -3317,6 +3547,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §6[Dr. Voss]§r §7VAR_NAME§r a synthetise le §l§5Vossium§r — l'alliage impossible"
         }
       }
     },
