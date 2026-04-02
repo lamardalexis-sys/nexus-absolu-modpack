@@ -41,3 +41,31 @@ recipes.addShaped("nexus_sawmill", <thermalexpansion:machine:5>,
      [<ore:ingotTin>, <ore:plankWood>, <ore:ingotTin>]]);
 
 print("[Nexus Absolu] Age1_Thermal.zs loaded");
+
+// =============================================
+// AUTO SCAVENGER — mine les murs CM automatiquement
+// Necessite pioche + compose gear + iron
+// =============================================
+
+// Auto Scavenger: bras mecanique qui frappe les murs
+//   [iron]     [pioche]   [iron]      <- tete de minage
+//   [redstone] [gear]     [redstone]  <- coeur: compose gear + transfert
+//   [iron]     [redstone] [iron]      <- base + alimentation RF
+recipes.addShaped("nexus_auto_scavenger",
+    <nexusabsolu:auto_scavenger>,
+    [[<minecraft:iron_ingot>, <nexusabsolu:pioche_renforcee>, <minecraft:iron_ingot>],
+     [<minecraft:redstone>, <nexusabsolu:compose_gear_a>, <minecraft:redstone>],
+     [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
+
+// Fluiduct Opaque (fluid pipe) — custom recipe
+// Pour transporter l'eau vers la Steam Dynamo
+//   [clay]   [copper]  [clay]    <- isolation + conducteur
+//   [clay]   [glass]   [clay]    <- fluide visible
+//   [clay]   [copper]  [clay]    <- isolation + conducteur
+recipes.remove(<thermaldynamics:duct_16>);
+recipes.addShaped("nexus_fluiduct_opaque",
+    <thermaldynamics:duct_16> * 4,
+    [[<minecraft:clay_ball>, <ore:ingotCopper>, <minecraft:clay_ball>],
+     [<minecraft:clay_ball>, <ore:blockGlass>, <minecraft:clay_ball>],
+     [<minecraft:clay_ball>, <ore:ingotCopper>, <minecraft:clay_ball>]]);
+
