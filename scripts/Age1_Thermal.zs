@@ -69,3 +69,15 @@ recipes.addShaped("nexus_fluiduct_opaque",
      [<minecraft:clay_ball>, <ore:blockGlass>, <minecraft:clay_ball>],
      [<minecraft:clay_ball>, <ore:ingotCopper>, <minecraft:clay_ball>]]);
 
+
+// === ATOMIC RECONSTRUCTOR — necessite Machine Frame (force Thermal) ===
+//   [iron]     [redstone] [iron]      <- energie
+//   [redstone] [frame]    [redstone]  <- coeur: Machine Frame Thermal
+//   [cobble]   [iron]     [cobble]    <- base
+recipes.remove(<actuallyadditions:block_atomic_reconstructor>);
+recipes.addShaped("nexus_atomic_reconstructor",
+    <actuallyadditions:block_atomic_reconstructor>,
+    [[<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>],
+     [<minecraft:redstone>, <thermalexpansion:frame>, <minecraft:redstone>],
+     [<ore:cobblestone>, <minecraft:iron_ingot>, <ore:cobblestone>]]);
+
