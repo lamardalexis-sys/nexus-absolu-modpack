@@ -167,6 +167,10 @@ public class BlockCondenseur extends Block implements IHasModel {
                 newTe.readFromNBT(savedData);
                 ((TileCondenseur) newTe).setStructureFormed(true);
                 ((TileCondenseur) newTe).setMultiDirection(dx, dz);
+                // Sync to client so TESR can render the screen
+                newTe.markDirty();
+                IBlockState newState = world.getBlockState(master);
+                world.notifyBlockUpdate(master, newState, newState, 3);
             }
         }
     }
