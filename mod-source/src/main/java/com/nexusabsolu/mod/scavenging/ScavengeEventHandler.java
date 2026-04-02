@@ -3,7 +3,6 @@ package com.nexusabsolu.mod.scavenging;
 import com.nexusabsolu.mod.init.ModItems;
 import com.nexusabsolu.mod.items.ItemPioche;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -16,7 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -28,47 +26,42 @@ public class ScavengeEventHandler {
 
     private static final Random rand = new Random();
 
-    // Ticks between each scavenging action
+    // Ticks between each scavenging drop
     private static final int INTERVAL_PIOCHE = 10;  // 0.5 sec
     private static final int INTERVAL_BARE = 16;     // 0.8 sec
 
-    // No time limit - stops when player looks away
-    private static final int MAX_DURATION = 12000; // 10 min safety
+    // If no heartbeat for this many ticks, stop mining
+    private static final int HEARTBEAT_TIMEOUT = 8;
+
+    // Safety: max continuous mining (5 min)
+    private static final int MAX_DURATION = 6000;
 
     // Active miners: UUID -> MiningState
-    private static final HashMap<UUID, MiningState> activeMiners = new HashMap<>();
+    private static final HashMap<UUID, MiningState> activeMiners = new HashMap<UUID, MiningState>();
 
     private static class MiningState {
-        final BlockPos targetPos;
-        int ticksActive;
         int ticksSinceLastDrop;
+        int ticksSinceHeartbeat;
+        int ticksActive;
 
-        MiningState(BlockPos pos) {
-            this.targetPos = pos;
-            this.ticksActive = 0;
+        MiningState() {
             this.ticksSinceLastDrop = 0;
+            this.ticksSinceHeartbeat = 0;
+            this.ticksActive = 0;
         }
     }
 
-    // --- Left click starts/refreshes mining ---
-    @SubscribeEvent
-    public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-        World world = event.getWorld();
-        if (world.isRemote) return;
-
-        EntityPlayer player = event.getEntityPlayer();
-        BlockPos pos = event.getPos();
-        IBlockState state = world.getBlockState(pos);
-        Block block = state.getBlock();
-
-        if (block.getRegistryName() == null) return;
-        String regName = block.getRegistryName().toString();
-        if (!regName.equals("compactmachines3:wall")) return;
-
-        UUID uuid = player.getUniqueID();
-
-        // Start or refresh mining session
-        activeMiners.put(uuid, new MiningState(pos));
+    /**
+     * Called from PacketMiningHeartbeat handler on the main server thread.
+     * Refreshes or creates the mining state for this player.
+     */
+    public static void refreshHeartbeat(UUID uuid) {
+        MiningState state = activeMiners.get(uuid);
+        if (state == null) {
+            state = new MiningState();
+            activeMiners.put(uuid, state);
+        }
+        state.ticksSinceHeartbeat = 0;
     }
 
     // --- Tick handler: continuous scavenging ---
@@ -85,14 +78,21 @@ public class ScavengeEventHandler {
 
         state.ticksActive++;
         state.ticksSinceLastDrop++;
+        state.ticksSinceHeartbeat++;
 
-        // Stop if too long
+        // Stop if no heartbeat received recently (player released click)
+        if (state.ticksSinceHeartbeat > HEARTBEAT_TIMEOUT) {
+            activeMiners.remove(uuid);
+            return;
+        }
+
+        // Safety: stop after max duration
         if (state.ticksActive > MAX_DURATION) {
             activeMiners.remove(uuid);
             return;
         }
 
-        // Check player is still looking at a CM wall (raycast)
+        // Server-side raycast validation (never trust client)
         RayTraceResult ray = rayTrace(player, 5.0);
         if (ray == null || ray.typeOfHit != RayTraceResult.Type.BLOCK) {
             activeMiners.remove(uuid);

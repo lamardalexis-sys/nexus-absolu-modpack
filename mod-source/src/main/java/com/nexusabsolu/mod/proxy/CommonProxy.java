@@ -3,6 +3,7 @@ package com.nexusabsolu.mod.proxy;
 import com.nexusabsolu.mod.NexusAbsoluMod;
 import com.nexusabsolu.mod.Reference;
 import com.nexusabsolu.mod.gui.GuiHandler;
+import com.nexusabsolu.mod.network.NexusPacketHandler;
 import com.nexusabsolu.mod.scavenging.ScavengeEventHandler;
 import com.nexusabsolu.mod.tiles.TileAtelier;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
@@ -19,6 +20,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
+        NexusPacketHandler.init();
         MinecraftForge.EVENT_BUS.register(new ScavengeEventHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
