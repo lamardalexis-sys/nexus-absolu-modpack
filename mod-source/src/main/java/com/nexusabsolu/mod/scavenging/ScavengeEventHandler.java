@@ -32,8 +32,8 @@ public class ScavengeEventHandler {
     private static final int INTERVAL_PIOCHE = 10;  // 0.5 sec
     private static final int INTERVAL_BARE = 16;     // 0.8 sec
 
-    // Max duration in ticks before auto-stop (3 sec = 60 ticks)
-    private static final int MAX_DURATION = 60;
+    // No time limit - stops when player looks away
+    private static final int MAX_DURATION = 12000; // 10 min safety
 
     // Active miners: UUID -> MiningState
     private static final HashMap<UUID, MiningState> activeMiners = new HashMap<>();
@@ -186,7 +186,7 @@ public class ScavengeEventHandler {
     private RayTraceResult rayTrace(EntityPlayer player, double reach) {
         Vec3d eyePos = player.getPositionEyes(1.0F);
         Vec3d lookVec = player.getLook(1.0F);
-        Vec3d endPos = eyePos.add(lookVec.x * reach, lookVec.y * reach, lookVec.z * reach);
+        Vec3d endPos = eyePos.addVector(lookVec.x * reach, lookVec.y * reach, lookVec.z * reach);
         return player.world.rayTraceBlocks(eyePos, endPos, false, false, true);
     }
 
