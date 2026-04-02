@@ -48,7 +48,7 @@ public class GuiAtelier extends GuiContainer {
         fontRenderer.drawString(title,
             (xSize - fontRenderer.getStringWidth(title)) / 2, 6, 0x00CCCC);
 
-        fontRenderer.drawString("Inventaire", 8, ySize - 96 + 2, 0x404040);
+        fontRenderer.drawString("Inventaire", 8, ySize - 96 + 6, 0x00AAAA);
 
         // Slot labels
         fontRenderer.drawString("In", 42, 24, 0x888888);
