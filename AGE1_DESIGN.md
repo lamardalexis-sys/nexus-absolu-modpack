@@ -6,11 +6,16 @@
 ## CONTEXTE
 
 Le joueur a fini l'Age 0 dans une CM 3x3 -> 5x5. Il entre maintenant dans une CM 5x5
-avec acces a plus d'espace et a l'energie RF.
+et peut s'etendre jusqu'a **7x7 maximum** (Condenseur Tier 2).
 
 **Objectif temporel** : Age 1 doit prendre **20% de plus** que l'Age 0.
 - Age 0 : ~44 quetes
 - Age 1 actuel : 35 quetes -> **cible : ~53 quetes** (+18 nouvelles)
+
+**Compact Machines Age 1** : 5x5 -> 7x7 (max)
+- Condenseur Tier 2 (3x3x3) fusionne 2x Small(5x5) -> Normal(7x7)
+- Les tailles 9x9, 11x11, 13x13 sont pour les ages suivants
+- Q170 (11x11) et Q171 (13x13) doivent etre RETIRES de l'Age 1
 
 ---
 
@@ -102,7 +107,10 @@ Milestones supplementaires pour allonger l'age.
 |----|-----|------|--------|--------|
 | Q162 | 5 000 000 RF | Checkbox (atteindre 5M RF stocke) | Q160 | capacitor ameliore |
 | Q163 | Automatisation Totale | Checkbox (full auto ore processing) | Q161 | 8 iron chests |
-| Q172 | Le Condenseur Tier 2 | Craft condenseur 3x3x3 pour CM 7x7 | Q115 (Vossium-II), Q171 | composants |
+| Q170 | Expansion — Salle 7x7 | Craft Condenseur T2 + fusionner 2x CM 5x5 -> 7x7 | Q115 (Vossium-II), Q162 | composants Age 2 |
+
+**Note** : Q170 (anciennement 11x11) et Q171 (13x13) sont SUPPRIMES de l'Age 1.
+L'expansion 7x7 est le plafond de l'Age 1. Les tailles superieures = Ages 2+.
 
 ---
 
@@ -242,11 +250,9 @@ comme l'Age 0, avec branches laterales :
                             |
    [Q114] Compose B -----[Q162] 5M RF
       |                     |
-   [Q115] Vossium-II     [Q170] Expansion 11x11
+   [Q115] Vossium-II     [Q163] Auto Totale
       |                     |
-   [Q116] Gear B         [Q171] Expansion 13x13
-                            |
-                          [Q172] Condenseur T2
+   [Q116] Gear B         [Q170] Expansion 7x7 (MAX Age 1)
                             |
                           [Q180] Fragment Mecanique
                             |
