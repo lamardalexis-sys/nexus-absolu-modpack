@@ -3916,7 +3916,7 @@
           "icon:10": {
             "id:8": "thermaldynamics:duct_0",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 1,
             "OreDict:8": ""
           },
           "name:8": "§lLes arteres",
@@ -3935,7 +3935,7 @@
             "0:10": {
               "id:8": "thermaldynamics:duct_0",
               "Count:3": 4,
-              "Damage:2": 0,
+              "Damage:2": 1,
               "OreDict:8": ""
             }
           },
@@ -3950,7 +3950,7 @@
             "0:10": {
               "id:8": "thermaldynamics:duct_0",
               "Count:3": 4,
-              "Damage:2": 0,
+              "Damage:2": 1,
               "OreDict:8": ""
             },
             "1:10": {
@@ -4277,11 +4277,11 @@
           "icon:10": {
             "id:8": "immersiveengineering:stone_decoration",
             "Count:3": 1,
-            "Damage:2": 1,
+            "Damage:2": 0,
             "OreDict:8": ""
           },
           "name:8": "§lLe coke",
-          "desc:8": "§7Le charbon brut ne suffit plus. Le Coke Oven le transforme."
+          "desc:8": "§7Le charbon brut ne suffit plus.\n§7Le Coke Oven transforme le charbon en Coal Coke.\n§727 Coke Bricks en 3x3x3 = le four.\n\n§8§o\"Le Coke Oven est primitif. Pas d'electricite.\nJuste de la chaleur, du temps, et de la patience.\"\n— Dr. E. Voss§r\n\n§eCraft 27 Coke Bricks et construis le multibloc."
         }
       },
       "tasks:9": {
@@ -4295,8 +4295,8 @@
           "requiredItems:9": {
             "0:10": {
               "id:8": "immersiveengineering:stone_decoration",
-              "Count:3": 1,
-              "Damage:2": 1,
+              "Count:3": 27,
+              "Damage:2": 0,
               "OreDict:8": ""
             }
           },
