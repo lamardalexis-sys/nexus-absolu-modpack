@@ -3349,7 +3349,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§5Respire",
-          "desc:8": "§7L'air est different ici. Tu peux lever les bras sans toucher le plafond."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age1_banner.png;180;100;180;100{Embed}\n\n§7L'air est different ici. Tu peux lever les bras sans toucher le plafond.\n\n§8§o\"L'energie est la premiere liberte. Sans elle, la matiere reste inerte. Avec elle, tout est possible.\"\n— Dr. E. Voss, Carnet n°4§r\n\n§7Bienvenue dans l'Age 1. L'espace s'ouvre.\nMais le travail ne fait que commencer."
         }
       },
       "tasks:9": {
@@ -3376,6 +3376,26 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/gamestage add @p age_1"
+        },
+        "2:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 2,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r entre dans §lL'Age 1 — La Mecanique Brute§r"
         }
       }
     },
@@ -3588,6 +3608,30 @@
             "1:10": {
               "id:8": "minecraft:experience_bottle",
               "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:choice",
+          "index:3": 1,
+          "choices:9": {
+            "0:10": {
+              "id:8": "minecraft:coal",
+              "Count:3": 32,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:redstone",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:lava_bucket",
+              "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -4057,7 +4101,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6L'atelier ressuscite",
-          "desc:8": "§7Des plans griffonnes partout. Voss etait la avant toi."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/atelier_voss.png;180;100;180;100{Embed}\n\n§7Des plans griffonnes partout. Voss etait la avant toi.\n\n§8§oL'Atelier du Dr. Voss est sa table de travail personnelle. Les recettes qu'il a inventees ne fonctionnent nulle part ailleurs.§r\n\n§eConstruis l'Atelier pour debloquer ses plans secrets."
         }
       },
       "tasks:9": {
@@ -4097,6 +4141,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §6[Dr. Voss]§r §7VAR_NAME§r a retrouve §l§6l'Atelier du Dr. Voss§r"
         }
       }
     },
@@ -4418,7 +4472,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLe Compose B",
-          "desc:8": "§7Plus dense. Plus instable. Plus puissant."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/compose_b.png;180;100;180;100{Embed}\n\n§7Plus dense. Plus instable. Plus puissant.\n\n§8§o\"Le Compose B est la deuxieme couche. Les canaux secondaires s'activent. L'Invarium tremble.\"§r\n— Fragment de notes, mur Est\n\n§dObtiens 4 Compose B pour continuer."
         }
       },
       "tasks:9": {
@@ -5216,7 +5270,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§5Le Condenseur Tier 2",
-          "desc:8": "§7La dimension tremble. Elle sait ce que tu fais."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/condenseur_t2.png;180;100;180;100{Embed}\n\n§7La dimension tremble. Elle sait ce que tu fais."
         }
       },
       "tasks:9": {
@@ -5256,6 +5310,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r a active le §l§5Condenseur Tier 2§r"
         }
       }
     },
@@ -5324,6 +5388,30 @@
             "1:10": {
               "id:8": "minecraft:experience_bottle",
               "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:choice",
+          "index:3": 1,
+          "choices:9": {
+            "0:10": {
+              "id:8": "minecraft:iron_ingot",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 16,
+              "Damage:2": 128,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "contenttweaker:invarium_ingot",
+              "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -6188,6 +6276,30 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "rewardID:8": "bq_standard:choice",
+          "index:3": 1,
+          "choices:9": {
+            "0:10": {
+              "id:8": "minecraft:coal",
+              "Count:3": 64,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:iron_ingot",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:glowstone_dust",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
         }
       }
     },
@@ -6307,6 +6419,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §e[Milestone]§r §7VAR_NAME§r a atteint §l§e1 000 000 RF§r"
         }
       }
     },
@@ -6584,6 +6706,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §e[Milestone]§r §7VAR_NAME§r a atteint §l§e10 000 000 RF§r"
         }
       }
     },
@@ -6691,7 +6823,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6Le Fragment Mecanique",
-          "desc:8": "§7Il pulse. Tu le sens dans tes os.\n§7Le premier fragment existe.\n§7Voss en revait. Tu l'as fait.\n§e Plus que huit."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/fragment_mecanique.png;180;100;180;100{Embed}\n\n§7Il pulse. Tu le sens dans tes os.\n§7Le premier fragment existe.\n§7Voss en revait. Tu l'as fait.\n\n§6§lLe Fragment Mecanique§r\n§7Premier des neuf fragments.\n§e§lPlus que huit.§r"
         }
       },
       "tasks:9": {
@@ -6737,6 +6869,16 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §6[Dr. Voss]§r §7VAR_NAME§r a forge le §l§6Fragment Mecanique§r — premier des neuf"
         }
       }
     },
@@ -6828,7 +6970,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6Fin de l'Age 1",
-          "desc:8": "§7La Mecanique Brute est derriere toi. Devant : l'impossible."
+          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age1_fin.png;180;100;180;100{Embed}\n\n§7La Mecanique Brute est derriere toi.\n\n§8§o\"Celui qui maitrise l'energie maitrise la matiere. Celui qui maitrise la matiere peut tout transformer.\"§r\n— Dr. E. Voss\n\n§5§lDevant : le Paradoxe Organique.§r\n§7La magie existe. Voss l'a prouve."
         }
       },
       "tasks:9": {
@@ -6855,6 +6997,26 @@
               "OreDict:8": ""
             }
           }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/gamestage add @p age_2"
+        },
+        "2:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 2,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r a termine §l§5l'Age 1 — La Mecanique Brute§r. §dL'Age 2 commence.§r"
         }
       }
     },
