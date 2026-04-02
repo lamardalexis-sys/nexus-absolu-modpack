@@ -109,3 +109,9 @@ tile.condenseur_t2.name=Condenseur Dimensionnel T2
 tile.item_input.name=Hatch d'Entree
 tile.item_output.name=Hatch de Sortie
 tile.auto_scavenger.name=Auto-Scavenger
+
+# Pioches Specialisees (Age 1)
+item.nexusabsolu.pioche_cuivree.name=Pioche Cuivree
+item.nexusabsolu.pioche_ferree.name=Pioche Ferree
+item.nexusabsolu.pioche_precieuse.name=Pioche Precieuse
+item.nexusabsolu.pioche_vossium.name=Pioche Vossium
