@@ -59,6 +59,16 @@ buildItem("resonant_coil");         // IE + Thermal + EnderIO
 buildItem("organic_catalyst");      // Botania + Blood Magic + Pam's
 
 // ============================================
+// 3b. LINGOTS VOSS — Fil rouge du modpack
+//     Invarium = Bronze + Invar (Alloy Kiln)
+//     Vossium  = Invarium + Compose A (Alloy Kiln)
+//     Vossium evolue a chaque age avec les Composes B-E
+// ============================================
+
+buildItem("invarium_ingot");        // Age 0 — alliage Cu-Sn-Fe-Ni
+buildItem("vossium_ingot");         // Age 0 — Invarium + Compose A
+
+// ============================================
 // 4. FRAGMENTS DE PROGRESSION
 //    Les 9 composants du Nexus Absolu
 // ============================================

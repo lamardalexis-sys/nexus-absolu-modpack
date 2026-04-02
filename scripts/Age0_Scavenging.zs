@@ -172,15 +172,24 @@ recipes.addShaped("nexus_convertisseur_craft",
      [<minecraft:redstone>, <thermalexpansion:frame>, <minecraft:redstone>],
      [<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>]]);
 
-// Engrenage de Compose A: croix + axe bronze
+// ============================================
+// INVARIUM & VOSSIUM — Lingots Voss (Alloy Kiln)
+// Bronze + Invar -> Invarium (alliage dimensionnellement stable)
+// Invarium + Compose A -> Vossium (supraconducteur dimensionnel)
+// ============================================
+
+mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:invarium_ingot>, <ore:ingotBronze>, <ore:ingotInvar>, 200);
+mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:vossium_ingot>, <contenttweaker:invarium_ingot>, <nexusabsolu:compose_a>, 300);
+
+// Engrenage de Compose A: croix compose + coeur Vossium
 //   [null]     [compose] [null]      <- dent haut
-//   [compose]  [bronze]  [compose]   <- axe bronze + dents laterales
+//   [compose]  [vossium] [compose]   <- coeur Vossium + dents laterales
 //   [null]     [compose] [null]      <- dent bas
 recipes.remove(<nexusabsolu:compose_gear_a>);
 recipes.addShaped("nexus_compose_gear_a",
     <nexusabsolu:compose_gear_a>,
     [[null, <nexusabsolu:compose_a>, null],
-     [<nexusabsolu:compose_a>, <ore:ingotBronze>, <nexusabsolu:compose_a>],
+     [<nexusabsolu:compose_a>, <contenttweaker:vossium_ingot>, <nexusabsolu:compose_a>],
      [null, <nexusabsolu:compose_a>, null]]);
 
 // Compose Block A: 8 compose + gear au centre
