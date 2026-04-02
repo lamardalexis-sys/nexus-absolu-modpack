@@ -4,6 +4,7 @@ import com.nexusabsolu.mod.tiles.TileAutoScavenger;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 
 public class GuiAutoScavenger extends GuiContainer {
 
@@ -85,7 +86,20 @@ public class GuiAutoScavenger extends GuiContainer {
         fontRenderer.drawString(title, (GUI_W - fontRenderer.getStringWidth(title)) / 2, 4, 0xFF88BBFF);
 
         // Labels
-        fontRenderer.drawString("IN", 82, 30, 0xFF666666);
+        fontRenderer.drawString("[P]", 83, 30, 0xFF888888); // Pickaxe slot
+        
+        // Durability indicator
+        if (container.inventorySlots.size() > 0) {
+            net.minecraft.inventory.Slot pickSlot = container.inventorySlots.get(0);
+            if (pickSlot.getHasStack()) {
+                ItemStack pick = pickSlot.getStack();
+                int durLeft = pick.getMaxDamage() - pick.getItemDamage();
+                int durMax = pick.getMaxDamage();
+                if (durMax > 0) {
+                    fontRenderer.drawString(durLeft + "/" + durMax, 100, 16, 0xFFAAAAFF);
+                }
+            }
+        }
 
         // Energy text
         String eStr = container.getEnergy() + " RF";
