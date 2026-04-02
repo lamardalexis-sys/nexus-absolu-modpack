@@ -22,6 +22,22 @@ public class ModItems {
     public static final Item PIOCHE_RENFORCEE = new ItemPioche("pioche_renforcee",
         Item.ToolMaterial.IRON, 2);
 
+    // === PIOCHES SPECIALISEES (Age 1) ===
+    // Custom ToolMaterials: harvestLevel, maxUses, efficiency, damage, enchantability
+    private static final Item.ToolMaterial MAT_SPEC = net.minecraftforge.common.util.EnumHelper
+        .addToolMaterial("NEXUS_SPEC", 2, 1500, 6.0F, 2.0F, 14);
+    private static final Item.ToolMaterial MAT_VOSS = net.minecraftforge.common.util.EnumHelper
+        .addToolMaterial("NEXUS_VOSS", 2, 2500, 6.0F, 2.0F, 14);
+
+    public static final Item PIOCHE_CUIVREE = new ItemPioche("pioche_cuivree",
+        MAT_SPEC, 3, "base_metals");       // copper, tin, nickel
+    public static final Item PIOCHE_FERREE = new ItemPioche("pioche_ferree",
+        MAT_SPEC, 3, "iron_metals");       // iron, lead, silver
+    public static final Item PIOCHE_PRECIEUSE = new ItemPioche("pioche_precieuse",
+        MAT_SPEC, 3, "precious");          // gold, osmium
+    public static final Item PIOCHE_VOSSIUM = new ItemPioche("pioche_vossium",
+        MAT_VOSS, 3, "compose");           // compose_a only (high rate)
+
     // === GRITS (scavenging) ===
     public static final Item WALL_DUST = new ItemBase("wall_dust");
     public static final Item IRON_GRIT = new ItemGrit("iron_grit", "Iron");

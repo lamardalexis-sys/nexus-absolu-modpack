@@ -5,16 +5,14 @@ import mods.contenttweaker.VanillaFactory;
 import mods.contenttweaker.Item;
 
 // ============================================
-// NEXUS ABSOLU — Custom Items
+// NEXUS ABSOLU — Custom Items (ContentTweaker)
+// Uses the Java mod creative tab (nexusabsolu)
 // ============================================
 
-// Creative Tab
-mods.contenttweaker.VanillaFactory.createCreativeTab("nexus_absolu", <item:minecraft:nether_star>).register();
-
-// Helper function
+// Helper function — uses JAVA creative tab (no separate CT tab)
 function buildItem(name as string) {
     val item = mods.contenttweaker.VanillaFactory.createItem(name);
-    item.setCreativeTab(<creativetab:nexus_absolu>);
+    item.setCreativeTab(<creativetab:nexusabsolu>);
     item.register();
 }
 

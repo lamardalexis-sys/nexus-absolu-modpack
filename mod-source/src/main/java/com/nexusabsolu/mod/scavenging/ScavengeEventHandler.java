@@ -134,6 +134,7 @@ public class ScavengeEventHandler {
     private void executePiocheMining(World world, EntityPlayer player, BlockPos pos, ItemStack tool) {
         ItemPioche pioche = (ItemPioche) tool.getItem();
         int multiplier = pioche.getDustMultiplier();
+        String dropType = pioche.getDropType();
 
         tool.damageItem(1, player);
         world.playSound(null, pos, SoundEvents.BLOCK_STONE_HIT, SoundCategory.BLOCKS,
@@ -148,6 +149,33 @@ public class ScavengeEventHandler {
             if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
             else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
             else if (r < 0.65) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
+        } else if (multiplier >= 3) {
+            // Pioches specialisees: drops cibles selon dropType
+            if ("base_metals".equals(dropType)) {
+                // Pioche Cuivree: copper, tin, nickel
+                if (r < 0.35)      spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
+                else if (r < 0.65) spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
+                else if (r < 0.90) spawnDrop(world, player, new ItemStack(ModItems.NICKEL_GRIT, 1));
+                else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            } else if ("iron_metals".equals(dropType)) {
+                // Pioche Ferree: iron, lead, silver
+                if (r < 0.40)      spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
+                else if (r < 0.65) spawnDrop(world, player, new ItemStack(ModItems.LEAD_GRIT, 1));
+                else if (r < 0.90) spawnDrop(world, player, new ItemStack(ModItems.SILVER_GRIT, 1));
+                else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            } else if ("precious".equals(dropType)) {
+                // Pioche Precieuse: gold, osmium
+                if (r < 0.45)      spawnDrop(world, player, new ItemStack(ModItems.GOLD_GRIT, 1));
+                else if (r < 0.85) spawnDrop(world, player, new ItemStack(ModItems.OSMIUM_GRIT, 1));
+                else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            } else if ("compose".equals(dropType)) {
+                // Pioche Vossium: compose_a (high rate!)
+                if (r < 0.70)      spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
+                else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            } else {
+                // Fallback: same as renforcee
+                spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            }
         } else {
             // Pioche Renforcee: grits + compose + wall_dust
             if (r < 0.12)       spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));

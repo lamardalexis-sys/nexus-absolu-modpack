@@ -14,17 +14,25 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemPioche extends ItemPickaxe implements IHasModel {
 
     private final int dustMultiplier;
+    private final String dropType;
 
     public ItemPioche(String name, ToolMaterial material, int dustMultiplier) {
+        this(name, material, dustMultiplier, "default");
+    }
+
+    public ItemPioche(String name, ToolMaterial material, int dustMultiplier, String dropType) {
         super(material);
         this.dustMultiplier = dustMultiplier;
+        this.dropType = dropType;
         setUnlocalizedName(Reference.MOD_ID + "." + name);
         setRegistryName(Reference.MOD_ID, name);
         setCreativeTab(NexusAbsoluMod.CREATIVE_TAB);
+        setMaxDamage(material.getMaxUses());
         ModItems.ITEMS.add(this);
     }
 
     public int getDustMultiplier() { return dustMultiplier; }
+    public String getDropType() { return dropType; }
 
     @Override
     @SideOnly(Side.CLIENT)
