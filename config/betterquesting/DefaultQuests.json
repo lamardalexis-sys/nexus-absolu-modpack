@@ -109,6 +109,12 @@
               "Count:3": 32,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -173,6 +179,12 @@
             "0:10": {
               "id:8": "thermaldynamics:duct_0",
               "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -241,6 +253,12 @@
               "Count:3": 16,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 5,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -306,6 +324,12 @@
               "id:8": "thermalfoundation:material",
               "Count:3": 8,
               "Damage:2": 128,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 6,
+              "Damage:2": 0,
               "OreDict:8": ""
             }
           }
@@ -373,6 +397,12 @@
               "Count:3": 4,
               "Damage:2": 162,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 6,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -438,6 +468,12 @@
               "id:8": "thermalfoundation:material",
               "Count:3": 8,
               "Damage:2": 162,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 5,
+              "Damage:2": 0,
               "OreDict:8": ""
             }
           }
@@ -563,6 +599,12 @@
             "0:10": {
               "id:8": "minecraft:lava_bucket",
               "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 8,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -691,6 +733,12 @@
               "Count:3": 1,
               "Damage:2": 1,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 7,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -755,6 +803,12 @@
             "0:10": {
               "id:8": "enderio:item_alloy_ingot",
               "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 5,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -823,6 +877,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -886,6 +946,12 @@
           "rewards:9": {
             "0:10": {
               "id:8": "enderio:item_item_conduit",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -1015,6 +1081,12 @@
               "Count:3": 4,
               "Damage:2": 6,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 6,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -1141,6 +1213,12 @@
               "Count:3": 8,
               "Damage:2": 6,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 6,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -1205,6 +1283,12 @@
             "0:10": {
               "id:8": "immersiveengineering:treated_wood",
               "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -1333,6 +1417,12 @@
               "Count:3": 4,
               "Damage:2": 160,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -1398,6 +1488,12 @@
               "id:8": "thermalfoundation:material",
               "Count:3": 8,
               "Damage:2": 160,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 6,
+              "Damage:2": 0,
               "OreDict:8": ""
             }
           }
@@ -1509,6 +1605,12 @@
           "rewards:9": {
             "0:10": {
               "id:8": "immersiveengineering:wirecoil",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -1839,6 +1941,12 @@
               "Count:3": 1,
               "Damage:2": 2,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 12,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -1892,6 +2000,12 @@
             "0:10": {
               "id:8": "minecraft:diamond",
               "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 9,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -1959,6 +2073,12 @@
               "id:8": "ironchest:iron_chest",
               "Count:3": 2,
               "Damage:2": 3,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 19,
+              "Damage:2": 0,
               "OreDict:8": ""
             }
           }
@@ -2028,6 +2148,12 @@
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 25,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -2082,6 +2208,12 @@
               "id:8": "thermalfoundation:material",
               "Count:3": 16,
               "Damage:2": 160,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 38,
+              "Damage:2": 0,
               "OreDict:8": ""
             }
           }
@@ -2184,6 +2316,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -2248,6 +2386,12 @@
             "0:10": {
               "id:8": "minecraft:planks",
               "Count:3": 6,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -2322,6 +2466,12 @@
               "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -2386,6 +2536,12 @@
             "0:10": {
               "id:8": "nexusabsolu:wall_dust",
               "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -2454,6 +2610,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -2520,6 +2682,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -2584,6 +2752,12 @@
             "0:10": {
               "id:8": "minecraft:flint",
               "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -2659,6 +2833,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -2723,6 +2903,12 @@
             "0:10": {
               "id:8": "minecraft:flint",
               "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -2792,6 +2978,12 @@
               "Count:3": 16,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -2856,6 +3048,12 @@
             "0:10": {
               "id:8": "minecraft:gravel",
               "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -2924,6 +3122,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -2988,6 +3192,12 @@
             "0:10": {
               "id:8": "minecraft:torch",
               "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3056,6 +3266,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -3120,6 +3336,12 @@
             "0:10": {
               "id:8": "minecraft:wheat_seeds",
               "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3194,6 +3416,12 @@
               "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -3260,6 +3488,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -3324,6 +3558,12 @@
             "0:10": {
               "id:8": "minecraft:sapling",
               "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3398,6 +3638,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -3451,6 +3697,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -3502,6 +3754,12 @@
             "0:10": {
               "id:8": "minecraft:golden_apple",
               "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3571,6 +3829,12 @@
               "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -3635,6 +3899,12 @@
             "0:10": {
               "id:8": "minecraft:coal",
               "Count:3": 6,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3702,6 +3972,12 @@
             "0:10": {
               "id:8": "minecraft:iron_nugget",
               "Count:3": 6,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3780,6 +4056,12 @@
             "0:10": {
               "id:8": "minecraft:coal",
               "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -3861,6 +4143,12 @@
               "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -3928,6 +4216,12 @@
               "Count:3": 6,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -3987,6 +4281,12 @@
               "Count:3": 1,
               "Damage:2": 129,
               "OreDict:8": "ingotTin"
+            },
+            "2:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4053,6 +4353,12 @@
               "Count:3": 2,
               "Damage:2": 163,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4118,6 +4424,12 @@
               "id:8": "thermalfoundation:material",
               "Count:3": 2,
               "Damage:2": 162,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
               "OreDict:8": ""
             }
           }
@@ -4191,6 +4503,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4258,6 +4576,12 @@
               "Count:3": 3,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4321,6 +4645,12 @@
           "rewards:9": {
             "0:10": {
               "id:8": "nexusabsolu:compose_a",
+              "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
               "Count:3": 3,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -4391,6 +4721,12 @@
               "Count:3": 8,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4457,6 +4793,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4508,6 +4850,12 @@
             "0:10": {
               "id:8": "nexusabsolu:compose_a",
               "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -4574,6 +4922,12 @@
             "0:10": {
               "id:8": "minecraft:glass",
               "Count:3": 3,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -4669,6 +5023,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4733,6 +5093,12 @@
             "0:10": {
               "id:8": "nexusabsolu:compose_a",
               "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -4801,6 +5167,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 5,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4858,6 +5230,12 @@
             "1:10": {
               "id:8": "minecraft:gold_ingot",
               "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 6,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -4926,6 +5304,12 @@
               "Count:3": 1,
               "Damage:2": 4,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -4992,6 +5376,12 @@
               "Count:3": 3,
               "Damage:2": 130,
               "OreDict:8": "ingotSilver"
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
@@ -5058,6 +5448,12 @@
               "Count:3": 4,
               "Damage:2": 162,
               "OreDict:8": "ingotInvar"
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 6,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           }
         }
