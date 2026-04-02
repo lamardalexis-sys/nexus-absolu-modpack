@@ -2,6 +2,7 @@ package com.nexusabsolu.mod.gui;
 
 import com.nexusabsolu.mod.tiles.TileAtelier;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
+import com.nexusabsolu.mod.tiles.TileAutoScavenger;
 import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
 import com.nexusabsolu.mod.tiles.TileItemInput;
@@ -17,6 +18,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int ATELIER_GUI = 1;
     public static final int CONVERTISSEUR_GUI = 2;
     public static final int CONDENSEUR_T2_GUI = 3;
+    public static final int AUTO_SCAVENGER_GUI = 4;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -39,6 +41,9 @@ public class GuiHandler implements IGuiHandler {
                 if (inputTE instanceof TileItemInput) inputTile = (TileItemInput) inputTE;
             }
             return new ContainerCondenseurT2(player.inventory, master, inputTile);
+        }
+        if (ID == AUTO_SCAVENGER_GUI && te instanceof TileAutoScavenger) {
+            return new ContainerAutoScavenger(player.inventory, (TileAutoScavenger) te);
         }
         return null;
     }
@@ -64,6 +69,9 @@ public class GuiHandler implements IGuiHandler {
                 if (inputTE instanceof TileItemInput) inputTile = (TileItemInput) inputTE;
             }
             return new GuiCondenseurT2(player.inventory, master, inputTile);
+        }
+        if (ID == AUTO_SCAVENGER_GUI && te instanceof TileAutoScavenger) {
+            return new GuiAutoScavenger(player.inventory, (TileAutoScavenger) te);
         }
         return null;
     }

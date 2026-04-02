@@ -108,3 +108,4 @@ item.nexusabsolu.raw_osmium_grit.name=Grit Brut d'Osmium
 tile.condenseur_t2.name=Condenseur Dimensionnel T2
 tile.item_input.name=Hatch d'Entree
 tile.item_output.name=Hatch de Sortie
+tile.auto_scavenger.name=Auto-Scavenger

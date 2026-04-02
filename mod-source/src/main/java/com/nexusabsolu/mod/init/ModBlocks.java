@@ -6,6 +6,7 @@ import com.nexusabsolu.mod.blocks.BlockNexusWall;
 import com.nexusabsolu.mod.blocks.machines.BlockAtelier;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseur;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurFormed;
+import com.nexusabsolu.mod.blocks.machines.BlockAutoScavenger;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2;
 import com.nexusabsolu.mod.blocks.machines.BlockConvertisseur;
 import com.nexusabsolu.mod.blocks.machines.BlockItemInput;
@@ -44,6 +45,7 @@ public class ModBlocks {
     public static final BlockCondenseurT2 CONDENSEUR_T2 = new BlockCondenseurT2();
     public static final BlockItemInput ITEM_INPUT = new BlockItemInput();
     public static final BlockItemOutput ITEM_OUTPUT = new BlockItemOutput();
+    public static final BlockAutoScavenger AUTO_SCAVENGER = new BlockAutoScavenger();
 
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }

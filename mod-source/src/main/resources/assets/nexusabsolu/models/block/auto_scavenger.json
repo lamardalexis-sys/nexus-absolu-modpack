@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "nexusabsolu:blocks/auto_scavenger_top",
+    "front": "nexusabsolu:blocks/auto_scavenger_front",
+    "side": "nexusabsolu:blocks/auto_scavenger_side"
+  }
+}
