@@ -8,7 +8,10 @@ import com.nexusabsolu.mod.scavenging.ScavengeEventHandler;
 import com.nexusabsolu.mod.tiles.TileAtelier;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
 import com.nexusabsolu.mod.tiles.TileCondenseurEnergy;
+import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
+import com.nexusabsolu.mod.tiles.TileItemInput;
+import com.nexusabsolu.mod.tiles.TileItemOutput;
 import com.nexusabsolu.mod.world.NexusOreGen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,6 +33,12 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "atelier_voss"));
         GameRegistry.registerTileEntity(TileConvertisseur.class,
             new ResourceLocation(Reference.MOD_ID, "convertisseur_voss"));
+        GameRegistry.registerTileEntity(TileCondenseurT2.class,
+            new ResourceLocation(Reference.MOD_ID, "condenseur_t2"));
+        GameRegistry.registerTileEntity(TileItemInput.class,
+            new ResourceLocation(Reference.MOD_ID, "item_input"));
+        GameRegistry.registerTileEntity(TileItemOutput.class,
+            new ResourceLocation(Reference.MOD_ID, "item_output"));
     }
 
     public void init(FMLInitializationEvent event) {

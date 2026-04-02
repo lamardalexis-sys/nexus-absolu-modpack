@@ -2,7 +2,9 @@ package com.nexusabsolu.mod.gui;
 
 import com.nexusabsolu.mod.tiles.TileAtelier;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
+import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
+import com.nexusabsolu.mod.tiles.TileItemInput;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -14,6 +16,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int CONDENSEUR_GUI = 0;
     public static final int ATELIER_GUI = 1;
     public static final int CONVERTISSEUR_GUI = 2;
+    public static final int CONDENSEUR_T2_GUI = 3;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -26,6 +29,16 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == CONVERTISSEUR_GUI && te instanceof TileConvertisseur) {
             return new ContainerConvertisseur(player.inventory, (TileConvertisseur) te);
+        }
+        if (ID == CONDENSEUR_T2_GUI && te instanceof TileCondenseurT2) {
+            TileCondenseurT2 master = (TileCondenseurT2) te;
+            TileItemInput inputTile = null;
+            BlockPos inputPos = master.getInputPos();
+            if (inputPos != null) {
+                TileEntity inputTE = world.getTileEntity(inputPos);
+                if (inputTE instanceof TileItemInput) inputTile = (TileItemInput) inputTE;
+            }
+            return new ContainerCondenseurT2(player.inventory, master, inputTile);
         }
         return null;
     }
@@ -41,6 +54,16 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == CONVERTISSEUR_GUI && te instanceof TileConvertisseur) {
             return new GuiConvertisseur(player.inventory, (TileConvertisseur) te);
+        }
+        if (ID == CONDENSEUR_T2_GUI && te instanceof TileCondenseurT2) {
+            TileCondenseurT2 master = (TileCondenseurT2) te;
+            TileItemInput inputTile = null;
+            BlockPos inputPos = master.getInputPos();
+            if (inputPos != null) {
+                TileEntity inputTE = world.getTileEntity(inputPos);
+                if (inputTE instanceof TileItemInput) inputTile = (TileItemInput) inputTE;
+            }
+            return new GuiCondenseurT2(player.inventory, master, inputTile);
         }
         return null;
     }

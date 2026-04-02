@@ -103,3 +103,8 @@ item.nexusabsolu.raw_nickel_grit.name=Grit Brut de Nickel
 item.nexusabsolu.raw_lead_grit.name=Grit Brut de Plomb
 item.nexusabsolu.raw_gold_grit.name=Grit Brut d'Or
 item.nexusabsolu.raw_osmium_grit.name=Grit Brut d'Osmium
+
+# === Condenseur T2 (3x3x3) ===
+tile.condenseur_t2.name=Condenseur Dimensionnel T2
+tile.item_input.name=Hatch d'Entree
+tile.item_output.name=Hatch de Sortie
