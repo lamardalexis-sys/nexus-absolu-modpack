@@ -64,9 +64,14 @@ recipes.addShaped("nexus_diamond_mesh", <exnihilocreatio:item_mesh:4>,
 // Cobble -> Gravel -> Sand -> Dust
 // ==========================================
 
-// Les hammers Ex Nihilo sont OK par defaut
-// Le joueur les craft pour transformer cobble -> gravel -> sand -> dust
-// Chaque etape donne acces a de meilleurs tamis
+// Les hammers Ex Nihilo par defaut conflictent avec d'autres mods
+// Recette custom avec cobblestone_fragment (unique au modpack)
+recipes.remove(<exnihilocreatio:hammer_wood>);
+recipes.addShaped("nexus_hammer_wood", <exnihilocreatio:hammer_wood>,
+    [[<nexusabsolu:cobblestone_fragment>, <minecraft:planks:*>, <nexusabsolu:cobblestone_fragment>],
+     [null, <minecraft:stick>, null],
+     [null, <minecraft:stick>, null]]);
+// Fragments = tete du marteau, planks = liant, sticks = manche
 
 // ==========================================
 // CROOK -- Pour les feuilles / saplings
