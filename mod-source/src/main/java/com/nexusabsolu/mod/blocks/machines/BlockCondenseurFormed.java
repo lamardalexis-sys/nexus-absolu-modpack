@@ -194,7 +194,11 @@ public class BlockCondenseurFormed extends Block implements IHasModel {
                             } else if (p == 3) {
                                 // Energy input = redstone block
                                 world.setBlockState(check, net.minecraft.init.Blocks.REDSTONE_BLOCK.getDefaultState());
+                            } else if (p == 7) {
+                                // Top wall = nexus wall
+                                world.setBlockState(check, ModBlocks.NEXUS_WALL.getDefaultState());
                             } else {
+                                // Positions 4,5,6 = glass
                                 world.setBlockState(check, net.minecraft.init.Blocks.GLASS.getDefaultState());
                             }
                         }
