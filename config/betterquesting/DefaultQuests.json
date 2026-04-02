@@ -3343,9 +3343,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "compactmachines3:machine",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 1,
             "OreDict:8": ""
           },
           "name:8": "§l§5Respire",
@@ -3402,7 +3402,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "minecraft:crafting_table",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3474,7 +3474,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:convertisseur_voss",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3546,7 +3546,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalexpansion:dynamo",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3618,7 +3618,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermaldynamics:duct_0",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3690,7 +3690,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "minecraft:iron_ingot",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3762,9 +3762,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalexpansion:machine",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 1,
             "OreDict:8": ""
           },
           "name:8": "§lLe doubleur",
@@ -3834,7 +3834,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalexpansion:machine",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -3907,9 +3907,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalexpansion:machine",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 3,
             "OreDict:8": ""
           },
           "name:8": "§lLa fusion",
@@ -3979,9 +3979,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "immersiveengineering:stone_decoration",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 1,
             "OreDict:8": ""
           },
           "name:8": "§lLe coke",
@@ -4051,7 +4051,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:atelier_voss",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4123,7 +4123,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "immersiveengineering:treated_wood",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4195,9 +4195,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "immersiveengineering:wooden_device0",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 2,
             "OreDict:8": ""
           },
           "name:8": "§lL'etabli d'ingenieur",
@@ -4267,9 +4267,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "immersiveengineering:stone_decoration",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 2,
             "OreDict:8": ""
           },
           "name:8": "§lLe blast furnace",
@@ -4339,9 +4339,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalfoundation:material",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 160,
             "OreDict:8": ""
           },
           "name:8": "§l§6L'acier",
@@ -4412,7 +4412,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:compose_b",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4485,7 +4485,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:vossium_ii_ingot",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4557,7 +4557,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:vossium_ii_block",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4630,7 +4630,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:connecteur_dimensionnel",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4702,7 +4702,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "compactmachines3:tunnel",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4775,7 +4775,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:auto_scavenger",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4847,9 +4847,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalfoundation:upgrade",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 1,
             "OreDict:8": ""
           },
           "name:8": "§lL'upgrade",
@@ -4919,7 +4919,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:compose_gear_b",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -4991,7 +4991,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "actuallyadditions:block_atomic_reconstructor",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5063,7 +5063,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "actuallyadditions:item_crystal",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5137,7 +5137,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:nexus_wall",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5210,7 +5210,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:condenseur",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5282,9 +5282,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "compactmachines3:machine",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 2,
             "OreDict:8": ""
           },
           "name:8": "§l§5La deuxieme fissure",
@@ -5354,9 +5354,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "compactmachines3:machine",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 2,
             "OreDict:8": ""
           },
           "name:8": "§lL'air libre",
@@ -5413,7 +5413,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "exnihilocreatio:block_crucible0",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5486,9 +5486,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalexpansion:dynamo",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 1,
             "OreDict:8": ""
           },
           "name:8": "§l§eLe feu liquide",
@@ -5558,7 +5558,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "tconstruct:smeltery_controller",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5630,7 +5630,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "tconstruct:pickaxe",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5703,9 +5703,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "enderio:item_alloy_ingot",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 6,
             "OreDict:8": ""
           },
           "name:8": "§l§8L'alliage sombre",
@@ -5775,7 +5775,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "enderio:item_dark_steel_chestplate",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5847,7 +5847,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "storagedrawers:controller",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -5920,9 +5920,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "immersiveengineering:metal_device1",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 13,
             "OreDict:8": ""
           },
           "name:8": "§lLe jardin mecanique",
@@ -5992,7 +5992,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "enderio:item_power_conduit",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6070,9 +6070,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalexpansion:machine",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 7,
             "OreDict:8": ""
           },
           "name:8": "§lLe transposeur",
@@ -6142,7 +6142,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "simplyjetpacks:itemjetpack",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6215,7 +6215,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "minecraft:hopper",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6274,7 +6274,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalexpansion:capacitor",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6334,7 +6334,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "immersiveengineering:metal_multiblock",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6406,9 +6406,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "enderio:item_alloy_ingot",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 2,
             "OreDict:8": ""
           },
           "name:8": "§lLe Vibrant Alloy",
@@ -6478,9 +6478,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "enderio:block_cap_bank",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 1,
             "OreDict:8": ""
           },
           "name:8": "§lLe Capacitor Bank",
@@ -6551,9 +6551,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "thermalexpansion:capacitor",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 2,
             "OreDict:8": ""
           },
           "name:8": "§l§eDix millions",
@@ -6611,7 +6611,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:pioche_specialiste",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6685,7 +6685,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:fragment_mecanique",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6763,7 +6763,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "minecraft:writable_book",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6822,7 +6822,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:fragment_mecanique",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6881,7 +6881,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "botania:specialflower",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -6940,7 +6940,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "mysticalagriculture:crafting",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7012,7 +7012,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "botania:specialflower",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7084,7 +7084,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "botania:pool",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7156,7 +7156,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "botania:altar",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7229,7 +7229,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "mysticalagriculture:crafting",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7301,7 +7301,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "botania:spreader",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7373,7 +7373,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "astralsorcery:blockaltar",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7445,7 +7445,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "astralsorcery:itemhandheldtelescope",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7517,7 +7517,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "astralsorcery:itemrockcrystalsimple",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7589,7 +7589,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "astralsorcery:itemcraftingcomponent",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7649,7 +7649,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:compose_c",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7722,7 +7722,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:vossium_iii_ingot",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7794,7 +7794,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:vossium_iii_block",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7866,7 +7866,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "bloodmagic:altar",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7938,7 +7938,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "bloodmagic:blood_orb",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8010,7 +8010,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "bloodmagic:blood_rune",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8082,7 +8082,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "bloodmagic:slate",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8154,9 +8154,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "bloodmagic:slate",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 1,
             "OreDict:8": ""
           },
           "name:8": "§l§4Le rituel",
@@ -8215,7 +8215,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:compose_d",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8288,7 +8288,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:vossium_iv_ingot",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8361,7 +8361,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "nexusabsolu:condenseur",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8433,7 +8433,7 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:compact_key_9x9",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8505,9 +8505,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "compactmachines3:machine",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 3,
             "OreDict:8": ""
           },
           "name:8": "§l§5La troisieme fissure",
@@ -8578,9 +8578,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "botania:manaresource",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 4,
             "OreDict:8": ""
           },
           "name:8": "§l§2Le Terrasteel",
@@ -8651,9 +8651,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "mysticalagriculture:crafting",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 3,
             "OreDict:8": ""
           },
           "name:8": "§lMystical Agriculture tier 3",
@@ -8724,7 +8724,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "astralsorcery:itemcraftingcomponent",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8785,7 +8785,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:fragment_organique",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8864,7 +8864,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:nether_star",
+            "id:8": "contenttweaker:fragment_stellaire",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
