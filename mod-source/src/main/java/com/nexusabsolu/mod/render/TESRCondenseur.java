@@ -122,13 +122,16 @@ public class TESRCondenseur extends TileEntitySpecialRenderer<TileCondenseur> {
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
 
-        // X-facing outward side
-        float xFacePos = dx > 0 ? -SCR_OFFSET : 1.0F + SCR_OFFSET;
-        renderScreenFace(buf, tess, processing, time, true, xFacePos, dx > 0);
-
-        // Z-facing outward side
-        float zFacePos = dz > 0 ? -SCR_OFFSET : 1.0F + SCR_OFFSET;
-        renderScreenFace(buf, tess, processing, time, false, zFacePos, dz < 0);
+        // Render screen on ALL 4 side faces
+        // Faces blocked by solid multiblock blocks are hidden anyway
+        // -X face
+        renderScreenFace(buf, tess, processing, time, true, -SCR_OFFSET, true);
+        // +X face
+        renderScreenFace(buf, tess, processing, time, true, 1.0F + SCR_OFFSET, false);
+        // -Z face
+        renderScreenFace(buf, tess, processing, time, false, -SCR_OFFSET, false);
+        // +Z face
+        renderScreenFace(buf, tess, processing, time, false, 1.0F + SCR_OFFSET, true);
 
         GlStateManager.disableBlend();
         GlStateManager.enableTexture2D();
