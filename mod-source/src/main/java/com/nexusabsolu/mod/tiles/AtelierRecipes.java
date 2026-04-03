@@ -24,8 +24,8 @@ public class AtelierRecipes {
         addRecipe(Items.IRON_NUGGET, 2, ModItems.WALL_DUST, 1,
                   ModItems.PIOCHE_RENFORCEE, 1);
 
-        // Compact Machine Wall : 1 iron block + 1 redstone = 4 walls
-        Item cmWall = Item.getByNameOrId("compactmachines3:wall");
+        // Compact Machine Wall (breakable) : 1 iron block + 1 redstone = 4 walls
+        Item cmWall = Item.getByNameOrId("compactmachines3:wallbreakable");
         if (cmWall != null) {
             addRecipe(Item.getItemFromBlock(Blocks.IRON_BLOCK), 1, Items.REDSTONE, 1,
                       cmWall, 4);
