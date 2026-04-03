@@ -5953,7 +5953,7 @@
     "81:10": {
       "questID:3": 81,
       "preRequisites:11": [
-        80
+        71
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -10310,7 +10310,7 @@
           "id:3": 81,
           "sizeX:3": 24,
           "sizeY:3": 24,
-          "x:3": -180,
+          "x:3": -60,
           "y:3": 350,
           "posX:3": 240,
           "posY:3": 550
