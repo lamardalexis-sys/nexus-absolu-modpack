@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -169,8 +170,17 @@ public class ScavengeEventHandler {
                 else if (r < 0.85) spawnDrop(world, player, new ItemStack(ModItems.OSMIUM_GRIT, 1));
                 else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             } else if ("compose".equals(dropType)) {
-                // Pioche Vossium: compose_a (high rate!)
-                if (r < 0.70)      spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
+                // Pioche Vossium: compose_a + grains of infinity
+                if (r < 0.60)      spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
+                else if (r < 0.70) {
+                    // Grains of Infinity (EnderIO) — 10%
+                    Item grains = Item.getByNameOrId("enderio:item_material");
+                    if (grains != null) {
+                        spawnDrop(world, player, new ItemStack(grains, 1, 20));
+                    } else {
+                        spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
+                    }
+                }
                 else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             } else {
                 // Fallback: same as renforcee
