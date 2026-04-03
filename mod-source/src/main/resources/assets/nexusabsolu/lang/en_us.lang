@@ -119,3 +119,4 @@ item.nexusabsolu.pioche_vossium.name=Pioche Vossium
 # Pioche Steelium + Obsidian Fragment (Age 1)
 item.nexusabsolu.pioche_steelium.name=Pioche Steelium
 item.nexusabsolu.obsidian_fragment.name=Fragment d'Obsidian
+tile.energy_input.name=Energy Input

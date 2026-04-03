@@ -11,6 +11,7 @@ import com.nexusabsolu.mod.tiles.TileCondenseurEnergy;
 import com.nexusabsolu.mod.tiles.TileAutoScavenger;
 import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
+import com.nexusabsolu.mod.tiles.TileEnergyInput;
 import com.nexusabsolu.mod.tiles.TileItemInput;
 import com.nexusabsolu.mod.tiles.TileItemOutput;
 import com.nexusabsolu.mod.world.NexusOreGen;
@@ -42,6 +43,8 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "item_output"));
         GameRegistry.registerTileEntity(TileAutoScavenger.class,
             new ResourceLocation(Reference.MOD_ID, "auto_scavenger"));
+        GameRegistry.registerTileEntity(TileEnergyInput.class,
+            new ResourceLocation(Reference.MOD_ID, "energy_input"));
     }
 
     public void init(FMLInitializationEvent event) {

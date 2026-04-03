@@ -9,6 +9,7 @@ import com.nexusabsolu.mod.blocks.machines.BlockCondenseurFormed;
 import com.nexusabsolu.mod.blocks.machines.BlockAutoScavenger;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2;
 import com.nexusabsolu.mod.blocks.machines.BlockConvertisseur;
+import com.nexusabsolu.mod.blocks.machines.BlockEnergyInput;
 import com.nexusabsolu.mod.blocks.machines.BlockItemInput;
 import com.nexusabsolu.mod.blocks.machines.BlockItemOutput;
 import net.minecraft.block.Block;
@@ -46,6 +47,7 @@ public class ModBlocks {
     public static final BlockItemInput ITEM_INPUT = new BlockItemInput();
     public static final BlockItemOutput ITEM_OUTPUT = new BlockItemOutput();
     public static final BlockAutoScavenger AUTO_SCAVENGER = new BlockAutoScavenger();
+    public static final BlockEnergyInput ENERGY_INPUT = new BlockEnergyInput();
 
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }
