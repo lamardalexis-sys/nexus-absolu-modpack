@@ -4,8 +4,8 @@
 // ============================================
 
 // === ALLOY SMELTER -- la machine a acier ===
-recipes.remove(<enderio:block_simple_alloy_smelter>);
-recipes.addShaped("nexus_alloy_smelter", <enderio:block_simple_alloy_smelter>,
+recipes.remove(<enderio:block_alloy_smelter>);
+recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
     [[<ore:ingotInvar>, <minecraft:iron_ingot>, <ore:ingotInvar>],
      [<minecraft:furnace>, <enderio:item_material>, <minecraft:furnace>],
      [<ore:gearInvar>, <exnihilocreatio:block_barrel0>, <ore:gearInvar>]]);
