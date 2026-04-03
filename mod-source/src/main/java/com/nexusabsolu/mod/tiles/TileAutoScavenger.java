@@ -145,7 +145,7 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
             else if (r < 0.45)  insertIntoOutput(new ItemStack(Items.COAL, 1));
             else if (r < 0.53)  insertIntoOutput(new ItemStack(Items.REDSTONE, 1));
             else if (r < 0.58)  insertIntoOutput(new ItemStack(ModItems.NICKEL_GRIT, 1));
-            else if (r < 0.635) insertIntoOutput(new ItemStack(ModItems.COMPOSE_A, 1));
+            else if (r < 0.68)  insertIntoOutput(new ItemStack(ModItems.COMPOSE_A, 1));
             else                insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
         }
 
