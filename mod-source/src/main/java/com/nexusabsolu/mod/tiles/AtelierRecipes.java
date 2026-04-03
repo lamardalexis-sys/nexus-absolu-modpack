@@ -32,7 +32,7 @@ public class AtelierRecipes {
         }
 
         // Compact Machine Tunnel : 4 walls + 1 hopper = 2 tunnels
-        Item cmTunnel = Item.getByNameOrId("compactmachines3:tunnel");
+        Item cmTunnel = Item.getByNameOrId("compactmachines3:tunneltool");
         if (cmWall != null && cmTunnel != null) {
             addRecipe(cmWall, 4, Item.getItemFromBlock(Blocks.HOPPER), 1,
                       cmTunnel, 2);

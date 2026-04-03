@@ -32,5 +32,5 @@ print("[Nexus Absolu] Age1_IE.zs loaded");
 // === REMOVE Compact Machine miniaturization recipes ===
 // Walls and tunnels are now made in the Atelier du Dr. Voss
 mods.compactmachines3.Miniaturization.removeRecipe(<compactmachines3:wallbreakable>);
-mods.compactmachines3.Miniaturization.removeRecipe(<compactmachines3:tunnel>);
+mods.compactmachines3.Miniaturization.removeRecipe(<compactmachines3:tunneltool>);
 

@@ -322,7 +322,7 @@ mods.jei.JEI.addDescription(<compactmachines3:wallbreakable>,
     "1 Bloc de Fer + 1 Redstone = 4 Walls"
 );
 
-mods.jei.JEI.addDescription(<compactmachines3:tunnel>,
+mods.jei.JEI.addDescription(<compactmachines3:tunneltool>,
     "COMPACT MACHINE TUNNEL",
     "",
     "Transfere items, fluides et energie",
