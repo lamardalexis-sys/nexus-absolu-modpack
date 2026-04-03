@@ -86,9 +86,10 @@ recipes.addShaped("nexus_atomic_reconstructor",
 // Chaque pioche cible des grits specifiques
 // Pattern pioche standard: 3 materiaux + cristal AA au centre + 2 sticks
 // Force le joueur a avoir l'Atomic Reconstructor (Q70) avant
+// Cristaux dispo en CM: Enori (iron), Void (coal), Restonia (redstone)
 
 // Pioche Cuivree: copper + tin + nickel grits (1500 uses)
-//   [copper] [Enori Crystal] [copper]   <- cristal blanc = metaux de base
+//   [copper] [Enori Crystal] [copper]   <- cristal blanc (iron)
 //   [null]   [stick]         [null]
 //   [null]   [stick]         [null]
 recipes.addShaped("nexus_pioche_cuivree",
@@ -98,7 +99,7 @@ recipes.addShaped("nexus_pioche_cuivree",
      [null, <minecraft:stick>, null]]);
 
 // Pioche Ferree: iron + lead + silver grits (1500 uses)
-//   [iron]  [Void Crystal] [iron]       <- cristal noir = profondeur
+//   [iron]  [Void Crystal] [iron]       <- cristal noir (coal)
 //   [null]  [stick]        [null]
 //   [null]  [stick]        [null]
 recipes.addShaped("nexus_pioche_ferree",
@@ -108,17 +109,18 @@ recipes.addShaped("nexus_pioche_ferree",
      [null, <minecraft:stick>, null]]);
 
 // Pioche Precieuse: gold + osmium grits (1500 uses)
-//   [gold]  [Emeradic Crystal] [gold]   <- cristal vert = rare/precieux
+//   [gold]  [Restonia Crystal] [gold]   <- cristal rouge (redstone)
 //   [null]  [stick]            [null]
 //   [null]  [stick]            [null]
 recipes.addShaped("nexus_pioche_precieuse",
     <nexusabsolu:pioche_precieuse>,
-    [[<minecraft:gold_ingot>, <actuallyadditions:item_crystal:4>, <minecraft:gold_ingot>],
+    [[<minecraft:gold_ingot>, <actuallyadditions:item_crystal:0>, <minecraft:gold_ingot>],
      [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
 // Pioche Vossium: compose_a only (2500 uses, 70% drop rate!)
-//   [vossium]  [Diamatine Crystal] [vossium]  <- cristal bleu = dimensionnel
+// Cristal Dimensionnel: Compose A -> Diamatine Crystal via Atomic Reconstructor
+//   [vossium]  [Diamatine Crystal] [vossium]  <- cristal bleu (compose_a custom)
 //   [null]     [stick]             [null]
 //   [null]     [stick]             [null]
 recipes.addShaped("nexus_pioche_vossium",
@@ -126,4 +128,8 @@ recipes.addShaped("nexus_pioche_vossium",
     [[<contenttweaker:vossium_ingot>, <actuallyadditions:item_crystal:2>, <contenttweaker:vossium_ingot>],
      [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
+
+// Recette custom: Compose A -> Diamatine Crystal via Atomic Reconstructor
+// Le Compose A resonne avec la dimension et cristallise en Diamatine
+mods.actuallyadditions.AtomicReconstructor.addRecipe(<actuallyadditions:item_crystal:2>, <nexusabsolu:compose_a>, 5000);
 
