@@ -241,3 +241,13 @@ mods.jei.JEI.addDescription(<nexusabsolu:pioche_vossium>,
     "- Dr. E. Voss"
 );
 
+
+// === REINFORCED UPGRADE KIT — simplifie pour CM ===
+// Hardened Glass -> Glass, Silver Gear -> Invar Gear
+recipes.remove(<thermalfoundation:upgrade:1>);
+recipes.addShaped("nexus_reinforced_upgrade",
+    <thermalfoundation:upgrade:1>,
+    [[null, <ore:gearInvar>, null],
+     [<ore:blockGlass>, <ore:gearBronze>, <ore:blockGlass>],
+     [null, <ore:gearInvar>, null]]);
+
