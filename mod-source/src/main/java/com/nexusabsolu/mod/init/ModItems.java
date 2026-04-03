@@ -46,7 +46,6 @@ public class ModItems {
 
     // === GRITS (scavenging) ===
     public static final Item WALL_DUST = new ItemBase("wall_dust");
-    public static final Item OBSIDIAN_FRAGMENT = new ItemBase("obsidian_fragment");
     public static final Item IRON_GRIT = new ItemGrit("iron_grit", "Iron");
     public static final Item COPPER_GRIT = new ItemGrit("copper_grit", "Copper");
     public static final Item TIN_GRIT = new ItemGrit("tin_grit", "Tin");
