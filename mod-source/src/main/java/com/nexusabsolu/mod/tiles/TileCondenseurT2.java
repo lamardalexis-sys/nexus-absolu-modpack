@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import com.nexusabsolu.mod.tiles.TileEnergyInput;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,6 +29,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
     private static final int INPUT = 3;
     private static final int OUTPUT = 4;
     private static final int VOSSIUM2 = 5;
+    private static final int ENERGY_IN = 6;
 
     // Structure: 26 positions as {depth, height, width, blockType}
     // Relative to master at (0, 0, 0)
@@ -36,7 +38,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         // Bottom layer (h=-1): 9 blocks
         {0, -1, -1, NEXUS_WALL}, {0, -1, 0, NEXUS_WALL}, {0, -1, 1, NEXUS_WALL},
         {1, -1, -1, NEXUS_WALL}, {1, -1, 0, NEXUS_WALL}, {1, -1, 1, NEXUS_WALL},
-        {2, -1, -1, REDSTONE},   {2, -1, 0, NEXUS_WALL}, {2, -1, 1, NEXUS_WALL},
+        {2, -1, -1, NEXUS_WALL}, {2, -1, 0, ENERGY_IN},  {2, -1, 1, NEXUS_WALL},
         // Middle layer (h=0): 8 blocks (excluding master)
         {0,  0, -1, GLASS},      {0,  0, 1, GLASS},
         {1,  0, -1, INPUT},      {1,  0, 0, VOSSIUM2},   {1,  0, 1, OUTPUT},
@@ -64,6 +66,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
     private int activeRotation = -1;
     private BlockPos inputPos = null;
     private BlockPos outputPos = null;
+    private BlockPos energyInputPos = null;
 
     // Quotes for GUI
     private int currentQuote = 0;
@@ -86,9 +89,10 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         for (int r = 0; r < ROTATIONS.length; r++) {
             if (validateRotation(r)) {
                 activeRotation = r;
-                // Locate INPUT and OUTPUT positions
+                // Locate INPUT, OUTPUT, and ENERGY positions
                 inputPos = getWorldPos(1, 0, -1, r);
                 outputPos = getWorldPos(1, 0, 1, r);
+                energyInputPos = getWorldPos(2, -1, 0, r);
                 linkHatches();
                 if (!structureFormed) {
                     structureFormed = true;
@@ -104,6 +108,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
             activeRotation = -1;
             inputPos = null;
             outputPos = null;
+            energyInputPos = null;
             processing = false;
             processTime = 0;
             markDirty();
@@ -149,6 +154,8 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 return !block.isAir(state, world, checkPos)
                     && block != Blocks.GLASS
                     && block != Blocks.REDSTONE_BLOCK;
+            case ENERGY_IN:
+                return name.equals("nexusabsolu:energy_input");
             default:
                 return false;
         }
@@ -167,6 +174,28 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 ((TileItemOutput) te).setMasterPos(pos);
             }
         }
+        if (energyInputPos != null) {
+            TileEntity te = world.getTileEntity(energyInputPos);
+            if (te instanceof TileEnergyInput) {
+                ((TileEnergyInput) te).setMasterPos(pos);
+            }
+        }
+    }
+
+    /** Pull RF from the Energy Input hatch into the master's buffer. */
+    private void pullEnergyFromHatch() {
+        if (energyInputPos == null) return;
+        TileEntity te = world.getTileEntity(energyInputPos);
+        if (te instanceof TileEnergyInput) {
+            TileEnergyInput hatch = (TileEnergyInput) te;
+            int space = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
+            if (space > 0) {
+                int pulled = hatch.drain(Math.min(space, ENERGY_MAX_INPUT));
+                if (pulled > 0) {
+                    energyStorage.generateInternal(pulled);
+                }
+            }
+        }
     }
 
     // -- Processing --
@@ -181,6 +210,9 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         }
 
         if (!structureFormed) return;
+
+        // Pull RF from energy input hatch into master buffer
+        pullEnergyFromHatch();
 
         TileItemInput inputTile = getInputTile();
         TileItemOutput outputTile = getOutputTile();
