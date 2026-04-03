@@ -28,3 +28,9 @@ recipes.addShaped("nexus_garden_cloche", <immersiveengineering:metal_device1:13>
 // Le joueur decouvre le systeme d'energie IE naturellement
 
 print("[Nexus Absolu] Age1_IE.zs loaded");
+
+// === REMOVE Compact Machine miniaturization recipes ===
+// Walls and tunnels are now made in the Atelier du Dr. Voss
+mods.compactmachines3.Miniaturization.removeRecipe(<compactmachines3:wall>);
+mods.compactmachines3.Miniaturization.removeRecipe(<compactmachines3:tunnel>);
+

@@ -23,6 +23,20 @@ public class AtelierRecipes {
         // Pioche Renforcee : 2 iron nuggets + 1 wall_dust
         addRecipe(Items.IRON_NUGGET, 2, ModItems.WALL_DUST, 1,
                   ModItems.PIOCHE_RENFORCEE, 1);
+
+        // Compact Machine Wall : 1 iron block + 1 redstone = 4 walls
+        Item cmWall = Item.getByNameOrId("compactmachines3:wall");
+        if (cmWall != null) {
+            addRecipe(Item.getItemFromBlock(Blocks.IRON_BLOCK), 1, Items.REDSTONE, 1,
+                      cmWall, 4);
+        }
+
+        // Compact Machine Tunnel : 4 walls + 1 hopper = 2 tunnels
+        Item cmTunnel = Item.getByNameOrId("compactmachines3:tunnel");
+        if (cmWall != null && cmTunnel != null) {
+            addRecipe(cmWall, 4, Item.getItemFromBlock(Blocks.HOPPER), 1,
+                      cmTunnel, 2);
+        }
     }
 
     private static void addRecipe(Item input1, int count1, Item input2, int count2,
