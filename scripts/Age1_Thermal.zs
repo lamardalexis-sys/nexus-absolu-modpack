@@ -7,12 +7,12 @@
 // === MACHINE FRAME -- vanilla OK (Tin + Iron + Glass) ===
 // Pas modifie -- c'est la base de tout Thermal
 
-// === PULVERIZER -- necessite composant IE ===
+// === PULVERIZER -- necessite composant IE + EnderIO ===
 recipes.remove(<thermalexpansion:machine:1>);
 recipes.addShaped("nexus_pulverizer", <thermalexpansion:machine:1>,
     [[null, <immersiveengineering:material:1>, null],
-     [<ore:gearCopper>, <thermalexpansion:frame>, <ore:gearCopper>],
-     [<ore:ingotCopper>, <minecraft:piston>, <ore:ingotCopper>]]);
+     [<enderio:item_material:11>, <thermalexpansion:frame>, <enderio:item_material:11>],
+     [<ore:ingotBronze>, <minecraft:piston>, <ore:ingotBronze>]]);
 
 // === INDUCTION SMELTER -- necessite EnderIO component ===
 recipes.remove(<thermalexpansion:machine:3>);
