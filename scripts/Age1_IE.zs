@@ -7,8 +7,12 @@
 // === COKE OVEN -- pas modifie (3x3x3 multibloc, gate naturel par taille) ===
 // Le joueur doit etre dans une salle 9x9+ pour le construire
 
-// === BLAST FURNACE -- pas modifie (3x3x3 multibloc) ===
-// Produit de l'acier -- necessaire pour Age 1+
+// === BLAST FURNACE -- Blast Brick: blaze powder -> vossium ===
+// Pas de Blaze en Compact Machine, le Vossium remplace
+recipes.remove(<immersiveengineering:stone_decoration:1>);
+recipes.addShaped("nexus_blast_brick", <immersiveengineering:stone_decoration:1> * 4,
+    [[<minecraft:netherbrick>, <contenttweaker:vossium_ingot>],
+     [<contenttweaker:vossium_ingot>, <minecraft:netherbrick>]]);
 
 // === GARDEN CLOCHE -- necessite Thermal + Ex Nihilo ===
 // La Cloche permet le farming auto en compact -- tres utile
