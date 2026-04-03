@@ -3746,20 +3746,32 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "nexusabsolu:convertisseur_voss",
+            "id:8": "nexusabsolu:compose_block_a",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
           "name:8": "§l§ec'est juste 100 . . .",
-          "desc:8": "§7100 RF/t. C'est rien. Mais c'est tout.\n§7Place le RF Submission Station et alimente-le.\n§7Le Convertisseur + Blocs de Compose A = energie.\n\n§8§o\"Cent ticks par seconde. Le coeur bat.\"\n— Dr. E. Voss§r\n\n§eAlimente le RF Submission Station a 100 RF/t."
+          "desc:8": "§7100 RF/t. C'est rien. Mais c'est tout.\n§7Le Convertisseur + 4 Blocs de Compose A = 100 RF/t.\n§7Place 4 Blocs de Compose A autour du Convertisseur.\n\n§eCraft 4 Blocs de Compose A."
         }
       },
       "tasks:9": {
         "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 0,
           "index:3": 0,
-          "taskID:8": "rfexpansion:rf_rate",
-          "rf:3": 100
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:compose_block_a",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
         }
       },
       "rewards:9": {
