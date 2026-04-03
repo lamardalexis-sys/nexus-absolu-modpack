@@ -133,3 +133,31 @@ recipes.addShaped("nexus_pioche_vossium",
 // Le Compose A resonne avec la dimension et cristallise en Diamatine
 mods.actuallyadditions.AtomicReconstructor.addRecipe(<actuallyadditions:item_crystal:2>, <nexusabsolu:compose_a>, 5000);
 
+
+// === TOOLTIPS PIOCHES — visibles dans JEI ===
+// Pioche Fragmentee (Age 0)
+<nexusabsolu:pioche_fragmentee>.addTooltip("\u00A77Mine les murs des Compact Machines");
+<nexusabsolu:pioche_fragmentee>.addTooltip("\u00A7eDrops: \u00A7fWall Dust, Cobblestone, Flint, Clay");
+
+// Pioche Renforcee (Age 0)
+<nexusabsolu:pioche_renforcee>.addTooltip("\u00A77Mine les murs des Compact Machines");
+<nexusabsolu:pioche_renforcee>.addTooltip("\u00A7eDrops: \u00A7fGrits (fer, cuivre, etain, nickel)");
+<nexusabsolu:pioche_renforcee>.addTooltip("\u00A7eDrops: \u00A7fCharbon, Redstone, \u00A7dCompose A (10%)");
+
+// Pioche Cuivree (Age 1)
+<nexusabsolu:pioche_cuivree>.addTooltip("\u00A77Pioche specialisee \u00A76metaux de base");
+<nexusabsolu:pioche_cuivree>.addTooltip("\u00A7eDrops: \u00A76Cuivre 35% \u00A7f| \u00A7fEtain 30% \u00A7f| \u00A77Nickel 25%");
+
+// Pioche Ferree (Age 1)
+<nexusabsolu:pioche_ferree>.addTooltip("\u00A77Pioche specialisee \u00A78metaux lourds");
+<nexusabsolu:pioche_ferree>.addTooltip("\u00A7eDrops: \u00A7fFer 40% \u00A7f| \u00A77Plomb 25% \u00A7f| \u00A7bArgent 25%");
+
+// Pioche Precieuse (Age 1)
+<nexusabsolu:pioche_precieuse>.addTooltip("\u00A77Pioche specialisee \u00A76metaux precieux");
+<nexusabsolu:pioche_precieuse>.addTooltip("\u00A7eDrops: \u00A76Or 45% \u00A7f| \u00A7bOsmium 40%");
+
+// Pioche Vossium (Age 1)
+<nexusabsolu:pioche_vossium>.addTooltip("\u00A75Resonne avec la dimension");
+<nexusabsolu:pioche_vossium>.addTooltip("\u00A7eDrops: \u00A7dCompose A 60% \u00A7f| \u00A7aGrains of Infinity 10%");
+<nexusabsolu:pioche_vossium>.addTooltip("\u00A78Durabilite: 2500");
+
