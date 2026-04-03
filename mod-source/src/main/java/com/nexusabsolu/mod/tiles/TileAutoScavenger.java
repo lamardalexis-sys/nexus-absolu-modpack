@@ -27,13 +27,17 @@ import java.util.Random;
 
 public class TileAutoScavenger extends TileEntity implements ITickable, ISidedInventory {
 
-    // -- Constants --
-    private static final int RF_PER_TICK = 15;
-    private static final int ENERGY_CAPACITY = 5000;
-    private static final int ENERGY_MAX_INPUT = 100;
-    private static final int MINE_INTERVAL = 10; // ticks between each swing (0.5s)
+    // -- Speed System (7 levels) --
+    // Level 1: 100 ticks (5.0s), 15 RF/t  = 1500 RF/op
+    // Level 7:  15 ticks (0.75s), 100 RF/t = 1500 RF/op
+    // RF/t scales exponentially: 15 * (100/15)^((level-1)/6)
+    public static final int MIN_SPEED = 1;
+    public static final int MAX_SPEED = 7;
 
-    private static final int SLOT_PICKAXE = 0;  // Input: our custom pickaxe
+    private static final int ENERGY_CAPACITY = 10000;
+    private static final int ENERGY_MAX_INPUT = 200;
+
+    private static final int SLOT_PICKAXE = 0;
     private static final int SLOT_OUT_START = 1;
     private static final int SLOT_OUT_END = 5;
     private static final int TOTAL_SLOTS = 6;
@@ -47,6 +51,7 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
     private InternalEnergyStorage energyStorage = new InternalEnergyStorage(ENERGY_CAPACITY, ENERGY_MAX_INPUT);
     private int mineTimer = 0;
     private boolean processing = false;
+    private int speedLevel = 1;
     private Random rand = new Random();
     private EnumFacing cachedFacing = EnumFacing.NORTH;
 
@@ -62,6 +67,35 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
     public int getEnergyStored() { return energyStorage.getEnergyStored(); }
     public int getMaxEnergyStored() { return energyStorage.getMaxEnergyStored(); }
     public ItemStack getPickaxeStack() { return inventory[SLOT_PICKAXE]; }
+    public int getSpeedLevel() { return speedLevel; }
+
+    /** Ticks per operation: linear from 100 (level 1) to 15 (level 7) */
+    public int getMineInterval() {
+        return 100 - (speedLevel - 1) * 85 / 6;
+    }
+
+    /** RF/t cost: exponential from 15 (level 1) to 100 (level 7) */
+    public int getRfPerTick() {
+        // 15 * (100/15)^((level-1)/6)
+        double exponent = (speedLevel - 1) / 6.0;
+        return (int) Math.round(15.0 * Math.pow(100.0 / 15.0, exponent));
+    }
+
+    public void increaseSpeed() {
+        if (speedLevel < MAX_SPEED) {
+            speedLevel++;
+            markDirty();
+            syncToClient();
+        }
+    }
+
+    public void decreaseSpeed() {
+        if (speedLevel > MIN_SPEED) {
+            speedLevel--;
+            markDirty();
+            syncToClient();
+        }
+    }
 
     public EnumFacing getFacing() {
         if (world != null) {
@@ -80,14 +114,16 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
         if (world.isRemote) return;
 
         boolean wasProcessing = processing;
+        int rfCost = getRfPerTick();
+        int interval = getMineInterval();
 
         if (canMine()) {
-            if (energyStorage.getEnergyStored() >= RF_PER_TICK) {
-                energyStorage.drainInternal(RF_PER_TICK);
+            if (energyStorage.getEnergyStored() >= rfCost) {
+                energyStorage.drainInternal(rfCost);
                 processing = true;
                 mineTimer++;
 
-                if (mineTimer >= MINE_INTERVAL) {
+                if (mineTimer >= interval) {
                     doMineSwing();
                     mineTimer = 0;
                 }
@@ -250,6 +286,7 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
             case 0: return mineTimer;
             case 1: return energyStorage.getEnergyStored();
             case 2: return processing ? 1 : 0;
+            case 3: return speedLevel;
             default: return 0;
         }
     }
@@ -258,9 +295,10 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
             case 0: mineTimer = value; break;
             case 1: energyStorage.setEnergy(value); break;
             case 2: processing = (value == 1); break;
+            case 3: speedLevel = Math.max(MIN_SPEED, Math.min(MAX_SPEED, value)); break;
         }
     }
-    @Override public int getFieldCount() { return 3; }
+    @Override public int getFieldCount() { return 4; }
     @Override public void clear() {
         for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
     }
@@ -307,6 +345,7 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
         compound.setInteger("MineTimer", mineTimer);
         compound.setInteger("Energy", energyStorage.getEnergyStored());
         compound.setBoolean("Processing", processing);
+        compound.setInteger("SpeedLevel", speedLevel);
         NBTTagList list = new NBTTagList();
         for (int i = 0; i < TOTAL_SLOTS; i++) {
             if (!inventory[i].isEmpty()) {
@@ -327,6 +366,9 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
         int energy = compound.getInteger("Energy");
         energyStorage = new InternalEnergyStorage(ENERGY_CAPACITY, ENERGY_MAX_INPUT, energy);
         processing = compound.getBoolean("Processing");
+        speedLevel = compound.hasKey("SpeedLevel")
+            ? Math.max(MIN_SPEED, Math.min(MAX_SPEED, compound.getInteger("SpeedLevel")))
+            : 1;
         NBTTagList list = compound.getTagList("Items", 10);
         for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound tag = list.getCompoundTagAt(i);

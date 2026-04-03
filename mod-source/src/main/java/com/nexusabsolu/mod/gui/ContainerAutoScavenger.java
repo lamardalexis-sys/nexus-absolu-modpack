@@ -15,6 +15,7 @@ public class ContainerAutoScavenger extends Container {
     private final TileAutoScavenger tile;
     private int processTime = 0;
     private int energy = 0;
+    private int speedLevel = 1;
 
     public ContainerAutoScavenger(InventoryPlayer playerInv, TileAutoScavenger tile) {
         this.tile = tile;
@@ -51,9 +52,12 @@ public class ContainerAutoScavenger extends Container {
                 listener.sendWindowProperty(this, 0, tile.getMineTimer());
             if (energy != tile.getEnergyStored())
                 listener.sendWindowProperty(this, 1, tile.getEnergyStored());
+            if (speedLevel != tile.getSpeedLevel())
+                listener.sendWindowProperty(this, 2, tile.getSpeedLevel());
         }
         processTime = tile.getMineTimer();
         energy = tile.getEnergyStored();
+        speedLevel = tile.getSpeedLevel();
     }
 
     @Override
@@ -62,11 +66,24 @@ public class ContainerAutoScavenger extends Container {
         switch (id) {
             case 0: processTime = data; break;
             case 1: energy = data; break;
+            case 2: speedLevel = data; break;
         }
     }
 
     public int getProcessTime() { return processTime; }
     public int getEnergy() { return energy; }
+    public int getSpeedLevel() { return speedLevel; }
+
+    /** Compute RF/t client-side for display (same formula as tile) */
+    public int getRfPerTick() {
+        double exponent = (speedLevel - 1) / 6.0;
+        return (int) Math.round(15.0 * Math.pow(100.0 / 15.0, exponent));
+    }
+
+    /** Compute interval client-side for display */
+    public int getMineInterval() {
+        return 100 - (speedLevel - 1) * 85 / 6;
+    }
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {

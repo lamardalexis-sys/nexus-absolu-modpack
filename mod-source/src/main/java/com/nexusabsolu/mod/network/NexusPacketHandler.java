@@ -14,5 +14,7 @@ public class NexusPacketHandler {
         INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
         INSTANCE.registerMessage(PacketMiningHeartbeat.Handler.class,
             PacketMiningHeartbeat.class, packetId++, Side.SERVER);
+        INSTANCE.registerMessage(PacketScavengerSpeed.Handler.class,
+            PacketScavengerSpeed.class, packetId++, Side.SERVER);
     }
 }

@@ -1,6 +1,9 @@
 package com.nexusabsolu.mod.gui;
 
+import com.nexusabsolu.mod.network.NexusPacketHandler;
+import com.nexusabsolu.mod.network.PacketScavengerSpeed;
 import com.nexusabsolu.mod.tiles.TileAutoScavenger;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,14 +12,39 @@ import net.minecraft.item.ItemStack;
 public class GuiAutoScavenger extends GuiContainer {
 
     private final ContainerAutoScavenger container;
+    private final TileAutoScavenger tile;
     private static final int GUI_W = 176;
     private static final int GUI_H = 166;
+
+    private static final int BTN_MINUS = 0;
+    private static final int BTN_PLUS = 1;
 
     public GuiAutoScavenger(InventoryPlayer playerInv, TileAutoScavenger tile) {
         super(new ContainerAutoScavenger(playerInv, tile));
         this.container = (ContainerAutoScavenger) inventorySlots;
+        this.tile = tile;
         this.xSize = GUI_W;
         this.ySize = GUI_H;
+    }
+
+    @Override
+    public void initGui() {
+        super.initGui();
+        int gx = (width - xSize) / 2;
+        int gy = (height - ySize) / 2;
+        buttonList.add(new GuiButton(BTN_MINUS, gx + 128, gy + 18, 16, 16, "-"));
+        buttonList.add(new GuiButton(BTN_PLUS, gx + 152, gy + 18, 16, 16, "+"));
+    }
+
+    @Override
+    protected void actionPerformed(GuiButton button) {
+        if (button.id == BTN_MINUS) {
+            NexusPacketHandler.INSTANCE.sendToServer(
+                new PacketScavengerSpeed(tile.getPos(), false));
+        } else if (button.id == BTN_PLUS) {
+            NexusPacketHandler.INSTANCE.sendToServer(
+                new PacketScavengerSpeed(tile.getPos(), true));
+        }
     }
 
     @Override
@@ -40,13 +68,14 @@ public class GuiAutoScavenger extends GuiContainer {
         drawRect(gx + 79, gy + 11, gx + 97, gy + 29, 0xFF3A3A60);
         drawRect(gx + 80, gy + 12, gx + 96, gy + 28, 0xFF0D0D20);
 
-        // Arrow down
+        // Arrow down (progress)
         int arrowY = gy + 32;
+        int interval = container.getMineInterval();
         int process = container.getProcessTime();
-        int fillH = (process > 0) ? (process * 16) / 40 : 0;
+        int fillH = (interval > 0 && process > 0) ? (process * 16) / interval : 0;
         drawRect(gx + 84, arrowY, gx + 92, arrowY + 16, 0xFF0D0D20);
         if (fillH > 0) {
-            drawRect(gx + 84, arrowY, gx + 92, arrowY + fillH, 0xFF44AA66);
+            drawRect(gx + 84, arrowY, gx + 92, arrowY + Math.min(fillH, 16), 0xFF44AA66);
         }
 
         // Output slots bg
@@ -65,14 +94,37 @@ public class GuiAutoScavenger extends GuiContainer {
         drawRect(barX - 1, barY - 1, barX + barW + 1, barY + barH + 1, 0xFF4A6FA0);
         drawRect(barX, barY, barX + barW, barY + barH, 0xFF0D0D20);
         int energy = container.getEnergy();
+        int maxEnergy = 10000;
         if (energy > 0) {
-            int fillE = (energy * barH) / 5000;
+            int fillE = (int)((long) energy * barH / maxEnergy);
             for (int row = 0; row < fillE; row++) {
                 float pct = row / (float) barH;
                 int r = (int)(200 * (1.0F - pct));
                 int g = (int)(80 + 175 * pct);
                 int color = 0xFF000000 | (r << 16) | (g << 8) | 60;
                 drawRect(barX + 1, barY + barH - row - 1, barX + barW - 1, barY + barH - row, color);
+            }
+        }
+
+        // Speed panel background (right side)
+        drawRect(gx + 125, gy + 15, gx + GUI_W - 4, gy + 70, 0xFF2D2D50);
+        drawRect(gx + 126, gy + 16, gx + GUI_W - 5, gy + 69, 0xFF0D0D20);
+
+        // Speed bar (7 colored segments)
+        int speedLvl = container.getSpeedLevel();
+        int segX = gx + 128;
+        int segY = gy + 40;
+        for (int i = 1; i <= 7; i++) {
+            int sx = segX + (i - 1) * 5;
+            if (i <= speedLvl) {
+                int color;
+                if (i <= 2) color = 0xFF44AA66;
+                else if (i <= 4) color = 0xFFAAAA44;
+                else if (i <= 5) color = 0xFFDD8833;
+                else color = 0xFFCC3333;
+                drawRect(sx, segY, sx + 4, segY + 6, color);
+            } else {
+                drawRect(sx, segY, sx + 4, segY + 6, 0xFF222233);
             }
         }
 
@@ -85,10 +137,9 @@ public class GuiAutoScavenger extends GuiContainer {
         String title = "Auto-Scavenger";
         fontRenderer.drawString(title, (GUI_W - fontRenderer.getStringWidth(title)) / 2, 4, 0xFF88BBFF);
 
-        // Labels
-        fontRenderer.drawString("[P]", 83, 30, 0xFF888888); // Pickaxe slot
-        
-        // Durability indicator
+        fontRenderer.drawString("[P]", 83, 30, 0xFF888888);
+
+        // Durability
         if (container.inventorySlots.size() > 0) {
             net.minecraft.inventory.Slot pickSlot = container.inventorySlots.get(0);
             if (pickSlot.getHasStack()) {
@@ -102,13 +153,17 @@ public class GuiAutoScavenger extends GuiContainer {
         }
 
         // Energy text
-        String eStr = container.getEnergy() + " RF";
-        fontRenderer.drawString(eStr, 8, 70, 0xFFAAAAAA);
+        fontRenderer.drawString(container.getEnergy() + " RF", 8, 70, 0xFFAAAAAA);
 
-        // Status
-        if (container.getProcessTime() > 0) {
-            fontRenderer.drawString("15 RF/t", 130, 35, 0xFFFF8844);
-        }
+        // Speed panel text
+        int level = container.getSpeedLevel();
+        int rfTick = container.getRfPerTick();
+        int interval = container.getMineInterval();
+        float seconds = interval / 20.0F;
+
+        fontRenderer.drawString("Niv." + level, 128, 17, 0xFFBB88FF);
+        fontRenderer.drawString(String.format("%.1fs", seconds), 128, 49, 0xFFAAAAFF);
+        fontRenderer.drawString(rfTick + " RF/t", 128, 59, 0xFFFF8844);
     }
 
     @Override
