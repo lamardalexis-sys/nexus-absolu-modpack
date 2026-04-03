@@ -4770,8 +4770,7 @@
     "65:10": {
       "questID:3": 65,
       "preRequisites:11": [
-        57,
-        61
+        57
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -5277,7 +5276,6 @@
       "questID:3": 72,
       "preRequisites:11": [
         71,
-        61,
         64
       ],
       "properties:10": {
@@ -5877,8 +5875,7 @@
     "80:10": {
       "questID:3": 80,
       "preRequisites:11": [
-        55,
-        61
+        55
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -6094,7 +6091,6 @@
     "83:10": {
       "questID:3": 83,
       "preRequisites:11": [
-        58,
         77
       ],
       "properties:10": {
@@ -6374,7 +6370,6 @@
     "89:10": {
       "questID:3": 89,
       "preRequisites:11": [
-        61,
         75
       ],
       "properties:10": {
