@@ -40,7 +40,7 @@ public class ModItems {
 
     // === PIOCHE STEELIUM (Age 1 — post-steel) ===
     private static final Item.ToolMaterial MAT_STEEL = net.minecraftforge.common.util.EnumHelper
-        .addToolMaterial("NEXUS_STEEL", 3, 2000, 7.0F, 2.5F, 14);
+        .addToolMaterial("NEXUS_STEEL", 3, 3000, 7.0F, 2.5F, 14);
     public static final Item PIOCHE_STEELIUM = new ItemPioche("pioche_steelium",
         MAT_STEEL, 4, "steelium");         // compose_b, obsidian frag, diamond, emerald
 

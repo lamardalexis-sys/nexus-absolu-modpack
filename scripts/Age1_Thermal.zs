@@ -286,7 +286,7 @@ mods.jei.JEI.addDescription(<nexusabsolu:pioche_steelium>,
     "- Emerald (10%)",
     "- Wall Dust (40%)",
     "",
-    "Durabilite: 2000"
+    "Durabilite: 3000"
 );
 
 mods.jei.JEI.addDescription(<nexusabsolu:obsidian_fragment>,
