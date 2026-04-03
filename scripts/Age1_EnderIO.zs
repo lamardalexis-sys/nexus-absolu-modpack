@@ -3,12 +3,20 @@
 // EnderIO inter-mod recipes (salle 9x9-11x11)
 // ============================================
 
-// === ALLOY SMELTER -- necessite Thermal component ===
+// === ALLOY SMELTER -- la machine a acier ===
 recipes.remove(<enderio:block_alloy_smelter>);
 recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
-    [[<ore:ingotDarkSteel>, <minecraft:furnace>, <ore:ingotDarkSteel>],
+    [[<ore:ingotInvar>, <minecraft:iron_ingot>, <ore:ingotInvar>],
      [<minecraft:furnace>, <enderio:item_material>, <minecraft:furnace>],
-     [<ore:ingotDarkSteel>, <thermalexpansion:frame>, <ore:ingotDarkSteel>]]);
+     [<ore:gearInvar>, <exnihilocreatio:block_barrel0>, <ore:gearInvar>]]);
+
+// === STEEL — Coal Coke + Iron + Wall Dust dans l'Alloy Smelter ===
+// Seule methode pour faire du steel dans le modpack
+mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>], 5000);
+
+// === REMOVE toutes les autres recettes de steel ===
+mods.immersiveengineering.BlastFurnace.removeRecipe(<thermalfoundation:material:160>);
+mods.immersiveengineering.BlastFurnace.removeRecipe(<immersiveengineering:metal:8>);
 
 // === SAG MILL -- necessite IE + Tinkers ===
 recipes.remove(<enderio:block_sag_mill>);
