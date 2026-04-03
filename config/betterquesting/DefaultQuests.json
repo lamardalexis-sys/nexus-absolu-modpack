@@ -5973,12 +5973,12 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "actuallyadditions:item_chest_emerald",
+            "id:8": "actuallyadditions:item_chest_crystal_green",
             "Count:3": 1,
             "Damage:2": 0
           },
           "name:8": "\u00a7l\u00a72L'armure des verts",
-          "desc:8": "\u00a77L'emeraude n'est pas qu'une gemme decorative.\n\u00a77Actually Additions a decouvert comment en faire une armure.\n\u00a77Verte. Solide. Distinctive.\n\n\u00a7o\u00a7d\"Le vert est la couleur de la croissance.\n\u00a7o\u00a7dPorte-la et grandis.\"\n\u00a7o\u00a7d\u2014 Carnet n\u00b015\n\n\u00a7eObtiens l'armure complete en emeraude."
+          "desc:8": "\u00a77Les cristaux d'Actually Additions ne sont pas que decoratifs.\n\u00a77L'Emeradic Crystal est le plus equilibre.\n\u00a77Armure complete + l'AIOT, l'outil ultime.\n\n\u00a7o\u00a7d\"Le vert n'est pas une couleur. C'est une frequence.\"\n\u00a7o\u00a7d\u2014 Carnet n\u00b015\n\n\u00a7eObtiens l'armure Emeradic Crystal complete + l'AIOT."
         }
       },
       "tasks:9": {
@@ -5986,25 +5986,31 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "actuallyadditions:item_helm_emerald",
+              "id:8": "actuallyadditions:item_helm_crystal_green",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
             },
             "1:10": {
-              "id:8": "actuallyadditions:item_chest_emerald",
+              "id:8": "actuallyadditions:item_chest_crystal_green",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
             },
             "2:10": {
-              "id:8": "actuallyadditions:item_pants_emerald",
+              "id:8": "actuallyadditions:item_pants_crystal_green",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
             },
             "3:10": {
-              "id:8": "actuallyadditions:item_boots_emerald",
+              "id:8": "actuallyadditions:item_boots_crystal_green",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "4:10": {
+              "id:8": "actuallyadditions:item_paxel_crystal_green",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
