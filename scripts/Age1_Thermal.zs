@@ -134,30 +134,106 @@ recipes.addShaped("nexus_pioche_vossium",
 mods.actuallyadditions.AtomicReconstructor.addRecipe(<actuallyadditions:item_crystal:2>, <nexusabsolu:compose_a>, 5000);
 
 
-// === TOOLTIPS PIOCHES — visibles dans JEI ===
-// Pioche Fragmentee (Age 0)
+// === TOOLTIPS PIOCHES — visibles au survol ===
 <nexusabsolu:pioche_fragmentee>.addTooltip("\u00A77Mine les murs des Compact Machines");
-<nexusabsolu:pioche_fragmentee>.addTooltip("\u00A7eDrops: \u00A7fWall Dust, Cobblestone, Flint, Clay");
-
-// Pioche Renforcee (Age 0)
 <nexusabsolu:pioche_renforcee>.addTooltip("\u00A77Mine les murs des Compact Machines");
-<nexusabsolu:pioche_renforcee>.addTooltip("\u00A7eDrops: \u00A7fGrits (fer, cuivre, etain, nickel)");
-<nexusabsolu:pioche_renforcee>.addTooltip("\u00A7eDrops: \u00A7fCharbon, Redstone, \u00A7dCompose A (10%)");
-
-// Pioche Cuivree (Age 1)
-<nexusabsolu:pioche_cuivree>.addTooltip("\u00A77Pioche specialisee \u00A76metaux de base");
-<nexusabsolu:pioche_cuivree>.addTooltip("\u00A7eDrops: \u00A76Cuivre 35% \u00A7f| \u00A7fEtain 30% \u00A7f| \u00A77Nickel 25%");
-
-// Pioche Ferree (Age 1)
-<nexusabsolu:pioche_ferree>.addTooltip("\u00A77Pioche specialisee \u00A78metaux lourds");
-<nexusabsolu:pioche_ferree>.addTooltip("\u00A7eDrops: \u00A7fFer 40% \u00A7f| \u00A77Plomb 25% \u00A7f| \u00A7bArgent 25%");
-
-// Pioche Precieuse (Age 1)
-<nexusabsolu:pioche_precieuse>.addTooltip("\u00A77Pioche specialisee \u00A76metaux precieux");
-<nexusabsolu:pioche_precieuse>.addTooltip("\u00A7eDrops: \u00A76Or 45% \u00A7f| \u00A7bOsmium 40%");
-
-// Pioche Vossium (Age 1)
+<nexusabsolu:pioche_cuivree>.addTooltip("\u00A77Specialisee \u00A76metaux de base");
+<nexusabsolu:pioche_ferree>.addTooltip("\u00A77Specialisee \u00A78metaux lourds");
+<nexusabsolu:pioche_precieuse>.addTooltip("\u00A77Specialisee \u00A76metaux precieux");
 <nexusabsolu:pioche_vossium>.addTooltip("\u00A75Resonne avec la dimension");
-<nexusabsolu:pioche_vossium>.addTooltip("\u00A7eDrops: \u00A7dCompose A 60% \u00A7f| \u00A7aGrains of Infinity 10%");
-<nexusabsolu:pioche_vossium>.addTooltip("\u00A78Durabilite: 2500");
+
+// === JEI DESCRIPTIONS — visibles avec U ===
+mods.jei.JEI.addDescription(<nexusabsolu:pioche_fragmentee>,
+    "PIOCHE FRAGMENTEE",
+    "",
+    "Frappe les murs des Compact Machines pour extraire des ressources basiques.",
+    "",
+    "Drops:",
+    "- Wall Dust (garanti)",
+    "- Cobblestone Fragment (30%)",
+    "- Flint (20%)",
+    "- Clay (15%)",
+    "",
+    "Durabilite: bois"
+);
+
+mods.jei.JEI.addDescription(<nexusabsolu:pioche_renforcee>,
+    "PIOCHE RENFORCEE",
+    "",
+    "Version amelioree. Extrait des grits metalliques des murs.",
+    "",
+    "Drops:",
+    "- Iron Grit (12%)",
+    "- Copper Grit (13%)",
+    "- Tin Grit (10%)",
+    "- Charbon (10%)",
+    "- Redstone (8%)",
+    "- Nickel Grit (5%)",
+    "- Compose A (10%)",
+    "- Wall Dust (32%)",
+    "",
+    "Durabilite: fer"
+);
+
+mods.jei.JEI.addDescription(<nexusabsolu:pioche_cuivree>,
+    "PIOCHE CUIVREE",
+    "",
+    "Specialisee dans les metaux de base.",
+    "Necessite un Cristal Enori (Atomic Reconstructor).",
+    "",
+    "Drops:",
+    "- Copper Grit (35%)",
+    "- Tin Grit (30%)",
+    "- Nickel Grit (25%)",
+    "- Wall Dust (10%)",
+    "",
+    "Durabilite: 1500"
+);
+
+mods.jei.JEI.addDescription(<nexusabsolu:pioche_ferree>,
+    "PIOCHE FERREE",
+    "",
+    "Specialisee dans les metaux lourds.",
+    "Necessite un Cristal Void (Atomic Reconstructor).",
+    "",
+    "Drops:",
+    "- Iron Grit (40%)",
+    "- Lead Grit (25%)",
+    "- Silver Grit (25%)",
+    "- Wall Dust (10%)",
+    "",
+    "Durabilite: 1500"
+);
+
+mods.jei.JEI.addDescription(<nexusabsolu:pioche_precieuse>,
+    "PIOCHE PRECIEUSE",
+    "",
+    "Specialisee dans les metaux rares.",
+    "Necessite un Cristal Restonia (Atomic Reconstructor).",
+    "",
+    "Drops:",
+    "- Gold Grit (45%)",
+    "- Osmium Grit (40%)",
+    "- Wall Dust (15%)",
+    "",
+    "Durabilite: 1500"
+);
+
+mods.jei.JEI.addDescription(<nexusabsolu:pioche_vossium>,
+    "PIOCHE VOSSIUM",
+    "",
+    "Le Vossium resonne avec la dimension.",
+    "Necessite un Cristal Diamatine (Compose A + Atomic Reconstructor).",
+    "",
+    "Drops:",
+    "- Compose A (60%)",
+    "- Grains of Infinity (10%)",
+    "- Wall Dust (30%)",
+    "",
+    "Durabilite: 2500",
+    "",
+    "\"Le Vossium vibre quand il touche les murs.",
+    "L'energie cristallisee se libere.\"",
+    "- Dr. E. Voss"
+);
 
