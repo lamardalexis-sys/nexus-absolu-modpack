@@ -21,8 +21,12 @@ recipes.addShaped("nexus_induction_smelter", <thermalexpansion:machine:3>,
      [<ore:gearInvar>, <thermalexpansion:frame>, <ore:gearInvar>],
      [<ore:ingotInvar>, <minecraft:bucket>, <ore:ingotInvar>]]);
 
-// === REDSTONE FURNACE -- PAS modifie (premiere machine du joueur) ===
-// Le joueur en a besoin tres tot, pas de gate
+// === REDSTONE FURNACE -- gear copper remplace par Inf Bimetal Gear ===
+recipes.remove(<thermalexpansion:machine:0>);
+recipes.addShaped("nexus_redstone_furnace", <thermalexpansion:machine:0>,
+    [[null, <minecraft:redstone>, null],
+     [<enderio:item_material:11>, <thermalexpansion:frame>, <enderio:item_material:11>],
+     [<ore:ingotBronze>, <minecraft:furnace>, <ore:ingotBronze>]]);
 
 // === MAGMATIC DYNAMO -- necessite IE Heater ===
 recipes.remove(<thermalexpansion:dynamo:1>);
