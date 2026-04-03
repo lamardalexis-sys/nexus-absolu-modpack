@@ -31,7 +31,7 @@
             }
           },
           "name:8": "§l§5Les yeux s'ouvrent",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_reveil.png;180;100;180;100{Embed}\n\n§7Tu te reveilles. L'air est immobile.\n§7Les murs sont blancs. Ou gris. Ou les deux.\n§7Il y a un coffre. Et un livre.\n\n§8§o\"Sujet inconnu. Etat : inconscient. Transfert en cellule d'observation complete.\nProtocole Voss-7 active.\"\n— Journal automatise, entree 1§r\n\n§eBienvenue dans Nexus Absolu.\n§7Ouvre le coffre. Lis le livre."
+          "desc:8": "§7Tu te reveilles. L'air est immobile.\n§7Les murs sont blancs. Ou gris. Ou les deux.\n§7Il y a un coffre. Et un livre.\n\n§8§o\"Sujet inconnu. Etat : inconscient. Transfert en cellule d'observation complete.\nProtocole Voss-7 active.\"\n— Journal automatise, entree 1§r\n\n§eBienvenue dans Nexus Absolu.\n§7Ouvre le coffre. Lis le livre."
         }
       },
       "tasks:9": {
@@ -621,7 +621,7 @@
             "OreDict:8": ""
           },
           "name:8": "§lLe tamis primitif",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_tamis.png;180;100;180;100{Embed}\n\n§7Un cadre en bois. De la ficelle tendue.\n§7Verse le gravier. Regarde ce qui tombe.\n§7C'est de la science a l'etat brut :\n§7on separe, on observe, on apprend.\n\n§o§dLe tamis est l'instrument le plus sous-estime\nde l'histoire des sciences. Newton n'avait\npas de tamis. C'est pour ca qu'il a mis\nsi longtemps a comprendre la gravite.\n— Dr. E. Voss§r\n\n§e> Craft 1 tamis Ex Nihilo."
+          "desc:8": "§7Un cadre en bois. De la ficelle tendue.\n§7Verse le gravier. Regarde ce qui tombe.\n§7C'est de la science a l'etat brut :\n§7on separe, on observe, on apprend.\n\n§o§dLe tamis est l'instrument le plus sous-estime\nde l'histoire des sciences. Newton n'avait\npas de tamis. C'est pour ca qu'il a mis\nsi longtemps a comprendre la gravite.\n— Dr. E. Voss§r\n\n§e> Craft 1 tamis Ex Nihilo."
         }
       },
       "tasks:9": {
@@ -1530,7 +1530,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§eLa pioche renforcee",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_pioche_renforcee.png;180;100;180;100{Embed}\n\n§7Des pepites de fer. Du silex. De la ficelle.\n§7Un outil qui mord le mur au lieu de le gratter.\n\n§8§o\"La Pioche Renforcee extrait des grits — eclats metalliques bruts.\n4 grits = 1 grit brut. Le four fait le reste.\"\n— Notes du Dr. Voss, annexe 12§r\n\n§eLa pioche renforcee change tout.\n§7Les murs deviennent une mine."
+          "desc:8": "§7Des pepites de fer. Du silex. De la ficelle.\n§7Un outil qui mord le mur au lieu de le gratter.\n\n§8§o\"La Pioche Renforcee extrait des grits — eclats metalliques bruts.\n4 grits = 1 grit brut. Le four fait le reste.\"\n— Notes du Dr. Voss, annexe 12§r\n\n§eLa pioche renforcee change tout.\n§7Les murs deviennent une mine."
         }
       },
       "tasks:9": {
@@ -2033,7 +2033,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6Le Alloy Kiln",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_alloy_kiln.png;180;100;180;100{Embed}\n\n§7Un cube de 2x2x2 Kiln Bricks.\n§7Le premier four d'alliages.\n§7Charbon + deux metaux = un alliage.\n§7Pas de RF. Pas d'electricite. Juste de la chaleur.\n\n§8§o\"L'Alloy Kiln est primitif mais essentiel. Bronze et Invar — les deux piliers de l'Age 0.\"\n— Dr. E. Voss§r\n\n§63 cuivre + 1 etain = Bronze\n§62 fer + 1 nickel = Invar"
+          "desc:8": "§7Un cube de 2x2x2 Kiln Bricks.\n§7Le premier four d'alliages.\n§7Charbon + deux metaux = un alliage.\n§7Pas de RF. Pas d'electricite. Juste de la chaleur.\n\n§8§o\"L'Alloy Kiln est primitif mais essentiel. Bronze et Invar — les deux piliers de l'Age 0.\"\n— Dr. E. Voss§r\n\n§63 cuivre + 1 etain = Bronze\n§62 fer + 1 nickel = Invar"
         }
       },
       "tasks:9": {
@@ -2476,7 +2476,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§eL'etincelle",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_etincelle.png;180;100;180;100{Embed}\n\n§7Le Convertisseur du Dr. Voss.\n§7La machine qui transforme l'impossible en RF.\n§7Place le Bloc de Compose A a cote.\n§725 RF/t. C'est peu. Mais c'est tout.\n\n§8§o\"L'energie dimensionnelle cristallisee peut alimenter des machines. J'ai appele ce processus la Conversion Voss.\"\n— Carnet n°3§r\n\n§ePremieres etincelles d'energie dans la boite."
+          "desc:8": "§7Le Convertisseur du Dr. Voss.\n§7La machine qui transforme l'impossible en RF.\n§7Place le Bloc de Compose A a cote.\n§725 RF/t. C'est peu. Mais c'est tout.\n\n§8§o\"L'energie dimensionnelle cristallisee peut alimenter des machines. J'ai appele ce processus la Conversion Voss.\"\n— Carnet n°3§r\n\n§ePremieres etincelles d'energie dans la boite."
         }
       },
       "tasks:9": {
@@ -2764,7 +2764,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLa machine qui respire",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_condenseur.png;180;100;180;100{Embed}\n\n§7Le Condenseur Dimensionnel.\n§7Bronze, invar, redstone, Compose.\n§7La machine que Voss a construite\n§7pour fusionner les dimensions.\n\n§8§o\"Le Condenseur plie l'espace. Deux CM identiques + une Cle + du RF = une CM plus grande. La physique proteste. Je l'ignore.\"\n— Dr. E. Voss§r\n\n§d2x2x2 multibloc : Condenseur + Nexus Walls + Verre + Redstone Block"
+          "desc:8": "§7Le Condenseur Dimensionnel.\n§7Bronze, invar, redstone, Compose.\n§7La machine que Voss a construite\n§7pour fusionner les dimensions.\n\n§8§o\"Le Condenseur plie l'espace. Deux CM identiques + une Cle + du RF = une CM plus grande. La physique proteste. Je l'ignore.\"\n— Dr. E. Voss§r\n\n§d2x2x2 multibloc : Condenseur + Nexus Walls + Verre + Redstone Block"
         }
       },
       "tasks:9": {
@@ -2966,7 +2966,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLa fissure dimensionnelle",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_fissure.png;180;100;180;100{Embed}\n\n§7Deux Compact Machines 3x3.\n§7Une cle. Un catalyseur. Du RF.\n§7Le Condenseur vibre. L'air craque.\n§7La dimension se plie.\n\n§d§lUne Compact Machine 5x5 apparait.§r\n\n§8§o\"Premier test de fusion reussi. La CM resultante est stable. Les murs tiennent. Le sujet peut continuer.\"\n— Journal automatise, entree 47§r"
+          "desc:8": "§7Deux Compact Machines 3x3.\n§7Une cle. Un catalyseur. Du RF.\n§7Le Condenseur vibre. L'air craque.\n§7La dimension se plie.\n\n§d§lUne Compact Machine 5x5 apparait.§r\n\n§8§o\"Premier test de fusion reussi. La CM resultante est stable. Les murs tiennent. Le sujet peut continuer.\"\n— Journal automatise, entree 47§r"
         }
       },
       "tasks:9": {
@@ -3519,7 +3519,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§5Le Vossium",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age0_vossium.png;180;100;180;100{Embed}\n\n§7Invarium et Compose A dans le Alloy Kiln.\n§7Le Compose s'infiltre dans les frontieres de l'Invarium.\n§7Un reseau de canaux dimensionnels s'active.\n\n§5§lLe Vossium est ne.§r\n\n§8§o\"Cet alliage n'existe dans aucun manuel. Il conduit l'energie dimensionnelle.\nJe l'ai appele Vossium. Par modestie, evidemment.\"\n— Dr. E. Voss§r"
+          "desc:8": "§7Invarium et Compose A dans le Alloy Kiln.\n§7Le Compose s'infiltre dans les frontieres de l'Invarium.\n§7Un reseau de canaux dimensionnels s'active.\n\n§5§lLe Vossium est ne.§r\n\n§8§o\"Cet alliage n'existe dans aucun manuel. Il conduit l'energie dimensionnelle.\nJe l'ai appele Vossium. Par modestie, evidemment.\"\n— Dr. E. Voss§r"
         }
       },
       "tasks:9": {
@@ -4359,7 +4359,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6L'atelier ressuscite",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/atelier_voss.png;180;100;180;100{Embed}\n\n§7Des plans griffonnes partout. Voss etait la avant toi.\n\n§8§oL'Atelier du Dr. Voss est sa table de travail personnelle. Les recettes qu'il a inventees ne fonctionnent nulle part ailleurs.§r\n\n§eConstruis l'Atelier pour debloquer ses plans secrets."
+          "desc:8": "§7Des plans griffonnes partout. Voss etait la avant toi.\n\n§8§oL'Atelier du Dr. Voss est sa table de travail personnelle. Les recettes qu'il a inventees ne fonctionnent nulle part ailleurs.§r\n\n§eConstruis l'Atelier pour debloquer ses plans secrets."
         }
       },
       "tasks:9": {
@@ -4585,7 +4585,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§dLe Compose B",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/compose_b.png;180;100;180;100{Embed}\n\n§7Plus dense. Plus instable. Plus puissant.\n\n§8§o\"Le Compose B est la deuxieme couche. Les canaux secondaires s'activent. L'Invarium tremble.\"§r\n— Fragment de notes, mur Est\n\n§dObtiens 4 Compose B pour continuer."
+          "desc:8": "§7Plus dense. Plus instable. Plus puissant.\n\n§8§o\"Le Compose B est la deuxieme couche. Les canaux secondaires s'activent. L'Invarium tremble.\"§r\n— Fragment de notes, mur Est\n\n§dObtiens 4 Compose B pour continuer."
         }
       },
       "tasks:9": {
@@ -5381,7 +5381,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§5Le Condenseur Tier 2",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/condenseur_t2.png;180;100;180;100{Embed}\n\n§7La dimension tremble. Elle sait ce que tu fais."
+          "desc:8": "§7La dimension tremble. Elle sait ce que tu fais."
         }
       },
       "tasks:9": {
@@ -6769,7 +6769,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6Le Fragment Mecanique",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/fragment_mecanique.png;180;100;180;100{Embed}\n\n§7Il pulse. Tu le sens dans tes os.\n§7Le premier fragment existe.\n§7Voss en revait. Tu l'as fait.\n\n§6§lLe Fragment Mecanique§r\n§7Premier des neuf fragments.\n§e§lPlus que huit.§r"
+          "desc:8": "§7Il pulse. Tu le sens dans tes os.\n§7Le premier fragment existe.\n§7Voss en revait. Tu l'as fait.\n\n§6§lLe Fragment Mecanique§r\n§7Premier des neuf fragments.\n§e§lPlus que huit.§r"
         }
       },
       "tasks:9": {
@@ -6916,7 +6916,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6Fin de l'Age 1",
-          "desc:8": "{Embed}TypeImage;nexusabsolu:textures/quests/age1_fin.png;180;100;180;100{Embed}\n\n§7La Mecanique Brute est derriere toi.\n\n§8§o\"Celui qui maitrise l'energie maitrise la matiere. Celui qui maitrise la matiere peut tout transformer.\"§r\n— Dr. E. Voss\n\n§5§lDevant : le Paradoxe Organique.§r\n§7La magie existe. Voss l'a prouve."
+          "desc:8": "§7La Mecanique Brute est derriere toi.\n\n§8§o\"Celui qui maitrise l'energie maitrise la matiere. Celui qui maitrise la matiere peut tout transformer.\"§r\n— Dr. E. Voss\n\n§5§lDevant : le Paradoxe Organique.§r\n§7La magie existe. Voss l'a prouve."
         }
       },
       "tasks:9": {
