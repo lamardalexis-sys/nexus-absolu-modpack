@@ -59,15 +59,15 @@ recipes.addShaped("nexus_auto_scavenger",
 
 // Fluiduct Opaque (fluid pipe) — custom recipe
 // Pour transporter l'eau vers la Steam Dynamo
-//   [clay]   [copper]  [clay]    <- isolation + conducteur
+//   [clay]   [bronze]  [clay]    <- isolation + conducteur
 //   [clay]   [glass]   [clay]    <- fluide visible
-//   [clay]   [copper]  [clay]    <- isolation + conducteur
+//   [clay]   [bronze]  [clay]    <- isolation + conducteur
 recipes.remove(<thermaldynamics:duct_16>);
 recipes.addShaped("nexus_fluiduct_opaque",
     <thermaldynamics:duct_16> * 4,
-    [[<minecraft:clay_ball>, <ore:ingotCopper>, <minecraft:clay_ball>],
+    [[<minecraft:clay_ball>, <ore:ingotBronze>, <minecraft:clay_ball>],
      [<minecraft:clay_ball>, <ore:blockGlass>, <minecraft:clay_ball>],
-     [<minecraft:clay_ball>, <ore:ingotCopper>, <minecraft:clay_ball>]]);
+     [<minecraft:clay_ball>, <ore:ingotBronze>, <minecraft:clay_ball>]]);
 
 
 // === ATOMIC RECONSTRUCTOR — necessite Machine Frame (force Thermal) ===
