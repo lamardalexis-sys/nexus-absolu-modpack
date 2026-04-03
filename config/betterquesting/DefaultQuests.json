@@ -5973,32 +5973,45 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "enderio:item_dark_steel_chestplate",
+            "id:8": "actuallyadditions:item_chest_emerald",
             "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
+            "Damage:2": 0
           },
-          "name:8": "\u00a7lL'armure des ombres",
-          "desc:8": "\u00a77Protection. Le joueur se sent invincible."
+          "name:8": "\u00a7l\u00a72L'armure des verts",
+          "desc:8": "\u00a77L'emeraude n'est pas qu'une gemme decorative.\n\u00a77Actually Additions a decouvert comment en faire une armure.\n\u00a77Verte. Solide. Distinctive.\n\n\u00a7o\u00a7d\"Le vert est la couleur de la croissance.\n\u00a7o\u00a7dPorte-la et grandis.\"\n\u00a7o\u00a7d\u2014 Carnet n\u00b015\n\n\u00a7eObtiens l'armure complete en emeraude."
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
-          "index:3": 0,
-          "consume:1": 0,
+          "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "enderio:item_dark_steel_chestplate",
+              "id:8": "actuallyadditions:item_helm_emerald",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "actuallyadditions:item_chest_emerald",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "actuallyadditions:item_pants_emerald",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "3:10": {
+              "id:8": "actuallyadditions:item_boots_emerald",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
             }
           },
-          "taskID:8": "bq_standard:retrieval"
+          "consume:1": 0,
+          "autoConsume:1": 0
         }
       },
       "rewards:9": {
