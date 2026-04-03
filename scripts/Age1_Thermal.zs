@@ -298,3 +298,37 @@ mods.jei.JEI.addDescription(<nexusabsolu:obsidian_fragment>,
     "Source: Pioche Steelium (20%)"
 );
 
+
+// === JEI DESCRIPTION — Atelier du Dr. Voss ===
+mods.jei.JEI.addDescription(<nexusabsolu:atelier_voss>,
+    "ATELIER DU DR. VOSS",
+    "",
+    "Table de travail unique du Dr. Voss.",
+    "Place 2 ingredients dans les slots de gauche.",
+    "",
+    "Recettes:",
+    "- 2 Planks + 1 Stick = 1 Pioche Fragmentee",
+    "- 2 Iron Nuggets + 1 Wall Dust = 1 Pioche Renforcee",
+    "- 1 Bloc de Fer + 1 Redstone = 4 CM Walls",
+    "- 4 CM Walls + 1 Hopper = 2 Tunnels"
+);
+
+mods.jei.JEI.addDescription(<compactmachines3:wallbreakable>,
+    "COMPACT MACHINE WALL",
+    "",
+    "Mur de Compact Machine (cassable).",
+    "",
+    "Craft: Atelier du Dr. Voss",
+    "1 Bloc de Fer + 1 Redstone = 4 Walls"
+);
+
+mods.jei.JEI.addDescription(<compactmachines3:tunnel>,
+    "COMPACT MACHINE TUNNEL",
+    "",
+    "Transfere items, fluides et energie",
+    "entre l'interieur et l'exterieur d'une CM.",
+    "",
+    "Craft: Atelier du Dr. Voss",
+    "4 CM Walls + 1 Hopper = 2 Tunnels"
+);
+
