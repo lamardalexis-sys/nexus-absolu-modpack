@@ -8,7 +8,7 @@ recipes.remove(<enderio:block_alloy_smelter>);
 recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
     [[<ore:ingotInvar>, <minecraft:iron_ingot>, <ore:ingotInvar>],
      [<minecraft:furnace>, <enderio:item_material>, <minecraft:furnace>],
-     [<ore:gearInvar>, <exnihilocreatio:block_barrel0>, <ore:gearInvar>]]);
+     [<ore:gearInvar>, <immersiveengineering:wooden_device0:1>, <ore:gearInvar>]]);
 
 // === STEEL — Coal Coke + Iron + Wall Dust dans l'Alloy Smelter ===
 mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>], 5000);
