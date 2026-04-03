@@ -40,7 +40,7 @@ public class AtelierJEIPlugin implements IModPlugin {
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
         // Hide all Miniaturization recipes one by one
         try {
-            mezz.jei.api.recipe.IRecipeRegistry reg = jeiRuntime.getRecipeRegistry();
+            mezz.jei.api.IRecipeRegistry reg = jeiRuntime.getRecipeRegistry();
             for (mezz.jei.api.recipe.IRecipeCategory<?> category : reg.getRecipeCategories()) {
                 if (category.getUid().toLowerCase().contains("miniaturization")) {
                     for (Object wrapper : reg.getRecipeWrappers(category)) {
