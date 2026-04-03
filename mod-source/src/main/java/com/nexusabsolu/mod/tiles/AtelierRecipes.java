@@ -16,14 +16,6 @@ public class AtelierRecipes {
     public static List<Recipe> getRecipes() { return RECIPES; }
 
     static {
-        // Pioche Fragmentee : 2 planks + 1 stick
-        addRecipe(Item.getItemFromBlock(Blocks.PLANKS), 2, Items.STICK, 1,
-                  ModItems.PIOCHE_FRAGMENTEE, 1);
-
-        // Pioche Renforcee : 2 iron nuggets + 1 wall_dust
-        addRecipe(Items.IRON_NUGGET, 2, ModItems.WALL_DUST, 1,
-                  ModItems.PIOCHE_RENFORCEE, 1);
-
         // Compact Machine Wall (breakable) : 1 iron block + 1 redstone = 4 walls
         Item cmWall = Item.getByNameOrId("compactmachines3:wallbreakable");
         if (cmWall != null) {
