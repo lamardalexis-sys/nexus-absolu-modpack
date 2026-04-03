@@ -10,10 +10,6 @@ recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
      [<minecraft:furnace>, <enderio:item_material>, <minecraft:furnace>],
      [<ore:gearInvar>, <exnihilocreatio:block_barrel0>, <ore:gearInvar>]]);
 
-// === STEEL — Coal Coke + Iron + Wall Dust dans l'Alloy Smelter ===
-// Seule methode pour faire du steel dans le modpack
-mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>], 5000);
-
 // === REMOVE toutes les autres recettes de steel ===
 mods.immersiveengineering.BlastFurnace.removeRecipe(<thermalfoundation:material:160>);
 mods.immersiveengineering.BlastFurnace.removeRecipe(<immersiveengineering:metal:8>);
@@ -40,4 +36,14 @@ mods.thermalexpansion.InductionSmelter.removeRecipe(<minecraft:iron_ingot>, <the
 mods.thermalexpansion.InductionSmelter.removeRecipe(<thermalfoundation:material:32>, <minecraft:iron_ingot>);
 mods.thermalexpansion.InductionSmelter.removeRecipe(<minecraft:iron_ingot>, <minecraft:coal>);
 mods.thermalexpansion.InductionSmelter.removeRecipe(<minecraft:coal>, <minecraft:iron_ingot>);
+
+
+// === REMOVE default steel recipes from Alloy Smelter ===
+// Only our custom recipe (coal coke + iron + wall dust) should work
+mods.enderio.AlloySmelter.removeRecipe(<thermalfoundation:material:160>);
+mods.enderio.AlloySmelter.removeRecipe(<immersiveengineering:metal:8>);
+mods.enderio.AlloySmelter.removeRecipe(<enderio:item_alloy_ingot:7>);
+
+// Re-add ONLY our custom recipe
+mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>], 5000);
 
