@@ -264,8 +264,8 @@ recipes.addShaped("nexus_steel_stick",
 recipes.addShaped("nexus_pioche_steelium",
     <nexusabsolu:pioche_steelium>,
     [[<contenttweaker:vossium_ingot>, <thermalfoundation:material:160>, <contenttweaker:vossium_ingot>],
-     [null, <contenttweaker:steel_stick>, null],
-     [null, <contenttweaker:steel_stick>, null]]);
+     [null, <immersiveengineering:material:2>, null],
+     [null, <immersiveengineering:material:2>, null]]);
 
 // === OBSIDIAN FRAGMENT — 4 fragments = 1 obsidian ===
 recipes.addShaped("nexus_obsidian_from_fragments",
