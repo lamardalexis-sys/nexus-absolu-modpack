@@ -3769,6 +3769,12 @@
               "Count:3": 4,
               "Damage:2": 0,
               "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "nexusabsolu:convertisseur_voss",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
             }
           },
           "taskID:8": "bq_standard:retrieval"
