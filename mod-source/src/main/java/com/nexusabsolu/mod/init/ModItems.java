@@ -38,8 +38,15 @@ public class ModItems {
     public static final Item PIOCHE_VOSSIUM = new ItemPioche("pioche_vossium",
         MAT_VOSS, 3, "compose");           // compose_a only (high rate)
 
+    // === PIOCHE STEELIUM (Age 1 — post-steel) ===
+    private static final Item.ToolMaterial MAT_STEEL = net.minecraftforge.common.util.EnumHelper
+        .addToolMaterial("NEXUS_STEEL", 3, 2000, 7.0F, 2.5F, 14);
+    public static final Item PIOCHE_STEELIUM = new ItemPioche("pioche_steelium",
+        MAT_STEEL, 4, "steelium");         // compose_b, obsidian frag, diamond, emerald
+
     // === GRITS (scavenging) ===
     public static final Item WALL_DUST = new ItemBase("wall_dust");
+    public static final Item OBSIDIAN_FRAGMENT = new ItemBase("obsidian_fragment");
     public static final Item IRON_GRIT = new ItemGrit("iron_grit", "Iron");
     public static final Item COPPER_GRIT = new ItemGrit("copper_grit", "Copper");
     public static final Item TIN_GRIT = new ItemGrit("tin_grit", "Tin");

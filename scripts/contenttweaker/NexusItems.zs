@@ -25,6 +25,7 @@ function buildItem(name as string) {
 // ============================================
 
 buildItem("wall_dust");
+buildItem("steel_stick");
 buildItem("iron_grit");
 buildItem("copper_grit");
 buildItem("tin_grit");

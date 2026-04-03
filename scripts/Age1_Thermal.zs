@@ -250,3 +250,51 @@ recipes.addShaped("nexus_reinforced_upgrade",
      [<ore:ingotElectrum>, <ore:gearBronze>, <ore:ingotElectrum>],
      [<ore:blockGlass>, <ore:ingotElectrum>, <ore:blockGlass>]]);
 
+
+// === STEEL STICK — 2 steel = 4 steel sticks ===
+recipes.addShaped("nexus_steel_stick",
+    <contenttweaker:steel_stick> * 4,
+    [[<thermalfoundation:material:160>],
+     [<thermalfoundation:material:160>]]);
+
+// === PIOCHE STEELIUM — post-steel pioche ===
+//   [vossium]  [steel]       [vossium]
+//   [null]     [steel_stick] [null]
+//   [null]     [steel_stick] [null]
+recipes.addShaped("nexus_pioche_steelium",
+    <nexusabsolu:pioche_steelium>,
+    [[<contenttweaker:vossium_ingot>, <thermalfoundation:material:160>, <contenttweaker:vossium_ingot>],
+     [null, <contenttweaker:steel_stick>, null],
+     [null, <contenttweaker:steel_stick>, null]]);
+
+// === OBSIDIAN FRAGMENT — 4 fragments = 1 obsidian ===
+recipes.addShaped("nexus_obsidian_from_fragments",
+    <minecraft:obsidian>,
+    [[<nexusabsolu:obsidian_fragment>, <nexusabsolu:obsidian_fragment>],
+     [<nexusabsolu:obsidian_fragment>, <nexusabsolu:obsidian_fragment>]]);
+
+// === JEI DESCRIPTION — Pioche Steelium ===
+mods.jei.JEI.addDescription(<nexusabsolu:pioche_steelium>,
+    "PIOCHE STEELIUM",
+    "",
+    "L'acier renforce le Vossium. Les murs cedent leurs secrets les plus rares.",
+    "",
+    "Drops:",
+    "- Compose B (15%)",
+    "- Fragments d'Obsidian (20%) — 4 fragments = 1 Obsidian",
+    "- Diamond (15%)",
+    "- Emerald (10%)",
+    "- Wall Dust (40%)",
+    "",
+    "Durabilite: 2000"
+);
+
+mods.jei.JEI.addDescription(<nexusabsolu:obsidian_fragment>,
+    "FRAGMENT D'OBSIDIAN",
+    "",
+    "Un eclat d'obsidian extrait des murs dimensionnels.",
+    "Combine 4 fragments (2x2) pour obtenir 1 Obsidian.",
+    "",
+    "Source: Pioche Steelium (20%)"
+);
+

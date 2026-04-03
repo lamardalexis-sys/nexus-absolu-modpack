@@ -182,6 +182,13 @@ public class ScavengeEventHandler {
                     }
                 }
                 else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            } else if ("steelium".equals(dropType)) {
+                // Pioche Steelium: compose_b, obsidian frag, diamond, emerald
+                if (r < 0.15)      spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_B, 1));
+                else if (r < 0.35) spawnDrop(world, player, new ItemStack(ModItems.OBSIDIAN_FRAGMENT, 1));
+                else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.DIAMOND, 1));
+                else if (r < 0.60) spawnDrop(world, player, new ItemStack(Items.EMERALD, 1));
+                else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             } else {
                 // Fallback: same as renforcee
                 spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));

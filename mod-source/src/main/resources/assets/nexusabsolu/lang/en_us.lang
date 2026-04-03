@@ -115,3 +115,7 @@ item.nexusabsolu.pioche_cuivree.name=Pioche Cuivree
 item.nexusabsolu.pioche_ferree.name=Pioche Ferree
 item.nexusabsolu.pioche_precieuse.name=Pioche Precieuse
 item.nexusabsolu.pioche_vossium.name=Pioche Vossium
+
+# Pioche Steelium + Obsidian Fragment (Age 1)
+item.nexusabsolu.pioche_steelium.name=Pioche Steelium
+item.nexusabsolu.obsidian_fragment.name=Fragment d'Obsidian
