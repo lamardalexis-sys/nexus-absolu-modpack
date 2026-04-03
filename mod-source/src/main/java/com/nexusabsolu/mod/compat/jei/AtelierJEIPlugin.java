@@ -4,6 +4,7 @@ import com.nexusabsolu.mod.init.ModBlocks;
 import com.nexusabsolu.mod.tiles.AtelierRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.item.ItemStack;
@@ -33,5 +34,24 @@ public class AtelierJEIPlugin implements IModPlugin {
 
         // Atelier block as catalyst
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.ATELIER), AtelierRecipeCategory.UID);
+    }
+
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+        // Hide all Miniaturization recipes one by one
+        try {
+            mezz.jei.api.recipe.IRecipeRegistry reg = jeiRuntime.getRecipeRegistry();
+            for (mezz.jei.api.recipe.IRecipeCategory<?> category : reg.getRecipeCategories()) {
+                if (category.getUid().toLowerCase().contains("miniaturization")) {
+                    for (Object wrapper : reg.getRecipeWrappers(category)) {
+                        if (wrapper instanceof mezz.jei.api.recipe.IRecipeWrapper) {
+                            reg.hideRecipe((mezz.jei.api.recipe.IRecipeWrapper) wrapper, category.getUid());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // Fallback: ignore if API doesn't match
+        }
     }
 }
