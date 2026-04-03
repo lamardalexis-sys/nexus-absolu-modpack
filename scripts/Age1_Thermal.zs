@@ -332,3 +332,16 @@ mods.jei.JEI.addDescription(<compactmachines3:tunneltool>,
     "4 CM Walls + 1 Hopper = 2 Tunnels"
 );
 
+
+// === VOSSIUM-II — Vossium + Compose B dans l'Alloy Kiln ===
+// Les canaux-A du Vossium redistribuent l'energie du Compose B
+// uniformement dans le reseau cristallin. Sans eux, le metal craque.
+mods.immersiveengineering.AlloySmelter.addRecipe(
+    <contenttweaker:vossium_ii_ingot>,
+    <contenttweaker:vossium_ingot>,
+    <nexusabsolu:compose_b>,
+    400);
+
+// Engrenage et bloc Vossium-II: a ajouter quand les items seront crees
+
+print("[Nexus Absolu] Vossium-II recipes loaded");
