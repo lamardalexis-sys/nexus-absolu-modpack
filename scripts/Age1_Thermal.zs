@@ -342,6 +342,12 @@ mods.immersiveengineering.AlloySmelter.addRecipe(
     <nexusabsolu:compose_b>,
     400);
 
+// Vossium-II dans l'EnderIO Alloy Smelter
+mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_ii_ingot>, [<contenttweaker:vossium_ingot>, <nexusabsolu:compose_b>], 6000);
+
+// Vossium-II dans le Thermal Induction Smelter
+mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ingot>, <nexusabsolu:compose_b>, 6000);
+
 // Engrenage et bloc Vossium-II: a ajouter quand les items seront crees
 
 print("[Nexus Absolu] Vossium-II recipes loaded");

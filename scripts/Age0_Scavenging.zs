@@ -181,6 +181,14 @@ recipes.addShaped("nexus_convertisseur_craft",
 mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:invarium_ingot>, <ore:ingotBronze>, <ore:ingotInvar>, 200);
 mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:vossium_ingot>, <contenttweaker:invarium_ingot>, <nexusabsolu:compose_a>, 300);
 
+// === Memes alliages dans l'EnderIO Alloy Smelter ===
+mods.enderio.AlloySmelter.addRecipe(<contenttweaker:invarium_ingot>, [<ore:ingotBronze>, <ore:ingotInvar>], 3000);
+mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_ingot>, [<contenttweaker:invarium_ingot>, <nexusabsolu:compose_a>], 5000);
+
+// === Memes alliages dans le Thermal Induction Smelter ===
+mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:invarium_ingot>, <thermalfoundation:material:163>, <thermalfoundation:material:162>, 3000);
+mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_ingot>, <contenttweaker:invarium_ingot>, <nexusabsolu:compose_a>, 5000);
+
 // Engrenage de Compose A: croix compose + coeur Vossium
 //   [null]     [compose] [null]      <- dent haut
 //   [compose]  [vossium] [compose]   <- coeur Vossium + dents laterales
