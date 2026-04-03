@@ -84,45 +84,46 @@ recipes.addShaped("nexus_atomic_reconstructor",
 
 // === PIOCHES SPECIALISEES (Age 1) ===
 // Chaque pioche cible des grits specifiques
-// Pattern pioche standard: 3 materiaux en haut + 2 sticks
+// Pattern pioche standard: 3 materiaux + cristal AA au centre + 2 sticks
+// Force le joueur a avoir l'Atomic Reconstructor (Q70) avant
 
 // Pioche Cuivree: copper + tin + nickel grits (1500 uses)
-//   [copper] [bronze] [copper]
-//   [null]   [stick]  [null]
-//   [null]   [stick]  [null]
+//   [copper] [Enori Crystal] [copper]   <- cristal blanc = metaux de base
+//   [null]   [stick]         [null]
+//   [null]   [stick]         [null]
 recipes.addShaped("nexus_pioche_cuivree",
     <nexusabsolu:pioche_cuivree>,
-    [[<ore:ingotCopper>, <ore:ingotBronze>, <ore:ingotCopper>],
+    [[<ore:ingotCopper>, <actuallyadditions:item_crystal:5>, <ore:ingotCopper>],
      [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
 // Pioche Ferree: iron + lead + silver grits (1500 uses)
-//   [iron]  [invar]  [iron]
-//   [null]  [stick]  [null]
-//   [null]  [stick]  [null]
+//   [iron]  [Void Crystal] [iron]       <- cristal noir = profondeur
+//   [null]  [stick]        [null]
+//   [null]  [stick]        [null]
 recipes.addShaped("nexus_pioche_ferree",
     <nexusabsolu:pioche_ferree>,
-    [[<minecraft:iron_ingot>, <ore:ingotInvar>, <minecraft:iron_ingot>],
+    [[<minecraft:iron_ingot>, <actuallyadditions:item_crystal:3>, <minecraft:iron_ingot>],
      [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
 // Pioche Precieuse: gold + osmium grits (1500 uses)
-//   [gold]  [electrum] [gold]
-//   [null]  [stick]    [null]
-//   [null]  [stick]    [null]
+//   [gold]  [Emeradic Crystal] [gold]   <- cristal vert = rare/precieux
+//   [null]  [stick]            [null]
+//   [null]  [stick]            [null]
 recipes.addShaped("nexus_pioche_precieuse",
     <nexusabsolu:pioche_precieuse>,
-    [[<minecraft:gold_ingot>, <ore:ingotElectrum>, <minecraft:gold_ingot>],
+    [[<minecraft:gold_ingot>, <actuallyadditions:item_crystal:4>, <minecraft:gold_ingot>],
      [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
 // Pioche Vossium: compose_a only (2500 uses, 70% drop rate!)
-//   [vossium]  [invarium] [vossium]
-//   [null]     [stick]    [null]
-//   [null]     [stick]    [null]
+//   [vossium]  [Diamatine Crystal] [vossium]  <- cristal bleu = dimensionnel
+//   [null]     [stick]             [null]
+//   [null]     [stick]             [null]
 recipes.addShaped("nexus_pioche_vossium",
     <nexusabsolu:pioche_vossium>,
-    [[<contenttweaker:vossium_ingot>, <contenttweaker:invarium_ingot>, <contenttweaker:vossium_ingot>],
+    [[<contenttweaker:vossium_ingot>, <actuallyadditions:item_crystal:2>, <contenttweaker:vossium_ingot>],
      [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
