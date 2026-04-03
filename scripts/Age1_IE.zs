@@ -55,3 +55,10 @@ recipes.remove(<compactmachines3:machine:4>);
 recipes.remove(<compactmachines3:machine:5>);
 recipes.remove(<compactmachines3:personalshrinker>);
 
+
+// === HIDE Miniaturization category from JEI ===
+mods.jei.JEI.hideCategory("compactmachines3.miniaturization");
+
+mods.jei.JEI.hideCategory("compactmachines3:miniaturization");
+mods.jei.JEI.hide(<compactmachines3:fieldprojector>);
+
