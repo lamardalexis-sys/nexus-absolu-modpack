@@ -37,25 +37,13 @@ buildItem("osmium_grit");
 
 // ============================================
 // 2. CLES D'EXPANSION — Gate la progression
-//    Chaque clé nécessite des ressources de l'âge
-//    pour débloquer la salle suivante.
+//    SUPPRIMEES ICI — maintenant dans le mod Java (ModItems.java)
 // ============================================
-
-buildItem("compact_key_5x5");
-buildItem("compact_key_7x7");
-buildItem("compact_key_9x9");
-buildItem("compact_key_11x11");
-buildItem("compact_key_13x13");
-buildItem("lab_key");
 
 // ============================================
 // 3. COMPOSANTS INTER-MODS
-//    Forcent les interactions entre mods
+//    SUPPRIMES ICI — maintenant dans le mod Java (ModItems.java)
 // ============================================
-
-buildItem("infused_circuit");       // Thermal + Astral Sorcery
-buildItem("resonant_coil");         // IE + Thermal + EnderIO
-buildItem("organic_catalyst");      // Botania + Blood Magic + Pam's
 
 // ============================================
 // 3b. LINGOTS VOSS — Fil rouge du modpack
@@ -72,12 +60,12 @@ buildItem("vossium_iv_ingot");      // Age 1 — Vossium-III + Compose D
 
 // ============================================
 // 4. FRAGMENTS DE PROGRESSION
-//    Les 9 composants du Nexus Absolu
+//    SUPPRIMES ICI — maintenant dans le mod Java (ModItems.java)
+//    Sauf compose_x77, coeur_de_donnees, noyau_fissile,
+//    fragment_espace_temps, codex_transcendant, prisme_transcendance
+//    qui n'existent PAS encore dans le mod Java
 // ============================================
 
-buildItem("fragment_mecanique");     // Âge 1 — Thermal + IE
-buildItem("fragment_organique");     // Âge 2 — Botania + Blood Magic
-buildItem("fragment_stellaire");     // Âge 2 — Astral Sorcery
 buildItem("compose_x77");           // Âge 3 — Mekanism + Thermal + Astral
 buildItem("coeur_de_donnees");      // Âge 4 — AE2
 buildItem("noyau_fissile");         // Âge 5 — NuclearCraft
@@ -87,7 +75,5 @@ buildItem("prisme_transcendance");  // Âge 8 — Draconic + Avaritia
 
 // ============================================
 // 5. LE NEXUS ABSOLU
-//    L'item final — table 9x9
+//    SUPPRIME ICI — maintenant dans le mod Java (ModItems.java)
 // ============================================
-
-buildItem("nexus_absolu");
