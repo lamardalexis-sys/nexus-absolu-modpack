@@ -30,8 +30,8 @@
               "patchouli:book:8": "nexusabsolu:carnet_voss"
             }
           },
-          "name:8": "\u00a7l\u00a75Les yeux s'ouvrent",
-          "desc:8": "\u00a77Tu te reveilles. L'air est immobile.\n\u00a77Les murs sont blancs. Ou gris. Ou les deux.\n\u00a77Il y a un coffre. Et un livre.\n\n\u00a78\u00a7o\"Sujet inconnu. Etat : inconscient. Transfert en cellule d'observation complete.\nProtocole Voss-7 active.\"\n\u2014 Journal automatise, entree 1\u00a7r\n\n\u00a7eBienvenue dans Nexus Absolu.\n\u00a77Ouvre le coffre. Lis le livre."
+          "name:8": "§l§5Les yeux s'ouvrent",
+          "desc:8": "§7Tu te reveilles. L'air est immobile.\n§7Les murs sont blancs. Ou gris. Ou les deux.\n§7Il y a un coffre. Et un livre.\n\n§8§o\"Sujet inconnu. Etat : inconscient. Transfert en cellule d'observation complete.\nProtocole Voss-7 active.\"\n— Journal automatise, entree 1§r\n\n§eBienvenue dans Nexus Absolu.\n§7Ouvre le coffre. Lis le livre."
         }
       },
       "tasks:9": {
@@ -77,7 +77,7 @@
           "viaPlayer:1": 0,
           "index:3": 2,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a75[Nexus Absolu]\u00a7r \u00a77VAR_NAME\u00a7r se reveille dans la \u00a7l\u00a75Compact Machine\u00a7r. L'Age 0 commence."
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r se reveille dans la §l§5Compact Machine§r. L'Age 0 commence."
         }
       }
     },
@@ -109,8 +109,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes murs cachent des secrets",
-          "desc:8": "\u00a77Les murs ne sont pas solides. Pas vraiment.\n\u00a77Tape dessus. Des morceaux tombent.\n\u00a77Des batons. Des planches. Comme si quelqu'un\n\u00a77avait construit cette prison a la hate.\n\n\u00a7o\u00a7dLes murs de mes Compact Machines ne sont pas\ndes murs. Ce sont des memoires compressees.\nChaque fragment contient un souvenir de la\nmatiere qu'il etait avant.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Obtiens 4 sticks en frappant les murs."
+          "name:8": "§lLes murs cachent des secrets",
+          "desc:8": "§7Les murs ne sont pas solides. Pas vraiment.\n§7Tape dessus. Des morceaux tombent.\n§7Des batons. Des planches. Comme si quelqu'un\n§7avait construit cette prison a la hate.\n\n§o§dLes murs de mes Compact Machines ne sont pas\ndes murs. Ce sont des memoires compressees.\nChaque fragment contient un souvenir de la\nmatiere qu'il etait avant.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 sticks en frappant les murs."
         }
       },
       "tasks:9": {
@@ -181,8 +181,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe plan de travail",
-          "desc:8": "\u00a77Quatre planches. Un carre.\n\u00a77C'est tout ce qu'il faut pour commencer\n\u00a77a imposer ta volonte sur la matiere.\n\n\u00a7o\u00a7dPremiere regle de la survie en boite :\nune table de craft est plus importante\nqu'un plan de sortie.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 1 table de craft."
+          "name:8": "§lLe plan de travail",
+          "desc:8": "§7Quatre planches. Un carre.\n§7C'est tout ce qu'il faut pour commencer\n§7a imposer ta volonte sur la matiere.\n\n§o§dPremiere regle de la survie en boite :\nune table de craft est plus importante\nqu'un plan de sortie.\n— Dr. E. Voss§r\n\n§e> Craft 1 table de craft."
         }
       },
       "tasks:9": {
@@ -259,8 +259,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa pioche de fortune",
-          "desc:8": "\u00a77Deux planches, un fragment de roche, deux batons.\n\u00a77Ce n'est pas un outil. C'est un acte de foi.\n\n\u00a7o\u00a7dMon premier outil etait une cuillere en bois.\nJ'ai creuse pendant six heures.\nLa cuillere a casse. Pas moi.\n\u2014 Dr. E. Voss, Carnet n\u00b02\u00a7r\n\n\u00a7e> Craft 1 Pioche Fragmentee."
+          "name:8": "§lLa pioche de fortune",
+          "desc:8": "§7Deux planches, un fragment de roche, deux batons.\n§7Ce n'est pas un outil. C'est un acte de foi.\n\n§o§dMon premier outil etait une cuillere en bois.\nJ'ai creuse pendant six heures.\nLa cuillere a casse. Pas moi.\n— Dr. E. Voss, Carnet n°2§r\n\n§e> Craft 1 Pioche Fragmentee."
         }
       },
       "tasks:9": {
@@ -331,8 +331,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa poussiere des murs",
-          "desc:8": "\u00a77La pioche arrache ce que tes mains ne pouvaient pas.\n\u00a77De la poussiere fine, presque lumineuse.\n\u00a77Les murs n'aiment pas qu'on les gratte.\n\n\u00a7o\u00a7dCette poussiere n'est pas de la poussiere.\nC'est de la matiere dimensionnelle comprimee.\nChaque grain contient un univers potentiel.\nMais pour l'instant, ca fait de bonnes ficelles.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Obtiens 16 Wall Dust."
+          "name:8": "§lLa poussiere des murs",
+          "desc:8": "§7La pioche arrache ce que tes mains ne pouvaient pas.\n§7De la poussiere fine, presque lumineuse.\n§7Les murs n'aiment pas qu'on les gratte.\n\n§o§dCette poussiere n'est pas de la poussiere.\nC'est de la matiere dimensionnelle comprimee.\nChaque grain contient un univers potentiel.\nMais pour l'instant, ca fait de bonnes ficelles.\n— Dr. E. Voss§r\n\n§e> Obtiens 16 Wall Dust."
         }
       },
       "tasks:9": {
@@ -403,8 +403,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes fibres de la machine",
-          "desc:8": "\u00a77Quatre pincees de poussiere.\n\u00a77Ecrase-les. Tords-les. De la ficelle apparait.\n\u00a77Les murs de la Compact Machine sont tisses\n\u00a77de fibres impossibles.\n\n\u00a7e> Craft 4 ficelles."
+          "name:8": "§lLes fibres de la machine",
+          "desc:8": "§7Quatre pincees de poussiere.\n§7Ecrase-les. Tords-les. De la ficelle apparait.\n§7Les murs de la Compact Machine sont tisses\n§7de fibres impossibles.\n\n§e> Craft 4 ficelles."
         }
       },
       "tasks:9": {
@@ -475,8 +475,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes debris solides",
-          "desc:8": "\u00a77Deux fragments de roche = un bloc entier.\n\u00a77La matiere se reconstitue.\n\u00a77Voss avait raison sur la Conservation Absolue.\n\n\u00a7o\u00a7dRien ne se perd. Meme dans une boite.\nSurtout dans une boite.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Obtiens 4 cobblestone."
+          "name:8": "§lLes debris solides",
+          "desc:8": "§7Deux fragments de roche = un bloc entier.\n§7La matiere se reconstitue.\n§7Voss avait raison sur la Conservation Absolue.\n\n§o§dRien ne se perd. Meme dans une boite.\nSurtout dans une boite.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 cobblestone."
         }
       },
       "tasks:9": {
@@ -547,8 +547,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe gravier",
-          "desc:8": "\u00a77Le marteau transforme la pierre en gravier.\n\u00a77La matiere se decompose. C'est normal.\n\u00a77Tout se decompose, si on tape assez fort.\n\n\u00a7e> Obtiens 8 gravel (marteau sur cobblestone)."
+          "name:8": "§lLe gravier",
+          "desc:8": "§7Le marteau transforme la pierre en gravier.\n§7La matiere se decompose. C'est normal.\n§7Tout se decompose, si on tape assez fort.\n\n§e> Obtiens 8 gravel (marteau sur cobblestone)."
         }
       },
       "tasks:9": {
@@ -620,8 +620,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe tamis primitif",
-          "desc:8": "\u00a77Un cadre en bois. De la ficelle tendue.\n\u00a77Verse le gravier. Regarde ce qui tombe.\n\u00a77C'est de la science a l'etat brut :\n\u00a77on separe, on observe, on apprend.\n\n\u00a7o\u00a7dLe tamis est l'instrument le plus sous-estime\nde l'histoire des sciences. Newton n'avait\npas de tamis. C'est pour ca qu'il a mis\nsi longtemps a comprendre la gravite.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 1 tamis Ex Nihilo."
+          "name:8": "§lLe tamis primitif",
+          "desc:8": "§7Un cadre en bois. De la ficelle tendue.\n§7Verse le gravier. Regarde ce qui tombe.\n§7C'est de la science a l'etat brut :\n§7on separe, on observe, on apprend.\n\n§o§dLe tamis est l'instrument le plus sous-estime\nde l'histoire des sciences. Newton n'avait\npas de tamis. C'est pour ca qu'il a mis\nsi longtemps a comprendre la gravite.\n— Dr. E. Voss§r\n\n§e> Craft 1 tamis Ex Nihilo."
         }
       },
       "tasks:9": {
@@ -670,7 +670,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a77[Progression]\u00a7r \u00a77VAR_NAME\u00a7r a construit son \u00a7lpremier tamis\u00a7r"
+          "command:8": "/say §7[Progression]§r §7VAR_NAME§r a construit son §lpremier tamis§r"
         }
       }
     },
@@ -702,8 +702,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes premiers grains",
-          "desc:8": "\u00a77Des pepites. Minuscules. Brillantes.\n\u00a77Du fer. Cache dans le gravier des murs.\n\u00a77Quelqu'un a mis du metal dans cette prison.\n\u00a77Ou alors la prison a genere du metal.\n\n\u00a7o\u00a7dQuestion : qui met des pepites de fer\ndans les murs d'une cellule ?\nReponse : quelqu'un qui veut que le\nprisonnier s'echappe.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Obtiens 4 iron nuggets (tamis + gravel)."
+          "name:8": "§lLes premiers grains",
+          "desc:8": "§7Des pepites. Minuscules. Brillantes.\n§7Du fer. Cache dans le gravier des murs.\n§7Quelqu'un a mis du metal dans cette prison.\n§7Ou alors la prison a genere du metal.\n\n§o§dQuestion : qui met des pepites de fer\ndans les murs d'une cellule ?\nReponse : quelqu'un qui veut que le\nprisonnier s'echappe.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 iron nuggets (tamis + gravel)."
         }
       },
       "tasks:9": {
@@ -798,8 +798,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe four primitif",
-          "desc:8": "\u00a77De la pierre. Du silex. De l'argile.\n\u00a77La chaleur est la premiere forme de controle\n\u00a77que l'homme a impose a la matiere.\n\n\u00a7o\u00a7dLe feu n'est pas une decouverte.\nC'est une declaration de guerre\ncontre l'entropie.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 1 four."
+          "name:8": "§lLe four primitif",
+          "desc:8": "§7De la pierre. Du silex. De l'argile.\n§7La chaleur est la premiere forme de controle\n§7que l'homme a impose a la matiere.\n\n§o§dLe feu n'est pas une decouverte.\nC'est une declaration de guerre\ncontre l'entropie.\n— Dr. E. Voss§r\n\n§e> Craft 1 four."
         }
       },
       "tasks:9": {
@@ -870,8 +870,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe combustible",
-          "desc:8": "\u00a77Le four a besoin de quelque chose qui brule.\n\u00a77Le charbon se cache dans le gravier.\n\u00a77Tamise. Accumule. Patiente.\n\n\u00a7e> Obtiens 8 charbon."
+          "name:8": "§lLe combustible",
+          "desc:8": "§7Le four a besoin de quelque chose qui brule.\n§7Le charbon se cache dans le gravier.\n§7Tamise. Accumule. Patiente.\n\n§e> Obtiens 8 charbon."
         }
       },
       "tasks:9": {
@@ -942,8 +942,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lL'eau de la vie",
-          "desc:8": "\u00a77Un tonneau en bois. Expose a l'air.\n\u00a77L'eau se condense. Goutte a goutte.\n\u00a77D'ou vient l'eau dans une boite scellee ?\n\u00a77Ne pose pas la question. Pas encore.\n\n\u00a7o\u00a7dL'eau dans les Compact Machines provient\nde la condensation dimensionnelle.\nOu de mes larmes. Les deux sont possibles.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 1 tonneau Ex Nihilo."
+          "name:8": "§lL'eau de la vie",
+          "desc:8": "§7Un tonneau en bois. Expose a l'air.\n§7L'eau se condense. Goutte a goutte.\n§7D'ou vient l'eau dans une boite scellee ?\n§7Ne pose pas la question. Pas encore.\n\n§o§dL'eau dans les Compact Machines provient\nde la condensation dimensionnelle.\nOu de mes larmes. Les deux sont possibles.\n— Dr. E. Voss§r\n\n§e> Craft 1 tonneau Ex Nihilo."
         }
       },
       "tasks:9": {
@@ -1014,8 +1014,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa terre promise",
-          "desc:8": "\u00a77Des feuilles. Des graines. Du compost.\n\u00a77Le tonneau transforme les dechets en terre.\n\u00a77La vie nait de la decomposition.\n\u00a77Voss appelait ca le Paradoxe Organique.\n\n\u00a7e> Obtiens 16 dirt."
+          "name:8": "§lLa terre promise",
+          "desc:8": "§7Des feuilles. Des graines. Du compost.\n§7Le tonneau transforme les dechets en terre.\n§7La vie nait de la decomposition.\n§7Voss appelait ca le Paradoxe Organique.\n\n§e> Obtiens 16 dirt."
         }
       },
       "tasks:9": {
@@ -1086,8 +1086,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes graines de l'espoir",
-          "desc:8": "\u00a77Du ble. Dans une boite de 3 metres.\n\u00a77C'est absurde. C'est magnifique.\n\u00a77La vie insiste, meme quand l'espace\n\u00a77lui dit de ne pas exister.\n\n\u00a7o\u00a7dLa deuxieme verite : la vie ne se contente\npas d'exister. Elle insiste.\n\u2014 Dr. E. Voss, Theoreme II\u00a7r\n\n\u00a7e> Recolte 4 ble."
+          "name:8": "§lLes graines de l'espoir",
+          "desc:8": "§7Du ble. Dans une boite de 3 metres.\n§7C'est absurde. C'est magnifique.\n§7La vie insiste, meme quand l'espace\n§7lui dit de ne pas exister.\n\n§o§dLa deuxieme verite : la vie ne se contente\npas d'exister. Elle insiste.\n— Dr. E. Voss, Theoreme II§r\n\n§e> Recolte 4 ble."
         }
       },
       "tasks:9": {
@@ -1164,8 +1164,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe premier repas",
-          "desc:8": "\u00a77Du pain. Chaud. Croustillant.\n\u00a77Le premier vrai repas depuis ton reveil.\n\u00a77Ca a un gout de victoire.\n\u00a77Ou de desespoir bien cuit. Ca depend des jours.\n\n\u00a7e> Craft 8 pains."
+          "name:8": "§lLe premier repas",
+          "desc:8": "§7Du pain. Chaud. Croustillant.\n§7Le premier vrai repas depuis ton reveil.\n§7Ca a un gout de victoire.\n§7Ou de desespoir bien cuit. Ca depend des jours.\n\n§e> Craft 8 pains."
         }
       },
       "tasks:9": {
@@ -1236,8 +1236,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lL'arbre dans la boite",
-          "desc:8": "\u00a77Un pot. Un sapling. Un arbre miniature.\n\u00a77La nature, comprimee, refuse de mourir.\n\n\u00a7o\u00a7dJ'ai plante un chene dans une CM de 3 blocs.\nIl a grandi. Pas beaucoup.\nMais il a grandi.\nJ'ai appele ca de l'optimisme vegetal.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Place 3 Bonsai Pots."
+          "name:8": "§lL'arbre dans la boite",
+          "desc:8": "§7Un pot. Un sapling. Un arbre miniature.\n§7La nature, comprimee, refuse de mourir.\n\n§o§dJ'ai plante un chene dans une CM de 3 blocs.\nIl a grandi. Pas beaucoup.\nMais il a grandi.\nJ'ai appele ca de l'optimisme vegetal.\n— Dr. E. Voss§r\n\n§e> Place 3 Bonsai Pots."
         }
       },
       "tasks:9": {
@@ -1308,8 +1308,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa marmite",
-          "desc:8": "\u00a77Une marmite. Pour cuisiner de vrais plats.\n\u00a77Le pain c'est bien.\n\u00a77Mais l'homme ne vit pas que de pain.\n\u00a77Surtout quand l'homme est enferme dans un cube.\n\n\u00a7e> Craft 1 marmite (Pot)."
+          "name:8": "§lLa marmite",
+          "desc:8": "§7Une marmite. Pour cuisiner de vrais plats.\n§7Le pain c'est bien.\n§7Mais l'homme ne vit pas que de pain.\n§7Surtout quand l'homme est enferme dans un cube.\n\n§e> Craft 1 marmite (Pot)."
         }
       },
       "tasks:9": {
@@ -1386,8 +1386,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe gout de la variete",
-          "desc:8": "\u00a77Trois plats differents. Trois gouts.\n\u00a77Ton corps s'adapte. Tes coeurs augmentent.\n\u00a77Spice of Life recompense ceux qui osent\n\u00a77la diversite culinaire, meme en captivite.\n\n\u00a7o\u00a7dLa variete est le sel de la vie.\nEt le sel est la variete du sel.\nCette phrase ne veut rien dire.\nJ'ai faim.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Mange 3 plats differents."
+          "name:8": "§lLe gout de la variete",
+          "desc:8": "§7Trois plats differents. Trois gouts.\n§7Ton corps s'adapte. Tes coeurs augmentent.\n§7Spice of Life recompense ceux qui osent\n§7la diversite culinaire, meme en captivite.\n\n§o§dLa variete est le sel de la vie.\nEt le sel est la variete du sel.\nCette phrase ne veut rien dire.\nJ'ai faim.\n— Dr. E. Voss§r\n\n§e> Mange 3 plats differents."
         }
       },
       "tasks:9": {
@@ -1445,8 +1445,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7aLe festin du prisonnier",
-          "desc:8": "\u00a77Cinq plats. Un festin.\n\u00a77Dans un cube de 3 metres.\n\u00a77Le Dr. Voss serait fier.\n\u00a77Ou jaloux. Il mangeait surtout du pain.\n\n\u00a7e> Mange 5 plats differents."
+          "name:8": "§l§aLe festin du prisonnier",
+          "desc:8": "§7Cinq plats. Un festin.\n§7Dans un cube de 3 metres.\n§7Le Dr. Voss serait fier.\n§7Ou jaloux. Il mangeait surtout du pain.\n\n§e> Mange 5 plats differents."
         }
       },
       "tasks:9": {
@@ -1529,8 +1529,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eLa pioche renforcee",
-          "desc:8": "\u00a77Des pepites de fer. Du silex. De la ficelle.\n\u00a77Un outil qui mord le mur au lieu de le gratter.\n\n\u00a78\u00a7o\"La Pioche Renforcee extrait des grits \u2014 eclats metalliques bruts.\n4 grits = 1 grit brut. Le four fait le reste.\"\n\u2014 Notes du Dr. Voss, annexe 12\u00a7r\n\n\u00a7eLa pioche renforcee change tout.\n\u00a77Les murs deviennent une mine."
+          "name:8": "§l§eLa pioche renforcee",
+          "desc:8": "§7Des pepites de fer. Du silex. De la ficelle.\n§7Un outil qui mord le mur au lieu de le gratter.\n\n§8§o\"La Pioche Renforcee extrait des grits — eclats metalliques bruts.\n4 grits = 1 grit brut. Le four fait le reste.\"\n— Notes du Dr. Voss, annexe 12§r\n\n§eLa pioche renforcee change tout.\n§7Les murs deviennent une mine."
         }
       },
       "tasks:9": {
@@ -1579,7 +1579,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a7e[Milestone]\u00a7r \u00a77VAR_NAME\u00a7r a forge la \u00a7l\u00a7ePioche Renforcee\u00a7r"
+          "command:8": "/say §e[Milestone]§r §7VAR_NAME§r a forge la §l§ePioche Renforcee§r"
         }
       }
     },
@@ -1611,8 +1611,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe grind du metal",
-          "desc:8": "\u00a77Les murs cedent des grits sous la pioche.\n\u00a77Des eclats metalliques, presque vivants.\n\u00a774 grits = 1 grit brut = 1 lingot.\n\u00a77Le chemin est long. C'est voulu.\n\n\u00a7o\u00a7dLa compression change tout.\nDemandez au carbone ce qu'il en pense.\nIl vous repondra en diamant.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Obtiens 4 iron grits."
+          "name:8": "§lLe grind du metal",
+          "desc:8": "§7Les murs cedent des grits sous la pioche.\n§7Des eclats metalliques, presque vivants.\n§74 grits = 1 grit brut = 1 lingot.\n§7Le chemin est long. C'est voulu.\n\n§o§dLa compression change tout.\nDemandez au carbone ce qu'il en pense.\nIl vous repondra en diamant.\n— Dr. E. Voss§r\n\n§e> Obtiens 4 iron grits."
         }
       },
       "tasks:9": {
@@ -1684,8 +1684,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eLe premier lingot",
-          "desc:8": "\u00a77Du grit brut dans le four.\n\u00a77La chaleur fait le reste.\n\u00a77Un lingot de fer. Le premier.\n\u00a77C'est un miracle silencieux.\n\n\u00a7o\u00a7dMon premier lingot m'a pris 3 jours.\nJe l'ai tenu dans ma main pendant une heure.\nPuis je l'ai utilise pour faire un boulon.\nC'est ca, le progres : transformer\nl'emerveillement en boulon.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Fonds 1 raw iron grit au four."
+          "name:8": "§l§eLe premier lingot",
+          "desc:8": "§7Du grit brut dans le four.\n§7La chaleur fait le reste.\n§7Un lingot de fer. Le premier.\n§7C'est un miracle silencieux.\n\n§o§dMon premier lingot m'a pris 3 jours.\nJe l'ai tenu dans ma main pendant une heure.\nPuis je l'ai utilise pour faire un boulon.\nC'est ca, le progres : transformer\nl'emerveillement en boulon.\n— Dr. E. Voss§r\n\n§e> Fonds 1 raw iron grit au four."
         }
       },
       "tasks:9": {
@@ -1734,7 +1734,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a7e[Milestone]\u00a7r \u00a77VAR_NAME\u00a7r a fondu son \u00a7l\u00a7epremier lingot de fer\u00a7r"
+          "command:8": "/say §e[Milestone]§r §7VAR_NAME§r a fondu son §l§epremier lingot de fer§r"
         },
         "2:10": {
           "rewardID:8": "bq_standard:choice",
@@ -1790,8 +1790,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes metaux varies",
-          "desc:8": "\u00a77Cuivre, etain, nickel.\n\u00a77Chaque metal a sa couleur. Son poids.\n\u00a77Son utilite. Les murs contenaient tout ca.\n\u00a77Depuis le debut.\n\n\u00a7e> Obtiens 1 copper grit + 1 tin grit + 1 nickel grit."
+          "name:8": "§lLes metaux varies",
+          "desc:8": "§7Cuivre, etain, nickel.\n§7Chaque metal a sa couleur. Son poids.\n§7Son utilite. Les murs contenaient tout ca.\n§7Depuis le debut.\n\n§e> Obtiens 1 copper grit + 1 tin grit + 1 nickel grit."
         }
       },
       "tasks:9": {
@@ -1875,8 +1875,8 @@
             "Damage:2": 128,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes lingots etrangers",
-          "desc:8": "\u00a77Du cuivre. De l'etain. Du nickel.\n\u00a77Trois metaux qui ne demandent qu'a etre\n\u00a77melanges. Mais pas comme ca.\n\u00a77Pas a la main. Il faut un four d'alliage.\n\n\u00a7e> Fonds 1 copper + 1 tin + 1 nickel lingot."
+          "name:8": "§lLes lingots etrangers",
+          "desc:8": "§7Du cuivre. De l'etain. Du nickel.\n§7Trois metaux qui ne demandent qu'a etre\n§7melanges. Mais pas comme ca.\n§7Pas a la main. Il faut un four d'alliage.\n\n§e> Fonds 1 copper + 1 tin + 1 nickel lingot."
         }
       },
       "tasks:9": {
@@ -1960,8 +1960,8 @@
             "Damage:2": 10,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes briques du Kiln",
-          "desc:8": "\u00a77De l'argile au four = des briques.\n\u00a77Du sable compresse = du sandstone.\n\u00a77Deux briques + deux sandstone = Kiln Bricks.\n\u00a77La base d'un four d'alliages.\n\n\u00a7o\u00a7dIl y a une elegance dans les briques.\nChacune est identique. Ensemble, elles\ndeviennent quelque chose de plus grand.\nComme les atomes. Comme nous.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 4 Kiln Bricks."
+          "name:8": "§lLes briques du Kiln",
+          "desc:8": "§7De l'argile au four = des briques.\n§7Du sable compresse = du sandstone.\n§7Deux briques + deux sandstone = Kiln Bricks.\n§7La base d'un four d'alliages.\n\n§o§dIl y a une elegance dans les briques.\nChacune est identique. Ensemble, elles\ndeviennent quelque chose de plus grand.\nComme les atomes. Comme nous.\n— Dr. E. Voss§r\n\n§e> Craft 4 Kiln Bricks."
         }
       },
       "tasks:9": {
@@ -2032,8 +2032,8 @@
             "Damage:2": 10,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76Le Alloy Kiln",
-          "desc:8": "\u00a77Un cube de 2x2x2 Kiln Bricks.\n\u00a77Le premier four d'alliages.\n\u00a77Charbon + deux metaux = un alliage.\n\u00a77Pas de RF. Pas d'electricite. Juste de la chaleur.\n\n\u00a78\u00a7o\"L'Alloy Kiln est primitif mais essentiel. Bronze et Invar \u2014 les deux piliers de l'Age 0.\"\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a763 cuivre + 1 etain = Bronze\n\u00a762 fer + 1 nickel = Invar"
+          "name:8": "§l§6Le Alloy Kiln",
+          "desc:8": "§7Un cube de 2x2x2 Kiln Bricks.\n§7Le premier four d'alliages.\n§7Charbon + deux metaux = un alliage.\n§7Pas de RF. Pas d'electricite. Juste de la chaleur.\n\n§8§o\"L'Alloy Kiln est primitif mais essentiel. Bronze et Invar — les deux piliers de l'Age 0.\"\n— Dr. E. Voss§r\n\n§63 cuivre + 1 etain = Bronze\n§62 fer + 1 nickel = Invar"
         }
       },
       "tasks:9": {
@@ -2075,7 +2075,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a76[Dr. Voss]\u00a7r \u00a77VAR_NAME\u00a7r a construit le \u00a7l\u00a76Alloy Kiln\u00a7r"
+          "command:8": "/say §6[Dr. Voss]§r §7VAR_NAME§r a construit le §l§6Alloy Kiln§r"
         }
       }
     },
@@ -2107,8 +2107,8 @@
             "Damage:2": 163,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76Le bronze",
-          "desc:8": "\u00a773 cuivre + 1 etain + du charbon.\n\u00a77Le Kiln chauffe. Les metaux fusionnent.\n\u00a77Le bronze. L'alliage des civilisations.\n\n\u00a7o\u00a7dL'age du bronze a dure 2000 ans.\nVous, vous avez environ 20 minutes.\nLa compression temporelle est un effet\nsecondaire des Compact Machines.\nOu de l'impatience. Les deux sont possibles.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Fais 4 lingots de bronze dans le Kiln."
+          "name:8": "§l§6Le bronze",
+          "desc:8": "§73 cuivre + 1 etain + du charbon.\n§7Le Kiln chauffe. Les metaux fusionnent.\n§7Le bronze. L'alliage des civilisations.\n\n§o§dL'age du bronze a dure 2000 ans.\nVous, vous avez environ 20 minutes.\nLa compression temporelle est un effet\nsecondaire des Compact Machines.\nOu de l'impatience. Les deux sont possibles.\n— Dr. E. Voss§r\n\n§e> Fais 4 lingots de bronze dans le Kiln."
         }
       },
       "tasks:9": {
@@ -2179,8 +2179,8 @@
             "Damage:2": 162,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76L'invar",
-          "desc:8": "\u00a772 fer + 1 nickel + du charbon.\n\u00a77L'invar. Un alliage qui resiste a la chaleur.\n\u00a77Essentiel pour les machines dimensionnelles.\n\n\u00a7o\u00a7dL'invar ne se dilate pas.\nMeme quand l'univers autour de lui change.\nC'est le metal le plus tetu que je connaisse.\nApres moi.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Fais 3 lingots d'invar dans le Kiln."
+          "name:8": "§l§6L'invar",
+          "desc:8": "§72 fer + 1 nickel + du charbon.\n§7L'invar. Un alliage qui resiste a la chaleur.\n§7Essentiel pour les machines dimensionnelles.\n\n§o§dL'invar ne se dilate pas.\nMeme quand l'univers autour de lui change.\nC'est le metal le plus tetu que je connaisse.\nApres moi.\n— Dr. E. Voss§r\n\n§e> Fais 3 lingots d'invar dans le Kiln."
         }
       },
       "tasks:9": {
@@ -2251,8 +2251,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa redstone cachee",
-          "desc:8": "\u00a77La pioche renforcee extrait parfois\n\u00a77de la poussiere rouge des murs.\n\u00a77De la redstone. De l'energie a l'etat pur.\n\u00a77Cache dans les murs depuis le debut.\n\n\u00a7o\u00a7dLa redstone n'est pas un minerai.\nC'est du sang cristallise de l'univers.\nNe le repetez pas aux physiciens.\nIls n'ont pas le sens de l'humour.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Obtiens 8 redstone."
+          "name:8": "§lLa redstone cachee",
+          "desc:8": "§7La pioche renforcee extrait parfois\n§7de la poussiere rouge des murs.\n§7De la redstone. De l'energie a l'etat pur.\n§7Cache dans les murs depuis le debut.\n\n§o§dLa redstone n'est pas un minerai.\nC'est du sang cristallise de l'univers.\nNe le repetez pas aux physiciens.\nIls n'ont pas le sens de l'humour.\n— Dr. E. Voss§r\n\n§e> Obtiens 8 redstone."
         }
       },
       "tasks:9": {
@@ -2330,8 +2330,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dL'Engrenage de Compose",
-          "desc:8": "\u00a774 cristaux de Compose A en croix.\n\u00a77Du bronze au centre. Un axe.\n\u00a77L'engrenage vibre quand on le touche.\n\u00a77Comme s'il attendait quelque chose.\n\n\u00a7o\u00a7dLe Compose n'est pas un cristal.\nC'est de l'energie qui a oublie\nqu'elle etait de l'energie.\nElle pense etre solide.\nNe la detrompez pas.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 1 Engrenage de Compose A."
+          "name:8": "§l§dL'Engrenage de Compose",
+          "desc:8": "§74 cristaux de Compose A en croix.\n§7Du bronze au centre. Un axe.\n§7L'engrenage vibre quand on le touche.\n§7Comme s'il attendait quelque chose.\n\n§o§dLe Compose n'est pas un cristal.\nC'est de l'energie qui a oublie\nqu'elle etait de l'energie.\nElle pense etre solide.\nNe la detrompez pas.\n— Dr. E. Voss§r\n\n§e> Craft 1 Engrenage de Compose A."
         }
       },
       "tasks:9": {
@@ -2402,8 +2402,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dLe Bloc de Compose A",
-          "desc:8": "\u00a778 cristaux de Compose A.\n\u00a77L'engrenage au centre.\n\u00a77Le bloc pulse. Une lueur violette.\n\u00a77Ce n'est plus un materiau. C'est une batterie.\n\n\u00a7e> Craft 1 Bloc de Compose A."
+          "name:8": "§l§dLe Bloc de Compose A",
+          "desc:8": "§78 cristaux de Compose A.\n§7L'engrenage au centre.\n§7Le bloc pulse. Une lueur violette.\n§7Ce n'est plus un materiau. C'est une batterie.\n\n§e> Craft 1 Bloc de Compose A."
         }
       },
       "tasks:9": {
@@ -2475,8 +2475,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eL'etincelle",
-          "desc:8": "\u00a77Le Convertisseur du Dr. Voss.\n\u00a77La machine qui transforme l'impossible en RF.\n\u00a77Place le Bloc de Compose A a cote.\n\u00a7725 RF/t. C'est peu. Mais c'est tout.\n\n\u00a78\u00a7o\"L'energie dimensionnelle cristallisee peut alimenter des machines. J'ai appele ce processus la Conversion Voss.\"\n\u2014 Carnet n\u00b03\u00a7r\n\n\u00a7ePremieres etincelles d'energie dans la boite."
+          "name:8": "§l§eL'etincelle",
+          "desc:8": "§7Le Convertisseur du Dr. Voss.\n§7La machine qui transforme l'impossible en RF.\n§7Place le Bloc de Compose A a cote.\n§725 RF/t. C'est peu. Mais c'est tout.\n\n§8§o\"L'energie dimensionnelle cristallisee peut alimenter des machines. J'ai appele ce processus la Conversion Voss.\"\n— Carnet n°3§r\n\n§ePremieres etincelles d'energie dans la boite."
         }
       },
       "tasks:9": {
@@ -2525,7 +2525,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a7e[Milestone]\u00a7r \u00a77VAR_NAME\u00a7r a active le \u00a7l\u00a7eConvertisseur Voss\u00a7r \u2014 premiers RF !"
+          "command:8": "/say §e[Milestone]§r §7VAR_NAME§r a active le §l§eConvertisseur Voss§r — premiers RF !"
         }
       }
     },
@@ -2557,8 +2557,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe flux d'energie",
-          "desc:8": "\u00a77L'energie ne sert a rien si elle reste sur place.\n\u00a77Les Fluxducts la transportent. D'un point a un autre.\n\u00a77Argile pour l'isolation. Ficelle pour la conduction.\n\u00a77Simple. Elegant. Fonctionnel.\n\n\u00a7o\u00a7dL'electricite est comme l'eau.\nElle cherche le chemin le plus court.\nDonnez-lui un tuyau et elle obeira.\nDonnez-lui un trou et elle vous electrocutera.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 4 Fluxducts Leadstone."
+          "name:8": "§lLe flux d'energie",
+          "desc:8": "§7L'energie ne sert a rien si elle reste sur place.\n§7Les Fluxducts la transportent. D'un point a un autre.\n§7Argile pour l'isolation. Ficelle pour la conduction.\n§7Simple. Elegant. Fonctionnel.\n\n§o§dL'electricite est comme l'eau.\nElle cherche le chemin le plus court.\nDonnez-lui un tuyau et elle obeira.\nDonnez-lui un trou et elle vous electrocutera.\n— Dr. E. Voss§r\n\n§e> Craft 4 Fluxducts Leadstone."
         }
       },
       "tasks:9": {
@@ -2629,8 +2629,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa connexion",
-          "desc:8": "\u00a77Le Convertisseur genere du RF.\n\u00a77Le Condenseur en consomme.\n\u00a77Le Fluxduct les relie.\n\u00a77Trois machines. Un tuyau.\n\u00a77C'est tout ce qu'il faut\n\u00a77pour defier la physique.\n\n\u00a7e> Connecte le Convertisseur au Condenseur."
+          "name:8": "§lLa connexion",
+          "desc:8": "§7Le Convertisseur genere du RF.\n§7Le Condenseur en consomme.\n§7Le Fluxduct les relie.\n§7Trois machines. Un tuyau.\n§7C'est tout ce qu'il faut\n§7pour defier la physique.\n\n§e> Connecte le Convertisseur au Condenseur."
         }
       },
       "tasks:9": {
@@ -2688,8 +2688,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes murs du Nexus",
-          "desc:8": "\u00a77Cobblestone. Argile. Silex. Pepites de fer.\n\u00a77Les Nexus Walls ne sont pas de simples murs.\n\u00a77Ce sont des interfaces dimensionnelles.\n\u00a77Ils separent ce qui est de ce qui pourrait etre.\n\n\u00a7o\u00a7dLes murs ne protegent pas.\nIls definissent. Un mur est une decision :\nde ce cote, la realite.\nDe l'autre, tout le reste.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 3 Nexus Walls."
+          "name:8": "§lLes murs du Nexus",
+          "desc:8": "§7Cobblestone. Argile. Silex. Pepites de fer.\n§7Les Nexus Walls ne sont pas de simples murs.\n§7Ce sont des interfaces dimensionnelles.\n§7Ils separent ce qui est de ce qui pourrait etre.\n\n§o§dLes murs ne protegent pas.\nIls definissent. Un mur est une decision :\nde ce cote, la realite.\nDe l'autre, tout le reste.\n— Dr. E. Voss§r\n\n§e> Craft 3 Nexus Walls."
         }
       },
       "tasks:9": {
@@ -2763,8 +2763,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dLa machine qui respire",
-          "desc:8": "\u00a77Le Condenseur Dimensionnel.\n\u00a77Bronze, invar, redstone, Compose.\n\u00a77La machine que Voss a construite\n\u00a77pour fusionner les dimensions.\n\n\u00a78\u00a7o\"Le Condenseur plie l'espace. Deux CM identiques + une Cle + du RF = une CM plus grande. La physique proteste. Je l'ignore.\"\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7d2x2x2 multibloc : Condenseur + Nexus Walls + Verre + Redstone Block"
+          "name:8": "§l§dLa machine qui respire",
+          "desc:8": "§7Le Condenseur Dimensionnel.\n§7Bronze, invar, redstone, Compose.\n§7La machine que Voss a construite\n§7pour fusionner les dimensions.\n\n§8§o\"Le Condenseur plie l'espace. Deux CM identiques + une Cle + du RF = une CM plus grande. La physique proteste. Je l'ignore.\"\n— Dr. E. Voss§r\n\n§d2x2x2 multibloc : Condenseur + Nexus Walls + Verre + Redstone Block"
         }
       },
       "tasks:9": {
@@ -2837,7 +2837,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a7d[Nexus Absolu]\u00a7r \u00a77VAR_NAME\u00a7r a construit le \u00a7l\u00a7dCondenseur Dimensionnel\u00a7r"
+          "command:8": "/say §d[Nexus Absolu]§r §7VAR_NAME§r a construit le §l§dCondenseur Dimensionnel§r"
         },
         "2:10": {
           "rewardID:8": "bq_standard:choice",
@@ -2893,8 +2893,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dLa cle dimensionnelle",
-          "desc:8": "\u00a77La Cle d'Expansion 5x5.\n\u00a77Elle vibre d'une frequence que tu\n\u00a77ne peux pas entendre mais que tu\n\u00a77sens dans les dents.\n\n\u00a7o\u00a7dChaque cle ouvre une seule porte.\nMais parfois, la porte ouvre la cle.\nCette phrase a plus de sens qu'il n'y parait.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 1 Cle d'Expansion 5x5."
+          "name:8": "§l§dLa cle dimensionnelle",
+          "desc:8": "§7La Cle d'Expansion 5x5.\n§7Elle vibre d'une frequence que tu\n§7ne peux pas entendre mais que tu\n§7sens dans les dents.\n\n§o§dChaque cle ouvre une seule porte.\nMais parfois, la porte ouvre la cle.\nCette phrase a plus de sens qu'il n'y parait.\n— Dr. E. Voss§r\n\n§e> Craft 1 Cle d'Expansion 5x5."
         }
       },
       "tasks:9": {
@@ -2965,8 +2965,8 @@
             "Damage:2": 1,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dLa fissure dimensionnelle",
-          "desc:8": "\u00a77Deux Compact Machines 3x3.\n\u00a77Une cle. Un catalyseur. Du RF.\n\u00a77Le Condenseur vibre. L'air craque.\n\u00a77La dimension se plie.\n\n\u00a7d\u00a7lUne Compact Machine 5x5 apparait.\u00a7r\n\n\u00a78\u00a7o\"Premier test de fusion reussi. La CM resultante est stable. Les murs tiennent. Le sujet peut continuer.\"\n\u2014 Journal automatise, entree 47\u00a7r"
+          "name:8": "§l§dLa fissure dimensionnelle",
+          "desc:8": "§7Deux Compact Machines 3x3.\n§7Une cle. Un catalyseur. Du RF.\n§7Le Condenseur vibre. L'air craque.\n§7La dimension se plie.\n\n§d§lUne Compact Machine 5x5 apparait.§r\n\n§8§o\"Premier test de fusion reussi. La CM resultante est stable. Les murs tiennent. Le sujet peut continuer.\"\n— Journal automatise, entree 47§r"
         }
       },
       "tasks:9": {
@@ -3015,7 +3015,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a7d[Nexus Absolu]\u00a7r \u00a77VAR_NAME\u00a7r a cree sa premiere \u00a7l\u00a7dCompact Machine 5x5\u00a7r !"
+          "command:8": "/say §d[Nexus Absolu]§r §7VAR_NAME§r a cree sa premiere §l§dCompact Machine 5x5§r !"
         }
       }
     },
@@ -3047,8 +3047,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76L'evasion",
-          "desc:8": "\u00a77La CM 5x5 est devant toi.\n\u00a77Un espace plus grand. Plus de possibilites.\n\u00a77Tu as survecu a la boite.\n\n\u00a77Ce n'est pas la liberte.\n\u00a77C'est une boite plus grande.\n\n\u00a75\u00a7l\u2192 L'Age 1 \u2014 La Mecanique Brute \u2014 commence.\u00a7r\n\n\u00a78\u00a7o\"Le sujet progresse plus vite que prevu. Passage au protocole Phase 2.\"\n\u2014 Journal automatise\u00a7r"
+          "name:8": "§l§6L'evasion",
+          "desc:8": "§7La CM 5x5 est devant toi.\n§7Un espace plus grand. Plus de possibilites.\n§7Tu as survecu a la boite.\n\n§7Ce n'est pas la liberte.\n§7C'est une boite plus grande.\n\n§5§l→ L'Age 1 — La Mecanique Brute — commence.§r\n\n§8§o\"Le sujet progresse plus vite que prevu. Passage au protocole Phase 2.\"\n— Journal automatise§r"
         }
       },
       "tasks:9": {
@@ -3100,7 +3100,7 @@
           "viaPlayer:1": 0,
           "index:3": 2,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a75[Nexus Absolu]\u00a7r \u00a77VAR_NAME\u00a7r entre dans la CM 5x5. \u00a7l\u00a75L'Age 0 est termine.\u00a7r"
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r entre dans la CM 5x5. §l§5L'Age 0 est termine.§r"
         },
         "3:10": {
           "rewardID:8": "bq_standard:choice",
@@ -3156,8 +3156,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe premier coffre",
-          "desc:8": "\u00a77L'organisation est la premiere etape\n\u00a77vers la liberation. Ou vers la folie.\n\u00a77Les deux se ressemblent.\n\n\u00a7o\u00a7dMon premier coffre contenait 3 items.\nAu bout de 6 mois, j'en avais 47.\nL'accumulation est un instinct de survie.\nLe rangement est un luxe.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 1 coffre."
+          "name:8": "§lLe premier coffre",
+          "desc:8": "§7L'organisation est la premiere etape\n§7vers la liberation. Ou vers la folie.\n§7Les deux se ressemblent.\n\n§o§dMon premier coffre contenait 3 items.\nAu bout de 6 mois, j'en avais 47.\nL'accumulation est un instinct de survie.\nLe rangement est un luxe.\n— Dr. E. Voss§r\n\n§e> Craft 1 coffre."
         }
       },
       "tasks:9": {
@@ -3228,8 +3228,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lL'organisation",
-          "desc:8": "\u00a77Trois coffres. Metaux. Nourriture. Le reste.\n\u00a77Un systeme. Un debut d'ordre.\n\n\u00a7o\u00a7dUn scientifique desordonne est un scientifique\nqui a oublie ou il a mis l'explosif.\nNe soyez pas ce scientifique.\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7e> Craft 3 coffres."
+          "name:8": "§lL'organisation",
+          "desc:8": "§7Trois coffres. Metaux. Nourriture. Le reste.\n§7Un systeme. Un debut d'ordre.\n\n§o§dUn scientifique desordonne est un scientifique\nqui a oublie ou il a mis l'explosif.\nNe soyez pas ce scientifique.\n— Dr. E. Voss§r\n\n§e> Craft 3 coffres."
         }
       },
       "tasks:9": {
@@ -3300,8 +3300,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dLe Machine Frame",
-          "desc:8": "\u00a77Fer, verre, et un Engrenage de Compose au centre.\n\u00a77Le Machine Frame est le squelette\n\u00a77de toutes les machines du Dr. Voss.\n\n\u00a7o\u00a7dChaque machine que j'ai construite\ncommence par un cadre. Un squelette.\nLe verre pour voir a travers.\nLe fer pour tenir debout.\nL'engrenage pour donner un coeur.\nLe reste n'est que decoration.\n\u2014 Dr. E. Voss, Carnet n\u00b09\u00a7r\n\n\u00a7e> Craft 1 Machine Frame."
+          "name:8": "§l§dLe Machine Frame",
+          "desc:8": "§7Fer, verre, et un Engrenage de Compose au centre.\n§7Le Machine Frame est le squelette\n§7de toutes les machines du Dr. Voss.\n\n§o§dChaque machine que j'ai construite\ncommence par un cadre. Un squelette.\nLe verre pour voir a travers.\nLe fer pour tenir debout.\nL'engrenage pour donner un coeur.\nLe reste n'est que decoration.\n— Dr. E. Voss, Carnet n°9§r\n\n§e> Craft 1 Machine Frame."
         }
       },
       "tasks:9": {
@@ -3373,8 +3373,8 @@
             "OreDict:8": "",
             "tag:10": {}
           },
-          "name:8": "\u00a7l\u00a77Le coffre d'argent",
-          "desc:8": "\u00a77L'espace manque. Les murs se rapprochent.\n\u00a77Un coffre normal ne suffit plus.\n\n\u00a7oCombine l'argent et le bois.\n\u00a7oLe resultat est... spacieux.\u00a7r\n\n\u00a7e> Fabrique un coffre en argent."
+          "name:8": "§l§7Le coffre d'argent",
+          "desc:8": "§7L'espace manque. Les murs se rapprochent.\n§7Un coffre normal ne suffit plus.\n\n§oCombine l'argent et le bois.\n§oLe resultat est... spacieux.§r\n\n§e> Fabrique un coffre en argent."
         }
       },
       "tasks:9": {
@@ -3446,8 +3446,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76L'Invarium",
-          "desc:8": "\u00a77Bronze et Invar dans le Alloy Kiln.\n\u00a77Un alliage que personne n'aurait pense a creer.\n\n\u00a7o\u00a7dUn metal qui conduit l'energie sans jamais se deformer.\n\u00a7o\u00a7dDes micro-frontieres instables aux joints de grains.\n\u00a7o\u00a7dVoss l'a trouve... inutile.\n\u2014 Carnet n\u00b03\u00a7r\n\n\u00a7e> Fabrique un lingot d'Invarium."
+          "name:8": "§l§6L'Invarium",
+          "desc:8": "§7Bronze et Invar dans le Alloy Kiln.\n§7Un alliage que personne n'aurait pense a creer.\n\n§o§dUn metal qui conduit l'energie sans jamais se deformer.\n§o§dDes micro-frontieres instables aux joints de grains.\n§o§dVoss l'a trouve... inutile.\n— Carnet n°3§r\n\n§e> Fabrique un lingot d'Invarium."
         }
       },
       "tasks:9": {
@@ -3518,8 +3518,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a75Le Vossium",
-          "desc:8": "\u00a77Invarium et Compose A dans le Alloy Kiln.\n\u00a77Le Compose s'infiltre dans les frontieres de l'Invarium.\n\u00a77Un reseau de canaux dimensionnels s'active.\n\n\u00a75\u00a7lLe Vossium est ne.\u00a7r\n\n\u00a78\u00a7o\"Cet alliage n'existe dans aucun manuel. Il conduit l'energie dimensionnelle.\nJe l'ai appele Vossium. Par modestie, evidemment.\"\n\u2014 Dr. E. Voss\u00a7r"
+          "name:8": "§l§5Le Vossium",
+          "desc:8": "§7Invarium et Compose A dans le Alloy Kiln.\n§7Le Compose s'infiltre dans les frontieres de l'Invarium.\n§7Un reseau de canaux dimensionnels s'active.\n\n§5§lLe Vossium est ne.§r\n\n§8§o\"Cet alliage n'existe dans aucun manuel. Il conduit l'energie dimensionnelle.\nJe l'ai appele Vossium. Par modestie, evidemment.\"\n— Dr. E. Voss§r"
         }
       },
       "tasks:9": {
@@ -3568,7 +3568,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a76[Dr. Voss]\u00a7r \u00a77VAR_NAME\u00a7r a synthetise le \u00a7l\u00a75Vossium\u00a7r \u2014 l'alliage impossible"
+          "command:8": "/say §6[Dr. Voss]§r §7VAR_NAME§r a synthetise le §l§5Vossium§r — l'alliage impossible"
         }
       }
     },
@@ -3600,8 +3600,8 @@
             "Damage:2": 1,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a75On respire . . .",
-          "desc:8": "\u00a77La premiere fissure dimensionnelle est ouverte.\n\u00a77Tu es dans une Compact Machine 5x5x5.\n\u00a77Plus d'espace. Plus de possibilites.\n\n\u00a78\u00a7o\". . .\"\u00a7r"
+          "name:8": "§l§5On respire . . .",
+          "desc:8": "§7La premiere fissure dimensionnelle est ouverte.\n§7Tu es dans une Compact Machine 5x5x5.\n§7Plus d'espace. Plus de possibilites.\n\n§8§o\". . .\"§r"
         }
       },
       "tasks:9": {
@@ -3647,7 +3647,7 @@
           "viaPlayer:1": 0,
           "index:3": 2,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a75[Nexus Absolu]\u00a7r \u00a77VAR_NAME\u00a7r entre dans \u00a7lL'Age 1 \u2014 La Mecanique Brute\u00a7r"
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r entre dans §lL'Age 1 — La Mecanique Brute§r"
         }
       }
     },
@@ -3679,8 +3679,8 @@
             "Damage:2": 1,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l. . . encore plus",
-          "desc:8": "\u00a77L'espace est un luxe.\n\u00a77Construis 3 Compact Machines 5x5 au total.\n\u00a77Tu en as deja une. Encore 2.\n\n\u00a78\u00a7o\"Plus d'espace, plus de machines, plus de possibilites.\"\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7eCraft 3 Compact Machines 5x5 au total."
+          "name:8": "§l. . . encore plus",
+          "desc:8": "§7L'espace est un luxe.\n§7Construis 3 Compact Machines 5x5 au total.\n§7Tu en as deja une. Encore 2.\n\n§8§o\"Plus d'espace, plus de machines, plus de possibilites.\"\n— Dr. E. Voss§r\n\n§eCraft 3 Compact Machines 5x5 au total."
         }
       },
       "tasks:9": {
@@ -3751,8 +3751,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7ec'est juste 100 . . .",
-          "desc:8": "\u00a77100 RF/t. C'est rien. Mais c'est tout.\n\u00a77Le Convertisseur + 4 Blocs de Compose A = 100 RF/t.\n\u00a77Place 4 Blocs de Compose A autour du Convertisseur.\n\n\u00a7eCraft 4 Blocs de Compose A."
+          "name:8": "§l§ec'est juste 100 . . .",
+          "desc:8": "§7100 RF/t. C'est rien. Mais c'est tout.\n§7Le Convertisseur + 4 Blocs de Compose A = 100 RF/t.\n§7Place 4 Blocs de Compose A autour du Convertisseur.\n\n§eCraft 4 Blocs de Compose A."
         }
       },
       "tasks:9": {
@@ -3829,8 +3829,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eCa chauffe",
-          "desc:8": "\u00a77Le Convertisseur c'etait bien. La Stirling Dynamo c'est mieux. 80 RF/t."
+          "name:8": "§l§eCa chauffe",
+          "desc:8": "§7Le Convertisseur c'etait bien. La Stirling Dynamo c'est mieux. 80 RF/t."
         }
       },
       "tasks:9": {
@@ -3925,8 +3925,8 @@
             "Damage:2": 1,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes arteres",
-          "desc:8": "\u00a77L'energie doit circuler."
+          "name:8": "§lLes arteres",
+          "desc:8": "§7L'energie doit circuler."
         }
       },
       "tasks:9": {
@@ -3997,8 +3997,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a78Toujours des murs",
-          "desc:8": "\u00a77Plus d'espace. Plus de besoins.\n\u00a78Les murs sont plus grands. Mais ce sont toujours des murs."
+          "name:8": "§l§8Toujours des murs",
+          "desc:8": "§7Plus d'espace. Plus de besoins.\n§8Les murs sont plus grands. Mais ce sont toujours des murs."
         }
       },
       "tasks:9": {
@@ -4069,8 +4069,8 @@
             "Damage:2": 1,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe doubleur",
-          "desc:8": "\u00a77Un minerai entre. Deux poussieres sortent."
+          "name:8": "§lLe doubleur",
+          "desc:8": "§7Un minerai entre. Deux poussieres sortent."
         }
       },
       "tasks:9": {
@@ -4141,8 +4141,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe four intelligent",
-          "desc:8": "\u00a77Plus rapide. Plus propre. Adieu le four en pierre."
+          "name:8": "§lLe four intelligent",
+          "desc:8": "§7Plus rapide. Plus propre. Adieu le four en pierre."
         }
       },
       "tasks:9": {
@@ -4214,8 +4214,8 @@
             "Damage:2": 3,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa fusion",
-          "desc:8": "\u00a77Deux metaux entrent. Un alliage sort."
+          "name:8": "§lLa fusion",
+          "desc:8": "§7Deux metaux entrent. Un alliage sort."
         }
       },
       "tasks:9": {
@@ -4286,8 +4286,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe coke",
-          "desc:8": "\u00a77Le charbon brut ne suffit plus.\n\u00a77Le Coke Oven transforme le charbon en Coal Coke.\n\u00a7727 Coke Bricks en 3x3x3 = le four.\n\n\u00a78\u00a7o\"Le Coke Oven est primitif. Pas d'electricite.\nJuste de la chaleur, du temps, et de la patience.\"\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7eCraft 27 Coke Bricks et construis le multibloc."
+          "name:8": "§lLe coke",
+          "desc:8": "§7Le charbon brut ne suffit plus.\n§7Le Coke Oven transforme le charbon en Coal Coke.\n§727 Coke Bricks en 3x3x3 = le four.\n\n§8§o\"Le Coke Oven est primitif. Pas d'electricite.\nJuste de la chaleur, du temps, et de la patience.\"\n— Dr. E. Voss§r\n\n§eCraft 27 Coke Bricks et construis le multibloc."
         }
       },
       "tasks:9": {
@@ -4358,8 +4358,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76L'atelier ressuscite",
-          "desc:8": "\u00a77Des plans griffonnes partout. Voss etait la avant toi.\n\n\u00a78\u00a7oL'Atelier du Dr. Voss est sa table de travail personnelle. Les recettes qu'il a inventees ne fonctionnent nulle part ailleurs.\u00a7r\n\n\u00a7eConstruis l'Atelier pour debloquer ses plans secrets."
+          "name:8": "§l§6L'atelier ressuscite",
+          "desc:8": "§7Des plans griffonnes partout. Voss etait la avant toi.\n\n§8§oL'Atelier du Dr. Voss est sa table de travail personnelle. Les recettes qu'il a inventees ne fonctionnent nulle part ailleurs.§r\n\n§eConstruis l'Atelier pour debloquer ses plans secrets."
         }
       },
       "tasks:9": {
@@ -4408,7 +4408,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a76[Dr. Voss]\u00a7r \u00a77VAR_NAME\u00a7r a retrouve \u00a7l\u00a76l'Atelier du Dr. Voss\u00a7r"
+          "command:8": "/say §6[Dr. Voss]§r §7VAR_NAME§r a retrouve §l§6l'Atelier du Dr. Voss§r"
         }
       }
     },
@@ -4440,8 +4440,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe bois traite",
-          "desc:8": "\u00a77Le creosote trempe le bois. Il ne pourrira plus."
+          "name:8": "§lLe bois traite",
+          "desc:8": "§7Le creosote trempe le bois. Il ne pourrira plus."
         }
       },
       "tasks:9": {
@@ -4512,8 +4512,8 @@
             "Damage:2": 160,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76L'acier",
-          "desc:8": "\u00a77Le fer est faible. L'acier ne plie pas."
+          "name:8": "§l§6L'acier",
+          "desc:8": "§7Le fer est faible. L'acier ne plie pas."
         }
       },
       "tasks:9": {
@@ -4584,8 +4584,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dLe Compose B",
-          "desc:8": "\u00a77Plus dense. Plus instable. Plus puissant.\n\n\u00a78\u00a7o\"Le Compose B est la deuxieme couche. Les canaux secondaires s'activent. L'Invarium tremble.\"\u00a7r\n\u2014 Fragment de notes, mur Est\n\n\u00a7dObtiens 4 Compose B pour continuer."
+          "name:8": "§l§dLe Compose B",
+          "desc:8": "§7Plus dense. Plus instable. Plus puissant.\n\n§8§o\"Le Compose B est la deuxieme couche. Les canaux secondaires s'activent. L'Invarium tremble.\"§r\n— Fragment de notes, mur Est\n\n§dObtiens 4 Compose B pour continuer."
         }
       },
       "tasks:9": {
@@ -4657,8 +4657,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a75Le Vossium evolue",
-          "desc:8": "\u00a7o\u00a7dLe Vossium chante.\n\u2014 Dr. E. Voss, Carnet n\u00b05\u00a7r"
+          "name:8": "§l§5Le Vossium evolue",
+          "desc:8": "§o§dLe Vossium chante.\n— Dr. E. Voss, Carnet n°5§r"
         }
       },
       "tasks:9": {
@@ -4729,8 +4729,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes murs de la machine",
-          "desc:8": "\u00a77Les murs des Compact Machines peuvent etre fabriques.\n\u00a77Dans l Atelier du Dr. Voss :\n\u00a7f1 Bloc de Fer + 1 Redstone = 4 CM Walls\n\n\u00a7eCraft 4 Compact Machine Walls dans l Atelier."
+          "name:8": "§lLes murs de la machine",
+          "desc:8": "§7Les murs des Compact Machines peuvent etre fabriques.\n§7Dans l Atelier du Dr. Voss :\n§f1 Bloc de Fer + 1 Redstone = 4 CM Walls\n\n§eCraft 4 Compact Machine Walls dans l Atelier."
         }
       },
       "tasks:9": {
@@ -4801,8 +4801,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes tunnels",
-          "desc:8": "\u00a77Les Tunnels de Compact Machine permettent de transferer items, fluides et energie entre l interieur et l exterieur.\n\u00a77Craft dans l Atelier du Dr. Voss :\n\u00a7f4 CM Walls + 1 Hopper = 2 Tunnels\n\n\u00a7eCraft 2 Tunnels dans l Atelier."
+          "name:8": "§lLes tunnels",
+          "desc:8": "§7Les Tunnels de Compact Machine permettent de transferer items, fluides et energie entre l interieur et l exterieur.\n§7Craft dans l Atelier du Dr. Voss :\n§f4 CM Walls + 1 Hopper = 2 Tunnels\n\n§eCraft 2 Tunnels dans l Atelier."
         }
       },
       "tasks:9": {
@@ -4874,8 +4874,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eL'assistant mecanique",
-          "desc:8": "\u00a77Voss aussi en avait marre de se salir les mains."
+          "name:8": "§l§eL'assistant mecanique",
+          "desc:8": "§7Voss aussi en avait marre de se salir les mains."
         }
       },
       "tasks:9": {
@@ -4946,8 +4946,8 @@
             "Damage:2": 33,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lL'upgrade",
-          "desc:8": "\u00a77Tes machines montent d'un cran."
+          "name:8": "§lL'upgrade",
+          "desc:8": "§7Tes machines montent d'un cran."
         }
       },
       "tasks:9": {
@@ -5018,8 +5018,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa reconstructrice",
-          "desc:8": "\u00a77Un rayon qui reorganise la matiere."
+          "name:8": "§lLa reconstructrice",
+          "desc:8": "§7Un rayon qui reorganise la matiere."
         }
       },
       "tasks:9": {
@@ -5090,8 +5090,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes cristaux",
-          "desc:8": "\u00a77Des cristaux impossibles. Utiles."
+          "name:8": "§lLes cristaux",
+          "desc:8": "§7Des cristaux impossibles. Utiles."
         }
       },
       "tasks:9": {
@@ -5162,8 +5162,8 @@
             "Damage:2": 6,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a78L'alliage sombre",
-          "desc:8": "\u00a77Un metal qui absorbe la lumiere. Il ne brille pas. Il menace."
+          "name:8": "§l§8L'alliage sombre",
+          "desc:8": "§7Un metal qui absorbe la lumiere. Il ne brille pas. Il menace."
         }
       },
       "tasks:9": {
@@ -5233,8 +5233,8 @@
             "Count:3": 1,
             "Damage:2": 0
           },
-          "name:8": "\u00a7l\u00a72L'armure des verts",
-          "desc:8": "\u00a77Les cristaux d'Actually Additions ne sont pas que decoratifs.\n\u00a77L'Emeradic Crystal est le plus equilibre.\n\u00a77Armure complete + l'AIOT, l'outil ultime.\n\n\u00a7o\u00a7d\"Le vert n'est pas une couleur. C'est une frequence.\"\n\u00a7o\u00a7d\u2014 Carnet n\u00b015\n\n\u00a7eObtiens l'armure Emeradic Crystal complete + l'AIOT."
+          "name:8": "§l§2L'armure des verts",
+          "desc:8": "§7Les cristaux d'Actually Additions ne sont pas que decoratifs.\n§7L'Emeradic Crystal est le plus equilibre.\n§7Armure complete + l'AIOT, l'outil ultime.\n\n§o§d\"Le vert n'est pas une couleur. C'est une frequence.\"\n§o§d— Carnet n°15\n\n§eObtiens l'armure Emeradic Crystal complete + l'AIOT."
         }
       },
       "tasks:9": {
@@ -5326,8 +5326,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eLes pioches specialisees",
-          "desc:8": "\u00a77Chaque metal a sa pioche.\n\u00a77La Cuivree extrait cuivre, etain, nickel.\n\u00a77La Ferree extrait fer, plomb, argent.\n\n\u00a78\u00a7o\"La specialisation est la cle de l'efficacite.\nUne pioche pour tout, c'est une pioche pour rien.\"\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7eCraft les deux pioches specialisees."
+          "name:8": "§l§eLes pioches specialisees",
+          "desc:8": "§7Chaque metal a sa pioche.\n§7La Cuivree extrait cuivre, etain, nickel.\n§7La Ferree extrait fer, plomb, argent.\n\n§8§o\"La specialisation est la cle de l'efficacite.\nUne pioche pour tout, c'est une pioche pour rien.\"\n— Dr. E. Voss§r\n\n§eCraft les deux pioches specialisees."
         }
       },
       "tasks:9": {
@@ -5402,8 +5402,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76Fin de l'Age 1",
-          "desc:8": "\u00a77La Mecanique Brute est derriere toi.\n\n\u00a78\u00a7o\"Celui qui maitrise l'energie maitrise la matiere. Celui qui maitrise la matiere peut tout transformer.\"\u00a7r\n\u2014 Dr. E. Voss\n\n\u00a75\u00a7lDevant : le Paradoxe Organique.\u00a7r\n\u00a77La magie existe. Voss l'a prouve."
+          "name:8": "§l§6Fin de l'Age 1",
+          "desc:8": "§7La Mecanique Brute est derriere toi.\n\n§8§o\"Celui qui maitrise l'energie maitrise la matiere. Celui qui maitrise la matiere peut tout transformer.\"§r\n— Dr. E. Voss\n\n§5§lDevant : le Paradoxe Organique.§r\n§7La magie existe. Voss l'a prouve."
         }
       },
       "tasks:9": {
@@ -5449,7 +5449,7 @@
           "viaPlayer:1": 0,
           "index:3": 2,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a75[Nexus Absolu]\u00a7r \u00a77VAR_NAME\u00a7r a termine \u00a7l\u00a75l'Age 1 \u2014 La Mecanique Brute\u00a7r. \u00a7dL'Age 2 commence.\u00a7r"
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r a termine §l§5l'Age 1 — La Mecanique Brute§r. §dL'Age 2 commence.§r"
         }
       }
     },
@@ -5481,8 +5481,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a75Le paradoxe",
-          "desc:8": "\u00a7o\u00a7dLa matiere obeit aux equations.\nMais la VIE obeit a autre chose.\n\u2014 Dr. E. Voss\u00a7r"
+          "name:8": "§l§5Le paradoxe",
+          "desc:8": "§o§dLa matiere obeit aux equations.\nMais la VIE obeit a autre chose.\n— Dr. E. Voss§r"
         }
       },
       "tasks:9": {
@@ -5540,8 +5540,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa graine impossible",
-          "desc:8": "\u00a77Ca ne devrait pas exister. Mais ca pousse."
+          "name:8": "§lLa graine impossible",
+          "desc:8": "§7Ca ne devrait pas exister. Mais ca pousse."
         }
       },
       "tasks:9": {
@@ -5612,8 +5612,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a72La fleur vivante",
-          "desc:8": "\u00a77Elle respire. La fleur respire."
+          "name:8": "§l§2La fleur vivante",
+          "desc:8": "§7Elle respire. La fleur respire."
         }
       },
       "tasks:9": {
@@ -5684,8 +5684,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a72Le Mana Pool",
-          "desc:8": "\u00a77Voss appelait ca 'l'energie qui refuse d'etre mesuree'."
+          "name:8": "§l§2Le Mana Pool",
+          "desc:8": "§7Voss appelait ca 'l'energie qui refuse d'etre mesuree'."
         }
       },
       "tasks:9": {
@@ -5756,8 +5756,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes petales",
-          "desc:8": "\u00a77Fleurs + eau = nouvelles fleurs."
+          "name:8": "§lLes petales",
+          "desc:8": "§7Fleurs + eau = nouvelles fleurs."
         }
       },
       "tasks:9": {
@@ -5828,8 +5828,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lL'agriculture impossible",
-          "desc:8": "\u00a77L'essence pousse comme du ble. C'est absurde."
+          "name:8": "§lL'agriculture impossible",
+          "desc:8": "§7L'essence pousse comme du ble. C'est absurde."
         }
       },
       "tasks:9": {
@@ -5900,8 +5900,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a72Le Spreader",
-          "desc:8": "\u00a77Le mana ne circule pas dans des cables. Il vole."
+          "name:8": "§l§2Le Spreader",
+          "desc:8": "§7Le mana ne circule pas dans des cables. Il vole."
         }
       },
       "tasks:9": {
@@ -5972,8 +5972,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eLe ciel dans la boite",
-          "desc:8": "\u00a77Le plafond n'est pas un plafond. C'est un ciel."
+          "name:8": "§l§eLe ciel dans la boite",
+          "desc:8": "§7Le plafond n'est pas un plafond. C'est un ciel."
         }
       },
       "tasks:9": {
@@ -6044,8 +6044,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe telescope",
-          "desc:8": "\u00a77Les constellations depuis une boite. Surrealiste."
+          "name:8": "§lLe telescope",
+          "desc:8": "§7Les constellations depuis une boite. Surrealiste."
         }
       },
       "tasks:9": {
@@ -6116,8 +6116,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe cristal de roche",
-          "desc:8": "\u00a7o\u00a7dLes cristaux ecoutent les machines.\n\u2014 Dr. E. Voss\u00a7r"
+          "name:8": "§lLe cristal de roche",
+          "desc:8": "§o§dLes cristaux ecoutent les machines.\n— Dr. E. Voss§r"
         }
       },
       "tasks:9": {
@@ -6188,8 +6188,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eL'infusion stellaire",
-          "desc:8": "\u00a77Le starlight transforme la matiere."
+          "name:8": "§l§eL'infusion stellaire",
+          "desc:8": "§7Le starlight transforme la matiere."
         }
       },
       "tasks:9": {
@@ -6248,8 +6248,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dLe Compose C",
-          "desc:8": "\u00a77Mana ET starlight. Premier craft inter-magie."
+          "name:8": "§l§dLe Compose C",
+          "desc:8": "§7Mana ET starlight. Premier craft inter-magie."
         }
       },
       "tasks:9": {
@@ -6321,8 +6321,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a75Le Vossium-III",
-          "desc:8": "\u00a77Les canaux tertiaires. Le Vossium ne chante plus. Il hurle."
+          "name:8": "§l§5Le Vossium-III",
+          "desc:8": "§7Les canaux tertiaires. Le Vossium ne chante plus. Il hurle."
         }
       },
       "tasks:9": {
@@ -6393,8 +6393,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe bloc de Vossium III",
-          "desc:8": "\u00a77Neuf lingots. La resonance est assourdissante."
+          "name:8": "§lLe bloc de Vossium III",
+          "desc:8": "§7Neuf lingots. La resonance est assourdissante."
         }
       },
       "tasks:9": {
@@ -6465,8 +6465,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a74L'autel",
-          "desc:8": "\u00a77Le sang a une memoire. Chaque goutte se souvient."
+          "name:8": "§l§4L'autel",
+          "desc:8": "§7Le sang a une memoire. Chaque goutte se souvient."
         }
       },
       "tasks:9": {
@@ -6537,8 +6537,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a74Le sacrifice",
-          "desc:8": "\u00a77Ca fait mal. Mais ca marche."
+          "name:8": "§l§4Le sacrifice",
+          "desc:8": "§7Ca fait mal. Mais ca marche."
         }
       },
       "tasks:9": {
@@ -6609,8 +6609,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLes runes",
-          "desc:8": "\u00a77Plus de runes. Plus de capacite."
+          "name:8": "§lLes runes",
+          "desc:8": "§7Plus de runes. Plus de capacite."
         }
       },
       "tasks:9": {
@@ -6681,8 +6681,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLe Slate",
-          "desc:8": "\u00a77Materiau de base. Trempe dans le sang."
+          "name:8": "§lLe Slate",
+          "desc:8": "§7Materiau de base. Trempe dans le sang."
         }
       },
       "tasks:9": {
@@ -6753,8 +6753,8 @@
             "Damage:2": 1,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a74Le rituel",
-          "desc:8": "\u00a77Les equations ne fonctionnent plus. Seul le sang repond."
+          "name:8": "§l§4Le rituel",
+          "desc:8": "§7Les equations ne fonctionnent plus. Seul le sang repond."
         }
       },
       "tasks:9": {
@@ -6814,8 +6814,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7dLe Compose D",
-          "desc:8": "\u00a77Trois forces. Un seul canal. Voss avait vu juste."
+          "name:8": "§l§dLe Compose D",
+          "desc:8": "§7Trois forces. Un seul canal. Voss avait vu juste."
         }
       },
       "tasks:9": {
@@ -6887,8 +6887,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a75Le Vossium-IV",
-          "desc:8": "\u00a77Le Vossium accepte la magie comme il acceptait l'energie. Sans juger."
+          "name:8": "§l§5Le Vossium-IV",
+          "desc:8": "§7Le Vossium accepte la magie comme il acceptait l'energie. Sans juger."
         }
       },
       "tasks:9": {
@@ -6959,8 +6959,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a75Le Condenseur Tier 3",
-          "desc:8": "\u00a77Plus grand. Le joueur est un batisseur."
+          "name:8": "§l§5Le Condenseur Tier 3",
+          "desc:8": "§7Plus grand. Le joueur est un batisseur."
         }
       },
       "tasks:9": {
@@ -7031,8 +7031,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lLa cle de la 9x9",
-          "desc:8": "\u00a77La porte vers l'immense."
+          "name:8": "§lLa cle de la 9x9",
+          "desc:8": "§7La porte vers l'immense."
         }
       },
       "tasks:9": {
@@ -7103,8 +7103,8 @@
             "Damage:2": 3,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a75La troisieme fissure",
-          "desc:8": "\u00a77L'espace se plie sans resister. Il te connait."
+          "name:8": "§l§5La troisieme fissure",
+          "desc:8": "§7L'espace se plie sans resister. Il te connait."
         }
       },
       "tasks:9": {
@@ -7176,8 +7176,8 @@
             "Damage:2": 4,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a72Le Terrasteel",
-          "desc:8": "\u00a77Le materiau ultime de Botania."
+          "name:8": "§l§2Le Terrasteel",
+          "desc:8": "§7Le materiau ultime de Botania."
         }
       },
       "tasks:9": {
@@ -7249,8 +7249,8 @@
             "Damage:2": 3,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7lMystical Agriculture tier 3",
-          "desc:8": "\u00a77Diamond essence. Emerald essence. L'impossible pousse."
+          "name:8": "§lMystical Agriculture tier 3",
+          "desc:8": "§7Diamond essence. Emerald essence. L'impossible pousse."
         }
       },
       "tasks:9": {
@@ -7322,8 +7322,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eL'Attunement",
-          "desc:8": "\u00a77Tu choisis une constellation. Elle te choisit."
+          "name:8": "§l§eL'Attunement",
+          "desc:8": "§7Tu choisis une constellation. Elle te choisit."
         }
       },
       "tasks:9": {
@@ -7383,8 +7383,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a76Le Fragment Organique",
-          "desc:8": "\u00a77Le metal et la magie. La machine et le vivant.\n\u00a77Le paradoxe n'est pas un probleme. C'est la reponse."
+          "name:8": "§l§6Le Fragment Organique",
+          "desc:8": "§7Le metal et la magie. La machine et le vivant.\n§7Le paradoxe n'est pas un probleme. C'est la reponse."
         }
       },
       "tasks:9": {
@@ -7462,8 +7462,8 @@
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "\u00a7l\u00a7eLe Fragment Stellaire",
-          "desc:8": "\u00a77Les etoiles se souviennent de Voss. Elles se souviennent de tout."
+          "name:8": "§l§eLe Fragment Stellaire",
+          "desc:8": "§7Les etoiles se souviennent de Voss. Elles se souviennent de tout."
         }
       },
       "tasks:9": {
@@ -7533,8 +7533,8 @@
           "autoclaim:1": 0,
           "ismain:1": 1,
           "repeat_relative:1": 1,
-          "name:8": "\u00a7l\u00a75Les pioches rares",
-          "desc:8": "\u00a77La Precieuse extrait or et osmium.\n\u00a77La Vossium extrait le Compose A a 70% !\n\n\u00a78\u00a7o\"Le Vossium resonne avec la dimension.\nQuand il frappe les murs, l'energie cristallisee se libere.\"\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a75La Pioche Vossium change tout."
+          "name:8": "§l§5Les pioches rares",
+          "desc:8": "§7La Precieuse extrait or et osmium.\n§7La Vossium extrait le Compose A a 70% !\n\n§8§o\"Le Vossium resonne avec la dimension.\nQuand il frappe les murs, l'energie cristallisee se libere.\"\n— Dr. E. Voss§r\n\n§5La Pioche Vossium change tout."
         }
       },
       "tasks:9": {
@@ -7589,7 +7589,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a75[Dr. Voss]\u00a7r \u00a77VAR_NAME\u00a7r a forge les \u00a7l\u00a75Pioches Vossium\u00a7r \u2014 le Compose A coule a flots"
+          "command:8": "/say §5[Dr. Voss]§r §7VAR_NAME§r a forge les §l§5Pioches Vossium§r — le Compose A coule a flots"
         }
       }
     },
@@ -7620,8 +7620,8 @@
           "autoclaim:1": 0,
           "ismain:1": 0,
           "repeat_relative:1": 1,
-          "name:8": "\u00a7lLa source d'eau",
-          "desc:8": "\u00a77La Steam Dynamo a soif.\n\u00a77Un Crucible en bois + de la nourriture = de l'eau.\n\u00a77Place une torche en dessous pour chauffer.\n\n\u00a7eLe Crucible est ta source d'eau avant le Sink."
+          "name:8": "§lLa source d'eau",
+          "desc:8": "§7La Steam Dynamo a soif.\n§7Un Crucible en bois + de la nourriture = de l'eau.\n§7Place une torche en dessous pour chauffer.\n\n§eLe Crucible est ta source d'eau avant le Sink."
         }
       },
       "tasks:9": {
@@ -7692,8 +7692,8 @@
           "autoclaim:1": 0,
           "ismain:1": 0,
           "repeat_relative:1": 1,
-          "name:8": "\u00a7lLes veines d'eau",
-          "desc:8": "\u00a77Les Fluiducts transportent les liquides.\n\u00a77Connecte le Crucible a la Steam Dynamo.\n\n\u00a7eCraft 4 Fluiducts et connecte le circuit d'eau."
+          "name:8": "§lLes veines d'eau",
+          "desc:8": "§7Les Fluiducts transportent les liquides.\n§7Connecte le Crucible a la Steam Dynamo.\n\n§eCraft 4 Fluiducts et connecte le circuit d'eau."
         }
       },
       "tasks:9": {
@@ -7763,8 +7763,8 @@
           "autoclaim:1": 0,
           "ismain:1": 1,
           "repeat_relative:1": 1,
-          "name:8": "\u00a7l\u00a76La fonderie d'alliages",
-          "desc:8": "\u00a77L'Alloy Smelter d'EnderIO est ta fonderie.\n\u00a77Elle fusionne les metaux et produit des alliages.\n\u00a77Coal Coke + Iron + Wall Dust = \u00a7fSteel\u00a77.\n\n\u00a78\u00a7o\"Les murs contiennent plus que de la poussiere.\nMelangee au fer et au coke, elle devient acier.\"\n\u2014 Dr. E. Voss\u00a7r\n\n\u00a7eCraft l'Alloy Smelter."
+          "name:8": "§l§6La fonderie d'alliages",
+          "desc:8": "§7L'Alloy Smelter d'EnderIO est ta fonderie.\n§7Elle fusionne les metaux et produit des alliages.\n§7Coal Coke + Iron + Wall Dust = §fSteel§7.\n\n§8§o\"Les murs contiennent plus que de la poussiere.\nMelangee au fer et au coke, elle devient acier.\"\n— Dr. E. Voss§r\n\n§eCraft l'Alloy Smelter."
         }
       },
       "tasks:9": {
@@ -7840,8 +7840,8 @@
           "autoclaim:1": 0,
           "ismain:1": 0,
           "repeat_relative:1": 1,
-          "name:8": "\u00a7lLe premier acier",
-          "desc:8": "\u00a77Coal Coke + Iron + Wall Dust dans l'Alloy Smelter.\n\u00a77L'acier est le metal de l'Age 1.\n\u00a77Il ouvre les portes du Dark Steel et du Condenseur T2.\n\n\u00a7eSmelt ton premier lingot d'acier."
+          "name:8": "§lLe premier acier",
+          "desc:8": "§7Coal Coke + Iron + Wall Dust dans l'Alloy Smelter.\n§7L'acier est le metal de l'Age 1.\n§7Il ouvre les portes du Dark Steel et du Condenseur T2.\n\n§eSmelt ton premier lingot d'acier."
         }
       },
       "tasks:9": {
@@ -7890,7 +7890,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a76[Milestone]\u00a7r \u00a77VAR_NAME\u00a7r a forge son premier \u00a7l\u00a78lingot d'acier\u00a7r \u2014 la fonderie tourne"
+          "command:8": "/say §6[Milestone]§r §7VAR_NAME§r a forge son premier §l§8lingot d'acier§r — la fonderie tourne"
         }
       }
     },
@@ -7921,8 +7921,8 @@
           "autoclaim:1": 0,
           "ismain:1": 1,
           "repeat_relative:1": 1,
-          "name:8": "\u00a7l\u00a78La Pioche Steelium",
-          "desc:8": "\u00a77L'acier fusionne avec le Vossium.\n\u00a77La Pioche Steelium perce les couches profondes des murs.\n\u00a77Compose B, Obsidian, Diamant, Emeraude...\n\n\u00a78\u00a7o\"Les murs ont des couches. L'acier atteint la deuxieme.\nCe qu'on y trouve... depasse l'imagination.\"\n\u00a7r\u00a78\u2014 Dr. E. Voss\n\n\u00a7eCraft la Pioche Steelium."
+          "name:8": "§l§8La Pioche Steelium",
+          "desc:8": "§7L'acier fusionne avec le Vossium.\n§7La Pioche Steelium perce les couches profondes des murs.\n§7Compose B, Obsidian, Diamant, Emeraude...\n\n§8§o\"Les murs ont des couches. L'acier atteint la deuxieme.\nCe qu'on y trouve... depasse l'imagination.\"\n§r§8— Dr. E. Voss\n\n§eCraft la Pioche Steelium."
         }
       },
       "tasks:9": {
@@ -7971,7 +7971,7 @@
           "viaPlayer:1": 0,
           "index:3": 1,
           "title:8": "bq_standard.reward.command",
-          "command:8": "/say \u00a78[Milestone]\u00a7r \u00a77VAR_NAME\u00a7r a forge la \u00a7l\u00a78Pioche Steelium\u00a7r \u2014 les secrets profonds des murs s'ouvrent"
+          "command:8": "/say §8[Milestone]§r §7VAR_NAME§r a forge la §l§8Pioche Steelium§r — les secrets profonds des murs s'ouvrent"
         }
       }
     },
@@ -7981,8 +7981,8 @@
       ],
       "properties:10": {
         "betterquesting:10": {
-          "name:8": "\u00a7lLe haut-fourneau",
-          "desc:8": "\u00a77Le Coal Coke brule plus chaud que le charbon.\n\u00a77Le Blast Furnace d'Immersive Engineering\n\u00a77transforme le fer en acier.\n\n\u00a7o\u00a7d\"La chaleur ne suffit pas. Il faut la bonne chaleur.\"\n\u00a7o\u00a7d\u2014 Carnet n\u00b012\n\n\u00a7eConstruis un Blast Furnace IE (multibloc 3x3x3).",
+          "name:8": "§lLe haut-fourneau",
+          "desc:8": "§7Le Coal Coke brule plus chaud que le charbon.\n§7Le Blast Furnace d'Immersive Engineering\n§7transforme le fer en acier.\n\n§o§d\"La chaleur ne suffit pas. Il faut la bonne chaleur.\"\n§o§d— Carnet n°12\n\n§eConstruis un Blast Furnace IE (multibloc 3x3x3).",
           "icon:10": {
             "id:8": "immersiveengineering:stone_decoration",
             "Count:3": 1,
@@ -8017,8 +8017,8 @@
       ],
       "properties:10": {
         "betterquesting:10": {
-          "name:8": "\u00a7l\u00a76Le creuset d'alliages",
-          "desc:8": "\u00a77L'acier ouvre des portes.\n\u00a77L'Induction Smelter fusionne les metaux\n\u00a77en alliages que la fonderie ne peut pas creer.\n\n\u00a77Signalum. Lumium. Enderium.\n\u00a77Les metaux du Dr. Voss.\n\n\u00a7eCraft un Induction Smelter (Thermal Expansion).",
+          "name:8": "§l§6Le creuset d'alliages",
+          "desc:8": "§7L'acier ouvre des portes.\n§7L'Induction Smelter fusionne les metaux\n§7en alliages que la fonderie ne peut pas creer.\n\n§7Signalum. Lumium. Enderium.\n§7Les metaux du Dr. Voss.\n\n§eCraft un Induction Smelter (Thermal Expansion).",
           "icon:10": {
             "id:8": "thermalexpansion:machine",
             "Count:3": 1,
@@ -8054,8 +8054,8 @@
       ],
       "properties:10": {
         "betterquesting:10": {
-          "name:8": "\u00a7l\u00a75J'avais 8 ans quand je l'ai fabrique . . .",
-          "desc:8": "\u00a77Le Condenseur Tier 2. Un multibloc 3x3x3.\n\u00a77Plus grand. Plus puissant. Plus instable.\n\n\u00a77Rassemble les 27 blocs et construis-le.\n\u00a77Le Dr. Voss l'a fabrique a 8 ans.\n\u00a77Toi, ca t'a pris un peu plus longtemps.\n\n\u00a7o\u00a7d\"Mon premier multibloc.\n\u00a7o\u00a7dMa mere pensait que c'etait un jouet.\n\u00a7o\u00a7dElle avait tort.\"\n\u00a7o\u00a7d\u2014 Journal de Voss, entree 3\n\n\u00a7eConstruction: place les 27 blocs selon le schema.",
+          "name:8": "§l§5J'avais 8 ans quand je l'ai fabrique . . .",
+          "desc:8": "§7Le Condenseur Tier 2. Un multibloc 3x3x3.\n§7Plus grand. Plus puissant. Plus instable.\n\n§7Rassemble les 27 blocs et construis-le.\n§7Le Dr. Voss l'a fabrique a 8 ans.\n§7Toi, ca t'a pris un peu plus longtemps.\n\n§o§d\"Mon premier multibloc.\n§o§dMa mere pensait que c'etait un jouet.\n§o§dElle avait tort.\"\n§o§d— Journal de Voss, entree 3\n\n§eConstruction: place les 27 blocs selon le schema.",
           "icon:10": {
             "id:8": "nexusabsolu:condenseur_t2",
             "Count:3": 1,
@@ -8140,8 +8140,8 @@
       ],
       "properties:10": {
         "betterquesting:10": {
-          "name:8": "\u00a7l\u00a75La premiere fissure",
-          "desc:8": "\u00a77Le Condenseur T2 vibre. L'air craque.\n\u00a77Trois fissures dimensionnelles.\n\u00a77Trois salles 7x7 arrachees au neant.\n\n\u00a7o\u00a7d\"Chaque fissure est une cicatrice\n\u00a7o\u00a7ddans le tissu de l'espace.\n\u00a7o\u00a7dJ'en ai ouvert des centaines.\n\u00a7o\u00a7dL'espace ne m'a jamais pardonne.\"\n\u00a7o\u00a7d\u2014 Journal de Voss, entree 48\n\n\u00a7eFabrique 3 Compact Machines 7x7.",
+          "name:8": "§l§5La premiere fissure",
+          "desc:8": "§7Le Condenseur T2 vibre. L'air craque.\n§7Trois fissures dimensionnelles.\n§7Trois salles 7x7 arrachees au neant.\n\n§o§d\"Chaque fissure est une cicatrice\n§o§ddans le tissu de l'espace.\n§o§dJ'en ai ouvert des centaines.\n§o§dL'espace ne m'a jamais pardonne.\"\n§o§d— Journal de Voss, entree 48\n\n§eFabrique 3 Compact Machines 7x7.",
           "icon:10": {
             "id:8": "compactmachines3:machine",
             "Count:3": 1,
@@ -8167,6 +8167,209 @@
         }
       },
       "rewards:9": {}
+    },
+    "136:10": {
+      "questID:3": 136,
+      "preRequisites:11": [
+        63,
+        80,
+        71,
+        66
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:condenseur_t2",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Le Condenseur Tier 2",
+          "desc:8": "§7Le Condenseur Dimensionnel Tier 2.\n§7Un multibloc 3x3x3. 27 blocs.\n§7L'oeuvre du Dr. Voss.\n\n§8§o\"J'avais 8 ans quand je l'ai cree.\nEnfin, le prototype.\nLes 47 suivants ont explose.\nLe 48eme a tenu 3 secondes.\nLe 49eme a ouvert une fissure\nde 2 millimetres.\nCa m'a suffi.\"\n— Dr. E. Voss, Carnet n°2§r\n\n§dAssemble les 27 blocs du multibloc.\n§dVoss n'a pas laisse de mode d'emploi.\n§8JEI te montrera les recettes."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:condenseur_t2",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "nexusabsolu:item_input",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "nexusabsolu:item_output",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "3:10": {
+              "id:8": "nexusabsolu:energy_input",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "4:10": {
+              "id:8": "nexusabsolu:vossium_ii_block",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "5:10": {
+              "id:8": "nexusabsolu:nexus_wall",
+              "Count:3": 13,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "6:10": {
+              "id:8": "minecraft:glass",
+              "Count:3": 9,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:compose_b",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §6[Nexus Absolu]§r §7VAR_NAME§r a construit le §l§6Condenseur Dimensionnel Tier 2§r"
+        }
+      }
+    },
+    "137:10": {
+      "questID:3": 137,
+      "preRequisites:11": [
+        136
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "compactmachines3:machine",
+            "Count:3": 1,
+            "Damage:2": 2,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dLa Deuxieme Fissure",
+          "desc:8": "§7Deux Compact Machines 5x5.\n§7Une cle. Un catalyseur.\n§7Tu connais la chanson.\n\n§8§o\"La deuxieme fissure est toujours\nplus facile que la premiere.\nLa troisieme est presque ennuyeuse.\nLa quatrieme... la quatrieme,\ntu ne la sens meme plus.\"\n— Dr. E. Voss§r\n\n§dUtilise le Condenseur T2 pour fusionner\n§ddeux CM 5x5 en une CM 7x7."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "compactmachines3:machine",
+              "Count:3": 1,
+              "Damage:2": 2,
+              "OreDict:8": ""
+            }
+          },
+          "taskID:8": "bq_standard:retrieval"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:iron_ingot",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §d[Nexus Absolu]§r §7VAR_NAME§r a ouvert la §l§dDeuxieme Fissure§r — une Compact Machine 7x7 est nee"
+        }
+      }
     }
   },
   "questLines:9": {
@@ -8589,8 +8792,8 @@
       },
       "properties:10": {
         "betterquesting:10": {
-          "name:8": "\u00a7l\u00a75Age 0 \u2014 L'Eveil",
-          "desc:8": "\u00a77\u00a7oProgramme de test Voss-7 \u2014 Phase initiale\u00a7r\n\n\u00a77Tu te reveilles dans une \u00a7dCompact Machine 3x3x3\u00a77.\n\u00a77Les murs contiennent des ressources.\n\u00a77Le Dr. Voss a laisse des traces.\n\n\u00a7eObjectif : \u00a7fConstruire le Condenseur et s'echapper vers la CM 5x5.\n\n\u00a78Mods : Ex Nihilo, Tinkers, Bonsai Trees, Pam's, Crop Dusting\n\u00a7846 quetes \u2014 Duree estimee : 3-4h",
+          "name:8": "§l§5Age 0 — L'Eveil",
+          "desc:8": "§7§oProgramme de test Voss-7 — Phase initiale§r\n\n§7Tu te reveilles dans une §dCompact Machine 3x3x3§7.\n§7Les murs contiennent des ressources.\n§7Le Dr. Voss a laisse des traces.\n\n§eObjectif : §fConstruire le Condenseur et s'echapper vers la CM 5x5.\n\n§8Mods : Ex Nihilo, Tinkers, Bonsai Trees, Pam's, Crop Dusting\n§846 quetes — Duree estimee : 3-4h",
           "visibility:8": "NORMAL",
           "bg_image:8": "",
           "bg_size:3": 256,
@@ -8874,21 +9077,25 @@
           "y:3": 150
         },
         "56:10": {
-          "id:3": 134,
+          "id:3": 136,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
           "x:3": 0,
-          "y:3": 500
+          "y:3": 650
         },
         "57:10": {
-          "id:3": 135,
+          "id:3": 137,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
           "x:3": 0,
-          "y:3": 550
+          "y:3": 730
         }
       },
       "lineID:3": 1,
       "properties:10": {
         "betterquesting:10": {
           "visibility:8": "NORMAL",
-          "name:8": "\u00a7l\u00a76Age 1 \u2014 La Mecanique Brute",
+          "name:8": "§l§6Age 1 — La Mecanique Brute",
           "icon:10": {
             "id:8": "contenttweaker:fragment_mecanique",
             "Count:3": 1,
@@ -8897,7 +9104,7 @@
           },
           "bg_image:8": "",
           "bg_size:3": 256,
-          "desc:8": "\u00a77\u00a7oProgramme Voss-7 \u2014 Phase energetique\u00a7r\n\n\u00a77L'espace s'ouvre. \u00a7eL'energie RF\u00a77 est la premiere liberte.\n\u00a77Thermal, EnderIO et Immersive Engineering\n\u00a77transforment les murs en machines.\n\n\u00a7eObjectif : \u00a7fForger le Fragment Mecanique et acceder a la CM 7x7.\n\n\u00a78Mods : Thermal, EnderIO, IE, Actually Additions, Simply Jetpacks\n\u00a7853 quetes \u2014 Duree estimee : 5-7h"
+          "desc:8": "§7§oProgramme Voss-7 — Phase energetique§r\n\n§7L'espace s'ouvre. §eL'energie RF§7 est la premiere liberte.\n§7Thermal, EnderIO et Immersive Engineering\n§7transforment les murs en machines.\n\n§eObjectif : §fForger le Fragment Mecanique et acceder a la CM 7x7.\n\n§8Mods : Thermal, EnderIO, IE, Actually Additions, Simply Jetpacks\n§853 quetes — Duree estimee : 5-7h"
         }
       },
       "order:3": 1
@@ -8905,8 +9112,8 @@
     "2:10": {
       "properties:10": {
         "betterquesting:10": {
-          "name:8": "\u00a7l\u00a7bAge 2 \u2014 Le Paradoxe Organique",
-          "desc:8": "\u00a77\u00a7oProgramme Voss-7 \u2014 Phase transcendante\u00a7r\n\n\u00a77La technologie ne suffit plus.\n\u00a7aLe mana\u00a77, \u00a7cle sang\u00a77 et \u00a7bles etoiles\u00a77 attendent.\n\u00a77Trois chemins. Trois fragments.\n\n\u00a7eObjectif : \u00a7fAssembler les 3 Fragments et obtenir la Cle du Laboratoire.\n\n\u00a78Mods : Botania, Blood Magic, Astral Sorcery, Mystical Agriculture\n\u00a7829 quetes \u2014 Duree estimee : 6-8h",
+          "name:8": "§l§bAge 2 — Le Paradoxe Organique",
+          "desc:8": "§7§oProgramme Voss-7 — Phase transcendante§r\n\n§7La technologie ne suffit plus.\n§aLe mana§7, §cle sang§7 et §bles etoiles§7 attendent.\n§7Trois chemins. Trois fragments.\n\n§eObjectif : §fAssembler les 3 Fragments et obtenir la Cle du Laboratoire.\n\n§8Mods : Botania, Blood Magic, Astral Sorcery, Mystical Agriculture\n§829 quetes — Duree estimee : 6-8h",
           "visibility:8": "NORMAL",
           "bg_image:8": "",
           "bg_size:3": 256,
