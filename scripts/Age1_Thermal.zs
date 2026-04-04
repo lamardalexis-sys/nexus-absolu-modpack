@@ -361,7 +361,7 @@ recipes.addShaped("nexus_compose_gear_b",
 recipes.addShaped("nexus_condenseur_t2",
     <nexusabsolu:condenseur_t2>,
     [[<contenttweaker:vossium_ii_ingot>, <actuallyadditions:item_crystal:2>, <contenttweaker:vossium_ii_ingot>],
-     [<ore:ingotSteel>, <thermalexpansion:frame>, <ore:ingotSteel>],
+     [<ore:ingotDarkSteel>, <thermalexpansion:frame>, <ore:ingotDarkSteel>],
      [<contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_gear_b>, <contenttweaker:vossium_ii_ingot>]]);
 
 // === ITEM INPUT (receptacle items) ===

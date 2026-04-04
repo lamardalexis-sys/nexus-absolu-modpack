@@ -8046,6 +8046,41 @@
         }
       },
       "rewards:9": {}
+    },
+    "134:10": {
+      "preRequisites:11": [
+        80,
+        63
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "name:8": "\u00a7l\u00a75Le Condenseur Tier 2",
+          "desc:8": "\u00a77Le Vossium-II pulse. Le Dark Steel resonne.\n\u00a77Ensemble, ils forment le coeur d'une machine\n\u00a77capable de fracturer des dimensions plus larges.\n\n\u00a7o\u00a7d\"La deuxieme generation. Plus grande. Plus stable.\n\u00a7o\u00a7dCette fois-ci, la fissure ne se refermera pas.\"\n\u00a7o\u00a7d\u2014 Journal de Voss, entree 47\n\n\u00a7eConstruis le multibloc 3x3x3 du Condenseur T2.",
+          "icon:10": {
+            "id:8": "nexusabsolu:condenseur_t2",
+            "Count:3": 1,
+            "Damage:2": 0
+          },
+          "isMain:1": 1,
+          "visibility:8": "NORMAL"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:condenseur_t2",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "autoConsume:1": 0
+        }
+      },
+      "rewards:9": {}
     }
   },
   "questLines:9": {
@@ -8751,6 +8786,11 @@
           "sizeY:3": 24,
           "x:3": 60,
           "y:3": 150
+        },
+        "56:10": {
+          "id:3": 134,
+          "x:3": 0,
+          "y:3": 500
         }
       },
       "lineID:3": 1,
