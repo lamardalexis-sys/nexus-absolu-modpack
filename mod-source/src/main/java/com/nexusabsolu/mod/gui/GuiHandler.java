@@ -8,6 +8,7 @@ import com.nexusabsolu.mod.tiles.TileConvertisseur;
 import com.nexusabsolu.mod.tiles.TileItemInput;
 import com.nexusabsolu.mod.tiles.TileItemOutput;
 import com.nexusabsolu.mod.tiles.TileMachineHumaine;
+import com.nexusabsolu.mod.tiles.TileMachineKRDA;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +23,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int CONDENSEUR_T2_GUI = 3;
     public static final int AUTO_SCAVENGER_GUI = 4;
     public static final int MACHINE_HUMAINE_GUI = 5;
+    public static final int MACHINE_KRDA_GUI = 6;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -56,6 +58,9 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == MACHINE_HUMAINE_GUI && te instanceof TileMachineHumaine) {
             return new ContainerMachineHumaine(player.inventory, (TileMachineHumaine) te);
+        }
+        if (ID == MACHINE_KRDA_GUI && te instanceof TileMachineKRDA) {
+            return new ContainerMachineKRDA(player.inventory, (TileMachineKRDA) te);
         }
         return null;
     }
@@ -93,6 +98,9 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == MACHINE_HUMAINE_GUI && te instanceof TileMachineHumaine) {
             return new GuiMachineHumaine(player.inventory, (TileMachineHumaine) te);
+        }
+        if (ID == MACHINE_KRDA_GUI && te instanceof TileMachineKRDA) {
+            return new GuiMachineKRDA(player.inventory, (TileMachineKRDA) te);
         }
         return null;
     }

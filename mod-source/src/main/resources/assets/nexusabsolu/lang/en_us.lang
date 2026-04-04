@@ -134,3 +134,7 @@ tile.vossium_iv_block.name=Bloc de Vossium IV
 # Machine Humaine
 tile.nexusabsolu.machine_humaine.name=Machine Voss Diarh33
 fluid.diarrhee_liquide=Diarrhee Liquide
+
+# Machine KRDA125
+tile.nexusabsolu.machine_krda.name=Machine Voss KRDA125
+item.nexusabsolu.signalhee_ingot.name=Lingot de Signalhee

@@ -15,6 +15,7 @@ import com.nexusabsolu.mod.tiles.TileEnergyInput;
 import com.nexusabsolu.mod.tiles.TileItemInput;
 import com.nexusabsolu.mod.tiles.TileItemOutput;
 import com.nexusabsolu.mod.tiles.TileMachineHumaine;
+import com.nexusabsolu.mod.tiles.TileMachineKRDA;
 import com.nexusabsolu.mod.world.NexusOreGen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -62,6 +63,8 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "energy_input"));
         GameRegistry.registerTileEntity(TileMachineHumaine.class,
             new ResourceLocation(Reference.MOD_ID, "machine_humaine"));
+        GameRegistry.registerTileEntity(TileMachineKRDA.class,
+            new ResourceLocation(Reference.MOD_ID, "machine_krda"));
     }
 
     public void init(FMLInitializationEvent event) {

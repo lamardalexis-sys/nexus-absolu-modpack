@@ -97,6 +97,7 @@ public class ModItems {
     public static final Item NEXIUM_INGOT = new ItemBase("nexium_ingot");
     public static final Item CLAUSTRITE_GEM = new ItemBase("claustrite_gem");
     public static final Item SUPER_FERTILIZER = new ItemBase("super_fertilizer");
+    public static final Item SIGNALHEE_INGOT = new ItemBase("signalhee_ingot");
 
     // === COMPOSES ENERGETIQUES (A-E) ===
     public static final Item COMPOSE_A = new ItemCompose("compose_a", "A", 25);
