@@ -67,6 +67,8 @@ buildItem("organic_catalyst");      // Botania + Blood Magic + Pam's
 buildItem("invarium_ingot");        // Age 0 — alliage Cu-Sn-Fe-Ni
 buildItem("vossium_ingot");         // Age 0 — Invarium + Compose A
 buildItem("vossium_ii_ingot");      // Age 1 — Vossium + Compose B
+buildItem("vossium_iii_ingot");     // Age 1 — Vossium-II + Compose C
+buildItem("vossium_iv_ingot");      // Age 1 — Vossium-III + Compose D
 
 // ============================================
 // 4. FRAGMENTS DE PROGRESSION

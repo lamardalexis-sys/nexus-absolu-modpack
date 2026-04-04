@@ -102,12 +102,17 @@ public class ModItems {
     public static final Item COMPOSE_A = new ItemCompose("compose_a", "A", 25);
     public static final Item COMPOSE_B = new ItemCompose("compose_b", "B", 75);
     public static final Item COMPOSE_C = new ItemCompose("compose_c", "C", 150);
+    public static final Item COMPOSE_D_RAW = new ItemBase("compose_d_raw");
+    public static final Item COMPOSE_D = new ItemCompose("compose_d", "D", 300);
+    public static final Item COMPOSE_C = new ItemCompose("compose_c", "C", 150);
     public static final Item COMPOSE_D = new ItemCompose("compose_d", "D", 300);
     public static final Item COMPOSE_E = new ItemCompose("compose_e", "E", 500);
 
     // === COMPOSE COMPONENTS ===
     public static final Item COMPOSE_GEAR_A = new ItemBase("compose_gear_a");
     public static final Item COMPOSE_GEAR_B = new ItemBase("compose_gear_b");
+    public static final Item COMPOSE_GEAR_C = new ItemBase("compose_gear_c");
+    public static final Item COMPOSE_GEAR_D = new ItemBase("compose_gear_d");
 
     // === THE 9 FRAGMENTS ===
     public static final Item FRAGMENT_MECANIQUE = new ItemFragment(

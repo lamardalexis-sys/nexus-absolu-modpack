@@ -393,3 +393,61 @@ recipes.addShaped("nexus_vossium_ii_block",
      [<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>]]);
 
 print("[Nexus Absolu] Vossium-II recipes loaded");
+
+// ============================================
+// COMPOSE C — Synthese Thermique
+// Induction Smelter: Compose B + Signalum -> Compose C
+// ============================================
+mods.thermalexpansion.InductionSmelter.addRecipe(<nexusabsolu:compose_c>, <nexusabsolu:compose_b>, <thermalfoundation:material:165>, 8000);
+
+// ============================================
+// COMPOSE D — Resonance Dimensionnelle (multi-etapes)
+// Etape 1: EnderIO Alloy Smelter: Compose C + Vibrant Alloy -> Compose D brut
+// Etape 2: AA Atomic Reconstructor: Compose D brut -> Compose D
+// ============================================
+mods.enderio.AlloySmelter.addRecipe(<nexusabsolu:compose_d_raw>, [<nexusabsolu:compose_c>, <enderio:item_alloy_ingot:2>], 10000);
+mods.actuallyadditions.AtomicReconstructor.addRecipe(<nexusabsolu:compose_d>, <nexusabsolu:compose_d_raw>, 15000);
+
+// ============================================
+// VOSSIUM-III (Vossium-II + Compose C) — 3 smelters
+// ============================================
+mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_c>, 500);
+mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_iii_ingot>, [<contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_c>], 8000);
+mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_c>, 8000);
+
+// ============================================
+// VOSSIUM-IV (Vossium-III + Compose D) — 3 smelters
+// ============================================
+mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iii_ingot>, <nexusabsolu:compose_d>, 600);
+mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_iv_ingot>, [<contenttweaker:vossium_iii_ingot>, <nexusabsolu:compose_d>], 12000);
+mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iii_ingot>, <nexusabsolu:compose_d>, 12000);
+
+// ============================================
+// ENGRENAGES C et D
+// ============================================
+recipes.addShaped("nexus_compose_gear_c",
+    <nexusabsolu:compose_gear_c>,
+    [[null, <nexusabsolu:compose_c>, null],
+     [<nexusabsolu:compose_c>, <contenttweaker:vossium_iii_ingot>, <nexusabsolu:compose_c>],
+     [null, <nexusabsolu:compose_c>, null]]);
+
+recipes.addShaped("nexus_compose_gear_d",
+    <nexusabsolu:compose_gear_d>,
+    [[null, <nexusabsolu:compose_d>, null],
+     [<nexusabsolu:compose_d>, <contenttweaker:vossium_iv_ingot>, <nexusabsolu:compose_d>],
+     [null, <nexusabsolu:compose_d>, null]]);
+
+// ============================================
+// BLOCS VOSSIUM III et IV (9 lingots)
+// ============================================
+recipes.addShaped("nexus_vossium_iii_block",
+    <nexusabsolu:vossium_iii_block>,
+    [[<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>],
+     [<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>],
+     [<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>]]);
+
+recipes.addShaped("nexus_vossium_iv_block",
+    <nexusabsolu:vossium_iv_block>,
+    [[<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>],
+     [<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>],
+     [<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>]]);

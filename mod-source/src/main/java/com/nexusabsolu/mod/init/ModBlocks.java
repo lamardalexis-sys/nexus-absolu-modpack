@@ -4,6 +4,8 @@ import com.nexusabsolu.mod.blocks.BlockCompose;
 import com.nexusabsolu.mod.blocks.BlockNexusOre;
 import com.nexusabsolu.mod.blocks.BlockNexusWall;
 import com.nexusabsolu.mod.blocks.BlockVossiumII;
+import com.nexusabsolu.mod.blocks.BlockVossiumIII;
+import com.nexusabsolu.mod.blocks.BlockVossiumIV;
 import com.nexusabsolu.mod.blocks.machines.BlockAtelier;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseur;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurFormed;
@@ -52,6 +54,8 @@ public class ModBlocks {
     public static final BlockAutoScavenger AUTO_SCAVENGER = new BlockAutoScavenger();
     public static final BlockEnergyInput ENERGY_INPUT = new BlockEnergyInput();
     public static final BlockVossiumII VOSSIUM_II_BLOCK = new BlockVossiumII();
+    public static final BlockVossiumIII VOSSIUM_III_BLOCK = new BlockVossiumIII();
+    public static final BlockVossiumIV VOSSIUM_IV_BLOCK = new BlockVossiumIV();
 
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }
