@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -40,6 +41,17 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
+
+    // Non-opaque for 3D relief (gaps between pillars/panel visible)
+    @Override
+    public boolean isOpaqueCube(IBlockState state) { return false; }
+
+    @Override
+    public boolean isFullCube(IBlockState state) { return false; }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getBlockLayer() { return BlockRenderLayer.CUTOUT_MIPPED; }
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
