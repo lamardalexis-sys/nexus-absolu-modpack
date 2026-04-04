@@ -87,9 +87,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-        renderShell(te, x, y, z);
-        renderScreen(te, x, y, z, time, pct, proc);
-
+        // 1. Effects FIRST (render inside the structure)
         renderEnergyColumn(cx, cy, cz, time, pct, proc);
         renderFluid(cx, cy, cz, time, pct, proc);
         renderItems(te, cx, cy, cz, time, pct, proc);
@@ -105,6 +103,10 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         if (proc && pct > FLASH_START) {
             renderShockwave(cx, cy, cz, time, pct);
         }
+
+        // 2. Shell AFTER (renders on top with alpha — glass areas show effects through)
+        renderShell(te, x, y, z);
+        renderScreen(te, x, y, z, time, pct, proc);
     }
 
     // ======================================================================
@@ -226,91 +228,92 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         BlockPos mp = te.getPos();
 
         double bx0 = x + (bounds[0] - mp.getX());
-        double by0 = y + (bounds[1] - mp.getY());
+        double by1 = y + (bounds[4] - mp.getY());
         double bz0 = z + (bounds[2] - mp.getZ());
         double bx1 = x + (bounds[3] - mp.getX());
-        double by1 = y + (bounds[4] - mp.getY());
         double bz1 = z + (bounds[5] - mp.getZ());
 
-        double sBot = by1 - 0.75;
-        double sTop = by1 - 0.15;
-        double off = 0.005;
+        // Screen center position + rotation angle
+        double sx, sy, sz;
+        float rotY;
+        sy = by1 - 0.45;  // upper portion of front face
 
+        if (frontDir[0] == 1) {
+            sx = bx1 + 0.006; sz = (bz0 + bz1) / 2.0; rotY = -90F;
+        } else if (frontDir[0] == -1) {
+            sx = bx0 - 0.006; sz = (bz0 + bz1) / 2.0; rotY = 90F;
+        } else if (frontDir[1] == 1) {
+            sx = (bx0 + bx1) / 2.0; sz = bz1 + 0.006; rotY = 180F;
+        } else {
+            sx = (bx0 + bx1) / 2.0; sz = bz0 - 0.006; rotY = 0F;
+        }
+
+        // === Screen background quad ===
         GlStateManager.pushMatrix();
+        GlStateManager.translate(sx, sy, sz);
+        GlStateManager.rotate(rotY, 0, 1, 0);
         beginTranslucent();
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
 
-        float sr = proc ? 0.05F : 0.02F;
-        float sg = proc ? 0.35F : 0.02F;
-        float sb = proc ? 0.08F : 0.08F;
-        float sa = proc ? 0.9F : 0.8F;
+        float sr = proc ? 0.03F : 0.01F;
+        float sg = proc ? 0.20F : 0.01F;
+        float sb = proc ? 0.05F : 0.06F;
 
-        // Draw screen + progress bar on the front face
+        // Screen quad (1.2 wide x 0.5 tall)
         buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-        if (frontDir[0] == 1) {
-            double fx = bx1 + off;
-            buf.pos(fx, sBot, bz0+0.9).color(sr,sg,sb,sa).endVertex();
-            buf.pos(fx, sBot, bz1-0.9).color(sr,sg,sb,sa).endVertex();
-            buf.pos(fx, sTop, bz1-0.9).color(sr,sg,sb,sa*0.7F).endVertex();
-            buf.pos(fx, sTop, bz0+0.9).color(sr,sg,sb,sa*0.7F).endVertex();
-        } else if (frontDir[0] == -1) {
-            double fx = bx0 - off;
-            buf.pos(fx, sBot, bz1-0.9).color(sr,sg,sb,sa).endVertex();
-            buf.pos(fx, sBot, bz0+0.9).color(sr,sg,sb,sa).endVertex();
-            buf.pos(fx, sTop, bz0+0.9).color(sr,sg,sb,sa*0.7F).endVertex();
-            buf.pos(fx, sTop, bz1-0.9).color(sr,sg,sb,sa*0.7F).endVertex();
-        } else if (frontDir[1] == 1) {
-            double fz = bz1 + off;
-            buf.pos(bx0+0.9, sBot, fz).color(sr,sg,sb,sa).endVertex();
-            buf.pos(bx1-0.9, sBot, fz).color(sr,sg,sb,sa).endVertex();
-            buf.pos(bx1-0.9, sTop, fz).color(sr,sg,sb,sa*0.7F).endVertex();
-            buf.pos(bx0+0.9, sTop, fz).color(sr,sg,sb,sa*0.7F).endVertex();
-        } else {
-            double fz = bz0 - off;
-            buf.pos(bx1-0.9, sBot, fz).color(sr,sg,sb,sa).endVertex();
-            buf.pos(bx0+0.9, sBot, fz).color(sr,sg,sb,sa).endVertex();
-            buf.pos(bx0+0.9, sTop, fz).color(sr,sg,sb,sa*0.7F).endVertex();
-            buf.pos(bx1-0.9, sTop, fz).color(sr,sg,sb,sa*0.7F).endVertex();
-        }
+        buf.pos(-0.6, -0.25, 0).color(sr, sg, sb, 0.92F).endVertex();
+        buf.pos( 0.6, -0.25, 0).color(sr, sg, sb, 0.92F).endVertex();
+        buf.pos( 0.6,  0.25, 0).color(sr * 0.5F, sg * 0.5F, sb * 0.5F, 0.85F).endVertex();
+        buf.pos(-0.6,  0.25, 0).color(sr * 0.5F, sg * 0.5F, sb * 0.5F, 0.85F).endVertex();
         tess.draw();
 
-        // Progress bar (green fill from bottom)
+        // Progress bar (if processing)
         if (proc && pct > 0.01F) {
-            float fillH = pct * (float)(sTop - sBot - 0.1);
+            float barW = 1.0F * pct;
             buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-            float pr = 0.1F + pct * 0.5F, pg = 0.7F, pb = 0.15F, pa = 0.85F;
-            double fy = sBot + 0.05 + fillH;
-            if (frontDir[0] == 1) {
-                double fx = bx1 + off + 0.001;
-                buf.pos(fx, sBot+0.05, bz0+1.0).color(pr,pg,pb,pa).endVertex();
-                buf.pos(fx, sBot+0.05, bz1-1.0).color(pr,pg,pb,pa).endVertex();
-                buf.pos(fx, fy, bz1-1.0).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
-                buf.pos(fx, fy, bz0+1.0).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
-            } else if (frontDir[0] == -1) {
-                double fx = bx0 - off - 0.001;
-                buf.pos(fx, sBot+0.05, bz1-1.0).color(pr,pg,pb,pa).endVertex();
-                buf.pos(fx, sBot+0.05, bz0+1.0).color(pr,pg,pb,pa).endVertex();
-                buf.pos(fx, fy, bz0+1.0).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
-                buf.pos(fx, fy, bz1-1.0).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
-            } else if (frontDir[1] == 1) {
-                double fz = bz1 + off + 0.001;
-                buf.pos(bx0+1.0, sBot+0.05, fz).color(pr,pg,pb,pa).endVertex();
-                buf.pos(bx1-1.0, sBot+0.05, fz).color(pr,pg,pb,pa).endVertex();
-                buf.pos(bx1-1.0, fy, fz).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
-                buf.pos(bx0+1.0, fy, fz).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
-            } else {
-                double fz = bz0 - off - 0.001;
-                buf.pos(bx1-1.0, sBot+0.05, fz).color(pr,pg,pb,pa).endVertex();
-                buf.pos(bx0+1.0, sBot+0.05, fz).color(pr,pg,pb,pa).endVertex();
-                buf.pos(bx0+1.0, fy, fz).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
-                buf.pos(bx1-1.0, fy, fz).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
-            }
+            buf.pos(-0.5, -0.20, 0.001).color(0.15F, 0.75F, 0.2F, 0.8F).endVertex();
+            buf.pos(-0.5F + barW, -0.20, 0.001).color(0.15F, 0.75F, 0.2F, 0.8F).endVertex();
+            buf.pos(-0.5F + barW, -0.12, 0.001).color(0.08F, 0.45F, 0.1F, 0.6F).endVertex();
+            buf.pos(-0.5, -0.12, 0.001).color(0.08F, 0.45F, 0.1F, 0.6F).endVertex();
             tess.draw();
         }
 
         endTranslucent();
+        GlStateManager.popMatrix();
+
+        // === Text rendering ===
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(sx, sy, sz);
+        GlStateManager.rotate(rotY, 0, 1, 0);
+        GlStateManager.scale(-0.008F, -0.008F, 0.008F);  // Scale for text (negative X to mirror)
+        GlStateManager.disableLighting();
+        GlStateManager.depthMask(false);
+        GlStateManager.enableTexture2D();
+        setFullBrightness();
+
+        net.minecraft.client.gui.FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+
+        if (proc) {
+            int percent = (int)(pct * 100);
+            String line1 = "CONDENSEUR T2";
+            String line2 = percent + "%%";
+            String line3 = te.getCurrentQuote();
+            fr.drawString(line1, -fr.getStringWidth(line1) / 2, -22, 0x44FF66);
+            fr.drawString(line2, -fr.getStringWidth(line2) / 2, -6, 0x88FFAA);
+            fr.drawString(line3, -fr.getStringWidth(line3) / 2, 10, 0x338855);
+        } else {
+            String idle1 = "CONDENSEUR T2";
+            String idle2 = "EN ATTENTE";
+            int pulse = (int)(80 + 40 * Math.sin(time * 2.0));
+            int color = (pulse << 8) | 0xFF000040;
+            fr.drawString(idle1, -fr.getStringWidth(idle1) / 2, -14, 0x6644AA);
+            fr.drawString(idle2, -fr.getStringWidth(idle2) / 2, 4, color);
+        }
+
+        GlStateManager.depthMask(true);
+        GlStateManager.enableLighting();
         GlStateManager.popMatrix();
     }
 
