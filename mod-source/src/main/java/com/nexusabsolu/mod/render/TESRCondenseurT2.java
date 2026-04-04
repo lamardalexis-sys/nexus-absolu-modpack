@@ -154,6 +154,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.disableLighting();
+        GlStateManager.disableCull();
         GlStateManager.enableTexture2D();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         setFullBrightness();
@@ -193,6 +194,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
             renderFace(buf, tess, SHELL_SIDE_OUT, x1+o, y0, z0, x1+o, y1, z1, 1);
         }
 
+        GlStateManager.enableCull();
         GlStateManager.enableLighting();
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
