@@ -2,6 +2,7 @@ package com.nexusabsolu.mod.gui;
 
 import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileItemInput;
+import com.nexusabsolu.mod.tiles.TileItemOutput;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -33,8 +34,8 @@ public class GuiCondenseurT2 extends GuiContainer {
     private static final int TEXT_QUOTE  = 0xFF338866;
     private static final int GOLD_ACCENT = 0xFFD4A830;
 
-    public GuiCondenseurT2(InventoryPlayer playerInv, TileCondenseurT2 master, TileItemInput inputTile) {
-        super(new ContainerCondenseurT2(playerInv, master, inputTile));
+    public GuiCondenseurT2(InventoryPlayer playerInv, TileCondenseurT2 master, TileItemInput inputTile, TileItemOutput outputTile) {
+        super(new ContainerCondenseurT2(playerInv, master, inputTile, outputTile));
         this.container = (ContainerCondenseurT2) inventorySlots;
         this.master = master;
         this.xSize = GUI_W;
@@ -122,9 +123,9 @@ public class GuiCondenseurT2 extends GuiContainer {
         int outY = gy + 18;
         drawPanel(outX, outY, 62, 52);
 
-        // Output result display (no slot - just visual area)
-        drawRect(gx + 120, gy + 30, gx + 156, gy + 60, SLOT_BG);
-        drawRect(gx + 119, gy + 29, gx + 157, gy + 61, PANEL_EDGE);
+        // Output result slot (slot index 4, at 131,40 in container)
+        int outSlotColor = proc ? SLOT_ACTIVE : SLOT_BORDER;
+        drawSlotBox(gx + 130, gy + 39, outSlotColor);
 
         // === ENERGY BAR (bottom left) ===
         int eBarX = gx + 8;

@@ -2,10 +2,12 @@ package com.nexusabsolu.mod.gui;
 
 import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileItemInput;
+import com.nexusabsolu.mod.tiles.TileItemOutput;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -15,6 +17,7 @@ public class ContainerCondenseurT2 extends Container {
 
     private final TileCondenseurT2 master;
     private final TileItemInput inputTile;
+    private final TileItemOutput outputTile;
 
     // Synced fields
     private int processTime = 0;
@@ -23,9 +26,10 @@ public class ContainerCondenseurT2 extends Container {
     private int maxEnergy = 0;
     private int structureFormed = 0;
 
-    public ContainerCondenseurT2(InventoryPlayer playerInv, TileCondenseurT2 master, TileItemInput inputTile) {
+    public ContainerCondenseurT2(InventoryPlayer playerInv, TileCondenseurT2 master, TileItemInput inputTile, TileItemOutput outputTile) {
         this.master = master;
         this.inputTile = inputTile;
+        this.outputTile = outputTile;
 
         // 4 input slots (from INPUT hatch) -- 2x2 grid
         if (inputTile != null) {
@@ -34,22 +38,37 @@ public class ContainerCondenseurT2 extends Container {
             addSlotToContainer(new Slot(inputTile, 2, 16, 49));  // Key
             addSlotToContainer(new Slot(inputTile, 3, 38, 49));  // Catalyst
         } else {
-            // Dummy slots if input tile not available
             for (int i = 0; i < 4; i++) {
                 addSlotToContainer(new Slot(new DummyInventory(), i, -999, -999));
             }
         }
 
-        // Player inventory (slots 4-30)
+        // 1 output slot (from OUTPUT hatch) -- slot index 4
+        if (outputTile != null) {
+            addSlotToContainer(new SlotOutput(outputTile, 0, 131, 40));
+        } else {
+            addSlotToContainer(new Slot(new DummyInventory(), 0, -999, -999));
+        }
+
+        // Player inventory (slots 5-31)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 addSlotToContainer(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 94 + row * 18));
             }
         }
-        // Player hotbar (slots 31-39)
+        // Player hotbar (slots 32-40)
         for (int col = 0; col < 9; col++) {
             addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 152));
         }
+    }
+
+    // Output-only slot: can take out but not put in
+    private static class SlotOutput extends Slot {
+        public SlotOutput(IInventory inv, int index, int x, int y) {
+            super(inv, index, x, y);
+        }
+        @Override
+        public boolean isItemValid(ItemStack stack) { return false; }
     }
 
     @Override
@@ -110,10 +129,13 @@ public class ContainerCondenseurT2 extends Container {
         ItemStack original = stackInSlot.copy();
 
         if (index < 4) {
-            // From machine to player
-            if (!mergeItemStack(stackInSlot, 4, 40, true)) return ItemStack.EMPTY;
+            // From input slots to player
+            if (!mergeItemStack(stackInSlot, 5, 41, true)) return ItemStack.EMPTY;
+        } else if (index == 4) {
+            // From output slot to player
+            if (!mergeItemStack(stackInSlot, 5, 41, true)) return ItemStack.EMPTY;
         } else {
-            // From player to machine: find the right slot
+            // From player to machine: find the right input slot
             boolean merged = false;
             if (inputTile != null) {
                 for (int i = 0; i < 4; i++) {

@@ -6,6 +6,7 @@ import com.nexusabsolu.mod.tiles.TileAutoScavenger;
 import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
 import com.nexusabsolu.mod.tiles.TileItemInput;
+import com.nexusabsolu.mod.tiles.TileItemOutput;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -35,12 +36,18 @@ public class GuiHandler implements IGuiHandler {
         if (ID == CONDENSEUR_T2_GUI && te instanceof TileCondenseurT2) {
             TileCondenseurT2 master = (TileCondenseurT2) te;
             TileItemInput inputTile = null;
+            TileItemOutput outputTile = null;
             BlockPos inputPos = master.getInputPos();
             if (inputPos != null) {
                 TileEntity inputTE = world.getTileEntity(inputPos);
                 if (inputTE instanceof TileItemInput) inputTile = (TileItemInput) inputTE;
             }
-            return new ContainerCondenseurT2(player.inventory, master, inputTile);
+            BlockPos outputPos = master.getOutputPos();
+            if (outputPos != null) {
+                TileEntity outputTE = world.getTileEntity(outputPos);
+                if (outputTE instanceof TileItemOutput) outputTile = (TileItemOutput) outputTE;
+            }
+            return new ContainerCondenseurT2(player.inventory, master, inputTile, outputTile);
         }
         if (ID == AUTO_SCAVENGER_GUI && te instanceof TileAutoScavenger) {
             return new ContainerAutoScavenger(player.inventory, (TileAutoScavenger) te);
@@ -63,12 +70,18 @@ public class GuiHandler implements IGuiHandler {
         if (ID == CONDENSEUR_T2_GUI && te instanceof TileCondenseurT2) {
             TileCondenseurT2 master = (TileCondenseurT2) te;
             TileItemInput inputTile = null;
+            TileItemOutput outputTile = null;
             BlockPos inputPos = master.getInputPos();
             if (inputPos != null) {
                 TileEntity inputTE = world.getTileEntity(inputPos);
                 if (inputTE instanceof TileItemInput) inputTile = (TileItemInput) inputTE;
             }
-            return new GuiCondenseurT2(player.inventory, master, inputTile);
+            BlockPos outputPos = master.getOutputPos();
+            if (outputPos != null) {
+                TileEntity outputTE = world.getTileEntity(outputPos);
+                if (outputTE instanceof TileItemOutput) outputTile = (TileItemOutput) outputTE;
+            }
+            return new GuiCondenseurT2(player.inventory, master, inputTile, outputTile);
         }
         if (ID == AUTO_SCAVENGER_GUI && te instanceof TileAutoScavenger) {
             return new GuiAutoScavenger(player.inventory, (TileAutoScavenger) te);
