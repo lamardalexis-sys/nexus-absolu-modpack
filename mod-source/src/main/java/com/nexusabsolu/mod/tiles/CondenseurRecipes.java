@@ -33,10 +33,10 @@ public class CondenseurRecipes {
                   ModItems.COMPACT_KEY_5X5, ModItems.CATALYSEUR_INSTABLE,
                   "compactmachines3:machine", 1, 1200, 50);
 
-        // Tier 2: 2x Small(5x5) -> Normal(7x7) | 90s @ 80 RF/t = 144,000 RF
+        // Tier 2: 2x Small(5x5) -> Normal(7x7) | 30s @ 140 RF/t = 84,000 RF
         addFusionRecipe("compactmachines3:machine", 1,
                   ModItems.COMPACT_KEY_7X7, ModItems.CATALYSEUR_VOLATILE,
-                  "compactmachines3:machine", 2, 1800, 80);
+                  "compactmachines3:machine", 2, 600, 140);
 
         // Tier 3: 2x Normal(7x7) -> Large(9x9) | 120s @ 120 RF/t = 288,000 RF
         addFusionRecipe("compactmachines3:machine", 2,
