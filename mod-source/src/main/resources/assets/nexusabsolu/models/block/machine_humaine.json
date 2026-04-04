@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "nexusabsolu:blocks/machine_humaine_top",
+    "front": "nexusabsolu:blocks/machine_humaine_front",
+    "side": "nexusabsolu:blocks/machine_humaine_side"
+  }
+}

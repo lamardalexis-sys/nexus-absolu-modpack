@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "nexusabsolu:machine_humaine" },
+    "facing=south": { "model": "nexusabsolu:machine_humaine", "y": 180 },
+    "facing=west":  { "model": "nexusabsolu:machine_humaine", "y": 270 },
+    "facing=east":  { "model": "nexusabsolu:machine_humaine", "y": 90 }
+  }
+}

@@ -14,9 +14,12 @@ import com.nexusabsolu.mod.tiles.TileConvertisseur;
 import com.nexusabsolu.mod.tiles.TileEnergyInput;
 import com.nexusabsolu.mod.tiles.TileItemInput;
 import com.nexusabsolu.mod.tiles.TileItemOutput;
+import com.nexusabsolu.mod.tiles.TileMachineHumaine;
 import com.nexusabsolu.mod.world.NexusOreGen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -24,7 +27,19 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
+
+    public static Fluid DIARRHEE_FLUID;
+
     public void preInit(FMLPreInitializationEvent event) {
+        // Fluid registration
+        FluidRegistry.enableUniversalBucket();
+        DIARRHEE_FLUID = new Fluid("diarrhee_liquide",
+            new ResourceLocation(Reference.MOD_ID, "blocks/diarrhee_still"),
+            new ResourceLocation(Reference.MOD_ID, "blocks/diarrhee_flow"))
+            .setDensity(1200).setViscosity(3000);
+        FluidRegistry.registerFluid(DIARRHEE_FLUID);
+        FluidRegistry.addBucketForFluid(DIARRHEE_FLUID);
+
         NexusPacketHandler.init();
         MinecraftForge.EVENT_BUS.register(new ScavengeEventHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
@@ -45,6 +60,8 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "auto_scavenger"));
         GameRegistry.registerTileEntity(TileEnergyInput.class,
             new ResourceLocation(Reference.MOD_ID, "energy_input"));
+        GameRegistry.registerTileEntity(TileMachineHumaine.class,
+            new ResourceLocation(Reference.MOD_ID, "machine_humaine"));
     }
 
     public void init(FMLInitializationEvent event) {

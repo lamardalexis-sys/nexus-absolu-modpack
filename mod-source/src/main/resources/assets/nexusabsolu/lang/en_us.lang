@@ -130,3 +130,7 @@ item.nexusabsolu.compose_gear_c.name=Engrenage de Compose C
 item.nexusabsolu.compose_gear_d.name=Engrenage de Compose D
 tile.vossium_iii_block.name=Bloc de Vossium III
 tile.vossium_iv_block.name=Bloc de Vossium IV
+
+# Machine Humaine
+tile.nexusabsolu.machine_humaine.name=Machine Voss Diarh33
+fluid.diarrhee_liquide=Diarrhee Liquide

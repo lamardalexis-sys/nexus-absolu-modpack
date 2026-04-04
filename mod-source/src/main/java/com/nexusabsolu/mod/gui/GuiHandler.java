@@ -7,6 +7,7 @@ import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
 import com.nexusabsolu.mod.tiles.TileItemInput;
 import com.nexusabsolu.mod.tiles.TileItemOutput;
+import com.nexusabsolu.mod.tiles.TileMachineHumaine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +21,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int CONVERTISSEUR_GUI = 2;
     public static final int CONDENSEUR_T2_GUI = 3;
     public static final int AUTO_SCAVENGER_GUI = 4;
+    public static final int MACHINE_HUMAINE_GUI = 5;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -51,6 +53,9 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == AUTO_SCAVENGER_GUI && te instanceof TileAutoScavenger) {
             return new ContainerAutoScavenger(player.inventory, (TileAutoScavenger) te);
+        }
+        if (ID == MACHINE_HUMAINE_GUI && te instanceof TileMachineHumaine) {
+            return new ContainerMachineHumaine(player.inventory, (TileMachineHumaine) te);
         }
         return null;
     }
@@ -85,6 +90,9 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == AUTO_SCAVENGER_GUI && te instanceof TileAutoScavenger) {
             return new GuiAutoScavenger(player.inventory, (TileAutoScavenger) te);
+        }
+        if (ID == MACHINE_HUMAINE_GUI && te instanceof TileMachineHumaine) {
+            return new GuiMachineHumaine(player.inventory, (TileMachineHumaine) te);
         }
         return null;
     }
