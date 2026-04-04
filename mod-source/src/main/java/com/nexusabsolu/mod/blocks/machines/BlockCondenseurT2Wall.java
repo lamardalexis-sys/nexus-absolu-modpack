@@ -41,16 +41,12 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
 
+    // Solid opaque block — provides depth buffer for the TESR shell overlay
     @Override
-    public boolean isOpaqueCube(IBlockState state) { return false; }
+    public boolean isOpaqueCube(IBlockState state) { return true; }
 
     @Override
-    public boolean isFullCube(IBlockState state) { return false; }
-
-    @Override
-    public net.minecraft.util.EnumBlockRenderType getRenderType(IBlockState state) {
-        return net.minecraft.util.EnumBlockRenderType.INVISIBLE;
-    }
+    public boolean isFullCube(IBlockState state) { return true; }
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,

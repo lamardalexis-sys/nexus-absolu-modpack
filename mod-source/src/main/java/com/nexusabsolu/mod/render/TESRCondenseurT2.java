@@ -148,8 +148,8 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         double y1 = y + (bounds[4] - masterPos.getY());
         double z1 = z + (bounds[5] - masterPos.getZ());
 
-        double o = 0.005;  // offset from block faces
-        double e = 0.01;   // extension past edges (overlap at corners)
+        double o = 0.02;   // offset from block faces (shell in front of solid blocks)
+        double e = 0.02;   // extension past edges (overlap at corners)
 
         GlStateManager.pushMatrix();
         GlStateManager.disableLighting();
