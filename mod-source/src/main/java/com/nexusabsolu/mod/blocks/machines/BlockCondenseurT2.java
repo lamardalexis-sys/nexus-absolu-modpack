@@ -89,6 +89,17 @@ public class BlockCondenseurT2 extends Block implements IHasModel {
     }
 
     @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        if (!world.isRemote) {
+            TileEntity te = world.getTileEntity(pos);
+            if (te instanceof TileCondenseurT2) {
+                ((TileCondenseurT2) te).onStructureBroken();
+            }
+        }
+        super.breakBlock(world, pos, state);
+    }
+
+    @Override
     public void registerModels() {
         ModelLoader.setCustomModelResourceLocation(
             Item.getItemFromBlock(this), 0,

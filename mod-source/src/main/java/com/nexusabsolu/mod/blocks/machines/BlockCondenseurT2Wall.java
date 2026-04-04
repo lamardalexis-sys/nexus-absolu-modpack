@@ -48,6 +48,12 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
     @Override
     public boolean isFullCube(IBlockState state) { return true; }
 
+    // Drop Nexus Wall when broken (formed wall is not a real item)
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return Item.getItemFromBlock(ModBlocks.NEXUS_WALL);
+    }
+
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
                                     EntityPlayer player, EnumHand hand,
