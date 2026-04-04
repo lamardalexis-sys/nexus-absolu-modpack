@@ -149,11 +149,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
             case OUTPUT:
                 return name.equals("nexusabsolu:item_output");
             case VOSSIUM2:
-                // Placeholder: accept any solid non-air block for now
-                // TODO: replace with proper Vossium-II block check
-                return !block.isAir(state, world, checkPos)
-                    && block != Blocks.GLASS
-                    && block != Blocks.REDSTONE_BLOCK;
+                return name.equals("nexusabsolu:vossium_ii_block");
             case ENERGY_IN:
                 return name.equals("nexusabsolu:energy_input");
             default:
