@@ -113,8 +113,19 @@ public class ContainerCondenseurT2 extends Container {
             // From machine to player
             if (!mergeItemStack(stackInSlot, 4, 40, true)) return ItemStack.EMPTY;
         } else {
-            // From player to machine input
-            if (!mergeItemStack(stackInSlot, 0, 4, false)) return ItemStack.EMPTY;
+            // From player to machine: find the right slot
+            boolean merged = false;
+            if (inputTile != null) {
+                for (int i = 0; i < 4; i++) {
+                    if (inputTile.isItemValidForSlot(i, stackInSlot)) {
+                        if (mergeItemStack(stackInSlot, i, i + 1, false)) {
+                            merged = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!merged) return ItemStack.EMPTY;
         }
 
         if (stackInSlot.isEmpty()) {

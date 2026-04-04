@@ -78,7 +78,24 @@ public class TileItemInput extends TileEntity implements IInventory {
     }
     @Override public void openInventory(EntityPlayer player) {}
     @Override public void closeInventory(EntityPlayer player) {}
-    @Override public boolean isItemValidForSlot(int index, ItemStack stack) { return true; }
+    @Override public boolean isItemValidForSlot(int index, ItemStack stack) {
+        if (stack.isEmpty()) return true;
+        String id = stack.getItem().getRegistryName().toString();
+        switch (index) {
+            case 0: // CM slot 1: compact machines or poop
+            case 1: // CM slot 2: compact machines or poop
+                return id.equals("compactmachines3:machine")
+                    || id.equals("cropdusting:poop");
+            case 2: // Key slot: any key or machine frame
+                return id.startsWith("nexusabsolu:compact_key")
+                    || id.equals("thermalexpansion:frame");
+            case 3: // Catalyst slot: any catalyst or nexus wall
+                return id.startsWith("nexusabsolu:catalyseur")
+                    || id.equals("nexusabsolu:nexus_wall");
+            default:
+                return false;
+        }
+    }
     @Override public int getField(int id) { return 0; }
     @Override public void setField(int id, int value) {}
     @Override public int getFieldCount() { return 0; }
