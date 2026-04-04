@@ -42,10 +42,15 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) { return true; }
+    public boolean isOpaqueCube(IBlockState state) { return false; }
 
     @Override
-    public boolean isFullCube(IBlockState state) { return true; }
+    public boolean isFullCube(IBlockState state) { return false; }
+
+    @Override
+    public net.minecraft.util.EnumBlockRenderType getRenderType(IBlockState state) {
+        return net.minecraft.util.EnumBlockRenderType.INVISIBLE;
+    }
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,

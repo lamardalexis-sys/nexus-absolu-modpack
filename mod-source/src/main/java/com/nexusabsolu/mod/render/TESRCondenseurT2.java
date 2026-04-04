@@ -103,6 +103,9 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         if (proc && pct > FLASH_START) {
             renderShockwave(cx, cy, cz, time, pct);
         }
+
+        // Shell: connected machine casing over the multiblock
+        renderShell(te, x, y, z);
     }
 
     // ======================================================================
@@ -138,7 +141,6 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         int[] frontDir = te.getFrontDirection();
         BlockPos masterPos = te.getPos();
 
-        // Bounding box in render space
         double x0 = x + (bounds[0] - masterPos.getX());
         double y0 = y + (bounds[1] - masterPos.getY());
         double z0 = z + (bounds[2] - masterPos.getZ());
@@ -146,7 +148,6 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         double y1 = y + (bounds[4] - masterPos.getY());
         double z1 = z + (bounds[5] - masterPos.getZ());
 
-        // Tiny offset to render OVER block faces (avoid z-fighting)
         double o = 0.001;
 
         GlStateManager.pushMatrix();
@@ -160,10 +161,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
 
-        // Determine which face is front, back, left, right based on frontDir
-        // frontDir: {dx, dz} — direction the front face points toward
-
-        // Top face (always UP)
+        // Top face
         bindTexture(SHELL_TOP);
         buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         buf.pos(x0, y1 + o, z0).tex(0, 0).endVertex();
@@ -172,36 +170,23 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         buf.pos(x1, y1 + o, z0).tex(1, 0).endVertex();
         tess.draw();
 
-        // Bottom face
-        bindTexture(SHELL_BOTTOM);
-        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buf.pos(x0, y0 - o, z1).tex(0, 0).endVertex();
-        buf.pos(x0, y0 - o, z0).tex(0, 1).endVertex();
-        buf.pos(x1, y0 - o, z0).tex(1, 1).endVertex();
-        buf.pos(x1, y0 - o, z1).tex(1, 0).endVertex();
-        tess.draw();
-
-        // Front face (direction depends on rotation)
+        // 4 vertical faces based on rotation
         if (frontDir[0] == 1) {
-            // R0: Front faces +X, width=-1 is -Z (input), width=+1 is +Z (output)
             renderFace(buf, tess, SHELL_FRONT, x1+o, y0, z0, x1+o, y1, z1, 0);
             renderFace(buf, tess, SHELL_BACK, x0-o, y0, z0, x0-o, y1, z1, 1);
             renderFace(buf, tess, SHELL_SIDE_IN, x0, y0, z0-o, x1, y1, z0-o, 2);
             renderFace(buf, tess, SHELL_SIDE_OUT, x0, y0, z1+o, x1, y1, z1+o, 3);
         } else if (frontDir[0] == -1) {
-            // R1: Front faces -X, width=-1 is +Z (input), width=+1 is -Z (output)
             renderFace(buf, tess, SHELL_FRONT, x0-o, y0, z0, x0-o, y1, z1, 1);
             renderFace(buf, tess, SHELL_BACK, x1+o, y0, z0, x1+o, y1, z1, 0);
             renderFace(buf, tess, SHELL_SIDE_OUT, x0, y0, z0-o, x1, y1, z0-o, 3);
             renderFace(buf, tess, SHELL_SIDE_IN, x0, y0, z1+o, x1, y1, z1+o, 2);
         } else if (frontDir[1] == 1) {
-            // R2: Front faces +Z, width=-1 is +X (input), width=+1 is -X (output)
             renderFace(buf, tess, SHELL_FRONT, x0, y0, z1+o, x1, y1, z1+o, 3);
             renderFace(buf, tess, SHELL_BACK, x0, y0, z0-o, x1, y1, z0-o, 2);
             renderFace(buf, tess, SHELL_SIDE_OUT, x0-o, y0, z0, x0-o, y1, z1, 1);
             renderFace(buf, tess, SHELL_SIDE_IN, x1+o, y0, z0, x1+o, y1, z1, 0);
         } else {
-            // R3: Front faces -Z, width=-1 is -X (input), width=+1 is +X (output)
             renderFace(buf, tess, SHELL_FRONT, x0, y0, z0-o, x1, y1, z0-o, 2);
             renderFace(buf, tess, SHELL_BACK, x0, y0, z1+o, x1, y1, z1+o, 3);
             renderFace(buf, tess, SHELL_SIDE_IN, x0-o, y0, z0, x0-o, y1, z1, 0);
@@ -213,113 +198,13 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         GlStateManager.popMatrix();
     }
 
-    // ======================================================================
-    //  SCREEN: Dynamic display on front face
-    // ======================================================================
-
-    private void renderScreen(TileCondenseurT2 te, double x, double y, double z,
-                              float time, float pct, boolean proc) {
-        int[] bounds = te.getStructureBounds();
-        int[] frontDir = te.getFrontDirection();
-        BlockPos mp = te.getPos();
-
-        double bx0 = x + (bounds[0] - mp.getX());
-        double by1 = y + (bounds[4] - mp.getY());
-        double bz0 = z + (bounds[2] - mp.getZ());
-        double bx1 = x + (bounds[3] - mp.getX());
-        double bz1 = z + (bounds[5] - mp.getZ());
-
-        // Screen center position + rotation angle
-        double sx, sy, sz;
-        float rotY;
-        sy = by1 - 0.45;  // upper portion of front face
-
-        if (frontDir[0] == 1) {
-            sx = bx1 + 0.006; sz = (bz0 + bz1) / 2.0; rotY = -90F;
-        } else if (frontDir[0] == -1) {
-            sx = bx0 - 0.006; sz = (bz0 + bz1) / 2.0; rotY = 90F;
-        } else if (frontDir[1] == 1) {
-            sx = (bx0 + bx1) / 2.0; sz = bz1 + 0.006; rotY = 180F;
-        } else {
-            sx = (bx0 + bx1) / 2.0; sz = bz0 - 0.006; rotY = 0F;
-        }
-
-        // === Screen background quad ===
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(sx, sy, sz);
-        GlStateManager.rotate(rotY, 0, 1, 0);
-        beginTranslucent();
-
-        Tessellator tess = Tessellator.getInstance();
-        BufferBuilder buf = tess.getBuffer();
-
-        float sr = proc ? 0.03F : 0.01F;
-        float sg = proc ? 0.20F : 0.01F;
-        float sb = proc ? 0.05F : 0.06F;
-
-        // Screen quad (1.2 wide x 0.5 tall)
-        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-        buf.pos(-0.6, -0.25, 0).color(sr, sg, sb, 0.92F).endVertex();
-        buf.pos( 0.6, -0.25, 0).color(sr, sg, sb, 0.92F).endVertex();
-        buf.pos( 0.6,  0.25, 0).color(sr * 0.5F, sg * 0.5F, sb * 0.5F, 0.85F).endVertex();
-        buf.pos(-0.6,  0.25, 0).color(sr * 0.5F, sg * 0.5F, sb * 0.5F, 0.85F).endVertex();
-        tess.draw();
-
-        // Progress bar (if processing)
-        if (proc && pct > 0.01F) {
-            float barW = 1.0F * pct;
-            buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-            buf.pos(-0.5, -0.20, 0.001).color(0.15F, 0.75F, 0.2F, 0.8F).endVertex();
-            buf.pos(-0.5F + barW, -0.20, 0.001).color(0.15F, 0.75F, 0.2F, 0.8F).endVertex();
-            buf.pos(-0.5F + barW, -0.12, 0.001).color(0.08F, 0.45F, 0.1F, 0.6F).endVertex();
-            buf.pos(-0.5, -0.12, 0.001).color(0.08F, 0.45F, 0.1F, 0.6F).endVertex();
-            tess.draw();
-        }
-
-        endTranslucent();
-        GlStateManager.popMatrix();
-
-        // === Text rendering ===
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(sx, sy, sz);
-        GlStateManager.rotate(rotY, 0, 1, 0);
-        GlStateManager.scale(-0.008F, -0.008F, 0.008F);  // Scale for text (negative X to mirror)
-        GlStateManager.disableLighting();
-        GlStateManager.depthMask(false);
-        GlStateManager.enableTexture2D();
-        setFullBrightness();
-
-        net.minecraft.client.gui.FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
-
-        if (proc) {
-            int percent = (int)(pct * 100);
-            String line1 = "CONDENSEUR T2";
-            String line2 = percent + "%%";
-            String line3 = te.getCurrentQuote();
-            fr.drawString(line1, -fr.getStringWidth(line1) / 2, -22, 0x44FF66);
-            fr.drawString(line2, -fr.getStringWidth(line2) / 2, -6, 0x88FFAA);
-            fr.drawString(line3, -fr.getStringWidth(line3) / 2, 10, 0x338855);
-        } else {
-            String idle1 = "CONDENSEUR T2";
-            String idle2 = "EN ATTENTE";
-            int pulse = (int)(80 + 40 * Math.sin(time * 2.0));
-            int color = (pulse << 8) | 0xFF000040;
-            fr.drawString(idle1, -fr.getStringWidth(idle1) / 2, -14, 0x6644AA);
-            fr.drawString(idle2, -fr.getStringWidth(idle2) / 2, 4, color);
-        }
-
-        GlStateManager.depthMask(true);
-        GlStateManager.enableLighting();
-        GlStateManager.popMatrix();
-    }
-
     private void renderFace(BufferBuilder buf, Tessellator tess,
                             ResourceLocation tex, double fx, double y0, double fz,
                             double fx2, double y1, double fz2, int orient) {
         bindTexture(tex);
         buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         switch (orient) {
-            case 0: // +X face (plane at x=fx)
+            case 0: // +X face
                 buf.pos(fx, y0, fz ).tex(1, 1).endVertex();
                 buf.pos(fx, y0, fz2).tex(0, 1).endVertex();
                 buf.pos(fx, y1, fz2).tex(0, 0).endVertex();
