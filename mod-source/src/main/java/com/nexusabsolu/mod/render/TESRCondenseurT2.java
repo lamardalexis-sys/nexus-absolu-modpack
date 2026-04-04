@@ -11,10 +11,18 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 
 public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2> {
+
+    // Shell textures (48x48 connected textures for each face)
+    private static final ResourceLocation SHELL_FRONT  = new ResourceLocation("nexusabsolu", "textures/blocks/shell_front.png");
+    private static final ResourceLocation SHELL_SIDE   = new ResourceLocation("nexusabsolu", "textures/blocks/shell_side.png");
+    private static final ResourceLocation SHELL_TOP    = new ResourceLocation("nexusabsolu", "textures/blocks/shell_top.png");
+    private static final ResourceLocation SHELL_BOTTOM = new ResourceLocation("nexusabsolu", "textures/blocks/shell_bottom.png");
+    private static final ResourceLocation SHELL_BACK   = new ResourceLocation("nexusabsolu", "textures/blocks/shell_back.png");
 
     private static final float TWO_PI = (float)(Math.PI * 2.0);
     private static final float HALF_PI = (float)(Math.PI * 0.5);
@@ -77,6 +85,8 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
+        renderShell(te, x, y, z);
+
         renderEnergyColumn(cx, cy, cz, time, pct, proc);
         renderFluid(cx, cy, cz, time, pct, proc);
         renderItems(te, cx, cy, cz, time, pct, proc);
@@ -116,6 +126,128 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
         GlStateManager.enableLighting();
+    }
+
+    // ======================================================================
+    //  SHELL: Connected machine casing rendered over the multiblock
+    // ======================================================================
+
+    private void renderShell(TileCondenseurT2 te, double x, double y, double z) {
+        int[] bounds = te.getStructureBounds();
+        int[] frontDir = te.getFrontDirection();
+        BlockPos masterPos = te.getPos();
+
+        // Bounding box in render space
+        double x0 = x + (bounds[0] - masterPos.getX());
+        double y0 = y + (bounds[1] - masterPos.getY());
+        double z0 = z + (bounds[2] - masterPos.getZ());
+        double x1 = x + (bounds[3] - masterPos.getX());
+        double y1 = y + (bounds[4] - masterPos.getY());
+        double z1 = z + (bounds[5] - masterPos.getZ());
+
+        // Tiny offset to render OVER block faces (avoid z-fighting)
+        double o = 0.001;
+
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GlStateManager.disableLighting();
+        GlStateManager.enableTexture2D();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        setFullBrightness();
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+
+        // Determine which face is front, back, left, right based on frontDir
+        // frontDir: {dx, dz} — direction the front face points toward
+
+        // Top face (always UP)
+        bindTexture(SHELL_TOP);
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        buf.pos(x0, y1 + o, z0).tex(0, 0).endVertex();
+        buf.pos(x0, y1 + o, z1).tex(0, 1).endVertex();
+        buf.pos(x1, y1 + o, z1).tex(1, 1).endVertex();
+        buf.pos(x1, y1 + o, z0).tex(1, 0).endVertex();
+        tess.draw();
+
+        // Bottom face
+        bindTexture(SHELL_BOTTOM);
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        buf.pos(x0, y0 - o, z1).tex(0, 0).endVertex();
+        buf.pos(x0, y0 - o, z0).tex(0, 1).endVertex();
+        buf.pos(x1, y0 - o, z0).tex(1, 1).endVertex();
+        buf.pos(x1, y0 - o, z1).tex(1, 0).endVertex();
+        tess.draw();
+
+        // Front face (direction depends on rotation)
+        if (frontDir[0] == 1) {
+            // Front faces +X -> front is at x1
+            renderFace(buf, tess, SHELL_FRONT, x1+o, y0, z0, x1+o, y1, z1, 0);
+            renderFace(buf, tess, SHELL_BACK, x0-o, y0, z0, x0-o, y1, z1, 1);
+            renderFace(buf, tess, SHELL_SIDE, x0, y0, z0-o, x1, y1, z0-o, 2);
+            renderFace(buf, tess, SHELL_SIDE, x0, y0, z1+o, x1, y1, z1+o, 3);
+        } else if (frontDir[0] == -1) {
+            // Front faces -X
+            renderFace(buf, tess, SHELL_FRONT, x0-o, y0, z0, x0-o, y1, z1, 1);
+            renderFace(buf, tess, SHELL_BACK, x1+o, y0, z0, x1+o, y1, z1, 0);
+            renderFace(buf, tess, SHELL_SIDE, x0, y0, z0-o, x1, y1, z0-o, 3);
+            renderFace(buf, tess, SHELL_SIDE, x0, y0, z1+o, x1, y1, z1+o, 2);
+        } else if (frontDir[1] == 1) {
+            // Front faces +Z
+            renderFace(buf, tess, SHELL_FRONT, x0, y0, z1+o, x1, y1, z1+o, 3);
+            renderFace(buf, tess, SHELL_BACK, x0, y0, z0-o, x1, y1, z0-o, 2);
+            renderFace(buf, tess, SHELL_SIDE, x0-o, y0, z0, x0-o, y1, z1, 1);
+            renderFace(buf, tess, SHELL_SIDE, x1+o, y0, z0, x1+o, y1, z1, 0);
+        } else {
+            // Front faces -Z
+            renderFace(buf, tess, SHELL_FRONT, x0, y0, z0-o, x1, y1, z0-o, 2);
+            renderFace(buf, tess, SHELL_BACK, x0, y0, z1+o, x1, y1, z1+o, 3);
+            renderFace(buf, tess, SHELL_SIDE, x0-o, y0, z0, x0-o, y1, z1, 0);
+            renderFace(buf, tess, SHELL_SIDE, x1+o, y0, z0, x1+o, y1, z1, 1);
+        }
+
+        GlStateManager.enableLighting();
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+    }
+
+    /**
+     * Render a vertical face of the shell.
+     * @param orient 0=face+X, 1=face-X, 2=face-Z(north), 3=face+Z(south)
+     */
+    private void renderFace(BufferBuilder buf, Tessellator tess,
+                            ResourceLocation tex, double fx, double y0, double fz,
+                            double fx2, double y1, double fz2, int orient) {
+        bindTexture(tex);
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        switch (orient) {
+            case 0: // +X face (plane at x=fx)
+                buf.pos(fx, y0, fz ).tex(1, 1).endVertex();
+                buf.pos(fx, y0, fz2).tex(0, 1).endVertex();
+                buf.pos(fx, y1, fz2).tex(0, 0).endVertex();
+                buf.pos(fx, y1, fz ).tex(1, 0).endVertex();
+                break;
+            case 1: // -X face
+                buf.pos(fx, y0, fz2).tex(1, 1).endVertex();
+                buf.pos(fx, y0, fz ).tex(0, 1).endVertex();
+                buf.pos(fx, y1, fz ).tex(0, 0).endVertex();
+                buf.pos(fx, y1, fz2).tex(1, 0).endVertex();
+                break;
+            case 2: // -Z face (north)
+                buf.pos(fx2, y0, fz).tex(1, 1).endVertex();
+                buf.pos(fx,  y0, fz).tex(0, 1).endVertex();
+                buf.pos(fx,  y1, fz).tex(0, 0).endVertex();
+                buf.pos(fx2, y1, fz).tex(1, 0).endVertex();
+                break;
+            case 3: // +Z face (south)
+                buf.pos(fx,  y0, fz).tex(1, 1).endVertex();
+                buf.pos(fx2, y0, fz).tex(0, 1).endVertex();
+                buf.pos(fx2, y1, fz).tex(0, 0).endVertex();
+                buf.pos(fx,  y1, fz).tex(1, 0).endVertex();
+                break;
+        }
+        tess.draw();
     }
 
     // ======================================================================

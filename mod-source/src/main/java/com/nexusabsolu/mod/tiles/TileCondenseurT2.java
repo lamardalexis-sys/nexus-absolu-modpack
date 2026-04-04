@@ -356,6 +356,31 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         return getWorldPos(1, 0, 0, activeRotation);
     }
 
+    /** Bounding box corners: [0]=min, [1]=max in world coords */
+    public int[] getStructureBounds() {
+        if (activeRotation < 0) return new int[]{pos.getX(), pos.getY(), pos.getZ(),
+                                                   pos.getX()+1, pos.getY()+1, pos.getZ()+1};
+        BlockPos c0 = getWorldPos(0, -1, -1, activeRotation);
+        BlockPos c1 = getWorldPos(2,  1,  1, activeRotation);
+        return new int[]{
+            Math.min(c0.getX(), c1.getX()),
+            Math.min(c0.getY(), c1.getY()),
+            Math.min(c0.getZ(), c1.getZ()),
+            Math.max(c0.getX(), c1.getX()) + 1,
+            Math.max(c0.getY(), c1.getY()) + 1,
+            Math.max(c0.getZ(), c1.getZ()) + 1
+        };
+    }
+
+    /** Direction the front face (master/glass) faces, as dx,dz */
+    public int[] getFrontDirection() {
+        if (activeRotation < 0) return new int[]{0, 0};
+        // depth=0 is front, depth increases towards back
+        // depth direction = ROTATIONS[r][0], ROTATIONS[r][1]
+        // So front faces OPPOSITE to depth direction
+        return new int[]{-ROTATIONS[activeRotation][0], -ROTATIONS[activeRotation][1]};
+    }
+
     /** Get item stacks from the INPUT tile for TESR rendering. */
     public ItemStack getInputStack(int slot) {
         TileItemInput input = getInputTile();
