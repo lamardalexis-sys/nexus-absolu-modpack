@@ -8,7 +8,7 @@
 ### Identité
 - **Nom** : Nexus Absolu
 - **Version Minecraft** : 1.12.2 Forge 14.23.5.2860
-- **Version Mod** : 1.0.52 (incrémentée à chaque changement)
+- **Version Mod** : 1.0.87+ (incrémentée à chaque changement Java)
 - **GitHub** : https://github.com/lamardalexis-sys/nexus-absolu-modpack
 - **Instance CurseForge** : `C:\Users\lamar\curseforge\minecraft\Instances\Nexus Absolu`
 - **MDK** : `C:\Dev\NexusAbsoluMod`
@@ -26,39 +26,48 @@ Un scientifique disparu (Dr. E. Voss) a passé 30 ans à repousser les limites d
 
 ---
 
-## 2. STRUCTURE DES 10 ÂGES
+## 2. STRUCTURE DES ÂGES (PROGRESSION RÉELLE)
 
 ### Âges 0-1-2 : La Captivité (Compact Machines)
 
 ```
-ÂGE 0 — L'Éveil (salle 3x3x3 → 5x5 → 7x7 → 9x9)
-  DÉPART : Compact Machine 3x3x3 avec coffre contenant :
-    - 1x Livre de Lore du Dr. Voss (Patchouli)
-    - 1x Tamis Ex Nihilo en bois
-    - 4x Graines variées (blé, carotte, pomme de terre, betterave)
-    - 8x Pain (nourriture basique)
-  Étape 1 : Ex Nihilo — cogner les murs → Compact Machine Dust → tamis → ressources
-  Étape 2 : Bonsai Trees + Pam's HarvestCraft + Fonderie Tinkers
-  Étape 3 : Intro Blood Magic Phase 1 (Thaumcraft retiré)
-  CONDENSEUR 2x2x2 : craft la Compact Machine 5x5 (60s @ 50 RF/t)
-  MODS : Ex Nihilo Creatio, Tinkers Construct, Bonsai Trees, Pam's HarvestCraft,
-         Spice of Life Carrot Edition, Crop Dusting, Soul Shards Respawn
+ÂGE 0 — L'Éveil (salle 3x3 → 5x5)
+  DÉPART : CM 3x3x3 avec coffre (eau, sapling, pain, graines, livre Patchouli)
+  Mains nues → Pioche Fragmentée → Pioche Renforcée → grits → lingots
+  Ex Nihilo (sieve + barrels), Bonsai Trees, Pam's, Tinkers (pas de Smeltery)
+  Convertisseur + Composé A = premier RF (25 RF/t)
+  CONDENSEUR T1 (2x2x2) : 2x CM 3x3 + Clé 5x5 + Cat. Instable → CM 5x5
+  MODS : Ex Nihilo, Tinkers, Bonsai, Pam's, Spice of Life, Crop Dusting
 
 ÂGE 1 — La Mécanique Brute (salle 5x5 → 7x7 → 9x9)
-  Étape 4 : Thermal Expansion — première dynamo, 1M RF
-  Étape 5 : Chaîne purification + EnderIO conduits
-  Étape 6 : Immersive Engineering + hybridation Tech/Magie
-  CONDENSEUR 3x3x3 : craft la Compact Machine 7x7 (90s @ 80 RF/t)
-  MODS : Thermal Expansion/Foundation/Dynamics, IE, Actually Additions, EnderIO
+  Le joueur ARRIVE en 5x5 (depuis l'Âge 0).
+  Steam Dynamo = premier vrai RF. Thermal, IE, EnderIO, AA.
+  Bronze → Invar → Invarium → Vossium → Composé B → Vossium-II.
+  CONDENSEUR T2 (3x3x3) : construit dans la 5x5.
+    → 2x CM 5x5 + Clé 7x7 + Cat. Volatile → CM 7x7 (première expansion)
+    → 2x CM 7x7 + Clé 9x9 + Cat. Critique → CM 9x9 (FIN AGE 1)
+  Fragment Mécanique → Sortie vers Âge 2.
+  MODS : Thermal, IE, EnderIO, Actually Additions
 
-ÂGE 2 — Le Paradoxe Organique (salle 7x7 → 9x9 → 13x13)
-  Étape 7 : Botania — Mana Pool, Mystical Agriculture tier 1-2
-  Étape 8 : Astral Sorcery — télescope, cristaux améliorent machines Thermal
-  Étape 9 : Blood Magic Tier 1 — la Trinité des 3 Fragments
-  Étape 10 : Clé du Laboratoire → SORTIE vers le monde ouvert
-  CONDENSEUR 4x4x4 : craft la Compact Machine 9x9 (120s @ 120 RF/t)
+ÂGE 2 — Le Paradoxe Organique (salle 9x9 → plus grand)
+  Le joueur ARRIVE en 9x9.
+  Botania (Mana Pool, Endoflame, Terrasteel)
+  Astral Sorcery (télescope, cristaux)
+  Blood Magic (autel, slates, rituels)
+  Mystical Agriculture tier 1-2
+  Composé C, D → Vossium-III, IV
+  Fragment Organique + Fragment Stellaire
+  Clé du Laboratoire → SORTIE vers l'Overworld
   MODS : Botania, Astral Sorcery, Blood Magic, Mystical Agriculture
 ```
+
+### Résumé des expansions CM
+
+| Âge | Condenseur | De → Vers | Clé | Catalyseur | RF/t | Temps |
+|-----|-----------|-----------|-----|------------|------|-------|
+| 0 | T1 (2x2x2) | 3x3 → 5x5 | Clé 5x5 | Instable | 50 | 60s |
+| 1 | T2 (3x3x3) | 5x5 → 7x7 | Clé 7x7 | Volatile | 140 | 30s |
+| 1 | T2 (3x3x3) | 7x7 → 9x9 | Clé 9x9 | Critique | 120 | 120s |
 
 ### Âges 3-9 : Le Monde Ouvert
 
@@ -74,52 +83,51 @@ Un scientifique disparu (Dr. E. Voss) a passé 30 ans à repousser les limites d
 
 ---
 
-## 3. CONDENSEUR DIMENSIONNEL (Multibloc Custom)
+## 3. CONDENSEUR DIMENSIONNEL (Multiblocs Custom)
 
-### Structure 2x2x2 (Tier 1 — Âge 0)
+### Tier 1 — Multibloc 2x2x2 (Âge 0, dans CM 3x3)
 ```
 Couche bas:                    Couche haut:
-[Condenseur] [Nexus Wall]     [Glass pos4] [Glass pos5]
-[Redstone]   [Nexus Wall]     [Glass pos6] [Wall  pos7]
+[Condenseur] [Nexus Wall]     [Glass] [Glass]
+[Redstone]   [Nexus Wall]     [Glass] [Wall]
 ```
-- **Condenseur** (pos 0) : bloc master, clic droit = GUI
-- **Nexus Wall** (pos 1,2) : murs structurels
-- **Redstone Block** (pos 3) : entrée énergie RF
-- **Glass** (pos 4,5,6) : vitres transparentes (CUTOUT_MIPPED)
-- **Wall** (pos 7) : mur plein du haut
-
-### Recettes du Condenseur
-| Tier | Input | Output | Temps | RF/t | Total RF |
-|------|-------|--------|-------|------|----------|
-| 1 | 2x Tiny (3x3) | Small (5x5) | 60s | 50 | 60k |
-| 2 | 2x Small (5x5) | Normal (7x7) | 90s | 80 | 144k |
-| 3 | 2x Normal (7x7) | Large (9x9) | 120s | 120 | 288k |
-| 4 | 2x Large (9x9) | Giant (11x11) | 180s | 200 | 720k |
-| 5 | 2x Giant (11x11) | Maximum (13x13) | 300s | 350 | 2,100k |
-
-### Énergie
+- Quand formé : tous les blocs deviennent `BlockCondenseurFormed` (8 positions)
+- TESR : items flottants, liquide violet, vortex, écran dynamique
 - Buffer : 500k RF, max input 500 RF/t
-- Consommation : rfPerTick de la recette (pas hardcodé)
 
-### Rendu TESR
-- **Items flottants** dans la zone verre (y+1.45), 4 positions
-- **Effet baignoire** : items spiralent vers le centre (phase 1: 0-60%), puis coulent dans le trou (phase 2: 60-100%)
-- **Liquide violet** qui monte avec des vagues, vire magenta en fin de processing
-- **Anneaux de vortex** à la surface à 30%+ de progression
-- **Écran dynamique** sur le condenseur :
-  - Idle : fond bleu-gris foncé, scanline lente, point violet pulsant, LED rouge
-  - Processing : fond vert, texte vert défilant, curseur clignotant, LED verte
+### Tier 2 — Multibloc 3x3x3 (Âge 1, dans CM 5x5+)
+```
+Couche BAS (y-1):              Couche MILIEU (y=0):           Couche HAUT (y+1):
+[NWall][NWall][NWall]          [Glass][MASTER][Glass]          [Glass][Glass][Glass]
+[NWall][NWall][NWall]          [Input][Voss2B][Output]         [Glass][Glass][Glass]
+[NWall][EnrIn][NWall]          [NWall][NWall] [NWall]          [NWall][Glass][NWall]
+     (arrière)                      (arrière)                       (arrière)
+```
+- **MASTER** = Bloc Condenseur T2 (face avant avec écran)
+- **Voss2B** = Bloc de Vossium-II (nexusabsolu:vossium_ii_block)
+- **Input** = Item Input (nexusabsolu:item_input) — côté gauche
+- **Output** = Item Output (nexusabsolu:item_output) — côté droit
+- **EnrIn** = Energy Input (nexusabsolu:energy_input) — centre-arrière du bas
+- Quand formé : Nexus Walls deviennent condenseur_t2_wall (texture animée violet)
+- TESR : colonne énergie, items hélice, double vortex, anneaux orbitaux, sphère, shockwave
+- Buffer : 1M RF, max input 200 RF/t
 
-### Rendu blocs
-- `BlockRenderLayer.CUTOUT_MIPPED` — transparence binaire (alpha 0 ou 255)
-- `isOpaqueCube`/`isFullCube` : false pour positions 4,5,6 (verre)
-- `shouldSideBeRendered` : cache faces verre-verre (panneau continu)
-- `isGlobalRenderer(te)` : true + `INFINITE_EXTENT_AABB`
+### Recettes du Condenseur (toutes tiers)
+| Tier | Input | Output | Clé | Catalyseur | Temps | RF/t | Total |
+|------|-------|--------|-----|------------|-------|------|-------|
+| Création | 2x poop + frame + wall | CM 3x3 | — | — | 30s | 25 | 15k |
+| 3x3→5x5 | 2x Tiny | Small | Clé 5x5 | Instable | 60s | 50 | 60k |
+| 5x5→7x7 | 2x Small | Normal | Clé 7x7 | Volatile | 30s | 140 | 84k |
+| 7x7→9x9 | 2x Normal | Large | Clé 9x9 | Critique | 120s | 120 | 288k |
+| 9x9→11x11 | 2x Large | Giant | Clé 11x11 | Résonant | 180s | 200 | 720k |
+| 11x11→13x13 | 2x Giant | Maximum | Clé 13x13 | Absolu | 300s | 350 | 2,100k |
 
-### Tiers futurs du Condenseur
-- **Tier 1** : 2x2x2 (actuel) — dans CM 3x3x3
-- **Tier 2** : 3x3x3 — dans CM 5x5x5
-- **Tier 3** : 4x4x4 — dans CM 7x7x7
+### Matériaux custom
+- **Invarium** = Bronze + Invar (via IE Kiln / EnderIO Alloy / Thermal Induction)
+- **Vossium** = Invarium + Composé A
+- **Vossium-II** = Vossium + Composé B
+- **Engrenage Composé A** = 4× Composé A + Bronze
+- **Engrenage Composé B** = 4× Composé B + Vossium-II
 
 ---
 
@@ -151,7 +159,7 @@ JEI="mods/jei_1.12.2-4.16.1.301.jar"
 
 ### Raccourcis de test
 - **Textures seulement** : F3+T en jeu (pas besoin de relancer)
-- **Scripts CraftTweaker** : `/ct reload` en jeu
+- **Scripts CraftTweaker** : relancer obligatoire (`/ct reload` ne marche PAS sur cette version Forge)
 - **Code Java** : relancer obligatoire
 - **Monde superflat** : charge plus vite pour tests
 
