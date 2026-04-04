@@ -42,7 +42,7 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
 
-    // Non-opaque for 3D relief (gaps between pillars/panel visible)
+    // Invisible block — the TESR shell handles all rendering
     @Override
     public boolean isOpaqueCube(IBlockState state) { return false; }
 
@@ -52,6 +52,11 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() { return BlockRenderLayer.CUTOUT_MIPPED; }
+
+    @Override
+    public net.minecraft.util.EnumBlockRenderType getRenderType(IBlockState state) {
+        return net.minecraft.util.EnumBlockRenderType.INVISIBLE;
+    }
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
