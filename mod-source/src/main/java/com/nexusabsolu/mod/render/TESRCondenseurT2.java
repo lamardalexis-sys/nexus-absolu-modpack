@@ -152,9 +152,15 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         double e = 0.02;   // extension past edges (overlap at corners)
 
         GlStateManager.pushMatrix();
+        // Force ALL GL states — effects above may have left dirty state
+        GlStateManager.enableDepth();
+        GlStateManager.depthFunc(GL11.GL_LEQUAL);
+        GlStateManager.depthMask(true);
+        GlStateManager.disableBlend();
         GlStateManager.disableLighting();
         GlStateManager.disableCull();
         GlStateManager.enableTexture2D();
+        GlStateManager.disableAlpha();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         setFullBrightness();
 
@@ -193,6 +199,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
             renderFace(buf, tess, SHELL_SIDE_OUT, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 1);
         }
 
+        GlStateManager.enableAlpha();
         GlStateManager.enableCull();
         GlStateManager.enableLighting();
         GlStateManager.popMatrix();
