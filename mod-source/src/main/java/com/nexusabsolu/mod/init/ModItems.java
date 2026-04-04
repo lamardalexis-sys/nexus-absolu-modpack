@@ -104,8 +104,6 @@ public class ModItems {
     public static final Item COMPOSE_C = new ItemCompose("compose_c", "C", 150);
     public static final Item COMPOSE_D_RAW = new ItemBase("compose_d_raw");
     public static final Item COMPOSE_D = new ItemCompose("compose_d", "D", 300);
-    public static final Item COMPOSE_C = new ItemCompose("compose_c", "C", 150);
-    public static final Item COMPOSE_D = new ItemCompose("compose_d", "D", 300);
     public static final Item COMPOSE_E = new ItemCompose("compose_e", "E", 500);
 
     // === COMPOSE COMPONENTS ===
