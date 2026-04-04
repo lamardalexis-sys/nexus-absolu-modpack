@@ -148,7 +148,8 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         double y1 = y + (bounds[4] - masterPos.getY());
         double z1 = z + (bounds[5] - masterPos.getZ());
 
-        double o = 0.001;
+        double o = 0.005;  // offset from block faces
+        double e = 0.01;   // extension past edges (overlap at corners)
 
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
@@ -162,36 +163,36 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
 
-        // Top face
+        // Top face (extended past edges to close corner gaps)
         bindTexture(SHELL_TOP);
         buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buf.pos(x0, y1 + o, z0).tex(0, 0).endVertex();
-        buf.pos(x0, y1 + o, z1).tex(0, 1).endVertex();
-        buf.pos(x1, y1 + o, z1).tex(1, 1).endVertex();
-        buf.pos(x1, y1 + o, z0).tex(1, 0).endVertex();
+        buf.pos(x0 - e, y1 + o, z0 - e).tex(0, 0).endVertex();
+        buf.pos(x0 - e, y1 + o, z1 + e).tex(0, 1).endVertex();
+        buf.pos(x1 + e, y1 + o, z1 + e).tex(1, 1).endVertex();
+        buf.pos(x1 + e, y1 + o, z0 - e).tex(1, 0).endVertex();
         tess.draw();
 
-        // 4 vertical faces based on rotation
+        // 4 vertical faces (extended vertically past top/bottom)
         if (frontDir[0] == 1) {
-            renderFace(buf, tess, SHELL_FRONT, x1+o, y0, z0, x1+o, y1, z1, 0);
-            renderFace(buf, tess, SHELL_BACK, x0-o, y0, z0, x0-o, y1, z1, 1);
-            renderFace(buf, tess, SHELL_SIDE_IN, x0, y0, z0-o, x1, y1, z0-o, 2);
-            renderFace(buf, tess, SHELL_SIDE_OUT, x0, y0, z1+o, x1, y1, z1+o, 3);
+            renderFace(buf, tess, SHELL_FRONT, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 0);
+            renderFace(buf, tess, SHELL_BACK, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 1);
+            renderFace(buf, tess, SHELL_SIDE_IN, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 2);
+            renderFace(buf, tess, SHELL_SIDE_OUT, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 3);
         } else if (frontDir[0] == -1) {
-            renderFace(buf, tess, SHELL_FRONT, x0-o, y0, z0, x0-o, y1, z1, 1);
-            renderFace(buf, tess, SHELL_BACK, x1+o, y0, z0, x1+o, y1, z1, 0);
-            renderFace(buf, tess, SHELL_SIDE_OUT, x0, y0, z0-o, x1, y1, z0-o, 3);
-            renderFace(buf, tess, SHELL_SIDE_IN, x0, y0, z1+o, x1, y1, z1+o, 2);
+            renderFace(buf, tess, SHELL_FRONT, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 1);
+            renderFace(buf, tess, SHELL_BACK, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 0);
+            renderFace(buf, tess, SHELL_SIDE_OUT, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 3);
+            renderFace(buf, tess, SHELL_SIDE_IN, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 2);
         } else if (frontDir[1] == 1) {
-            renderFace(buf, tess, SHELL_FRONT, x0, y0, z1+o, x1, y1, z1+o, 3);
-            renderFace(buf, tess, SHELL_BACK, x0, y0, z0-o, x1, y1, z0-o, 2);
-            renderFace(buf, tess, SHELL_SIDE_OUT, x0-o, y0, z0, x0-o, y1, z1, 1);
-            renderFace(buf, tess, SHELL_SIDE_IN, x1+o, y0, z0, x1+o, y1, z1, 0);
+            renderFace(buf, tess, SHELL_FRONT, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 3);
+            renderFace(buf, tess, SHELL_BACK, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 2);
+            renderFace(buf, tess, SHELL_SIDE_OUT, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 1);
+            renderFace(buf, tess, SHELL_SIDE_IN, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 0);
         } else {
-            renderFace(buf, tess, SHELL_FRONT, x0, y0, z0-o, x1, y1, z0-o, 2);
-            renderFace(buf, tess, SHELL_BACK, x0, y0, z1+o, x1, y1, z1+o, 3);
-            renderFace(buf, tess, SHELL_SIDE_IN, x0-o, y0, z0, x0-o, y1, z1, 0);
-            renderFace(buf, tess, SHELL_SIDE_OUT, x1+o, y0, z0, x1+o, y1, z1, 1);
+            renderFace(buf, tess, SHELL_FRONT, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 2);
+            renderFace(buf, tess, SHELL_BACK, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 3);
+            renderFace(buf, tess, SHELL_SIDE_IN, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 0);
+            renderFace(buf, tess, SHELL_SIDE_OUT, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 1);
         }
 
         GlStateManager.enableCull();
