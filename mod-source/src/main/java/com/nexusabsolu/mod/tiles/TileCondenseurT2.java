@@ -146,8 +146,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
             case REDSTONE:
                 return block == Blocks.REDSTONE_BLOCK;
             case GLASS:
-                return block == Blocks.GLASS || name.contains("glass")
-                    || name.equals("nexusabsolu:condenseur_t2_wall");
+                return block == Blocks.GLASS || name.contains("glass");
             case INPUT:
                 return name.equals("nexusabsolu:item_input");
             case OUTPUT:
@@ -198,41 +197,35 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         }
     }
 
-    /** Replace all Nexus Walls AND Glass in the structure with invisible formed blocks. */
+    /** Replace Nexus Walls in the structure with formed T2 walls. */
     private void formWalls(int r) {
         if (world == null || world.isRemote) return;
         IBlockState formedState = com.nexusabsolu.mod.init.ModBlocks.CONDENSEUR_T2_WALL.getDefaultState();
         for (int[] entry : STRUCTURE) {
-            int type = entry[3];
-            if (type == NEXUS_WALL || type == GLASS) {
+            if (entry[3] == NEXUS_WALL) {
                 BlockPos wallPos = getWorldPos(entry[0], entry[1], entry[2], r);
                 IBlockState current = world.getBlockState(wallPos);
                 String name = current.getBlock().getRegistryName() != null
                     ? current.getBlock().getRegistryName().toString() : "";
-                if (name.equals("nexusabsolu:nexus_wall") || name.contains("glass")
-                    || name.equals("nexusabsolu:condenseur_t2_wall")) {
+                if (name.equals("nexusabsolu:nexus_wall")) {
                     world.setBlockState(wallPos, formedState, 2);
                 }
             }
         }
     }
 
-    /** Restore formed blocks back to their originals. */
+    /** Restore formed T2 walls back to Nexus Walls. */
     private void unformWalls() {
         if (world == null || world.isRemote || activeRotation < 0) return;
+        IBlockState nexusWall = com.nexusabsolu.mod.init.ModBlocks.NEXUS_WALL.getDefaultState();
         for (int[] entry : STRUCTURE) {
-            int type = entry[3];
-            if (type == NEXUS_WALL || type == GLASS) {
+            if (entry[3] == NEXUS_WALL) {
                 BlockPos wallPos = getWorldPos(entry[0], entry[1], entry[2], activeRotation);
                 IBlockState current = world.getBlockState(wallPos);
                 String name = current.getBlock().getRegistryName() != null
                     ? current.getBlock().getRegistryName().toString() : "";
                 if (name.equals("nexusabsolu:condenseur_t2_wall")) {
-                    if (type == NEXUS_WALL) {
-                        world.setBlockState(wallPos, com.nexusabsolu.mod.init.ModBlocks.NEXUS_WALL.getDefaultState(), 2);
-                    } else {
-                        world.setBlockState(wallPos, net.minecraft.init.Blocks.GLASS.getDefaultState(), 2);
-                    }
+                    world.setBlockState(wallPos, nexusWall, 2);
                 }
             }
         }

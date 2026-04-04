@@ -87,7 +87,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-        // 1. Effects FIRST (render inside the structure)
+        // Effects inside the structure
         renderEnergyColumn(cx, cy, cz, time, pct, proc);
         renderFluid(cx, cy, cz, time, pct, proc);
         renderItems(te, cx, cy, cz, time, pct, proc);
@@ -103,10 +103,6 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         if (proc && pct > FLASH_START) {
             renderShockwave(cx, cy, cz, time, pct);
         }
-
-        // 2. Shell AFTER (renders on top with alpha — glass areas show effects through)
-        renderShell(te, x, y, z);
-        renderScreen(te, x, y, z, time, pct, proc);
     }
 
     // ======================================================================
