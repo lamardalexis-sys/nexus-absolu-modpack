@@ -29,10 +29,10 @@ public class ContainerCondenseurT2 extends Container {
 
         // 4 input slots (from INPUT hatch) -- 2x2 grid
         if (inputTile != null) {
-            addSlotToContainer(new Slot(inputTile, 0, 35, 20));  // CM 1
-            addSlotToContainer(new Slot(inputTile, 1, 53, 20));  // CM 2
-            addSlotToContainer(new Slot(inputTile, 2, 35, 38));  // Key
-            addSlotToContainer(new Slot(inputTile, 3, 53, 38));  // Catalyst
+            addSlotToContainer(new Slot(inputTile, 0, 16, 29));  // CM 1
+            addSlotToContainer(new Slot(inputTile, 1, 38, 29));  // CM 2
+            addSlotToContainer(new Slot(inputTile, 2, 16, 49));  // Key
+            addSlotToContainer(new Slot(inputTile, 3, 38, 49));  // Catalyst
         } else {
             // Dummy slots if input tile not available
             for (int i = 0; i < 4; i++) {
@@ -43,12 +43,12 @@ public class ContainerCondenseurT2 extends Container {
         // Player inventory (slots 4-30)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                addSlotToContainer(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
+                addSlotToContainer(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 94 + row * 18));
             }
         }
         // Player hotbar (slots 31-39)
         for (int col = 0; col < 9; col++) {
-            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 142));
+            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 152));
         }
     }
 

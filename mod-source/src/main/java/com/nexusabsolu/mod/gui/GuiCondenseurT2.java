@@ -13,7 +13,25 @@ public class GuiCondenseurT2 extends GuiContainer {
     private final TileCondenseurT2 master;
 
     private static final int GUI_W = 176;
-    private static final int GUI_H = 166;
+    private static final int GUI_H = 176;
+
+    // Colors
+    private static final int BG_OUTER    = 0xFF0E0618;
+    private static final int BG_INNER    = 0xFF160A22;
+    private static final int BORDER_GLOW = 0xFF5A2080;
+    private static final int BORDER_DIM  = 0xFF2A1040;
+    private static final int PANEL_BG    = 0xFF0A0414;
+    private static final int PANEL_EDGE  = 0xFF3A1860;
+    private static final int SLOT_BG     = 0xFF080310;
+    private static final int SLOT_BORDER = 0xFF4A2880;
+    private static final int SLOT_ACTIVE = 0xFF6B3FA0;
+    private static final int TEXT_TITLE  = 0xFFBB88FF;
+    private static final int TEXT_LABEL  = 0xFF7755AA;
+    private static final int TEXT_DIM    = 0xFF554477;
+    private static final int TEXT_GREEN  = 0xFF44DD88;
+    private static final int TEXT_WARN   = 0xFFFF6644;
+    private static final int TEXT_QUOTE  = 0xFF338866;
+    private static final int GOLD_ACCENT = 0xFFD4A830;
 
     public GuiCondenseurT2(InventoryPlayer playerInv, TileCondenseurT2 master, TileItemInput inputTile) {
         super(new ContainerCondenseurT2(playerInv, master, inputTile));
@@ -25,151 +43,222 @@ public class GuiCondenseurT2 extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        // Dark violet background
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         int gx = (width - xSize) / 2;
         int gy = (height - ySize) / 2;
 
-        // Draw solid background (no texture, pure code)
-        drawRect(gx, gy, gx + GUI_W, gy + GUI_H, 0xFF1A0A2E);
-        // Border
-        drawRect(gx, gy, gx + GUI_W, gy + 1, 0xFF6B3FA0);
-        drawRect(gx, gy + GUI_H - 1, gx + GUI_W, gy + GUI_H, 0xFF6B3FA0);
-        drawRect(gx, gy, gx + 1, gy + GUI_H, 0xFF6B3FA0);
-        drawRect(gx + GUI_W - 1, gy, gx + GUI_W, gy + GUI_H, 0xFF6B3FA0);
+        long time = master.getWorld() != null ? master.getWorld().getTotalWorldTime() : 0;
+        boolean proc = container.getProcessTime() > 0;
 
-        // Title area
-        drawRect(gx + 2, gy + 2, gx + GUI_W - 2, gy + 14, 0xFF2D1450);
+        // === OUTER FRAME ===
+        drawRect(gx, gy, gx + GUI_W, gy + GUI_H, BG_OUTER);
+        // Double border
+        hLine(gx + 1, gx + GUI_W - 2, gy, BORDER_GLOW);
+        hLine(gx + 1, gx + GUI_W - 2, gy + GUI_H - 1, BORDER_GLOW);
+        vLine(gx, gy + 1, gy + GUI_H - 2, BORDER_GLOW);
+        vLine(gx + GUI_W - 1, gy + 1, gy + GUI_H - 2, BORDER_GLOW);
+        hLine(gx + 2, gx + GUI_W - 3, gy + 1, BORDER_DIM);
+        hLine(gx + 2, gx + GUI_W - 3, gy + GUI_H - 2, BORDER_DIM);
 
-        // Slot backgrounds (4 input slots in 2x2 grid)
-        int slotBg = 0xFF0D0520;
-        int slotBorder = 0xFF4A2D80;
-        drawSlotBox(gx + 34, gy + 19, slotBg, slotBorder);
-        drawSlotBox(gx + 52, gy + 19, slotBg, slotBorder);
-        drawSlotBox(gx + 34, gy + 37, slotBg, slotBorder);
-        drawSlotBox(gx + 52, gy + 37, slotBg, slotBorder);
+        // === TITLE BAR ===
+        drawRect(gx + 3, gy + 3, gx + GUI_W - 3, gy + 15, 0xFF1E0C35);
+        hLine(gx + 3, gx + GUI_W - 4, gy + 15, BORDER_GLOW);
+        // Gold corner dots
+        drawRect(gx + 4, gy + 4, gx + 6, gy + 6, GOLD_ACCENT);
+        drawRect(gx + GUI_W - 7, gy + 4, gx + GUI_W - 5, gy + 6, GOLD_ACCENT);
 
-        // Progress arrow area
-        drawProgressArrow(gx + 76, gy + 26);
+        // === INPUT PANEL (left) ===
+        int panelX = gx + 6;
+        int panelY = gy + 18;
+        int panelW = 62;
+        int panelH = 52;
+        drawPanel(panelX, panelY, panelW, panelH);
 
-        // Energy bar
-        drawEnergyBar(gx + 10, gy + 18, 10, 42);
+        // Input slots with glowing borders
+        int slotColor = proc ? SLOT_ACTIVE : SLOT_BORDER;
+        drawSlotBox(gx + 15, gy + 28, slotColor);
+        drawSlotBox(gx + 37, gy + 28, slotColor);
+        drawSlotBox(gx + 15, gy + 48, slotColor);
+        drawSlotBox(gx + 37, gy + 48, slotColor);
 
-        // Player inventory background
-        drawRect(gx + 6, gy + 80, gx + GUI_W - 6, gy + GUI_H - 4, 0xFF0D0520);
-    }
+        // === PROGRESS PANEL (center) ===
+        int progX = gx + 72;
+        int progY = gy + 18;
+        drawPanel(progX, progY, 32, 52);
 
-    private void drawSlotBox(int x, int y, int bg, int border) {
-        drawRect(x - 1, y - 1, x + 17, y + 17, border);
-        drawRect(x, y, x + 16, y + 16, bg);
-    }
+        // Progress bar (vertical, bottom to top)
+        int barX = gx + 79;
+        int barY = gy + 24;
+        int barW = 18;
+        int barH = 40;
+        drawRect(barX - 1, barY - 1, barX + barW + 1, barY + barH + 1, PANEL_EDGE);
+        drawRect(barX, barY, barX + barW, barY + barH, SLOT_BG);
 
-    private void drawProgressArrow(int x, int y) {
-        int gx = (width - xSize) / 2;
-        int gy = (height - ySize) / 2;
-
-        // Arrow background
-        drawRect(x, y, x + 22, y + 16, 0xFF0D0520);
-
-        // Fill based on progress
-        int process = container.getProcessTime();
-        int maxProcess = container.getMaxProcessTime();
-        if (maxProcess > 0 && process > 0) {
-            float pct = (float) process / (float) maxProcess;
-            int fillW = (int)(pct * 22);
-            drawRect(x, y, x + fillW, y + 16, 0xFF7B3FD0);
-
-            // Bright leading edge
-            if (fillW > 0 && fillW < 22) {
-                drawRect(x + fillW - 1, y, x + fillW, y + 16, 0xFFAA66FF);
-            }
-        }
-
-        // Arrow symbol ">>>"
-        if (!container.isStructureFormed()) {
-            fontRenderer.drawString("???", x + 3, y + 4, 0xFF666666);
-        } else if (process > 0) {
-            fontRenderer.drawString(">>>", x + 2, y + 4, 0xFF00FF88);
-        } else {
-            fontRenderer.drawString(">>>", x + 2, y + 4, 0xFF444444);
-        }
-
-        // Output indicator (right side of arrow)
-        drawRect(x + 26, y - 1, x + 44, y + 17, 0xFF4A2D80);
-        drawRect(x + 27, y, x + 43, y + 16, 0xFF0D0520);
-        fontRenderer.drawString("OUT", x + 28, y + 4, 0xFF888888);
-    }
-
-    private void drawEnergyBar(int x, int y, int w, int h) {
-        int gx = (width - xSize) / 2;
-        int gy = (height - ySize) / 2;
-        int bx = gx + x;
-        int by = gy + y;
-
-        // Background
-        drawRect(bx - 1, by - 1, bx + w + 1, by + h + 1, 0xFF4A2D80);
-        drawRect(bx, by, bx + w, by + h, 0xFF0D0520);
-
-        // Fill
-        int energy = container.getEnergy();
-        int maxEnergy = container.getMaxEnergy();
-        if (maxEnergy > 0 && energy > 0) {
-            float pct = (float) energy / (float) maxEnergy;
-            int fillH = (int)(pct * h);
-            // Gradient from red (bottom) to green (top)
-            int fillTop = by + h - fillH;
+        if (container.getMaxProcessTime() > 0 && container.getProcessTime() > 0) {
+            float pct = (float) container.getProcessTime() / container.getMaxProcessTime();
+            int fillH = (int)(pct * barH);
+            // Purple gradient fill from bottom
             for (int row = 0; row < fillH; row++) {
-                float rowPct = (float) row / (float) h;
-                int r = (int)(255 * (1.0F - rowPct));
-                int g = (int)(100 + 155 * rowPct);
-                int b = (int)(50 + 100 * rowPct);
+                float rowPct = (float) row / barH;
+                int r = (int)(90 + 100 * rowPct);
+                int g = (int)(30 + 40 * rowPct);
+                int b = (int)(140 + 80 * rowPct);
                 int color = 0xFF000000 | (r << 16) | (g << 8) | b;
-                drawRect(bx + 1, fillTop + fillH - row - 1, bx + w - 1, fillTop + fillH - row, color);
+                drawRect(barX + 1, barY + barH - row - 1, barX + barW - 1, barY + barH - row, color);
+            }
+            // Bright leading edge
+            if (fillH > 0 && fillH < barH) {
+                drawRect(barX + 1, barY + barH - fillH, barX + barW - 1, barY + barH - fillH + 1, 0xFFCC88FF);
+            }
+            // Animated scanline over progress
+            int scanY = barY + barH - 1 - (int)((time % 40) * barH / 40);
+            if (scanY >= barY && scanY < barY + barH) {
+                drawRect(barX + 1, scanY, barX + barW - 1, scanY + 1, 0x40FFFFFF);
             }
         }
+
+        // === OUTPUT PANEL (right top) ===
+        int outX = gx + 108;
+        int outY = gy + 18;
+        drawPanel(outX, outY, 62, 52);
+
+        // Output result display (no slot - just visual area)
+        drawRect(gx + 120, gy + 30, gx + 156, gy + 60, SLOT_BG);
+        drawRect(gx + 119, gy + 29, gx + 157, gy + 61, PANEL_EDGE);
+
+        // === ENERGY BAR (bottom left) ===
+        int eBarX = gx + 8;
+        int eBarY = gy + 73;
+        int eBarW = 60;
+        int eBarH = 8;
+        drawRect(eBarX - 1, eBarY - 1, eBarX + eBarW + 1, eBarY + eBarH + 1, PANEL_EDGE);
+        drawRect(eBarX, eBarY, eBarX + eBarW, eBarY + eBarH, SLOT_BG);
+
+        int maxE = container.getMaxEnergy();
+        int curE = container.getEnergy();
+        if (maxE > 0 && curE > 0) {
+            float ePct = (float) curE / maxE;
+            int fillW = (int)(ePct * eBarW);
+            // Purple energy gradient
+            for (int col = 0; col < fillW; col++) {
+                float colPct = (float) col / eBarW;
+                int r = (int)(60 + 140 * colPct);
+                int g = (int)(20 + 30 * colPct);
+                int b = (int)(100 + 100 * colPct);
+                int color = 0xFF000000 | (r << 16) | (g << 8) | b;
+                drawRect(eBarX + col, eBarY + 1, eBarX + col + 1, eBarY + eBarH - 1, color);
+            }
+        }
+
+        // === STATUS PANEL (bottom center-right) ===
+        int statusX = gx + 72;
+        int statusY = gy + 73;
+        drawPanel(statusX, statusY, 98, 12);
+
+        // === SCANLINE EFFECT over entire GUI ===
+        if (proc) {
+            int scanLine = gy + (int)((time % 80) * GUI_H / 80);
+            if (scanLine >= gy && scanLine < gy + GUI_H) {
+                drawRect(gx + 1, scanLine, gx + GUI_W - 1, scanLine + 1, 0x08FFFFFF);
+            }
+        }
+
+        // === PLAYER INVENTORY ===
+        drawRect(gx + 6, gy + 90, gx + GUI_W - 6, gy + GUI_H - 4, PANEL_BG);
+        hLine(gx + 6, gx + GUI_W - 7, gy + 89, BORDER_DIM);
+    }
+
+    private void drawPanel(int x, int y, int w, int h) {
+        drawRect(x, y, x + w, y + h, PANEL_BG);
+        // Border with glow
+        hLine(x, x + w - 1, y, PANEL_EDGE);
+        hLine(x, x + w - 1, y + h - 1, PANEL_EDGE);
+        vLine(x, y, y + h - 1, PANEL_EDGE);
+        vLine(x + w - 1, y, y + h - 1, PANEL_EDGE);
+    }
+
+    private void drawSlotBox(int x, int y, int border) {
+        drawRect(x - 1, y - 1, x + 17, y + 17, border);
+        drawRect(x, y, x + 16, y + 16, SLOT_BG);
+        // Corner highlights
+        drawRect(x, y, x + 1, y + 1, 0xFF3A1860);
+        drawRect(x + 15, y + 15, x + 16, y + 16, 0xFF3A1860);
+    }
+
+    private void hLine(int x1, int x2, int y, int color) {
+        drawRect(x1, y, x2 + 1, y + 1, color);
+    }
+
+    private void vLine(int x, int y1, int y2, int color) {
+        drawRect(x, y1, x + 1, y2 + 1, color);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        long time = master.getWorld() != null ? master.getWorld().getTotalWorldTime() : 0;
+        boolean proc = container.getProcessTime() > 0;
+        boolean formed = container.isStructureFormed();
+
         // Title
-        String title = "Condenseur Dimensionnel T2";
-        fontRenderer.drawString(title, (GUI_W - fontRenderer.getStringWidth(title)) / 2, 4, 0xFFBB88FF);
+        String title = "CONDENSEUR T2";
+        fontRenderer.drawString(title, (GUI_W - fontRenderer.getStringWidth(title)) / 2, 5, TEXT_TITLE);
 
-        // Structure status
-        if (!container.isStructureFormed()) {
-            fontRenderer.drawString("Structure incomplete", 35, 58, 0xFFFF4444);
-        } else if (container.getProcessTime() > 0) {
-            // Processing quote
-            String quote = master.getCurrentQuote();
-            if (quote.length() > 28) quote = quote.substring(0, 28) + "...";
-            fontRenderer.drawString(quote, 35, 58, 0xFF88DDAA);
+        // Input labels
+        fontRenderer.drawString("CM", 18, 21, TEXT_LABEL);
+        fontRenderer.drawString("CM", 40, 21, TEXT_LABEL);
+        fontRenderer.drawString("Cle", 17, 41, TEXT_DIM);
+        fontRenderer.drawString("Cat", 39, 41, TEXT_DIM);
 
-            // Progress percentage
-            int pct = 0;
-            if (container.getMaxProcessTime() > 0)
-                pct = (container.getProcessTime() * 100) / container.getMaxProcessTime();
-            fontRenderer.drawString(pct + "%", 80, 45, 0xFFAAFFAA);
-        } else {
-            fontRenderer.drawString("En attente...", 35, 58, 0xFF888888);
+        // Progress percentage
+        if (proc && container.getMaxProcessTime() > 0) {
+            int pct = (container.getProcessTime() * 100) / container.getMaxProcessTime();
+            String pctStr = pct + "%";
+            fontRenderer.drawString(pctStr, 88 - fontRenderer.getStringWidth(pctStr) / 2, 66, TEXT_GREEN);
+        } else if (formed) {
+            fontRenderer.drawString("---", 83, 66, TEXT_DIM);
         }
 
-        // Energy text
-        String energyStr = formatEnergy(container.getEnergy());
-        fontRenderer.drawString(energyStr, 8, 62, 0xFFAAAAAA);
+        // Output label
+        fontRenderer.drawString("Sortie", 126, 22, TEXT_LABEL);
 
-        // Slot labels
-        fontRenderer.drawString("CM", 36, 13, 0xFF666666);
-        fontRenderer.drawString("K+C", 52, 13, 0xFF666666);
+        // Structure status
+        if (!formed) {
+            fontRenderer.drawString("ERREUR STRUCTURE", 110, 40, TEXT_WARN);
+            // Blink
+            if (time % 40 < 20) {
+                fontRenderer.drawString("!", 155, 40, 0xFFFF0000);
+            }
+        } else if (proc) {
+            // Scrolling quote
+            String quote = master.getCurrentQuote();
+            if (quote.length() > 24) quote = quote.substring(0, 24) + "..";
+            fontRenderer.drawString(quote, 110, 40, TEXT_QUOTE);
+        } else {
+            fontRenderer.drawString("En attente", 116, 40, TEXT_DIM);
+        }
 
-        // RF/t indicator
-        if (container.getProcessTime() > 0) {
-            fontRenderer.drawString("200 RF/t", 105, 45, 0xFFFF8844);
+        // Energy display
+        String eStr = formatEnergy(container.getEnergy()) + " / " + formatEnergy(container.getMaxEnergy()) + " RF";
+        fontRenderer.drawString(eStr, 10, 74, 0xFF9966CC);
+
+        // Status bar (bottom right)
+        if (proc) {
+            fontRenderer.drawString("200 RF/t", 76, 76, 0xFFFF8844);
+            // Animated dots
+            int dots = (int)(time % 60 / 20) + 1;
+            String dotStr = "";
+            for (int i = 0; i < dots; i++) dotStr += ".";
+            fontRenderer.drawString("ACTIF" + dotStr, 130, 76, TEXT_GREEN);
+        } else if (formed) {
+            fontRenderer.drawString("PRET", 140, 76, TEXT_LABEL);
+        } else {
+            fontRenderer.drawString("HORS LIGNE", 114, 76, TEXT_WARN);
         }
     }
 
     private String formatEnergy(int energy) {
-        if (energy >= 1000000) return (energy / 1000000) + "M";
-        if (energy >= 1000) return (energy / 1000) + "K";
+        if (energy >= 1000000) return String.format("%.1fM", energy / 1000000.0);
+        if (energy >= 1000) return String.format("%.1fK", energy / 1000.0);
         return String.valueOf(energy);
     }
 
