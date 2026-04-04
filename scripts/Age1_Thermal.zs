@@ -451,3 +451,55 @@ recipes.addShaped("nexus_vossium_iv_block",
     [[<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>],
      [<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>],
      [<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>]]);
+
+// ============================================
+// MACHINES THERMAL MANQUANTES — crafts inter-mods
+// ============================================
+
+// === FLUID TRANSPOSER (Thermal + IE) ===
+// Fonction: remplir/vider des fluides
+recipes.remove(<thermalexpansion:machine:2>);
+recipes.addShaped("nexus_fluid_transposer", <thermalexpansion:machine:2>,
+    [[<minecraft:glass>, <minecraft:bucket>, <minecraft:glass>],
+     [<ore:ingotInvar>, <thermalexpansion:frame>, <ore:ingotInvar>],
+     [<ore:gearCopper>, <immersiveengineering:wirecoil:0>, <ore:gearCopper>]]);
+
+// === COMPACTOR (Thermal + EnderIO) ===
+// Fonction: comprimer en plates/gears
+recipes.remove(<thermalexpansion:machine:7>);
+recipes.addShaped("nexus_compactor", <thermalexpansion:machine:7>,
+    [[<ore:plateIron>, <minecraft:piston>, <ore:plateIron>],
+     [<ore:ingotBronze>, <thermalexpansion:frame>, <ore:ingotBronze>],
+     [<ore:gearCopper>, <enderio:item_material>, <ore:gearCopper>]]);
+
+// === COMPRESSION DYNAMO (Thermal + IE) ===
+// Fonction: RF a partir de carburants liquides
+recipes.remove(<thermalexpansion:dynamo:2>);
+recipes.addShaped("nexus_compression_dynamo", <thermalexpansion:dynamo:2>,
+    [[null, <minecraft:bucket>, null],
+     [<ore:ingotInvar>, <thermalexpansion:frame>, <ore:ingotInvar>],
+     [<ore:gearCopper>, <minecraft:redstone_block>, <ore:gearCopper>]]);
+
+// === PHYTOGENIC INSOLATOR (Thermal + AA) ===
+// Fonction: agriculture RF (pousse des plantes)
+recipes.remove(<thermalexpansion:machine:4>);
+recipes.addShaped("nexus_insolator", <thermalexpansion:machine:4>,
+    [[<minecraft:glass>, <actuallyadditions:block_greenhouse_glass>, <minecraft:glass>],
+     [<ore:ingotInvar>, <thermalexpansion:frame>, <ore:ingotInvar>],
+     [<ore:gearCopper>, <immersiveengineering:wirecoil:0>, <ore:gearCopper>]]);
+
+// === ENERGETIC INFUSER (Thermal + EnderIO) ===
+// Fonction: charger des items avec du RF
+recipes.remove(<thermalexpansion:machine:6>);
+recipes.addShaped("nexus_energetic_infuser", <thermalexpansion:machine:6>,
+    [[<ore:ingotInvar>, <minecraft:redstone>, <ore:ingotInvar>],
+     [<enderio:item_alloy_ingot:3>, <thermalexpansion:frame>, <enderio:item_alloy_ingot:3>],
+     [<ore:gearCopper>, <minecraft:redstone_block>, <ore:gearCopper>]]);
+
+// === SIMPLY JETPACKS — Leadstone (Thermal + IE) ===
+// Premier vol ! Gate par Invar + Leadstone Cell
+recipes.remove(<simplyjetpacks:itemjetpack:16>);
+recipes.addShaped("nexus_leadstone_jetpack", <simplyjetpacks:itemjetpack:16>,
+    [[<ore:ingotInvar>, null, <ore:ingotInvar>],
+     [<ore:ingotInvar>, <thermalexpansion:cell>, <ore:ingotInvar>],
+     [<immersiveengineering:wirecoil:0>, <minecraft:fireworks>, <immersiveengineering:wirecoil:0>]]);
