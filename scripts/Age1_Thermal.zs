@@ -348,6 +348,48 @@ mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_ii_ingot>, [<content
 // Vossium-II dans le Thermal Induction Smelter
 mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ingot>, <nexusabsolu:compose_b>, 6000);
 
-// Engrenage et bloc Vossium-II: a ajouter quand les items seront crees
+// === ENGRENAGE DE COMPOSE B ===
+// Croix de Compose B + coeur Vossium-II
+recipes.addShaped("nexus_compose_gear_b",
+    <nexusabsolu:compose_gear_b>,
+    [[null, <nexusabsolu:compose_b>, null],
+     [<nexusabsolu:compose_b>, <contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_b>],
+     [null, <nexusabsolu:compose_b>, null]]);
+
+// === CONDENSEUR T2 (master) ===
+// Le coeur du multibloc 3x3x3 — 4 mods requis
+recipes.addShaped("nexus_condenseur_t2",
+    <nexusabsolu:condenseur_t2>,
+    [[<contenttweaker:vossium_ii_ingot>, <actuallyadditions:item_crystal:2>, <contenttweaker:vossium_ii_ingot>],
+     [<ore:ingotSteel>, <thermalexpansion:frame>, <ore:ingotSteel>],
+     [<contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_gear_b>, <contenttweaker:vossium_ii_ingot>]]);
+
+// === ITEM INPUT (receptacle items) ===
+recipes.addShaped("nexus_item_input",
+    <nexusabsolu:item_input>,
+    [[<ore:plateInvar>, <minecraft:hopper>, <ore:plateInvar>],
+     [<contenttweaker:vossium_ingot>, <thermalexpansion:frame>, <contenttweaker:vossium_ingot>],
+     [<ore:plateInvar>, <ore:gearCopper>, <ore:plateInvar>]]);
+
+// === ITEM OUTPUT (sortie items) ===
+recipes.addShaped("nexus_item_output",
+    <nexusabsolu:item_output>,
+    [[<ore:plateInvar>, <minecraft:piston>, <ore:plateInvar>],
+     [<contenttweaker:vossium_ingot>, <thermalexpansion:frame>, <contenttweaker:vossium_ingot>],
+     [<ore:plateInvar>, <ore:gearCopper>, <ore:plateInvar>]]);
+
+// === ENERGY INPUT (port RF) ===
+recipes.addShaped("nexus_energy_input",
+    <nexusabsolu:energy_input>,
+    [[<contenttweaker:vossium_ingot>, <thermaldynamics:duct_0>, <contenttweaker:vossium_ingot>],
+     [<ore:plateInvar>, <thermalexpansion:cell>, <ore:plateInvar>],
+     [<contenttweaker:vossium_ingot>, <minecraft:redstone_block>, <contenttweaker:vossium_ingot>]]);
+
+// === BLOC VOSSIUM-II (9 lingots) ===
+recipes.addShaped("nexus_vossium_ii_block",
+    <nexusabsolu:vossium_ii_block>,
+    [[<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>],
+     [<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>],
+     [<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>]]);
 
 print("[Nexus Absolu] Vossium-II recipes loaded");
