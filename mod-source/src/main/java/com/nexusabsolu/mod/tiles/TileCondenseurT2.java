@@ -96,6 +96,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 linkHatches();
                 if (!structureFormed) {
                     structureFormed = true;
+                    formWalls(r);
                     markDirty();
                     syncToClient();
                 }
@@ -104,6 +105,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         }
 
         if (structureFormed) {
+            unformWalls();
             structureFormed = false;
             activeRotation = -1;
             inputPos = null;
@@ -139,7 +141,8 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
 
         switch (type) {
             case NEXUS_WALL:
-                return name.equals("nexusabsolu:nexus_wall");
+                return name.equals("nexusabsolu:nexus_wall")
+                    || name.equals("nexusabsolu:condenseur_t2_wall");
             case REDSTONE:
                 return block == Blocks.REDSTONE_BLOCK;
             case GLASS:
@@ -191,6 +194,56 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                     energyStorage.generateInternal(pulled);
                 }
             }
+        }
+    }
+
+    /** Replace all Nexus Walls in the structure with formed T2 walls. */
+    private void formWalls(int r) {
+        if (world == null || world.isRemote) return;
+        IBlockState formedState = com.nexusabsolu.mod.init.ModBlocks.CONDENSEUR_T2_WALL.getDefaultState();
+        for (int[] entry : STRUCTURE) {
+            if (entry[3] == NEXUS_WALL) {
+                BlockPos wallPos = getWorldPos(entry[0], entry[1], entry[2], r);
+                IBlockState current = world.getBlockState(wallPos);
+                String name = current.getBlock().getRegistryName() != null
+                    ? current.getBlock().getRegistryName().toString() : "";
+                if (name.equals("nexusabsolu:nexus_wall")) {
+                    world.setBlockState(wallPos, formedState, 2);
+                }
+            }
+        }
+    }
+
+    /** Restore all formed T2 walls back to Nexus Walls. */
+    private void unformWalls() {
+        if (world == null || world.isRemote || activeRotation < 0) return;
+        IBlockState nexusWall = com.nexusabsolu.mod.init.ModBlocks.NEXUS_WALL.getDefaultState();
+        for (int[] entry : STRUCTURE) {
+            if (entry[3] == NEXUS_WALL) {
+                BlockPos wallPos = getWorldPos(entry[0], entry[1], entry[2], activeRotation);
+                IBlockState current = world.getBlockState(wallPos);
+                String name = current.getBlock().getRegistryName() != null
+                    ? current.getBlock().getRegistryName().toString() : "";
+                if (name.equals("nexusabsolu:condenseur_t2_wall")) {
+                    world.setBlockState(wallPos, nexusWall, 2);
+                }
+            }
+        }
+    }
+
+    /** Called by BlockCondenseurT2Wall when a formed wall is broken. */
+    public void onStructureBroken() {
+        if (structureFormed) {
+            unformWalls();
+            structureFormed = false;
+            activeRotation = -1;
+            inputPos = null;
+            outputPos = null;
+            energyInputPos = null;
+            processing = false;
+            processTime = 0;
+            markDirty();
+            syncToClient();
         }
     }
 

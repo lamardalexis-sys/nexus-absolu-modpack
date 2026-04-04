@@ -9,6 +9,7 @@ import com.nexusabsolu.mod.blocks.machines.BlockCondenseur;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurFormed;
 import com.nexusabsolu.mod.blocks.machines.BlockAutoScavenger;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2;
+import com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2Wall;
 import com.nexusabsolu.mod.blocks.machines.BlockConvertisseur;
 import com.nexusabsolu.mod.blocks.machines.BlockEnergyInput;
 import com.nexusabsolu.mod.blocks.machines.BlockItemInput;
@@ -45,6 +46,7 @@ public class ModBlocks {
 
     // === CONDENSEUR T2 (3x3x3) ===
     public static final BlockCondenseurT2 CONDENSEUR_T2 = new BlockCondenseurT2();
+    public static final BlockCondenseurT2Wall CONDENSEUR_T2_WALL = new BlockCondenseurT2Wall();
     public static final BlockItemInput ITEM_INPUT = new BlockItemInput();
     public static final BlockItemOutput ITEM_OUTPUT = new BlockItemOutput();
     public static final BlockAutoScavenger AUTO_SCAVENGER = new BlockAutoScavenger();
