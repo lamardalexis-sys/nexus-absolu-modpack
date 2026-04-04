@@ -32,6 +32,7 @@ public class NexusJEIPlugin implements IModPlugin {
         }
         registry.addRecipes(wrappers, CondenseurCategory.UID);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.CONDENSEUR), CondenseurCategory.UID);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.CONDENSEUR_T2), CondenseurCategory.UID);
 
         // JEI exclusion zone for Convertisseur config panel
         registry.addAdvancedGuiHandlers(new ConvertisseurGuiHandler());
