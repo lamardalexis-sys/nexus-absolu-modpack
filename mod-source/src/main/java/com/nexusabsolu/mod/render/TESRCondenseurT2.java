@@ -20,6 +20,8 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
     // Shell textures (48x48 connected textures for each face)
     private static final ResourceLocation SHELL_FRONT  = new ResourceLocation("nexusabsolu", "textures/blocks/shell_front.png");
     private static final ResourceLocation SHELL_SIDE   = new ResourceLocation("nexusabsolu", "textures/blocks/shell_side.png");
+    private static final ResourceLocation SHELL_SIDE_IN  = new ResourceLocation("nexusabsolu", "textures/blocks/shell_side_input.png");
+    private static final ResourceLocation SHELL_SIDE_OUT = new ResourceLocation("nexusabsolu", "textures/blocks/shell_side_output.png");
     private static final ResourceLocation SHELL_TOP    = new ResourceLocation("nexusabsolu", "textures/blocks/shell_top.png");
     private static final ResourceLocation SHELL_BOTTOM = new ResourceLocation("nexusabsolu", "textures/blocks/shell_bottom.png");
     private static final ResourceLocation SHELL_BACK   = new ResourceLocation("nexusabsolu", "textures/blocks/shell_back.png");
@@ -86,6 +88,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
         renderShell(te, x, y, z);
+        renderScreen(te, x, y, z, time, pct, proc);
 
         renderEnergyColumn(cx, cy, cz, time, pct, proc);
         renderFluid(cx, cy, cz, time, pct, proc);
@@ -182,29 +185,29 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
 
         // Front face (direction depends on rotation)
         if (frontDir[0] == 1) {
-            // Front faces +X -> front is at x1
+            // R0: Front faces +X, width=-1 is -Z (input), width=+1 is +Z (output)
             renderFace(buf, tess, SHELL_FRONT, x1+o, y0, z0, x1+o, y1, z1, 0);
             renderFace(buf, tess, SHELL_BACK, x0-o, y0, z0, x0-o, y1, z1, 1);
-            renderFace(buf, tess, SHELL_SIDE, x0, y0, z0-o, x1, y1, z0-o, 2);
-            renderFace(buf, tess, SHELL_SIDE, x0, y0, z1+o, x1, y1, z1+o, 3);
+            renderFace(buf, tess, SHELL_SIDE_IN, x0, y0, z0-o, x1, y1, z0-o, 2);
+            renderFace(buf, tess, SHELL_SIDE_OUT, x0, y0, z1+o, x1, y1, z1+o, 3);
         } else if (frontDir[0] == -1) {
-            // Front faces -X
+            // R1: Front faces -X, width=-1 is +Z (input), width=+1 is -Z (output)
             renderFace(buf, tess, SHELL_FRONT, x0-o, y0, z0, x0-o, y1, z1, 1);
             renderFace(buf, tess, SHELL_BACK, x1+o, y0, z0, x1+o, y1, z1, 0);
-            renderFace(buf, tess, SHELL_SIDE, x0, y0, z0-o, x1, y1, z0-o, 3);
-            renderFace(buf, tess, SHELL_SIDE, x0, y0, z1+o, x1, y1, z1+o, 2);
+            renderFace(buf, tess, SHELL_SIDE_OUT, x0, y0, z0-o, x1, y1, z0-o, 3);
+            renderFace(buf, tess, SHELL_SIDE_IN, x0, y0, z1+o, x1, y1, z1+o, 2);
         } else if (frontDir[1] == 1) {
-            // Front faces +Z
+            // R2: Front faces +Z, width=-1 is +X (input), width=+1 is -X (output)
             renderFace(buf, tess, SHELL_FRONT, x0, y0, z1+o, x1, y1, z1+o, 3);
             renderFace(buf, tess, SHELL_BACK, x0, y0, z0-o, x1, y1, z0-o, 2);
-            renderFace(buf, tess, SHELL_SIDE, x0-o, y0, z0, x0-o, y1, z1, 1);
-            renderFace(buf, tess, SHELL_SIDE, x1+o, y0, z0, x1+o, y1, z1, 0);
+            renderFace(buf, tess, SHELL_SIDE_OUT, x0-o, y0, z0, x0-o, y1, z1, 1);
+            renderFace(buf, tess, SHELL_SIDE_IN, x1+o, y0, z0, x1+o, y1, z1, 0);
         } else {
-            // Front faces -Z
+            // R3: Front faces -Z, width=-1 is -X (input), width=+1 is +X (output)
             renderFace(buf, tess, SHELL_FRONT, x0, y0, z0-o, x1, y1, z0-o, 2);
             renderFace(buf, tess, SHELL_BACK, x0, y0, z1+o, x1, y1, z1+o, 3);
-            renderFace(buf, tess, SHELL_SIDE, x0-o, y0, z0, x0-o, y1, z1, 0);
-            renderFace(buf, tess, SHELL_SIDE, x1+o, y0, z0, x1+o, y1, z1, 1);
+            renderFace(buf, tess, SHELL_SIDE_IN, x0-o, y0, z0, x0-o, y1, z1, 0);
+            renderFace(buf, tess, SHELL_SIDE_OUT, x1+o, y0, z0, x1+o, y1, z1, 1);
         }
 
         GlStateManager.enableLighting();
@@ -212,10 +215,105 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         GlStateManager.popMatrix();
     }
 
-    /**
-     * Render a vertical face of the shell.
-     * @param orient 0=face+X, 1=face-X, 2=face-Z(north), 3=face+Z(south)
-     */
+    // ======================================================================
+    //  SCREEN: Dynamic display on front face
+    // ======================================================================
+
+    private void renderScreen(TileCondenseurT2 te, double x, double y, double z,
+                              float time, float pct, boolean proc) {
+        int[] bounds = te.getStructureBounds();
+        int[] frontDir = te.getFrontDirection();
+        BlockPos mp = te.getPos();
+
+        double bx0 = x + (bounds[0] - mp.getX());
+        double by0 = y + (bounds[1] - mp.getY());
+        double bz0 = z + (bounds[2] - mp.getZ());
+        double bx1 = x + (bounds[3] - mp.getX());
+        double by1 = y + (bounds[4] - mp.getY());
+        double bz1 = z + (bounds[5] - mp.getZ());
+
+        double sBot = by1 - 0.75;
+        double sTop = by1 - 0.15;
+        double off = 0.005;
+
+        GlStateManager.pushMatrix();
+        beginTranslucent();
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+
+        float sr = proc ? 0.05F : 0.02F;
+        float sg = proc ? 0.35F : 0.02F;
+        float sb = proc ? 0.08F : 0.08F;
+        float sa = proc ? 0.9F : 0.8F;
+
+        // Draw screen + progress bar on the front face
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        if (frontDir[0] == 1) {
+            double fx = bx1 + off;
+            buf.pos(fx, sBot, bz0+0.9).color(sr,sg,sb,sa).endVertex();
+            buf.pos(fx, sBot, bz1-0.9).color(sr,sg,sb,sa).endVertex();
+            buf.pos(fx, sTop, bz1-0.9).color(sr,sg,sb,sa*0.7F).endVertex();
+            buf.pos(fx, sTop, bz0+0.9).color(sr,sg,sb,sa*0.7F).endVertex();
+        } else if (frontDir[0] == -1) {
+            double fx = bx0 - off;
+            buf.pos(fx, sBot, bz1-0.9).color(sr,sg,sb,sa).endVertex();
+            buf.pos(fx, sBot, bz0+0.9).color(sr,sg,sb,sa).endVertex();
+            buf.pos(fx, sTop, bz0+0.9).color(sr,sg,sb,sa*0.7F).endVertex();
+            buf.pos(fx, sTop, bz1-0.9).color(sr,sg,sb,sa*0.7F).endVertex();
+        } else if (frontDir[1] == 1) {
+            double fz = bz1 + off;
+            buf.pos(bx0+0.9, sBot, fz).color(sr,sg,sb,sa).endVertex();
+            buf.pos(bx1-0.9, sBot, fz).color(sr,sg,sb,sa).endVertex();
+            buf.pos(bx1-0.9, sTop, fz).color(sr,sg,sb,sa*0.7F).endVertex();
+            buf.pos(bx0+0.9, sTop, fz).color(sr,sg,sb,sa*0.7F).endVertex();
+        } else {
+            double fz = bz0 - off;
+            buf.pos(bx1-0.9, sBot, fz).color(sr,sg,sb,sa).endVertex();
+            buf.pos(bx0+0.9, sBot, fz).color(sr,sg,sb,sa).endVertex();
+            buf.pos(bx0+0.9, sTop, fz).color(sr,sg,sb,sa*0.7F).endVertex();
+            buf.pos(bx1-0.9, sTop, fz).color(sr,sg,sb,sa*0.7F).endVertex();
+        }
+        tess.draw();
+
+        // Progress bar (green fill from bottom)
+        if (proc && pct > 0.01F) {
+            float fillH = pct * (float)(sTop - sBot - 0.1);
+            buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+            float pr = 0.1F + pct * 0.5F, pg = 0.7F, pb = 0.15F, pa = 0.85F;
+            double fy = sBot + 0.05 + fillH;
+            if (frontDir[0] == 1) {
+                double fx = bx1 + off + 0.001;
+                buf.pos(fx, sBot+0.05, bz0+1.0).color(pr,pg,pb,pa).endVertex();
+                buf.pos(fx, sBot+0.05, bz1-1.0).color(pr,pg,pb,pa).endVertex();
+                buf.pos(fx, fy, bz1-1.0).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
+                buf.pos(fx, fy, bz0+1.0).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
+            } else if (frontDir[0] == -1) {
+                double fx = bx0 - off - 0.001;
+                buf.pos(fx, sBot+0.05, bz1-1.0).color(pr,pg,pb,pa).endVertex();
+                buf.pos(fx, sBot+0.05, bz0+1.0).color(pr,pg,pb,pa).endVertex();
+                buf.pos(fx, fy, bz0+1.0).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
+                buf.pos(fx, fy, bz1-1.0).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
+            } else if (frontDir[1] == 1) {
+                double fz = bz1 + off + 0.001;
+                buf.pos(bx0+1.0, sBot+0.05, fz).color(pr,pg,pb,pa).endVertex();
+                buf.pos(bx1-1.0, sBot+0.05, fz).color(pr,pg,pb,pa).endVertex();
+                buf.pos(bx1-1.0, fy, fz).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
+                buf.pos(bx0+1.0, fy, fz).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
+            } else {
+                double fz = bz0 - off - 0.001;
+                buf.pos(bx1-1.0, sBot+0.05, fz).color(pr,pg,pb,pa).endVertex();
+                buf.pos(bx0+1.0, sBot+0.05, fz).color(pr,pg,pb,pa).endVertex();
+                buf.pos(bx0+1.0, fy, fz).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
+                buf.pos(bx1-1.0, fy, fz).color(pr*0.6F,pg*0.6F,pb,pa*0.5F).endVertex();
+            }
+            tess.draw();
+        }
+
+        endTranslucent();
+        GlStateManager.popMatrix();
+    }
+
     private void renderFace(BufferBuilder buf, Tessellator tess,
                             ResourceLocation tex, double fx, double y0, double fz,
                             double fx2, double y1, double fz2, int orient) {
