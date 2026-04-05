@@ -262,7 +262,14 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
 
     @Override
     public void update() {
-        if (world.isRemote) return;
+        if (world == null || world.isRemote) return;
+
+        // Safety: if our block was removed, invalidate this TE
+        if (!(world.getBlockState(pos).getBlock() instanceof
+                com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2)) {
+            invalidate();
+            return;
+        }
 
         // Recheck structure every 20 ticks (1 second)
         if (world.getTotalWorldTime() % 20 == 0) {
