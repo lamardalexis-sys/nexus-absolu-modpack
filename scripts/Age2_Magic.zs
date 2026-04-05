@@ -30,6 +30,13 @@ recipes.addShaped("nexus_ec_table_basic", <extendedcrafting:table_basic>,
      [<bloodmagic:slate:0>, <minecraft:crafting_table>, <astralsorcery:itemcraftingcomponent:0>],
      [<ore:ingotIron>, <ore:ingotIron>, <ore:ingotIron>]]);
 
+// Black Iron Ingot -- coal au lieu de black dye
+recipes.remove(<extendedcrafting:material:0>);
+recipes.addShaped("nexus_black_iron", <extendedcrafting:material:0>,
+    [[<minecraft:coal>, <minecraft:coal>, <minecraft:coal>],
+     [<minecraft:coal>, <minecraft:iron_ingot>, <minecraft:coal>],
+     [<minecraft:coal>, <minecraft:coal>, <minecraft:coal>]]);
+
 // === TERRASTEEL (gate pour Fragment Organique) ===
 // Vanilla Botania: Terrasteel = Iron + Mana Pearl + Mana Diamond sur Terrestrial plate
 // Tres cher en mana -- le joueur doit avoir une bonne setup Botania
