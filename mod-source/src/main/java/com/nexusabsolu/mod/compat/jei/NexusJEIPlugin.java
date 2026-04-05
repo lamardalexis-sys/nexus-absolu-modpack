@@ -68,9 +68,10 @@ public class NexusJEIPlugin implements IModPlugin {
             new ItemStack(ModItems.SIGNALHEE_INGOT), VanillaTypes.ITEM,
             "Lingot de Signalhee\n\n" +
             "Obtenu via:\n" +
-            "- Machine Voss KRDA125 (Signalum + Diarrhee)\n" +
-            "- Induction Smelter (Signalum + Compose B)\n" +
-            "- Alloy Kiln / Alloy Smelter");
+            "- Machine Voss KRDA125 (Signalum + Diarrhee)\n\n" +
+            "Utilise pour:\n" +
+            "- Signalhee + Compose B = Compose C\n" +
+            "  (Induction Smelter / Alloy Kiln / Alloy Smelter)");
 
         // Machine descriptions
         registry.addIngredientInfo(

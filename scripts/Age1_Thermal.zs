@@ -395,10 +395,9 @@ recipes.addShaped("nexus_vossium_ii_block",
 print("[Nexus Absolu] Vossium-II recipes loaded");
 
 // ============================================
-// COMPOSE C — Synthese Thermique
-// Induction Smelter: Compose B + Signalum -> Compose C
+// COMPOSE C — Synthese via Signalhee
+// Moved to Age1_Signalhee.zs (Signalhee + Compose B -> Compose C)
 // ============================================
-mods.thermalexpansion.InductionSmelter.addRecipe(<nexusabsolu:compose_c>, <nexusabsolu:compose_b>, <thermalfoundation:material:165>, 8000);
 
 // ============================================
 // COMPOSE D — Resonance Dimensionnelle (multi-etapes)
