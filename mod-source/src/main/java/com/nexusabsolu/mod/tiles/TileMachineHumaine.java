@@ -71,7 +71,7 @@ public class TileMachineHumaine extends TileEntity implements ITickable, IInvent
             // Gurgle sound every ~60 ticks while processing
             if (gurgleCooldown <= 0) {
                 world.playSound(null, pos, ModSounds.STOMACH_GURGLE,
-                    SoundCategory.BLOCKS, 0.6F, 0.9F + world.rand.nextFloat() * 0.2F);
+                    SoundCategory.BLOCKS, 0.2F, 0.9F + world.rand.nextFloat() * 0.2F);
                 gurgleCooldown = 50 + world.rand.nextInt(20); // 50-70 ticks
             } else {
                 gurgleCooldown--;
@@ -124,10 +124,10 @@ public class TileMachineHumaine extends TileEntity implements ITickable, IInvent
 
         // Sound: explosive diarrhea every 20 digestions
         digestCount++;
-        if (digestCount >= 20) {
+        if (digestCount >= 15) {
             digestCount = 0;
             world.playSound(null, pos, ModSounds.DIARRHEE_EXPLOSIVE,
-                SoundCategory.BLOCKS, 1.0F, 0.8F + world.rand.nextFloat() * 0.4F);
+                SoundCategory.BLOCKS, 0.25F, 0.8F + world.rand.nextFloat() * 0.4F);
         }
     }
 
