@@ -30,11 +30,9 @@ recipes.addShaped("compact_key_7x7", <nexusabsolu:compact_key_7x7>,
      [<ore:ingotTin>, <minecraft:redstone>, <ore:ingotTin>],
      [<ore:ingotIron>, <ore:ingotCopper>, <ore:ingotIron>]]);
 
-// Cle 9x9 -- alliages Tinkers (salle 7x7, Smeltery requise)
-recipes.addShaped("compact_key_9x9", <nexusabsolu:compact_key_9x9>,
-    [[<ore:ingotBronze>, <ore:ingotIron>, <ore:ingotBronze>],
-     [<ore:ingotIron>, <minecraft:diamond>, <ore:ingotIron>],
-     [<ore:ingotBronze>, <ore:ingotIron>, <ore:ingotBronze>]]);
+// Cle 9x9 -- REMOVED: replaced by Advanced Crafting 5x5 recipe in Age1_Signalhee.zs
+// (Vossium III + Diarrhee + Blood Magic + Compose C gear + x7 key + CM x7)
+recipes.remove(<nexusabsolu:compact_key_9x9>);
 
 // Cle 11x11 -- Thermal (salle 9x9, RF requis)
 recipes.addShaped("compact_key_11x11", <nexusabsolu:compact_key_11x11>,

@@ -73,6 +73,22 @@ public class NexusJEIPlugin implements IModPlugin {
             "- Signalhee + Compose B = Compose C\n" +
             "  (Induction Smelter / Alloy Kiln / Alloy Smelter)");
 
+        // Cle 9x9
+        registry.addIngredientInfo(
+            new ItemStack(ModItems.COMPACT_KEY_9X9), VanillaTypes.ITEM,
+            "Cle d'Extension 9x9\n" +
+            "\"La cle c'est la reussite\"\n\n" +
+            "Craft: Advanced Crafting Table (5x5)\n\n" +
+            "Ingredients:\n" +
+            "- 4x Lingot de Vossium III\n" +
+            "- 1x Seau de Diarrhee Liquide\n" +
+            "- 1x Lava Crystal (Blood Magic)\n" +
+            "- 1x Gear de Compose C\n" +
+            "- 1x Cle d'Extension 7x7\n" +
+            "- 1x Compact Machine x7\n\n" +
+            "Utilisee dans le Condenseur pour\n" +
+            "creer la Compact Machine 9x9.");
+
         // Machine descriptions
         registry.addIngredientInfo(
             new ItemStack(ModBlocks.MACHINE_HUMAINE), VanillaTypes.ITEM,
