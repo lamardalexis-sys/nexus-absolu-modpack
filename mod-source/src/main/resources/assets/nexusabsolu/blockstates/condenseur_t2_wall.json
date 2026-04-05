@@ -1,5 +1,6 @@
 {
   "variants": {
-    "normal": { "model": "nexusabsolu:condenseur_t2_wall" }
+    "original=0": { "model": "nexusabsolu:condenseur_t2_wall" },
+    "original=1": { "model": "nexusabsolu:condenseur_t2_wall" }
   }
 }

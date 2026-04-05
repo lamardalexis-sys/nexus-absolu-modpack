@@ -9,9 +9,12 @@ import com.nexusabsolu.mod.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
@@ -28,6 +31,12 @@ import java.util.Random;
 
 public class BlockCondenseurT2Wall extends Block implements IHasModel {
 
+    /** 0 = was Nexus Wall, 1 = was Glass */
+    public static final PropertyInteger ORIGINAL = PropertyInteger.create("original", 0, 1);
+
+    public static final int TYPE_WALL = 0;
+    public static final int TYPE_GLASS = 1;
+
     public BlockCondenseurT2Wall() {
         super(Material.IRON);
         setUnlocalizedName("condenseur_t2_wall");
@@ -37,21 +46,47 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
         setSoundType(SoundType.METAL);
         setLightLevel(0.2F);
         setCreativeTab(NexusAbsoluMod.CREATIVE_TAB);
+        setDefaultState(blockState.getBaseState().withProperty(ORIGINAL, TYPE_WALL));
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
 
-    // Solid opaque block — provides depth buffer for the TESR shell overlay
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, ORIGINAL);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(ORIGINAL);
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return getDefaultState().withProperty(ORIGINAL, meta & 1);
+    }
+
     @Override
     public boolean isOpaqueCube(IBlockState state) { return true; }
 
     @Override
     public boolean isFullCube(IBlockState state) { return true; }
 
-    // Drop Nexus Wall when broken (formed wall is not a real item)
+    /**
+     * Drop the correct original block based on metadata.
+     * meta 0 = Nexus Wall, meta 1 = Glass
+     */
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        if (state.getValue(ORIGINAL) == TYPE_GLASS) {
+            return Item.getItemFromBlock(Blocks.GLASS);
+        }
         return Item.getItemFromBlock(ModBlocks.NEXUS_WALL);
+    }
+
+    @Override
+    public int damageDropped(IBlockState state) {
+        return 0;
     }
 
     @Override
@@ -59,7 +94,6 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
                                     EntityPlayer player, EnumHand hand,
                                     EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            // Find the T2 master in a 3-block radius and open its GUI
             for (int dx = -2; dx <= 2; dx++) {
                 for (int dy = -1; dy <= 1; dy++) {
                     for (int dz = -2; dz <= 2; dz++) {
@@ -80,7 +114,6 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
         if (!world.isRemote) {
-            // Breaking a formed wall breaks the T2 structure
             for (int dx = -2; dx <= 2; dx++) {
                 for (int dy = -1; dy <= 1; dy++) {
                     for (int dz = -2; dz <= 2; dz++) {
@@ -100,7 +133,6 @@ public class BlockCondenseurT2Wall extends Block implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-        // Purple particles on formed walls
         if (rand.nextInt(6) == 0) {
             double x = pos.getX() + rand.nextDouble();
             double y = pos.getY() + rand.nextDouble();

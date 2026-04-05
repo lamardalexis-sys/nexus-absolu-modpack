@@ -198,10 +198,9 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         }
     }
 
-    /** Replace Nexus Walls AND Glass with invisible formed blocks. */
+    /** Replace Nexus Walls AND Glass with formed blocks (with metadata for original type). */
     private void formWalls(int r) {
         if (world == null || world.isRemote) return;
-        IBlockState formedState = com.nexusabsolu.mod.init.ModBlocks.CONDENSEUR_T2_WALL.getDefaultState();
         for (int[] entry : STRUCTURE) {
             int type = entry[3];
             if (type == NEXUS_WALL || type == GLASS) {
@@ -211,6 +210,11 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                     ? current.getBlock().getRegistryName().toString() : "";
                 if (name.equals("nexusabsolu:nexus_wall") || name.contains("glass")
                     || name.equals("nexusabsolu:condenseur_t2_wall")) {
+                    int meta = (type == GLASS) ? 1 : 0;
+                    IBlockState formedState = com.nexusabsolu.mod.init.ModBlocks.CONDENSEUR_T2_WALL
+                        .getDefaultState()
+                        .withProperty(
+                            com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2Wall.ORIGINAL, meta);
                     world.setBlockState(wallPos, formedState, 2);
                 }
             }
