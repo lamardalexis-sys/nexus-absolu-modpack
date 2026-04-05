@@ -70,15 +70,15 @@ public class GuiMachineKRDA extends GuiContainer {
         drawRect(x + 5, y + BAR_Y - 1, x + 195, y + BAR_Y + BAR_H + 3,
             0xFF261440);
 
-        // Diarrhee tank bar (spaced for label clarity)
+        // Diarrhee tank bar
         drawBar(x + 36, y + BAR_Y, BAR_W, BAR_H,
             tile.getField(1), TileMachineKRDA.TANK_CAPACITY,
-            0xFF6B4513, 0xFFA06820, "Diarr.");
+            0xFF6B4513, 0xFFA06820, "D");
 
         // Bio-E bar
         drawBar(x + 66, y + BAR_Y, BAR_W, BAR_H,
             tile.getField(0), TileMachineKRDA.RF_CAPACITY,
-            0xFFCC4444, 0xFFFF6666, "Bio-E");
+            0xFFCC4444, 0xFFFF6666, "E");
 
         // Progress
         int px = x + 86;
@@ -146,7 +146,7 @@ public class GuiMachineKRDA extends GuiContainer {
 
     private void drawBar(int bx, int by, int bw, int bh,
                           int val, int max, int color, int shine,
-                          String label) {
+                          String letter) {
         drawRect(bx - 1, by - 1, bx + bw + 1, by + bh + 1, 0xFF3A1F5E);
         drawRect(bx, by, bx + bw, by + bh, 0xFF0A0410);
         if (max > 0 && val > 0) {
@@ -157,9 +157,10 @@ public class GuiMachineKRDA extends GuiContainer {
                 drawRect(bx + 1, by + bh - fH,
                          bx + bw - 1, by + bh - fH + 2, shine);
         }
-        int lw = fontRenderer.getStringWidth(label);
-        fontRenderer.drawStringWithShadow(label,
-            bx + (bw - lw) / 2.0F, by + bh + 3,
+        // Letter INSIDE top of bar
+        int lw = fontRenderer.getStringWidth(letter);
+        fontRenderer.drawStringWithShadow(letter,
+            bx + (bw - lw) / 2.0F, by + 2,
             (color & 0x00FFFFFF) | 0xFF000000);
     }
 

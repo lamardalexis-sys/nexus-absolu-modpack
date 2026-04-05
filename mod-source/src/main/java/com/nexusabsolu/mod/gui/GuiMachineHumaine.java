@@ -77,22 +77,19 @@ public class GuiMachineHumaine extends GuiContainer {
         drawRect(x + 5, y + BAR_Y - 1, x + 195, y + BAR_Y + BAR_H + 3,
             0xFF261440);
 
-        // === BARS (spaced 24px apart to avoid label overlap) ===
-        // Food bar: stack count / 64
+        // === BARS (letter inside top, no label below) ===
         int foodCount = tile.getStackInSlot(0).getCount();
-        drawBar(x + 28, y + BAR_Y, BAR_W, BAR_H,
+        drawBar(x + 34, y + BAR_Y, BAR_W, BAR_H,
             foodCount, 64,
-            0xFF307830, 0xFF50CC50, "Food");
+            0xFF307830, 0xFF50CC50, "F");
 
-        // Water bar: field 1 = water level
-        drawBar(x + 52, y + BAR_Y, BAR_W, BAR_H,
+        drawBar(x + 56, y + BAR_Y, BAR_W, BAR_H,
             tile.getField(1), TileMachineHumaine.TANK_CAPACITY,
-            0xFF2870B8, 0xFF44CCFF, "H2O");
+            0xFF2870B8, 0xFF44CCFF, "W");
 
-        // Bio-E bar: field 0 = energy
-        drawBar(x + 76, y + BAR_Y, BAR_W, BAR_H,
+        drawBar(x + 78, y + BAR_Y, BAR_W, BAR_H,
             tile.getField(0), TileMachineHumaine.RF_CAPACITY,
-            0xFFCC4444, 0xFFFF6666, "Bio-E");
+            0xFFCC4444, 0xFFFF6666, "E");
 
         // === PROGRESS ===
         int px = x + 100;
@@ -127,7 +124,7 @@ public class GuiMachineHumaine extends GuiContainer {
         // === OUTPUT TANK ===
         drawBar(x + 154, y + BAR_Y, 16, BAR_H,
             tile.getField(2), TileMachineHumaine.TANK_CAPACITY,
-            0xFF6B4513, 0xFFA06820, "Sortie");
+            0xFF6B4513, 0xFFA06820, "S");
 
         // === INFO LINE ===
         String info = TileMachineHumaine.RF_PER_TICK + " Bio-E/t";
@@ -165,27 +162,26 @@ public class GuiMachineHumaine extends GuiContainer {
 
     private void drawBar(int bx, int by, int bw, int bh,
                           int value, int max, int color, int shine,
-                          String label) {
+                          String letter) {
         // Border
         drawRect(bx - 1, by - 1, bx + bw + 1, by + bh + 1, 0xFF3A1F5E);
         // Background
         drawRect(bx, by, bx + bw, by + bh, 0xFF0A0410);
-        // Fill
+        // Fill from bottom up
         if (max > 0 && value > 0) {
             float ratio = Math.min(1.0F, (float) value / max);
             int fillH = (int)(bh * ratio);
             drawRect(bx + 1, by + bh - fillH,
                      bx + bw - 1, by + bh, color);
-            // Shine line at top of fill
             if (fillH > 2) {
                 drawRect(bx + 1, by + bh - fillH,
                          bx + bw - 1, by + bh - fillH + 2, shine);
             }
         }
-        // Label below
-        int lw = fontRenderer.getStringWidth(label);
-        fontRenderer.drawStringWithShadow(label,
-            bx + (bw - lw) / 2.0F, by + bh + 3,
+        // Letter INSIDE the top of the bar (always visible)
+        int lw = fontRenderer.getStringWidth(letter);
+        fontRenderer.drawStringWithShadow(letter,
+            bx + (bw - lw) / 2.0F, by + 2,
             (color & 0x00FFFFFF) | 0xFF000000);
     }
 
@@ -352,21 +348,21 @@ public class GuiMachineHumaine extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // Food bar
-        if (isInRect(mx, my, x + 28, y + BAR_Y, BAR_W, BAR_H)) {
+        // Food bar (F)
+        if (isInRect(mx, my, x + 34, y + BAR_Y, BAR_W, BAR_H)) {
             drawHoveringText(Collections.singletonList(
                 "Food: " + (tile.getStackInSlot(0).isEmpty()
                     ? "Vide" : tile.getStackInSlot(0).getDisplayName())),
                 mx, my);
         }
-        // Water bar
-        if (isInRect(mx, my, x + 52, y + BAR_Y, BAR_W, BAR_H)) {
+        // Water bar (W)
+        if (isInRect(mx, my, x + 56, y + BAR_Y, BAR_W, BAR_H)) {
             drawHoveringText(Collections.singletonList(
                 tile.getField(1) + " / " + TileMachineHumaine.TANK_CAPACITY
                 + " mB H2O"), mx, my);
         }
-        // Bio-E bar
-        if (isInRect(mx, my, x + 76, y + BAR_Y, BAR_W, BAR_H)) {
+        // Bio-E bar (E)
+        if (isInRect(mx, my, x + 78, y + BAR_Y, BAR_W, BAR_H)) {
             drawHoveringText(Collections.singletonList(
                 tile.getField(0) + " / " + TileMachineHumaine.RF_CAPACITY
                 + " Bio-E"), mx, my);
