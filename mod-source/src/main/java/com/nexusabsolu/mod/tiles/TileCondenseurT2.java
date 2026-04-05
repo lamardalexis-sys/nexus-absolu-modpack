@@ -198,9 +198,14 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         }
     }
 
-    /** Replace Nexus Walls AND Glass with formed blocks (with metadata for original type). */
+    /**
+     * No longer replaces blocks. The TESR shell renders on top of
+     * the original blocks. Any old condenseur_t2_wall blocks from
+     * previous versions are restored to their originals.
+     */
     private void formWalls(int r) {
         if (world == null || world.isRemote) return;
+        // Migration: restore any old formed wall blocks to originals
         for (int[] entry : STRUCTURE) {
             int type = entry[3];
             if (type == NEXUS_WALL || type == GLASS) {
@@ -208,38 +213,22 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 IBlockState current = world.getBlockState(wallPos);
                 String name = current.getBlock().getRegistryName() != null
                     ? current.getBlock().getRegistryName().toString() : "";
-                if (name.equals("nexusabsolu:nexus_wall") || name.contains("glass")
-                    || name.equals("nexusabsolu:condenseur_t2_wall")) {
-                    int meta = (type == GLASS) ? 1 : 0;
-                    IBlockState formedState = com.nexusabsolu.mod.init.ModBlocks.CONDENSEUR_T2_WALL
-                        .getDefaultState()
-                        .withProperty(
-                            com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2Wall.ORIGINAL, meta);
-                    world.setBlockState(wallPos, formedState, 2);
+                if (name.equals("nexusabsolu:condenseur_t2_wall")) {
+                    if (type == GLASS) {
+                        world.setBlockState(wallPos,
+                            net.minecraft.init.Blocks.GLASS.getDefaultState(), 2);
+                    } else {
+                        world.setBlockState(wallPos,
+                            com.nexusabsolu.mod.init.ModBlocks.NEXUS_WALL.getDefaultState(), 2);
+                    }
                 }
             }
         }
     }
 
-    /** Restore formed blocks back to their originals. */
+    /** No-op: blocks are no longer replaced during formation. */
     private void unformWalls() {
-        if (world == null || world.isRemote || activeRotation < 0) return;
-        for (int[] entry : STRUCTURE) {
-            int type = entry[3];
-            if (type == NEXUS_WALL || type == GLASS) {
-                BlockPos wallPos = getWorldPos(entry[0], entry[1], entry[2], activeRotation);
-                IBlockState current = world.getBlockState(wallPos);
-                String name = current.getBlock().getRegistryName() != null
-                    ? current.getBlock().getRegistryName().toString() : "";
-                if (name.equals("nexusabsolu:condenseur_t2_wall")) {
-                    if (type == NEXUS_WALL) {
-                        world.setBlockState(wallPos, com.nexusabsolu.mod.init.ModBlocks.NEXUS_WALL.getDefaultState(), 2);
-                    } else {
-                        world.setBlockState(wallPos, net.minecraft.init.Blocks.GLASS.getDefaultState(), 2);
-                    }
-                }
-            }
-        }
+        // Nothing to restore — original blocks stay in place
     }
 
     /** Called by BlockCondenseurT2Wall when a formed wall is broken. */
