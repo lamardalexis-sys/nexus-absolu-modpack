@@ -31,11 +31,11 @@ public class ContainerMachineHumaine extends Container {
         // Slot 0: Food input (left side of machine panel)
         addSlotToContainer(new SlotFood(tile, 0, 14, 38));
 
-        // Slot 1: Bucket empty input
-        addSlotToContainer(new SlotBucket(tile, 1, 149, 30));
+        // Slot 1: Bucket empty input (right of output tank)
+        addSlotToContainer(new SlotBucket(tile, 1, 178, 28));
 
-        // Slot 2: Bucket filled output
-        addSlotToContainer(new SlotOutput(tile, 2, 149, 68));
+        // Slot 2: Bucket filled output (below empty bucket)
+        addSlotToContainer(new SlotOutput(tile, 2, 178, 56));
 
         // Player inventory (3 rows x 9 cols)
         for (int row = 0; row < 3; row++) {

@@ -151,10 +151,9 @@ public class GuiMachineHumaine extends GuiContainer {
         // Slot labels
         fontRenderer.drawStringWithShadow("Food",
             x + 8, y + 56, 0xFF50803A);
-        fontRenderer.drawStringWithShadow("Vide",
-            x + 170, y + 48, 0xFF8866AA);
-        fontRenderer.drawStringWithShadow("Plein",
-            x + 170, y + 86, 0xFF8B6914);
+        // Bucket slots: arrow between them
+        fontRenderer.drawStringWithShadow("\u2193",
+            x + 184, y + 48, 0xFF8866AA);
 
         // === CONFIG TABS (LEFT side, outside GUI) ===
         drawConfigTabs(x, y, mx, my);
