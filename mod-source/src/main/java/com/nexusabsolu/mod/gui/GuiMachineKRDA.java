@@ -70,13 +70,13 @@ public class GuiMachineKRDA extends GuiContainer {
         drawRect(x + 5, y + BAR_Y - 1, x + 195, y + BAR_Y + BAR_H + 3,
             0xFF261440);
 
-        // Diarrhee tank bar
-        drawBar(x + 42, y + BAR_Y, BAR_W, BAR_H,
+        // Diarrhee tank bar (spaced for label clarity)
+        drawBar(x + 36, y + BAR_Y, BAR_W, BAR_H,
             tile.getField(1), TileMachineKRDA.TANK_CAPACITY,
             0xFF6B4513, 0xFFA06820, "Diarr.");
 
         // Bio-E bar
-        drawBar(x + 62, y + BAR_Y, BAR_W, BAR_H,
+        drawBar(x + 66, y + BAR_Y, BAR_W, BAR_H,
             tile.getField(0), TileMachineKRDA.RF_CAPACITY,
             0xFFCC4444, 0xFFFF6666, "Bio-E");
 
@@ -105,11 +105,13 @@ public class GuiMachineKRDA extends GuiContainer {
             px + (pw - fontRenderer.getStringWidth("Transmutation")) / 2.0F,
             py + ph + 3, 0xFF8866AA);
 
-        // Info
+        // Info (two lines to avoid cramping)
         fontRenderer.drawStringWithShadow(
-            TileMachineKRDA.RF_PER_TICK + " Bio-E/t | "
-            + TileMachineKRDA.FLUID_PER_CYCLE + "mB/op",
-            x + 8, y + BAR_Y + BAR_H + 8, 0xFF8866AA);
+            TileMachineKRDA.RF_PER_TICK + " Bio-E/t",
+            x + 8, y + BAR_Y + BAR_H + 6, 0xFF8866AA);
+        fontRenderer.drawStringWithShadow(
+            TileMachineKRDA.FLUID_PER_CYCLE + " mB/op",
+            x + 8, y + BAR_Y + BAR_H + 16, 0xFF8866AA);
 
         // Separator + inv label
         drawRect(x + 6, y + 128, x + 194, y + 129, 0xFF3A1F5E);
@@ -275,13 +277,13 @@ public class GuiMachineKRDA extends GuiContainer {
     private void drawBarTooltips(int mx, int my) {
         int x = guiLeft;
         int y = guiTop;
-        if (mx >= x + 42 && mx <= x + 56
+        if (mx >= x + 36 && mx <= x + 50
          && my >= y + BAR_Y && my <= y + BAR_Y + BAR_H) {
             drawHoveringText(Collections.singletonList(
                 tile.getField(1) + " / " + TileMachineKRDA.TANK_CAPACITY
                 + " mB Diarrhee"), mx, my);
         }
-        if (mx >= x + 62 && mx <= x + 76
+        if (mx >= x + 66 && mx <= x + 80
          && my >= y + BAR_Y && my <= y + BAR_Y + BAR_H) {
             drawHoveringText(Collections.singletonList(
                 tile.getField(0) + " / " + TileMachineKRDA.RF_CAPACITY

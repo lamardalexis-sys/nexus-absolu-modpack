@@ -77,25 +77,25 @@ public class GuiMachineHumaine extends GuiContainer {
         drawRect(x + 5, y + BAR_Y - 1, x + 195, y + BAR_Y + BAR_H + 3,
             0xFF261440);
 
-        // === BARS ===
+        // === BARS (spaced 24px apart to avoid label overlap) ===
         // Food bar: stack count / 64
         int foodCount = tile.getStackInSlot(0).getCount();
-        drawBar(x + 32, y + BAR_Y, BAR_W, BAR_H,
+        drawBar(x + 28, y + BAR_Y, BAR_W, BAR_H,
             foodCount, 64,
             0xFF307830, 0xFF50CC50, "Food");
 
         // Water bar: field 1 = water level
-        drawBar(x + 50, y + BAR_Y, BAR_W, BAR_H,
+        drawBar(x + 52, y + BAR_Y, BAR_W, BAR_H,
             tile.getField(1), TileMachineHumaine.TANK_CAPACITY,
             0xFF2870B8, 0xFF44CCFF, "H2O");
 
         // Bio-E bar: field 0 = energy
-        drawBar(x + 68, y + BAR_Y, BAR_W, BAR_H,
+        drawBar(x + 76, y + BAR_Y, BAR_W, BAR_H,
             tile.getField(0), TileMachineHumaine.RF_CAPACITY,
             0xFFCC4444, 0xFFFF6666, "Bio-E");
 
         // === PROGRESS ===
-        int px = x + 92;
+        int px = x + 100;
         int py = y + 35;
         int pw = 46;
         int ph = 40;
@@ -125,7 +125,7 @@ public class GuiMachineHumaine extends GuiContainer {
             py + ph + 3, 0xFF8866AA);
 
         // === OUTPUT TANK ===
-        drawBar(x + 146, y + BAR_Y, 16, BAR_H,
+        drawBar(x + 154, y + BAR_Y, 16, BAR_H,
             tile.getField(2), TileMachineHumaine.TANK_CAPACITY,
             0xFF6B4513, 0xFFA06820, "Sortie");
 
@@ -353,27 +353,26 @@ public class GuiMachineHumaine extends GuiContainer {
         int y = guiTop;
 
         // Food bar
-        if (isInRect(mx, my, x + 32, y + BAR_Y, BAR_W, BAR_H)) {
-            // Food bar shows food value conceptually
+        if (isInRect(mx, my, x + 28, y + BAR_Y, BAR_W, BAR_H)) {
             drawHoveringText(Collections.singletonList(
                 "Food: " + (tile.getStackInSlot(0).isEmpty()
                     ? "Vide" : tile.getStackInSlot(0).getDisplayName())),
                 mx, my);
         }
         // Water bar
-        if (isInRect(mx, my, x + 50, y + BAR_Y, BAR_W, BAR_H)) {
+        if (isInRect(mx, my, x + 52, y + BAR_Y, BAR_W, BAR_H)) {
             drawHoveringText(Collections.singletonList(
                 tile.getField(1) + " / " + TileMachineHumaine.TANK_CAPACITY
                 + " mB H2O"), mx, my);
         }
         // Bio-E bar
-        if (isInRect(mx, my, x + 68, y + BAR_Y, BAR_W, BAR_H)) {
+        if (isInRect(mx, my, x + 76, y + BAR_Y, BAR_W, BAR_H)) {
             drawHoveringText(Collections.singletonList(
                 tile.getField(0) + " / " + TileMachineHumaine.RF_CAPACITY
                 + " Bio-E"), mx, my);
         }
         // Output tank
-        if (isInRect(mx, my, x + 146, y + BAR_Y, 16, BAR_H)) {
+        if (isInRect(mx, my, x + 154, y + BAR_Y, 16, BAR_H)) {
             drawHoveringText(Collections.singletonList(
                 tile.getField(2) + " / " + TileMachineHumaine.TANK_CAPACITY
                 + " mB"), mx, my);
