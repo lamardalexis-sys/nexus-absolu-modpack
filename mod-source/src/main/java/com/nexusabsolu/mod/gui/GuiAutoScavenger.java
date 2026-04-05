@@ -25,10 +25,11 @@ public class GuiAutoScavenger extends GuiContainer {
     private static final int GUI_H = 166;
 
     // Button positions (relative to guiLeft/guiTop)
-    private static final int BTN_W = 18;
+    // Speed panel starts at x=136 (after last output slot at x=134)
+    private static final int BTN_W = 16;
     private static final int BTN_H = 13;
-    private static final int BTN_MINUS_X = 127;
-    private static final int BTN_PLUS_X = 153;
+    private static final int BTN_MINUS_X = 137;
+    private static final int BTN_PLUS_X = 156;
     private static final int BTN_Y = 54;
 
     public GuiAutoScavenger(InventoryPlayer playerInv, TileAutoScavenger tile) {
@@ -72,7 +73,7 @@ public class GuiAutoScavenger extends GuiContainer {
         // === SPEED SEGMENTS (7) ===
         int speedLvl = container.getSpeedLevel();
         for (int i = 1; i <= 7; i++) {
-            int sx = gx + 127 + (i - 1) * 6;
+            int sx = gx + 138 + (i - 1) * 5;
             int segColor;
             if (i <= speedLvl) {
                 if (i <= 2) segColor = 0xFF44AA66;
@@ -82,7 +83,7 @@ public class GuiAutoScavenger extends GuiContainer {
             } else {
                 segColor = 0xFF222233;
             }
-            drawRect(sx, gy + 37, sx + 5, gy + 45, segColor);
+            drawRect(sx, gy + 34, sx + 3, gy + 44, segColor);
         }
 
         // === BUTTON HIGHLIGHTS (hover effect) ===
@@ -90,8 +91,8 @@ public class GuiAutoScavenger extends GuiContainer {
                     && my>=gy+BTN_Y && my<=gy+BTN_Y+BTN_H;
         boolean hovP = mx>=gx+BTN_PLUS_X && mx<=gx+BTN_PLUS_X+BTN_W
                     && my>=gy+BTN_Y && my<=gy+BTN_Y+BTN_H;
-        if (hovM) drawRect(gx+127, gy+54, gx+145, gy+67, 0xFF3A4A70);
-        if (hovP) drawRect(gx+153, gy+54, gx+171, gy+67, 0xFF3A4A70);
+        if (hovM) drawRect(gx+138, gy+55, gx+153, gy+66, 0xFF3A4A70);
+        if (hovP) drawRect(gx+157, gy+55, gx+172, gy+66, 0xFF3A4A70);
     }
 
     @Override
@@ -125,15 +126,15 @@ public class GuiAutoScavenger extends GuiContainer {
         float seconds = container.getMineInterval() / 20.0F;
         String nivTxt = "Niv." + level;
         int nivW = fontRenderer.getStringWidth(nivTxt);
-        fontRenderer.drawString(nivTxt, 148 - nivW / 2, 17, 0xFFBB88FF);
-        fontRenderer.drawString(String.format("%.1fs", seconds), 128, 48, 0xFFAAAAFF);
+        fontRenderer.drawString(nivTxt, 155 - nivW / 2, 17, 0xFFBB88FF);
+        fontRenderer.drawString(String.format("%.1fs", seconds), 139, 48, 0xFFAAAAFF);
 
         // Button labels
-        fontRenderer.drawStringWithShadow("-", 134, 57, 0xFFBB88FF);
-        fontRenderer.drawStringWithShadow("+", 160, 57, 0xFFBB88FF);
+        fontRenderer.drawStringWithShadow("-", 143, 57, 0xFFBB88FF);
+        fontRenderer.drawStringWithShadow("+", 163, 57, 0xFFBB88FF);
 
         // RF/t
-        fontRenderer.drawString(rfTick + "RF/t", 128, 72, 0xFFFF8844);
+        fontRenderer.drawString(rfTick + "RF/t", 138, 72, 0xFFFF8844);
     }
 
     @Override
