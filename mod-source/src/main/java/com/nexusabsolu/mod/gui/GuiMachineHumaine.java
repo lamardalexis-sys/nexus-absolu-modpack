@@ -20,6 +20,8 @@ public class GuiMachineHumaine extends GuiContainer {
     private boolean configOpen = false;
     private int configType = 0;
 
+    public boolean isConfigOpen() { return configOpen; }
+
     private static final int[] TYPE_COLORS = {
         0xFF307830, 0xFF2870B8, 0xFFCC4444, 0xFF8B6914
     };

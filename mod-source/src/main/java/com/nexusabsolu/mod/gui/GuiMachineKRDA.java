@@ -20,6 +20,8 @@ public class GuiMachineKRDA extends GuiContainer {
     private boolean configOpen = false;
     private int configType = 0;
 
+    public boolean isConfigOpen() { return configOpen; }
+
     private static final int[] TYPE_COLORS = {
         0xFFCC6600, 0xFF8B6914, 0xFFCC4444, 0xFF30A030
     };

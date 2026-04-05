@@ -7,10 +7,12 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import mezz.jei.api.ingredients.VanillaTypes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @JEIPlugin
@@ -19,23 +21,71 @@ public class NexusJEIPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(
-            new CondenseurCategory(registry.getJeiHelpers().getGuiHelper())
+            new CondenseurCategory(registry.getJeiHelpers().getGuiHelper()),
+            new Diarh33Category(registry.getJeiHelpers().getGuiHelper()),
+            new KRDACategory(registry.getJeiHelpers().getGuiHelper())
         );
     }
 
     @Override
     public void register(IModRegistry registry) {
-        // Condenseur recipes
-        List<CondenseurWrapper> wrappers = new ArrayList<>();
+        // === CONDENSEUR ===
+        List<CondenseurWrapper> condenseurWrappers = new ArrayList<>();
         for (CondenseurRecipes.Recipe recipe : CondenseurRecipes.getRecipes()) {
-            wrappers.add(new CondenseurWrapper(recipe));
+            condenseurWrappers.add(new CondenseurWrapper(recipe));
         }
-        registry.addRecipes(wrappers, CondenseurCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.CONDENSEUR), CondenseurCategory.UID);
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.CONDENSEUR_T2), CondenseurCategory.UID);
+        registry.addRecipes(condenseurWrappers, CondenseurCategory.UID);
+        registry.addRecipeCatalyst(
+            new ItemStack(ModBlocks.CONDENSEUR), CondenseurCategory.UID);
+        registry.addRecipeCatalyst(
+            new ItemStack(ModBlocks.CONDENSEUR_T2), CondenseurCategory.UID);
 
-        // JEI exclusion zone for Convertisseur config panel
+        // === DIARH33 ===
+        List<Diarh33Wrapper> diarh33Wrappers = new ArrayList<>();
+        // Show common food examples
+        diarh33Wrappers.add(new Diarh33Wrapper(new ItemStack(Items.APPLE)));
+        diarh33Wrappers.add(new Diarh33Wrapper(new ItemStack(Items.BREAD)));
+        diarh33Wrappers.add(new Diarh33Wrapper(new ItemStack(Items.COOKED_BEEF)));
+        diarh33Wrappers.add(new Diarh33Wrapper(new ItemStack(Items.BAKED_POTATO)));
+        registry.addRecipes(diarh33Wrappers, Diarh33Category.UID);
+        registry.addRecipeCatalyst(
+            new ItemStack(ModBlocks.MACHINE_HUMAINE), Diarh33Category.UID);
+
+        // === KRDA125 ===
+        registry.addRecipes(
+            Collections.singletonList(new KRDAWrapper()), KRDACategory.UID);
+        registry.addRecipeCatalyst(
+            new ItemStack(ModBlocks.MACHINE_KRDA), KRDACategory.UID);
+
+        // === JEI EXCLUSION ZONES ===
         registry.addAdvancedGuiHandlers(new ConvertisseurGuiHandler());
+        registry.addAdvancedGuiHandlers(new MachineHumaineGuiHandler());
+        registry.addAdvancedGuiHandlers(new MachineKRDAGuiHandler());
+
+        // === ITEM INFO ===
+        // Signalhee ingot
+        registry.addIngredientInfo(
+            new ItemStack(ModItems.SIGNALHEE_INGOT), VanillaTypes.ITEM,
+            "Lingot de Signalhee\n\n" +
+            "Obtenu via:\n" +
+            "- Machine Voss KRDA125 (Signalum + Diarrhee)\n" +
+            "- Induction Smelter (Signalum + Compose B)\n" +
+            "- Alloy Kiln / Alloy Smelter");
+
+        // Machine descriptions
+        registry.addIngredientInfo(
+            new ItemStack(ModBlocks.MACHINE_HUMAINE), VanillaTypes.ITEM,
+            "Machine Voss Diarh33\n\n" +
+            "Transforme la nourriture en Diarrhee Liquide.\n" +
+            "Necessite: Food + Eau + Bio-Energie (10 RF/t)\n" +
+            "1 Food + 100mB H2O = 250mB+ Diarrhee");
+
+        registry.addIngredientInfo(
+            new ItemStack(ModBlocks.MACHINE_KRDA), VanillaTypes.ITEM,
+            "Machine Voss KRDA125\n\n" +
+            "Transmute le Signalum via la Diarrhee Liquide.\n" +
+            "Necessite: Signalum + Diarrhee + Bio-Energie (50 RF/t)\n" +
+            "1 Signalum + 500mB Diarrhee = 1 Signalhee");
 
         // === PIOCHE RENFORCEE DROPS ===
         String renfHeader = "Pioche Renforcee sur mur Compact Machine:\n\n";
