@@ -1,0 +1,22 @@
+{
+  "machine.stomach_gurgle": {
+    "category": "block",
+    "subtitle": "Machine: gargouillement",
+    "sounds": [
+      {
+        "name": "nexusabsolu:stomach_gurgle",
+        "stream": false
+      }
+    ]
+  },
+  "machine.diarrhee_explosive": {
+    "category": "block",
+    "subtitle": "Machine: diarrhee explosive",
+    "sounds": [
+      {
+        "name": "nexusabsolu:diarrhee_explosive",
+        "stream": false
+      }
+    ]
+  }
+}

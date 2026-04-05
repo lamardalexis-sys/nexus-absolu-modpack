@@ -1,5 +1,6 @@
 package com.nexusabsolu.mod.tiles;
 
+import com.nexusabsolu.mod.init.ModSounds;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -11,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.Fluid;
@@ -50,6 +52,8 @@ public class TileMachineHumaine extends TileEntity implements ITickable, IInvent
         NonNullList.withSize(INV_SIZE, ItemStack.EMPTY);
     private final SideConfig sideConfig = new SideConfig();
     private int progress = 0;
+    private int digestCount = 0;      // counts completed digestions
+    private int gurgleCooldown = 0;   // ticks until next gurgle sound
 
     public TileMachineHumaine() {
         sideConfig.setDefaults();
@@ -64,6 +68,14 @@ public class TileMachineHumaine extends TileEntity implements ITickable, IInvent
         if (canProcess()) {
             energy.drainInternal(RF_PER_TICK);
             progress++;
+            // Gurgle sound every ~60 ticks while processing
+            if (gurgleCooldown <= 0) {
+                world.playSound(null, pos, ModSounds.STOMACH_GURGLE,
+                    SoundCategory.BLOCKS, 0.6F, 0.9F + world.rand.nextFloat() * 0.2F);
+                gurgleCooldown = 50 + world.rand.nextInt(20); // 50-70 ticks
+            } else {
+                gurgleCooldown--;
+            }
             if (progress >= PROCESS_TIME) {
                 finishProcess();
                 progress = 0;
@@ -71,6 +83,7 @@ public class TileMachineHumaine extends TileEntity implements ITickable, IInvent
             markDirty();
         } else if (progress > 0) {
             progress = 0;
+            gurgleCooldown = 0;
             markDirty();
         }
 
@@ -107,6 +120,14 @@ public class TileMachineHumaine extends TileEntity implements ITickable, IInvent
             int amount = OUTPUT_PER_CYCLE + (foodValue * 25);
             amount = Math.min(amount, TANK_CAPACITY - outputTank.getFluidAmount());
             outputTank.fill(new FluidStack(diarrhee, amount), true);
+        }
+
+        // Sound: explosive diarrhea every 20 digestions
+        digestCount++;
+        if (digestCount >= 20) {
+            digestCount = 0;
+            world.playSound(null, pos, ModSounds.DIARRHEE_EXPLOSIVE,
+                SoundCategory.BLOCKS, 1.0F, 0.8F + world.rand.nextFloat() * 0.4F);
         }
     }
 
@@ -445,6 +466,7 @@ public class TileMachineHumaine extends TileEntity implements ITickable, IInvent
         super.writeToNBT(nbt);
         nbt.setInteger("Energy", energy.getEnergyStored());
         nbt.setInteger("Progress", progress);
+        nbt.setInteger("DigestCount", digestCount);
 
         NBTTagCompound wTag = new NBTTagCompound();
         waterTank.writeToNBT(wTag);
@@ -474,6 +496,7 @@ public class TileMachineHumaine extends TileEntity implements ITickable, IInvent
         super.readFromNBT(nbt);
         energy.setEnergy(nbt.getInteger("Energy"));
         progress = nbt.getInteger("Progress");
+        digestCount = nbt.getInteger("DigestCount");
 
         if (nbt.hasKey("WaterTank")) {
             waterTank.readFromNBT(nbt.getCompoundTag("WaterTank"));
