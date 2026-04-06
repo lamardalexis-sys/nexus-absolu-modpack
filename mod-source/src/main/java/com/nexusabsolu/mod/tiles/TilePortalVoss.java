@@ -273,6 +273,7 @@ public class TilePortalVoss extends TileEntity implements ITickable {
 
     public boolean isStructureFormed() { return structureFormed; }
     public boolean isPortalActive() { return portalActive; }
+    public int getActiveRotation() { return activeRotation; }
 
     // === Activation (Phase 2: teleportation + CM x9 placement) ===
 

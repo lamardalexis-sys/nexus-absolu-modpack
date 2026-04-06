@@ -17,10 +17,15 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 public class BlockEcranControle extends Block implements IHasModel {
 
@@ -75,6 +80,95 @@ public class BlockEcranControle extends Block implements IHasModel {
             }
         }
         return true;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+        TileEntity te = world.getTileEntity(pos);
+        if (!(te instanceof TilePortalVoss)) return;
+        TilePortalVoss portal = (TilePortalVoss) te;
+
+        if (portal.isStructureFormed()) {
+            // Enchantment particles swirling around the EC
+            for (int i = 0; i < 3; i++) {
+                double px = pos.getX() + 0.5 + (rand.nextDouble() - 0.5) * 1.5;
+                double py = pos.getY() + 0.5 + (rand.nextDouble() - 0.5) * 1.5;
+                double pz = pos.getZ() + 0.5 + (rand.nextDouble() - 0.5) * 1.5;
+                world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE,
+                    px, py, pz,
+                    (pos.getX() + 0.5 - px) * 0.3,
+                    (pos.getY() + 0.5 - py) * 0.3,
+                    (pos.getZ() + 0.5 - pz) * 0.3);
+            }
+
+            // Portal particles in the gate zone (layers 3-4, between the pillars)
+            // Pillars are at dx=-1 and dx=+1, portal at dx=0, dy=-2 and dy=-1
+            int rotation = portal.getActiveRotation();
+            if (rotation >= 0) {
+                for (int dy = -2; dy <= -1; dy++) {
+                    for (int i = 0; i < 4; i++) {
+                        double localX = (rand.nextDouble() - 0.5) * 0.8;
+                        double localY = rand.nextDouble();
+                        double localZ = (rand.nextDouble() - 0.5) * 0.8;
+
+                        // Rotate to match structure orientation
+                        double wx = pos.getX() + 0.5 + rotX(localX, localZ, rotation);
+                        double wy = pos.getY() + dy + localY;
+                        double wz = pos.getZ() + 0.5 + rotZ(localX, localZ, rotation);
+
+                        world.spawnParticle(EnumParticleTypes.PORTAL,
+                            wx, wy, wz,
+                            (rand.nextDouble() - 0.5) * 0.1,
+                            rand.nextDouble() * 0.2,
+                            (rand.nextDouble() - 0.5) * 0.1);
+                    }
+                }
+
+                // Purple dust particles rising from the base
+                if (rand.nextInt(3) == 0) {
+                    double bx = pos.getX() + 0.5 + (rand.nextDouble() - 0.5) * 5;
+                    double bz = pos.getZ() + 0.5 + (rand.nextDouble() - 0.5) * 5;
+                    world.spawnParticle(EnumParticleTypes.SPELL_WITCH,
+                        bx, pos.getY() - 5.0 + rand.nextDouble(), bz,
+                        0, 0.05, 0);
+                }
+            }
+        }
+
+        if (portal.isPortalActive()) {
+            // Dense portal effect when activated
+            for (int i = 0; i < 8; i++) {
+                double px = pos.getX() + 0.5 + (rand.nextDouble() - 0.5) * 3;
+                double py = pos.getY() - 2.0 + rand.nextDouble() * 3;
+                double pz = pos.getZ() + 0.5 + (rand.nextDouble() - 0.5) * 3;
+                world.spawnParticle(EnumParticleTypes.PORTAL,
+                    px, py, pz,
+                    (rand.nextDouble() - 0.5) * 0.5,
+                    rand.nextDouble() * 0.5,
+                    (rand.nextDouble() - 0.5) * 0.5);
+            }
+        }
+    }
+
+    private static double rotX(double x, double z, int rotation) {
+        switch (rotation) {
+            case 0: return x;
+            case 1: return z;
+            case 2: return -x;
+            case 3: return -z;
+            default: return x;
+        }
+    }
+
+    private static double rotZ(double x, double z, int rotation) {
+        switch (rotation) {
+            case 0: return z;
+            case 1: return -x;
+            case 2: return -z;
+            case 3: return x;
+            default: return z;
+        }
     }
 
     @Override
