@@ -61,11 +61,11 @@ recipes.addShaped("catalyseur_volatile", <nexusabsolu:catalyseur_volatile>,
      [<minecraft:dye:4>, <ore:ingotCopper>, <minecraft:dye:4>],
      [<ore:ingotIron>, <minecraft:redstone>, <ore:ingotIron>]]);
 
-// Catalyseur Critique -- alliages + diamond fragment
+// Catalyseur Critique -- Vossium III + HDPE Sheet
 recipes.addShaped("catalyseur_critique", <nexusabsolu:catalyseur_critique>,
-    [[<ore:ingotBronze>, <minecraft:gold_ingot>, <ore:ingotBronze>],
-     [<minecraft:gold_ingot>, <nexusabsolu:diamond_fragment>, <minecraft:gold_ingot>],
-     [<ore:ingotBronze>, <minecraft:gold_ingot>, <ore:ingotBronze>]]);
+    [[<contenttweaker:vossium_iii_ingot>, <mekanism:polyethene:2>, <contenttweaker:vossium_iii_ingot>],
+     [<mekanism:polyethene:2>, <nexusabsolu:catalyseur_volatile>, <mekanism:polyethene:2>],
+     [<contenttweaker:vossium_iii_ingot>, <mekanism:polyethene:2>, <contenttweaker:vossium_iii_ingot>]]);
 
 // Catalyseur Resonant -- Thermal + Invar + Electrum
 recipes.addShaped("catalyseur_resonant", <nexusabsolu:catalyseur_resonant>,
