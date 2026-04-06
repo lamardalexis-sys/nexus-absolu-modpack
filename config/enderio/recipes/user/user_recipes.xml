@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <enderio:recipes xmlns:enderio="http://enderio.com/recipes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enderio.com/recipes recipes.xsd ">
 
+  <!-- ============================================
+       NEXUS ABSOLU - Disable default EnderIO steel recipes
+       Only our custom recipe (Coal Coke + Iron + Wall Dust)
+       defined in scripts/Age1_EnderIO.zs should produce steel.
+       ============================================ -->
+
+  <!-- Common name variants for EnderIO + Thermal Foundation steel alloy recipes -->
+  <recipe name="Alloy: Steel" disabled="true" />
+  <recipe name="Steel" disabled="true" />
+  <recipe name="Alloy: Steel (Coke)" disabled="true" />
+  <recipe name="Alloy: Steel (Coal)" disabled="true" />
+  <recipe name="Alloy: Steel (Charcoal)" disabled="true" />
+  <recipe name="Steel from Coal" disabled="true" />
+  <recipe name="Steel from Coke" disabled="true" />
+  <recipe name="Steel from Charcoal" disabled="true" />
+
 </enderio:recipes>
+

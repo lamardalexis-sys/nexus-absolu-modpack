@@ -11,6 +11,11 @@ recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
      [<ore:gearInvar>, <immersiveengineering:wooden_device0:1>, <ore:gearInvar>]]);
 
 // === STEEL — Coal Coke + Iron + Wall Dust dans l'Alloy Smelter ===
+// 1. Wipe TOUTES les recettes EnderIO Alloy Smelter qui sortent du TF steel
+mods.enderio.AlloySmelter.removeRecipe(<thermalfoundation:material:160>);
+// 2. Wipe aussi celles qui sortent IE steel (au cas ou)
+mods.enderio.AlloySmelter.removeRecipe(<immersiveengineering:metal:8>);
+// 3. Re-ajouter NOTRE recette : Coal Coke + Iron + Wall Dust -> TF Steel
 mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>], 5000);
 
 // === SAG MILL ===
