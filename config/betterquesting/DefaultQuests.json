@@ -6582,9 +6582,9 @@
       }
     },
     "113:10": {
-      "questID:3": 113,
+      "questID:3": 139,
       "preRequisites:11": [
-        112
+        138
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -6601,35 +6601,35 @@
           "partysinglereward:1": 0,
           "snd_update:8": "minecraft:entity.player.levelup",
           "autoclaim:1": 0,
-          "ismain:1": 0,
+          "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "bloodmagic:blood_rune",
+            "id:8": "nexusabsolu:compact_key_9x9",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§lLes runes",
-          "desc:8": "§7Plus de runes. Plus de capacite."
+          "name:8": "§l§6La clé c'est la réussite",
+          "desc:8": "§7Le Condenseur T2 fonctionne. La fissure est ouverte.\n§7Mais pour traverser, il faut une clé. Pas n'importe laquelle.\n\n§8§o\"La matière se plie quand on lui montre\nce qu'elle pourrait devenir.\"\n— Dr. E. Voss, Note 37§r\n\n§eCraft la Clé d'Extension 9x9 dans\nl'Advanced Crafting Table (5x5).\n\n§7Ingrédients :\n§d4x Lingot de Vossium III\n§61x Seau de Diarrhée Liquide\n§c1x Lava Crystal\n§a1x Gear de Composé C\n§e1x Clé d'Extension 7x7\n§b1x Compact Machine x7"
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
           "index:3": 0,
-          "consume:1": 0,
+          "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "bloodmagic:blood_rune",
-              "Count:3": 4,
+              "id:8": "nexusabsolu:compact_key_9x9",
+              "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
             }
           },
-          "taskID:8": "bq_standard:retrieval"
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
         }
       },
       "rewards:9": {
@@ -6638,14 +6638,8 @@
           "index:3": 0,
           "rewards:9": {
             "0:10": {
-              "id:8": "bloodmagic:blood_rune",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            },
-            "1:10": {
               "id:8": "minecraft:experience_bottle",
-              "Count:3": 2,
+              "Count:3": 16,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -9068,13 +9062,11 @@
           "posY:3": 250
         },
         "33:10": {
-          "id:3": 80,
-          "sizeX:3": 24,
-          "sizeY:3": 24,
-          "x:3": -60,
-          "y:3": 450,
-          "posX:3": 180,
-          "posY:3": 500
+          "id:3": 139,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": 0,
+          "y:3": 745
         },
         "34:10": {
           "id:3": 81,
