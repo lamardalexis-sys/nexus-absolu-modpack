@@ -120,6 +120,7 @@ item.nexusabsolu.pioche_vossium.name=Pioche Vossium
 item.nexusabsolu.pioche_steelium.name=Pioche Steelium
 item.nexusabsolu.obsidian_fragment.name=Fragment d'Obsidian
 tile.energy_input.name=Energy Input
+tile.fluid_input.name=Fluid Input
 tile.vossium_ii_block.name=Bloc de Vossium II
 tile.condenseur_t2_wall.name=Mur du Condenseur T2
 item.nexusabsolu.compose_gear_b.name=Engrenage de Compose B

@@ -12,6 +12,7 @@ import com.nexusabsolu.mod.tiles.TileAutoScavenger;
 import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
 import com.nexusabsolu.mod.tiles.TileEnergyInput;
+import com.nexusabsolu.mod.tiles.TileFluidInput;
 import com.nexusabsolu.mod.tiles.TileItemInput;
 import com.nexusabsolu.mod.tiles.TileItemOutput;
 import com.nexusabsolu.mod.tiles.TileMachineHumaine;
@@ -61,6 +62,8 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "auto_scavenger"));
         GameRegistry.registerTileEntity(TileEnergyInput.class,
             new ResourceLocation(Reference.MOD_ID, "energy_input"));
+        GameRegistry.registerTileEntity(TileFluidInput.class,
+            new ResourceLocation(Reference.MOD_ID, "fluid_input"));
         GameRegistry.registerTileEntity(TileMachineHumaine.class,
             new ResourceLocation(Reference.MOD_ID, "machine_humaine"));
         GameRegistry.registerTileEntity(TileMachineKRDA.class,

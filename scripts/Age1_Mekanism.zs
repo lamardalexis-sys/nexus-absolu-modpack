@@ -31,3 +31,9 @@ recipes.addShaped("nexus_crusher", <mekanism:machineblock:3>,
      [<minecraft:redstone>, <mekanism:controlcircuit:1>, <minecraft:redstone>]]);
 
 print("[Nexus Absolu] Age1_Mekanism.zs loaded");
+
+// === Fluid Input Hatch (Condenseur T2 upgrade) ===
+recipes.addShaped("nexus_fluid_input", <nexusabsolu:fluid_input>,
+    [[<ore:ingotInvar>, <nexusabsolu:nexus_wall>, <ore:ingotInvar>],
+     [<nexusabsolu:nexus_wall>, <minecraft:bucket>, <nexusabsolu:nexus_wall>],
+     [<ore:ingotInvar>, <nexusabsolu:nexus_wall>, <ore:ingotInvar>]]);

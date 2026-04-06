@@ -16,6 +16,7 @@ import com.nexusabsolu.mod.blocks.machines.BlockConvertisseur;
 import com.nexusabsolu.mod.blocks.machines.BlockMachineHumaine;
 import com.nexusabsolu.mod.blocks.machines.BlockMachineKRDA;
 import com.nexusabsolu.mod.blocks.machines.BlockEnergyInput;
+import com.nexusabsolu.mod.blocks.machines.BlockFluidInput;
 import com.nexusabsolu.mod.blocks.machines.BlockItemInput;
 import com.nexusabsolu.mod.blocks.machines.BlockItemOutput;
 import net.minecraft.block.Block;
@@ -57,6 +58,7 @@ public class ModBlocks {
     public static final BlockMachineHumaine MACHINE_HUMAINE = new BlockMachineHumaine();
     public static final BlockMachineKRDA MACHINE_KRDA = new BlockMachineKRDA();
     public static final BlockEnergyInput ENERGY_INPUT = new BlockEnergyInput();
+    public static final BlockFluidInput FLUID_INPUT = new BlockFluidInput();
     public static final BlockVossiumII VOSSIUM_II_BLOCK = new BlockVossiumII();
     public static final BlockVossiumIII VOSSIUM_III_BLOCK = new BlockVossiumIII();
     public static final BlockVossiumIV VOSSIUM_IV_BLOCK = new BlockVossiumIV();

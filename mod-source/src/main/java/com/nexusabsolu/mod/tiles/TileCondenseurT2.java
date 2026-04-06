@@ -30,13 +30,14 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
     private static final int OUTPUT = 4;
     private static final int VOSSIUM2 = 5;
     private static final int ENERGY_IN = 6;
+    private static final int FLUID_IN = 7;
 
     // Structure: 26 positions as {depth, height, width, blockType}
     // Relative to master at (0, 0, 0)
     // depth = into structure, height = vertical, width = lateral
     private static final int[][] STRUCTURE = {
         // Bottom layer (h=-1): 9 blocks
-        {0, -1, -1, NEXUS_WALL}, {0, -1, 0, NEXUS_WALL}, {0, -1, 1, NEXUS_WALL},
+        {0, -1, -1, NEXUS_WALL}, {0, -1, 0, FLUID_IN},   {0, -1, 1, NEXUS_WALL},
         {1, -1, -1, NEXUS_WALL}, {1, -1, 0, NEXUS_WALL}, {1, -1, 1, NEXUS_WALL},
         {2, -1, -1, NEXUS_WALL}, {2, -1, 0, ENERGY_IN},  {2, -1, 1, NEXUS_WALL},
         // Middle layer (h=0): 8 blocks (excluding master)
@@ -67,6 +68,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
     private BlockPos inputPos = null;
     private BlockPos outputPos = null;
     private BlockPos energyInputPos = null;
+    private BlockPos fluidInputPos = null;
 
     // Quotes for GUI
     private int currentQuote = 0;
@@ -93,6 +95,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 inputPos = getWorldPos(1, 0, -1, r);
                 outputPos = getWorldPos(1, 0, 1, r);
                 energyInputPos = getWorldPos(2, -1, 0, r);
+                fluidInputPos = getWorldPos(0, -1, 0, r);
                 linkHatches();
                 if (!structureFormed) {
                     structureFormed = true;
@@ -156,6 +159,8 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 return name.equals("nexusabsolu:vossium_ii_block");
             case ENERGY_IN:
                 return name.equals("nexusabsolu:energy_input");
+            case FLUID_IN:
+                return name.equals("nexusabsolu:fluid_input");
             default:
                 return false;
         }
@@ -178,6 +183,12 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
             TileEntity te = world.getTileEntity(energyInputPos);
             if (te instanceof TileEnergyInput) {
                 ((TileEnergyInput) te).setMasterPos(pos);
+            }
+        }
+        if (fluidInputPos != null) {
+            TileEntity te = world.getTileEntity(fluidInputPos);
+            if (te instanceof TileFluidInput) {
+                ((TileFluidInput) te).setMasterPos(pos);
             }
         }
     }
@@ -240,6 +251,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
             inputPos = null;
             outputPos = null;
             energyInputPos = null;
+            fluidInputPos = null;
             processing = false;
             processTime = 0;
             markDirty();
@@ -278,6 +290,18 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         CondenseurRecipes.Recipe recipe = findRecipe(inputTile);
 
         if (recipe != null && outputTile.getStackInSlot(0).isEmpty()) {
+            // Check fluid requirement (x9 recipe needs 400mB diarrhee)
+            int fluidNeeded = getFluidRequired(recipe);
+            if (fluidNeeded > 0 && !hasEnoughFluid(fluidNeeded)) {
+                if (processing || processTime > 0) {
+                    processTime = 0;
+                    processing = false;
+                    markDirty();
+                    syncToClient();
+                }
+                return;
+            }
+
             if (energyStorage.getEnergyStored() >= RF_PER_TICK) {
                 energyStorage.drainInternal(RF_PER_TICK);
                 processTime++;
@@ -288,7 +312,10 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 }
 
                 if (processTime >= maxProcessTime) {
-                    // Processing complete
+                    // Processing complete — drain fluid if needed
+                    if (fluidNeeded > 0) {
+                        drainFluidHatch(fluidNeeded);
+                    }
                     ItemStack result = recipe.getOutput();
                     outputTile.setInventorySlotContents(0, result.copy());
                     // Consume inputs
@@ -337,6 +364,34 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         if (outputPos == null) return null;
         TileEntity te = world.getTileEntity(outputPos);
         return te instanceof TileItemOutput ? (TileItemOutput) te : null;
+    }
+
+    /** Returns mB of diarrhée required for this recipe (0 if none). */
+    private int getFluidRequired(CondenseurRecipes.Recipe recipe) {
+        ItemStack output = recipe.getOutput();
+        if (output.getItem() == net.minecraft.item.Item.getByNameOrId("compactmachines3:machine")
+                && output.getMetadata() == 3) {
+            return 400; // x9 requires 400mB diarrhée
+        }
+        return 0;
+    }
+
+    private boolean hasEnoughFluid(int amount) {
+        if (fluidInputPos == null) return false;
+        TileEntity te = world.getTileEntity(fluidInputPos);
+        if (!(te instanceof TileFluidInput)) return false;
+        TileFluidInput hatch = (TileFluidInput) te;
+        if (hatch.getFluidAmount() < amount) return false;
+        net.minecraftforge.fluids.FluidStack fs = hatch.getTank().getFluid();
+        return fs != null && "diarrhee_liquide".equals(fs.getFluid().getName());
+    }
+
+    private void drainFluidHatch(int amount) {
+        if (fluidInputPos == null) return;
+        TileEntity te = world.getTileEntity(fluidInputPos);
+        if (te instanceof TileFluidInput) {
+            ((TileFluidInput) te).drain(amount);
+        }
     }
 
     // -- Accessors for TESR and GUI --
