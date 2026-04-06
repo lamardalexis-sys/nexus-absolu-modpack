@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class TileFluidInput extends TileEntity {
 
-    private final FluidTank tank = new FluidTank(4000);
+    private final FluidTank tank = new FluidTank(16000);
     private BlockPos masterPos = null;
 
     public BlockPos getMasterPos() { return masterPos; }
