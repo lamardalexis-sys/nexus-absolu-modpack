@@ -128,10 +128,20 @@ recipes.addShaped("nexus_ender_eye", <minecraft:ender_eye>,
 
 // --- IE Blast Furnace (Iron + Coal/Charcoal/Coke -> Steel) ---
 // C'est le bypass principal : le Blast Brick est craftable en Age 1
+// L'output peut etre IE steel OU TF steel selon l'unification oredict
 mods.immersiveengineering.BlastFurnace.removeRecipe(<immersiveengineering:metal:8>);
+mods.immersiveengineering.BlastFurnace.removeRecipe(<thermalfoundation:material:160>);
 
 // --- IE Arc Furnace (peut aussi produire du steel) ---
 mods.immersiveengineering.ArcFurnace.removeRecipe(<immersiveengineering:metal:8>);
+mods.immersiveengineering.ArcFurnace.removeRecipe(<thermalfoundation:material:160>);
+
+// --- IE Blast Furnace Fuel : retirer tous les fuels pour tuer la machine ---
+mods.immersiveengineering.BlastFurnace.removeFuel(<minecraft:coal:0>);
+mods.immersiveengineering.BlastFurnace.removeFuel(<minecraft:coal:1>);
+mods.immersiveengineering.BlastFurnace.removeFuel(<immersiveengineering:material:6>);
+mods.immersiveengineering.BlastFurnace.removeFuel(<minecraft:coal_block>);
+mods.immersiveengineering.BlastFurnace.removeFuel(<immersiveengineering:stone_decoration:3>);
 
 // TODO Age 3 : verifier Mekanism Metallurgic Infuser steel chain
 // (Carbon + Iron -> Enriched Iron -> Steel) — gate naturel par osmium
