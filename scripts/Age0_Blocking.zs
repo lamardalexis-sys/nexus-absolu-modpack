@@ -131,7 +131,12 @@ recipes.addShaped("nexus_ender_eye", <minecraft:ender_eye>,
 // Note: mods.immersiveengineering.BlastFurnace.removeRecipe() ne fonctionne PAS
 // car IE charge ses recettes APRES CraftTweaker (bug connu IE #2394/#2458)
 
-// TODO Age 3 : verifier Mekanism Metallurgic Infuser steel chain
-// (Carbon + Iron -> Enriched Iron -> Steel) — gate naturel par osmium
+// --- Mekanism Metallurgic Infuser : Carbon + Iron -> Enriched Iron -> Steel ---
+// On casse la chaine au debut : pas d'Enriched Iron = pas de Steel Dust = pas de Steel
+mods.mekanism.infuser.removeRecipe(<mekanism:enrichediron>);
+// Backup : si jamais le steel dust est obtenu autrement, bloquer la 2eme infusion aussi
+mods.mekanism.infuser.removeRecipe(<mekanism:dust:5>);
+// Backup final : empecher le smelting steel dust -> steel ingot dans n'importe quel four
+furnace.remove(<mekanism:ingot:4>);
 
 print("[Nexus Absolu] Age0_Blocking.zs loaded");
