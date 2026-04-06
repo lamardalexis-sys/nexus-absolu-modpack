@@ -5,12 +5,15 @@
 
 // === COKE OVEN -- pas modifie (3x3x3 multibloc, gate naturel par taille) ===
 
-// === BLAST BRICK -- vossium + invar + brick ===
-recipes.remove(<immersiveengineering:stone_decoration:1>);
-recipes.addShaped("nexus_blast_brick", <immersiveengineering:stone_decoration:1> * 4,
-    [[<ore:ingotInvar>, <minecraft:brick>, <ore:ingotInvar>],
-     [<minecraft:brick>, <nexusabsolu:vossium_ingot>, <minecraft:brick>],
-     [<ore:ingotInvar>, <minecraft:brick>, <ore:ingotInvar>]]);
+// === BLAST BRICK -- SUPPRIME ===
+// Le Blast Furnace IE ne sert qu'a faire du steel.
+// Notre steel vient de l'EnderIO Alloy Smelter (Age1_EnderIO.zs).
+// Bug connu IE: removeRecipe() ne fonctionne pas (IE charge apres CT).
+// Solution: empecher la construction du multibloc en supprimant le brick.
+import mods.jei.JEI.removeAndHide as rh_ie;
+rh_ie(<immersiveengineering:stone_decoration:1>);
+// Aussi cacher le Blast Furnace Preheater (inutile sans BF)
+rh_ie(<immersiveengineering:metal_device1:7>);
 
 // === GARDEN CLOCHE ===
 recipes.remove(<immersiveengineering:metal_device1:13>);
