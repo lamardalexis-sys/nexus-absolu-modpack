@@ -11,10 +11,17 @@ recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
      [<ore:gearInvar>, <immersiveengineering:wooden_device0:1>, <ore:gearInvar>]]);
 
 // === STEEL — Coal Coke + Iron + Wall Dust dans l'Alloy Smelter ===
-// 1. Wipe TOUTES les recettes EnderIO Alloy Smelter qui sortent du TF steel
-mods.enderio.AlloySmelter.removeRecipe(<thermalfoundation:material:160>);
-// 2. Wipe aussi celles qui sortent IE steel (au cas ou)
-mods.enderio.AlloySmelter.removeRecipe(<immersiveengineering:metal:8>);
+// 1. Wipe TOUTES les recettes EnderIO Alloy Smelter qui sortent du steel
+//    (chaque mod a son propre item steel - on les bloque tous)
+mods.enderio.AlloySmelter.removeRecipe(<thermalfoundation:material:160>);  // TF steel
+mods.enderio.AlloySmelter.removeRecipe(<immersiveengineering:metal:8>);     // IE steel
+mods.enderio.AlloySmelter.removeRecipe(<mekanism:ingot:4>);                 // Mekanism steel
+// 2. Wipe aussi par inputs (couvre les recettes meme si l'output ID est inconnu)
+mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <minecraft:coal:0>);                  // iron + coal
+mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <minecraft:coal:1>);                  // iron + charcoal
+mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <immersiveengineering:material:6>);   // iron + coal coke
+mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <thermalfoundation:material:768>);    // iron + pulverized coal
+mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <thermalfoundation:material:802>);    // iron + pulverized coal coke
 // 3. Re-ajouter NOTRE recette : Coal Coke + Iron + Wall Dust -> TF Steel
 mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>], 5000);
 
