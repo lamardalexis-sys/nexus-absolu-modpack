@@ -37,13 +37,13 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
     // depth = into structure, height = vertical, width = lateral
     private static final int[][] STRUCTURE = {
         // Bottom layer (h=-1): 9 blocks
-        {0, -1, -1, NEXUS_WALL}, {0, -1, 0, FLUID_IN},   {0, -1, 1, NEXUS_WALL},
-        {1, -1, -1, NEXUS_WALL}, {1, -1, 0, NEXUS_WALL}, {1, -1, 1, NEXUS_WALL},
-        {2, -1, -1, NEXUS_WALL}, {2, -1, 0, ENERGY_IN},  {2, -1, 1, NEXUS_WALL},
+        {0, -1, -1, NEXUS_WALL}, {0, -1, 0, NEXUS_WALL},  {0, -1, 1, NEXUS_WALL},
+        {1, -1, -1, NEXUS_WALL}, {1, -1, 0, NEXUS_WALL},  {1, -1, 1, NEXUS_WALL},
+        {2, -1, -1, NEXUS_WALL}, {2, -1, 0, ENERGY_IN},   {2, -1, 1, NEXUS_WALL},
         // Middle layer (h=0): 8 blocks (excluding master)
         {0,  0, -1, GLASS},      {0,  0, 1, GLASS},
-        {1,  0, -1, INPUT},      {1,  0, 0, VOSSIUM2},   {1,  0, 1, OUTPUT},
-        {2,  0, -1, NEXUS_WALL}, {2,  0, 0, NEXUS_WALL}, {2,  0, 1, NEXUS_WALL},
+        {1,  0, -1, INPUT},      {1,  0, 0, VOSSIUM2},    {1,  0, 1, OUTPUT},
+        {2,  0, -1, NEXUS_WALL}, {2,  0, 0, FLUID_IN},    {2,  0, 1, NEXUS_WALL},
         // Top layer (h=+1): 9 blocks
         {0,  1, -1, GLASS},      {0,  1, 0, GLASS},      {0,  1, 1, GLASS},
         {1,  1, -1, GLASS},      {1,  1, 0, GLASS},      {1,  1, 1, GLASS},
@@ -96,7 +96,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 outputPos = getWorldPos(1, 0, 1, r);
                 energyInputPos = getWorldPos(2, -1, 0, r);
                 // Fluid input is optional — only set if block is actually fluid_input
-                BlockPos fluidCandidate = getWorldPos(0, -1, 0, r);
+                BlockPos fluidCandidate = getWorldPos(2, 0, 0, r);
                 if (world.getBlockState(fluidCandidate).getBlock().getRegistryName() != null
                     && world.getBlockState(fluidCandidate).getBlock().getRegistryName().toString()
                         .equals("nexusabsolu:fluid_input")) {
