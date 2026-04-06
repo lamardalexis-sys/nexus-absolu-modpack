@@ -129,7 +129,7 @@ recipes.addShaped("nexus_pioche_precieuse",
 //   [null]     [stick]             [null]
 recipes.addShaped("nexus_pioche_vossium",
     <nexusabsolu:pioche_vossium>,
-    [[<contenttweaker:vossium_ingot>, <actuallyadditions:item_crystal:2>, <contenttweaker:vossium_ingot>],
+    [[<nexusabsolu:vossium_ingot>, <actuallyadditions:item_crystal:2>, <nexusabsolu:vossium_ingot>],
      [null, <minecraft:stick>, null],
      [null, <minecraft:stick>, null]]);
 
@@ -263,7 +263,7 @@ recipes.addShaped("nexus_steel_stick",
 //   [null]     [steel_stick] [null]
 recipes.addShaped("nexus_pioche_steelium",
     <nexusabsolu:pioche_steelium>,
-    [[<contenttweaker:vossium_ingot>, <thermalfoundation:material:160>, <contenttweaker:vossium_ingot>],
+    [[<nexusabsolu:vossium_ingot>, <thermalfoundation:material:160>, <nexusabsolu:vossium_ingot>],
      [null, <immersiveengineering:material:2>, null],
      [null, <immersiveengineering:material:2>, null]]);
 
@@ -337,60 +337,60 @@ mods.jei.JEI.addDescription(<compactmachines3:tunneltool>,
 // Les canaux-A du Vossium redistribuent l'energie du Compose B
 // uniformement dans le reseau cristallin. Sans eux, le metal craque.
 mods.immersiveengineering.AlloySmelter.addRecipe(
-    <contenttweaker:vossium_ii_ingot>,
-    <contenttweaker:vossium_ingot>,
+    <nexusabsolu:vossium_ii_ingot>,
+    <nexusabsolu:vossium_ingot>,
     <nexusabsolu:compose_b>,
     400);
 
 // Vossium-II dans l'EnderIO Alloy Smelter
-mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_ii_ingot>, [<contenttweaker:vossium_ingot>, <nexusabsolu:compose_b>], 6000);
+mods.enderio.AlloySmelter.addRecipe(<nexusabsolu:vossium_ii_ingot>, [<nexusabsolu:vossium_ingot>, <nexusabsolu:compose_b>], 6000);
 
 // Vossium-II dans le Thermal Induction Smelter
-mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ingot>, <nexusabsolu:compose_b>, 6000);
+mods.thermalexpansion.InductionSmelter.addRecipe(<nexusabsolu:vossium_ii_ingot>, <nexusabsolu:vossium_ingot>, <nexusabsolu:compose_b>, 6000);
 
 // === ENGRENAGE DE COMPOSE B ===
 // Croix de Compose B + coeur Vossium-II
 recipes.addShaped("nexus_compose_gear_b",
     <nexusabsolu:compose_gear_b>,
     [[null, <nexusabsolu:compose_b>, null],
-     [<nexusabsolu:compose_b>, <contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_b>],
+     [<nexusabsolu:compose_b>, <nexusabsolu:vossium_ii_ingot>, <nexusabsolu:compose_b>],
      [null, <nexusabsolu:compose_b>, null]]);
 
 // === CONDENSEUR T2 (master) ===
 // Le coeur du multibloc 3x3x3 — 4 mods requis
 recipes.addShaped("nexus_condenseur_t2",
     <nexusabsolu:condenseur_t2>,
-    [[<contenttweaker:vossium_ii_ingot>, <actuallyadditions:item_crystal:2>, <contenttweaker:vossium_ii_ingot>],
+    [[<nexusabsolu:vossium_ii_ingot>, <actuallyadditions:item_crystal:2>, <nexusabsolu:vossium_ii_ingot>],
      [<ore:ingotDarkSteel>, <thermalexpansion:frame>, <ore:ingotDarkSteel>],
-     [<contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_gear_b>, <contenttweaker:vossium_ii_ingot>]]);
+     [<nexusabsolu:vossium_ii_ingot>, <nexusabsolu:compose_gear_b>, <nexusabsolu:vossium_ii_ingot>]]);
 
 // === ITEM INPUT (receptacle items) ===
 recipes.addShaped("nexus_item_input",
     <nexusabsolu:item_input>,
     [[<ore:plateInvar>, <minecraft:hopper>, <ore:plateInvar>],
-     [<contenttweaker:vossium_ingot>, <thermalexpansion:frame>, <contenttweaker:vossium_ingot>],
+     [<nexusabsolu:vossium_ingot>, <thermalexpansion:frame>, <nexusabsolu:vossium_ingot>],
      [<ore:plateInvar>, <ore:gearCopper>, <ore:plateInvar>]]);
 
 // === ITEM OUTPUT (sortie items) ===
 recipes.addShaped("nexus_item_output",
     <nexusabsolu:item_output>,
     [[<ore:plateInvar>, <minecraft:piston>, <ore:plateInvar>],
-     [<contenttweaker:vossium_ingot>, <thermalexpansion:frame>, <contenttweaker:vossium_ingot>],
+     [<nexusabsolu:vossium_ingot>, <thermalexpansion:frame>, <nexusabsolu:vossium_ingot>],
      [<ore:plateInvar>, <ore:gearCopper>, <ore:plateInvar>]]);
 
 // === ENERGY INPUT (port RF) ===
 recipes.addShaped("nexus_energy_input",
     <nexusabsolu:energy_input>,
-    [[<contenttweaker:vossium_ingot>, <thermaldynamics:duct_0>, <contenttweaker:vossium_ingot>],
+    [[<nexusabsolu:vossium_ingot>, <thermaldynamics:duct_0>, <nexusabsolu:vossium_ingot>],
      [<ore:plateInvar>, <thermalexpansion:cell>, <ore:plateInvar>],
-     [<contenttweaker:vossium_ingot>, <minecraft:redstone_block>, <contenttweaker:vossium_ingot>]]);
+     [<nexusabsolu:vossium_ingot>, <minecraft:redstone_block>, <nexusabsolu:vossium_ingot>]]);
 
 // === BLOC VOSSIUM-II (9 lingots) ===
 recipes.addShaped("nexus_vossium_ii_block",
     <nexusabsolu:vossium_ii_block>,
-    [[<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>],
-     [<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>],
-     [<contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>, <contenttweaker:vossium_ii_ingot>]]);
+    [[<nexusabsolu:vossium_ii_ingot>, <nexusabsolu:vossium_ii_ingot>, <nexusabsolu:vossium_ii_ingot>],
+     [<nexusabsolu:vossium_ii_ingot>, <nexusabsolu:vossium_ii_ingot>, <nexusabsolu:vossium_ii_ingot>],
+     [<nexusabsolu:vossium_ii_ingot>, <nexusabsolu:vossium_ii_ingot>, <nexusabsolu:vossium_ii_ingot>]]);
 
 print("[Nexus Absolu] Vossium-II recipes loaded");
 
@@ -410,16 +410,16 @@ mods.actuallyadditions.AtomicReconstructor.addRecipe(<nexusabsolu:compose_d>, <n
 // ============================================
 // VOSSIUM-III (Vossium-II + Compose C) — 3 smelters
 // ============================================
-mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_c>, 500);
-mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_iii_ingot>, [<contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_c>], 8000);
-mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_ii_ingot>, <nexusabsolu:compose_c>, 8000);
+mods.immersiveengineering.AlloySmelter.addRecipe(<nexusabsolu:vossium_iii_ingot>, <nexusabsolu:vossium_ii_ingot>, <nexusabsolu:compose_c>, 500);
+mods.enderio.AlloySmelter.addRecipe(<nexusabsolu:vossium_iii_ingot>, [<nexusabsolu:vossium_ii_ingot>, <nexusabsolu:compose_c>], 8000);
+mods.thermalexpansion.InductionSmelter.addRecipe(<nexusabsolu:vossium_iii_ingot>, <nexusabsolu:vossium_ii_ingot>, <nexusabsolu:compose_c>, 8000);
 
 // ============================================
 // VOSSIUM-IV (Vossium-III + Compose D) — 3 smelters
 // ============================================
-mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iii_ingot>, <nexusabsolu:compose_d>, 600);
-mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_iv_ingot>, [<contenttweaker:vossium_iii_ingot>, <nexusabsolu:compose_d>], 12000);
-mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iii_ingot>, <nexusabsolu:compose_d>, 12000);
+mods.immersiveengineering.AlloySmelter.addRecipe(<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:vossium_iii_ingot>, <nexusabsolu:compose_d>, 600);
+mods.enderio.AlloySmelter.addRecipe(<nexusabsolu:vossium_iv_ingot>, [<nexusabsolu:vossium_iii_ingot>, <nexusabsolu:compose_d>], 12000);
+mods.thermalexpansion.InductionSmelter.addRecipe(<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:vossium_iii_ingot>, <nexusabsolu:compose_d>, 12000);
 
 // ============================================
 // ENGRENAGES C et D
@@ -427,13 +427,13 @@ mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_iv_ingo
 recipes.addShaped("nexus_compose_gear_c",
     <nexusabsolu:compose_gear_c>,
     [[null, <nexusabsolu:compose_c>, null],
-     [<nexusabsolu:compose_c>, <contenttweaker:vossium_iii_ingot>, <nexusabsolu:compose_c>],
+     [<nexusabsolu:compose_c>, <nexusabsolu:vossium_iii_ingot>, <nexusabsolu:compose_c>],
      [null, <nexusabsolu:compose_c>, null]]);
 
 recipes.addShaped("nexus_compose_gear_d",
     <nexusabsolu:compose_gear_d>,
     [[null, <nexusabsolu:compose_d>, null],
-     [<nexusabsolu:compose_d>, <contenttweaker:vossium_iv_ingot>, <nexusabsolu:compose_d>],
+     [<nexusabsolu:compose_d>, <nexusabsolu:vossium_iv_ingot>, <nexusabsolu:compose_d>],
      [null, <nexusabsolu:compose_d>, null]]);
 
 // ============================================
@@ -441,15 +441,15 @@ recipes.addShaped("nexus_compose_gear_d",
 // ============================================
 recipes.addShaped("nexus_vossium_iii_block",
     <nexusabsolu:vossium_iii_block>,
-    [[<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>],
-     [<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>],
-     [<contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>, <contenttweaker:vossium_iii_ingot>]]);
+    [[<nexusabsolu:vossium_iii_ingot>, <nexusabsolu:vossium_iii_ingot>, <nexusabsolu:vossium_iii_ingot>],
+     [<nexusabsolu:vossium_iii_ingot>, <nexusabsolu:vossium_iii_ingot>, <nexusabsolu:vossium_iii_ingot>],
+     [<nexusabsolu:vossium_iii_ingot>, <nexusabsolu:vossium_iii_ingot>, <nexusabsolu:vossium_iii_ingot>]]);
 
 recipes.addShaped("nexus_vossium_iv_block",
     <nexusabsolu:vossium_iv_block>,
-    [[<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>],
-     [<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>],
-     [<contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>, <contenttweaker:vossium_iv_ingot>]]);
+    [[<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:vossium_iv_ingot>, <nexusabsolu:vossium_iv_ingot>],
+     [<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:vossium_iv_ingot>, <nexusabsolu:vossium_iv_ingot>],
+     [<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:vossium_iv_ingot>, <nexusabsolu:vossium_iv_ingot>]]);
 
 // ============================================
 // MACHINES THERMAL MANQUANTES — crafts inter-mods

@@ -9,7 +9,7 @@
 recipes.remove(<immersiveengineering:stone_decoration:1>);
 recipes.addShaped("nexus_blast_brick", <immersiveengineering:stone_decoration:1> * 4,
     [[<ore:ingotInvar>, <minecraft:brick>, <ore:ingotInvar>],
-     [<minecraft:brick>, <contenttweaker:vossium_ingot>, <minecraft:brick>],
+     [<minecraft:brick>, <nexusabsolu:vossium_ingot>, <minecraft:brick>],
      [<ore:ingotInvar>, <minecraft:brick>, <ore:ingotInvar>]]);
 
 // === GARDEN CLOCHE ===

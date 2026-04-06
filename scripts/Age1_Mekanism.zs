@@ -19,9 +19,9 @@ recipes.addShaped("nexus_dynamic_tank", <mekanism:basicblock:9>,
 // === Enrichment Chamber ===
 recipes.remove(<mekanism:machineblock:0>);
 recipes.addShaped("nexus_enrichment", <mekanism:machineblock:0>,
-    [[<contenttweaker:invarium_ingot>, <mekanism:controlcircuit:0>, <contenttweaker:invarium_ingot>],
+    [[<nexusabsolu:invarium_ingot>, <mekanism:controlcircuit:0>, <nexusabsolu:invarium_ingot>],
      [<actuallyadditions:item_crystal:5>, <thermalexpansion:frame>, <actuallyadditions:item_crystal:5>],
-     [<contenttweaker:invarium_ingot>, <mekanism:controlcircuit:0>, <contenttweaker:invarium_ingot>]]);
+     [<nexusabsolu:invarium_ingot>, <mekanism:controlcircuit:0>, <nexusabsolu:invarium_ingot>]]);
 
 // === Crusher ===
 recipes.remove(<mekanism:machineblock:3>);

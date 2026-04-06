@@ -67,9 +67,7 @@ public class ModItems {
 
     // === FRAGMENTS (from scavenging) ===
     public static final Item COBBLESTONE_FRAGMENT = new ItemBase("cobblestone_fragment");
-    public static final Item DIAMOND_FRAGMENT = new ItemBase("diamond_fragment");
-    public static final Item EMERALD_FRAGMENT = new ItemBase("emerald_fragment");
-    public static final Item ENDER_PEARL_FRAGMENT = new ItemBase("ender_pearl_fragment");
+
     public static final Item OBSIDIAN_FRAGMENT = new ItemBase("obsidian_fragment");
 
     // === EXPANSION KEYS ===
@@ -94,9 +92,10 @@ public class ModItems {
 
     // === CUSTOM MATERIALS ===
     public static final Item VOSSIUM_INGOT = new ItemBase("vossium_ingot");
-    public static final Item NEXIUM_INGOT = new ItemBase("nexium_ingot");
-    public static final Item CLAUSTRITE_GEM = new ItemBase("claustrite_gem");
-    public static final Item SUPER_FERTILIZER = new ItemBase("super_fertilizer");
+    public static final Item INVARIUM_INGOT = new ItemBase("invarium_ingot");
+    public static final Item VOSSIUM_II_INGOT = new ItemBase("vossium_ii_ingot");
+    public static final Item VOSSIUM_III_INGOT = new ItemBase("vossium_iii_ingot");
+    public static final Item VOSSIUM_IV_INGOT = new ItemBase("vossium_iv_ingot");
     public static final Item SIGNALHEE_INGOT = new ItemBase("signalhee_ingot");
 
     // === COMPOSES ENERGETIQUES (A-E) ===

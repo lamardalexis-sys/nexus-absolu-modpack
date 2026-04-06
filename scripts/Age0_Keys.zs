@@ -63,9 +63,9 @@ recipes.addShaped("catalyseur_volatile", <nexusabsolu:catalyseur_volatile>,
 
 // Catalyseur Critique -- Vossium III + HDPE Sheet
 recipes.addShaped("catalyseur_critique", <nexusabsolu:catalyseur_critique>,
-    [[<contenttweaker:vossium_iii_ingot>, <mekanism:polyethene:2>, <contenttweaker:vossium_iii_ingot>],
+    [[<nexusabsolu:vossium_iii_ingot>, <mekanism:polyethene:2>, <nexusabsolu:vossium_iii_ingot>],
      [<mekanism:polyethene:2>, <nexusabsolu:catalyseur_volatile>, <mekanism:polyethene:2>],
-     [<contenttweaker:vossium_iii_ingot>, <mekanism:polyethene:2>, <contenttweaker:vossium_iii_ingot>]]);
+     [<nexusabsolu:vossium_iii_ingot>, <mekanism:polyethene:2>, <nexusabsolu:vossium_iii_ingot>]]);
 
 // Catalyseur Resonant -- Thermal + Invar + Electrum
 recipes.addShaped("catalyseur_resonant", <nexusabsolu:catalyseur_resonant>,

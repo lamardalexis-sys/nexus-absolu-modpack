@@ -178,16 +178,16 @@ recipes.addShaped("nexus_convertisseur_craft",
 // Invarium + Compose A -> Vossium (supraconducteur dimensionnel)
 // ============================================
 
-mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:invarium_ingot>, <ore:ingotBronze>, <ore:ingotInvar>, 200);
-mods.immersiveengineering.AlloySmelter.addRecipe(<contenttweaker:vossium_ingot>, <contenttweaker:invarium_ingot>, <nexusabsolu:compose_a>, 300);
+mods.immersiveengineering.AlloySmelter.addRecipe(<nexusabsolu:invarium_ingot>, <ore:ingotBronze>, <ore:ingotInvar>, 200);
+mods.immersiveengineering.AlloySmelter.addRecipe(<nexusabsolu:vossium_ingot>, <nexusabsolu:invarium_ingot>, <nexusabsolu:compose_a>, 300);
 
 // === Memes alliages dans l'EnderIO Alloy Smelter ===
-mods.enderio.AlloySmelter.addRecipe(<contenttweaker:invarium_ingot>, [<ore:ingotBronze>, <ore:ingotInvar>], 3000);
-mods.enderio.AlloySmelter.addRecipe(<contenttweaker:vossium_ingot>, [<contenttweaker:invarium_ingot>, <nexusabsolu:compose_a>], 5000);
+mods.enderio.AlloySmelter.addRecipe(<nexusabsolu:invarium_ingot>, [<ore:ingotBronze>, <ore:ingotInvar>], 3000);
+mods.enderio.AlloySmelter.addRecipe(<nexusabsolu:vossium_ingot>, [<nexusabsolu:invarium_ingot>, <nexusabsolu:compose_a>], 5000);
 
 // === Memes alliages dans le Thermal Induction Smelter ===
-mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:invarium_ingot>, <thermalfoundation:material:163>, <thermalfoundation:material:162>, 3000);
-mods.thermalexpansion.InductionSmelter.addRecipe(<contenttweaker:vossium_ingot>, <contenttweaker:invarium_ingot>, <nexusabsolu:compose_a>, 5000);
+mods.thermalexpansion.InductionSmelter.addRecipe(<nexusabsolu:invarium_ingot>, <thermalfoundation:material:163>, <thermalfoundation:material:162>, 3000);
+mods.thermalexpansion.InductionSmelter.addRecipe(<nexusabsolu:vossium_ingot>, <nexusabsolu:invarium_ingot>, <nexusabsolu:compose_a>, 5000);
 
 // Engrenage de Compose A: croix compose + coeur Vossium
 //   [null]     [compose] [null]      <- dent haut
@@ -197,7 +197,7 @@ recipes.remove(<nexusabsolu:compose_gear_a>);
 recipes.addShaped("nexus_compose_gear_a",
     <nexusabsolu:compose_gear_a>,
     [[null, <nexusabsolu:compose_a>, null],
-     [<nexusabsolu:compose_a>, <contenttweaker:vossium_ingot>, <nexusabsolu:compose_a>],
+     [<nexusabsolu:compose_a>, <nexusabsolu:vossium_ingot>, <nexusabsolu:compose_a>],
      [null, <nexusabsolu:compose_a>, null]]);
 
 // Compose Block A: 8 compose + gear au centre

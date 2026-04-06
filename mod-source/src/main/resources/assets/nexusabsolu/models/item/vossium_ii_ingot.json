@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "nexusabsolu:items/nexium_ingot"
+        "layer0": "nexusabsolu:items/vossium_ii_ingot"
     }
 }

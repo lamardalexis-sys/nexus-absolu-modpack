@@ -13,9 +13,6 @@ item.nexusabsolu.osmium_grit.name=Grit d'Osmium
 
 # Fragments from scavenging
 item.nexusabsolu.cobblestone_fragment.name=Fragment de Pierre
-item.nexusabsolu.diamond_fragment.name=Fragment de Diamant
-item.nexusabsolu.emerald_fragment.name=Fragment d'Emeraude
-item.nexusabsolu.ender_pearl_fragment.name=Fragment d'Ender Pearl
 item.nexusabsolu.obsidian_fragment.name=Fragment d'Obsidienne
 
 # Keys
@@ -33,9 +30,6 @@ item.nexusabsolu.organic_catalyst.name=Catalyseur Organique
 
 # Custom materials
 item.nexusabsolu.vossium_ingot.name=Lingot de Vossium
-item.nexusabsolu.nexium_ingot.name=Lingot de Nexium
-item.nexusabsolu.claustrite_gem.name=Gemme de Claustrite
-item.nexusabsolu.super_fertilizer.name=Super Engrais
 
 # Fragments of Progression
 item.nexusabsolu.fragment_mecanique.name=Fragment Mecanique
@@ -141,3 +135,7 @@ fluid.diarrhee_liquide=Diarrhee Liquide
 # Machine KRDA125
 tile.nexusabsolu.machine_krda.name=Machine Voss KRDA125
 item.nexusabsolu.signalhee_ingot.name=Lingot de Signalhee
+item.nexusabsolu.invarium_ingot.name=Lingot d'Invarium
+item.nexusabsolu.vossium_ii_ingot.name=Lingot de Vossium II
+item.nexusabsolu.vossium_iii_ingot.name=Lingot de Vossium III
+item.nexusabsolu.vossium_iv_ingot.name=Lingot de Vossium IV

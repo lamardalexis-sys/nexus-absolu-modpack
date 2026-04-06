@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "nexusabsolu:items/diamond_fragment"
+        "layer0": "nexusabsolu:items/invarium_ingot"
     }
 }

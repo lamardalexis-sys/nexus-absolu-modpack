@@ -38,9 +38,9 @@ mods.enderio.AlloySmelter.addRecipe(
 
 mods.extendedcrafting.TableCrafting.addShaped(0, <nexusabsolu:compact_key_9x9>,
     [[null, null, null, null, null],
-     [null, <contenttweaker:vossium_iii_ingot>, <forge:bucketfilled>.withTag({FluidName: "diarrhee_liquide", Amount: 1000}), <bloodmagic:lava_crystal>, <nexusabsolu:compose_gear_c>],
-     [<contenttweaker:vossium_iii_ingot>, null, <contenttweaker:vossium_iii_ingot>, null, <nexusabsolu:compact_key_7x7>],
-     [null, <contenttweaker:vossium_iii_ingot>, null, null, <compactmachines3:machine:2>],
+     [null, <nexusabsolu:vossium_iii_ingot>, <forge:bucketfilled>.withTag({FluidName: "diarrhee_liquide", Amount: 1000}), <bloodmagic:lava_crystal>, <nexusabsolu:compose_gear_c>],
+     [<nexusabsolu:vossium_iii_ingot>, null, <nexusabsolu:vossium_iii_ingot>, null, <nexusabsolu:compact_key_7x7>],
+     [null, <nexusabsolu:vossium_iii_ingot>, null, null, <compactmachines3:machine:2>],
      [null, null, null, null, null]]);
 
 print("[Nexus Absolu] Age1_Signalhee.zs loaded");
