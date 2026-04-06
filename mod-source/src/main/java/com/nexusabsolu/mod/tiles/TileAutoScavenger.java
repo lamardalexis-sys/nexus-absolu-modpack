@@ -156,15 +156,16 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
         return frontBlock.getRegistryName().toString().equals("compactmachines3:wall");
     }
 
-    /** Execute one mining swing: generate drops + damage pickaxe. */
+    /** Execute one mining swing: generate drops + damage pickaxe.
+     *  Drop tables mirror ScavengeEventHandler.executePiocheMining exactly. */
     private void doMineSwing() {
         ItemStack tool = inventory[SLOT_PICKAXE];
         if (tool.isEmpty() || !(tool.getItem() instanceof ItemPioche)) return;
 
         ItemPioche pioche = (ItemPioche) tool.getItem();
         int multiplier = pioche.getDustMultiplier();
+        String dropType = pioche.getDropType();
 
-        // Generate drops (exact same logic as ScavengeEventHandler)
         double r = rand.nextDouble();
 
         if (multiplier <= 1) {
@@ -173,8 +174,46 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
             if (r < 0.30)      insertIntoOutput(new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
             else if (r < 0.50) insertIntoOutput(new ItemStack(Items.FLINT, 1));
             else if (r < 0.65) insertIntoOutput(new ItemStack(Items.CLAY_BALL, 1));
+        } else if (multiplier >= 3) {
+            // Pioches specialisees: drops cibles selon dropType
+            if ("base_metals".equals(dropType)) {
+                if (r < 0.35)      insertIntoOutput(new ItemStack(ModItems.COPPER_GRIT, 1));
+                else if (r < 0.65) insertIntoOutput(new ItemStack(ModItems.TIN_GRIT, 1));
+                else if (r < 0.90) insertIntoOutput(new ItemStack(ModItems.NICKEL_GRIT, 1));
+                else               insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
+            } else if ("iron_metals".equals(dropType)) {
+                if (r < 0.40)      insertIntoOutput(new ItemStack(ModItems.IRON_GRIT, 1));
+                else if (r < 0.65) insertIntoOutput(new ItemStack(ModItems.LEAD_GRIT, 1));
+                else if (r < 0.90) insertIntoOutput(new ItemStack(ModItems.SILVER_GRIT, 1));
+                else               insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
+            } else if ("precious".equals(dropType)) {
+                if (r < 0.45)      insertIntoOutput(new ItemStack(ModItems.GOLD_GRIT, 1));
+                else if (r < 0.85) insertIntoOutput(new ItemStack(ModItems.OSMIUM_GRIT, 1));
+                else               insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
+            } else if ("compose".equals(dropType)) {
+                if (r < 0.60) {
+                    insertIntoOutput(new ItemStack(ModItems.COMPOSE_A, 1));
+                } else if (r < 0.70) {
+                    net.minecraft.item.Item grains = net.minecraft.item.Item.getByNameOrId("enderio:item_material");
+                    if (grains != null) {
+                        insertIntoOutput(new ItemStack(grains, 1, 20));
+                    } else {
+                        insertIntoOutput(new ItemStack(ModItems.COMPOSE_A, 1));
+                    }
+                } else {
+                    insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
+                }
+            } else if ("steelium".equals(dropType)) {
+                if (r < 0.15)      insertIntoOutput(new ItemStack(ModItems.COMPOSE_B, 1));
+                else if (r < 0.35) insertIntoOutput(new ItemStack(ModItems.OBSIDIAN_FRAGMENT, 1));
+                else if (r < 0.50) insertIntoOutput(new ItemStack(Items.DIAMOND, 1));
+                else if (r < 0.60) insertIntoOutput(new ItemStack(Items.EMERALD, 1));
+                else               insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
+            } else {
+                insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
+            }
         } else {
-            // Pioche Renforcee: grits + compose + wall_dust
+            // Pioche Renforcee (multiplier == 2): grits + compose + wall_dust
             if (r < 0.12)       insertIntoOutput(new ItemStack(ModItems.IRON_GRIT, 1));
             else if (r < 0.25)  insertIntoOutput(new ItemStack(ModItems.COPPER_GRIT, 1));
             else if (r < 0.35)  insertIntoOutput(new ItemStack(ModItems.TIN_GRIT, 1));
@@ -188,7 +227,6 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
         // Damage the pickaxe
         int newDamage = tool.getItemDamage() + 1;
         if (newDamage >= tool.getMaxDamage()) {
-            // Pickaxe broke
             inventory[SLOT_PICKAXE] = ItemStack.EMPTY;
         } else {
             tool.setItemDamage(newDamage);
