@@ -3,6 +3,7 @@ package com.nexusabsolu.mod.init;
 import com.nexusabsolu.mod.blocks.BlockCompose;
 import com.nexusabsolu.mod.blocks.BlockNexusOre;
 import com.nexusabsolu.mod.blocks.BlockNexusWall;
+import com.nexusabsolu.mod.blocks.BlockNexusWallT2;
 import com.nexusabsolu.mod.blocks.BlockVossiumII;
 import com.nexusabsolu.mod.blocks.BlockVossiumIII;
 import com.nexusabsolu.mod.blocks.BlockVossiumIV;
@@ -13,6 +14,7 @@ import com.nexusabsolu.mod.blocks.machines.BlockAutoScavenger;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2;
 import com.nexusabsolu.mod.blocks.machines.BlockCondenseurT2Wall;
 import com.nexusabsolu.mod.blocks.machines.BlockConvertisseur;
+import com.nexusabsolu.mod.blocks.machines.BlockEcranControle;
 import com.nexusabsolu.mod.blocks.machines.BlockMachineHumaine;
 import com.nexusabsolu.mod.blocks.machines.BlockMachineKRDA;
 import com.nexusabsolu.mod.blocks.machines.BlockEnergyInput;
@@ -62,6 +64,10 @@ public class ModBlocks {
     public static final BlockVossiumII VOSSIUM_II_BLOCK = new BlockVossiumII();
     public static final BlockVossiumIII VOSSIUM_III_BLOCK = new BlockVossiumIII();
     public static final BlockVossiumIV VOSSIUM_IV_BLOCK = new BlockVossiumIV();
+
+    // === PORTAIL VOSS ===
+    public static final BlockNexusWallT2 NEXUS_WALL_T2 = new BlockNexusWallT2();
+    public static final BlockEcranControle ECRAN_CONTROLE = new BlockEcranControle();
 
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }

@@ -13,6 +13,7 @@ import com.nexusabsolu.mod.tiles.TileCondenseurT2;
 import com.nexusabsolu.mod.tiles.TileConvertisseur;
 import com.nexusabsolu.mod.tiles.TileEnergyInput;
 import com.nexusabsolu.mod.tiles.TileFluidInput;
+import com.nexusabsolu.mod.tiles.TilePortalVoss;
 import com.nexusabsolu.mod.tiles.TileItemInput;
 import com.nexusabsolu.mod.tiles.TileItemOutput;
 import com.nexusabsolu.mod.tiles.TileMachineHumaine;
@@ -64,6 +65,8 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "energy_input"));
         GameRegistry.registerTileEntity(TileFluidInput.class,
             new ResourceLocation(Reference.MOD_ID, "fluid_input"));
+        GameRegistry.registerTileEntity(TilePortalVoss.class,
+            new ResourceLocation(Reference.MOD_ID, "portal_voss"));
         GameRegistry.registerTileEntity(TileMachineHumaine.class,
             new ResourceLocation(Reference.MOD_ID, "machine_humaine"));
         GameRegistry.registerTileEntity(TileMachineKRDA.class,
