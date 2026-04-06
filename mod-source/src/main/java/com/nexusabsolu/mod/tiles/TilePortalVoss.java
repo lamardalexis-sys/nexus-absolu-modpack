@@ -158,6 +158,46 @@ public class TilePortalVoss extends TileEntity implements ITickable {
         return true;
     }
 
+    /** Debug: returns first failing block info for rotation 0 */
+    public String getFirstFailure() {
+        for (int r = 0; r < 4; r++) {
+            int failCount = 0;
+            String firstFail = null;
+            for (int[] entry : STRUCTURE) {
+                BlockPos check = rotateAndOffset(entry[0], entry[1], entry[2], r);
+                if (!checkBlockType(check, entry[3])) {
+                    if (firstFail == null) {
+                        Block block = world.getBlockState(check).getBlock();
+                        String actual = block.getRegistryName() != null
+                            ? block.getRegistryName().toString() : "???";
+                        firstFail = "R" + r + " offset(" + entry[0] + "," + entry[1] + ","
+                            + entry[2] + ") attendu=" + getTypeName(entry[3])
+                            + " trouve=" + actual
+                            + " pos=" + check.getX() + "," + check.getY() + "," + check.getZ();
+                    }
+                    failCount++;
+                }
+            }
+            if (failCount == 0) return "R" + r + " = OK!";
+            if (r == 0) return firstFail + " (+" + (failCount - 1) + " autres erreurs R0)";
+        }
+        return "Aucune rotation valide";
+    }
+
+    private String getTypeName(int type) {
+        switch (type) {
+            case W: return "nexus_wall";
+            case W2: return "nexus_wall_t2";
+            case V3: return "vossium_iii";
+            case V4: return "vossium_iv";
+            case EIN: return "energy_input";
+            case LIN: return "fluid_input";
+            case CD: return "compose_d";
+            case LAVA: return "lava";
+            default: return "?(" + type + ")";
+        }
+    }
+
     private BlockPos rotateAndOffset(int dx, int dy, int dz, int r) {
         int rx = dx * ROTATIONS[r][0] + dz * ROTATIONS[r][1];
         int rz = dx * ROTATIONS[r][2] + dz * ROTATIONS[r][3];

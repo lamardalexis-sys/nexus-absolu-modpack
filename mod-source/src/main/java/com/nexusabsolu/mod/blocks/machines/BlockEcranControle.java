@@ -57,6 +57,8 @@ public class BlockEcranControle extends Block implements IHasModel {
                 if (!portal.isStructureFormed()) {
                     player.sendMessage(new TextComponentString(
                         "\u00a7c[Portail Voss] Structure incomplete."));
+                    player.sendMessage(new TextComponentString(
+                        "\u00a77Debug: " + portal.getFirstFailure()));
                 } else if (!portal.hasEnoughEnergy()) {
                     player.sendMessage(new TextComponentString(
                         "\u00a7c[Portail Voss] Energie insuffisante ("
