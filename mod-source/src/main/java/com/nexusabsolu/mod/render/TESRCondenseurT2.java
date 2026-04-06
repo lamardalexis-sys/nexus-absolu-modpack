@@ -25,6 +25,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
     private static final ResourceLocation SHELL_TOP    = new ResourceLocation("nexusabsolu", "textures/blocks/shell_top.png");
     private static final ResourceLocation SHELL_BOTTOM = new ResourceLocation("nexusabsolu", "textures/blocks/shell_bottom.png");
     private static final ResourceLocation SHELL_BACK   = new ResourceLocation("nexusabsolu", "textures/blocks/shell_back.png");
+    private static final ResourceLocation SHELL_BACK_FLUID = new ResourceLocation("nexusabsolu", "textures/blocks/shell_back_fluid.png");
 
     private static final float TWO_PI = (float)(Math.PI * 2.0);
     private static final float HALF_PI = (float)(Math.PI * 0.5);
@@ -140,6 +141,7 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         int[] bounds = te.getStructureBounds();
         int[] frontDir = te.getFrontDirection();
         BlockPos masterPos = te.getPos();
+        ResourceLocation backTex = te.hasFluidInput() ? SHELL_BACK_FLUID : SHELL_BACK;
 
         double x0 = x + (bounds[0] - masterPos.getX());
         double y0 = y + (bounds[1] - masterPos.getY());
@@ -179,22 +181,22 @@ public class TESRCondenseurT2 extends TileEntitySpecialRenderer<TileCondenseurT2
         // 4 vertical faces (extended vertically past top/bottom)
         if (frontDir[0] == 1) {
             renderFace(buf, tess, SHELL_FRONT, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 0);
-            renderFace(buf, tess, SHELL_BACK, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 1);
+            renderFace(buf, tess, backTex, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 1);
             renderFace(buf, tess, SHELL_SIDE_IN, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 2);
             renderFace(buf, tess, SHELL_SIDE_OUT, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 3);
         } else if (frontDir[0] == -1) {
             renderFace(buf, tess, SHELL_FRONT, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 1);
-            renderFace(buf, tess, SHELL_BACK, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 0);
+            renderFace(buf, tess, backTex, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 0);
             renderFace(buf, tess, SHELL_SIDE_OUT, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 3);
             renderFace(buf, tess, SHELL_SIDE_IN, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 2);
         } else if (frontDir[1] == 1) {
             renderFace(buf, tess, SHELL_FRONT, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 3);
-            renderFace(buf, tess, SHELL_BACK, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 2);
+            renderFace(buf, tess, backTex, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 2);
             renderFace(buf, tess, SHELL_SIDE_OUT, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 1);
             renderFace(buf, tess, SHELL_SIDE_IN, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 0);
         } else {
             renderFace(buf, tess, SHELL_FRONT, x0-e, y0-e, z0-o, x1+e, y1+e, z0-o, 2);
-            renderFace(buf, tess, SHELL_BACK, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 3);
+            renderFace(buf, tess, backTex, x0-e, y0-e, z1+o, x1+e, y1+e, z1+o, 3);
             renderFace(buf, tess, SHELL_SIDE_IN, x0-o, y0-e, z0-e, x0-o, y1+e, z1+e, 0);
             renderFace(buf, tess, SHELL_SIDE_OUT, x1+o, y0-e, z0-e, x1+o, y1+e, z1+e, 1);
         }

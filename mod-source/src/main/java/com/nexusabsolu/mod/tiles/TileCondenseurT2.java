@@ -69,6 +69,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
     private BlockPos outputPos = null;
     private BlockPos energyInputPos = null;
     private BlockPos fluidInputPos = null;
+    private boolean hasFluidInputClient = false;
 
     // Quotes for GUI
     private int currentQuote = 0;
@@ -406,6 +407,8 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
     }
 
     // -- Accessors for TESR and GUI --
+    public boolean isStructureFormed() { return structureFormed; }
+    public boolean hasFluidInput() { return fluidInputPos != null || hasFluidInputClient; }
 
     public boolean isStructureValid() { return structureFormed; }
     public boolean isProcessing() { return processing; }
@@ -530,6 +533,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         compound.setInteger("Energy", energyStorage.getEnergyStored());
         compound.setBoolean("Formed", structureFormed);
         compound.setBoolean("Processing", processing);
+        compound.setBoolean("HasFluidInput", fluidInputPos != null);
         compound.setInteger("Rotation", activeRotation);
         if (inputPos != null) {
             compound.setInteger("InputX", inputPos.getX());
@@ -554,6 +558,9 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         energyStorage = new InternalEnergyStorage(ENERGY_CAPACITY, ENERGY_MAX_INPUT, energy);
         structureFormed = compound.getBoolean("Formed");
         processing = compound.getBoolean("Processing");
+        if (compound.hasKey("HasFluidInput")) {
+            hasFluidInputClient = compound.getBoolean("HasFluidInput");
+        }
         activeRotation = compound.getInteger("Rotation");
         if (compound.hasKey("InputX")) {
             inputPos = new BlockPos(
