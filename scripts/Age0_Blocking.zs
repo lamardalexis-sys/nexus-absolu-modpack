@@ -119,4 +119,21 @@ recipes.addShaped("nexus_ender_eye", <minecraft:ender_eye>,
      [null, <enderio:item_material:1>, null]]);
 // Necessite Pulsating Iron (EnderIO) + Stardust (Astral) = Age 4
 
+// ==========================================
+// BLOQUER TOUTE PRODUCTION DE STEEL
+// Seule source autorisee Ages 0-1 : EnderIO Alloy Smelter
+// (Coal Coke + Iron + Wall Dust) dans Age1_EnderIO.zs
+// Une recette plus rapide se debloquera en Age 2
+// ==========================================
+
+// --- IE Blast Furnace (Iron + Coal/Charcoal/Coke -> Steel) ---
+// C'est le bypass principal : le Blast Brick est craftable en Age 1
+mods.immersiveengineering.BlastFurnace.removeRecipe(<immersiveengineering:metal:8>);
+
+// --- IE Arc Furnace (peut aussi produire du steel) ---
+mods.immersiveengineering.ArcFurnace.removeRecipe(<immersiveengineering:metal:8>);
+
+// TODO Age 3 : verifier Mekanism Metallurgic Infuser steel chain
+// (Carbon + Iron -> Enriched Iron -> Steel) — gate naturel par osmium
+
 print("[Nexus Absolu] Age0_Blocking.zs loaded");
