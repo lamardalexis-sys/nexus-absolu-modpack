@@ -95,7 +95,15 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 inputPos = getWorldPos(1, 0, -1, r);
                 outputPos = getWorldPos(1, 0, 1, r);
                 energyInputPos = getWorldPos(2, -1, 0, r);
-                fluidInputPos = getWorldPos(0, -1, 0, r);
+                // Fluid input is optional — only set if block is actually fluid_input
+                BlockPos fluidCandidate = getWorldPos(0, -1, 0, r);
+                if (world.getBlockState(fluidCandidate).getBlock().getRegistryName() != null
+                    && world.getBlockState(fluidCandidate).getBlock().getRegistryName().toString()
+                        .equals("nexusabsolu:fluid_input")) {
+                    fluidInputPos = fluidCandidate;
+                } else {
+                    fluidInputPos = null;
+                }
                 linkHatches();
                 if (!structureFormed) {
                     structureFormed = true;
@@ -160,7 +168,10 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
             case ENERGY_IN:
                 return name.equals("nexusabsolu:energy_input");
             case FLUID_IN:
-                return name.equals("nexusabsolu:fluid_input");
+                // Optional: accepts EITHER nexus_wall OR fluid_input
+                return name.equals("nexusabsolu:fluid_input")
+                    || name.equals("nexusabsolu:nexus_wall")
+                    || name.equals("nexusabsolu:condenseur_t2_wall");
             default:
                 return false;
         }
