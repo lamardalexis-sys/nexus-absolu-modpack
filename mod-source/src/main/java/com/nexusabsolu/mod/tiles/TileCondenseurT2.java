@@ -302,9 +302,14 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         CondenseurRecipes.Recipe recipe = findRecipe(inputTile);
 
         if (recipe != null && outputTile.getStackInSlot(0).isEmpty()) {
-            // Check fluid requirement (x9 recipe needs 400mB diarrhee)
+            // Check fluid requirement
+            // Design: fluid is OPT-IN. The fluid input hatch is optional.
+            // - No hatch present  -> recipe runs WITHOUT consuming fluid
+            // - Hatch present     -> recipe REQUIRES the fluid (must have enough)
+            // This way the x9 recipe works in both setups (with or without hatch).
             int fluidNeeded = getFluidRequired(recipe);
-            if (fluidNeeded > 0 && !hasEnoughFluid(fluidNeeded)) {
+            boolean hasHatch = (fluidInputPos != null);
+            if (fluidNeeded > 0 && hasHatch && !hasEnoughFluid(fluidNeeded)) {
                 if (processing || processTime > 0) {
                     processTime = 0;
                     processing = false;
@@ -324,8 +329,8 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
                 }
 
                 if (processTime >= maxProcessTime) {
-                    // Processing complete — drain fluid if needed
-                    if (fluidNeeded > 0) {
+                    // Processing complete — drain fluid only if hatch present
+                    if (fluidNeeded > 0 && hasHatch) {
                         drainFluidHatch(fluidNeeded);
                     }
                     ItemStack result = recipe.getOutput();
