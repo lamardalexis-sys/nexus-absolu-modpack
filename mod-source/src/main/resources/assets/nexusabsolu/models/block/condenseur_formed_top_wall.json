@@ -1,6 +1,12 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube",
     "textures": {
-        "all": "nexusabsolu:blocks/condenseur_formed_side"
+        "up": "nexusabsolu:blocks/condenseur_formed_top_wall_top",
+        "down": "nexusabsolu:blocks/condenseur_formed_bottom",
+        "north": "nexusabsolu:blocks/condenseur_formed_side",
+        "south": "nexusabsolu:blocks/condenseur_formed_side",
+        "east": "nexusabsolu:blocks/condenseur_formed_side",
+        "west": "nexusabsolu:blocks/condenseur_formed_side",
+        "particle": "nexusabsolu:blocks/condenseur_formed_side"
     }
 }
