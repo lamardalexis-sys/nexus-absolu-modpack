@@ -13,9 +13,13 @@ recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
 // === STEEL — Coal Coke + Iron + Wall Dust dans l'Alloy Smelter ===
 // 1. Wipe TOUTES les recettes EnderIO Alloy Smelter qui sortent du steel
 //    (chaque mod a son propre item steel - on les bloque tous)
-mods.enderio.AlloySmelter.removeRecipe(<thermalfoundation:material:160>);  // TF steel
-mods.enderio.AlloySmelter.removeRecipe(<immersiveengineering:metal:8>);     // IE steel
-mods.enderio.AlloySmelter.removeRecipe(<mekanism:ingot:4>);                 // Mekanism steel
+mods.enderio.AlloySmelter.removeRecipe(<thermalfoundation:material:160>);  // TF steel ingot
+mods.enderio.AlloySmelter.removeRecipe(<immersiveengineering:metal:8>);     // IE steel ingot
+mods.enderio.AlloySmelter.removeRecipe(<mekanism:ingot:4>);                 // Mekanism steel ingot
+mods.enderio.AlloySmelter.removeRecipe(<bigreactors:duststeel>);            // Big Reactors steel dust
+mods.enderio.AlloySmelter.removeRecipe(<thermalfoundation:material:96>);    // TF steel dust
+mods.enderio.AlloySmelter.removeRecipe(<immersiveengineering:metal:17>);    // IE steel dust
+mods.enderio.AlloySmelter.removeRecipe(<mekanism:dust:5>);                  // Mekanism steel dust
 // 2. Wipe aussi par inputs (couvre les recettes meme si l'output ID est inconnu)
 mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <minecraft:coal:0>);                  // iron + coal
 mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <minecraft:coal:1>);                  // iron + charcoal
@@ -23,7 +27,8 @@ mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <immersiveengin
 mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <thermalfoundation:material:768>);    // iron + pulverized coal
 mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <thermalfoundation:material:802>);    // iron + pulverized coal coke
 // 3. Re-ajouter NOTRE recette : Coal Coke + Iron + Wall Dust -> TF Steel
-mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>], 5000);
+//    Utilise l'oredict <ore:dustWall> (defini dans Globals.zs) pour qu'EnderIO accepte le slot
+mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <ore:dustWall>], 5000);
 
 // === SAG MILL ===
 recipes.remove(<enderio:block_sag_mill>);

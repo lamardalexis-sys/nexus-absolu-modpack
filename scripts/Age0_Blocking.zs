@@ -136,7 +136,11 @@ recipes.addShaped("nexus_ender_eye", <minecraft:ender_eye>,
 mods.mekanism.infuser.removeRecipe(<mekanism:enrichediron>);
 // Backup : si jamais le steel dust est obtenu autrement, bloquer la 2eme infusion aussi
 mods.mekanism.infuser.removeRecipe(<mekanism:dust:5>);
-// Backup final : empecher le smelting steel dust -> steel ingot dans n'importe quel four
-furnace.remove(<mekanism:ingot:4>);
+
+// --- Furnace : empecher le smelting de TOUS les steel dust en steel ingot ---
+// (backup au cas ou un mod produirait du steel dust par un autre moyen)
+furnace.remove(<mekanism:ingot:4>);              // mekanism steel ingot
+furnace.remove(<thermalfoundation:material:160>); // TF steel ingot
+furnace.remove(<immersiveengineering:metal:8>);   // IE steel ingot
 
 print("[Nexus Absolu] Age0_Blocking.zs loaded");

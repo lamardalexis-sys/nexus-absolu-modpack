@@ -9,6 +9,11 @@ import crafttweaker.oredict.IOreDict;
 import crafttweaker.liquid.ILiquidStack;
 import mods.jei.JEI.removeAndHide as rh;
 
+// === OREDICT REGISTRATIONS ===
+// wall_dust needs an oredict tag so EnderIO Alloy Smelter accepts it in input slots
+// (EnderIO filters slot inputs by their valid recipe ingredients - no oredict = rejected)
+<ore:dustWall>.add(<nexusabsolu:wall_dust>);
+
 // Remove old recipe and add new shaped recipe
 global remake as function(string, IItemStack, IIngredient[][])void =
     function (name as string, item as IItemStack, input as IIngredient[][]) as void {
