@@ -1,28 +1,12 @@
 {
     "variants": {
-        "position=0": {
-            "model": "nexusabsolu:condenseur_formed_pos0_master"
-        },
-        "position=1": {
-            "model": "nexusabsolu:condenseur_formed_pos1_wall_br"
-        },
-        "position=2": {
-            "model": "nexusabsolu:condenseur_formed_bottom"
-        },
-        "position=3": {
-            "model": "nexusabsolu:condenseur_formed_energy"
-        },
-        "position=4": {
-            "model": "nexusabsolu:condenseur_formed_pos4_glass_tl"
-        },
-        "position=5": {
-            "model": "nexusabsolu:condenseur_formed_pos5_glass_tr"
-        },
-        "position=6": {
-            "model": "nexusabsolu:condenseur_formed_top_glass"
-        },
-        "position=7": {
-            "model": "nexusabsolu:condenseur_formed_top_wall"
-        }
+        "position=0": { "model": "nexusabsolu:condenseur_formed_master" },
+        "position=1": { "model": "nexusabsolu:condenseur_formed_bottom" },
+        "position=2": { "model": "nexusabsolu:condenseur_formed_bottom" },
+        "position=3": { "model": "nexusabsolu:condenseur_formed_energy" },
+        "position=4": { "model": "nexusabsolu:condenseur_formed_top_glass" },
+        "position=5": { "model": "nexusabsolu:condenseur_formed_top_glass" },
+        "position=6": { "model": "nexusabsolu:condenseur_formed_top_glass" },
+        "position=7": { "model": "nexusabsolu:condenseur_formed_top_wall" }
     }
 }
