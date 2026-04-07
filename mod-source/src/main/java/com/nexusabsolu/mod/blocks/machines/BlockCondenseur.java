@@ -68,50 +68,47 @@ public class BlockCondenseur extends Block implements IHasModel {
         return true;
     }
 
-    // Try all 4 orientations of the 2x2x2 structure.
-    // Spatial layout (relative to master at pos):
+    // Try the SINGLE allowed orientation (dx=1, dz=1).
+    // The master must be at the FRONT-LEFT corner of the 2x2x2 multiblock,
+    // with the multiblock extending toward +X (right) and +Z (back).
+    //
+    // This restriction enables coherent UV-split textures and 3D models
+    // (each sub-block knows its exact spatial position relative to the master).
+    // Future versions may add a FACING property to support all 4 orientations.
+    //
+    // Spatial layout:
     //   POS 0 = master                  pos
-    //   POS 1 = nexus wall              pos + (dx, 0, 0)
-    //   POS 2 = nexus wall              pos + (0, 0, dz)
-    //   POS 3 = redstone block          pos + (dx, 0, dz)   (diagonal from master)
-    //   POS 4 = glass                   pos + (0, 1, 0)     (above master)
-    //   POS 5 = glass                   pos + (dx, 1, 0)
-    //   POS 6 = glass                   pos + (0, 1, dz)
-    //   POS 7 = nexus wall (top)        pos + (dx, 1, dz)   (above redstone)
+    //   POS 1 = nexus wall              pos + (1, 0, 0)   right of master
+    //   POS 2 = nexus wall              pos + (0, 0, 1)   behind master
+    //   POS 3 = redstone block          pos + (1, 0, 1)   diagonal back-right
+    //   POS 4 = glass                   pos + (0, 1, 0)   above master
+    //   POS 5 = glass                   pos + (1, 1, 0)
+    //   POS 6 = glass                   pos + (0, 1, 1)
+    //   POS 7 = nexus wall (top)        pos + (1, 1, 1)   above redstone
     public boolean tryFormMultiblock(World world, BlockPos pos) {
-        int[][] directions = {
-            {1, 1},   // +X +Z
-            {-1, 1},  // -X +Z
-            {1, -1},  // +X -Z
-            {-1, -1}  // -X -Z
-        };
+        int dx = 1;
+        int dz = 1;
 
-        for (int[] dir : directions) {
-            int dx = dir[0];
-            int dz = dir[1];
+        BlockPos b1 = pos.add(dx, 0, 0);   // POS 1
+        BlockPos b2 = pos.add(0, 0, dz);   // POS 2
+        BlockPos b3 = pos.add(dx, 0, dz);  // POS 3
+        BlockPos t0 = pos.add(0, 1, 0);    // POS 4
+        BlockPos t1 = pos.add(dx, 1, 0);   // POS 5
+        BlockPos t2 = pos.add(0, 1, dz);   // POS 6
+        BlockPos t3 = pos.add(dx, 1, dz);  // POS 7
 
-            BlockPos b1 = pos.add(dx, 0, 0);   // POS 1
-            BlockPos b2 = pos.add(0, 0, dz);   // POS 2
-            BlockPos b3 = pos.add(dx, 0, dz);  // POS 3
-            BlockPos t0 = pos.add(0, 1, 0);    // POS 4
-            BlockPos t1 = pos.add(dx, 1, 0);   // POS 5
-            BlockPos t2 = pos.add(0, 1, dz);   // POS 6
-            BlockPos t3 = pos.add(dx, 1, dz);  // POS 7
+        // Strict spatial validation (exact shape required)
+        if (!isNexusWall(world, b1)) return false;
+        if (!isNexusWall(world, b2)) return false;
+        if (!isRedstone(world, b3))  return false;
+        if (!isGlass(world, t0))     return false;
+        if (!isGlass(world, t1))     return false;
+        if (!isGlass(world, t2))     return false;
+        if (!isNexusWall(world, t3)) return false;
 
-            // Strict spatial validation (exact shape required)
-            if (!isNexusWall(world, b1)) continue;
-            if (!isNexusWall(world, b2)) continue;
-            if (!isRedstone(world, b3)) continue;
-            if (!isGlass(world, t0))    continue;
-            if (!isGlass(world, t1))    continue;
-            if (!isGlass(world, t2))    continue;
-            if (!isNexusWall(world, t3)) continue;
-
-            // VALID! Form the multiblock with deterministic spatial positions
-            formMultiblock(world, pos, dx, dz, b1, b2, b3, t0, t1, t2, t3);
-            return true;
-        }
-        return false;
+        // VALID! Form the multiblock with deterministic spatial positions
+        formMultiblock(world, pos, dx, dz, b1, b2, b3, t0, t1, t2, t3);
+        return true;
     }
 
     private void formMultiblock(World world, BlockPos master, int dx, int dz,
