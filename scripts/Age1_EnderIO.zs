@@ -11,15 +11,13 @@ recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
      [<ore:gearInvar>, <immersiveengineering:wooden_device0:1>, <ore:gearInvar>]]);
 
 // === STEEL — Coal Coke + Iron + Wall Dust dans l'Alloy Smelter ===
-// Bloquer toutes les recettes EnderIO Alloy Smelter qui produisent du steel
-// Note: TF steel (material:160) et IE steel (metal:8) n'ont PAS de recette
-// alloy smelter par defaut - inutile de les supprimer
+// 1. Bloquer les recettes steel par defaut des autres mods
 mods.enderio.AlloySmelter.removeRecipe(<mekanism:ingot:4>);       // Mekanism steel ingot
 mods.enderio.AlloySmelter.removeRecipe(<bigreactors:duststeel>);  // Big Reactors steel dust
 
-// Re-ajouter NOTRE recette : Coal Coke + Iron + Wall Dust -> TF Steel
-// Utilise l'oredict <ore:dustWall> (defini dans Globals.zs) pour qu'EnderIO accepte le slot
-mods.enderio.AlloySmelter.addRecipe(<thermalfoundation:material:160>, [<immersiveengineering:material:6>, <minecraft:iron_ingot>, <ore:dustWall>], 5000);
+// 2. NOTRE recette est definie dans config/enderio/recipes/user/user_recipes.xml
+//    (XML natif EnderIO - necessaire pour que la slot validation accepte wall_dust,
+//    car CT addRecipe ne met pas a jour le cache de validation des slots EnderIO)
 
 // === SAG MILL ===
 recipes.remove(<enderio:block_sag_mill>);

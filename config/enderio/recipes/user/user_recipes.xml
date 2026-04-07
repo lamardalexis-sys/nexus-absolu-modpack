@@ -2,12 +2,23 @@
 <enderio:recipes xmlns:enderio="http://enderio.com/recipes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enderio.com/recipes recipes.xsd ">
 
   <!-- ============================================
-       NEXUS ABSOLU - Disable default EnderIO steel recipes
-       Only our custom recipe (Coal Coke + Iron + Wall Dust)
-       defined in scripts/Age1_EnderIO.zs should produce steel.
+       NEXUS ABSOLU - Custom EnderIO recipes
+       Loaded natively by EnderIO so slot validation works
+       (CT addRecipe via mods.enderio.AlloySmelter doesn't update
+       EnderIO's slot validation cache - we use native XML instead)
        ============================================ -->
 
-  <!-- Common name variants for EnderIO + Thermal Foundation steel alloy recipes -->
+  <!-- NEXUS STEEL : Coal Coke + Iron + Wall Dust -> Steel -->
+  <recipe name="Nexus Steel" required="true">
+    <alloying energy="5000" exp="0.5">
+      <input name="immersiveengineering:material:6"/>
+      <input name="minecraft:iron_ingot"/>
+      <input name="nexusabsolu:wall_dust"/>
+      <output name="thermalfoundation:material:160"/>
+    </alloying>
+  </recipe>
+
+  <!-- Disable default steel alloy recipe variants from other mods -->
   <recipe name="Alloy: Steel" disabled="true" />
   <recipe name="Steel" disabled="true" />
   <recipe name="Alloy: Steel (Coke)" disabled="true" />
