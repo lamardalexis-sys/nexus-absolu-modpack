@@ -8,13 +8,14 @@
        EnderIO's slot validation cache - we use native XML instead)
        ============================================ -->
 
-  <!-- NEXUS STEEL : Iron Insule + Coal Coke -> Steel (2 inputs only) -->
+  <!-- NEXUS STEEL : Iron Insule + Coal Coke (oredict) -> Steel -->
   <!-- Iron Insule = 1 iron + 8 wall_dust crafte en table (recette dans Age1_EnderIO.zs) -->
-  <!-- 2 inputs evite le conflit de slots EnderIO (coal coke + wall_dust voulaient le meme slot) -->
+  <!-- 2 inputs evite le conflit de slots EnderIO -->
+  <!-- fuelCoke = oredict qui matche IE ET TF coal coke -->
   <recipe name="Nexus Steel" required="true">
     <alloying energy="5000" exp="0.5">
       <input name="nexusabsolu:iron_insule"/>
-      <input name="immersiveengineering:material:6"/>
+      <input name="oredict:fuelCoke"/>
       <output name="thermalfoundation:material:160"/>
     </alloying>
   </recipe>

@@ -17,10 +17,15 @@ recipes.addShaped("nexus_iron_insule", <nexusabsolu:iron_insule>,
      [<nexusabsolu:wall_dust>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>],
      [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]]);
 
-// 2. NOTRE recette est definie dans config/enderio/recipes/user/user_recipes.xml
-//    Iron Insule + Coal Coke -> Steel (2 inputs, pas de conflit de slots)
-//    Le blocage des recettes par defaut se fait via XML EnderIO disabled="true"
-//    car CT removeRecipe ne fonctionne pas (recettes chargees apres CT)
+// 2. Bloquer la recette par defaut : iron + TF coal coke -> steel
+//    (TF coal coke est l'item utilise en jeu - pas l'IE coal coke)
+mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <thermalfoundation:material:802>);
+// Backup : aussi tenter avec IE coal coke au cas ou
+mods.enderio.AlloySmelter.removeByInputs(<minecraft:iron_ingot>, <immersiveengineering:material:6>);
+
+// 3. NOTRE recette est definie dans config/enderio/recipes/user/user_recipes.xml
+//    Iron Insule + Coal Coke (oredict fuelCoke) -> Steel
+//    L'oredict matche IE et TF coal coke, peu importe lequel le joueur utilise
 
 // === SAG MILL ===
 recipes.remove(<enderio:block_sag_mill>);
