@@ -1,7 +1,7 @@
 #Configurations for material Steel.
 [general]
 	#The module blacklist of this material. "*" is an alias for all modules. If a module name occurs an odd number of times (including wildcards), then the module is blacklisted.
-	moduleBlacklist = []
+	moduleBlacklist = ["enderio", "enderio_compat", "enderio_non_ingot"]
 	#The alternative names of this material.
 	alternativeNames = []
 	#The byproducts of this material.
