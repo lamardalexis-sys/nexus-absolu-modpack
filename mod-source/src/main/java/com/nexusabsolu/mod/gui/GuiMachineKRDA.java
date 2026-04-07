@@ -1,6 +1,7 @@
 package com.nexusabsolu.mod.gui;
 
 import com.nexusabsolu.mod.Reference;
+import com.nexusabsolu.mod.tiles.KRDARecipes;
 import com.nexusabsolu.mod.tiles.SideConfig;
 import com.nexusabsolu.mod.tiles.TileMachineKRDA;
 import net.minecraft.client.gui.inventory.GuiContainer;
