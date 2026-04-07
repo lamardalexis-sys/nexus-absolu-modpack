@@ -1,6 +1,6 @@
 package com.nexusabsolu.mod.tiles;
 
-import com.nexusabsolu.mod.init.ModItems;
+import com.nexusabsolu.mod.tiles.KRDARecipes.Recipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -43,6 +43,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
         NonNullList.withSize(INV_SIZE, ItemStack.EMPTY);
     private final SideConfig sideConfig = new SideConfig();
     private int progress = 0;
+    private int activeRecipeIdx = -1;
 
     public TileMachineKRDA() {
         sideConfig.setDefaults();
@@ -54,16 +55,24 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
     public void update() {
         if (world.isRemote) return;
 
-        if (canProcess()) {
-            energy.drainInternal(RF_PER_TICK);
+        Recipe recipe = findValidRecipe();
+        if (recipe != null) {
+            // Reset progress if the active recipe changed mid-process
+            int idx = KRDARecipes.getRecipes().indexOf(recipe);
+            if (activeRecipeIdx != idx) {
+                progress = 0;
+                activeRecipeIdx = idx;
+            }
+            energy.drainInternal(recipe.rfPerTick);
             progress++;
-            if (progress >= PROCESS_TIME) {
-                finishProcess();
+            if (progress >= recipe.processTime) {
+                finishProcess(recipe);
                 progress = 0;
             }
             markDirty();
         } else if (progress > 0) {
             progress = 0;
+            activeRecipeIdx = -1;
             markDirty();
         }
 
@@ -72,42 +81,45 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
         if (sideConfig.isAutoPull(SideConfig.TYPE_FOOD)) autoPullItems();
     }
 
-    private boolean canProcess() {
+    /**
+     * Returns the recipe matching the current input slot, or null if no recipe
+     * can run (no match, not enough fluid/energy, or no output space).
+     */
+    private Recipe findValidRecipe() {
         ItemStack input = inventory.get(SLOT_INPUT);
-        if (input.isEmpty() || !isSignalum(input)) return false;
-        if (diarrheeTank.getFluidAmount() < FLUID_PER_CYCLE) return false;
-        if (energy.getEnergyStored() < RF_PER_TICK) return false;
-        // Check output space
-        ItemStack out = inventory.get(SLOT_OUTPUT);
-        if (!out.isEmpty()) {
-            if (out.getItem() != ModItems.SIGNALHEE_INGOT) return false;
-            if (out.getCount() >= out.getMaxStackSize()) return false;
+        Recipe recipe = KRDARecipes.findRecipe(input);
+        if (recipe == null) return null;
+        if (diarrheeTank.getFluidAmount() < recipe.fluidAmountMb) return null;
+        if (energy.getEnergyStored() < recipe.rfPerTick) return null;
+
+        ItemStack output = recipe.getOutput();
+        if (output.isEmpty()) return null;
+
+        ItemStack outSlot = inventory.get(SLOT_OUTPUT);
+        if (!outSlot.isEmpty()) {
+            if (!ItemStack.areItemsEqual(outSlot, output)) return null;
+            if (!ItemStack.areItemStackTagsEqual(outSlot, output)) return null;
+            if (outSlot.getCount() + output.getCount() > outSlot.getMaxStackSize()) return null;
         }
-        return true;
+        return recipe;
     }
 
-    private boolean isSignalum(ItemStack stack) {
-        String regName = stack.getItem().getRegistryName().toString();
-        String unloc = stack.getItem().getUnlocalizedName();
-        return regName.contains("signalum") && regName.contains("ingot")
-            || unloc.contains("signalum") && unloc.contains("ingot")
-            || regName.equals("thermalfoundation:material")
-                && stack.getMetadata() == 165;
-    }
-
-    private void finishProcess() {
+    private void finishProcess(Recipe recipe) {
+        // Consume input
         inventory.get(SLOT_INPUT).shrink(1);
         if (inventory.get(SLOT_INPUT).isEmpty()) {
             inventory.set(SLOT_INPUT, ItemStack.EMPTY);
         }
-        diarrheeTank.drain(FLUID_PER_CYCLE, true);
+        // Consume fluid
+        diarrheeTank.drain(recipe.fluidAmountMb, true);
 
-        ItemStack out = inventory.get(SLOT_OUTPUT);
-        if (out.isEmpty()) {
-            inventory.set(SLOT_OUTPUT,
-                new ItemStack(ModItems.SIGNALHEE_INGOT, 1));
+        // Produce output
+        ItemStack recipeOutput = recipe.getOutput();
+        ItemStack outSlot = inventory.get(SLOT_OUTPUT);
+        if (outSlot.isEmpty()) {
+            inventory.set(SLOT_OUTPUT, recipeOutput.copy());
         } else {
-            out.grow(1);
+            outSlot.grow(recipeOutput.getCount());
         }
     }
 
@@ -176,7 +188,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
             if (h == null) continue;
             for (int s = 0; s < h.getSlots(); s++) {
                 ItemStack avail = h.extractItem(s, 1, true);
-                if (!avail.isEmpty() && isSignalum(avail)) {
+                if (!avail.isEmpty() && KRDARecipes.isValidInput(avail)) {
                     ItemStack extracted = h.extractItem(s, 1, false);
                     if (cur.isEmpty()) {
                         inventory.set(SLOT_INPUT, extracted);
@@ -254,7 +266,12 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
     public int getFluidLevel() { return diarrheeTank.getFluidAmount(); }
     public int getTankCapacity() { return TANK_CAPACITY; }
     public int getProgress() { return progress; }
-    public int getMaxProgress() { return PROCESS_TIME; }
+    public int getMaxProgress() {
+        if (activeRecipeIdx >= 0 && activeRecipeIdx < KRDARecipes.getRecipes().size()) {
+            return KRDARecipes.getRecipes().get(activeRecipeIdx).processTime;
+        }
+        return PROCESS_TIME;
+    }
     public SideConfig getSideConfig() { return sideConfig; }
 
     // ==================== IInventory ====================
@@ -296,7 +313,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
     @Override public void openInventory(EntityPlayer p) {}
     @Override public void closeInventory(EntityPlayer p) {}
     @Override public boolean isItemValidForSlot(int i, ItemStack s) {
-        if (i == SLOT_INPUT) return isSignalum(s);
+        if (i == SLOT_INPUT) return KRDARecipes.isValidInput(s);
         return false;
     }
     @Override public String getName() { return "container.machine_krda"; }
@@ -352,7 +369,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
             return inventory.get(s);
         }
         @Override public ItemStack insertItem(int s, ItemStack stack, boolean sim) {
-            if (s != SLOT_INPUT || !allowInput || !isSignalum(stack)) return stack;
+            if (s != SLOT_INPUT || !allowInput || !KRDARecipes.isValidInput(stack)) return stack;
             ItemStack cur = inventory.get(SLOT_INPUT);
             if (cur.isEmpty()) {
                 if (!sim) { inventory.set(SLOT_INPUT, stack.copy()); markDirty(); }
@@ -405,6 +422,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
         super.writeToNBT(nbt);
         nbt.setInteger("Energy", energy.getEnergyStored());
         nbt.setInteger("Progress", progress);
+        nbt.setInteger("ActiveRecipeIdx", activeRecipeIdx);
         NBTTagCompound tTag = new NBTTagCompound();
         diarrheeTank.writeToNBT(tTag);
         nbt.setTag("DiarrheeTank", tTag);
@@ -427,6 +445,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
         super.readFromNBT(nbt);
         energy.setEnergy(nbt.getInteger("Energy"));
         progress = nbt.getInteger("Progress");
+        activeRecipeIdx = nbt.hasKey("ActiveRecipeIdx") ? nbt.getInteger("ActiveRecipeIdx") : -1;
         if (nbt.hasKey("DiarrheeTank"))
             diarrheeTank.readFromNBT(nbt.getCompoundTag("DiarrheeTank"));
         sideConfig.readFromNBT(nbt);
