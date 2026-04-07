@@ -8564,6 +8564,72 @@
           }
         }
       }
+    },
+    "144:10": {
+      "questID:3": 145,
+      "preRequisites:11": [
+        144
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "minecraft:ender_pearl",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§5§nInstabilité Dimensionnelle",
+          "desc:8": "§7Le KRDA125 vibre étrangement\nquand la Diarrhée touche certaines poudres.\n\n§8§o\"J'ai renversé mon bocal sur de la\npoussière de bedrock. La pièce a tremblé.\nUne perle violette est apparue.\nJe dois reproduire l'expérience.\"\n— Dr. E. Voss, Note 47§r\n\n§eRecette KRDA125 :\n§71x Grains of Infinity §8(dustBedrock)\n§7+ 800mB Diarrhée Liquide\n§7= 1 Ender Pearl"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:ender_pearl",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
     }
   },
   "questLines:9": {
@@ -9329,6 +9395,13 @@
           "sizeX:3": 32,
           "sizeY:3": 32,
           "x:3": 60,
+          "y:3": 745
+        },
+        "65:10": {
+          "id:3": 145,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
           "y:3": 745
         }
       },
