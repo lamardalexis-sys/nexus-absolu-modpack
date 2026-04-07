@@ -134,8 +134,6 @@ recipes.addShaped("nexus_ender_eye", <minecraft:ender_eye>,
 // --- Mekanism Metallurgic Infuser : Carbon + Iron -> Enriched Iron -> Steel ---
 // On casse la chaine au debut : pas d'Enriched Iron = pas de Steel Dust = pas de Steel
 mods.mekanism.infuser.removeRecipe(<mekanism:enrichediron>);
-// Backup : si jamais le steel dust est obtenu autrement, bloquer la 2eme infusion aussi
-mods.mekanism.infuser.removeRecipe(<mekanism:dust:5>);
 
 // --- Furnace : empecher le smelting de TOUS les steel dust en steel ingot ---
 // (backup au cas ou un mod produirait du steel dust par un autre moyen)
