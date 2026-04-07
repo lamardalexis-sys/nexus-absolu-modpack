@@ -61,7 +61,8 @@ public class GuiMachineKRDA extends GuiContainer {
 
         // === PROGRESS FILL ===
         int prog = tile.getField(3);
-        int maxP = TileMachineKRDA.PROCESS_TIME;
+        int activeIdx = tile.getField(2);
+        int maxP = KRDARecipes.getProcessTimeForIdx(activeIdx);
         if (maxP > 0 && prog > 0) {
             int fillW = (int)(56.0F * prog / maxP);
             drawRect(x + 90, y + 34, x + 90 + fillW, y + 76, 0xFF3A1F5E);
@@ -89,7 +90,8 @@ public class GuiMachineKRDA extends GuiContainer {
 
         // Progress %
         int prog = tile.getField(3);
-        int maxP = TileMachineKRDA.PROCESS_TIME;
+        int activeIdx = tile.getField(2);
+        int maxP = KRDARecipes.getProcessTimeForIdx(activeIdx);
         String pct = (maxP > 0 ? (prog * 100 / maxP) : 0) + "%";
         int pw = fontRenderer.getStringWidth(pct);
         fontRenderer.drawStringWithShadow(pct, 118 - pw / 2.0F, 51, 0xFFFF8800);
@@ -101,7 +103,7 @@ public class GuiMachineKRDA extends GuiContainer {
         // Labels
         fontRenderer.drawStringWithShadow("Transmutation", 93, 79, 0xFF8866AA);
         fontRenderer.drawStringWithShadow(
-            TileMachineKRDA.RF_PER_TICK + " Bio-E/t", 8, 118, 0xFF8866AA);
+            KRDARecipes.getRfPerTickForIdx(activeIdx) + " Bio-E/t", 8, 118, 0xFF8866AA);
         fontRenderer.drawStringWithShadow("Inventaire", 8, 129, 0xFF8866AA);
 
         // Config tab icon

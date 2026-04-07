@@ -3,6 +3,7 @@ package com.nexusabsolu.mod.compat.jei;
 import com.nexusabsolu.mod.init.ModBlocks;
 import com.nexusabsolu.mod.init.ModItems;
 import com.nexusabsolu.mod.tiles.CondenseurRecipes;
+import com.nexusabsolu.mod.tiles.KRDARecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
@@ -12,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import mezz.jei.api.ingredients.VanillaTypes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @JEIPlugin
@@ -52,8 +52,12 @@ public class NexusJEIPlugin implements IModPlugin {
             new ItemStack(ModBlocks.MACHINE_HUMAINE), Diarh33Category.UID);
 
         // === KRDA125 ===
-        registry.addRecipes(
-            Collections.singletonList(new KRDAWrapper()), KRDACategory.UID);
+        // One wrapper per recipe in the registry (signalum->signalhee, dustBedrock->ender_pearl, ...)
+        List<KRDAWrapper> krdaWrappers = new ArrayList<KRDAWrapper>();
+        for (KRDARecipes.Recipe r : KRDARecipes.getRecipes()) {
+            krdaWrappers.add(new KRDAWrapper(r));
+        }
+        registry.addRecipes(krdaWrappers, KRDACategory.UID);
         registry.addRecipeCatalyst(
             new ItemStack(ModBlocks.MACHINE_KRDA), KRDACategory.UID);
 
@@ -100,9 +104,11 @@ public class NexusJEIPlugin implements IModPlugin {
         registry.addIngredientInfo(
             new ItemStack(ModBlocks.MACHINE_KRDA), VanillaTypes.ITEM,
             "Machine Voss KRDA125\n\n" +
-            "Transmute le Signalum via la Diarrhee Liquide.\n" +
-            "Necessite: Signalum + Diarrhee + Bio-Energie (50 RF/t)\n" +
-            "1 Signalum + 500mB Diarrhee = 1 Signalhee");
+            "Transmute la matiere via la Diarrhee Liquide.\n" +
+            "Necessite: Bio-Energie (50 RF/t)\n\n" +
+            "Recettes connues:\n" +
+            "- 1 Signalum + 500mB Diarrhee = 1 Signalhee\n" +
+            "- 1 Grains of Infinity + 800mB Diarrhee = 1 Ender Pearl");
 
         // === PIOCHE RENFORCEE DROPS ===
         String renfHeader = "Pioche Renforcee sur mur Compact Machine:\n\n";

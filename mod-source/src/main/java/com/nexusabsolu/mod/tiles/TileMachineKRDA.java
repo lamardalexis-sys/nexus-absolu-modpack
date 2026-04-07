@@ -24,15 +24,13 @@ import net.minecraftforge.items.IItemHandler;
 
 public class TileMachineKRDA extends TileEntity implements ITickable, IInventory {
 
-    public static final int RF_PER_TICK = 50;
+    // Machine specs (independent of recipe)
     public static final int RF_CAPACITY = 500000;
     public static final int RF_MAX_RECEIVE = 500;
     public static final int TANK_CAPACITY = 4000;
-    public static final int FLUID_PER_CYCLE = 500; // mB diarrhee
-    public static final int PROCESS_TIME = 200;     // 10 seconds
 
-    public static final int SLOT_INPUT = 0;   // signalum
-    public static final int SLOT_OUTPUT = 1;  // signalhee
+    public static final int SLOT_INPUT = 0;
+    public static final int SLOT_OUTPUT = 1;
     public static final int INV_SIZE = 2;
     public static final int FIELD_COUNT = 10;
 
@@ -209,7 +207,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
         switch (id) {
             case 0: return energy.getEnergyStored();
             case 1: return diarrheeTank.getFluidAmount();
-            case 2: return 0; // unused (compat with shared GUI code)
+            case 2: return activeRecipeIdx; // synced to client for per-recipe GUI display
             case 3: return progress;
             case 4: return sideConfig.getFaceBits(0);
             case 5: return sideConfig.getFaceBits(1);
@@ -231,6 +229,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
                 if (value > 0 && f != null)
                     diarrheeTank.fill(new FluidStack(f, value), true);
                 break;
+            case 2: activeRecipeIdx = value; break;
             case 3: progress = value; break;
             case 4: sideConfig.setFaceBits(0, value); break;
             case 5: sideConfig.setFaceBits(1, value); break;
@@ -270,7 +269,7 @@ public class TileMachineKRDA extends TileEntity implements ITickable, IInventory
         if (activeRecipeIdx >= 0 && activeRecipeIdx < KRDARecipes.getRecipes().size()) {
             return KRDARecipes.getRecipes().get(activeRecipeIdx).processTime;
         }
-        return PROCESS_TIME;
+        return KRDARecipes.DEFAULT_PROCESS_TIME;
     }
     public SideConfig getSideConfig() { return sideConfig; }
 

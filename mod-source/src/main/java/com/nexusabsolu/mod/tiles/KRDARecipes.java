@@ -83,6 +83,31 @@ public class KRDARecipes {
         return findRecipe(stack) != null;
     }
 
+    /**
+     * Defaults pour l'affichage GUI quand aucune recette n'est active (idx = -1).
+     * Match les valeurs de la 1ere recette pour coherence visuelle.
+     */
+    public static final int DEFAULT_PROCESS_TIME = 200;
+    public static final int DEFAULT_RF_PER_TICK = 50;
+
+    /**
+     * Retourne le processTime de la recette a l'index donne, ou DEFAULT_PROCESS_TIME
+     * si l'index est invalide. Utilise par le GUI client via le field sync.
+     */
+    public static int getProcessTimeForIdx(int idx) {
+        if (idx < 0 || idx >= RECIPES.size()) return DEFAULT_PROCESS_TIME;
+        return RECIPES.get(idx).processTime;
+    }
+
+    /**
+     * Retourne le rfPerTick de la recette a l'index donne, ou DEFAULT_RF_PER_TICK
+     * si l'index est invalide. Utilise par le GUI client via le field sync.
+     */
+    public static int getRfPerTickForIdx(int idx) {
+        if (idx < 0 || idx >= RECIPES.size()) return DEFAULT_RF_PER_TICK;
+        return RECIPES.get(idx).rfPerTick;
+    }
+
     // ==================== RECIPE INNER CLASS ====================
 
     public static class Recipe {

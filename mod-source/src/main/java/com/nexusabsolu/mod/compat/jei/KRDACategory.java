@@ -22,6 +22,11 @@ public class KRDACategory implements IRecipeCategory<KRDAWrapper> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(
         Reference.MOD_ID, "textures/gui/jei_nexus.png");
 
+    // Default animation duration for the arrow. Matches the current recipes'
+    // processTime. If future recipes use different times, the wrapper can
+    // override the visual via its own drawInfo overlay.
+    private static final int ARROW_TICKS = 200;
+
     private final IDrawable background;
     private final IDrawable icon;
     private final IDrawableAnimated arrow;
@@ -34,7 +39,7 @@ public class KRDACategory implements IRecipeCategory<KRDAWrapper> {
         IDrawableStatic arrowStatic = guiHelper.createDrawable(
             TEXTURE, 24, 152, 24, 17);
         this.arrow = guiHelper.createAnimatedDrawable(arrowStatic,
-            TileMachineKRDA.PROCESS_TIME,
+            ARROW_TICKS,
             IDrawableAnimated.StartDirection.LEFT, false);
     }
 
@@ -46,24 +51,17 @@ public class KRDACategory implements IRecipeCategory<KRDAWrapper> {
 
     @Override
     public void drawExtras(Minecraft mc) {
+        // Arrow only. Per-recipe stats (RF/t, time, mB) are drawn by KRDAWrapper.drawInfo
+        // so each displayed recipe shows its own values.
         arrow.draw(mc, 56, 26);
-        mc.fontRenderer.drawStringWithShadow(
-            TileMachineKRDA.RF_PER_TICK + " Bio-E/t",
-            118, 30, 0xFFCC4444);
-        mc.fontRenderer.drawStringWithShadow(
-            TileMachineKRDA.PROCESS_TIME / 20 + "s",
-            118, 42, 0xFF888888);
-        mc.fontRenderer.drawStringWithShadow(
-            TileMachineKRDA.FLUID_PER_CYCLE + "mB",
-            118, 54, 0xFF8B6914);
     }
 
     @Override
     public void setRecipe(IRecipeLayout layout, KRDAWrapper wrapper,
                            IIngredients ingredients) {
         IGuiItemStackGroup items = layout.getItemStacks();
-        items.init(0, true, 6, 26);    // signalum input
-        items.init(1, false, 90, 26);   // signalhee output
+        items.init(0, true, 6, 26);    // input
+        items.init(1, false, 90, 26);   // output
         items.set(ingredients);
 
         IGuiFluidStackGroup fluids = layout.getFluidStacks();
