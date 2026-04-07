@@ -10,14 +10,19 @@ recipes.addShaped("nexus_alloy_smelter", <enderio:block_alloy_smelter>,
      [<minecraft:furnace>, <enderio:item_material>, <minecraft:furnace>],
      [<ore:gearInvar>, <immersiveengineering:wooden_device0:1>, <ore:gearInvar>]]);
 
-// === STEEL — Coal Coke + Iron + Wall Dust dans l'Alloy Smelter ===
-// 1. Bloquer les recettes steel par defaut des autres mods
+// === STEEL — Chaine Iron Insule ===
+// 1. Crafting table : 1 iron + 8 wall_dust autour -> 1 Iron Insule
+recipes.addShaped("nexus_iron_insule", <nexusabsolu:iron_insule>,
+    [[<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>],
+     [<nexusabsolu:wall_dust>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>],
+     [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]]);
+
+// 2. Bloquer les recettes steel par defaut des autres mods
 mods.enderio.AlloySmelter.removeRecipe(<mekanism:ingot:4>);       // Mekanism steel ingot
 mods.enderio.AlloySmelter.removeRecipe(<bigreactors:duststeel>);  // Big Reactors steel dust
 
-// 2. NOTRE recette est definie dans config/enderio/recipes/user/user_recipes.xml
-//    (XML natif EnderIO - necessaire pour que la slot validation accepte wall_dust,
-//    car CT addRecipe ne met pas a jour le cache de validation des slots EnderIO)
+// 3. NOTRE recette est definie dans config/enderio/recipes/user/user_recipes.xml
+//    Iron Insule + Coal Coke -> Steel (2 inputs, pas de conflit de slots)
 
 // === SAG MILL ===
 recipes.remove(<enderio:block_sag_mill>);

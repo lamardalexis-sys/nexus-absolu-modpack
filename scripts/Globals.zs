@@ -13,6 +13,8 @@ import mods.jei.JEI.removeAndHide as rh;
 // wall_dust needs an oredict tag so EnderIO Alloy Smelter accepts it in input slots
 // (EnderIO filters slot inputs by their valid recipe ingredients - no oredict = rejected)
 <ore:dustWall>.add(<nexusabsolu:wall_dust>);
+// iron_insule = ingot type for EnderIO slot validation
+<ore:ingotIronInsule>.add(<nexusabsolu:iron_insule>);
 
 // Remove old recipe and add new shaped recipe
 global remake as function(string, IItemStack, IIngredient[][])void =

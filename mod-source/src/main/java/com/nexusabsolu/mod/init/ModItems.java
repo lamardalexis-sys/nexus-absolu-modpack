@@ -97,6 +97,7 @@ public class ModItems {
     public static final Item VOSSIUM_III_INGOT = new ItemBase("vossium_iii_ingot");
     public static final Item VOSSIUM_IV_INGOT = new ItemBase("vossium_iv_ingot");
     public static final Item SIGNALHEE_INGOT = new ItemBase("signalhee_ingot");
+    public static final Item IRON_INSULE = new ItemBase("iron_insule");
 
     // === COMPOSES ENERGETIQUES (A-E) ===
     public static final Item COMPOSE_A = new ItemCompose("compose_a", "A", 25);
