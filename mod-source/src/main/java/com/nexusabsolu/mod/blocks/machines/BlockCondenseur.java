@@ -68,7 +68,16 @@ public class BlockCondenseur extends Block implements IHasModel {
         return true;
     }
 
-    // Try all 4 orientations of the 2x2x2 structure
+    // Try all 4 orientations of the 2x2x2 structure.
+    // Spatial layout (relative to master at pos):
+    //   POS 0 = master                  pos
+    //   POS 1 = nexus wall              pos + (dx, 0, 0)
+    //   POS 2 = nexus wall              pos + (0, 0, dz)
+    //   POS 3 = redstone block          pos + (dx, 0, dz)   (diagonal from master)
+    //   POS 4 = glass                   pos + (0, 1, 0)     (above master)
+    //   POS 5 = glass                   pos + (dx, 1, 0)
+    //   POS 6 = glass                   pos + (0, 1, dz)
+    //   POS 7 = nexus wall (top)        pos + (dx, 1, dz)   (above redstone)
     public boolean tryFormMultiblock(World world, BlockPos pos) {
         int[][] directions = {
             {1, 1},   // +X +Z
@@ -81,34 +90,25 @@ public class BlockCondenseur extends Block implements IHasModel {
             int dx = dir[0];
             int dz = dir[1];
 
-            BlockPos p1 = pos.add(dx, 0, 0);
-            BlockPos p2 = pos.add(0, 0, dz);
-            BlockPos p3 = pos.add(dx, 0, dz);
-            BlockPos t0 = pos.add(0, 1, 0);
-            BlockPos t1 = pos.add(dx, 1, 0);
-            BlockPos t2 = pos.add(0, 1, dz);
-            BlockPos t3 = pos.add(dx, 1, dz);
+            BlockPos b1 = pos.add(dx, 0, 0);   // POS 1
+            BlockPos b2 = pos.add(0, 0, dz);   // POS 2
+            BlockPos b3 = pos.add(dx, 0, dz);  // POS 3
+            BlockPos t0 = pos.add(0, 1, 0);    // POS 4
+            BlockPos t1 = pos.add(dx, 1, 0);   // POS 5
+            BlockPos t2 = pos.add(0, 1, dz);   // POS 6
+            BlockPos t3 = pos.add(dx, 1, dz);  // POS 7
 
-            // Bottom: 2x Nexus Wall + 1x Redstone Block (energy input)
-            int walls = 0; int redstone = 0;
-            BlockPos[] bottoms = {p1, p2, p3};
-            for (BlockPos bp : bottoms) {
-                if (isNexusWall(world, bp)) walls++;
-                else if (isRedstone(world, bp)) redstone++;
-            }
-            if (walls != 2 || redstone != 1) continue;
+            // Strict spatial validation (exact shape required)
+            if (!isNexusWall(world, b1)) continue;
+            if (!isNexusWall(world, b2)) continue;
+            if (!isRedstone(world, b3)) continue;
+            if (!isGlass(world, t0))    continue;
+            if (!isGlass(world, t1))    continue;
+            if (!isGlass(world, t2))    continue;
+            if (!isNexusWall(world, t3)) continue;
 
-            // Top: 3x Glass + 1x Nexus Wall
-            int glass = 0; int wall = 0;
-            BlockPos[] tops = {t0, t1, t2, t3};
-            for (BlockPos tp : tops) {
-                if (isGlass(world, tp)) glass++;
-                else if (isNexusWall(world, tp)) wall++;
-            }
-            if (glass != 3 || wall != 1) continue;
-
-            // VALID! Form the multiblock
-            formMultiblock(world, pos, dx, dz, p1, p2, p3, t0, t1, t2, t3);
+            // VALID! Form the multiblock with deterministic spatial positions
+            formMultiblock(world, pos, dx, dz, b1, b2, b3, t0, t1, t2, t3);
             return true;
         }
         return false;
@@ -127,38 +127,24 @@ public class BlockCondenseur extends Block implements IHasModel {
 
         Block formed = ModBlocks.CONDENSEUR_FORMED;
 
-        // Position 0 = master (condenseur location)
+        // SPATIAL POSITION ASSIGNMENT (deterministic, see tryFormMultiblock comment for layout)
+        // Each (block, POS) pair is fixed by spatial role, not by block type ordering.
         world.setBlockState(master, formed.getDefaultState()
-            .withProperty(BlockCondenseurFormed.POSITION, 0), 2);
-
-        // Bottom slaves: position 3 = redstone (energy), 1-2 = nexus wall
-        BlockPos[] bots = {b1, b2, b3};
-        int wallIdx = 1;
-        for (BlockPos bp : bots) {
-            if (isRedstone(world, bp)) {
-                world.setBlockState(bp, formed.getDefaultState()
-                    .withProperty(BlockCondenseurFormed.POSITION, 3), 2);
-            } else {
-                world.setBlockState(bp, formed.getDefaultState()
-                    .withProperty(BlockCondenseurFormed.POSITION, wallIdx), 2);
-                wallIdx++;
-            }
-        }
-
-        // Top layer: positions 4,5,6 = glass, 7 = nexus wall
-        BlockPos[] topBlocks = {t0, t1, t2, t3};
-        int glassIdx = 4;
-        for (int i = 0; i < 4; i++) {
-            BlockPos tp = topBlocks[i];
-            if (isGlass(world, tp)) {
-                world.setBlockState(tp, formed.getDefaultState()
-                    .withProperty(BlockCondenseurFormed.POSITION, glassIdx), 2);
-                glassIdx++;
-            } else {
-                world.setBlockState(tp, formed.getDefaultState()
-                    .withProperty(BlockCondenseurFormed.POSITION, 7), 2);
-            }
-        }
+            .withProperty(BlockCondenseurFormed.POSITION, 0), 2);  // master
+        world.setBlockState(b1, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 1), 2);  // wall +X
+        world.setBlockState(b2, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 2), 2);  // wall +Z
+        world.setBlockState(b3, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 3), 2);  // redstone diagonal
+        world.setBlockState(t0, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 4), 2);  // glass above master
+        world.setBlockState(t1, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 5), 2);  // glass above b1
+        world.setBlockState(t2, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 6), 2);  // glass above b2
+        world.setBlockState(t3, formed.getDefaultState()
+            .withProperty(BlockCondenseurFormed.POSITION, 7), 2);  // wall_top above redstone
 
         // Restore TileEntity data to the master position
         if (savedData != null) {
