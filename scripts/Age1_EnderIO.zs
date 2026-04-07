@@ -17,12 +17,10 @@ recipes.addShaped("nexus_iron_insule", <nexusabsolu:iron_insule>,
      [<nexusabsolu:wall_dust>, <minecraft:iron_ingot>, <nexusabsolu:wall_dust>],
      [<nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>, <nexusabsolu:wall_dust>]]);
 
-// 2. Bloquer les recettes steel par defaut des autres mods
-mods.enderio.AlloySmelter.removeRecipe(<mekanism:ingot:4>);       // Mekanism steel ingot
-mods.enderio.AlloySmelter.removeRecipe(<bigreactors:duststeel>);  // Big Reactors steel dust
-
-// 3. NOTRE recette est definie dans config/enderio/recipes/user/user_recipes.xml
+// 2. NOTRE recette est definie dans config/enderio/recipes/user/user_recipes.xml
 //    Iron Insule + Coal Coke -> Steel (2 inputs, pas de conflit de slots)
+//    Le blocage des recettes par defaut se fait via XML EnderIO disabled="true"
+//    car CT removeRecipe ne fonctionne pas (recettes chargees apres CT)
 
 // === SAG MILL ===
 recipes.remove(<enderio:block_sag_mill>);
