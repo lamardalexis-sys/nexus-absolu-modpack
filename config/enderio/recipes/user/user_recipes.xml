@@ -20,28 +20,10 @@
     </alloying>
   </recipe>
 
-  <!-- Disable default steel alloy recipe variants from other mods -->
-  <!-- Brute force: try all common name patterns since we can't see the actual name -->
+  <!-- Disable default EnderIO steel recipes found in alloying_modded.pdf -->
+  <!-- EXACT names extracted from EnderIO's embedded recipe dump: -->
   <recipe name="Alloy: Steel" disabled="true" />
-  <recipe name="Steel" disabled="true" />
-  <recipe name="Alloy: Steel (Coke)" disabled="true" />
-  <recipe name="Alloy: Steel (Coal)" disabled="true" />
-  <recipe name="Alloy: Steel (Charcoal)" disabled="true" />
-  <recipe name="Steel from Coal" disabled="true" />
-  <recipe name="Steel from Coke" disabled="true" />
-  <recipe name="Steel from Charcoal" disabled="true" />
-  <recipe name="Steel Ingot" disabled="true" />
-  <recipe name="Steel Dust" disabled="true" />
-  <recipe name="Alloying: Steel" disabled="true" />
-  <recipe name="Smelting: Steel" disabled="true" />
-  <recipe name="ingotSteel" disabled="true" />
-  <recipe name="dustSteel" disabled="true" />
-  <recipe name="Steel Alloy" disabled="true" />
-  <recipe name="Iron and Coal Coke" disabled="true" />
-  <recipe name="Steel Production" disabled="true" />
-  <recipe name="thermalfoundation:material:160" disabled="true" />
-  <recipe name="immersiveengineering:metal:8" disabled="true" />
-  <recipe name="bigreactors:duststeel" disabled="true" />
+  <recipe name="Alloy: Steel (Oredict)" disabled="true" />
 
 </enderio:recipes>
 
