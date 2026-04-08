@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.FMLLog;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * Reflection-based bridge to Compact Machines 3 internals.
@@ -40,7 +41,8 @@ public class CM3Bridge {
     private static Class<?> classStructTools;    // StructureTools
     private static Class<?> classTEMachine;      // TileEntityMachine
 
-    private static Method methodGetInstance;     // WSDM.getInstance()
+    private static Field fieldWSDMInstance;      // public static WSDM.INSTANCE (primary)
+    private static Method methodGetInstance;     // WSDM.getInstance() (fallback, rare)
     private static Method methodAddPos;          // WSDM.addMachinePosition(int, BlockPos, int)
     private static Method methodGetRoomPos;      // WSDM.getMachineRoomPosition(int)
     private static Method methodGetIdForPos;     // StructureTools.getIdForPos(World, BlockPos) OR (BlockPos)
@@ -88,21 +90,34 @@ public class CM3Bridge {
                 "org.dave.compactmachines3.tile.TileEntityMachine");
             FMLLog.log.info("[CM3Bridge]   -> found: " + classTEMachine.getName());
 
-            FMLLog.log.info("[CM3Bridge] Looking up WSDM.getInstance()...");
-            // Try multiple signatures for getInstance
+            // --- WSDM instance access: PRIMARY = static INSTANCE field ---
+            FMLLog.log.info("[CM3Bridge] Looking for WSDM static INSTANCE field...");
+            for (Field f : classWSDM.getDeclaredFields()) {
+                int mod = f.getModifiers();
+                FMLLog.log.info("[CM3Bridge]   field: " + f.getName()
+                    + " static=" + Modifier.isStatic(mod)
+                    + " type=" + f.getType().getSimpleName());
+                if (Modifier.isStatic(mod)
+                    && classWSDM.isAssignableFrom(f.getType())) {
+                    f.setAccessible(true);
+                    fieldWSDMInstance = f;
+                    FMLLog.log.info("[CM3Bridge]   -> USING static field: " + f.getName());
+                    break;
+                }
+            }
+
+            // --- WSDM instance access: FALLBACK = getInstance() method ---
+            FMLLog.log.info("[CM3Bridge] Looking for WSDM.getInstance() method (fallback)...");
             for (Method m : classWSDM.getMethods()) {
-                if (m.getName().equals("getInstance")) {
+                if (m.getName().equals("getInstance")
+                    && Modifier.isStatic(m.getModifiers())) {
                     methodGetInstance = m;
-                    FMLLog.log.info("[CM3Bridge]   -> found: " + m
-                        + " (params=" + m.getParameterCount() + ")");
+                    FMLLog.log.info("[CM3Bridge]   -> found: " + m);
                     break;
                 }
             }
             if (methodGetInstance == null) {
-                lastFailureReason = "WorldSavedDataMachines.getInstance() introuvable";
-                FMLLog.log.warn("[CM3Bridge] FAIL: " + lastFailureReason);
-                initSuccess = false;
-                return;
+                FMLLog.log.info("[CM3Bridge]   (no getInstance method - will use INSTANCE field)");
             }
 
             FMLLog.log.info("[CM3Bridge] Looking up WSDM.addMachinePosition(...)...");
@@ -135,7 +150,8 @@ public class CM3Bridge {
 
             FMLLog.log.info("[CM3Bridge] Looking up TileEntityMachine fields...");
             for (Field f : classTEMachine.getDeclaredFields()) {
-                FMLLog.log.info("[CM3Bridge]   field: " + f.getName() + " type=" + f.getType().getSimpleName());
+                FMLLog.log.info("[CM3Bridge]   field: " + f.getName()
+                    + " type=" + f.getType().getSimpleName());
                 if (f.getName().equals("id")) {
                     f.setAccessible(true);
                     fieldMachineId = f;
@@ -145,7 +161,7 @@ public class CM3Bridge {
                     fieldRoomPos = f;
                 }
             }
-            // Also check inherited public fields
+            // Also check inherited fields
             if (fieldMachineId == null) {
                 for (Field f : classTEMachine.getFields()) {
                     if (f.getName().equals("id")) {
@@ -159,6 +175,7 @@ public class CM3Bridge {
             FMLLog.log.info("[CM3Bridge] Summary: wsdm=" + (classWSDM != null)
                 + " tools=" + (classStructTools != null)
                 + " te=" + (classTEMachine != null)
+                + " INSTANCE_field=" + (fieldWSDMInstance != null)
                 + " getInstance=" + (methodGetInstance != null)
                 + " addPos=" + (methodAddPos != null)
                 + " getRoomPos=" + (methodGetRoomPos != null)
@@ -166,11 +183,15 @@ public class CM3Bridge {
                 + " fId=" + (fieldMachineId != null)
                 + " fRoomPos=" + (fieldRoomPos != null));
 
-            // Minimum requirements
-            if (methodGetIdForPos == null) {
+            // Minimum requirements for the bridge to function
+            if (fieldWSDMInstance == null && methodGetInstance == null) {
+                lastFailureReason = "Aucun moyen d'acceder a WSDM (ni INSTANCE ni getInstance)";
+            } else if (methodGetIdForPos == null) {
                 lastFailureReason = "StructureTools.getIdForPos() introuvable";
             } else if (methodAddPos == null) {
                 lastFailureReason = "WSDM.addMachinePosition() introuvable";
+            } else if (methodGetRoomPos == null) {
+                lastFailureReason = "WSDM.getMachineRoomPosition() introuvable";
             } else if (fieldMachineId == null) {
                 lastFailureReason = "TileEntityMachine.id field introuvable";
             } else if (fieldRoomPos == null) {
@@ -238,22 +259,56 @@ public class CM3Bridge {
         return -1;
     }
 
-    /** Invoke getInstance(), trying with/without a World parameter. */
+    /** Get the WSDM singleton instance. Prefers the static INSTANCE field,
+     *  falls back to getInstance() method, and as last resort force-loads
+     *  DIM 144 to trigger constructor population of INSTANCE. */
     private static Object invokeGetInstance() {
         try {
-            int paramCount = methodGetInstance.getParameterCount();
-            if (paramCount == 0) {
-                return methodGetInstance.invoke(null);
-            } else if (paramCount == 1) {
-                // Probably needs a World - use overworld
+            // Primary: read the static INSTANCE field
+            if (fieldWSDMInstance != null) {
+                Object inst = fieldWSDMInstance.get(null);
+                if (inst != null) {
+                    return inst;
+                }
+                FMLLog.log.info("[CM3Bridge] INSTANCE field is null - force-loading DIM 144");
+                // Force-load DIM 144 so its WorldSavedData constructor runs
                 net.minecraft.server.MinecraftServer server =
                     net.minecraftforge.fml.common.FMLCommonHandler.instance().getMinecraftServerInstance();
-                if (server == null) return null;
-                World overworld = server.getWorld(0);
-                return methodGetInstance.invoke(null, overworld);
+                if (server != null) {
+                    try {
+                        net.minecraftforge.common.DimensionManager.initDimension(144);
+                    } catch (Throwable t) {
+                        FMLLog.log.warn("[CM3Bridge] initDimension(144) threw: " + t.getMessage());
+                    }
+                    // Also try touching the dim144 world's map storage
+                    World dim144 = server.getWorld(144);
+                    if (dim144 != null) {
+                        dim144.getMapStorage();  // ensures storage is loaded
+                    }
+                }
+                inst = fieldWSDMInstance.get(null);
+                if (inst != null) {
+                    FMLLog.log.info("[CM3Bridge] INSTANCE populated after force-load");
+                    return inst;
+                }
+                FMLLog.log.warn("[CM3Bridge] INSTANCE still null after force-load");
+            }
+
+            // Fallback: call getInstance() if it exists
+            if (methodGetInstance != null) {
+                int paramCount = methodGetInstance.getParameterCount();
+                if (paramCount == 0) {
+                    return methodGetInstance.invoke(null);
+                } else if (paramCount == 1) {
+                    net.minecraft.server.MinecraftServer server =
+                        net.minecraftforge.fml.common.FMLCommonHandler.instance().getMinecraftServerInstance();
+                    if (server == null) return null;
+                    World overworld = server.getWorld(0);
+                    return methodGetInstance.invoke(null, overworld);
+                }
             }
         } catch (Throwable t) {
-            lastFailureReason = "getInstance exception: " + t.getClass().getSimpleName() + " " + t.getMessage();
+            lastFailureReason = "invokeGetInstance exception: " + t.getClass().getSimpleName() + " " + t.getMessage();
             FMLLog.log.warn("[CM3Bridge] " + lastFailureReason, t);
         }
         return null;
