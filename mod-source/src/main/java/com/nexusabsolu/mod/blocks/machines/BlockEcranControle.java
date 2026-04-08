@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -59,6 +60,12 @@ public class BlockEcranControle extends Block implements IHasModel {
             if (te instanceof TilePortalVoss) {
                 TilePortalVoss portal = (TilePortalVoss) te;
                 portal.checkStructure();
+
+                // Is the player holding a Cle de Liberte (inactive)?
+                ItemStack held = player.getHeldItem(hand);
+                boolean holdingKey = !held.isEmpty()
+                    && held.getItem() == ModItems.CLE_LIBERTE;
+
                 if (!portal.isStructureFormed()) {
                     player.sendMessage(new TextComponentString(
                         "\u00a7c[Portail Voss] Structure incomplete."));
@@ -72,10 +79,33 @@ public class BlockEcranControle extends Block implements IHasModel {
                     player.sendMessage(new TextComponentString(
                         "\u00a7c[Portail Voss] Diarrhee insuffisante ("
                         + portal.getFluidStored() + "/10,000 mB)"));
-                } else {
+                } else if (!holdingKey) {
+                    // Everything is ready but no key in hand - tell the player
                     player.sendMessage(new TextComponentString(
-                        "\u00a7d[Portail Voss] \u00a7lPortail pret. \u00a77Activation..."));
+                        "\u00a7d[Portail Voss] \u00a7lLe portail est stable."));
+                    player.sendMessage(new TextComponentString(
+                        "\u00a77Tiens une \u00a7dCle de Liberte\u00a77 en main et clique a nouveau."));
+                } else {
+                    // ALL GOOD: drain the portal and transform the key
                     portal.activate(player);
+
+                    // Replace 1 inactive key with 1 activated key
+                    held.shrink(1);
+                    ItemStack activated = new ItemStack(ModItems.CLE_LIBERTE_ACTIVEE);
+                    if (held.isEmpty()) {
+                        player.setHeldItem(hand, activated);
+                    } else {
+                        // Inactive key was stacked (shouldn't happen since maxStackSize=1)
+                        // but handle gracefully: add to inventory or drop
+                        if (!player.inventory.addItemStackToInventory(activated)) {
+                            player.dropItem(activated, false);
+                        }
+                    }
+
+                    player.sendMessage(new TextComponentString(
+                        "\u00a7d\u00a7l[Portail Voss] \u00a7dLa cle resonne."));
+                    player.sendMessage(new TextComponentString(
+                        "\u00a77Utilise-la (clic droit) pour t'echapper."));
                 }
             }
         }

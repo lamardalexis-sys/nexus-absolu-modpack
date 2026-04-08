@@ -1,6 +1,8 @@
 package com.nexusabsolu.mod.init;
 
 import com.nexusabsolu.mod.items.ItemBase;
+import com.nexusabsolu.mod.items.ItemCleLiberte;
+import com.nexusabsolu.mod.items.ItemCleLiberteActivee;
 import com.nexusabsolu.mod.items.ItemCompose;
 import com.nexusabsolu.mod.items.ItemGrit;
 import com.nexusabsolu.mod.items.ItemPioche;
@@ -168,6 +170,10 @@ public class ModItems {
         "La perfection n'est pas un etat. C'est un mouvement.",
         TextFormatting.WHITE, EnumParticleTypes.FIREWORKS_SPARK
     );
+
+    // === PORTAIL VOSS - CLE DE LIBERTE (Age 1 -> Age 2) ===
+    public static final Item CLE_LIBERTE = new ItemCleLiberte();
+    public static final Item CLE_LIBERTE_ACTIVEE = new ItemCleLiberteActivee();
 
     // === THE NEXUS ABSOLU ===
     public static final Item NEXUS_ABSOLU = new ItemNexusAbsolu();
