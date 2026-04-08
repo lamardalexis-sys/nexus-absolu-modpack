@@ -60,9 +60,24 @@ public class TileFluidInput extends TileEntity {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T> T getCapability(Capability<T> cap, EnumFacing facing) {
-        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) tank;
+        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
         return super.getCapability(cap, facing);
+    }
+
+    /** Manual fill API - bypasses the Forge capability dance. Used by
+     *  BlockFluidInput when FluidUtil.interactWithFluidHandler fails. */
+    public int fillTank(net.minecraftforge.fluids.FluidStack stack, boolean doFill) {
+        if (stack == null) return 0;
+        int filled = tank.fill(stack, doFill);
+        if (doFill && filled > 0) {
+            markDirty();
+            if (world != null && !world.isRemote) {
+                net.minecraft.block.state.IBlockState state = world.getBlockState(pos);
+                world.notifyBlockUpdate(pos, state, state, 3);
+            }
+        }
+        return filled;
     }
 }
