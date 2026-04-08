@@ -50,6 +50,14 @@ public class CM3Bridge {
 
     private static boolean initAttempted = false;
     private static boolean initSuccess = false;
+    private static String lastFailureReason = null;
+
+    /** Returns the last diagnostic message (why init failed, or why the
+     *  last operation failed). Null if everything is fine. */
+    public static String getLastFailureReason() {
+        if (!initAttempted) init();
+        return lastFailureReason;
+    }
 
     /**
      * Returns true if the CM3 bridge has been successfully initialized,
@@ -63,64 +71,125 @@ public class CM3Bridge {
     /** Lazy initialization of all reflection handles. */
     private static void init() {
         initAttempted = true;
+        FMLLog.log.info("[CM3Bridge] === Initializing CM3 reflection bridge ===");
         try {
+            FMLLog.log.info("[CM3Bridge] Looking up WorldSavedDataMachines class...");
             classWSDM = Class.forName(
                 "org.dave.compactmachines3.world.WorldSavedDataMachines");
+            FMLLog.log.info("[CM3Bridge]   -> found: " + classWSDM.getName());
+
+            FMLLog.log.info("[CM3Bridge] Looking up StructureTools class...");
             classStructTools = Class.forName(
                 "org.dave.compactmachines3.world.tools.StructureTools");
+            FMLLog.log.info("[CM3Bridge]   -> found: " + classStructTools.getName());
+
+            FMLLog.log.info("[CM3Bridge] Looking up TileEntityMachine class...");
             classTEMachine = Class.forName(
                 "org.dave.compactmachines3.tile.TileEntityMachine");
+            FMLLog.log.info("[CM3Bridge]   -> found: " + classTEMachine.getName());
 
-            methodGetInstance = classWSDM.getMethod("getInstance");
-            methodAddPos = classWSDM.getMethod("addMachinePosition",
-                int.class, BlockPos.class, int.class);
-            methodGetRoomPos = classWSDM.getMethod("getMachineRoomPosition",
-                int.class);
+            FMLLog.log.info("[CM3Bridge] Looking up WSDM.getInstance()...");
+            // Try multiple signatures for getInstance
+            for (Method m : classWSDM.getMethods()) {
+                if (m.getName().equals("getInstance")) {
+                    methodGetInstance = m;
+                    FMLLog.log.info("[CM3Bridge]   -> found: " + m
+                        + " (params=" + m.getParameterCount() + ")");
+                    break;
+                }
+            }
+            if (methodGetInstance == null) {
+                lastFailureReason = "WorldSavedDataMachines.getInstance() introuvable";
+                FMLLog.log.warn("[CM3Bridge] FAIL: " + lastFailureReason);
+                initSuccess = false;
+                return;
+            }
 
-            // StructureTools.getIdForPos has multiple possible signatures
-            // across CM3 versions - try common ones
-            Method idMethod = null;
+            FMLLog.log.info("[CM3Bridge] Looking up WSDM.addMachinePosition(...)...");
+            for (Method m : classWSDM.getMethods()) {
+                if (m.getName().equals("addMachinePosition")) {
+                    methodAddPos = m;
+                    FMLLog.log.info("[CM3Bridge]   -> found: " + m);
+                    break;
+                }
+            }
+
+            FMLLog.log.info("[CM3Bridge] Looking up WSDM.getMachineRoomPosition(...)...");
+            for (Method m : classWSDM.getMethods()) {
+                if (m.getName().equals("getMachineRoomPosition")) {
+                    methodGetRoomPos = m;
+                    FMLLog.log.info("[CM3Bridge]   -> found: " + m);
+                    break;
+                }
+            }
+
+            FMLLog.log.info("[CM3Bridge] Looking up StructureTools.getIdForPos(...)...");
             for (Method m : classStructTools.getMethods()) {
                 if (m.getName().equals("getIdForPos")) {
-                    idMethod = m;
+                    methodGetIdForPos = m;
+                    FMLLog.log.info("[CM3Bridge]   -> found: " + m
+                        + " (params=" + m.getParameterCount() + ")");
                     break;
                 }
             }
-            methodGetIdForPos = idMethod;
 
-            fieldMachineId = classTEMachine.getField("id");
-            fieldMachineId.setAccessible(true);
-
-            // roomPos is private, access via declared fields
-            Field rp = null;
+            FMLLog.log.info("[CM3Bridge] Looking up TileEntityMachine fields...");
             for (Field f : classTEMachine.getDeclaredFields()) {
+                FMLLog.log.info("[CM3Bridge]   field: " + f.getName() + " type=" + f.getType().getSimpleName());
+                if (f.getName().equals("id")) {
+                    f.setAccessible(true);
+                    fieldMachineId = f;
+                }
                 if (f.getName().equals("roomPos")) {
-                    rp = f;
-                    break;
+                    f.setAccessible(true);
+                    fieldRoomPos = f;
                 }
             }
-            if (rp != null) {
-                rp.setAccessible(true);
-                fieldRoomPos = rp;
+            // Also check inherited public fields
+            if (fieldMachineId == null) {
+                for (Field f : classTEMachine.getFields()) {
+                    if (f.getName().equals("id")) {
+                        f.setAccessible(true);
+                        fieldMachineId = f;
+                        break;
+                    }
+                }
             }
 
-            initSuccess = (methodGetIdForPos != null && fieldRoomPos != null);
+            FMLLog.log.info("[CM3Bridge] Summary: wsdm=" + (classWSDM != null)
+                + " tools=" + (classStructTools != null)
+                + " te=" + (classTEMachine != null)
+                + " getInstance=" + (methodGetInstance != null)
+                + " addPos=" + (methodAddPos != null)
+                + " getRoomPos=" + (methodGetRoomPos != null)
+                + " getIdForPos=" + (methodGetIdForPos != null)
+                + " fId=" + (fieldMachineId != null)
+                + " fRoomPos=" + (fieldRoomPos != null));
 
-            if (initSuccess) {
-                FMLLog.log.info("[CM3Bridge] Successfully initialized. "
-                    + "Portal Voss teleport can relink CM rooms.");
+            // Minimum requirements
+            if (methodGetIdForPos == null) {
+                lastFailureReason = "StructureTools.getIdForPos() introuvable";
+            } else if (methodAddPos == null) {
+                lastFailureReason = "WSDM.addMachinePosition() introuvable";
+            } else if (fieldMachineId == null) {
+                lastFailureReason = "TileEntityMachine.id field introuvable";
+            } else if (fieldRoomPos == null) {
+                lastFailureReason = "TileEntityMachine.roomPos field introuvable";
             } else {
-                FMLLog.log.warn("[CM3Bridge] Partial init - missing "
-                    + "getIdForPos=" + (methodGetIdForPos != null)
-                    + " roomPos=" + (fieldRoomPos != null));
+                initSuccess = true;
+                lastFailureReason = null;
+                FMLLog.log.info("[CM3Bridge] === INITIALIZED SUCCESSFULLY ===");
+                return;
             }
+            FMLLog.log.warn("[CM3Bridge] FAIL: " + lastFailureReason);
+
         } catch (ClassNotFoundException e) {
-            FMLLog.log.warn("[CM3Bridge] Compact Machines 3 classes not found. "
-                + "CM room relinking will be disabled.");
+            lastFailureReason = "Compact Machines 3 absent: " + e.getMessage();
+            FMLLog.log.warn("[CM3Bridge] FAIL: " + lastFailureReason);
             initSuccess = false;
-        } catch (NoSuchMethodException | NoSuchFieldException e) {
-            FMLLog.log.warn("[CM3Bridge] CM3 API signature mismatch: "
-                + e.getMessage() + ". CM room relinking will be disabled.");
+        } catch (Throwable t) {
+            lastFailureReason = "Erreur init: " + t.getClass().getSimpleName() + " " + t.getMessage();
+            FMLLog.log.warn("[CM3Bridge] FAIL: " + lastFailureReason, t);
             initSuccess = false;
         }
     }
@@ -131,22 +200,63 @@ public class CM3Bridge {
      * unavailable.
      */
     public static int getIdForPos(World world, BlockPos pos) {
-        if (!isAvailable()) return -1;
+        if (!isAvailable()) {
+            FMLLog.log.info("[CM3Bridge] getIdForPos: bridge unavailable (reason: " + lastFailureReason + ")");
+            return -1;
+        }
         try {
-            // Try (World, BlockPos) signature first, then (BlockPos)
+            int paramCount = methodGetIdForPos.getParameterCount();
+            Class<?>[] paramTypes = methodGetIdForPos.getParameterTypes();
+            FMLLog.log.info("[CM3Bridge] getIdForPos: calling " + methodGetIdForPos
+                + " with pos=" + pos + " worldDim=" + world.provider.getDimension());
+
             Object result;
-            if (methodGetIdForPos.getParameterCount() == 2) {
-                result = methodGetIdForPos.invoke(null, world, pos);
-            } else {
+            if (paramCount == 2) {
+                // Likely (World, BlockPos) or (BlockPos, World)
+                if (paramTypes[0].isAssignableFrom(World.class)) {
+                    result = methodGetIdForPos.invoke(null, world, pos);
+                } else {
+                    result = methodGetIdForPos.invoke(null, pos, world);
+                }
+            } else if (paramCount == 1) {
+                // Just (BlockPos)
                 result = methodGetIdForPos.invoke(null, pos);
+            } else {
+                lastFailureReason = "getIdForPos a " + paramCount + " parametres (attendu 1 ou 2)";
+                FMLLog.log.warn("[CM3Bridge] " + lastFailureReason);
+                return -1;
             }
+            FMLLog.log.info("[CM3Bridge] getIdForPos: returned " + result);
             if (result instanceof Integer) {
                 return (Integer) result;
             }
-        } catch (Exception e) {
-            FMLLog.log.warn("[CM3Bridge] getIdForPos failed: " + e.getMessage());
+            lastFailureReason = "getIdForPos a retourne " + (result == null ? "null" : result.getClass().getSimpleName());
+        } catch (Throwable t) {
+            lastFailureReason = "getIdForPos exception: " + t.getClass().getSimpleName() + " " + t.getMessage();
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason, t);
         }
         return -1;
+    }
+
+    /** Invoke getInstance(), trying with/without a World parameter. */
+    private static Object invokeGetInstance() {
+        try {
+            int paramCount = methodGetInstance.getParameterCount();
+            if (paramCount == 0) {
+                return methodGetInstance.invoke(null);
+            } else if (paramCount == 1) {
+                // Probably needs a World - use overworld
+                net.minecraft.server.MinecraftServer server =
+                    net.minecraftforge.fml.common.FMLCommonHandler.instance().getMinecraftServerInstance();
+                if (server == null) return null;
+                World overworld = server.getWorld(0);
+                return methodGetInstance.invoke(null, overworld);
+            }
+        } catch (Throwable t) {
+            lastFailureReason = "getInstance exception: " + t.getClass().getSimpleName() + " " + t.getMessage();
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason, t);
+        }
+        return null;
     }
 
     /**
@@ -155,15 +265,26 @@ public class CM3Bridge {
      */
     public static BlockPos getRoomPosition(int roomId) {
         if (!isAvailable()) return null;
+        if (methodGetRoomPos == null) {
+            lastFailureReason = "getMachineRoomPosition indisponible";
+            return null;
+        }
         try {
-            Object wsdm = methodGetInstance.invoke(null);
-            if (wsdm == null) return null;
+            Object wsdm = invokeGetInstance();
+            if (wsdm == null) {
+                lastFailureReason = "WSDM.getInstance() a retourne null";
+                FMLLog.log.warn("[CM3Bridge] " + lastFailureReason);
+                return null;
+            }
             Object result = methodGetRoomPos.invoke(wsdm, roomId);
+            FMLLog.log.info("[CM3Bridge] getRoomPosition(" + roomId + ") = " + result);
             if (result instanceof BlockPos) {
                 return (BlockPos) result;
             }
-        } catch (Exception e) {
-            FMLLog.log.warn("[CM3Bridge] getRoomPosition failed: " + e.getMessage());
+            lastFailureReason = "getMachineRoomPosition a retourne " + (result == null ? "null" : result.getClass().getSimpleName());
+        } catch (Throwable t) {
+            lastFailureReason = "getRoomPosition exception: " + t.getClass().getSimpleName() + " " + t.getMessage();
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason, t);
         }
         return null;
     }
@@ -175,13 +296,22 @@ public class CM3Bridge {
      */
     public static boolean addMachinePosition(int roomId, BlockPos pos, int dimension) {
         if (!isAvailable()) return false;
+        if (methodAddPos == null) {
+            lastFailureReason = "addMachinePosition indisponible";
+            return false;
+        }
         try {
-            Object wsdm = methodGetInstance.invoke(null);
-            if (wsdm == null) return false;
+            Object wsdm = invokeGetInstance();
+            if (wsdm == null) {
+                lastFailureReason = "WSDM.getInstance() a retourne null (addMachinePosition)";
+                return false;
+            }
             methodAddPos.invoke(wsdm, roomId, pos, dimension);
+            FMLLog.log.info("[CM3Bridge] addMachinePosition(" + roomId + ", " + pos + ", dim=" + dimension + ") OK");
             return true;
-        } catch (Exception e) {
-            FMLLog.log.warn("[CM3Bridge] addMachinePosition failed: " + e.getMessage());
+        } catch (Throwable t) {
+            lastFailureReason = "addMachinePosition exception: " + t.getClass().getSimpleName() + " " + t.getMessage();
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason, t);
             return false;
         }
     }
@@ -238,44 +368,68 @@ public class CM3Bridge {
      */
     public static boolean placeLinkedMachine(World world, BlockPos pos,
                                               int size, int roomId) {
+        FMLLog.log.info("[CM3Bridge] placeLinkedMachine: roomId=" + roomId
+            + " pos=" + pos + " dim=" + world.provider.getDimension() + " size=" + size);
+
+        if (!isAvailable()) {
+            FMLLog.log.warn("[CM3Bridge] placeLinkedMachine: bridge unavailable");
+            return false;
+        }
+
         Block machineBlock = getMachineBlock();
+        FMLLog.log.info("[CM3Bridge]   machineBlock lookup: "
+            + (machineBlock == null ? "null" : machineBlock.getRegistryName()));
         if (machineBlock == null || machineBlock == net.minecraft.init.Blocks.AIR) {
-            FMLLog.log.warn("[CM3Bridge] compactmachines3:machine block not found");
+            lastFailureReason = "compactmachines3:machine block introuvable";
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason);
             return false;
         }
 
         // Look up the room's DIM144 coordinates before placing
         BlockPos roomPos = getRoomPosition(roomId);
         if (roomPos == null) {
-            FMLLog.log.warn("[CM3Bridge] Room " + roomId + " has no roomPos");
+            lastFailureReason = "Room " + roomId + " n'a pas de roomPos dans WSDM (reason=" + lastFailureReason + ")";
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason);
             return false;
         }
+        FMLLog.log.info("[CM3Bridge]   roomPos for id=" + roomId + ": " + roomPos);
 
         // Place the block with the appropriate meta for the size
         IBlockState state = machineBlock.getStateFromMeta(size);
+        FMLLog.log.info("[CM3Bridge]   placing " + machineBlock.getRegistryName()
+            + " meta=" + size + " at " + pos);
         world.setBlockState(pos, state, 3);
 
         // Grab the fresh TileEntity and link it to the existing room
         TileEntity te = world.getTileEntity(pos);
+        FMLLog.log.info("[CM3Bridge]   fresh TE: " + (te == null ? "null" : te.getClass().getName()));
         if (te == null) {
-            FMLLog.log.warn("[CM3Bridge] TileEntity not created at " + pos);
+            lastFailureReason = "TileEntity non cree apres setBlockState";
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason);
+            return false;
+        }
+        if (!classTEMachine.isInstance(te)) {
+            lastFailureReason = "TileEntity n'est pas une TileEntityMachine: " + te.getClass().getName();
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason);
             return false;
         }
 
         boolean idOk = setMachineId(te, roomId);
         boolean roomOk = setRoomPos(te, roomPos);
         boolean posOk = addMachinePosition(roomId, pos, world.provider.getDimension());
+        FMLLog.log.info("[CM3Bridge]   link results: id=" + idOk + " roomPos=" + roomOk + " addPos=" + posOk);
 
         te.markDirty();
         world.notifyBlockUpdate(pos, state, state, 3);
 
         if (idOk && roomOk && posOk) {
-            FMLLog.log.info("[CM3Bridge] Linked CM block at " + pos
+            FMLLog.log.info("[CM3Bridge] SUCCESS: Linked CM block at " + pos
                 + " (dim " + world.provider.getDimension() + ") to room " + roomId);
+            lastFailureReason = null;
             return true;
         } else {
-            FMLLog.log.warn("[CM3Bridge] Partial link failure: id=" + idOk
-                + " roomPos=" + roomOk + " pos=" + posOk);
+            lastFailureReason = "Link partiel: id=" + idOk + " roomPos=" + roomOk + " addPos=" + posOk;
+            FMLLog.log.warn("[CM3Bridge] " + lastFailureReason);
             return false;
         }
     }

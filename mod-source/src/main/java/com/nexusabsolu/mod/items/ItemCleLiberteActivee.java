@@ -91,10 +91,17 @@ public class ItemCleLiberteActivee extends ItemBase {
 
         // === STEP 1: Identify the CM room the player is currently in ===
         // Must happen BEFORE teleport, while the player is still inside DIM 144.
-        // Returns -1 if not in any room (e.g. player already escaped and is
-        // using the key in overworld - we'll skip the CM block placement).
+        net.minecraftforge.fml.common.FMLLog.log.info(
+            "[CleLiberte] Use: player=" + playerMP.getName()
+            + " dim=" + playerMP.dimension
+            + " pos=" + playerMP.getPosition());
+
         int currentRoomId = com.nexusabsolu.mod.compat.CM3Bridge.getIdForPos(
             world, player.getPosition());
+        String bridgeReason = com.nexusabsolu.mod.compat.CM3Bridge.getLastFailureReason();
+        net.minecraftforge.fml.common.FMLLog.log.info(
+            "[CleLiberte] getIdForPos returned " + currentRoomId
+            + " (bridge reason: " + bridgeReason + ")");
 
         // === STEP 2: Compute destination in overworld ===
         // Exactly 500 blocks from spawn, random angle
@@ -134,12 +141,26 @@ public class ItemCleLiberteActivee extends ItemBase {
         // Block goes at (destX+1, destY, destZ), player lands at (destX, destY, destZ)
         BlockPos cmBlockPos = new BlockPos(destX + 1, destY, destZ);
         boolean cmPlaced = false;
-        if (currentRoomId >= 0 && com.nexusabsolu.mod.compat.CM3Bridge.isAvailable()) {
+        String placeFailReason = null;
+
+        if (!com.nexusabsolu.mod.compat.CM3Bridge.isAvailable()) {
+            placeFailReason = "CM3Bridge indisponible: "
+                + com.nexusabsolu.mod.compat.CM3Bridge.getLastFailureReason();
+        } else if (currentRoomId < 0) {
+            placeFailReason = "Pas dans une salle CM (id=-1). Bridge reason: "
+                + com.nexusabsolu.mod.compat.CM3Bridge.getLastFailureReason();
+        } else {
             cmPlaced = com.nexusabsolu.mod.compat.CM3Bridge.placeLinkedMachine(
                 overworld, cmBlockPos,
                 com.nexusabsolu.mod.compat.CM3Bridge.SIZE_LARGE,
                 currentRoomId);
+            if (!cmPlaced) {
+                placeFailReason = com.nexusabsolu.mod.compat.CM3Bridge.getLastFailureReason();
+            }
         }
+        net.minecraftforge.fml.common.FMLLog.log.info(
+            "[CleLiberte] Placement result: placed=" + cmPlaced
+            + " reason=" + placeFailReason);
 
         // === STEP 5: Teleport the player ===
         final int fDestX = destX;
@@ -184,14 +205,15 @@ public class ItemCleLiberteActivee extends ItemBase {
             playerMP.sendMessage(new TextComponentString(
                 TextFormatting.LIGHT_PURPLE
                 + "Ta Compact Machine est a cote de toi."));
-        } else if (currentRoomId < 0) {
-            playerMP.sendMessage(new TextComponentString(
-                TextFormatting.YELLOW
-                + "(Tu n'etais pas dans une Compact Machine - aucune n'a ete placee.)"));
         } else {
             playerMP.sendMessage(new TextComponentString(
                 TextFormatting.RED
-                + "[Attention] Impossible de placer ta Compact Machine ici."));
+                + "[Attention] Pas de Compact Machine placee:"));
+            playerMP.sendMessage(new TextComponentString(
+                TextFormatting.GRAY + "  " + placeFailReason));
+            playerMP.sendMessage(new TextComponentString(
+                TextFormatting.DARK_GRAY
+                + "(Voir logs/latest.log pour plus de details)"));
         }
         playerMP.sendMessage(new TextComponentString(""));
         playerMP.sendMessage(new TextComponentString(
