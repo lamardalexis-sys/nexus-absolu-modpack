@@ -94,8 +94,26 @@ public class BlockEcranControle extends Block implements IHasModel {
 
                     // Run the full escape sequence (TP + place CM x9 + messages)
                     if (player instanceof net.minecraft.entity.player.EntityPlayerMP) {
+                        net.minecraft.entity.player.EntityPlayerMP playerMP =
+                            (net.minecraft.entity.player.EntityPlayerMP) player;
                         com.nexusabsolu.mod.items.ItemCleLiberteActivee.performEscape(
-                            (net.minecraft.entity.player.EntityPlayerMP) player, world);
+                            playerMP, world);
+
+                        // Auto-complete Q149 "L I B R E" via BetterQuesting admin command
+                        net.minecraft.server.MinecraftServer server = playerMP.getServer();
+                        if (server != null) {
+                            try {
+                                server.commandManager.executeCommand(server,
+                                    "/bq_admin complete 149 " + playerMP.getName());
+                                net.minecraftforge.fml.common.FMLLog.log.info(
+                                    "[PortailVoss] bq_admin complete 149 "
+                                    + playerMP.getName() + " executed");
+                            } catch (Throwable t) {
+                                net.minecraftforge.fml.common.FMLLog.log.warn(
+                                    "[PortailVoss] bq_admin complete failed: "
+                                    + t.getMessage());
+                            }
+                        }
                     }
                 }
             }
