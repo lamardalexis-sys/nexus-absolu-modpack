@@ -86,26 +86,17 @@ public class BlockEcranControle extends Block implements IHasModel {
                     player.sendMessage(new TextComponentString(
                         "\u00a77Tiens une \u00a7dCle de Liberte\u00a77 en main et clique a nouveau."));
                 } else {
-                    // ALL GOOD: drain the portal and transform the key
+                    // ALL GOOD: drain the portal AND teleport in one go
                     portal.activate(player);
 
-                    // Replace 1 inactive key with 1 activated key
+                    // Consume the inactive key
                     held.shrink(1);
-                    ItemStack activated = new ItemStack(ModItems.CLE_LIBERTE_ACTIVEE);
-                    if (held.isEmpty()) {
-                        player.setHeldItem(hand, activated);
-                    } else {
-                        // Inactive key was stacked (shouldn't happen since maxStackSize=1)
-                        // but handle gracefully: add to inventory or drop
-                        if (!player.inventory.addItemStackToInventory(activated)) {
-                            player.dropItem(activated, false);
-                        }
-                    }
 
-                    player.sendMessage(new TextComponentString(
-                        "\u00a7d\u00a7l[Portail Voss] \u00a7dLa cle resonne."));
-                    player.sendMessage(new TextComponentString(
-                        "\u00a77Utilise-la (clic droit) pour t'echapper."));
+                    // Run the full escape sequence (TP + place CM x9 + messages)
+                    if (player instanceof net.minecraft.entity.player.EntityPlayerMP) {
+                        com.nexusabsolu.mod.items.ItemCleLiberteActivee.performEscape(
+                            (net.minecraft.entity.player.EntityPlayerMP) player, world);
+                    }
                 }
             }
         }

@@ -76,28 +76,55 @@ public class ItemCleLiberteActivee extends ItemBase {
             return new ActionResult<>(EnumActionResult.FAIL, stack);
         }
 
-        EntityPlayerMP playerMP = (EntityPlayerMP) player;
-        MinecraftServer server = playerMP.getServer();
-        if (server == null) {
-            return new ActionResult<>(EnumActionResult.FAIL, stack);
+        // Run the full escape sequence (kept for backward compat: players
+        // who already had this item in their inventory before v1.0.150
+        // can still use it the old 2-clic way).
+        boolean ok = performEscape((EntityPlayerMP) player, world);
+        if (ok) {
+            stack.shrink(1);
+            return new ActionResult<>(EnumActionResult.SUCCESS, stack);
         }
+        return new ActionResult<>(EnumActionResult.FAIL, stack);
+    }
+
+    /**
+     * Public static escape sequence - shared by ItemCleLiberteActivee.onItemRightClick
+     * (legacy 2-click flow) and BlockEcranControle.onBlockActivated (new 1-click flow
+     * where the player clicks the screen with a Cle de Liberte and is teleported
+     * directly).
+     *
+     * Performs all 6 steps of the Age 1 -> Age 2 transition:
+     * 1. Identify the player's current CM room id (must be called BEFORE teleport)
+     * 2. Compute a destination point 500 blocks from the overworld spawn
+     * 3. Clear a 3x3x3 air pocket and ensure solid floor
+     * 4. Place a CM x9 block linked to the player's current room
+     * 5. Teleport the player to the destination (cross-dimensional if needed)
+     * 6. Play sounds + display the epic LIBRE message
+     *
+     * Returns true on success, false on critical error (overworld unloaded,
+     * server null, etc.). The caller is responsible for consuming/transforming
+     * any item involved.
+     */
+    public static boolean performEscape(EntityPlayerMP playerMP, World currentWorld) {
+        MinecraftServer server = playerMP.getServer();
+        if (server == null) return false;
 
         WorldServer overworld = server.getWorld(0);
         if (overworld == null) {
-            player.sendMessage(new TextComponentString(
+            playerMP.sendMessage(new TextComponentString(
                 TextFormatting.RED + "[ERREUR] Impossible de charger l'overworld."));
-            return new ActionResult<>(EnumActionResult.FAIL, stack);
+            return false;
         }
 
         // === STEP 1: Identify the CM room the player is currently in ===
         // Must happen BEFORE teleport, while the player is still inside DIM 144.
         net.minecraftforge.fml.common.FMLLog.log.info(
-            "[CleLiberte] Use: player=" + playerMP.getName()
+            "[CleLiberte] performEscape: player=" + playerMP.getName()
             + " dim=" + playerMP.dimension
             + " pos=" + playerMP.getPosition());
 
         int currentRoomId = com.nexusabsolu.mod.compat.CM3Bridge.getIdForPos(
-            world, player.getPosition());
+            currentWorld, playerMP.getPosition());
         String bridgeReason = com.nexusabsolu.mod.compat.CM3Bridge.getLastFailureReason();
         net.minecraftforge.fml.common.FMLLog.log.info(
             "[CleLiberte] getIdForPos returned " + currentRoomId
@@ -106,7 +133,7 @@ public class ItemCleLiberteActivee extends ItemBase {
         // === STEP 2: Compute destination in overworld ===
         // Exactly 500 blocks from spawn, random angle
         BlockPos spawn = overworld.getSpawnPoint();
-        Random rand = world.rand;
+        Random rand = currentWorld.rand;
         double angle = rand.nextDouble() * 2.0 * Math.PI;
         int destX = spawn.getX() + (int) Math.round(Math.cos(angle) * 500.0);
         int destZ = spawn.getZ() + (int) Math.round(Math.sin(angle) * 500.0);
@@ -118,7 +145,6 @@ public class ItemCleLiberteActivee extends ItemBase {
         if (destY > 250) destY = 250;
 
         // === STEP 3: Clear a 3x3x3 safe zone above ground ===
-        // So the player doesn't spawn inside a tree and the CM block has room
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = 0; dy <= 2; dy++) {
                 for (int dz = -1; dz <= 1; dz++) {
@@ -126,7 +152,6 @@ public class ItemCleLiberteActivee extends ItemBase {
                 }
             }
         }
-        // Ensure there's a solid floor under the spawn zone
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
                 BlockPos floor = new BlockPos(destX + dx, destY - 1, destZ + dz);
@@ -138,7 +163,6 @@ public class ItemCleLiberteActivee extends ItemBase {
         }
 
         // === STEP 4: Place the linked CM x9 block next to the player ===
-        // Block goes at (destX+1, destY, destZ), player lands at (destX, destY, destZ)
         BlockPos cmBlockPos = new BlockPos(destX + 1, destY, destZ);
         boolean cmPlaced = false;
         String placeFailReason = null;
@@ -211,17 +235,11 @@ public class ItemCleLiberteActivee extends ItemBase {
                 + "[Attention] Pas de Compact Machine placee:"));
             playerMP.sendMessage(new TextComponentString(
                 TextFormatting.GRAY + "  " + placeFailReason));
-            playerMP.sendMessage(new TextComponentString(
-                TextFormatting.DARK_GRAY
-                + "(Voir logs/latest.log pour plus de details)"));
         }
         playerMP.sendMessage(new TextComponentString(""));
         playerMP.sendMessage(new TextComponentString(
             TextFormatting.GREEN + "Age 1 termine. Age 2 : La Surface."));
 
-        // === STEP 7: Consume the item ===
-        stack.shrink(1);
-
-        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+        return true;
     }
 }
