@@ -33,37 +33,37 @@ public class ContainerCondenseurT2 extends Container {
         this.inputTile = inputTile;
         this.outputTile = outputTile;
 
-        // 4 input slots (from INPUT hatch) -- 2x2 grid
+        // 4 input slots (from INPUT hatch) -- 2x2 grid at (37,31) / (57,31) / (37,51) / (57,51)
         // SlotInput limits each slot to 1 item to ensure ItemDuct/Servo
         // automation distributes items across the 4 slots instead of
         // stacking them all in slot 0 (which would break recipe matching).
         if (inputTile != null) {
-            addSlotToContainer(new SlotInput(inputTile, 0, 16, 29));  // CM 1
-            addSlotToContainer(new SlotInput(inputTile, 1, 38, 29));  // CM 2
-            addSlotToContainer(new SlotInput(inputTile, 2, 16, 49));  // Key
-            addSlotToContainer(new SlotInput(inputTile, 3, 38, 49));  // Catalyst
+            addSlotToContainer(new SlotInput(inputTile, 0, 37, 31));  // CM 1
+            addSlotToContainer(new SlotInput(inputTile, 1, 57, 31));  // CM 2
+            addSlotToContainer(new SlotInput(inputTile, 2, 37, 51));  // Key
+            addSlotToContainer(new SlotInput(inputTile, 3, 57, 51));  // Catalyst
         } else {
             for (int i = 0; i < 4; i++) {
                 addSlotToContainer(new Slot(new DummyInventory(), i, -999, -999));
             }
         }
 
-        // 1 output slot (from OUTPUT hatch) -- slot index 4
+        // 1 output slot (from OUTPUT hatch) -- slot index 4, at (151, 43)
         if (outputTile != null) {
-            addSlotToContainer(new SlotOutput(outputTile, 0, 131, 40));
+            addSlotToContainer(new SlotOutput(outputTile, 0, 151, 43));
         } else {
             addSlotToContainer(new Slot(new DummyInventory(), 0, -999, -999));
         }
 
-        // Player inventory (slots 5-31)
+        // Player inventory (slots 5-31) - centered at x=30
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                addSlotToContainer(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 94 + row * 18));
+                addSlotToContainer(new Slot(playerInv, col + row * 9 + 9, 30 + col * 18, 131 + row * 18));
             }
         }
-        // Player hotbar (slots 32-40)
+        // Player hotbar (slots 32-40) - centered at x=30, y=193
         for (int col = 0; col < 9; col++) {
-            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 152));
+            addSlotToContainer(new Slot(playerInv, col, 30 + col * 18, 193));
         }
     }
 

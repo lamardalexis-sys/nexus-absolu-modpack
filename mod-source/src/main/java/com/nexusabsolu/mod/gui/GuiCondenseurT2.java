@@ -19,8 +19,8 @@ public class GuiCondenseurT2 extends GuiContainer {
     private final ContainerCondenseurT2 container;
     private final TileCondenseurT2 master;
 
-    private static final int GUI_W = 176;
-    private static final int GUI_H = 176;
+    private static final int GUI_W = 220;
+    private static final int GUI_H = 220;
 
     public GuiCondenseurT2(InventoryPlayer playerInv, TileCondenseurT2 master,
                             TileItemInput inputTile, TileItemOutput outputTile) {
@@ -41,25 +41,26 @@ public class GuiCondenseurT2 extends GuiContainer {
         long time = master.getWorld() != null ? master.getWorld().getTotalWorldTime() : 0;
         boolean proc = container.getProcessTime() > 0;
 
-        // === SLOT GLOW when processing ===
+        // === SLOT GLOW when processing (new 220x220 coords) ===
         if (proc) {
             int glowColor = 0xFF6B3FA0;
-            // Input slots glow
-            drawRect(gx+13, gy+26, gx+33, gy+46, glowColor);
-            drawRect(gx+14, gy+27, gx+32, gy+45, 0xFF080310);
-            drawRect(gx+35, gy+26, gx+55, gy+46, glowColor);
-            drawRect(gx+36, gy+27, gx+54, gy+45, 0xFF080310);
-            drawRect(gx+13, gy+46, gx+33, gy+66, glowColor);
-            drawRect(gx+14, gy+47, gx+32, gy+65, 0xFF080310);
-            drawRect(gx+35, gy+46, gx+55, gy+66, glowColor);
-            drawRect(gx+36, gy+47, gx+54, gy+65, 0xFF080310);
-            // Output slot glow
-            drawRect(gx+128, gy+37, gx+148, gy+57, glowColor);
-            drawRect(gx+129, gy+38, gx+147, gy+56, 0xFF080310);
+            // Input slots 2x2 at (36,30) (56,30) (36,50) (56,50)
+            drawRect(gx+36, gy+30, gx+54, gy+48, glowColor);
+            drawRect(gx+37, gy+31, gx+53, gy+47, 0xFF080310);
+            drawRect(gx+56, gy+30, gx+74, gy+48, glowColor);
+            drawRect(gx+57, gy+31, gx+73, gy+47, 0xFF080310);
+            drawRect(gx+36, gy+50, gx+54, gy+68, glowColor);
+            drawRect(gx+37, gy+51, gx+53, gy+67, 0xFF080310);
+            drawRect(gx+56, gy+50, gx+74, gy+68, glowColor);
+            drawRect(gx+57, gy+51, gx+73, gy+67, 0xFF080310);
+            // Output slot glow at (150, 42)
+            drawRect(gx+150, gy+42, gx+168, gy+60, glowColor);
+            drawRect(gx+151, gy+43, gx+167, gy+59, 0xFF080310);
         }
 
-        // === PROGRESS BAR FILL (vertical, bottom to top) ===
-        int barX = gx + 79, barY = gy + 24, barW = 18, barH = 40;
+        // === PROGRESS BAR FILL (vertical, center, bottom to top) ===
+        // Recess at (94, 28) w=18 h=56, fill inside with 1px padding
+        int barX = gx + 95, barY = gy + 29, barW = 16, barH = 54;
         if (container.getMaxProcessTime() > 0 && container.getProcessTime() > 0) {
             float pct = (float) container.getProcessTime() / container.getMaxProcessTime();
             int fillH = (int)(pct * barH);
@@ -69,21 +70,22 @@ public class GuiCondenseurT2 extends GuiContainer {
                 int g = (int)(30 + 40 * rowPct);
                 int b = (int)(140 + 80 * rowPct);
                 int color = 0xFF000000 | (r << 16) | (g << 8) | b;
-                drawRect(barX + 1, barY + barH - row - 1,
-                         barX + barW - 1, barY + barH - row, color);
+                drawRect(barX, barY + barH - row - 1,
+                         barX + barW, barY + barH - row, color);
             }
             // Bright leading edge
             if (fillH > 0 && fillH < barH)
-                drawRect(barX + 1, barY + barH - fillH,
-                         barX + barW - 1, barY + barH - fillH + 1, 0xFFCC88FF);
+                drawRect(barX, barY + barH - fillH,
+                         barX + barW, barY + barH - fillH + 1, 0xFFCC88FF);
             // Animated scanline
             int scanY = barY + barH - 1 - (int)((time % 40) * barH / 40);
             if (scanY >= barY && scanY < barY + barH)
-                drawRect(barX + 1, scanY, barX + barW - 1, scanY + 1, 0x40FFFFFF);
+                drawRect(barX, scanY, barX + barW, scanY + 1, 0x40FFFFFF);
         }
 
-        // === ENERGY BAR FILL (horizontal) ===
-        int eBarX = gx + 8, eBarY = gy + 73, eBarW = 60, eBarH = 8;
+        // === ENERGY BAR FILL (horizontal, full width) ===
+        // Recess at (10, 96) w=200 h=8
+        int eBarX = gx + 10, eBarY = gy + 96, eBarW = 200, eBarH = 8;
         int maxE = container.getMaxEnergy();
         int curE = container.getEnergy();
         if (maxE > 0 && curE > 0) {
@@ -95,19 +97,17 @@ public class GuiCondenseurT2 extends GuiContainer {
                 int g = (int)(20 + 30 * colPct);
                 int b = (int)(100 + 100 * colPct);
                 int color = 0xFF000000 | (r << 16) | (g << 8) | b;
-                drawRect(eBarX + col, eBarY + 1,
-                         eBarX + col + 1, eBarY + eBarH - 1, color);
+                drawRect(eBarX + col, eBarY,
+                         eBarX + col + 1, eBarY + eBarH, color);
             }
         }
 
-        // === FLUID BAR (vertical, only if Fluid Input hatch is connected) ===
+        // === FLUID BAR (vertical, LEFT side, only if Fluid Input hatch is connected) ===
+        // Recess at (10, 26) w=12 h=62
         if (container.hasFluidHatch()) {
-            int fBarX = gx + 158, fBarY = gy + 24, fBarW = 10, fBarH = 40;
+            int fBarX = gx + 11, fBarY = gy + 27, fBarW = 10, fBarH = 60;
             int maxF = container.getFluidCapacity();
             int curF = container.getFluidAmount();
-            // Frame + dark inside
-            drawRect(fBarX - 1, fBarY - 1, fBarX + fBarW + 1, fBarY + fBarH + 1, 0xFF000000);
-            drawRect(fBarX, fBarY, fBarX + fBarW, fBarY + fBarH, 0xFF1A0E08);
             if (maxF > 0 && curF > 0) {
                 float fPct = (float) curF / maxF;
                 int fillH = (int)(fPct * fBarH);
@@ -143,64 +143,66 @@ public class GuiCondenseurT2 extends GuiContainer {
         boolean proc = container.getProcessTime() > 0;
         boolean formed = container.isStructureFormed();
 
-        // Title
+        // Title (centered at top)
         String title = "CONDENSEUR T2";
         fontRenderer.drawString(title,
-            (GUI_W - fontRenderer.getStringWidth(title)) / 2, 5, 0xFFBB88FF);
+            (GUI_W - fontRenderer.getStringWidth(title)) / 2, 8, 0xFFBB88FF);
 
-        // Input labels
-        fontRenderer.drawString("CM", 18, 21, 0xFF7755AA);
-        fontRenderer.drawString("CM", 40, 21, 0xFF7755AA);
-        fontRenderer.drawString("Cle", 17, 41, 0xFF554477);
-        fontRenderer.drawString("Cat", 39, 41, 0xFF554477);
+        // Input slot labels (above each 2x2 input slot)
+        // Slots at (37,31) (57,31) (37,51) (57,51)
+        fontRenderer.drawString("CM", 40, 23, 0xFF7755AA);
+        fontRenderer.drawString("CM", 60, 23, 0xFF7755AA);
+        fontRenderer.drawString("Cl", 41, 43, 0xFF554477);
+        fontRenderer.drawString("Ca", 60, 43, 0xFF554477);
 
-        // Progress %
+        // Progress % (below progress bar at x=95..111, y=29..83)
         if (proc && container.getMaxProcessTime() > 0) {
             int pct = (container.getProcessTime() * 100) / container.getMaxProcessTime();
             String pctStr = pct + "%";
             fontRenderer.drawString(pctStr,
-                88 - fontRenderer.getStringWidth(pctStr) / 2, 66, 0xFF44DD88);
+                103 - fontRenderer.getStringWidth(pctStr) / 2, 86, 0xFF44DD88);
         } else if (formed) {
-            fontRenderer.drawString("---", 83, 66, 0xFF554477);
+            fontRenderer.drawString("---",
+                103 - fontRenderer.getStringWidth("---") / 2, 86, 0xFF554477);
         }
 
-        // Output label
-        fontRenderer.drawString("Sortie", 126, 22, 0xFF7755AA);
+        // Output label (above output slot at 150,42)
+        fontRenderer.drawString("Sortie", 145, 30, 0xFF7755AA);
 
-        // Fluid bar label (only if hatch present)
+        // Fluid bar label (below fluid bar at 11,27..87) - only if hatch present
         if (container.hasFluidHatch()) {
-            fontRenderer.drawString("DIA", 156, 65, 0xFFB48060);
+            fontRenderer.drawString("DIA", 10, 90, 0xFFB48060);
         }
 
-        // Structure status
+        // Structure status (in the horizontal strip around y=78-90)
         if (!formed) {
-            fontRenderer.drawString("ERREUR STRUCTURE", 110, 40, 0xFFFF6644);
+            fontRenderer.drawString("ERREUR STRUCTURE", 125, 66, 0xFFFF6644);
             if (time % 40 < 20)
-                fontRenderer.drawString("!", 155, 40, 0xFFFF0000);
+                fontRenderer.drawString("!", 205, 66, 0xFFFF0000);
         } else if (proc) {
             String quote = master.getCurrentQuote();
-            if (quote.length() > 24) quote = quote.substring(0, 24) + "..";
-            fontRenderer.drawString(quote, 110, 40, 0xFF338866);
+            if (quote.length() > 26) quote = quote.substring(0, 26) + "..";
+            fontRenderer.drawString(quote, 125, 66, 0xFF338866);
         } else {
-            fontRenderer.drawString("En attente", 116, 40, 0xFF554477);
+            fontRenderer.drawString("En attente", 135, 66, 0xFF554477);
         }
 
-        // Energy text
+        // Energy text (below energy bar at 10,96..104)
         String eStr = formatE(container.getEnergy()) + " / "
             + formatE(container.getMaxEnergy()) + " RF";
-        fontRenderer.drawString(eStr, 10, 74, 0xFF9966CC);
+        fontRenderer.drawString(eStr, 10, 108, 0xFF9966CC);
 
-        // Status bar
+        // Status bar (right side of energy text)
         if (proc) {
-            fontRenderer.drawString("200 RF/t", 76, 76, 0xFFFF8844);
+            fontRenderer.drawString("200 RF/t", 110, 108, 0xFFFF8844);
             int dots = (int)(time % 60 / 20) + 1;
             StringBuilder dotStr = new StringBuilder();
             for (int i = 0; i < dots; i++) dotStr.append(".");
-            fontRenderer.drawString("ACTIF" + dotStr, 130, 76, 0xFF44DD88);
+            fontRenderer.drawString("ACTIF" + dotStr, 170, 108, 0xFF44DD88);
         } else if (formed) {
-            fontRenderer.drawString("PRET", 140, 76, 0xFF7755AA);
+            fontRenderer.drawString("PRET", 180, 108, 0xFF7755AA);
         } else {
-            fontRenderer.drawString("HORS LIGNE", 114, 76, 0xFFFF6644);
+            fontRenderer.drawString("HORS LIGNE", 160, 108, 0xFFFF6644);
         }
     }
 
@@ -216,18 +218,19 @@ public class GuiCondenseurT2 extends GuiContainer {
         super.drawScreen(mx, my, pt);
         renderHoveredToolTip(mx, my);
 
-        // Energy bar tooltip (over JEI)
         int gx = guiLeft, gy = guiTop;
-        if (mx >= gx + 7 && mx <= gx + 69 && my >= gy + 72 && my <= gy + 81) {
+
+        // Energy bar tooltip (now horizontal at 10,96..210,104)
+        if (mx >= gx + 10 && mx <= gx + 210 && my >= gy + 96 && my <= gy + 104) {
             drawHoveringText(Collections.singletonList(
                 container.getEnergy() + " / " + container.getMaxEnergy() + " RF"),
                 mx, my);
         }
 
-        // Fluid bar tooltip (only if hatch present)
+        // Fluid bar tooltip (now on the LEFT at 11,27..21,87) - only if hatch present
         if (container.hasFluidHatch()
-                && mx >= gx + 158 && mx <= gx + 168
-                && my >= gy + 24 && my <= gy + 64) {
+                && mx >= gx + 10 && mx <= gx + 22
+                && my >= gy + 26 && my <= gy + 88) {
             drawHoveringText(Collections.singletonList(
                 container.getFluidAmount() + " / " + container.getFluidCapacity() + " mB Diarrhée"),
                 mx, my);
