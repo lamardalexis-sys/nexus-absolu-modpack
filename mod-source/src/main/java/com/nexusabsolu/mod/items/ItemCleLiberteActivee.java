@@ -89,25 +89,62 @@ public class ItemCleLiberteActivee extends ItemBase {
             return new ActionResult<>(EnumActionResult.FAIL, stack);
         }
 
-        // Compute destination: random direction, exactly 500 blocks from spawn
+        // === STEP 1: Identify the CM room the player is currently in ===
+        // Must happen BEFORE teleport, while the player is still inside DIM 144.
+        // Returns -1 if not in any room (e.g. player already escaped and is
+        // using the key in overworld - we'll skip the CM block placement).
+        int currentRoomId = com.nexusabsolu.mod.compat.CM3Bridge.getIdForPos(
+            world, player.getPosition());
+
+        // === STEP 2: Compute destination in overworld ===
+        // Exactly 500 blocks from spawn, random angle
         BlockPos spawn = overworld.getSpawnPoint();
         Random rand = world.rand;
         double angle = rand.nextDouble() * 2.0 * Math.PI;
         int destX = spawn.getX() + (int) Math.round(Math.cos(angle) * 500.0);
         int destZ = spawn.getZ() + (int) Math.round(Math.sin(angle) * 500.0);
 
-        // Load the destination chunk so getHeight() works reliably
+        // Load the destination chunk and find the ground level
         overworld.getChunkFromBlockCoords(new BlockPos(destX, 64, destZ));
         int destY = overworld.getHeight(destX, destZ);
-        // Safety clamp in case getHeight returns something weird
         if (destY < 4) destY = 64;
         if (destY > 250) destY = 250;
 
+        // === STEP 3: Clear a 3x3x3 safe zone above ground ===
+        // So the player doesn't spawn inside a tree and the CM block has room
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = 0; dy <= 2; dy++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    overworld.setBlockToAir(new BlockPos(destX + dx, destY + dy, destZ + dz));
+                }
+            }
+        }
+        // Ensure there's a solid floor under the spawn zone
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                BlockPos floor = new BlockPos(destX + dx, destY - 1, destZ + dz);
+                if (overworld.isAirBlock(floor) || !overworld.getBlockState(floor).isFullBlock()) {
+                    overworld.setBlockState(floor,
+                        net.minecraft.init.Blocks.DIRT.getDefaultState(), 2);
+                }
+            }
+        }
+
+        // === STEP 4: Place the linked CM x9 block next to the player ===
+        // Block goes at (destX+1, destY, destZ), player lands at (destX, destY, destZ)
+        BlockPos cmBlockPos = new BlockPos(destX + 1, destY, destZ);
+        boolean cmPlaced = false;
+        if (currentRoomId >= 0 && com.nexusabsolu.mod.compat.CM3Bridge.isAvailable()) {
+            cmPlaced = com.nexusabsolu.mod.compat.CM3Bridge.placeLinkedMachine(
+                overworld, cmBlockPos,
+                com.nexusabsolu.mod.compat.CM3Bridge.SIZE_LARGE,
+                currentRoomId);
+        }
+
+        // === STEP 5: Teleport the player ===
         final int fDestX = destX;
         final int fDestY = destY;
         final int fDestZ = destZ;
-
-        // Teleport (cross-dimensional if needed)
         if (playerMP.dimension != 0) {
             playerMP.changeDimension(0, new ITeleporter() {
                 @Override
@@ -120,13 +157,12 @@ public class ItemCleLiberteActivee extends ItemBase {
             playerMP.setPositionAndUpdate(fDestX + 0.5, fDestY, fDestZ + 0.5);
         }
 
-        // Play a dramatic sound at the arrival location
+        // === STEP 6: Dramatic sounds + epic message ===
         overworld.playSound(null, fDestX, fDestY, fDestZ,
             SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1.0F, 0.5F);
         overworld.playSound(null, fDestX, fDestY, fDestZ,
             SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.WEATHER, 0.6F, 1.2F);
 
-        // Epic arrival message
         playerMP.sendMessage(new TextComponentString(
             TextFormatting.GOLD + "" + TextFormatting.BOLD
             + "===================================="));
@@ -143,10 +179,25 @@ public class ItemCleLiberteActivee extends ItemBase {
             TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC
             + "- Toi, premier journal en surface."));
         playerMP.sendMessage(new TextComponentString(""));
+
+        if (cmPlaced) {
+            playerMP.sendMessage(new TextComponentString(
+                TextFormatting.LIGHT_PURPLE
+                + "Ta Compact Machine est a cote de toi."));
+        } else if (currentRoomId < 0) {
+            playerMP.sendMessage(new TextComponentString(
+                TextFormatting.YELLOW
+                + "(Tu n'etais pas dans une Compact Machine - aucune n'a ete placee.)"));
+        } else {
+            playerMP.sendMessage(new TextComponentString(
+                TextFormatting.RED
+                + "[Attention] Impossible de placer ta Compact Machine ici."));
+        }
+        playerMP.sendMessage(new TextComponentString(""));
         playerMP.sendMessage(new TextComponentString(
             TextFormatting.GREEN + "Age 1 termine. Age 2 : La Surface."));
 
-        // Consume the item
+        // === STEP 7: Consume the item ===
         stack.shrink(1);
 
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
