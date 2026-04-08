@@ -415,6 +415,33 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
     public boolean isStructureFormed() { return structureFormed; }
     public boolean hasFluidInput() { return fluidInputPos != null || hasFluidInputClient; }
 
+    /**
+     * Returns current fluid amount in the linked Fluid Input hatch (server-side only).
+     * Returns 0 if no hatch is connected. Used by Container.detectAndSendChanges
+     * to sync the fluid bar to the GUI.
+     */
+    public int getFluidAmount() {
+        if (fluidInputPos == null || world == null) return 0;
+        TileEntity te = world.getTileEntity(fluidInputPos);
+        if (te instanceof TileFluidInput) {
+            return ((TileFluidInput) te).getFluidAmount();
+        }
+        return 0;
+    }
+
+    /**
+     * Returns the capacity of the linked Fluid Input hatch (server-side only).
+     * Returns 0 if no hatch is connected (the GUI uses this to hide the bar).
+     */
+    public int getFluidCapacity() {
+        if (fluidInputPos == null || world == null) return 0;
+        TileEntity te = world.getTileEntity(fluidInputPos);
+        if (te instanceof TileFluidInput) {
+            return ((TileFluidInput) te).getTank().getCapacity();
+        }
+        return 0;
+    }
+
     public boolean isStructureValid() { return structureFormed; }
     public boolean isProcessing() { return processing; }
     public int getProcessTime() { return processTime; }

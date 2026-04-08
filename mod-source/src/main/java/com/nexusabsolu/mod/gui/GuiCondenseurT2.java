@@ -100,6 +100,34 @@ public class GuiCondenseurT2 extends GuiContainer {
             }
         }
 
+        // === FLUID BAR (vertical, only if Fluid Input hatch is connected) ===
+        if (container.hasFluidHatch()) {
+            int fBarX = gx + 158, fBarY = gy + 24, fBarW = 10, fBarH = 40;
+            int maxF = container.getFluidCapacity();
+            int curF = container.getFluidAmount();
+            // Frame + dark inside
+            drawRect(fBarX - 1, fBarY - 1, fBarX + fBarW + 1, fBarY + fBarH + 1, 0xFF000000);
+            drawRect(fBarX, fBarY, fBarX + fBarW, fBarY + fBarH, 0xFF1A0E08);
+            if (maxF > 0 && curF > 0) {
+                float fPct = (float) curF / maxF;
+                int fillH = (int)(fPct * fBarH);
+                // Diarrhée brown-yellow gradient (bottom to top)
+                for (int row = 0; row < fillH; row++) {
+                    float rowPct = (float) row / fBarH;
+                    int r = (int)(80 + 100 * rowPct);
+                    int g = (int)(50 + 60 * rowPct);
+                    int b = (int)(20 + 20 * rowPct);
+                    int color = 0xFF000000 | (r << 16) | (g << 8) | b;
+                    drawRect(fBarX, fBarY + fBarH - row - 1,
+                             fBarX + fBarW, fBarY + fBarH - row, color);
+                }
+                // Bright leading edge
+                if (fillH > 0 && fillH < fBarH)
+                    drawRect(fBarX, fBarY + fBarH - fillH,
+                             fBarX + fBarW, fBarY + fBarH - fillH + 1, 0xFFE8C060);
+            }
+        }
+
         // === SCANLINE EFFECT over GUI ===
         if (proc) {
             int scanLine = gy + (int)((time % 80) * GUI_H / 80);
@@ -138,6 +166,11 @@ public class GuiCondenseurT2 extends GuiContainer {
 
         // Output label
         fontRenderer.drawString("Sortie", 126, 22, 0xFF7755AA);
+
+        // Fluid bar label (only if hatch present)
+        if (container.hasFluidHatch()) {
+            fontRenderer.drawString("DIA", 156, 65, 0xFFB48060);
+        }
 
         // Structure status
         if (!formed) {
@@ -188,6 +221,15 @@ public class GuiCondenseurT2 extends GuiContainer {
         if (mx >= gx + 7 && mx <= gx + 69 && my >= gy + 72 && my <= gy + 81) {
             drawHoveringText(Collections.singletonList(
                 container.getEnergy() + " / " + container.getMaxEnergy() + " RF"),
+                mx, my);
+        }
+
+        // Fluid bar tooltip (only if hatch present)
+        if (container.hasFluidHatch()
+                && mx >= gx + 158 && mx <= gx + 168
+                && my >= gy + 24 && my <= gy + 64) {
+            drawHoveringText(Collections.singletonList(
+                container.getFluidAmount() + " / " + container.getFluidCapacity() + " mB Diarrhée"),
                 mx, my);
         }
     }

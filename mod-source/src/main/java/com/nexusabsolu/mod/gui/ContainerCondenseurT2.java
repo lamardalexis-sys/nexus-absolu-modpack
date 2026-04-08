@@ -25,6 +25,8 @@ public class ContainerCondenseurT2 extends Container {
     private int energy = 0;
     private int maxEnergy = 0;
     private int structureFormed = 0;
+    private int fluidAmount = 0;
+    private int fluidCapacity = 0;
 
     public ContainerCondenseurT2(InventoryPlayer playerInv, TileCondenseurT2 master, TileItemInput inputTile, TileItemOutput outputTile) {
         this.master = master;
@@ -94,12 +96,18 @@ public class ContainerCondenseurT2 extends Container {
             int formed = master.isStructureValid() ? 1 : 0;
             if (structureFormed != formed)
                 listener.sendWindowProperty(this, 4, formed);
+            if (fluidAmount != master.getFluidAmount())
+                listener.sendWindowProperty(this, 5, master.getFluidAmount());
+            if (fluidCapacity != master.getFluidCapacity())
+                listener.sendWindowProperty(this, 6, master.getFluidCapacity());
         }
         processTime = master.getProcessTime();
         maxProcessTime = master.getMaxProcessTime();
         energy = master.getEnergyStored();
         maxEnergy = master.getMaxEnergyStored();
         structureFormed = master.isStructureValid() ? 1 : 0;
+        fluidAmount = master.getFluidAmount();
+        fluidCapacity = master.getFluidCapacity();
     }
 
     @Override
@@ -111,6 +119,8 @@ public class ContainerCondenseurT2 extends Container {
             case 2: energy = data; break;
             case 3: maxEnergy = data; break;
             case 4: structureFormed = data; break;
+            case 5: fluidAmount = data; break;
+            case 6: fluidCapacity = data; break;
         }
     }
 
@@ -118,6 +128,9 @@ public class ContainerCondenseurT2 extends Container {
     public int getMaxProcessTime() { return maxProcessTime; }
     public int getEnergy() { return energy; }
     public int getMaxEnergy() { return maxEnergy; }
+    public int getFluidAmount() { return fluidAmount; }
+    public int getFluidCapacity() { return fluidCapacity; }
+    public boolean hasFluidHatch() { return fluidCapacity > 0; }
     public boolean isStructureFormed() { return structureFormed == 1; }
 
     @Override
