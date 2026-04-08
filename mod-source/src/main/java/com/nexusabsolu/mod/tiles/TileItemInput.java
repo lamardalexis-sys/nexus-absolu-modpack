@@ -12,19 +12,82 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.IItemHandler;
 
 public class TileItemInput extends TileEntity implements IInventory {
 
     private ItemStack[] inventory = new ItemStack[4];
     private BlockPos masterPos = null;
-    private InvWrapper itemHandler;
+
+    /**
+     * Custom IItemHandler that limits each slot to exactly 1 item.
+     *
+     * Why: the T2 condenser recipes need 4 distinct items in 4 distinct slots
+     * (e.g. 2x Compact Machine + Key + Catalyst). Stackable items would
+     * otherwise be all piled into slot 0 by an ItemDuct, leaving slot 1 empty
+     * and breaking the recipe match.
+     *
+     * Strategy: each slot accepts at most 1 item. When a duct tries to insert
+     * a stack of 2+ items into slot 0, it gets back the leftover (count - 1)
+     * and naturally tries slot 1 next. This forces automatic distribution.
+     *
+     * The player-facing GUI Slots are also clamped to 1 in ContainerCondenseurT2
+     * for consistency.
+     */
+    private final IItemHandler itemHandler = new IItemHandler() {
+        @Override
+        public int getSlots() { return inventory.length; }
+
+        @Override
+        public ItemStack getStackInSlot(int slot) {
+            if (slot < 0 || slot >= inventory.length) return ItemStack.EMPTY;
+            return inventory[slot];
+        }
+
+        @Override
+        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+            if (stack.isEmpty()) return ItemStack.EMPTY;
+            if (slot < 0 || slot >= inventory.length) return stack;
+            // If slot already has anything, reject the entire incoming stack
+            // (the duct will try the next slot).
+            if (!inventory[slot].isEmpty()) return stack;
+            // Slot is empty: accept exactly 1 item.
+            if (!simulate) {
+                ItemStack copy = stack.copy();
+                copy.setCount(1);
+                inventory[slot] = copy;
+                markDirty();
+            }
+            // Return the rest (stack count - 1).
+            ItemStack rest = stack.copy();
+            rest.shrink(1);
+            return rest;
+        }
+
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            if (slot < 0 || slot >= inventory.length || amount <= 0) return ItemStack.EMPTY;
+            ItemStack existing = inventory[slot];
+            if (existing.isEmpty()) return ItemStack.EMPTY;
+            int extract = Math.min(amount, existing.getCount());
+            ItemStack result = existing.copy();
+            result.setCount(extract);
+            if (!simulate) {
+                existing.shrink(extract);
+                if (existing.isEmpty()) inventory[slot] = ItemStack.EMPTY;
+                markDirty();
+            }
+            return result;
+        }
+
+        @Override
+        public int getSlotLimit(int slot) { return 1; }
+    };
 
     public TileItemInput() {
         for (int i = 0; i < inventory.length; i++) {
             inventory[i] = ItemStack.EMPTY;
         }
-        itemHandler = new InvWrapper(this);
     }
 
     public BlockPos getMasterPos() { return masterPos; }
@@ -71,7 +134,7 @@ public class TileItemInput extends TileEntity implements IInventory {
             stack.setCount(getInventoryStackLimit());
         markDirty();
     }
-    @Override public int getInventoryStackLimit() { return 64; }
+    @Override public int getInventoryStackLimit() { return 1; }
     @Override public boolean isUsableByPlayer(EntityPlayer player) {
         return world.getTileEntity(pos) == this &&
                player.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64;

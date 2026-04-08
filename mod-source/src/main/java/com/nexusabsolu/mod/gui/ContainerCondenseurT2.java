@@ -34,11 +34,14 @@ public class ContainerCondenseurT2 extends Container {
         this.outputTile = outputTile;
 
         // 4 input slots (from INPUT hatch) -- 2x2 grid
+        // SlotInput limits each slot to 1 item to ensure ItemDuct/Servo
+        // automation distributes items across the 4 slots instead of
+        // stacking them all in slot 0 (which would break recipe matching).
         if (inputTile != null) {
-            addSlotToContainer(new Slot(inputTile, 0, 16, 29));  // CM 1
-            addSlotToContainer(new Slot(inputTile, 1, 38, 29));  // CM 2
-            addSlotToContainer(new Slot(inputTile, 2, 16, 49));  // Key
-            addSlotToContainer(new Slot(inputTile, 3, 38, 49));  // Catalyst
+            addSlotToContainer(new SlotInput(inputTile, 0, 16, 29));  // CM 1
+            addSlotToContainer(new SlotInput(inputTile, 1, 38, 29));  // CM 2
+            addSlotToContainer(new SlotInput(inputTile, 2, 16, 49));  // Key
+            addSlotToContainer(new SlotInput(inputTile, 3, 38, 49));  // Catalyst
         } else {
             for (int i = 0; i < 4; i++) {
                 addSlotToContainer(new Slot(new DummyInventory(), i, -999, -999));
@@ -71,6 +74,17 @@ public class ContainerCondenseurT2 extends Container {
         }
         @Override
         public boolean isItemValid(ItemStack stack) { return false; }
+    }
+
+    // Input slot: limited to 1 item to force ItemDuct distribution
+    private static class SlotInput extends Slot {
+        public SlotInput(IInventory inv, int index, int x, int y) {
+            super(inv, index, x, y);
+        }
+        @Override
+        public int getSlotStackLimit() { return 1; }
+        @Override
+        public int getItemStackLimit(ItemStack stack) { return 1; }
     }
 
     @Override
