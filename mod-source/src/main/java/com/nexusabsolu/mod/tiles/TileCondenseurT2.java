@@ -42,7 +42,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         {2, -1, -1, NEXUS_WALL}, {2, -1, 0, ENERGY_IN},   {2, -1, 1, NEXUS_WALL},
         // Middle layer (h=0): 8 blocks (excluding master)
         {0,  0, -1, GLASS},      {0,  0, 1, GLASS},
-        {1,  0, -1, INPUT},      {1,  0, 0, VOSSIUM2},    {1,  0, 1, OUTPUT},
+        {1,  0, -1, OUTPUT},     {1,  0, 0, VOSSIUM2},    {1,  0, 1, INPUT},
         {2,  0, -1, NEXUS_WALL}, {2,  0, 0, FLUID_IN},    {2,  0, 1, NEXUS_WALL},
         // Top layer (h=+1): 9 blocks
         {0,  1, -1, GLASS},      {0,  1, 0, GLASS},      {0,  1, 1, GLASS},
@@ -92,9 +92,9 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         for (int r = 0; r < ROTATIONS.length; r++) {
             if (validateRotation(r)) {
                 activeRotation = r;
-                // Locate INPUT, OUTPUT, and ENERGY positions
-                inputPos = getWorldPos(1, 0, -1, r);
-                outputPos = getWorldPos(1, 0, 1, r);
+                // Locate INPUT, OUTPUT, and ENERGY positions (swapped width sign)
+                inputPos = getWorldPos(1, 0, 1, r);
+                outputPos = getWorldPos(1, 0, -1, r);
                 energyInputPos = getWorldPos(2, -1, 0, r);
                 // Fluid input is optional — only set if block is actually fluid_input
                 BlockPos fluidCandidate = getWorldPos(2, 0, 0, r);
