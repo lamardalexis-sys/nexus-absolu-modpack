@@ -8996,6 +8996,734 @@
           ]
         }
       }
+    },
+    "177:10": {
+      "questID:3": 125,
+      "preRequisites:11": [
+        124
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:oreblock",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§9Osmium",
+          "desc:8": "§7Un nouveau metal blanc, dense, reactif.\nL'§9Osmium§r§7 est la base de §lMekanism§r§7.\n\n§e§lObjectif : §7Mine 32x Osmium Ore"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:oreblock",
+              "Count:3": 32,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 6,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:ingot",
+                "Count:3": 16,
+                "Damage:2": 1,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "178:10": {
+      "questID:3": 126,
+      "preRequisites:11": [
+        125
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:machineblock",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§9L'Enrichment Chamber",
+          "desc:8": "§7x2 ore processing. Simple, efficace,\nle premier palier de Mekanism.\n\n§e§lObjectif : §7Craft 1x Enrichment Chamber"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:machineblock",
+              "Count:3": 1,
+              "Damage:2": 3,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:machineblock",
+                "Count:3": 1,
+                "Damage:2": 3,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "179:10": {
+      "questID:3": 127,
+      "preRequisites:11": [
+        126
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:machineblock",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§9Le Crusher",
+          "desc:8": "§7Convertit ingots en dust et back.\nEssentiel pour la chaine x3.\n\n§e§lObjectif : §7Craft 1x Crusher"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:machineblock",
+              "Count:3": 1,
+              "Damage:2": 4,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:machineblock",
+                "Count:3": 1,
+                "Damage:2": 4,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "180:10": {
+      "questID:3": 128,
+      "preRequisites:11": [
+        127
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:machineblock",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§9Le Combiner",
+          "desc:8": "§7Inverse du Crusher : dust -> block.\nUtile pour la chaine et pour re-compresser.\n\n§e§lObjectif : §7Craft 1x Combiner"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:machineblock",
+              "Count:3": 1,
+              "Damage:2": 5,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 6,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "181:10": {
+      "questID:3": 129,
+      "preRequisites:11": [
+        128
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:machineblock2",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dLa Purification Chamber",
+          "desc:8": "§7§lx3 ore processing§r§7 : ore -> clump -> dust.\nDouble le yield de l'Enrichment.\n\n§7Demande de l'§eOxygen§r§7 - premier gaz Mekanism.\n\n§e§lObjectif : §7Craft 1x Purification Chamber"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:machineblock2",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 12,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:machineblock2",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "182:10": {
+      "questID:3": 130,
+      "preRequisites:11": [
+        129
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:machineblock",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dElectrolytic Separator",
+          "desc:8": "§7Separe l'eau en §bHydrogen§r§7 et §eOxygen§r§7.\n§7Ton premier generateur de gaz.\n\n§e§lObjectif : §7Craft 1x Electrolytic Separator"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:machineblock",
+              "Count:3": 1,
+              "Damage:2": 10,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:gastank",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "183:10": {
+      "questID:3": 131,
+      "preRequisites:11": [
+        130
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:machineblock2",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dChemical Injection Chamber",
+          "desc:8": "§7§lx4 ore processing§r§7 ?\n§7Non. Pas encore. Ce sera pour l'Age 3.\n\n§7Mais la Chemical Injection Chamber est\nle prochain maillon et necessite un\n§eHydrogen Chloride§r§7 setup complet.\n\n§e§lObjectif : §7Craft 1x Chemical Injection Chamber"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:machineblock2",
+              "Count:3": 1,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 14,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "184:10": {
+      "questID:3": 132,
+      "preRequisites:11": [
+        131
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:basicblock2",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Factory : le Multiplicateur",
+          "desc:8": "§7Une §6Factory§r§7 est une version multiple d'une machine.\nTier Basic = 3 slots, Advanced = 5, Elite = 7.\n\n§7Upgrade ton Enrichment Chamber en Factory\npour enfin parallliser ton ore processing.\n\n§e§lObjectif : §7Craft 1x Basic Smelting Factory"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:basicblock2",
+              "Count:3": 1,
+              "Damage:2": 4,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "185:10": {
+      "questID:3": 133,
+      "preRequisites:11": [
+        132
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:transmitter",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Logistical Sorter",
+          "desc:8": "§7Le §6Logistical Sorter§r§7 de Mekanism\ntrie les items par type, couleur, NBT.\n\n§7Combine avec tes §bTransporters§r§7 pour\nrouter automatiquement tes ressources\nvers les bonnes machines.\n\n§e§lObjectif : §7Craft 1x Logistical Sorter"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:transmitter",
+              "Count:3": 1,
+              "Damage:2": 4,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:transmitter",
+                "Count:3": 8,
+                "Damage:2": 1,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "186:10": {
+      "questID:3": 134,
+      "preRequisites:11": [
+        133
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:ingot",
+            "Count:3": 1,
+            "Damage:2": 1,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Automation Complete",
+          "desc:8": "§7Mets tout ensemble :\n§7- Mine auto (VOM ou quarry)\n§7- Enrichment + Purification en chaine\n§7- Logistical Sorter qui distribue\n§7- ME Interface qui export/import\n§7- Stockage AE2 qui absorbe le yield\n\n§8§o\"Le mouvement permanent des ressources.\nJe n'ai plus a lever le petit doigt.\"§r\n\n§e§lObjectif : §7Produire 64x Iron Ingot en chaine x3"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:ingot",
+              "Count:3": 64,
+              "Damage:2": 1,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 24,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:ingot",
+                "Count:3": 32,
+                "Damage:2": 1,
+                "OreDict:8": ""
+              },
+              "2:10": {
+                "id:8": "mekanism:basicblock",
+                "Count:3": 4,
+                "Damage:2": 8,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "questLines:9": {
@@ -10029,6 +10757,76 @@
           "sizeY:3": 24,
           "x:3": 240,
           "y:3": 440
+        },
+        "28:10": {
+          "id:3": 125,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 540
+        },
+        "29:10": {
+          "id:3": 126,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 80,
+          "y:3": 540
+        },
+        "30:10": {
+          "id:3": 127,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 160,
+          "y:3": 540
+        },
+        "31:10": {
+          "id:3": 128,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 240,
+          "y:3": 540
+        },
+        "32:10": {
+          "id:3": 129,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 320,
+          "y:3": 540
+        },
+        "33:10": {
+          "id:3": 130,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 620
+        },
+        "34:10": {
+          "id:3": 131,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 80,
+          "y:3": 620
+        },
+        "35:10": {
+          "id:3": 132,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 160,
+          "y:3": 620
+        },
+        "36:10": {
+          "id:3": 133,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 240,
+          "y:3": 620
+        },
+        "37:10": {
+          "id:3": 134,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 320,
+          "y:3": 620
         }
       }
     }
