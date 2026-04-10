@@ -7670,6 +7670,746 @@
           ]
         }
       }
+    },
+    "159:10": {
+      "questID:3": 107,
+      "preRequisites:11": [
+        106
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:smart_cable",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§bCanaux Etendus",
+          "desc:8": "§7Par defaut AE2 limite a §e8 canaux§r§7 par cable.\n§7Dans ton modpack, Voss a pousse la config :\n\n§a§l32 canaux§r§7 par cable normal (4x plus).\n§a§l128 canaux§r§7 par cable dense (4x plus).\n\n§8§o\"Huit canaux, c'etait pour les petits.\nMoi j'ai besoin de brancher une civilisation\nentiere sur un seul fil.\"§r\n\n§e§lObjectif : §7Craft 8x ME Smart Cable"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:smart_cable",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:smart_cable",
+                "Count:3": 16,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "160:10": {
+      "questID:3": 108,
+      "preRequisites:11": [
+        107
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:terminal",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§bLe Terminal",
+          "desc:8": "§7Un §bME Terminal§r§7 te donne acces a TOUT\nce que ton reseau stocke en 1 clic.\n\n§7Plus jamais besoin d'ouvrir tes drives\nun par un pour chercher un item.\n\n§e§lObjectif : §7Craft 1x ME Terminal"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:terminal",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 6,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:terminal",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "161:10": {
+      "questID:3": 109,
+      "preRequisites:11": [
+        108
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:crafting_terminal",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§bLe Crafting Terminal",
+          "desc:8": "§7Meme principe, mais avec une grille de craft\nintegree. Les ingredients viennent directement\nde ton reseau, tes crafts sont stockes auto.\n\n§e§lObjectif : §7Craft 1x ME Crafting Terminal"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:crafting_terminal",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "162:10": {
+      "questID:3": 110,
+      "preRequisites:11": [
+        109
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:quartz_fiber",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§bLa Fibre",
+          "desc:8": "§7Le §eME Glass Cable§r§7 est limite a 8 canaux,\nmais peut etre croise avec une §bQuartz Fiber§r§7\npour faire passer de l'energie SANS canaux.\n\n§8§oC'est le premier secret des sub-networks.§r\n\n§e§lObjectif : §7Craft 16x Quartz Fiber"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:quartz_fiber",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 6,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:quartz_fiber",
+                "Count:3": 32,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "163:10": {
+      "questID:3": 111,
+      "preRequisites:11": [
+        110
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:interface",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§bInterface Universelle",
+          "desc:8": "§7La §dME Interface§r§7 expose les items du reseau\na une machine externe. C'est LE pont entre AE2\net TOUS les autres mods.\n\n§8§o\"Un Pulverizer Thermal, un Enrichment Chamber,\nune machine Voss... tous parlent la meme langue\nquand ils ont une Interface.\"§r\n\n§e§lObjectif : §7Craft 4x ME Interface"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:interface",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:interface",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "164:10": {
+      "questID:3": 112,
+      "preRequisites:11": [
+        111
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:import_bus",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§bL'Import Bus",
+          "desc:8": "§7Un §aME Import Bus§r§7 aspire automatiquement\ntout ce qu'une machine externe produit\nvers ton reseau.\n\n§7Premier pas vers l'automation reelle.\n\n§e§lObjectif : §7Craft 4x ME Import Bus"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:import_bus",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:import_bus",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "165:10": {
+      "questID:3": 113,
+      "preRequisites:11": [
+        112
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:export_bus",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§bL'Export Bus",
+          "desc:8": "§7Son oppose : un §cME Export Bus§r§7 pousse des\nitems du reseau vers une machine externe.\n\n§7Combine avec Import : flux complet.\n\n§e§lObjectif : §7Craft 4x ME Export Bus"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:export_bus",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:export_bus",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "166:10": {
+      "questID:3": 114,
+      "preRequisites:11": [
+        113
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:molecular_assembler",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dL'Auto-Craft",
+          "desc:8": "§7Le §5Crafting CPU§r§7 permet a AE2 de crafter\nTOUT SEUL n'importe quelle recette que tu\nlui as montree, en chaine, en parallele.\n\n§7Demande un Molecular Assembler par recipe\net des Crafting Storage pour tenir les plans.\n\n§e§lObjectif : §7Craft 4x Crafting Storage 1k\n§7+ 1x Molecular Assembler"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:molecular_assembler",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 12,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:crafting_storage_1k",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "167:10": {
+      "questID:3": 115,
+      "preRequisites:11": [
+        114
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:me_p2_p_tunnel",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dP2P : L'Eclateur Spatial",
+          "desc:8": "§7Les §dP2P Tunnels§r§7 permettent de faire\nPASSER 32 canaux entiers a travers UN SEUL canal.\n\n§7Un input, 32 outputs, a travers les dimensions.\n§7C'est le secret des mega-bases AE2.\n\n§8§o\"La topologie n'a plus de sens.\nDeux points deviennent un seul.\"§r\n\n§e§lObjectif : §7Craft 2x ME P2P Tunnel"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:me_p2_p_tunnel",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:me_p2_p_tunnel",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "168:10": {
+      "questID:3": 116,
+      "preRequisites:11": [
+        115
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:storage_cell_64k",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Stockage Profond",
+          "desc:8": "§7Ton reseau grandit. Il te faut plus.\n\n§7Craft une §664k Storage Cell§r§7 : 64 fois plus\ngrosse qu'une 1k. Combine avec ton Drive,\ntu peux stocker des MILLIONS d'items.\n\n§e§lObjectif : §7Craft 1x 64k Storage Cell"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:storage_cell_64k",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 16,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:storage_cell_64k",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "2:10": {
+                "id:8": "appliedenergistics2:drive",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "questLines:9": {
@@ -8577,6 +9317,76 @@
           "sizeY:3": 24,
           "x:3": 320,
           "y:3": 80
+        },
+        "10:10": {
+          "id:3": 107,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 180
+        },
+        "11:10": {
+          "id:3": 108,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 80,
+          "y:3": 180
+        },
+        "12:10": {
+          "id:3": 109,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 160,
+          "y:3": 180
+        },
+        "13:10": {
+          "id:3": 110,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 240,
+          "y:3": 180
+        },
+        "14:10": {
+          "id:3": 111,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 320,
+          "y:3": 180
+        },
+        "15:10": {
+          "id:3": 112,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 0,
+          "y:3": 260
+        },
+        "16:10": {
+          "id:3": 113,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 80,
+          "y:3": 260
+        },
+        "17:10": {
+          "id:3": 114,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 160,
+          "y:3": 260
+        },
+        "18:10": {
+          "id:3": 115,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 240,
+          "y:3": 260
+        },
+        "19:10": {
+          "id:3": 116,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 320,
+          "y:3": 260
         }
       }
     }
