@@ -1,0 +1,22 @@
+{
+  "format": "2.0.0",
+  "id_ranges": {
+    "age0": [
+      0,
+      999
+    ],
+    "age1": [
+      1000,
+      1999
+    ],
+    "age2": [
+      2000,
+      2999
+    ],
+    "coding": [
+      3000,
+      3999
+    ]
+  },
+  "_comment": "id_ranges is a convention for NEW quests only. Existing numeric questIDs are preserved verbatim to keep save-game quest progress intact. The merge script does not enforce the ranges; use them as a guide when authoring new entries."
+}
