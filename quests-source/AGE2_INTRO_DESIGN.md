@@ -449,3 +449,130 @@ Comparé aux directions pures : A = 4/5, B = 2/5, **Fusion = 3/5**. On paie une 
 - [ ] **Q106 "Première Cellule"** : confirmée comme première marche du hub AE2 post-Croisée, prereq migré ?
 
 Dès que ces 8 points sont tranchés, je passe au plan technique fichier-par-fichier (quels items Java créer, quelles structures, quelles lignes de `age2.json`), puis j'écris et je merge.
+
+---
+
+## 9. Itération — Plan final validé (partiellement) par Alexis
+
+Alexis a répondu :
+
+1. **Pitch + arc** → OK ✅
+2. **Non-létal Q7** → **NON**, il veut un **vrai combat de boss** façon ATM10 (Ender Dragon, boss du Nether, Warden = les 3 grandes étapes). Le Warden devient un combat réel dans l'intro Age 2. ✅
+3. **Grabber Voss** → **item Java custom** (pas de réutilisation Iron Backpacks). ✅
+4. **Cave boss mod** → **Deeper in the Caves - RESTART (+ 1.12.2 Version)** par Linfox. Accès Deep Dark par trous pré-générés dans la bedrock, le Warden drop du Sculk. ✅
+5. **Nether** → **BetterNether** + **NetherUpdate Netherite [Forge]** par FrostBreker (Ancient Debris → Netherite Scrap → Netherite Ingot = 4 scrap + 4 gold, Ancient Debris mine avec pioche diamant). Alexis veut aussi des **quêtes Netherite** dans l'intro Age 2. ✅
+6. **Structures** → **PAS DE STRUCTURES**, juste du lore. Le "Poste Voss-7" devient un concept raconté dans les carnets, pas un bâtiment physique. Ça simplifie énormément (budget -1/5). ✅
+7. **In-place vs remplacement** → question pas comprise, **réexpliquée en 9.4 ci-dessous**.
+8. **Sort de qid 106 Première Cellule** → question pas comprise, **réexpliquée en 9.5 ci-dessous**.
+
+### 9.1 Impact des réponses sur le design
+
+- **Fini le "non-létal Dormeur"** (plus de script CraftTweaker d'immunité). Le Warden est un vrai boss qu'on tue. Les rewards de Q7 migrent sur le kill.
+- **Fini les 2 structures pré-générées**. Le poste Voss n'est qu'une fiction racontée dans 2 carnets Patchouli ; les "balises fantômes" deviennent des fragments sculk pré-scattered dans le Deep Dark (ou drops du Warden mineur via sculk sensor au lieu de blocs custom).
+- **Le Nether overhaul + Netherite** prennent une vraie place dans l'intro — la quête chaîne s'élargit à 9 quêtes avec un finale Netherite et un portail Nether ouvert à la fin.
+- **Coût impl.** : 3/5 → **2/5** grâce à la suppression des structures. Reste les 11 items custom (Grabber + carnets + drops lore-items) et le combat Warden.
+
+### 9.2 Nouvelle chaîne — 9 quêtes (in-place sur qid 97-105)
+
+> Notation : `[MOD:deeper]` = mod Deeper in the Caves (Linfox), mod_id exact à confirmer par Alexis quand il inspecte le jar.
+> `[MOD:netherupdate]` = mod NetherUpdate Netherite [Forge] (FrostBreker).
+> `[MOD:betternether]` = BetterNether.
+
+| # | qid | _symbolic              | Titre                         | Task (BQ type)                  | Détail task                                                                                                            | Reward                                                                                                             | Prereq                       |
+|---|-----|------------------------|-------------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|------------------------------|
+| 1 | 97  | `age2:surface`         | À la Surface                  | `bq_standard:location`          | Se trouver en overworld à >20 blocs du point de sortie CM.                                                             | 1× `nexusabsolu:carnet_voss_v2` + 4× pain + `/say` lore                                                            | `?ref:age1:exit_cm9x9`       |
+| 2 | 98  | `age2:carnet_read`     | Les Pages de Voss             | `bq_standard:retrieval`         | Avoir `nexusabsolu:carnet_voss_v2` dans l'inventaire (le joueur l'a reçu en Q1, il doit juste l'ouvrir).               | 1× `nexusabsolu:badge_voss` (item lore) + 1× diamond_pickaxe (pour Ancient Debris plus tard) + `/say` lore Sujet 46 | `?ref:age2:surface`          |
+| 3 | 99  | `age2:sculk_signal`    | Signal Sculk                  | `bq_standard:retrieval`         | Collecter 4× `[MOD:deeper]:sculk_fragment` — drop random par sculk sensors pré-générés ou mobs mineurs de Deep Dark.   | **Débloque recette `nexusabsolu:grabber_voss`** + 1× iron_sword + 8× torches                                        | `?ref:age2:carnet_read`      |
+| 4 | 100 | `age2:grabber_craft`   | Le Sac du Sujet 46            | `bq_standard:crafting` OU `retrieval` | Craft 1× `nexusabsolu:grabber_voss`.                                                                            | **Gameplay-shift** : inventaire 36 slots permanent + 16× torch + 8× pain + 2× golden_apple                          | `?ref:age2:sculk_signal`     |
+| 5 | 101 | `age2:deep_descent`    | La Descente                   | `bq_standard:location`          | Entrer dans le biome `[MOD:deeper]:deep_dark` (Y<0, accès par trou bedrock pré-généré).                                | 1× `nexusabsolu:lanterne_voss` + 4× glowstone + 1× potion_night_vision                                              | `?ref:age2:grabber_craft`    |
+| 6 | 102 | `age2:warden_kill`     | Celui Qui Dort                | `bq_standard:hunt`              | **Tuer 1× `[MOD:deeper]:warden`** (boss tier fort, équivalent ATM10).                                                  | **3× ae2:inscriber_press (Logic + Calc + Eng)** + 1× `nexusabsolu:fragment_memoire_1` + 16× XP + `/say` lore        | `?ref:age2:deep_descent`     |
+| 7 | 103 | `age2:nether_open`     | La Porte de Voss              | `bq_standard:location`          | Entrer dans la dim `-1` (Nether) via portail vanilla (crafté avec obsidian).                                           | 1× `nexusabsolu:carnet_voss_v3` (entrées "Nether Voss" + coordonnées) + 4× fire_charge                              | `?ref:age2:warden_kill`      |
+| 8 | 104 | `age2:ancient_debris`  | Le Fragment de Voss           | `bq_standard:retrieval`         | Miner 4× `[MOD:netherupdate]:ancient_debris` (pioche diamant requise, Alexis a donné la diamond_pickaxe en Q2).        | 4× `[MOD:netherupdate]:netherite_scrap` (head start) + 4× gold_ingot + `/say` lore Netherite/Voss                   | `?ref:age2:nether_open`      |
+| 9 | 105 | `age2:netherite_forged`| Héritage Forgé                | `bq_standard:retrieval`         | Obtenir 1× `[MOD:netherupdate]:netherite_ingot` (forgé via 4 scrap + 4 gold).                                          | **1× ae2:controller** + 4× `ae2:material` (logic processor) + ouverture 3 voies (cmd `/gamestage add age2_cross`)   | `?ref:age2:ancient_debris`   |
+
+### 9.3 Mapping ancien → nouveau contenu
+
+| qid | Ancien nom              | Nouveau nom           | Type de changement                                                     |
+|-----|-------------------------|-----------------------|------------------------------------------------------------------------|
+| 97  | Premier Souffle         | À la Surface          | réécriture complète (plus de "pose un lit")                             |
+| 98  | Le Retour               | Les Pages de Voss     | réécriture — lecture du carnet, plus retour CM                          |
+| 99  | Campement de Fortune    | Signal Sculk          | réécriture — bug desc≠task corrigé                                      |
+| 100 | Transfert des Richesses | Le Sac du Sujet 46    | réécriture — plus de fetch 64 iron, Grabber gameplay-changing à la place|
+| 101 | Le Quartz Bleu          | La Descente           | réécriture — skip du certus quartz manuel, direct Deep Dark             |
+| 102 | La Pierre Affuteuse     | Celui Qui Dort        | réécriture — vrai combat Warden                                         |
+| 103 | Les Presses de Voss     | La Porte de Voss      | réécriture — plus de météorite RNG, les presses viennent du kill Warden |
+| 104 | Premier Processeur Log. | Le Fragment de Voss   | réécriture — chaîne Netherite                                           |
+| 105 | Le Contrôleur           | Héritage Forgé        | réécriture — reward = ME Controller, plus craft direct                  |
+| 106 | Première Cellule        | **CONSERVÉE**         | juste son prereq migre de 105 vers `?ref:age2:netherite_forged`         |
+
+### 9.4 Point 7 réexpliqué — « In-place vs remplacement »
+
+**Le problème concret** : dans `age2.json`, il y a déjà 10 quêtes avec les numéros 97 à 106. On veut changer ces quêtes. Deux façons :
+
+**Option A — In-place (je recommande)**
+On garde les **mêmes numéros** (97 à 106) et on change juste le titre, le texte, la tâche et la récompense **à l'intérieur** de chacune.
+Comme si tu renommais 10 dossiers dans une armoire sans déplacer les dossiers.
+- ✅ Plus simple à coder (10 éditions ciblées dans le fichier).
+- ✅ Dans un save existant, les quêtes déjà "terminées" resteront cochées — pas de régression de progression.
+- ✅ Les quêtes qid 107+ qui dépendent de ces IDs ne cassent pas.
+- ⚠️ Si un joueur a déjà terminé l'ancienne qid 97 "Premier Souffle", sa quête apparaîtra comme terminée MAIS avec le nouveau titre "À la Surface" — il n'aura pas vu le nouveau contenu. Anecdotique sur un pack en cours de dev.
+
+**Option B — Remplacement**
+On crée 10 nouvelles quêtes avec de nouveaux numéros (2000 à 2009) et on **supprime** les anciennes.
+Comme si tu enlevais 10 dossiers et tu en remettais 10 neufs à la place.
+- ⚠️ Tous les prereqs des qid 107+ qui pointaient vers 97-106 doivent être réécrits pour pointer vers 2000-2009. Travail supplémentaire.
+- ⚠️ Dans un save existant, les nouvelles quêtes partent "non-commencées" → le joueur doit les refaire.
+- ✅ Fichier plus propre "philosophiquement" — pas de débris de l'ancienne intro.
+
+**Ma recommandation** : **Option A (in-place)**. C'est plus rapide, moins de risques, et on respecte la convention du `_meta.json` "existing numeric questIDs are preserved verbatim".
+
+👉 **Question pour toi** : OK pour Option A ? (si oui, je continue ; si non, dis-moi pourquoi et on va sur B)
+
+### 9.5 Point 8 réexpliqué — « qid 106 Première Cellule »
+
+**Le contexte** : aujourd'hui qid 106 s'appelle "Première Cellule" et demande au joueur de craft 1× ME Drive + 1× 1k Storage Cell. Elle vient juste après qid 105 ("Le Contrôleur" dans l'ancienne version).
+
+**Dans le nouveau plan**, mes 9 quêtes refondues prennent les slots 97 à 105. La place 106 est encore là — il faut décider ce qu'on en fait.
+
+**Option (a) — La garder quasi intacte, migrer juste son prereq (je recommande)**
+- Son titre, son texte, sa tâche (craft ME Drive + 1k Cell) et sa récompense restent identiques.
+- On change juste **qui débloque cette quête** : au lieu de dépendre de "Le Contrôleur" (qui n'existe plus), elle dépend de "Héritage Forgé" (ma nouvelle qid 105).
+- Résultat : la chaîne AE2 existante (qid 107+ canaux, terminal, crafting terminal, etc.) continue normalement derrière qid 106.
+
+**Option (b) — La réécrire elle aussi**
+- On en fait une 10ème quête du nouveau Poste Voss (ex : "Le Réseau Voss", qui demande d'activer un mini-réseau ME).
+- Plus de travail, mais ça uniformise le ton narratif sur 10 quêtes.
+
+**Ma recommandation** : **Option (a)**. qid 106 "Première Cellule" est une bonne transition naturelle vers la suite AE2. Pas besoin de la toucher, juste migrer son prereq.
+
+👉 **Question pour toi** : OK pour Option (a) ? (qid 106 conservée telle quelle, juste son prereq migre vers `age2:netherite_forged`)
+
+### 9.6 Question ATM10 — portée des 3 boss
+
+Tu as dit « je veux comme ATM10 où il faut tuer l'Ender Dragon, le boss du Nether, et le Warden ». Ma compréhension :
+
+- **Warden** → boss de fin d'**intro Age 2** (= Q6 de ma chaîne ci-dessus). ✅ intégré.
+- **Ender Dragon** → grande étape plus tard dans l'Age 2 ou en entrée d'Age 3.
+- **Boss du Nether** (Wither ? ou un boss custom de BetterNether ?) → grande étape mi-Age 2 probablement, après avoir ouvert le Nether via Q7-9 de l'intro.
+
+👉 **Question pour toi** : les 3 boss sont-ils tous dans l'Age 2 (Warden = intro, Wither/Nether = milieu, Ender Dragon = fin) ? Ou tu les veux répartis différemment (ex. Warden = Age 2 intro, Wither = Age 2 fin, Ender Dragon = Age 3 opening) ?
+
+**Cette session** : je ne traite que l'intro (qid 97-106). Les 2 autres boss seront planifiés dans une section dédiée plus tard.
+
+### 9.7 Checklist finale avant écriture de `age2.json`
+
+- [ ] Tu valides **9.4** → Option A (in-place) pour les qid 97-105.
+- [ ] Tu valides **9.5** → Option (a) pour qid 106 (migration prereq seulement).
+- [ ] Tu confirmes **9.6** → portée des 3 boss (répondre juste par "tous Age 2" ou "Warden A2 + Wither A2 + Dragon A3" ou autre).
+- [ ] Tu me donnes le **mod_id exact** de Deeper in the Caves (`modid:warden`, `modid:sculk_fragment`, `modid:deep_dark`) — tu peux ouvrir le jar et regarder `mods.toml` ou `mcmod.info`, ou je peux le faire si tu me dis où est le fichier jar.
+- [ ] Tu me donnes le **mod_id exact** de NetherUpdate Netherite (`modid:ancient_debris`, `modid:netherite_scrap`, `modid:netherite_ingot`).
+- [ ] Tu confirmes qu'on peut utiliser `bq_standard:hunt` (task Better Questing standard) pour le kill Warden — si le boss a un entity_id exposé.
+- [ ] Coding Java : tu es OK pour que je planifie 11 nouveaux items Java (`grabber_voss` + carnets + lore items + lanterne) dans `mod-source/src/main/java/` ? Ou tu préfères que ce soit CraftTweaker / ContentTweaker (moins de code Java mais plus limité) ?
+
+Dès que ces points sont tranchés, je passe au plan technique final (quelles lignes exactes dans `age2.json`, quels fichiers Java à créer, quels scripts CT) et j'exécute.
+
+Sources de recherche (Section 9) :
+- [Deeper in the Caves — CurseForge (1.12.2 version)](https://www.curseforge.com/minecraft/mc-mods/linfox-stacked-dimensions-warden-edition)
+- [NetherUpdate Netherite — CurseForge](https://www.curseforge.com/minecraft/mc-mods/netherite-1-7-10-1-12-1-14)
+- [NetherUpdate Netherite — Modrinth](https://modrinth.com/mod/netherupdate-netherite)
+- [BetterNether — CurseForge](https://www.curseforge.com/minecraft/mc-mods/betternether)
