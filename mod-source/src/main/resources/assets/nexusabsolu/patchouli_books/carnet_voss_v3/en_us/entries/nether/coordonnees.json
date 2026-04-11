@@ -1,0 +1,23 @@
+{
+  "name": "Coordonnees Nether",
+  "category": "nexusabsolu:nether",
+  "icon": "minecraft:compass",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Extrait de l'oeil",
+      "text": "Coordonnees recuperees dans la main gauche du Gardien :$(br2)$(bold)X : +2048$()$(br)$(bold)Z : -768$()$(br)$(bold)Y : environ 18$() (a trouver)$(br2)C'est la position de mon ancien laboratoire Nether."
+    },
+    {
+      "type": "text",
+      "title": "Pas de murs",
+      "text": "Tu n'y trouveras pas de murs - il n'y en a jamais eu. Juste des coffres enterres et des blocs d'$(thing)Ancient Debris$() que j'ai fait tomber en 2019.$(br2)$(italics)Si tu arrives jusque la, creuse. Les debris sont organises en spirale autour du point zero. Il y en a assez pour forger quatre lingots de Netherite.$()"
+    },
+    {
+      "type": "text",
+      "title": "Attention",
+      "text": "Le Nether que tu vas voir n'est plus celui de tes souvenirs d'avant-confinement. J'ai installe la-bas des choses qui ne sont plus a moi.$(br2)$(bold)Reste vigilant.$()"
+    }
+  ]
+}

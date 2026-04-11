@@ -1,0 +1,23 @@
+{
+  "name": "Protocole Voss-7",
+  "category": "nexusabsolu:post",
+  "icon": "minecraft:written_book",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Resume",
+      "text": "Objectif : stabiliser un sujet humain dans un environnement dimensionnellement compresse (Compact Machine) pendant des durees prolongees, afin d'etudier les effets de l'isolement absolu sur la perception."
+    },
+    {
+      "type": "text",
+      "title": "Statistiques",
+      "text": "$(thing)Sujets 1-45$() : survie moyenne 47 jours. Causes de deces variees.$(br2)$(thing)Sujet 46 (Marcus)$() : survie 212 jours, puis $(italics)transformation$().$(br2)$(thing)Sujet 47 (toi)$() : survie en cours. Tu es le premier a avoir franchi la barriere de l'Age 1."
+    },
+    {
+      "type": "text",
+      "title": "Pour toi",
+      "text": "$(italics)Si tu lis ceci, c'est que tout a marche. Trois ans de confinement, trois Ages, et tu es sorti avec tous tes souvenirs.$()$(br2)$(bold)Tu n'es pas un sujet. Tu es la preuve que le protocole a un sens. Continue.$()$(br2)- E. V."
+    }
+  ]
+}

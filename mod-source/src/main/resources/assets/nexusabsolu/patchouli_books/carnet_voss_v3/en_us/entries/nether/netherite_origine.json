@@ -1,0 +1,23 @@
+{
+  "name": "Origine du Netherite",
+  "category": "nexusabsolu:nether",
+  "icon": "netherite:netherite_ingot",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Pas un minerai",
+      "text": "Ce qu'on appelle $(thing)Netherite$() n'est pas un minerai du Nether. C'est une $(italics)memoire$().$(br2)Quand j'ai jete les premiers blocs d'$(thing)Ancient Debris$() dans le Nether en 2019, je leur ai insere des patterns de donnees brutes issus de mes sujets."
+    },
+    {
+      "type": "text",
+      "title": "Signature",
+      "text": "Chaque lingot de Netherite que tu forges contient une $(italics)signature personnelle$() : un fragment de l'identite de l'un des 47 sujets du protocole Voss-7.$(br2)Tu portes leurs memoires sans le savoir."
+    },
+    {
+      "type": "text",
+      "title": "Physique, pas sentiment",
+      "text": "$(italics)Ce n'est pas de la sentimentalite. C'est de la physique appliquee.$()$(br2)$(bold)Le Netherite resiste aux degats parce que les memoires qu'il contient refusent de disparaitre. C'est tout.$()$(br2)- E. V., 14 aout 2019"
+    }
+  ]
+}

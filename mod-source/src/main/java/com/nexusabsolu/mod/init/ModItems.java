@@ -4,6 +4,7 @@ import com.nexusabsolu.mod.items.ItemBase;
 import com.nexusabsolu.mod.items.ItemCleLiberte;
 import com.nexusabsolu.mod.items.ItemCleLiberteActivee;
 import com.nexusabsolu.mod.items.ItemCompose;
+import com.nexusabsolu.mod.items.ItemGrabberVoss;
 import com.nexusabsolu.mod.items.ItemGrit;
 import com.nexusabsolu.mod.items.ItemPioche;
 import com.nexusabsolu.mod.items.fragments.ItemFragment;
@@ -174,6 +175,14 @@ public class ModItems {
     // === PORTAIL VOSS - CLE DE LIBERTE (Age 1 -> Age 2) ===
     public static final Item CLE_LIBERTE = new ItemCleLiberte();
     public static final Item CLE_LIBERTE_ACTIVEE = new ItemCleLiberteActivee();
+
+    // === AGE 2 INTRO (Sprint 1) ===
+    // Narrative / progression items for the 9 rewritten intro quests.
+    // Full GUI inventory for the Grabber is deferred to Sprint 1.5.
+    public static final Item GRABBER_VOSS = new ItemGrabberVoss("grabber_voss");
+    public static final Item BADGE_VOSS = new ItemBase("badge_voss");
+    public static final Item LANTERNE_VOSS = new ItemBase("lanterne_voss");
+    public static final Item FRAGMENT_MEMOIRE_1 = new ItemBase("fragment_memoire_1");
 
     // === THE NEXUS ABSOLU ===
     public static final Item NEXUS_ABSOLU = new ItemNexusAbsolu();

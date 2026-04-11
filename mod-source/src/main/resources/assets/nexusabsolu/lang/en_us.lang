@@ -144,3 +144,9 @@ item.nexusabsolu.iron_insule.name=Lingot d'Iron Insule
 # Portail Voss - Cle de Liberte (Age 1 -> Age 2)
 item.nexusabsolu.cle_liberte.name=Cle de Liberte
 item.nexusabsolu.cle_liberte_activee.name=Cle de Liberte Activee
+
+# Age 2 intro (Sprint 1)
+item.nexusabsolu.grabber_voss.name=Sac du Sujet 46
+item.nexusabsolu.badge_voss.name=Badge Voss
+item.nexusabsolu.lanterne_voss.name=Lanterne de Voss
+item.nexusabsolu.fragment_memoire_1.name=Fragment de Memoire I

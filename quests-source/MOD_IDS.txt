@@ -1,0 +1,49 @@
+# ============================================
+# MOD_IDS.txt — Sprint 1 Nexus Absolu Age 2
+# ============================================
+# Fourni par Alexis en début de Sprint 1. Source of truth pour toute
+# substitution de placeholders dans SPRINT1_TECHNICAL_PLAN.md.
+
+# --- DEEPER IN THE CAVES REMAKE (Linfox) ---
+MOD_DEEPER=stacked_dimensions_warden
+DEEPER:warden_entity      = stacked_dimensions_warden:warden
+DEEPER:warden_heart       = stacked_dimensions_warden:warden_heart
+DEEPER:warden_horn        = stacked_dimensions_warden:warden_horn
+DEEPER:echo_shard         = stacked_dimensions_warden:echo_shard
+DEEPER:echo_ingot         = stacked_dimensions_warden:echo_ingot
+DEEPER:sculk_tendril      = stacked_dimensions_warden:sculk_tendril
+DEEPER:sculk_block        = stacked_dimensions_warden:sculk_block
+DEEPER:portal_igniter     = stacked_dimensions_warden:deeper_dark
+# Q99 collecte early → sculk_tendril
+# Q102 reward Warden → warden_heart + echo_shard
+
+# --- NETHER UPDATE (FrostBreker) ---
+MOD_NETHERUPDATE=netherite
+NETHERUPDATE:ancient_debris  = netherite:ancient_debris
+NETHERUPDATE:netherite_scrap = netherite:netherite_scrap
+NETHERUPDATE:netherite_ingot = netherite:netherite_ingot
+NETHERUPDATE:netherite_block = netherite:netherite_block
+
+# --- AE2 PRESSES & PROCESSORS (confirmé via doc AE2_Processors.md) ---
+# Format reward BQ: appliedenergistics2:material avec damage = meta
+
+# Presses (loot meteorite, dupliquables Inscriber)
+AE2_PRESS_LOGIC       = 15   # material.logic_processor_press
+AE2_PRESS_CALCULATION = 13   # material.calculation_processor_press
+AE2_PRESS_ENGINEERING = 14   # material.engineering_processor_press
+AE2_PRESS_SILICON     = 19   # material.silicon_press
+
+# Prints (output Inscriber étape 1)
+AE2_PRINT_LOGIC       = 18
+AE2_PRINT_CALCULATION = 16
+AE2_PRINT_ENGINEERING = 17
+
+# Processors (output Inscriber étape 2)
+AE2_PROC_LOGIC        = 22
+AE2_PROC_CALCULATION  = 23
+AE2_PROC_ENGINEERING  = 24
+
+# Matériaux clés
+AE2_SILICON              = 5    # gemSilicon / itemSilicon
+AE2_PURE_CERTUS_CRYSTAL  = 10   # crystalPureCertusQuartz
+AE2_PURE_FLUIX_CRYSTAL   = 12   # crystalPureFluix
