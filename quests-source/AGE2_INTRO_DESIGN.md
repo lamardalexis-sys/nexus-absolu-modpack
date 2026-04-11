@@ -323,3 +323,129 @@ Chaque quête de la nouvelle intro reçoit un `_symbolic` stable (`age2:breach`,
 Alexis : lis, choisis **A / B / C** (ou dis "mix" et on itère), et on passe au plan technique détaillé → écriture dans `age2.json` → merge → test.
 
 Je ne touche pas `age2.json` avant ta validation.
+
+---
+
+## 8. Direction retenue — **A+B Fusion : « Le Poste Voss-7 »**
+
+> Alexis a validé un mix A+B. Cette section détaille la fusion narrative et les 9 quêtes.
+> **Rien n'est encore écrit dans `age2.json`** — ce plan attend une dernière validation avant implémentation.
+
+### 8.1 Pitch fusionné
+
+Tu sors de la CM 9×9. À 100-200 blocs du spawn, une structure pré-générée partiellement effondrée : **un Poste Voss-7**. Ce n'est pas un labo neutre abandonné (B pur). Ce n'est pas non plus une brèche dans un périmètre invisible (A pur). C'est les deux à la fois : le poste a été **construit par Voss pour te surveiller**, et son effondrement a déclenché la dégradation d'un anneau de "Safe Zone" artificielle autour de la zone de sortie. Les journaux dans le poste révèlent que Voss te regardait depuis 3 ans — et que tu n'étais **pas le premier**. Sujet 46 l'a été. Il est toujours ici, dans une cave scellée sous le poste, transformé par une expérience ratée en entité sentinelle qui dort.
+
+Voss, avant de disparaître, a laissé des outils DANS le poste **pour briser son propre confinement**, parce qu'il savait qu'il allait échouer et qu'il voulait que son successeur sorte. Les outils sont là, mais le générateur du poste est mort — il faut descendre dans la cave du Dormeur, voler un **fragment de ce qu'il est devenu** (un œil, le seul composant transdimensionnel que Voss sait fabriquer), remonter, et activer le poste. L'activation révèle un **portail Nether pré-construit** qui mène aux vraies coordonnées laissées par Voss.
+
+### 8.2 Ton
+
+Archéologie industrielle + paranoïa SCP mesurée. Humour noir dans les notes de Voss. Pas de jumpscares. Le joueur est supposé **comprendre progressivement** qu'il est le successeur d'une lignée d'expériences, pas la cible d'un complot actif. Le Dormeur est tragique, pas hostile (jusqu'à l'Age 2 tardif / Age 3).
+
+### 8.3 Arc dramatique
+
+1. **Sortie** → découverte visuelle du poste au loin.
+2. **Entrée** → comprendre que c'est un outil de surveillance dirigé sur ta CM.
+3. **Lecture** → réaliser que tu n'es pas le premier sujet.
+4. **Bris du confinement** → le Grabber Voss devient ton premier upgrade gameplay (36 slots).
+5. **Descente** → générateur mort, il faut aller sous terre pour le réparer.
+6. **Rencontre non-létale** → Sujet 46 dort. Tu voles un œil. Tu ne le combats pas.
+7. **Activation** → les 3 presses d'inscription s'assemblent dans le lab (skip RNG météorite).
+8. **Révélation** → portail Nether apparaît, coordonnées Voss déverrouillées.
+9. **Croisée** → 3 trajectoires parallèles AE2 / Botania / Blood Magic, chacune annotée par une note manuscrite de Voss.
+
+### 8.4 Les 9 quêtes
+
+Symbolic IDs sous `age2:*`. qid = in-place sur 97-105 (la quête actuelle qid 106 "Première Cellule" est poussée en Q10 hub de choix, section 8.6).
+
+| # | qid | _symbolic            | Titre                        | Task (BQ type)                                    | Détail task                                                                                  | Reward                                                                                                      | Prereq                       |
+|---|-----|----------------------|------------------------------|---------------------------------------------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|------------------------------|
+| 1 | 97  | `age2:surface`       | À la Surface                 | `bq_standard:location`                            | Se trouver en overworld à >20 blocs du point de sortie CM (trigger auto).                    | 1× `nexusabsolu:carnet_voss_v2` (livre Patchouli, entrée "Le Poste") + 1× pain + `/say` lore                 | `?ref:age1:exit_cm9x9`       |
+| 2 | 98  | `age2:voss_post`     | Le Poste                     | `bq_standard:location`                            | Entrer dans la structure `voss_post_surface` (détectée par location trigger, 20×15×10).      | 1× `nexusabsolu:badge_voss` (NBT-tag, ouvre portes scriptées) + 4× torch                                    | `?ref:age2:surface`          |
+| 3 | 99  | `age2:logs_01`       | Les Logs de Confinement      | `bq_standard:retrieval`                           | Collecter 3× `nexusabsolu:journal_page` (drops placés manuellement dans le poste via loot).  | 1× `nexusabsolu:scanner_frequence` (HUD overlay) + 5 XP + lore dump via reward command                     | `?ref:age2:voss_post`        |
+| 4 | 100 | `age2:beacons`       | Les Balises Fantômes         | `bq_standard:retrieval`                           | Casser 4× blocs `nexusabsolu:balise_fragment` placés autour du poste (100 blocs radius).      | **Débloque recette `nexusabsolu:grabber_voss` (sac à dos 36 slots)** + 2× iron_ingot                        | `?ref:age2:logs_01`          |
+| 5 | 101 | `age2:grabber`       | Le Sac du Sujet 46           | `bq_standard:crafting` OU `bq_standard:retrieval` | Craft 1× `nexusabsolu:grabber_voss` (recette débloquée par Q4).                              | **Gameplay-shift** : inventaire effectif 36 slots, dispo dès maintenant + 16× torch + 8× pain               | `?ref:age2:beacons`          |
+| 6 | 102 | `age2:generator`     | Le Générateur Effondré       | `bq_standard:retrieval`                           | Descendre sous le poste (cave pré-générée Y<20) et récupérer 1× `nexusabsolu:generator_core`.| 1× `nexusabsolu:lanterne_voss` (lumière permanente + immune effets cave boss) + 4× glowstone                | `?ref:age2:grabber`          |
+| 7 | 103 | `age2:sleeping_one`  | Celui Qui Dort               | `bq_standard:retrieval`                           | Récupérer 1× `nexusabsolu:warden_eye` — drop UNIQUEMENT si boss `cave_boss` en mode dormant.  | 1× `nexusabsolu:fragment_memoire_1` (lore item, 1/3) + Absorption IV 5min + `/say` lore                    | `?ref:age2:generator`        |
+| 8 | 104 | `age2:three_presses` | Les Trois Presses            | `bq_standard:retrieval`                           | Placer l'œil sur un autel scripté → reçoit 3× `ae2:inscriber_press` (Logic + Calc + Eng).    | **3× ae2:inscriber_press** + 4× `ae2:material:22` (logic processor) + skip total RNG météorite              | `?ref:age2:sleeping_one`     |
+| 9 | 105 | `age2:nether_gate`   | La Porte de Voss             | `bq_standard:advancement` OU `bq_standard:location` | Activer le portail Nether dans le poste (right-click scripté) + entrer dans le portail.     | 1× `nexusabsolu:carnet_voss_v3` (coordonnées Nether) + 1× `ae2:controller` + ouverture 3 voies (cmd `/gamestage add age2_crossroads`) | `?ref:age2:three_presses`    |
+
+### 8.5 Nouveaux assets requis
+
+**Items custom Nexus (11 nouveaux)**
+- `nexusabsolu:carnet_voss_v2` — livre Patchouli (entrées "Le Poste", "Sujet 46", "Le Protocole Voss-7").
+- `nexusabsolu:carnet_voss_v3` — livre Patchouli (entrées "Nether Voss", "Coordonnées", "Croisée").
+- `nexusabsolu:badge_voss` — item NBT, ouvre portes scriptées du poste.
+- `nexusabsolu:journal_page` — drop item (3× nécessaires).
+- `nexusabsolu:scanner_frequence` — HUD overlay item (affiche direction balises).
+- `nexusabsolu:balise_fragment` — block cassable (drop self).
+- `nexusabsolu:grabber_voss` — sac à dos 36 slots. **Alternative** : réutiliser Iron Backpacks (`ironbackpacks:backpack` taille moyenne) avec une recette custom si la dépendance mod est OK.
+- `nexusabsolu:generator_core` — drop item loot-placé.
+- `nexusabsolu:lanterne_voss` — block éclairage permanent + immunity Sculk/Darkness (si le cave mod a un effet).
+- `nexusabsolu:warden_eye` — drop item obtenu par event handler quand proximité boss dormant.
+- `nexusabsolu:fragment_memoire_1` — lore item (1/3, les 2/3 et 3/3 viendront dans les quêtes actuelles qid 151-155 du Testament).
+
+**Structures pré-générées (2)**
+- `voss_post_surface` — ~20×15×10, generation via RecurrentComplex ou schematic dans `config/justenoughdimensions/` : 4 pièces internes (entrée, salle logs, salle presses, portail Nether désactivé), 4 balises externes pré-placées à 80-100 blocs radius.
+- `voss_underground_cave` — ~15×15×8, spawn sous le poste à Y≈15, scellée par `age2:generator` quest (mur de blocs indestructibles cassables après Q6), contient le boss endormi + l'œil sur un autel.
+
+**Boss mécanique**
+- `cave_boss` (nom de mod à confirmer) doit exister en 2 modes :
+  - **Dormant** : passif, ne bouge pas, ne prend aucun dégât, drop `warden_eye` via event CT quand le joueur reste <8 blocs pendant 30s sans attaquer.
+  - **Éveillé** : combat réel, à déclencher uniquement après activation du poste (gamestage `age2_post_activated`) — hors scope de l'intro, géré plus tard dans l'Age 2.
+- Script CraftTweaker `nexus_cave_boss.zs` : `events.onEntityLivingHurt` annulé si l'attaqué est `cave_boss` ET gamestage `age2_post_activated` absent.
+
+**Patchouli entries (3)**
+- Vol.2 : "Le Poste", "Sujet 46", "Protocole Voss-7".
+- Vol.3 : "Nether Voss", "Coordonnées".
+- Mise à jour du carnet existant : entrée "L'Éveil" → ajouter pointeur vers Vol.2.
+
+**Scripts CraftTweaker (3 nouveaux fichiers)**
+- `scripts/Age2_Intro_CaveBoss.zs` — immunity mode dormant + drop `warden_eye` sur proximity.
+- `scripts/Age2_Intro_PostActivation.zs` — right-click œil sur autel → donne 3 presses.
+- `scripts/Age2_Intro_Balises.zs` — drop `balise_fragment` au break + sound effect.
+
+### 8.6 Ce qui arrive aux quêtes existantes
+
+| qid | Nom actuel             | Nouveau sort                                                                              |
+|-----|------------------------|-------------------------------------------------------------------------------------------|
+| 97  | Premier Souffle        | **Réécrite** en `À la Surface` (lit retiré, location trigger).                             |
+| 98  | Le Retour              | **Réécrite** en `Le Poste`.                                                                |
+| 99  | Campement de Fortune   | **Réécrite** en `Les Logs de Confinement` — le bug desc≠task disparaît.                   |
+| 100 | Transfert des Richesses| **Réécrite** en `Les Balises Fantômes` — plus de fetch 64 iron.                            |
+| 101 | Le Quartz Bleu         | **Réécrite** en `Le Sac du Sujet 46`.                                                      |
+| 102 | La Pierre Affuteuse    | **Réécrite** en `Le Générateur Effondré`.                                                  |
+| 103 | Les Presses de Voss    | **Réécrite** en `Celui Qui Dort` — le RNG météorite disparaît.                             |
+| 104 | Premier Processeur Logique | **Réécrite** en `Les Trois Presses`.                                                   |
+| 105 | Le Controleur          | **Réécrite** en `La Porte de Voss`.                                                        |
+| 106 | Première Cellule       | **Déplacée** comme première quête du hub Croisée (trajectoire AE2), prereq migré à `?ref:age2:nether_gate`. |
+
+Les qid 107-126 (suite AE2 : canaux, terminal, crafting terminal, fibre, interface, import bus, export bus, auto-craft, P2P, stockage profond, fleurs, livewood, mana, manasteel, inferium, litherite, void ore miner, osmium, enrichment, purification) **ne sont pas touchées** — elles s'enchaînent derrière le hub Q10 par simple migration du prereq racine.
+
+La chaîne Testament (qid 151-156) **n'est pas touchée** — elle reste comme payoff fin d'Age 2.
+
+### 8.7 Coût estimé
+
+| Catégorie           | Détail                                  | Effort |
+|---------------------|-----------------------------------------|--------|
+| Items Java custom   | 11 items (3 avec logique spéciale)      | 3/5    |
+| Structures          | 2 schematics + intégration JED / RC     | 3/5    |
+| Boss script         | 1 CT file, mode dormant + drop handler  | 2/5    |
+| Patchouli books     | 2 nouveaux + 1 update                   | 2/5    |
+| Quêtes BQ           | 9 réécrites in-place + 1 migration prereq (qid 106) | 2/5    |
+| Build / test cycle  | ~3-4 itérations monde neuf              | 2/5    |
+| **Total**           |                                         | **~3/5** |
+
+Comparé aux directions pures : A = 4/5, B = 2/5, **Fusion = 3/5**. On paie une structure de plus que B (la cave scellée) mais on garde le Grabber qui est le reward gameplay-changing le plus marquant des 3 directions.
+
+### 8.8 Validation avant écriture — à confirmer par Alexis
+
+- [ ] **Pitch + arc dramatique** : OK ou tu veux ajuster le ton ?
+- [ ] **Non-létal Q7** : accepté, ou tu préfères un vrai combat tier-1 comme en Direction B ?
+- [ ] **Grabber Voss** = item custom Java **OU** réutilisation d'un sac à dos existant dans le pack (Iron Backpacks / Traveler's Backpack) avec recette custom ? (deuxième option 2× moins chère à coder)
+- [ ] **Nom du mod Cave Boss** + ID exact du boss pour que je puisse le référencer dans le script CT.
+- [ ] **Nom du mod Nether overhaul** + ID d'au moins 1 bloc signature pour le détecteur de biome/structure.
+- [ ] **Structures** : OK pour 2 nouvelles schematics ? Tu les produis ou tu veux que je génère un plan RecurrentComplex / un Litematica ?
+- [ ] **Réécriture in-place des qid 97-105** confirmée ? (alternative = nouvelles qid 2000-2008 + suppression des anciennes, plus coûteux)
+- [ ] **Q106 "Première Cellule"** : confirmée comme première marche du hub AE2 post-Croisée, prereq migré ?
+
+Dès que ces 8 points sont tranchés, je passe au plan technique fichier-par-fichier (quels items Java créer, quelles structures, quelles lignes de `age2.json`), puis j'écris et je merge.
