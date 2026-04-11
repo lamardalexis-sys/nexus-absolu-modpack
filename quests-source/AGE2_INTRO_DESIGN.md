@@ -576,3 +576,121 @@ Sources de recherche (Section 9) :
 - [NetherUpdate Netherite — CurseForge](https://www.curseforge.com/minecraft/mc-mods/netherite-1-7-10-1-12-1-14)
 - [NetherUpdate Netherite — Modrinth](https://modrinth.com/mod/netherupdate-netherite)
 - [BetterNether — CurseForge](https://www.curseforge.com/minecraft/mc-mods/betternether)
+
+---
+
+## 10. Étude du modèle ATM10 — repenser la place des 3 boss dans Nexus
+
+Alexis a demandé : « regarde comment ATM10 a fait, c'est super bien fait leur système de quête ». Voici ce qui ressort de l'étude de leur quest book, appliqué à Nexus.
+
+### 10.1 Les 5 patterns ATM10 qui marchent
+
+**1. Structure hiérarchique Quest Groups → Chapters → Quests**
+ATM10 organise tout en 3 niveaux : des **groupes** (Main, Technology, Magic, Resources, Tools & Gear), chaque groupe contient des **chapitres** (1 par gros mod typiquement : Mekanism, AE2, Ars Nouveau, etc.), et chaque chapitre contient des **quêtes** individuelles. Le joueur peut naviguer horizontalement entre les chapitres d'un même groupe.
+→ *Différence avec Nexus* : on a aujourd'hui 4 questLines à plat (Age 0, Age 1, Age 2, Coding). Pas de groupes. Pas de chapitres intra-age. Ça donne une grande page verticale dans BQ où tout est mélangé.
+
+**2. Branch-and-converge**
+Le schéma de dépendances ATM10 fait diverger les chemins puis les reconverger sur des milestones. Exemple : après le hub d'ouverture, 3 branches parallèles (tech / magie / ressources) convergent sur le Warden, puis divergent à nouveau vers 3 branches tier-2.
+→ *Différence avec Nexus* : on a actuellement une chaîne linéaire dans l'Age 2 (97→98→...→106), pas de branches. L'intro actuellement proposée en Section 9 est aussi linéaire.
+
+**3. Les 3 boss vanilla = GATES, pas ÉTAPES NARRATIVES**
+ATM10 ne traite pas Warden/Wither/Dragon comme « 3 climax du jeu ». Ce sont des **portes qui débloquent des tiers de matériaux**, exactement comme une Alloy Kiln débloque le Bronze.
+
+| Boss | Gate vers | Équivalent Nexus probable |
+|------|-----------|---------------------------|
+| Warden (Deep Dark) | **Allthemodium** (tier 1 ATM) | **Vossium-III** ou équivalent tier-1 magique |
+| Wither | Nether Star → summon **The Harbinger** (boss Cataclysm) + crafts avancés | **Composé Stellaire** pour les fragments Nexus fin Age 2 |
+| Ender Dragon | End access → **Unobtainium / Vibranium** (tier 2-3 ATM) | **Fragment Stellaire** + matériaux Draconic pour Age 3 |
+
+Point crucial : ATM10 les a **tous dans la partie "early-to-mid game"**, parce que ce sont des portes. L'endgame ATM10, ce n'est pas tuer l'Ender Dragon — c'est tuer les 8 boss Cataclysm (Netherite Monstrosity → Ender Guardian → Harbinger → Ancient Remnant → Leviathan → Scylla → Maledictus → Ignis) et les 8 boss Twilight Forest (Naga → Lich → Minoshroom → Hydra → Knight Phantoms → Ur-Ghast → Alpha Yeti → Snow Queen), sur des mods ajoutés.
+
+**4. Sequential boss mods en PARALLÈLE, pas imbriqués dans la main line**
+Les 8 boss Twilight Forest sont obligatoires DANS LE TWILIGHT FOREST (chaque boss débloque le suivant), mais le Twilight Forest entier est une **branche optionnelle** du groupe Main. Le joueur peut faire Twilight Forest ou pas — ça donne des rewards mais ce n'est pas sur le chemin critique.
+→ *Transposable à Nexus* : on peut introduire Twilight Forest / Cataclysm / autres boss packs comme branches **optionnelles** de l'Age 2, qui donnent du bonus mais ne bloquent pas l'ATM Star nexus-équivalent.
+
+**5. Reward loot-table (drops randomisés) en complément des rewards fixes**
+ATM10 utilise 3 types de rewards : items fixes, XP, **et random draws depuis une loot table**. Ça donne de la variété (2 joueurs qui refont la même quête ne reçoivent pas exactement les mêmes rewards) et économise du travail de design (une seule loot table → N quêtes).
+→ *Nexus actuel* : 100 % items fixes. Opportunité d'ajouter un type `bq_standard:loot` à la fin d'Age 2 pour les quêtes « explorer le Deep Dark » / « nettoyer le Nether ».
+
+### 10.2 Gaps dans la documentation ATM10
+
+Honnêteté : la doc publique ATM10 ne dit **pas explicitement** où sont positionnés les 3 boss vanilla dans leur questbook (leurs guides parlent de matériaux et de tiers, pas de chronologie quête). L'analyse ci-dessus est une inférence à partir des mécaniques de dépendance et du matériau que chaque boss débloque. Le vrai questbook ATM10 (stocké en SNBT dans `ftbquests/quests/chapters/*.snbt`) donnerait les placements exacts si on voulait valider — c'est téléchargeable depuis le repo `AllTheMods/ATM-10` sur GitHub mais je n'ai pas fetché le SNBT direct dans cette session.
+
+### 10.3 Proposition de **boss map Nexus Age 2** inspirée du modèle ATM10
+
+À la place de « les 3 boss sont 3 quêtes de l'intro Age 2 », je propose un placement étalé sur l'**Age 2 complet**, chacun gâtant un tier de matériau Nexus :
+
+```
+ÂGE 2 (vue d'ensemble — proposition)
+════════════════════════════════════════════════════════════════════
+              INTRO                        MID                 FIN
+  ┌────────────────────────┐  ┌────────────────────┐  ┌────────────────┐
+  │ qid 97-106             │  │ qid 107-140        │  │ qid 141-156    │
+  │                        │  │                    │  │                │
+  │ 9 quêtes refondues     │  │ 3 branches         │  │ Convergence    │
+  │ + Première Cellule     │  │ parallèles :       │  │                │
+  │                        │  │                    │  │                │
+  │ ▼ Warden en Q6 ◄───────┼──┤ AE2 (107-116)      │  │ Wither ◄───────┤ gate Composé Stellaire
+  │   gate Sculk + 3       │  │ Botania (117-120)  │  │   → summon     │
+  │   AE2 Presses          │  │ Myst. Agri.(121-26)│  │   "Sujet 00"   │ boss custom intermédiaire
+  │                        │  │                    │  │                │
+  │ ▼ Netherite Q7-9 ◄─────┼──┤ + side: Nether,    │  │ Ender Dragon ◄─┤ gate End +
+  │   (BetterNether +      │  │   Deep Dark,       │  │   → Fragment   │ Fragment Organique
+  │   NetherUpdate)        │  │   Twilight Forest  │  │   Stellaire    │
+  └────────────────────────┘  └────────────────────┘  └────────────────┘
+         ▲                          ▲                        ▲
+   gate Grabber +              gate tier AE2             gate sortie
+   Inscriber Presses           autocraft + mana          vers Age 3
+```
+
+### 10.4 Placement concret des 3 boss — proposition
+
+| Boss | Moment | qid approximatif | Gate vers | Récompense principale |
+|------|--------|------------------|-----------|-----------------------|
+| **Warden** (Deeper in the Caves) | **Intro Age 2, Q6 / qid 102** | `age2:warden_kill` | Sculk drops + 3 AE2 Inscriber Presses + accès Deep Dark comme ressource tier-1 | 3× ae2:inscriber_press + sculk_fragments + fragment_memoire_1 |
+| **Wither** (vanilla, buffable via mod) | **Mi-Age 2, qid ≈135** | `age2:wither_kill` | Nether Star → summon boss custom "Sujet 00" qui drop le Composé Stellaire (pour fragments fin Age 2) | 1× nether_star + 2× composé_stellaire_shard |
+| **Ender Dragon** (vanilla) | **Fin Age 2, qid ≈155** (ou début Age 3, à décider) | `age2:dragon_kill` | Fragment Stellaire complet + accès End → matériaux Draconic pour Age 3 | 1× fragment_stellaire + 1× dragon_egg + 8× dragon_breath |
+
+**Logique** :
+- Le Warden est **tôt** parce qu'il débloque les AE2 Presses (c'est un gate **obligatoire** pour toute l'industrie AE2). Position = intro.
+- Le Wither est **mi-Age 2** parce qu'il débloque le Composé Stellaire qui est déjà requis par les quêtes existantes qid 151-155 (Journal 47, Composés Oubliés, Testament). Le Wither devient le **matériau-gate** de la chaîne Testament, pas juste un « crafts Nether Star ».
+- L'Ender Dragon est **fin Age 2** (ou début Age 3) parce qu'il débloque l'accès End qui a besoin pour l'Age 3 de toute façon. Ça évite de dédoubler « kill Dragon » entre deux ages.
+
+### 10.5 Changements en cascade sur la chaîne Age 2 existante
+
+Si on accepte ce placement, ça implique :
+- **Nouvelle quête qid ≈135** « Sujet 00 » (boss custom summon via Nether Star) → ajoutée au milieu de l'Age 2, insère un point de rupture dans la chaîne AE2/Botania/Mystag.
+- **Migration de prereq** pour les quêtes Testament existantes (qid 151-155) : elles dépendent actuellement de qid 142 (fin chaîne linéaire). On les fait dépendre de `age2:dragon_kill` → plus cohérent narrativement, et ça force le joueur à tuer le Dragon avant le Testament.
+- La quête actuelle qid 156 « VERS L'AGE 3 » garde son prereq triple (142, 150, 155) mais on ajoute `age2:dragon_kill` → 4 prereqs.
+
+### 10.6 Ce qui reste côté intro (inchangé vs Section 9)
+
+La chaîne des 9 quêtes de l'intro Age 2 reste telle qu'en Section 9.2 — c'est juste le **contexte global** qui change : l'intro est maintenant clairement positionnée comme **un chapitre d'ouverture** qui débloque 3 branches parallèles (AE2 / Botania / Mystag), avec le Warden comme porte du chapitre.
+
+Les 6 blockers de la Section 9.7 restent les mêmes — rien de tout ça n'est écrit dans `age2.json`.
+
+### 10.7 Nouvelles questions ouvertes (Section 10)
+
+- **Est-ce qu'on structure l'Age 2 en groupes/chapitres façon ATM10 ?** BQ supporte techniquement 1 questLine par chapitre. Dans Nexus aujourd'hui, on a 1 questLine = 1 Age. Si on veut adopter la structure ATM10, il faudrait passer à **N questLines par Age** (ex: Age 2 Intro, Age 2 AE2, Age 2 Botania, Age 2 Mystag, Age 2 Testament). Ça rendrait la navigation dans BQ beaucoup plus claire. **Lourd à migrer** (il faut bouger les quêtes entre lignes dans `lines.json`). Je recommande de le garder pour une passe future, **pas dans cette session**.
+- **Wither = boss vanilla suffisant, ou on fait summon un boss custom dessus ?** ATM10 utilise le Wither comme prérequis pour summon "The Harbinger". On peut faire pareil : Wither vanilla → drop Nether Star → crafter un item d'invocation → summon "Sujet 00" qui est le vrai boss drop-source du Composé Stellaire. Plus mémorable narrativement mais ça demande un boss custom.
+- **Boss Sujet 00** : s'il existe, c'est un item Java custom (entity + AI + loot) — **gros boulot**. Alternative : réutiliser un boss de Twilight Forest (Lich ? Ur-Ghast ?) comme proxy et l'habiller via un CT reward handler.
+- **Placement Ender Dragon : fin Age 2 ou début Age 3 ?** J'ai mis fin Age 2 mais c'est discutable. Fin Age 2 = tu dois tuer le Dragon pour quitter l'Age. Début Age 3 = le Dragon est la première mission d'Age 3. Les deux marchent ; fin Age 2 est plus « punchline », début Age 3 est plus « ouverture ».
+
+### 10.8 TL;DR
+
+**Ce que j'apporte comme changement concret** : replacer Wither et Ender Dragon **hors de l'intro** (parce qu'ATM10 n'a pas 3 boss en intro non plus — ils sont étalés), les lier chacun à un matériau-gate (Composé Stellaire / Fragment Stellaire) qui existe déjà dans ta chaîne Testament fin Age 2, et garder le Warden comme boss de fin d'intro.
+
+**Ce que je ne change pas dans cette session** : la structure BQ (1 questLine par Age), les 9 quêtes d'intro de la Section 9.2, les chaînes AE2/Botania/Mystag actuelles.
+
+**Nouvelle question pour toi** (en plus des 6 blockers Section 9.7) :
+- [ ] **10-Q1** : OK pour le placement étalé Warden=intro / Wither=mi-Age 2 / Dragon=fin Age 2 ?
+- [ ] **10-Q2** : Wither vanilla ou invocation "Sujet 00" custom ?
+- [ ] **10-Q3** : Ender Dragon fin Age 2 OU début Age 3 ?
+- [ ] **10-Q4** : Regroupement en sous-chapitres (plusieurs questLines) pour l'Age 2 — tu veux qu'on le garde en session future ou c'est mort d'office ?
+
+Sources (Section 10) :
+- [ATM10 Bosses Guide (all-themods.com)](https://all-themods.com/bosses/)
+- [ATM10 Beginner Guide (all-themods.com)](https://all-themods.com/beginner-guide/)
+- [ATM10 Quest System (DeepWiki)](https://deepwiki.com/AllTheMods/ATM-10/2-quest-system)
+- [ATM10 ATM Star & Custom Items (DeepWiki)](https://deepwiki.com/AllTheMods/ATM-10/3.1-atm-star-and-custom-items)
+- [ATM10 CurseForge](https://www.curseforge.com/minecraft/modpacks/all-the-mods-10)
