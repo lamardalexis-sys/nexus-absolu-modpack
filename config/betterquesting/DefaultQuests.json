@@ -6485,8 +6485,8 @@
               "patchouli:book:8": "nexusabsolu:carnet_voss_v2"
             }
           },
-          "name:8": "§l§6A la Surface",
-          "desc:8": "§7§oLa lumiere t'aveugle. Tes jambes tremblent.\nTu sens la pluie, le vent, la terre sous tes pieds.§r\n\n§7Trois Ages dans des boites.\n§7Tu ne savais meme plus si l'exterieur existait encore.\n\n§8§o\"Jour 0 — Sujet S-47 sorti du confinement Voss-7.\n§8Aucune surveillance active depuis l'effondrement du Poste.\n§8Bienvenue dehors, enfant.\"\n— Journal automatise§r\n\n§e§lObjectif : §7Confirme ta sortie\n§e§lRecompense : §7Carnet de Voss Vol. II"
+          "name:8": "§l§6Tu es sorti",
+          "desc:8": "§7§oLa lumiere t'aveugle. Tu es sorti.§r\n\n§7Trois Ages dans des boites. Tu es enfin dehors.\n§7Respire. Regarde autour. Tu as le temps.\n\n§8§o\"Bienvenue dehors, Sujet 47.\n§8Le confinement est termine. Ce qui suit\n§8depend de toi.\" — Journal automatise§r\n\n§e§lObjectif : §7Clique pour confirmer ta sortie\n§e§lRecompense : §7Carnet de Voss Vol. II + pain"
         }
       },
       "tasks:9": {
@@ -6518,7 +6518,7 @@
               },
               "2:10": {
                 "id:8": "minecraft:experience_bottle",
-                "Count:3": 2,
+                "Count:3": 1,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
@@ -6568,31 +6568,14 @@
               "patchouli:book:8": "nexusabsolu:carnet_voss_v2"
             }
           },
-          "name:8": "§l§6Les Pages de Voss",
-          "desc:8": "§7Le Carnet Vol. II est dans ton inventaire.\n§7Ouvre-le. Lis-le. C'est la premiere fois\n§7que tu vois l'ecriture de Voss directement.\n\n§8§oEntrees :\n§8- \"Le Poste\"\n§8- \"Sujet 46\"\n§8- \"Protocole Voss-7\"§r\n\n§7Tu comprendras qu'il t'a surveille\n§7pendant trois ans. Et que tu n'etais\n§7pas le premier.\n\n§e§lObjectif : §7Garder le Carnet II sur toi\n§e§lRecompense : §7Badge Voss + Pioche Diamant"
+          "name:8": "§l§6Les Pages de Voss (1/3)",
+          "desc:8": "§7Ouvre ton §eCarnet de Voss Vol. II§r§7.\n§7Lis la premiere entree : §o'Le Poste Voss-7'§r§7.\n\n§7Ce n'est pas une histoire lointaine. C'est\n§7la tienne. Voss t'a surveille pendant trois\n§7ans depuis une station qui n'existe plus.\n\n§e§lObjectif : §7Lis la section 'Le Poste'\n§e§lRecompense : §710 XP"
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
           "index:3": 0,
-          "consume:1": 0,
-          "ignoreDamage:1": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "patchouli:guide_book",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": "",
-              "tag:10": {
-                "patchouli:book:8": "nexusabsolu:carnet_voss_v2"
-              }
-            }
-          }
+          "taskID:8": "bq_standard:checkbox"
         }
       },
       "rewards:9": {
@@ -6602,20 +6585,8 @@
           "rewards:9": [
             {
               "0:10": {
-                "id:8": "nexusabsolu:badge_voss",
-                "Count:3": 1,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "1:10": {
-                "id:8": "minecraft:diamond_pickaxe",
-                "Count:3": 1,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "2:10": {
                 "id:8": "minecraft:experience_bottle",
-                "Count:3": 4,
+                "Count:3": 1,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
@@ -6647,33 +6618,22 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "stacked_dimensions_warden:sculk_tendril",
+            "id:8": "patchouli:guide_book",
             "Count:3": 1,
             "Damage:2": 0,
-            "OreDict:8": ""
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss_v2"
+            }
           },
-          "name:8": "§l§6Signal Sculk",
-          "desc:8": "§7Il y a un bruit. Pas un son, un §obruit§r§7.\n§7Une vibration dans le sol qui te suit\n§7quand tu marches. Voss a ecrit la-dessus.\n\n§8§o\"Sujet 46 emet des fragments sculk en permanence.\n§8C'est sa facon de parler. Ou de nous\n§8compter. Je ne sais plus.\"\n— Carnet Voss Vol. II, p.4§r\n\n§7Ramasse 4 §bTendrils de Sculk§r§7 — ils poussent\n§7la ou la surveillance du Sujet 46 s'etend.\n\n§e§lObjectif : §74x Sculk Tendril\n§e§lRecompense : §7Recette du Sac du Sujet 46 debloquee"
+          "name:8": "§l§6Les Pages de Voss (2/3)",
+          "desc:8": "§7Deuxieme entree : §o'Sujet 46'§r§7.\n\n§7Tu n'etais pas le premier. Marcus a ete le\n§746eme a accepter le protocole. Il est toujours\n§7la, sous le sol, mais il n'est plus vraiment\n§7Marcus. §cNe descends pas le voir sans preparation§r§7.\n\n§e§lObjectif : §7Lis la section 'Sujet 46'\n§e§lRecompense : §710 XP"
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
           "index:3": 0,
-          "consume:1": 0,
-          "ignoreDamage:1": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "stacked_dimensions_warden:sculk_tendril",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
+          "taskID:8": "bq_standard:checkbox"
         }
       },
       "rewards:9": {
@@ -6683,35 +6643,13 @@
           "rewards:9": [
             {
               "0:10": {
-                "id:8": "minecraft:iron_sword",
-                "Count:3": 1,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "1:10": {
-                "id:8": "minecraft:torch",
-                "Count:3": 16,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "2:10": {
                 "id:8": "minecraft:experience_bottle",
-                "Count:3": 4,
+                "Count:3": 1,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
             }
           ]
-        },
-        "1:10": {
-          "hideBlockIcon:1": 1,
-          "rewardID:8": "bq_standard:command",
-          "asScript:1": 1,
-          "description:8": "",
-          "viaPlayer:1": 0,
-          "index:3": 1,
-          "title:8": "bq_standard.reward.command",
-          "command:8": "/gamestage add @p age2_grabber_recipe"
         }
       }
     },
@@ -6738,33 +6676,22 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "nexusabsolu:grabber_voss",
+            "id:8": "patchouli:guide_book",
             "Count:3": 1,
             "Damage:2": 0,
-            "OreDict:8": ""
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss_v2"
+            }
           },
-          "name:8": "§l§6Le Sac du Sujet 46",
-          "desc:8": "§7Le Sujet 46 portait un sac.\n§7Voss l'appelait le §eGrabber§r§7.\n§7Il stocke dans un pli spatial au lieu\n§7de ton inventaire physique.\n\n§8§o\"Le sac de 46 contient ses affaires,\n§8mais aussi ses souvenirs. Je n'ai jamais\n§8compris comment il a fait ca.\"\n§8— Carnet Voss Vol. II, p.7§r\n\n§7Les tendrils suffisent pour assembler\n§7une replique. Crafte-la.\n\n§e§lObjectif : §71x Grabber Voss\n§e§lRecompense : §7Nourriture + golden apples"
+          "name:8": "§l§6Les Pages de Voss (3/3)",
+          "desc:8": "§7Troisieme entree : §o'Protocole Voss-7'§r§7.\n\n§7Tu es la preuve que le protocole a un sens.\n§7Continue. Voss te laisse des outils. A toi\n§7de les trouver.\n\n§8§o\"Tu n'es pas un sujet. Tu es la suite.\"\n§8— E. V., derniere entree§r\n\n§e§lObjectif : §7Lis la section 'Protocole Voss-7'\n§e§lRecompense : §7Diamant Pickaxe (pour plus tard)"
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
           "index:3": 0,
-          "consume:1": 0,
-          "ignoreDamage:1": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "nexusabsolu:grabber_voss",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
+          "taskID:8": "bq_standard:checkbox"
         }
       },
       "rewards:9": {
@@ -6774,26 +6701,14 @@
           "rewards:9": [
             {
               "0:10": {
-                "id:8": "minecraft:bread",
-                "Count:3": 16,
+                "id:8": "minecraft:diamond_pickaxe",
+                "Count:3": 1,
                 "Damage:2": 0,
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "minecraft:torch",
-                "Count:3": 32,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "2:10": {
-                "id:8": "minecraft:golden_apple",
-                "Count:3": 2,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "3:10": {
                 "id:8": "minecraft:experience_bottle",
-                "Count:3": 6,
+                "Count:3": 2,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
@@ -6805,7 +6720,7 @@
     "153:10": {
       "questID:3": 101,
       "preRequisites:11": [
-        100
+        97
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -6825,13 +6740,13 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "stacked_dimensions_warden:deeper_dark",
+            "id:8": "minecraft:red_bed",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§l§6La Descente",
-          "desc:8": "§7Sous ton point de sortie, les grottes\n§7sont plus profondes que tu ne le pensais.\n§7Trop profondes. Trop §osilencieuses§r§7.\n\n§7Il te faut l'§dAllumeur Deeper Dark§r§7.\n§7Cherche la recette dans ton livre.\n\n§8§o\"Le Deep Dark n'est pas une grotte. C'est\n§8un fossile d'experience. Voss a ouvert une\n§8porte qu'il n'a jamais refermee.\"\n— Carnet Voss Vol. II, p.11§r\n\n§e§lObjectif : §71x Allumeur Deeper Dark\n§e§lRecompense : §7Lanterne de Voss + Vision Nocturne"
+          "name:8": "§l§6Un Lit",
+          "desc:8": "§7Premiere nuit dehors. Il te faut un lit.\n§7Tu sais deja comment en faire un. Crafte.\n\n§e§lObjectif : §71x Lit\n§e§lRecompense : §720 XP"
         }
       },
       "tasks:9": {
@@ -6846,9 +6761,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "stacked_dimensions_warden:deeper_dark",
+              "id:8": "minecraft:bed",
               "Count:3": 1,
-              "Damage:2": 0,
+              "Damage:2": 32767,
               "OreDict:8": ""
             }
           }
@@ -6861,25 +6776,10 @@
           "rewards:9": [
             {
               "0:10": {
-                "id:8": "nexusabsolu:lanterne_voss",
-                "Count:3": 1,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "1:10": {
-                "id:8": "minecraft:glowstone",
-                "Count:3": 4,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "2:10": {
-                "id:8": "minecraft:potion",
+                "id:8": "minecraft:experience_bottle",
                 "Count:3": 2,
                 "Damage:2": 0,
-                "OreDict:8": "",
-                "tag:10": {
-                  "Potion:8": "minecraft:long_night_vision"
-                }
+                "OreDict:8": ""
               }
             }
           ]
@@ -6889,12 +6789,12 @@
     "154:10": {
       "questID:3": 102,
       "preRequisites:11": [
-        101
+        97
       ],
       "properties:10": {
         "betterquesting:10": {
           "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.wither.spawn",
+          "snd_complete:8": "minecraft:entity.player.levelup",
           "lockedprogress:1": 1,
           "partySingleReward:8": "false",
           "tasklogic:8": "AND",
@@ -6909,24 +6809,33 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "stacked_dimensions_warden:warden_heart",
+            "id:8": "minecraft:crafting_table",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§l§4Celui Qui Dort",
-          "desc:8": "§7Il est la. Il te voit par vibration.\n§7Il ne te laissera pas repartir sans combattre.\n\n§7C'etait le Sujet 46.\n§7Maintenant c'est autre chose.\n\n§8§o\"Le Sujet 46 a survecu a l'experience\n§8du 17 mars. Mais il n'est plus vraiment\n§8le Sujet 46. Je n'ai pas le courage de\n§8le terminer moi-meme. Je suis desole.\"\n— Carnet Voss Vol. II, p.14 (derniere entree)§r\n\n§c§lObjectif : §7Tuer le Gardien\n§c§lDanger : §4EXTREME — prepare-toi\n§e§lRecompense : §74 Presses d'Inscription AE2 + Coeur du Gardien"
+          "name:8": "§l§6Table de Craft",
+          "desc:8": "§7Le Cube de Bois. Ton meilleur ami.\n§7Crafte-en un. Par securite.\n\n§e§lObjectif : §71x Table de Craft\n§e§lRecompense : §74 planches + 20 XP"
         }
       },
       "tasks:9": {
         "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:hunt",
-          "required:3": 1,
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
           "ignoreNBT:1": 1,
-          "subtypes:1": 0,
-          "target:8": "stacked_dimensions_warden:warden",
-          "targetNBT:10": {}
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:crafting_table",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
         }
       },
       "rewards:9": {
@@ -6936,44 +6845,14 @@
           "rewards:9": [
             {
               "0:10": {
-                "id:8": "appliedenergistics2:material",
-                "Count:3": 1,
-                "Damage:2": 15,
+                "id:8": "minecraft:planks",
+                "Count:3": 4,
+                "Damage:2": 32767,
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:material",
-                "Count:3": 1,
-                "Damage:2": 13,
-                "OreDict:8": ""
-              },
-              "2:10": {
-                "id:8": "appliedenergistics2:material",
-                "Count:3": 1,
-                "Damage:2": 14,
-                "OreDict:8": ""
-              },
-              "3:10": {
-                "id:8": "appliedenergistics2:material",
-                "Count:3": 1,
-                "Damage:2": 19,
-                "OreDict:8": ""
-              },
-              "4:10": {
-                "id:8": "stacked_dimensions_warden:warden_heart",
-                "Count:3": 1,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "5:10": {
-                "id:8": "nexusabsolu:fragment_memoire_1",
-                "Count:3": 1,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "6:10": {
                 "id:8": "minecraft:experience_bottle",
-                "Count:3": 16,
+                "Count:3": 2,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
@@ -6985,7 +6864,7 @@
     "155:10": {
       "questID:3": 103,
       "preRequisites:11": [
-        102
+        97
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -7005,13 +6884,13 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "minecraft:obsidian",
+            "id:8": "minecraft:furnace",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§l§6La Porte de Voss",
-          "desc:8": "§7Le Gardien est mort. L'oeil dans sa main\n§7gauche contenait des coordonnees.\n§7Pas sur l'Overworld. §cDans le Nether§r§7.\n\n§7Voss y cachait quelque chose — peut-etre\n§7lui-meme. Construis un portail. Entre.\n§7Ramasse du §6soul sand§r§7 pour prouver\n§7que tu y es alle.\n\n§8§o\"Le Nether pour moi n'est pas une dimension.\n§8C'est un cimetiere que j'ai creuse moi-meme.\"\n— Carnet Voss Vol. III, p.1§r\n\n§e§lObjectif : §71x Soul Sand\n§e§lRecompense : §7Carnet de Voss Vol. III"
+          "name:8": "§l§6Four",
+          "desc:8": "§7Huit blocs de cobble en cercle. Tu connais.\n§7Un four, c'est la base de toute civilisation.\n\n§e§lObjectif : §71x Four\n§e§lRecompense : §71 charbon + 20 XP"
         }
       },
       "tasks:9": {
@@ -7026,7 +6905,7 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "minecraft:soul_sand",
+              "id:8": "minecraft:furnace",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -7041,23 +6920,14 @@
           "rewards:9": [
             {
               "0:10": {
-                "id:8": "patchouli:guide_book",
+                "id:8": "minecraft:coal",
                 "Count:3": 1,
-                "Damage:2": 0,
-                "OreDict:8": "",
-                "tag:10": {
-                  "patchouli:book:8": "nexusabsolu:carnet_voss_v3"
-                }
-              },
-              "1:10": {
-                "id:8": "minecraft:fire_charge",
-                "Count:3": 4,
                 "Damage:2": 0,
                 "OreDict:8": ""
               },
-              "2:10": {
+              "1:10": {
                 "id:8": "minecraft:experience_bottle",
-                "Count:3": 4,
+                "Count:3": 2,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
@@ -7069,7 +6939,7 @@
     "156:10": {
       "questID:3": 104,
       "preRequisites:11": [
-        103
+        97
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -7089,13 +6959,13 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "netherite:ancient_debris",
+            "id:8": "minecraft:chest",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§l§6Le Fragment de Voss",
-          "desc:8": "§7Au fond du Nether, des blocs noirs\n§7resistent a ta pioche de fer comme si\n§7c'etait du papier. Il te faut du diamant.\n\n§7C'est l'§4Ancient Debris§r§7 — une matiere\n§7que Voss a fait tomber dans le Nether\n§7en 2019 pendant un test de densite.\n§7Personne n'etait cense la revoir.\n\n§e§lObjectif : §74x Ancient Debris\n§e§lRecompense : §74x Netherite Scrap + 4x Or"
+          "name:8": "§l§6Premier Coffre",
+          "desc:8": "§7Un coffre. Pour ne pas tout perdre\n§7quand tu mourras. Ca arrive.\n\n§e§lObjectif : §71x Coffre\n§e§lRecompense : §74 baton + 20 XP"
         }
       },
       "tasks:9": {
@@ -7110,8 +6980,8 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "netherite:ancient_debris",
-              "Count:3": 4,
+              "id:8": "minecraft:chest",
+              "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
             }
@@ -7125,20 +6995,14 @@
           "rewards:9": [
             {
               "0:10": {
-                "id:8": "netherite:netherite_scrap",
+                "id:8": "minecraft:stick",
                 "Count:3": 4,
                 "Damage:2": 0,
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "minecraft:gold_ingot",
-                "Count:3": 4,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "2:10": {
                 "id:8": "minecraft:experience_bottle",
-                "Count:3": 8,
+                "Count:3": 2,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
@@ -7150,6 +7014,9 @@
     "157:10": {
       "questID:3": 105,
       "preRequisites:11": [
+        101,
+        102,
+        103,
         104
       ],
       "properties:10": {
@@ -7170,13 +7037,13 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "netherite:netherite_ingot",
+            "id:8": "minecraft:iron_pickaxe",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§l§6Heritage Forge",
-          "desc:8": "§7Quatre fragments + quatre lingots d'or\n§7+ un feu assez chaud. C'est la recette\n§7de Voss pour le §4Netherite§r§7.\n\n§7Tiens. Regarde-le briller dans ta main.\n§7Tu portes maintenant quelque chose\n§7que Voss a fabrique, touche, oublie.\n\n§8§o\"Le Netherite n'est pas un alliage. C'est\n§8une memoire. Chaque lingot garde la trace\n§8de celui qui l'a forge.\"\n— Carnet Voss Vol. III, p.7§r\n\n§e§lObjectif : §71x Netherite Ingot\n§e§lRecompense : §7ME Controller + 4x Logic Processor + 3 voies ouvertes"
+          "name:8": "§l§6Pioche de Fer",
+          "desc:8": "§7Une pioche de fer. Il te la faut pour\n§7casser le §bQuartz Bleu§r§7 dans les grottes.\n\n§e§lObjectif : §71x Pioche de Fer\n§e§lRecompense : §74 lingots de fer"
         }
       },
       "tasks:9": {
@@ -7191,9 +7058,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "netherite:netherite_ingot",
+              "id:8": "minecraft:iron_pickaxe",
               "Count:3": 1,
-              "Damage:2": 0,
+              "Damage:2": 32767,
               "OreDict:8": ""
             }
           }
@@ -7206,52 +7073,26 @@
           "rewards:9": [
             {
               "0:10": {
-                "id:8": "appliedenergistics2:controller",
-                "Count:3": 1,
+                "id:8": "minecraft:iron_ingot",
+                "Count:3": 4,
                 "Damage:2": 0,
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:material",
-                "Count:3": 4,
-                "Damage:2": 22,
-                "OreDict:8": ""
-              },
-              "2:10": {
                 "id:8": "minecraft:experience_bottle",
-                "Count:3": 16,
+                "Count:3": 4,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
             }
           ]
-        },
-        "1:10": {
-          "hideBlockIcon:1": 1,
-          "rewardID:8": "bq_standard:command",
-          "asScript:1": 1,
-          "description:8": "",
-          "viaPlayer:1": 0,
-          "index:3": 1,
-          "title:8": "bq_standard.reward.command",
-          "command:8": "/gamestage add @p age2_crossroads"
-        },
-        "2:10": {
-          "hideBlockIcon:1": 1,
-          "rewardID:8": "bq_standard:command",
-          "asScript:1": 1,
-          "description:8": "",
-          "viaPlayer:1": 0,
-          "index:3": 2,
-          "title:8": "bq_standard.reward.command",
-          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r a forge un lingot de Netherite. L'heritage de Voss passe a la generation suivante."
         }
       }
     },
     "158:10": {
       "questID:3": 106,
       "preRequisites:11": [
-        105
+        2007
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -11727,6 +11568,665 @@
           ]
         }
       }
+    },
+    "229:10": {
+      "questID:3": 2000,
+      "preRequisites:11": [
+        105
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:material",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Le Quartz Bleu",
+          "desc:8": "§7Au fond des grottes, des cristaux bleus\n§7luisent. C'est le §bCertus Quartz§r§7.\n§7Matiere premiere de l'informatique dimensionnelle.\n\n§e§lObjectif : §716x Certus Quartz\n§e§lRecompense : §7Stone + XP"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:material",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:stone",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "230:10": {
+      "questID:3": 2001,
+      "preRequisites:11": [
+        2000
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:quartz_grindstone",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6La Pierre Affuteuse",
+          "desc:8": "§7Avant les machines electriques, il y avait\n§7la §6Quartz Grindstone§r§7. Un broyeur manuel\n§7qui double tes minerais de base.\n\n§e§lObjectif : §71x Quartz Grindstone\n§e§lRecompense : §78 torches + XP"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:quartz_grindstone",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:torch",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "231:10": {
+      "questID:3": 2002,
+      "preRequisites:11": [
+        2001
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:sky_compass",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Boussole a Meteorite",
+          "desc:8": "§7Les §ePresses d'Inscription AE2§r§7 tombent\n§7du ciel dans des meteorites.\n\n§7La §eBoussole a Meteorite§r§7 pointe vers la plus\n§7proche. Crafte-la. Suis la boussole. Creuse.\n\n§e§lObjectif : §71x Boussole a Meteorite\n§e§lRecompense : §74 pain + XP"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:sky_compass",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:bread",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "232:10": {
+      "questID:3": 2003,
+      "preRequisites:11": [
+        2002
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:material",
+            "Count:3": 1,
+            "Damage:2": 15,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Premiere Presse",
+          "desc:8": "§7Trouve UNE meteorite AE2 et ramasse n'importe\n§7laquelle des 4 Presses d'Inscription.\n\n§7§oLogic, Calculation, Engineering, ou Silicon.§r\n§7Peu importe laquelle — le jeu te donnera la\n§7Silicon Press en bonus pour completer ton set.\n\n§e§lObjectif : §71x N'importe quelle AE2 Press\n§e§lRecompense : §7Silicon Press + 100 XP"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 1,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:material",
+              "Count:3": 1,
+              "Damage:2": 15,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "appliedenergistics2:material",
+              "Count:3": 1,
+              "Damage:2": 13,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "appliedenergistics2:material",
+              "Count:3": 1,
+              "Damage:2": 14,
+              "OreDict:8": ""
+            },
+            "3:10": {
+              "id:8": "appliedenergistics2:material",
+              "Count:3": 1,
+              "Damage:2": 19,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "appliedenergistics2:material",
+                "Count:3": 1,
+                "Damage:2": 19,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "233:10": {
+      "questID:3": 2004,
+      "preRequisites:11": [
+        2003,
+        100
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "patchouli:guide_book",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss_v2"
+            }
+          },
+          "name:8": "§l§6Le Carnet en Main",
+          "desc:8": "§7Tiens ton §eCarnet Vol. II§r§7 en main.\n§7Tu devrais l'avoir depuis la Q97. Si tu l'as\n§7perdu, crafte en un autre (ou demande a un admin).\n\n§e§lObjectif : §71x Carnet Voss Vol. II\n§e§lRecompense : §72 golden apples"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 0,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "patchouli:guide_book",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": "",
+              "tag:10": {
+                "patchouli:book:8": "nexusabsolu:carnet_voss_v2"
+              }
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:golden_apple",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "234:10": {
+      "questID:3": 2005,
+      "preRequisites:11": [
+        2004
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "stacked_dimensions_warden:sculk_tendril",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Signal Sculk",
+          "desc:8": "§7Pour crafter le §dSac du Sujet 46§r§7, il te faut\n§7§6un§r§7 seul §bSculk Tendril§r§7 du Deep Dark.\n\n§cPas besoin de tuer le Warden.§r §7Descends juste\n§7assez profond pour en trouver un. Retourne en\n§7haut tout de suite apres.\n\n§e§lObjectif : §71x Sculk Tendril\n§e§lRecompense : §7Debloque la recette du Sac"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "stacked_dimensions_warden:sculk_tendril",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:torch",
+                "Count:3": 16,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/gamestage add @p age2_grabber_recipe"
+        }
+      }
+    },
+    "235:10": {
+      "questID:3": 2006,
+      "preRequisites:11": [
+        2005
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:grabber_voss",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Le Sac du Sujet 46",
+          "desc:8": "§7Avec ton tendril de sculk, tu peux assembler\n§7une replique du §dSac du Sujet 46§r§7.\n\n§8§o\"Le sac de 46 contient ses affaires,\n§8mais aussi ses souvenirs.\"\n§8— Carnet Voss Vol. II, p.7§r\n\n§e§lObjectif : §71x Grabber Voss\n§e§lRecompense : §7Nourriture + golden apples + XP"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:grabber_voss",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:bread",
+                "Count:3": 16,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:golden_apple",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "2:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 6,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "236:10": {
+      "questID:3": 2007,
+      "preRequisites:11": [
+        2006
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "patchouli:guide_book",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss_v3"
+            }
+          },
+          "name:8": "§l§6La Croisee",
+          "desc:8": "§7Tu as ton sac. Tu as tes presses AE2.\n§7Tu as le Carnet Vol. II. Tu es §lpret§r§7.\n\n§7Trois voies s'ouvrent devant toi :\n§7- §bAE2 complet§r§7 (canaux, terminal, autocraft)\n§7- §aBotania§r§7 (fleurs, mana, manasteel)\n§7- §5Mystical Agriculture§r§7 (inferium, graines)\n\n§7Choisis par ou commencer. Tu pourras tout\n§7faire dans l'ordre que tu veux.\n\n§e§lObjectif : §7Clique pour confirmer\n§e§lRecompense : §7Carnet Voss Vol. III + ME Controller"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "patchouli:guide_book",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": "",
+                "tag:10": {
+                  "patchouli:book:8": "nexusabsolu:carnet_voss_v3"
+                }
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:controller",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "2:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 16,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/gamestage add @p age2_crossroads"
+        },
+        "2:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 2,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME§r atteint la Croisee. Les 3 voies de l'Age 2 sont ouvertes."
+        }
+      }
     }
   },
   "questLines:9": {
@@ -12570,63 +13070,81 @@
           "sizeX:3": 32,
           "sizeY:3": 32,
           "x:3": 0,
-          "y:3": 0
+          "y:3": 0,
+          "posX:3": 0,
+          "posY:3": 0
         },
         "1:10": {
           "id:3": 98,
           "sizeX:3": 24,
           "sizeY:3": 24,
-          "x:3": 60,
-          "y:3": 0
+          "x:3": -180,
+          "y:3": 50,
+          "posX:3": -180,
+          "posY:3": 50
         },
         "2:10": {
           "id:3": 99,
           "sizeX:3": 24,
           "sizeY:3": 24,
-          "x:3": 120,
-          "y:3": 0
+          "x:3": -180,
+          "y:3": 100,
+          "posX:3": -180,
+          "posY:3": 100
         },
         "3:10": {
           "id:3": 100,
-          "sizeX:3": 32,
-          "sizeY:3": 32,
-          "x:3": 0,
-          "y:3": 50
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": -180,
+          "y:3": 150,
+          "posX:3": -180,
+          "posY:3": 150
         },
         "4:10": {
           "id:3": 101,
           "sizeX:3": 24,
           "sizeY:3": 24,
           "x:3": 60,
-          "y:3": 50
+          "y:3": 50,
+          "posX:3": 60,
+          "posY:3": 50
         },
         "5:10": {
           "id:3": 102,
           "sizeX:3": 24,
           "sizeY:3": 24,
           "x:3": 120,
-          "y:3": 50
+          "y:3": 50,
+          "posX:3": 120,
+          "posY:3": 50
         },
         "6:10": {
           "id:3": 103,
           "sizeX:3": 24,
           "sizeY:3": 24,
-          "x:3": 0,
-          "y:3": 100
+          "x:3": 180,
+          "y:3": 50,
+          "posX:3": 180,
+          "posY:3": 50
         },
         "7:10": {
           "id:3": 104,
           "sizeX:3": 24,
           "sizeY:3": 24,
-          "x:3": 60,
-          "y:3": 100
+          "x:3": 240,
+          "y:3": 50,
+          "posX:3": 240,
+          "posY:3": 50
         },
         "8:10": {
           "id:3": 105,
-          "sizeX:3": 32,
-          "sizeY:3": 32,
-          "x:3": 0,
-          "y:3": 150
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 150,
+          "y:3": 110,
+          "posX:3": 150,
+          "posY:3": 110
         },
         "9:10": {
           "id:3": 106,
@@ -12928,6 +13446,78 @@
           "sizeY:3": 40,
           "x:3": 60,
           "y:3": 1090
+        },
+        "52:10": {
+          "id:3": 2000,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 150,
+          "y:3": 170,
+          "posX:3": 150,
+          "posY:3": 170
+        },
+        "53:10": {
+          "id:3": 2001,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 150,
+          "y:3": 220,
+          "posX:3": 150,
+          "posY:3": 220
+        },
+        "54:10": {
+          "id:3": 2002,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 150,
+          "y:3": 270,
+          "posX:3": 150,
+          "posY:3": 270
+        },
+        "55:10": {
+          "id:3": 2003,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 150,
+          "y:3": 320,
+          "posX:3": 150,
+          "posY:3": 320
+        },
+        "56:10": {
+          "id:3": 2004,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": -30,
+          "y:3": 370,
+          "posX:3": -30,
+          "posY:3": 370
+        },
+        "57:10": {
+          "id:3": 2005,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": -30,
+          "y:3": 420,
+          "posX:3": -30,
+          "posY:3": 420
+        },
+        "58:10": {
+          "id:3": 2006,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": -30,
+          "y:3": 470,
+          "posX:3": -30,
+          "posY:3": 470
+        },
+        "59:10": {
+          "id:3": 2007,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": -30,
+          "y:3": 530,
+          "posX:3": -30,
+          "posY:3": 530
         }
       }
     },
