@@ -6454,489 +6454,6 @@
         }
       }
     },
-    "142:10": {
-      "questID:3": 143,
-      "preRequisites:11": [
-        142
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "nexusabsolu:fluid_input",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§6L'injection liquide",
-          "desc:8": "§7Le Condenseur T2 a soif.\nUn nouveau hatch permet d'injecter\ndes fluides dans le multibloc.\n\n§8§o\"La diarrhée n'est pas un déchet.\nC'est un catalyseur dimensionnel.\"\n— Dr. E. Voss, Note 44§r\n\n§eCraft et pose le Fluid Input\nsur le Condenseur T2."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "nexusabsolu:fluid_input",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:experience_bottle",
-              "Count:3": 4,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "143:10": {
-      "questID:3": 144,
-      "preRequisites:11": [
-        143
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "compactmachines3:machine",
-            "Count:3": 1,
-            "Damage:2": 3,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§d§nLa Neuvième Dimension",
-          "desc:8": "§7C'est le moment.\n2x Compact Machine x7 + Clé 9x9\n+ Catalyseur Critique + 400mB Diarrhée.\n\n§8§o\"Neuf mètres cubes. Assez pour contenir\ntout ce que j'ai construit.\nAssez pour tout recommencer.\"\n— Dr. E. Voss, dernière entrée§r\n\n§e§lObtiens la Compact Machine 9x9 !\n§7Fin de l'Age 1."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "compactmachines3:machine",
-              "Count:3": 1,
-              "Damage:2": 3,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:experience_bottle",
-              "Count:3": 32,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "144:10": {
-      "questID:3": 145,
-      "preRequisites:11": [
-        144
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "minecraft:ender_pearl",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§5§nInstabilité Dimensionnelle",
-          "desc:8": "§7Le KRDA125 vibre étrangement\nquand la Diarrhée touche certaines poudres.\n\n§8§o\"J'ai renversé mon bocal sur de la\npoussière de bedrock. La pièce a tremblé.\nUne perle violette est apparue.\nJe dois reproduire l'expérience.\"\n— Dr. E. Voss, Note 47§r\n\n§eRecette KRDA125 :\n§71x Grains of Infinity §8(dustBedrock)\n§7+ 800mB Diarrhée Liquide\n§7= 1 Ender Pearl"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "minecraft:ender_pearl",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:experience_bottle",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "145:10": {
-      "questID:3": 146,
-      "preRequisites:11": [
-        144
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "nexusabsolu:vossium_iv_block",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§dL'Architecte du Vide",
-          "desc:8": "§7Voss avait un dernier projet : un §dPortail§r§7\nqui briserait les murs de cette prison.\n\n§7Pour le construire, il te faut son plus precieux\nmateriau : le §dVossium IV§r§7. Ramene-en deux blocs\npour valider que tu es pret.\n\n§e§lRecompense§r§7 : tu obtiendras les §dPlans\ndu Portail Voss§r§7 (un livre detaille couche par\ncouche) ainsi que 16 Nexus Wall T2 pour t'aider\na commencer la construction.\n\n§8§o\"L'architecte ne batit pas en pierre.\nIl batit avec le doute, la patience, et\nle souvenir de ce qu'il a perdu.\"\n— Dr. E. Voss§r\n\n§e§lObjectif : §72x Bloc de Vossium IV"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "nexusabsolu:vossium_iv_block",
-              "Count:3": 2,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:experience_bottle",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            },
-            "1:10": {
-              "id:8": "nexusabsolu:nexus_wall_t2",
-              "Count:3": 16,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            },
-            "2:10": {
-              "id:8": "minecraft:written_book",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": "",
-              "tag:10": {
-                "title:8": "Plans du Portail Voss",
-                "author:8": "Dr. E. Voss",
-                "resolved:1": 1,
-                "generation:3": 0,
-                "pages:9": [
-                  "{\"text\":\"§l§5Plans du Portail§r\\n\\nTraces par le\\nDr. Elias Voss\\n\\nCes plans decrivent\\nles 9 couches du\\nPortail dimensionnel.\\n\\nConstruis-les dans\\nta Compact Machine\\n9x9.\"}",
-                  "{\"text\":\"§lLegende :§r\\n\\nw = Nexus Wall\\nW = Nexus Wall T2\\n3 = Vossium III\\n4 = Vossium IV\\nE = Energy Input\\nF = Fluid Input\\nD = Compose D\\n~ = Lave\\nX = Ecran Controle\"}",
-                  "{\"text\":\"§lCouche -5§r\\n(la base, 7x7)\\n\\nW W W E W W W\\nW W 3 3 3 W W\\nW 3 W 3 W 3 W\\nW 3 3 4 3 3 F\\nW 3 W 3 W 3 W\\nW W 3 3 3 W W\\nW W W W W W W\\n\\nE et F opposes.\"}",
-                  "{\"text\":\"§lCouche -4§r\\n(le bassin)\\n\\nD w w w D\\nw ~ ~ ~ w\\nw ~ 4 ~ w\\nw ~ ~ ~ w\\nD w w w D\\n\\n8 lave autour du\\n2eme bloc Vossium IV\\nau centre.\"}",
-                  "{\"text\":\"§lCouche -3§r\\n(plateforme)\\n\\nw w w\\nw W w\\nw w w\\n\\n3x3 de murs avec\\nun Wall T2 au centre\\njuste au-dessus du\\nVossium IV.\"}",
-                  "{\"text\":\"§lCouches -2 a 0§r\\n(les piliers)\\n\\nA chaque niveau,\\n2 piliers Wall T2.\\n\\nPosition : a gauche\\net a droite du\\ncentre, de chaque\\ncote du futur\\nportail.\\n\\nL'§lECRAN§r est place\\nau centre, niveau 0.\"}",
-                  "{\"text\":\"§lCouche +1§r\\n(le pont)\\n\\nW w w w W\\n\\n§lCouches +2 et +3§r\\n(les cornes)\\n\\nw w . . . w w\\nw . . . . . w\\n\\nBranches externes\\nau-dessus du pont.\"}",
-                  "{\"text\":\"§l§6Activation§r\\n\\n§e1.§r Branche un\\nEnergy Input et\\ncharge §61M RF§r.\\n\\n§e2.§r Branche un\\nFluid Input et\\nremplis avec §d10\\nbuckets de\\nDiarrhee§r.\"}",
-                  "{\"text\":\"§e3.§r Tiens la\\n§dCle de Liberte§r\\nen main.\\n\\n§e4.§r Clique droit\\nsur l'§lECRAN§r\\nde Controle.\\n\\n§o\\nSi tu lis ceci,\\nc'est que tu as\\nreussi.\\n\\n— E. Voss§r\"}"
-                ]
-              }
-            }
-          }
-        }
-      }
-    },
-    "146:10": {
-      "questID:3": 147,
-      "preRequisites:11": [
-        146
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "minecraft:bucket",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§dLe Souffle de Voss",
-          "desc:8": "§7Le portail dort. Pour l'eveiller :\n\n§e1) §7Branche un §6Energy Input§7 et alimente-le\n§7   avec §61,000,000 RF§7 (n'importe quelle source).\n\n§e2) §7Branche un §dFluid Input§7 et remplis-le\n§7avec §d10 seaux de Diarrhee Liquide§7.\n\n§7Pour cette quete, ramene un §dseau de Diarrhee§7.\n\n§8§o\"La pulsation. Le bruit qu'elle fait\nquand elle traverse le metal.\nC'est presque musical, par moments.\"\n— Dr. E. Voss§r\n\n§e§lObjectif : §71x Seau de Diarrhee Liquide"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "forge:bucketfilled",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 1,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:experience_bottle",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            },
-            "1:10": {
-              "id:8": "minecraft:bucket",
-              "Count:3": 8,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "147:10": {
-      "questID:3": 148,
-      "preRequisites:11": [
-        147
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "nexusabsolu:cle_liberte",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§dLa Cle du Dr. Voss",
-          "desc:8": "§7Dans son journal, Voss decrit une cle.\n§7Ancienne. Froide. Inerte.\n\n§7Il l'a laissee pour celui qui survivrait\n§7assez longtemps pour construire le portail.\n§7C'est-a-dire toi.\n\n§7Recupere ta recompense pour obtenir\n§7la §dCle de Liberte§7.\n\n§8§o\"Cette cle n'ouvre rien. Pas de serrure.\nElle attend simplement le bon endroit\npour se souvenir de ce qu'elle est.\"\n— Dr. E. Voss, derniere page§r\n\n§e§lRecompense : §71x Cle de Liberte"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "nexusabsolu:cle_liberte",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            },
-            "1:10": {
-              "id:8": "minecraft:experience_bottle",
-              "Count:3": 16,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
-    "148:10": {
-      "questID:3": 149,
-      "preRequisites:11": [
-        148
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "nexusabsolu:cle_liberte_activee",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§6L I B R E",
-          "desc:8": "§7C'est le moment.\n\n§7Tiens la §dCle de Liberte§7 en main.\n§7Clique droit sur l'§dEcran de Controle§7 du portail.\n\n§7Ce qui se passera ensuite, Voss ne l'a pas decrit.\n§7Personne avant toi ne l'a vu.\n\n§8§o\"Si tu lis ces mots, c'est que tu as reussi\nla ou j'ai echoue. Sors. Vois le ciel.\nN'oublie jamais ce que tu as appris ici.\nMais surtout : n'oublie pas qui tu etais\nquand tu n'avais que ces quatre murs.\"\n— Dr. E. Voss, signature finale§r\n\n§e§lFin de l'Age 1.\n§7Cette quete se complete automatiquement\n§7quand tu utilises la cle sur le portail."
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:checkbox"
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": {
-            "0:10": {
-              "id:8": "minecraft:experience_bottle",
-              "Count:3": 32,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            },
-            "1:10": {
-              "id:8": "nexusabsolu:fragment_mecanique",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
-        }
-      }
-    },
     "149:10": {
       "questID:3": 97,
       "preRequisites:11": [
@@ -10274,579 +9791,6 @@
         }
       }
     },
-    "195:10": {
-      "questID:3": 143,
-      "preRequisites:11": [],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "computercraft:computer",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§a>>> print(\"Hello World\")",
-          "desc:8": "§7§oBienvenue dans la page Coding§r\n\n§7Tu vas apprendre a coder en Lua, le langage\ndes §bComputerCraft:Tweaked§r§7 et §eOpenComputers§r§7.\n\n§7Commence simple : un §bComputer§r§7 CC, un clavier,\nun ecran. Tape §elua§r§7 dans la console et fais :\n\n§a>>> print(\"Hello World\")§r\n\n§e§lObjectif : §7Craft 1x Computer (CC:T)"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "computercraft:computer",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": [
-            {
-              "0:10": {
-                "id:8": "minecraft:experience_bottle",
-                "Count:3": 8,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "1:10": {
-                "id:8": "computercraft:disk",
-                "Count:3": 4,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              }
-            }
-          ]
-        }
-      }
-    },
-    "196:10": {
-      "questID:3": 144,
-      "preRequisites:11": [
-        143
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "computercraft:disk",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§aVariables & Boucles",
-          "desc:8": "§7Le code c'est comme les cables Mekanism :\ndes flux qu'on guide.\n\n§a§lfor§r§7 i=1,10 §a§ldo§r§7 print(i) §a§lend§r§7\n\n§7Cette boucle affiche 1 a 10. Simple.\n\n§e§lObjectif : §7Craft 1x CC:T Floppy Disk\n§7(pour sauvegarder ton code)"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "computercraft:disk",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": [
-            {
-              "0:10": {
-                "id:8": "minecraft:experience_bottle",
-                "Count:3": 6,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              }
-            }
-          ]
-        }
-      }
-    },
-    "197:10": {
-      "questID:3": 145,
-      "preRequisites:11": [
-        144
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "computercraft:turtle_advanced",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§aPremiere Tortue",
-          "desc:8": "§7Une §bTurtle§r§7 est un mini-robot programmable.\n§7Elle peut miner, placer, planter, crafter.\n\n§7Donne-lui du §7Crafting Table§r§7 pour qu'elle\npuisse crafter, et un §ePickaxe§r§7 pour miner.\n\n§a>>> turtle.dig()\n>>> turtle.forward()§r\n\n§e§lObjectif : §7Craft 1x Mining Turtle"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "computercraft:turtle_advanced",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": [
-            {
-              "0:10": {
-                "id:8": "minecraft:experience_bottle",
-                "Count:3": 12,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "1:10": {
-                "id:8": "minecraft:iron_pickaxe",
-                "Count:3": 1,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              }
-            }
-          ]
-        }
-      }
-    },
-    "198:10": {
-      "questID:3": 146,
-      "preRequisites:11": [
-        143
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "opencomputers:case2",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§aOpenComputers : l'Autre Ecole",
-          "desc:8": "§7§bComputerCraft§r§7 est facile et portable.\n§eOpenComputers§r§7 est §lrealiste§r§7 : chaque\ncomposant est un vrai item (CPU, RAM, GPU, HDD).\n\n§7Monte ton premier OC Case avec tous les composants\net une carte reseau Linked.\n\n§e§lObjectif : §7Craft 1x Computer Case (Tier 2)"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "opencomputers:case2",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": [
-            {
-              "0:10": {
-                "id:8": "minecraft:experience_bottle",
-                "Count:3": 12,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "1:10": {
-                "id:8": "opencomputers:ram2",
-                "Count:3": 2,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              }
-            }
-          ]
-        }
-      }
-    },
-    "199:10": {
-      "questID:3": 147,
-      "preRequisites:11": [
-        146
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 0,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "opencomputers:floppy",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§aOpenOS",
-          "desc:8": "§7Dans un OC, tu dois installer un OS.\n§7Insere un §aOpenOS Floppy§r§7, boot ton Case,\ntape §einstall§r§7 -> il se copie sur le HDD.\n\n§7Redemarre, tu as un vrai shell Lua persistant.\n\n§e§lObjectif : §7Craft 1x OpenOS Floppy"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "opencomputers:floppy",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": [
-            {
-              "0:10": {
-                "id:8": "minecraft:experience_bottle",
-                "Count:3": 10,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              }
-            }
-          ]
-        }
-      }
-    },
-    "200:10": {
-      "questID:3": 148,
-      "preRequisites:11": [
-        147
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "opencomputers:robot",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§aRobot OC",
-          "desc:8": "§7L'equivalent OC de la Turtle.\n§7Plus complexe a monter (Robot Assembler requis)\nmais plus puissant : inventaires multiples,\nplusieurs tools, communication sans fil.\n\n§e§lObjectif : §7Craft 1x Robot"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "opencomputers:robot",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": [
-            {
-              "0:10": {
-                "id:8": "minecraft:experience_bottle",
-                "Count:3": 16,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              }
-            }
-          ]
-        }
-      }
-    },
-    "201:10": {
-      "questID:3": 149,
-      "preRequisites:11": [
-        145,
-        148
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "opencomputers:adapter",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§dIntegration AE2",
-          "desc:8": "§7Le vrai pouvoir du coding : connecter les mods.\n\n§7Pose un §bME Interface§r§7 a cote de ton Computer.\n§7Utilise §ecomponent.me_controller§r§7 (OC) ou\n§eperipheral.wrap§r§7 (CC) pour lire le stockage AE2.\n\n§7Ton code peut maintenant detecter les manques,\ncommander des crafts, afficher des dashboards.\n\n§e§lObjectif : §7Craft 1x Adapter (OC) ou Wired Modem (CC)"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "opencomputers:adapter",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": [
-            {
-              "0:10": {
-                "id:8": "minecraft:experience_bottle",
-                "Count:3": 20,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "1:10": {
-                "id:8": "appliedenergistics2:interface",
-                "Count:3": 2,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              }
-            }
-          ]
-        }
-      }
-    },
-    "202:10": {
-      "questID:3": 150,
-      "preRequisites:11": [
-        149
-      ],
-      "properties:10": {
-        "betterquesting:10": {
-          "issilent:1": 0,
-          "snd_complete:8": "minecraft:entity.player.levelup",
-          "lockedprogress:1": 1,
-          "partySingleReward:8": "false",
-          "tasklogic:8": "AND",
-          "repeattime:3": -1,
-          "visibility:8": "ALWAYS",
-          "simultaneous:1": 0,
-          "globalshare:1": 0,
-          "questlogic:8": "AND",
-          "partysinglereward:1": 0,
-          "snd_update:8": "minecraft:entity.player.levelup",
-          "autoclaim:1": 0,
-          "ismain:1": 1,
-          "repeat_relative:1": 1,
-          "icon:10": {
-            "id:8": "computercraft:monitor_advanced",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "name:8": "§l§6Architecte Numerique",
-          "desc:8": "§7Tu sais coder. Tu sais lire ton reseau AE2.\n§7Tu peux faire pointer un Monitor pour afficher\nles stocks, declencher des crafts, alerter.\n\n§8§o\"Avant, j'etais un mineur. Puis un ingenieur.\nMaintenant, je suis un programmeur.\nChaque matin, mon code me dit ce qu'il a fait\npendant que je dormais.\"§r\n\n§e§lObjectif : §7Pose un Monitor et affiche ton stock"
-        }
-      },
-      "tasks:9": {
-        "0:10": {
-          "index:3": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "computercraft:monitor_advanced",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          },
-          "consume:1": 0,
-          "groupDetect:1": 0,
-          "autoConsume:1": 0,
-          "ignoreDamage:1": 0,
-          "ignoreNBT:1": 1
-        }
-      },
-      "rewards:9": {
-        "0:10": {
-          "rewardID:8": "bq_standard:item",
-          "index:3": 0,
-          "rewards:9": [
-            {
-              "0:10": {
-                "id:8": "minecraft:experience_bottle",
-                "Count:3": 32,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              },
-              "1:10": {
-                "id:8": "computercraft:monitor_advanced",
-                "Count:3": 4,
-                "Damage:2": 0,
-                "OreDict:8": ""
-              }
-            }
-          ]
-        }
-      }
-    },
     "203:10": {
       "questID:3": 151,
       "preRequisites:11": [
@@ -11248,6 +10192,1394 @@
               "2:10": {
                 "id:8": "minecraft:diamond_block",
                 "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "209:10": {
+      "questID:3": 143,
+      "preRequisites:11": [],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "computercraft:computer",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§a>>> Premier Computer",
+          "desc:8": "§7Bienvenue dans la page Coding.\n\n§7Craft un §bComputer§r§7 (CC:T), pose-le, clic droit\npour ouvrir le terminal. Tape :\n\n§a>>> lua§r\n§a>>> print(\"Hello World\")§r\n§a>>> exit§r\n\n§7Tu viens d'ecrire ton premier code Lua."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "computercraft:computer",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 6,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "210:10": {
+      "questID:3": 144,
+      "preRequisites:11": [
+        143
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "computercraft:disk",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§aedit hello",
+          "desc:8": "§7Au lieu de taper dans l'interpreteur,\non va sauvegarder un programme.\n\n§a>>> edit hello§r\n\n§7L'editeur s'ouvre. Tape :\n§aprint(\"Mon premier programme\")§r\n\n§7Ctrl+S pour save, Ctrl+E pour exit.\n§7Ensuite : §a>>> hello§r §7pour le lancer."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "computercraft:disk",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 6,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "211:10": {
+      "questID:3": 145,
+      "preRequisites:11": [
+        144
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "computercraft:disk",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§aVariables",
+          "desc:8": "§7Une variable stocke une valeur.\n\n§alocal nom = \"Voss\"§r\n§alocal age = 47§r\n§aprint(nom, age)§r\n\n§7§oNote : utilise §alocal§r§7§o pour limiter\nla portee a ton script.§r"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "computercraft:disk",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "212:10": {
+      "questID:3": 146,
+      "preRequisites:11": [
+        145
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "minecraft:redstone",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§aBoucles for",
+          "desc:8": "§7Repeter, c'est le coeur du code.\n\n§afor i = 1, 10 do§r\n§a  print(\"Tour \" .. i)§r\n§aend§r\n\n§7Affiche 1 a 10. L'operateur §a..§r§7 colle\ndes chaines."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:redstone",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "213:10": {
+      "questID:3": 147,
+      "preRequisites:11": [
+        146
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "minecraft:lever",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§aConditions if/else",
+          "desc:8": "§7Decider, c'est encore mieux.\n\n§alocal x = 5§r\n§aif x > 10 then§r\n§a  print(\"grand\")§r\n§aelseif x > 0 then§r\n§a  print(\"petit positif\")§r\n§aelse§r\n§a  print(\"negatif ou zero\")§r\n§aend§r"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:lever",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "214:10": {
+      "questID:3": 148,
+      "preRequisites:11": [
+        147
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "minecraft:paper",
+            "Count:3": 4,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§aFonctions",
+          "desc:8": "§7Une fonction = un bloc reutilisable.\n\n§alocal function carre(n)§r\n§a  return n * n§r\n§aend§r\n§a§r\n§aprint(carre(7))  -- 49§r\n\n§7Indispensable pour eviter de repeter."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:paper",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "215:10": {
+      "questID:3": 149,
+      "preRequisites:11": [
+        148
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "minecraft:iron_door",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§aRedstone API",
+          "desc:8": "§7CC sait controler la redstone.\n\n§aredstone.setOutput(\"right\", true)§r\n§aprint(redstone.getInput(\"left\"))§r\n\n§7Pose ton Computer a cote d'une porte\nen fer et utilise §aredstone§r§7 pour l'ouvrir."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:iron_door",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:redstone",
+                "Count:3": 32,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "216:10": {
+      "questID:3": 150,
+      "preRequisites:11": [
+        149
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "computercraft:turtle_advanced",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§aPremiere Turtle",
+          "desc:8": "§7Une §bTurtle§r§7 est un robot programmable.\nElle bouge, mine, pose des blocs.\n\n§aturtle.forward()§r\n§aturtle.dig()§r\n§aturtle.placeDown()§r\n\n§7Donne-lui un pickaxe pour creuser."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "computercraft:turtle_advanced",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 14,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:iron_pickaxe",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "217:10": {
+      "questID:3": 151,
+      "preRequisites:11": [
+        150
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "minecraft:cobblestone",
+            "Count:3": 64,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§aTurtle qui mine",
+          "desc:8": "§7Boucle + turtle = magie.\n\n§afor i = 1, 16 do§r\n§a  turtle.dig()§r\n§a  turtle.forward()§r\n§aend§r\n\n§7Tunnel automatique de 16 blocs.\nSauvegarde sous §bminer§r§7 et lance-le."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:cobblestone",
+              "Count:3": 64,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 16,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "computercraft:turtle_advanced",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "218:10": {
+      "questID:3": 152,
+      "preRequisites:11": [
+        143
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "opencomputers:case2",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§eOC Computer Case",
+          "desc:8": "§7§eOpenComputers§r§7 est plus realiste : chaque\ncomposant est un vrai item.\n\n§7Monte un §eComputer Case T2§r§7 avec :\n§7- 1 CPU T1\n§7- 2 RAM T1\n§7- 1 GPU T1\n§7- 1 HDD T1\n§7- 1 Internet/Network Card"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "opencomputers:case2",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 12,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "219:10": {
+      "questID:3": 153,
+      "preRequisites:11": [
+        152
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "opencomputers:floppy",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§eOpenOS Floppy",
+          "desc:8": "§7Un OC vierge ne fait rien.\n§7Il faut un OS.\n\n§7Craft un §aOpenOS Floppy§r§7. Insere-le dans\nle Disk Drive a cote du Case. Boot.\nTape : §einstall§r§7 puis §eY§r§7 pour installer\nsur le HDD interne.\n\n§7Reboot. Tu as un vrai shell Lua."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "opencomputers:floppy",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "220:10": {
+      "questID:3": 154,
+      "preRequisites:11": [
+        153
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "opencomputers:adapter",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§ecomponent API",
+          "desc:8": "§7C'est LA difference avec CC. Chaque bloc\nadjacent est un §ecomponent§r§7 detectable.\n\n§alocal component = require(\"component\")§r\n§afor addr, kind in component.list() do§r\n§a  print(kind, addr)§r\n§aend§r\n\n§7Liste tous les components branches."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "opencomputers:adapter",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 12,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "221:10": {
+      "questID:3": 155,
+      "preRequisites:11": [
+        154
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "opencomputers:redstone_card1",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§eComponent Proxy",
+          "desc:8": "§7Pour utiliser un component, on le proxy.\n\n§alocal c = require(\"component\")§r\n§alocal rs = c.redstone§r\n§ars.setOutput(2, 15)  -- side 2 = south§r\n\n§7Sides : 0=down 1=up 2=north 3=south\n§74=west 5=east."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "opencomputers:redstone_card1",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "222:10": {
+      "questID:3": 156,
+      "preRequisites:11": [
+        155
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "opencomputers:keyboard",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§eEvents et signaux",
+          "desc:8": "§7OC est event-driven.\n\n§alocal event = require(\"event\")§r\n§alocal _, _, ch = event.pull(\"key_down\")§r\n§aprint(\"Touche : \" .. ch)§r\n\n§7Attend une touche puis l'affiche.\nLes events : key_down, redstone_changed,\ncomponent_added, etc."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "opencomputers:keyboard",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 12,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "223:10": {
+      "questID:3": 157,
+      "preRequisites:11": [
+        156
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "opencomputers:robot",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§eRobot OC",
+          "desc:8": "§7L'equivalent OC de la Turtle.\n\n§7Plus complexe a monter (Robot Assembler\n+ Inventory Upgrade + Tool Upgrade...)\nmais bien plus puissant.\n\n§alocal r = require(\"robot\")§r\n§ar.forward()§r\n§ar.swing()§r"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "opencomputers:robot",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 18,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "224:10": {
+      "questID:3": 158,
+      "preRequisites:11": [
+        157
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 0,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "opencomputers:graphics_card2",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§eGPU et ecran",
+          "desc:8": "§7Affiche du texte stylise.\n\n§alocal gpu = require(\"component\").gpu§r\n§agpu.setForeground(0xFF00FF)§r\n§agpu.set(1, 1, \"NEXUS ABSOLU\")§r\n\n§7Couleurs hex 24-bit. Les T3+ font du graphique\ncomplet."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "opencomputers:graphics_card2",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 14,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "225:10": {
+      "questID:3": 159,
+      "preRequisites:11": [
+        151,
+        158
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "computercraft:wired_modem_full",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dPeripheral wrap (CC) / Adapter (OC)",
+          "desc:8": "§7Connecter aux mods externes.\n\n§7§lCC :§r\n§alocal m = peripheral.wrap(\"left\")§r\n§aprint(m.getEnergyStored())§r\n\n§7§lOC :§r §7pose un §eAdapter§r§7 contre un bloc Mekanism\nou EnderIO. Le bloc apparait dans §acomponent.list()§r§7."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "computercraft:wired_modem_full",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 16,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "226:10": {
+      "questID:3": 160,
+      "preRequisites:11": [
+        159
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "appliedenergistics2:interface",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dLire un ME Controller",
+          "desc:8": "§7Le Saint Graal : connecter ton reseau AE2\nau code.\n\n§7Pose un §dME Interface§r§7 contre ton OC Adapter\n(ou un Wired Modem CC contre une ME Interface).\n\n§alocal me = component.me_interface§r\n§alocal items = me.getItemsInNetwork()§r\n§afor _,it in pairs(items) do§r\n§a  print(it.label, it.size)§r\n§aend§r"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "appliedenergistics2:interface",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 20,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "appliedenergistics2:interface",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "227:10": {
+      "questID:3": 161,
+      "preRequisites:11": [
+        160
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "computercraft:monitor_advanced",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§dDashboard Monitor",
+          "desc:8": "§7Affiche tes stats AE2 sur un Monitor.\n\n§7Pose 4x §bAdvanced Monitor§r§7 en 2x2,\nconnecte a ton Computer via §aperipheral§r§7.\n\n§alocal m = peripheral.find(\"monitor\")§r\n§am.setTextScale(1)§r\n§am.write(\"Iron : \" .. nbIron)§r\n\n§7Tu as un vrai dashboard live."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "computercraft:monitor_advanced",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 1
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 20,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "computercraft:monitor_advanced",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "228:10": {
+      "questID:3": 162,
+      "preRequisites:11": [
+        161
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "minecraft:command_block",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Architecte Numerique",
+          "desc:8": "§7Tu sais maintenant :\n§7- Variables, boucles, conditions, fonctions\n§7- Redstone, turtles/robots\n§7- Components OC, peripherals CC\n§7- Lecture du reseau AE2\n§7- Affichage sur Monitor\n\n§8§o\"Avant j'etais mineur, puis ingenieur,\nmaintenant je suis programmeur. Mes machines\npensent pour moi pendant que je dors.\"§r\n\n§e§lFin de la page Coding."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 48,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:diamond_block",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "2:10": {
+                "id:8": "computercraft:computer_advanced",
+                "Count:3": 1,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
@@ -12477,8 +12809,8 @@
         },
         "2:10": {
           "id:3": 145,
-          "sizeX:3": 32,
-          "sizeY:3": 32,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
           "x:3": -60,
           "y:3": 120
         },
@@ -12486,36 +12818,120 @@
           "id:3": 146,
           "sizeX:3": 24,
           "sizeY:3": 24,
-          "x:3": 60,
-          "y:3": 60
+          "x:3": -60,
+          "y:3": 180
         },
         "4:10": {
           "id:3": 147,
           "sizeX:3": 24,
           "sizeY:3": 24,
-          "x:3": 60,
-          "y:3": 120
+          "x:3": -60,
+          "y:3": 240
         },
         "5:10": {
           "id:3": 148,
           "sizeX:3": 32,
           "sizeY:3": 32,
-          "x:3": 60,
-          "y:3": 180
+          "x:3": -60,
+          "y:3": 300
         },
         "6:10": {
           "id:3": 149,
-          "sizeX:3": 32,
-          "sizeY:3": 32,
-          "x:3": 0,
-          "y:3": 250
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": -60,
+          "y:3": 360
         },
         "7:10": {
           "id:3": 150,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": -60,
+          "y:3": 420
+        },
+        "8:10": {
+          "id:3": 151,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": -60,
+          "y:3": 480
+        },
+        "9:10": {
+          "id:3": 152,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 60,
+          "y:3": 60
+        },
+        "10:10": {
+          "id:3": 153,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 60,
+          "y:3": 120
+        },
+        "11:10": {
+          "id:3": 154,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 60,
+          "y:3": 180
+        },
+        "12:10": {
+          "id:3": 155,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 60,
+          "y:3": 240
+        },
+        "13:10": {
+          "id:3": 156,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": 60,
+          "y:3": 300
+        },
+        "14:10": {
+          "id:3": 157,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": 60,
+          "y:3": 360
+        },
+        "15:10": {
+          "id:3": 158,
+          "sizeX:3": 24,
+          "sizeY:3": 24,
+          "x:3": 60,
+          "y:3": 420
+        },
+        "16:10": {
+          "id:3": 159,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": 0,
+          "y:3": 540
+        },
+        "17:10": {
+          "id:3": 160,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": 0,
+          "y:3": 600
+        },
+        "18:10": {
+          "id:3": 161,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": 0,
+          "y:3": 660
+        },
+        "19:10": {
+          "id:3": 162,
           "sizeX:3": 40,
           "sizeY:3": 40,
           "x:3": 0,
-          "y:3": 320
+          "y:3": 740
         }
       },
       "lineID:3": 3,
@@ -12531,7 +12947,7 @@
           },
           "bg_image:8": "",
           "bg_size:3": 256,
-          "desc:8": "§7§oPage parallele — progression libre§r\n\n§7Apprends a §acoder en Lua§r§7 avec\n§bComputerCraft:Tweaked§r§7 et §eOpenComputers§r§7.\n\n§7Du premier §a>>> print(\"Hello\")§r§7 jusqu'a\nl'integration AE2 et les dashboards custom.\n\n§eDemarrable des que tu as acces a du redstone.\n§7Non-bloquant : une page a part, un rythme libre."
+          "desc:8": "§7§oPage parallele - apprends Lua de zero§r\n\n§7Tutoriel complet base sur les wikis officiels :\n§7- §bComputerCraft:Tweaked§r§7 (gauche)\n§7- §eOpenComputers§r§7 (droite)\n\n§7Du §a>>> print(\"Hello\")§r§7 jusqu'aux dashboards\nAE2 connectes en temps reel.\n\n§e20 lecons - non-bloquant - rythme libre."
         }
       },
       "order:3": 3
