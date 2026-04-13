@@ -11582,6 +11582,126 @@
           }
         }
       }
+    },
+    "240:10": {
+      "questID:3": 1118,
+      "preRequisites:11": [
+        1117
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:block.end_portal.spawn",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:ecran_controle",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§5§n═ Le Portail Voss ═",
+          "desc:8": "§7Assemble la Structure.\n§7Place l'§bÉcran de Contrôle§r§7 au sommet.\n§7Il détectera le reste.\n\n§8§o\"Ce n'est pas une porte. C'est une autorisation.\nLa matière, l'énergie et la volonté\ns'alignent un instant — et le passage s'ouvre.\"\n— Dr. E. Voss, testament§r\n\n§eRassemble §btous les blocs§r§e nécessaires :\n§729x Nexus Wall\n§739x Nexus Wall T2\n§716x Bloc de Vossium III\n§72x Bloc de Vossium IV\n§71x Energy Input\n§71x Fluid Input\n§74x Bloc de Composé D\n§78x Seau de Lave\n§71x Écran de Contrôle §8(maître)§r\n\n§d§oRécompense : Clé de Liberté."
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:nexus_wall",
+              "Count:3": 29,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "nexusabsolu:nexus_wall_t2",
+              "Count:3": 39,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "2:10": {
+              "id:8": "nexusabsolu:vossium_iii_block",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "3:10": {
+              "id:8": "nexusabsolu:vossium_iv_block",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "4:10": {
+              "id:8": "nexusabsolu:energy_input",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "5:10": {
+              "id:8": "nexusabsolu:fluid_input",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "6:10": {
+              "id:8": "nexusabsolu:compose_block_d",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "7:10": {
+              "id:8": "minecraft:lava_bucket",
+              "Count:3": 8,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "8:10": {
+              "id:8": "nexusabsolu:ecran_controle",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          },
+          "consume:1": 0,
+          "groupDetect:1": 0,
+          "autoConsume:1": 0,
+          "ignoreDamage:1": 0,
+          "ignoreNBT:1": 0
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:cle_liberte",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "minecraft:experience_bottle",
+              "Count:3": 32,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      }
     }
   },
   "questLines:9": {
@@ -12346,6 +12466,13 @@
           "sizeY:3": 24,
           "x:3": 140,
           "y:3": 985
+        },
+        "66:10": {
+          "id:3": 1118,
+          "sizeX:3": 32,
+          "sizeY:3": 32,
+          "x:3": 140,
+          "y:3": 1065
         }
       },
       "lineID:3": 1,
