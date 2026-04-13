@@ -4,6 +4,7 @@ import com.nexusabsolu.mod.blocks.BlockCompose;
 import com.nexusabsolu.mod.blocks.BlockNexusOre;
 import com.nexusabsolu.mod.blocks.BlockNexusWall;
 import com.nexusabsolu.mod.blocks.BlockNexusWallT2;
+import com.nexusabsolu.mod.blocks.BlockTutuosssOre;
 import com.nexusabsolu.mod.blocks.BlockVossiumII;
 import com.nexusabsolu.mod.blocks.BlockVossiumIII;
 import com.nexusabsolu.mod.blocks.BlockVossiumIV;
@@ -37,6 +38,7 @@ public class ModBlocks {
     public static final Block VOSSIUM_ORE = new BlockNexusOre("vossium_ore", 4.0F, 2, 3, 7);
     public static final Block NEXIUM_ORE = new BlockNexusOre("nexium_ore", 5.0F, 3, 5, 10);
     public static final Block CLAUSTRITE_ORE = new BlockNexusOre("claustrite_ore", 3.0F, 1, 2, 5);
+    public static final Block TUTUOSSS_ORE = new BlockTutuosssOre();
 
     // === COMPOSE BLOCKS (energy source, sparkle like redstone) ===
     public static final Block COMPOSE_BLOCK_A = new BlockCompose("compose_block_a", "A", 25, 0.8F, 0.3F, 1.0F);

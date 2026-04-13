@@ -102,6 +102,10 @@ public class ModItems {
     public static final Item SIGNALHEE_INGOT = new ItemBase("signalhee_ingot");
     public static final Item IRON_INSULE = new ItemBase("iron_insule");
 
+    // === OVERWORLD MINING - TUTUOSSS (Age 2+, force le minage manuel avant Digital Miner) ===
+    public static final Item TUOSSS_ROW = new ItemBase("tuosss_row");
+    public static final Item TUOSSS_INGOT = new ItemBase("tuosss_ingot");
+
     // === COMPOSES ENERGETIQUES (A-E) ===
     public static final Item COMPOSE_A = new ItemCompose("compose_a", "A", 25);
     public static final Item COMPOSE_B = new ItemCompose("compose_b", "B", 75);

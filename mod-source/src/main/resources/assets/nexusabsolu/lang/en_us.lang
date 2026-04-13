@@ -150,3 +150,8 @@ item.nexusabsolu.grabber_voss.name=Sac du Sujet 46
 item.nexusabsolu.badge_voss.name=Badge Voss
 item.nexusabsolu.lanterne_voss.name=Lanterne de Voss
 item.nexusabsolu.fragment_memoire_1.name=Fragment de Memoire I
+
+# === TUTUOSSS (Overworld-only ore, Age 2+) ===
+tile.nexusabsolu.tutuosss_ore.name=Minerai de Tutuosss
+item.nexusabsolu.tuosss_row.name=Tuosss Brut
+item.nexusabsolu.tuosss_ingot.name=Lingot de Tuosss

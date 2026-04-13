@@ -19,11 +19,21 @@ public class NexusOreGen implements IWorldGenerator {
                         IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         int dim = world.provider.getDimension();
 
+        // === OVERWORLD: Tutuosss Ore (force le minage manuel pour Age 2+) ===
+        // Rarete comparable au diamant: vein 6 max, Y 5-16, 1 chance/chunk
+        if (dim == 0) {
+            generateOre(world, random, chunkX, chunkZ,
+                ModBlocks.TUTUOSSS_ORE.getDefaultState(),
+                Blocks.STONE.getDefaultState(),
+                6, 5, 16, 1);
+            return;
+        }
+
         // Only spawn on planets (not overworld, nether, end, or compact machines)
         // Galacticraft: Moon=-28, Mars=-29, Venus=-31, Asteroids=-30
         // Advanced Rocketry: typically dim 100+
         // Skip vanilla dims and compact machines (144)
-        if (dim == 0 || dim == -1 || dim == 1 || dim == 144) return;
+        if (dim == -1 || dim == 1 || dim == 144) return;
 
         // Vossium -- Moon & Mars, rare, deep
         if (dim == -28 || dim == -29) {

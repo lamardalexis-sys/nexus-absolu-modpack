@@ -15,6 +15,10 @@ import mods.jei.JEI.removeAndHide as rh;
 <ore:dustWall>.add(<nexusabsolu:wall_dust>);
 // iron_insule = ingot type for EnderIO slot validation
 <ore:ingotIronInsule>.add(<nexusabsolu:iron_insule>);
+// Tutuosss (Overworld-only, Age 2+ gating)
+<ore:oreTutuosss>.add(<nexusabsolu:tutuosss_ore>);
+<ore:rawTuosss>.add(<nexusabsolu:tuosss_row>);
+<ore:ingotTuosss>.add(<nexusabsolu:tuosss_ingot>);
 
 // Remove old recipe and add new shaped recipe
 global remake as function(string, IItemStack, IIngredient[][])void =
