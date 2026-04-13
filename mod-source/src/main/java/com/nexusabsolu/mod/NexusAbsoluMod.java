@@ -46,6 +46,7 @@ public class NexusAbsoluMod {
     @EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new com.nexusabsolu.mod.commands.CommandNexusMsg());
-        LOGGER.info("Nexus Absolu -- Command /nexusmsg registered");
+        event.registerServerCommand(new com.nexusabsolu.mod.commands.CommandRepairPSD());
+        LOGGER.info("Nexus Absolu -- Commands /nexusmsg /nexus_psd registered");
     }
 }
