@@ -1,8 +1,8 @@
 package com.nexusabsolu.mod.world;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 /**
  * Ecoute les changements de dimension des joueurs.
