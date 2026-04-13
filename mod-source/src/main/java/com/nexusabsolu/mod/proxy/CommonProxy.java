@@ -5,6 +5,7 @@ import com.nexusabsolu.mod.Reference;
 import com.nexusabsolu.mod.gui.GuiHandler;
 import com.nexusabsolu.mod.network.NexusPacketHandler;
 import com.nexusabsolu.mod.scavenging.ScavengeEventHandler;
+import com.nexusabsolu.mod.world.DimensionChangeHandler;
 import com.nexusabsolu.mod.tiles.TileAtelier;
 import com.nexusabsolu.mod.tiles.TileCondenseur;
 import com.nexusabsolu.mod.tiles.TileCondenseurEnergy;
@@ -46,6 +47,7 @@ public class CommonProxy {
 
         NexusPacketHandler.init();
         MinecraftForge.EVENT_BUS.register(new ScavengeEventHandler());
+        MinecraftForge.EVENT_BUS.register(new DimensionChangeHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
         GameRegistry.registerTileEntity(TileCondenseurEnergy.class,

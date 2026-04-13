@@ -157,7 +157,14 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
     }
 
     /** Execute one mining swing: generate drops + damage pickaxe.
-     *  Drop tables mirror ScavengeEventHandler.executePiocheMining exactly. */
+     *  Drop tables mirror ScavengeEventHandler.executePiocheMining exactly.
+     *
+     *  Age 2 gating: une fois que NexusProgressionData.age2Reached == true,
+     *  tous les drops "banals" (grits, coal, diamond, emerald, obsidian, etc.)
+     *  sont remplaces par wall_dust. Seuls les drops CM-exclusifs sont
+     *  preserves: Compose A, Compose B, Grains of Infinity. Objectif: forcer
+     *  le joueur a miner en overworld pour les mats vanilla/Thermal une fois
+     *  l'Age 2 atteint, sans casser les reserves Compose necessaires au pack. */
     private void doMineSwing() {
         ItemStack tool = inventory[SLOT_PICKAXE];
         if (tool.isEmpty() || !(tool.getItem() instanceof ItemPioche)) return;
@@ -165,32 +172,38 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
         ItemPioche pioche = (ItemPioche) tool.getItem();
         int multiplier = pioche.getDustMultiplier();
         String dropType = pioche.getDropType();
+        boolean age2 = com.nexusabsolu.mod.world.NexusProgressionData.isAge2Reached(world);
 
         double r = rand.nextDouble();
 
         if (multiplier <= 1) {
             // Pioche Fragmentee: wall_dust guaranteed + bonus
             insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1 + rand.nextInt(2)));
+            if (age2) return; // bonus drops stoppes en Age 2
             if (r < 0.30)      insertIntoOutput(new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
             else if (r < 0.50) insertIntoOutput(new ItemStack(Items.FLINT, 1));
             else if (r < 0.65) insertIntoOutput(new ItemStack(Items.CLAY_BALL, 1));
         } else if (multiplier >= 3) {
             // Pioches specialisees: drops cibles selon dropType
             if ("base_metals".equals(dropType)) {
-                if (r < 0.35)      insertIntoOutput(new ItemStack(ModItems.COPPER_GRIT, 1));
+                if (age2) { insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1)); }
+                else if (r < 0.35) insertIntoOutput(new ItemStack(ModItems.COPPER_GRIT, 1));
                 else if (r < 0.65) insertIntoOutput(new ItemStack(ModItems.TIN_GRIT, 1));
                 else if (r < 0.90) insertIntoOutput(new ItemStack(ModItems.NICKEL_GRIT, 1));
                 else               insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
             } else if ("iron_metals".equals(dropType)) {
-                if (r < 0.40)      insertIntoOutput(new ItemStack(ModItems.IRON_GRIT, 1));
+                if (age2) { insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1)); }
+                else if (r < 0.40) insertIntoOutput(new ItemStack(ModItems.IRON_GRIT, 1));
                 else if (r < 0.65) insertIntoOutput(new ItemStack(ModItems.LEAD_GRIT, 1));
                 else if (r < 0.90) insertIntoOutput(new ItemStack(ModItems.SILVER_GRIT, 1));
                 else               insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
             } else if ("precious".equals(dropType)) {
-                if (r < 0.45)      insertIntoOutput(new ItemStack(ModItems.GOLD_GRIT, 1));
+                if (age2) { insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1)); }
+                else if (r < 0.45) insertIntoOutput(new ItemStack(ModItems.GOLD_GRIT, 1));
                 else if (r < 0.85) insertIntoOutput(new ItemStack(ModItems.OSMIUM_GRIT, 1));
                 else               insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
             } else if ("compose".equals(dropType)) {
+                // CM-EXCLUSIF: Compose A + Grains of Infinity preserves meme en Age 2
                 if (r < 0.60) {
                     insertIntoOutput(new ItemStack(ModItems.COMPOSE_A, 1));
                 } else if (r < 0.70) {
@@ -204,7 +217,12 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
                     insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
                 }
             } else if ("steelium".equals(dropType)) {
-                if (r < 0.15)      insertIntoOutput(new ItemStack(ModItems.COMPOSE_B, 1));
+                // CM-EXCLUSIF: Compose B preserve, mais obsidian/diamond/emerald stoppes en Age 2
+                if (r < 0.15) {
+                    insertIntoOutput(new ItemStack(ModItems.COMPOSE_B, 1));
+                } else if (age2) {
+                    insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
+                }
                 else if (r < 0.35) insertIntoOutput(new ItemStack(ModItems.OBSIDIAN_FRAGMENT, 1));
                 else if (r < 0.50) insertIntoOutput(new ItemStack(Items.DIAMOND, 1));
                 else if (r < 0.60) insertIntoOutput(new ItemStack(Items.EMERALD, 1));
@@ -214,7 +232,11 @@ public class TileAutoScavenger extends TileEntity implements ITickable, ISidedIn
             }
         } else {
             // Pioche Renforcee (multiplier == 2): grits + compose + wall_dust
-            if (r < 0.12)       insertIntoOutput(new ItemStack(ModItems.IRON_GRIT, 1));
+            // CM-EXCLUSIF: Compose A preserve en Age 2
+            if (age2) {
+                if (r < 0.10)   insertIntoOutput(new ItemStack(ModItems.COMPOSE_A, 1));
+                else            insertIntoOutput(new ItemStack(ModItems.WALL_DUST, 1));
+            } else if (r < 0.12)  insertIntoOutput(new ItemStack(ModItems.IRON_GRIT, 1));
             else if (r < 0.25)  insertIntoOutput(new ItemStack(ModItems.COPPER_GRIT, 1));
             else if (r < 0.35)  insertIntoOutput(new ItemStack(ModItems.TIN_GRIT, 1));
             else if (r < 0.45)  insertIntoOutput(new ItemStack(Items.COAL, 1));

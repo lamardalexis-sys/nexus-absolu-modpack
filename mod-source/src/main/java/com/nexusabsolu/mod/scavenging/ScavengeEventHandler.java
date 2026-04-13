@@ -136,6 +136,7 @@ public class ScavengeEventHandler {
         ItemPioche pioche = (ItemPioche) tool.getItem();
         int multiplier = pioche.getDustMultiplier();
         String dropType = pioche.getDropType();
+        boolean age2 = com.nexusabsolu.mod.world.NexusProgressionData.isAge2Reached(world);
 
         tool.damageItem(1, player);
         world.playSound(null, pos, SoundEvents.BLOCK_STONE_HIT, SoundCategory.BLOCKS,
@@ -145,35 +146,36 @@ public class ScavengeEventHandler {
         double r = rand.nextDouble();
 
         if (multiplier <= 1) {
-            // Pioche Fragmentee: wall_dust + bonus
+            // Pioche Fragmentee: wall_dust + bonus (bonus stoppe en Age 2)
             spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1 + rand.nextInt(2)));
-            if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
-            else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
-            else if (r < 0.65) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
+            if (!age2) {
+                if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
+                else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
+                else if (r < 0.65) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
+            }
         } else if (multiplier >= 3) {
             // Pioches specialisees: drops cibles selon dropType
             if ("base_metals".equals(dropType)) {
-                // Pioche Cuivree: copper, tin, nickel
-                if (r < 0.35)      spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
+                if (age2) { spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1)); }
+                else if (r < 0.35) spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
                 else if (r < 0.65) spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
                 else if (r < 0.90) spawnDrop(world, player, new ItemStack(ModItems.NICKEL_GRIT, 1));
                 else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             } else if ("iron_metals".equals(dropType)) {
-                // Pioche Ferree: iron, lead, silver
-                if (r < 0.40)      spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
+                if (age2) { spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1)); }
+                else if (r < 0.40) spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
                 else if (r < 0.65) spawnDrop(world, player, new ItemStack(ModItems.LEAD_GRIT, 1));
                 else if (r < 0.90) spawnDrop(world, player, new ItemStack(ModItems.SILVER_GRIT, 1));
                 else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             } else if ("precious".equals(dropType)) {
-                // Pioche Precieuse: gold, osmium
-                if (r < 0.45)      spawnDrop(world, player, new ItemStack(ModItems.GOLD_GRIT, 1));
+                if (age2) { spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1)); }
+                else if (r < 0.45) spawnDrop(world, player, new ItemStack(ModItems.GOLD_GRIT, 1));
                 else if (r < 0.85) spawnDrop(world, player, new ItemStack(ModItems.OSMIUM_GRIT, 1));
                 else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             } else if ("compose".equals(dropType)) {
-                // Pioche Vossium: compose_a + grains of infinity
+                // CM-EXCLUSIF: Compose A + Grains of Infinity preserves en Age 2
                 if (r < 0.60)      spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
                 else if (r < 0.70) {
-                    // Grains of Infinity (EnderIO) — 10%
                     Item grains = Item.getByNameOrId("enderio:item_material");
                     if (grains != null) {
                         spawnDrop(world, player, new ItemStack(grains, 1, 20));
@@ -183,8 +185,9 @@ public class ScavengeEventHandler {
                 }
                 else               spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
             } else if ("steelium".equals(dropType)) {
-                // Pioche Steelium: compose_b, obsidian frag, diamond, emerald
+                // CM-EXCLUSIF: Compose B preserve en Age 2, le reste stoppe
                 if (r < 0.15)      spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_B, 1));
+                else if (age2)     spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
                 else if (r < 0.35) spawnDrop(world, player, new ItemStack(ModItems.OBSIDIAN_FRAGMENT, 1));
                 else if (r < 0.50) spawnDrop(world, player, new ItemStack(Items.DIAMOND, 1));
                 else if (r < 0.60) spawnDrop(world, player, new ItemStack(Items.EMERALD, 1));
@@ -195,7 +198,11 @@ public class ScavengeEventHandler {
             }
         } else {
             // Pioche Renforcee: grits + compose + wall_dust
-            if (r < 0.12)       spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
+            // En Age 2: seul Compose A est preserve
+            if (age2) {
+                if (r < 0.10)   spawnDrop(world, player, new ItemStack(ModItems.COMPOSE_A, 1));
+                else            spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
+            } else if (r < 0.12)  spawnDrop(world, player, new ItemStack(ModItems.IRON_GRIT, 1));
             else if (r < 0.25)  spawnDrop(world, player, new ItemStack(ModItems.COPPER_GRIT, 1));
             else if (r < 0.35)  spawnDrop(world, player, new ItemStack(ModItems.TIN_GRIT, 1));
             else if (r < 0.45)  spawnDrop(world, player, new ItemStack(Items.COAL, 1));
