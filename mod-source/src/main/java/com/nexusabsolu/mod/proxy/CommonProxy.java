@@ -39,7 +39,8 @@ public class CommonProxy {
         DIARRHEE_FLUID = new Fluid("diarrhee_liquide",
             new ResourceLocation(Reference.MOD_ID, "blocks/diarrhee_still"),
             new ResourceLocation(Reference.MOD_ID, "blocks/diarrhee_flow"))
-            .setDensity(1200).setViscosity(3000);
+            .setDensity(1200).setViscosity(3000)
+            .setColor(0xFF8B4513); // marron - teinte JEI + in-world + bucket universel
         FluidRegistry.registerFluid(DIARRHEE_FLUID);
         FluidRegistry.addBucketForFluid(DIARRHEE_FLUID);
 
