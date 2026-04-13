@@ -388,7 +388,7 @@ public class TileCondenseurT2 extends TileEntity implements ITickable {
         ItemStack output = recipe.getOutput();
         if (output.getItem() == net.minecraft.item.Item.getByNameOrId("compactmachines3:machine")
                 && output.getMetadata() == 3) {
-            return 400; // x9 requires 400mB diarrhée
+            return 800; // x9 requires 800mB diarrhée
         }
         return 0;
     }

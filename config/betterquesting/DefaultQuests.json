@@ -11474,7 +11474,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6§n═ Compact Machine 9x9 ═",
-          "desc:8": "§7Deux CM 7x7. Une Clé 9x9. Un Catalyseur Critique.\n§7Le Condenseur T2 fait le reste.\n\n§8§o\"À cette échelle, la machine n'est plus un outil.\nElle devient un lieu.\nUn volume de possibilités.\"\n— Dr. E. Voss, dernière entrée Âge 1§r\n\n§eUtilise le §bCondenseur T2§r§e pour fusionner:\n§72x Compact Machine 7x7\n§7+ Clé d'Extension 9x9\n§7+ Catalyseur de Phase Critique\n§7→ §6Compact Machine 9x9§r\n\n§c288,000 RF @ 120 RF/t pendant 120s."
+          "desc:8": "§7Deux CM 7x7. Une Clé 9x9. Un Catalyseur Critique.\n§7Le Condenseur T2 fait le reste.\n\n§8§o\"À cette échelle, la machine n'est plus un outil.\nElle devient un lieu.\nUn volume de possibilités.\"\n— Dr. E. Voss, dernière entrée Âge 1§r\n\n§eUtilise le §bCondenseur T2§r§e pour fusionner:\n§72x Compact Machine 7x7\n§7+ Clé d'Extension 9x9\n§7+ Catalyseur de Phase Critique\n§7→ §6Compact Machine 9x9§r\n\n§c288,000 RF @ 120 RF/t pendant 120s.\n§c+ 800 mB de Diarrhée Liquide (Fluid Input)."
         }
       },
       "tasks:9": {
