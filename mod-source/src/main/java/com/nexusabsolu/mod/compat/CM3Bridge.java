@@ -374,8 +374,25 @@ public class CM3Bridge {
      */
     public static boolean placeLinkedMachine(World world, BlockPos pos,
                                               int size, int roomId) {
+        return placeLinkedMachine(world, pos, size, roomId, true);
+    }
+
+    /**
+     * Variante avec contrôle sur la mise à jour de l'exit target PSD.
+     *
+     * @param updateExitTarget si true (defaut), appelle WSDM.addMachinePosition
+     *   pour rediriger la sortie PSD de la salle vers ce nouveau bloc.
+     *   Si false, le nouveau bloc fonctionne comme entrée mais la salle
+     *   garde son exit target original (utile pour matryoshka: une fois
+     *   echappé en overworld via Cle de Liberte, on ne veut PAS écraser
+     *   le retour vers la CM parente).
+     */
+    public static boolean placeLinkedMachine(World world, BlockPos pos,
+                                              int size, int roomId,
+                                              boolean updateExitTarget) {
         FMLLog.log.info("[CM3Bridge] placeLinkedMachine: roomId=" + roomId
-            + " pos=" + pos + " dim=" + world.provider.getDimension() + " size=" + size);
+            + " pos=" + pos + " dim=" + world.provider.getDimension()
+            + " size=" + size + " updateExitTarget=" + updateExitTarget);
 
         if (!isAvailable()) {
             FMLLog.log.warn("[CM3Bridge] placeLinkedMachine: bridge unavailable");
@@ -420,9 +437,18 @@ public class CM3Bridge {
         // doesn't generate a new room on first interact
         boolean teOk = setMachineRoomId(te, roomId);
 
-        // Update the WSDM map to rebind the PSD exit target
-        boolean mapOk = addMachinePosition(roomId, pos, world.provider.getDimension());
-        FMLLog.log.info("[CM3Bridge]   link results: teCoords=" + teOk + " wsdmMap=" + mapOk);
+        // Update the WSDM map to rebind the PSD exit target — only if requested.
+        // For matryoshka preservation (Cle de Liberte escape), we want to KEEP
+        // the original parent CM as the exit target, so we skip this call.
+        boolean mapOk;
+        if (updateExitTarget) {
+            mapOk = addMachinePosition(roomId, pos, world.provider.getDimension());
+            FMLLog.log.info("[CM3Bridge]   link results: teCoords=" + teOk + " wsdmMap=" + mapOk);
+        } else {
+            mapOk = true; // skipped intentionally — original exit target preserved
+            FMLLog.log.info("[CM3Bridge]   link results: teCoords=" + teOk
+                + " wsdmMap=SKIPPED (matryoshka preservation)");
+        }
 
         te.markDirty();
         world.notifyBlockUpdate(pos, state, state, 3);

@@ -177,7 +177,8 @@ public class ItemCleLiberteActivee extends ItemBase {
             cmPlaced = com.nexusabsolu.mod.compat.CM3Bridge.placeLinkedMachine(
                 overworld, cmBlockPos,
                 com.nexusabsolu.mod.compat.CM3Bridge.SIZE_LARGE,
-                currentRoomId);
+                currentRoomId,
+                false); // ne PAS écraser l'exit target — on garde la matryoshka
             if (!cmPlaced) {
                 placeFailReason = com.nexusabsolu.mod.compat.CM3Bridge.getLastFailureReason();
             }
