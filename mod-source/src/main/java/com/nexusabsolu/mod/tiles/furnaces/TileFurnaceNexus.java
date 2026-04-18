@@ -124,8 +124,6 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     public void setFuelTotalBurnTicksClient(int v) { this.fuelTotalBurnTicks = v; }
     public void setEnergyStoredClient(int v) { this.energyStorage.setEnergy(v); }
     public void setMaxCookTimeClient(int v) { this.maxCookTime = v; }
-    public void setEnergyStoredClient(int v) { this.energyStorage.setEnergy(v); }
-    public void setMaxCookTimeClient(int v) { this.maxCookTime = v; }
 
     /** Mode RF actif si l'upgrade RF_CONVERTER est presente OU si le tier est nativeRF. */
     public boolean isRFMode() {
