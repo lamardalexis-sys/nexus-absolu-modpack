@@ -34,37 +34,26 @@ public class ContainerFurnaceNexus extends Container {
         this.tile = tile;
 
         // === SLOTS MACHINE ===
-        // Positions matchent la texture gui_furnace.png v5
-        // 0 : input (56, 17) correspond au slot dessine a (55, 16)
-        addSlotToContainer(new Slot(tile, TileFurnaceNexus.SLOT_INPUT, 56, 17) {
+        // Positions matchent la texture gui_furnace.png v6 (ySize=186)
+        // 0 : input dessine a (40, 18) -> slot a (41, 19)
+        addSlotToContainer(new Slot(tile, TileFurnaceNexus.SLOT_INPUT, 41, 19) {
             @Override
             public boolean isItemValid(ItemStack stack) {
                 return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
             }
         });
-        // 1 : fuel (56, 53) correspond a (55, 52) dans la texture
-        addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 56, 53));
-        // 2 : output (100, 34) correspond a OUTPUT_LARGE (96, 30) centre
+        // 1 : fuel dessine a (40, 50) -> slot a (41, 51)
+        addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 41, 51));
+        // 2 : output_large dessine a (100, 20) 26x26 -> slot a (104, 24)
         addSlotToContainer(new SlotFurnaceOutput(
-            playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 100, 34));
+            playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 104, 24));
 
-        // === 4 SLOTS UPGRADES EN CARRE 2x2 ===
-        // Positions dans la texture :
-        //   Upgrade 0 (RF)    : (126, 16) -> slot a (127, 17)
-        //   Upgrade 1 (IO)    : (144, 16) -> slot a (145, 17)
-        //   Upgrade 2 (Speed) : (126, 34) -> slot a (127, 35)
-        //   Upgrade 3 (Eff)   : (144, 34) -> slot a (145, 35)
-        int[][] upgradeSlotPos = {
-            {127, 17},  // RF_CONVERTER
-            {145, 17},  // IO_EXPANSION
-            {127, 35},  // SPEED_BOOSTER
-            {145, 35},  // EFFICIENCY
-        };
+        // === 4 SLOTS UPGRADES (hors-ecran par defaut, GUI les repositionne dans le panneau) ===
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
             int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
-            int[] pos = upgradeSlotPos[up.slotIndex];
-            addSlotToContainer(new Slot(tile, slotIdx, pos[0], pos[1]) {
+            // Position -1000 = cache. Le GUI les deplace quand upgradesOpen = true.
+            addSlotToContainer(new Slot(tile, slotIdx, -1000, -1000) {
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;
@@ -82,16 +71,18 @@ public class ContainerFurnaceNexus extends Container {
             });
         }
 
-        // === INVENTAIRE JOUEUR (27 slots) ===
+        // === INVENTAIRE JOUEUR (positions ajustees a ySize=186) ===
+        // Texture: inventaire rangees y=103,121,139, hotbar y=161
+        // Slot MC = xPos/yPos + 1 par rapport au frame texture
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 addSlotToContainer(new Slot(
-                    playerInv, col + row * 9 + 9, 8 + col * 18, 95 + row * 18));
+                    playerInv, col + row * 9 + 9, 8 + col * 18, 104 + row * 18));
             }
         }
-        // === HOTBAR (9 slots) ===
+        // Hotbar a y=162 (frame y=161 + 1)
         for (int col = 0; col < 9; col++) {
-            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 153));
+            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 162));
         }
     }
 

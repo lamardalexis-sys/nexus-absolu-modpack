@@ -8,6 +8,7 @@ import com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
@@ -15,21 +16,17 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * GUI Furnaces Nexus v5 - pattern Convertisseur du Dr Voss.
+ * GUI Furnaces Nexus v6 - 2 panneaux separes (config gauche, upgrades droite).
  *
- *  - Tout visible en permanence (pas d'onglets)
- *  - Upgrades en CARRE 2x2 a droite
- *  - Petit onglet * sur le bord droit pour ouvrir/fermer un panneau Config I/O
- *  - Panneau Config I/O apparait a cote du GUI a droite (ne masque pas l'inventaire)
+ * Layout (xSize=176, ySize=186) :
+ *   Zone machine (haut) : IN + FUEL + PROGRESS + OUTPUT + RF BAR + flamme
+ *   Zone inventaire (bas) : 3x9 inv + 9 hotbar (maintenant rentre proprement)
  *
- * Layout (xSize=176, ySize=166) :
- *   INPUT slot    (55, 16)  18x18
- *   FUEL slot     (55, 52)  18x18
- *   PROGRESS zone (74, 38)  20x10
- *   OUTPUT slot   (96, 30)  26x26
- *   UPGRADE 2x2 at positions (126,16) (144,16) (126,34) (144,34)
- *   RF BAR horizontale (126, 58) 36x7
- *   Config tab cliquable a (xSize-2, 18) qui depasse a droite
+ * Onglets lateraux :
+ *   Onglet CONFIG   (cote GAUCHE, x=-15, y=18) : ouvre panneau Config I/O a gauche
+ *   Onglet UPGRADES (cote DROIT,  x=xSize-2, y=18) : ouvre panneau Upgrades a droite
+ *
+ * Un seul panneau peut etre ouvert a la fois (clic sur l'autre ferme l'actif).
  */
 public class GuiFurnaceNexus extends GuiContainer {
 
@@ -38,15 +35,16 @@ public class GuiFurnaceNexus extends GuiContainer {
 
     private final TileFurnaceNexus tile;
     private boolean configOpen = false;
+    private boolean upgradesOpen = false;
 
-    // Couleurs Mekanism pour config faces (None/In/Out/Both + Fuel special)
-    private static final int COL_NONE = 0xFF333338;
-    private static final int COL_IN = 0xFF3375BB;
-    private static final int COL_OUT = 0xFFD87C2B;
-    private static final int COL_BOTH = 0xFF9B3FBA;
-    private static final int COL_FUEL = 0xFFB08830;
-    private static final int COL_BORDER = 0xFF8855BB;
-    private static final int COL_BORDER_HOV = 0xFFCC88EE;
+    // Couleurs Mekanism SATUREES (feedback Alexis : trop pales dans v1.0.188)
+    private static final int COL_NONE = 0xFF3A3A40;
+    private static final int COL_IN = 0xFF2299FF;        // bleu vif
+    private static final int COL_OUT = 0xFFFF8822;       // orange vif
+    private static final int COL_BOTH = 0xFFCC33FF;      // violet vif
+    private static final int COL_FUEL = 0xFFFFAA22;      // dore vif
+    private static final int COL_BORDER = 0xFFBB77FF;
+    private static final int COL_BORDER_HOV = 0xFFEEAAFF;
 
     private static final String[] FACE_LABELS = {"B", "H", "N", "S", "O", "E"};
     private static final String[] FACE_NAMES = {
@@ -57,7 +55,7 @@ public class GuiFurnaceNexus extends GuiContainer {
         super(new ContainerFurnaceNexus(playerInv, tile));
         this.tile = tile;
         this.xSize = 176;
-        this.ySize = 166;
+        this.ySize = 186;  // HAUTEUR AUGMENTEE de 166 -> 186
     }
 
     // ======================================================================
@@ -66,6 +64,9 @@ public class GuiFurnaceNexus extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float pt, int mx, int my) {
+        // Repositionne les 4 slots upgrade selon upgradesOpen
+        updateUpgradeSlotPositions();
+
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         mc.getTextureManager().bindTexture(TEXTURE);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
@@ -73,52 +74,47 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // === BARRE RF horizontale (sous les upgrades) ===
-        // Zone dessinee : (126, 58) a (161, 64) soit 36x7 max fill
-        fillBarHorizontal(x + 127, y + 59, 34, 5,
+        // === RF BAR horizontale (sous les slots machine) ===
+        // Texture zone : (40, 70) a (131, 77) = 92x8 max fill
+        fillBarHorizontal(x + 41, y + 71, 90, 6,
             tile.getEnergyStored(), tile.getMaxEnergy(),
             0xFFCC4444, 0xFFFF6666);
 
-        // === INDICATEUR FLAMME (dessine DANS le slot FUEL en overlay) ===
-        // Quand du fuel est actif, on dessine une petite flamme orange dans le slot
-        // a (55, 52). On la superpose mais on la met transparente au centre
-        // pour ne pas cacher l'item fuel.
-        // Actually : on dessine un petit indicateur 4x4 en coin du slot fuel.
+        // === FLAMME fuel indicator (dessinee dans le tube flamme (68, 55) 24x8) ===
         int fuel = tile.getFuelRemaining();
         boolean rfActive = tile.getEnergyStored() > 0 && tile.getCookProgress() > 0;
-        if (fuel > 0 || rfActive) {
-            // Indicateur en haut-gauche du slot fuel (toujours visible meme avec item)
-            int flameX = x + 55;
-            int flameY = y + 52;
-            if (fuel > 0) {
-                // Flamme orange
-                drawRect(flameX, flameY, flameX + 3, flameY + 3, 0xFFFF8830);
-                drawRect(flameX + 1, flameY + 1, flameX + 2, flameY + 2, 0xFFFFDD40);
-            } else {
-                // Mode RF : flamme bleue
-                drawRect(flameX, flameY, flameX + 3, flameY + 3, 0xFF7788FF);
-            }
+        if (fuel > 0) {
+            // Flamme orange - fill proportionnel
+            int fuelMax = Math.max(1, fuel);
+            fillBarHorizontal(x + 69, y + 56, 22, 6, fuel, fuelMax,
+                0xFFCC3D10, 0xFFFF8830);
+        } else if (rfActive) {
+            // Mode RF : remplit en bleu
+            fillBarHorizontal(x + 69, y + 56, 22, 6, 1, 1,
+                0xFF4455CC, 0xFF7788FF);
         }
 
         // === PROGRESS fleche qui avance ===
-        // Zone : (74, 38) a (93, 47) = 20x10
+        // Zone : (68, 27) a (91, 36) = 24x10
         int prog = tile.getCookProgress();
         int maxP = tile.getMaxCookTime();
         if (maxP > 0 && prog > 0) {
-            int fillW = (int)(20.0F * prog / maxP);
+            int fillW = (int)(24.0F * prog / maxP);
             int tierCol = getTierProgressColor(tile.getTier());
             int tierBright = getTierProgressBright(tile.getTier());
-            drawRect(x + 74, y + 41, x + 74 + fillW, y + 45, tierCol);
+            drawRect(x + 68, y + 30, x + 68 + fillW, y + 34, tierCol);
             if (fillW > 2) {
-                drawRect(x + 74, y + 41, x + 74 + fillW, y + 42, tierBright);
+                drawRect(x + 68, y + 30, x + 68 + fillW, y + 31, tierBright);
             }
         }
 
-        // === ONGLET CONFIG * a droite (depasse du GUI) ===
-        // Sprite a (176, 0) dans la texture, 15x17, blitte a (x + xSize - 2, y + 18)
+        // === ONGLETS LATERAUX ===
         mc.getTextureManager().bindTexture(TEXTURE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        drawTexturedModalRect(x + xSize - 2, y + 18, 176, 0, 15, 17);
+        // Onglet CONFIG a GAUCHE (depasse a gauche, x=-13)
+        drawTexturedModalRect(x - 13, y + 18, 176, 0, 15, 17);
+        // Onglet UPGRADES a DROITE (depasse a droite, x=xSize-2)
+        drawTexturedModalRect(x + xSize - 2, y + 18, 176, 17, 15, 17);
     }
 
     // ======================================================================
@@ -129,30 +125,25 @@ public class GuiFurnaceNexus extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mx, int my) {
         FurnaceTier tier = tile.getTier();
 
-        // Titre centre (garde la logique tier-colored)
+        // Titre centre
         String title = getTierDisplayName(tier);
         int tw = fontRenderer.getStringWidth(title);
         int titleColor = getTierTitleColor(tier);
-        fontRenderer.drawStringWithShadow(title, (xSize - tw) / 2.0F, 4, titleColor);
+        fontRenderer.drawStringWithShadow(title, (xSize - tw) / 2.0F, 6, titleColor);
 
-        // Vitesse x sous le progress arrow
+        // Vitesse sous la progress arrow
         String speedStr = "x" + tier.speedMultiplier;
-        fontRenderer.drawStringWithShadow(speedStr, 74, 50, 0xFF8866AA);
+        fontRenderer.drawStringWithShadow(speedStr, 68, 40, 0xFF8866AA);
 
-        // Label "Inventaire"
-        fontRenderer.drawStringWithShadow("Inventaire", 8, 83, 0xFF8866AA);
+        // Label Inventaire (ajuste a ySize=186 -> inv a y=93+)
+        fontRenderer.drawStringWithShadow("Inventaire", 8, 93, 0xFF8866AA);
 
-        // Arrows decoratives autour de progress
-        fontRenderer.drawStringWithShadow("\u00bb", 66, 40, titleColor);
-        fontRenderer.drawStringWithShadow("\u00bb", 94, 40, titleColor);
-
-        // Marker visuel sur l'onglet config quand ouvert
-        fontRenderer.drawStringWithShadow(configOpen ? "\u00A7d*" : "\u00A78*",
-            xSize + 3, 24, 0xFFFFFFFF);
+        // Label RF sous la barre
+        fontRenderer.drawStringWithShadow("RF", 8, 71, 0xFFCC4444);
     }
 
     // ======================================================================
-    // drawScreen : tooltips + config panel
+    // drawScreen : tooltips + panels
     // ======================================================================
 
     @Override
@@ -162,76 +153,78 @@ public class GuiFurnaceNexus extends GuiContainer {
         renderHoveredToolTip(mx, my);
         drawCustomTooltips(mx, my);
         if (configOpen) drawConfigPanel(mx, my);
+        if (upgradesOpen) drawUpgradesPanel(mx, my);
     }
 
     private void drawCustomTooltips(int mx, int my) {
         int x = guiLeft;
         int y = guiTop;
 
-        // RF bar tooltip (zone 126-161, 58-64)
-        if (inRect(mx, my, x + 126, y + 58, 36, 7)) {
+        // RF bar tooltip
+        if (inRect(mx, my, x + 40, y + 70, 92, 8)) {
             drawHoveringText(Collections.singletonList(
                 tile.getEnergyStored() + " / " + tile.getMaxEnergy() + " RF"), mx, my);
         }
 
         // Progress bar tooltip
-        if (inRect(mx, my, x + 74, y + 38, 20, 10)) {
+        if (inRect(mx, my, x + 68, y + 27, 24, 10)) {
             int pct = tile.getMaxCookTime() > 0
                 ? tile.getCookProgress() * 100 / tile.getMaxCookTime() : 0;
             drawHoveringText(Collections.singletonList(
                 "Cuisson: " + pct + "%"), mx, my);
         }
 
-        // Config tab tooltip
-        if (inRect(mx, my, x + xSize - 2, y + 18, 15, 17)) {
+        // Flame fuel tooltip
+        if (inRect(mx, my, x + 68, y + 55, 24, 8)) {
+            String status = tile.getFuelRemaining() > 0
+                ? tile.getFuelRemaining() + " operations"
+                : (tile.getEnergyStored() > 0 ? "Mode RF" : "Vide");
+            drawHoveringText(Collections.singletonList(
+                "Combustible: " + status), mx, my);
+        }
+
+        // Onglet Config (gauche)
+        if (inRect(mx, my, x - 13, y + 18, 15, 17)) {
             drawHoveringText(Collections.singletonList(
                 configOpen ? "Fermer Config I/O" : "Ouvrir Config I/O"), mx, my);
         }
 
-        // Tooltips slots upgrades vides (4 positions 2x2)
-        int[][] upgradePos = {
-            {126, 16}, {144, 16}, {126, 34}, {144, 34}
-        };
-        for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
-            int[] pos = upgradePos[up.slotIndex];
-            int sx = x + pos[0], sy = y + pos[1];
-            if (inRect(mx, my, sx, sy, 18, 18)) {
-                int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
-                if (tile.getStackInSlot(slotIdx).isEmpty()) {
-                    drawHoveringText(Arrays.asList(
-                        "\u00A7b" + getUpgradeLabel(up),
-                        "\u00A77" + getUpgradeHint(up),
-                        "\u00A78Max stack: " + up.maxStackSize
-                    ), mx, my);
-                }
-            }
+        // Onglet Upgrades (droite)
+        if (inRect(mx, my, x + xSize - 2, y + 18, 15, 17)) {
+            drawHoveringText(Collections.singletonList(
+                upgradesOpen ? "Fermer Upgrades" : "Ouvrir Upgrades"), mx, my);
         }
     }
 
     // ======================================================================
-    // CONFIG PANEL (apparait a droite du GUI quand configOpen)
+    // PANNEAU CONFIG I/O (a GAUCHE du GUI, couleurs saturees)
     // ======================================================================
 
+    // Dimensions panneau config (plus grand que v1.0.188)
+    private static final int CONFIG_W = 130;
+    private static final int CONFIG_H = 165;
+
     private void drawConfigPanel(int mx, int my) {
-        int px = guiLeft + xSize + 12;  // decale de 12 pour laisser place a l'onglet
+        int px = guiLeft - CONFIG_W - 6;  // A GAUCHE du GUI
         int py = guiTop + 10;
-        int pw = 110;
-        int ph = 135;
 
-        // Fond du panneau
-        drawRect(px - 2, py - 2, px + pw + 2, py + ph + 2, 0xFF3A1F5E);
-        drawRect(px - 1, py - 1, px + pw + 1, py + ph + 1, 0xFF8855BB);
-        drawRect(px, py, px + pw, py + ph, 0xFF1A1030);
-        // Barre titre
-        drawRect(px + 1, py + 1, px + pw - 1, py + 14, 0xFF261440);
-        fontRenderer.drawStringWithShadow("\u00A7d\u2699 Config I/O", px + 5, py + 3, 0xFFDD88FF);
-        drawRect(px + 3, py + 14, px + pw - 3, py + 15, 0xFF6B3FA0);
+        // Fond du panneau (style Machine Humaine)
+        drawRect(px - 2, py - 2, px + CONFIG_W + 2, py + CONFIG_H + 2, 0xFF5030A0);
+        drawRect(px - 1, py - 1, px + CONFIG_W + 1, py + CONFIG_H + 1, 0xFFBB77FF);
+        drawRect(px, py, px + CONFIG_W, py + CONFIG_H, 0xFF1A1030);
 
-        // Boutons face en croix
+        // Barre de titre
+        drawRect(px + 1, py + 1, px + CONFIG_W - 1, py + 16, 0xFF3A1F5E);
+        fontRenderer.drawStringWithShadow("\u00A7d\u2699 Configuration I/O",
+            px + 5, py + 4, 0xFFEEAAFF);
+        drawRect(px + 3, py + 16, px + CONFIG_W - 3, py + 17, 0xFFBB77FF);
+
+        // Boutons face en croix (plus gros : 28x28 au lieu de 24x24)
         SideConfig sc = tile.getSideConfig();
-        int bs = 24, bg = 2;
-        int cx = px + (pw - (bs * 3 + bg * 2)) / 2;
-        int cy = py + 20;
+        int bs = 28, bg = 3;
+        int totalW = bs * 3 + bg * 2;
+        int cx = px + (CONFIG_W - totalW) / 2;
+        int cy = py + 22;
 
         drawFaceBtn(cx + bs + bg, cy, bs, 1, sc, mx, my);                 // UP
         drawFaceBtn(cx, cy + bs + bg, bs, 4, sc, mx, my);                 // WEST
@@ -240,23 +233,19 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawFaceBtn(cx, cy + (bs + bg) * 2, bs, 0, sc, mx, my);           // DOWN
         drawFaceBtn(cx + bs + bg, cy + (bs + bg) * 2, bs, 2, sc, mx, my); // NORTH
 
-        // Legende sous la croix
-        int legY = cy + (bs + bg) * 3 + 4;
-        fontRenderer.drawString("Clic: None/In/Out/Both", px + 4, legY, 0xFF9988BB);
-        fontRenderer.drawString("Maj+Clic: Fuel IN", px + 4, legY + 10, 0xFF9988BB);
+        // Instructions
+        int helpY = cy + (bs + bg) * 3 + 6;
+        fontRenderer.drawString("Clic : cycle None/In/Out/Both", px + 4, helpY, 0xFFAAAAAA);
+        fontRenderer.drawString("Maj+Clic : toggle Fuel IN", px + 4, helpY + 10, 0xFFAAAAAA);
 
-        // Legende couleurs
-        int legCY = legY + 22;
-        drawRect(px + 4, legCY, px + 10, legCY + 6, COL_IN);
-        fontRenderer.drawString("In", px + 13, legCY - 1, 0xFF66AADD);
-        drawRect(px + 34, legCY, px + 40, legCY + 6, COL_OUT);
-        fontRenderer.drawString("Out", px + 43, legCY - 1, 0xFFEE9955);
-        drawRect(px + 4, legCY + 10, px + 10, legCY + 16, COL_BOTH);
-        fontRenderer.drawString("Both", px + 13, legCY + 9, 0xFFCC88EE);
-        drawRect(px + 34, legCY + 10, px + 40, legCY + 16, COL_FUEL);
-        fontRenderer.drawString("Fuel", px + 43, legCY + 9, 0xFFEEAA44);
+        // Legende couleurs saturees (2 lignes)
+        int legY = helpY + 25;
+        drawColorLegend(px + 4, legY, COL_IN, "Input", 0xFF88CCFF);
+        drawColorLegend(px + 68, legY, COL_OUT, "Output", 0xFFFFCC88);
+        drawColorLegend(px + 4, legY + 12, COL_BOTH, "Both", 0xFFEEAAFF);
+        drawColorLegend(px + 68, legY + 12, COL_FUEL, "Fuel", 0xFFFFDD77);
 
-        // Tooltips faces en hover
+        // Tooltips hover faces
         int[][] btns = {
             {1, cx + bs + bg, cy},
             {4, cx, cy + bs + bg},
@@ -277,12 +266,14 @@ public class GuiFurnaceNexus extends GuiContainer {
                 else if (in) status = "\u00A79Input";
                 else if (out) status = "\u00A76Output";
                 else status = "\u00A77Aucun";
-                drawHoveringText(Arrays.asList(
-                    FACE_NAMES[face],
-                    status
-                ), mx, my);
+                drawHoveringText(Arrays.asList(FACE_NAMES[face], status), mx, my);
             }
         }
+    }
+
+    private void drawColorLegend(int x, int y, int color, String label, int textColor) {
+        drawRect(x, y, x + 8, y + 8, color);
+        fontRenderer.drawString(label, x + 11, y, textColor);
     }
 
     private void drawFaceBtn(int bx, int by, int sz, int face,
@@ -301,24 +292,117 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         int border = hov ? COL_BORDER_HOV : COL_BORDER;
 
-        // Bordure (haut-gauche clair)
+        // Bordures biseautees
         drawRect(bx - 1, by - 1, bx + sz + 1, by, border);
         drawRect(bx - 1, by - 1, bx, by + sz + 1, border);
-        // Bordure (bas-droite sombre)
         drawRect(bx, by + sz, bx + sz + 1, by + sz + 1, 0xFF2A1540);
         drawRect(bx + sz, by, bx + sz + 1, by + sz + 1, 0xFF2A1540);
 
-        // Corps degrade
+        // Corps gradient
         drawRect(bx, by, bx + sz, by + sz, color);
-        // Leger highlight interne
-        int colorBright = brighten(color, 0.3f);
+        int colorBright = brighten(color, 0.4f);
+        int colorDim = darken(color, 0.3f);
         drawRect(bx + 2, by + 2, bx + sz - 2, by + sz - 2, colorBright);
-        drawRect(bx + 4, by + 4, bx + sz - 4, by + sz - 4, color);
+        drawRect(bx + 5, by + 5, bx + sz - 5, by + sz - 5, color);
+        // Ombre interne bas-droite
+        drawRect(bx + sz - 4, by + sz - 4, bx + sz - 2, by + sz - 2, colorDim);
 
-        // Label face (centre)
+        // Label face
         int lw = fontRenderer.getStringWidth(FACE_LABELS[face]);
         fontRenderer.drawStringWithShadow(FACE_LABELS[face],
             bx + (sz - lw) / 2.0F, by + (sz - 8) / 2.0F, 0xFFFFFFFF);
+    }
+
+    // ======================================================================
+    // PANNEAU UPGRADES (a DROITE du GUI)
+    // ======================================================================
+
+    private static final int UPGRADES_W = 110;
+    private static final int UPGRADES_H = 130;
+
+    private void drawUpgradesPanel(int mx, int my) {
+        int px = guiLeft + xSize + 6;  // A DROITE du GUI
+        int py = guiTop + 10;
+
+        // Fond panneau
+        drawRect(px - 2, py - 2, px + UPGRADES_W + 2, py + UPGRADES_H + 2, 0xFF5030A0);
+        drawRect(px - 1, py - 1, px + UPGRADES_W + 1, py + UPGRADES_H + 1, 0xFFBB77FF);
+        drawRect(px, py, px + UPGRADES_W, py + UPGRADES_H, 0xFF1A1030);
+
+        // Barre titre
+        drawRect(px + 1, py + 1, px + UPGRADES_W - 1, py + 16, 0xFF3A1F5E);
+        fontRenderer.drawStringWithShadow("\u00A7e\u2726 Upgrades",
+            px + 5, py + 4, 0xFFFFDD77);
+        drawRect(px + 3, py + 16, px + UPGRADES_W - 3, py + 17, 0xFFBB77FF);
+
+        // Carre 2x2 des 4 slots (positions calculees pour centre du panneau)
+        int slotSize = 20;  // cadre autour du slot de 18x18 + 2px de bord
+        int gap = 6;
+        int totalW = slotSize * 2 + gap;
+        int startX = px + (UPGRADES_W - totalW) / 2;
+        int startY = py + 25;
+
+        // Labels au-dessus des slots
+        String[] labels = {"RF", "I/O", "SPD", "EFF"};
+        int[][] slotPositions = {
+            {0, 0}, {1, 0}, {0, 1}, {1, 1}
+        };
+
+        for (int i = 0; i < 4; i++) {
+            int col = slotPositions[i][0];
+            int row = slotPositions[i][1];
+            int sx = startX + col * (slotSize + gap);
+            int sy = startY + row * (slotSize + gap);
+
+            // Cadre violet autour du slot
+            drawRect(sx, sy, sx + slotSize, sy + slotSize, 0xFF8855BB);
+            drawRect(sx + 1, sy + 1, sx + slotSize - 1, sy + slotSize - 1, 0xFF0A0818);
+        }
+
+        // Labels de chaque slot (sous)
+        int labelY = startY + (slotSize + gap) * 2;
+        fontRenderer.drawStringWithShadow("RF",  startX + 4, labelY, 0xFFFFAAAA);
+        fontRenderer.drawStringWithShadow("I/O", startX + slotSize + gap + 4, labelY, 0xFF88CCFF);
+        fontRenderer.drawStringWithShadow("SPD", startX + 4, labelY + 10, 0xFFFFCC88);
+        fontRenderer.drawStringWithShadow("EFF", startX + slotSize + gap + 4, labelY + 10, 0xFF88DD88);
+
+        // Description (en bas)
+        int descY = labelY + 25;
+        fontRenderer.drawString("RF: mode energie", px + 4, descY, 0xFFAAAAAA);
+        fontRenderer.drawString("I/O: slots in/out", px + 4, descY + 10, 0xFFAAAAAA);
+        fontRenderer.drawString("SPD: vitesse +30%/item", px + 4, descY + 20, 0xFFAAAAAA);
+        fontRenderer.drawString("EFF: conso -8%/item", px + 4, descY + 30, 0xFFAAAAAA);
+    }
+
+    /**
+     * Repositionne les 4 slots upgrade selon upgradesOpen.
+     * Si panneau ouvert : slots visibles dans le panneau.
+     * Sinon : hors-ecran.
+     */
+    private void updateUpgradeSlotPositions() {
+        int slotSize = 20;
+        int gap = 6;
+        int totalW = slotSize * 2 + gap;
+        int panelX = xSize + 6;  // Relative to guiLeft
+        int startX = panelX + (UPGRADES_W - totalW) / 2 + 2;  // +2 pour centrer le slot 18 dans cadre 20
+        int startY = 10 + 25 + 2;  // py + decalage + 2
+
+        int[][] slotPositions = {
+            {0, 0}, {1, 0}, {0, 1}, {1, 1}
+        };
+
+        for (int i = 0; i < 4; i++) {
+            Slot slot = inventorySlots.inventorySlots.get(3 + i);
+            if (upgradesOpen) {
+                int col = slotPositions[i][0];
+                int row = slotPositions[i][1];
+                slot.xPos = startX + col * (slotSize + gap);
+                slot.yPos = startY + row * (slotSize + gap);
+            } else {
+                slot.xPos = -1000;
+                slot.yPos = -1000;
+            }
+        }
     }
 
     // ======================================================================
@@ -330,21 +414,29 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // 1. Clic sur onglet Config (depasse a droite du GUI)
-        if (mx >= x + xSize - 2 && mx <= x + xSize + 13
-            && my >= y + 18 && my <= y + 35) {
+        // 1. Clic onglet CONFIG (gauche, x=-13, 15x17)
+        if (mx >= x - 13 && mx <= x + 2 && my >= y + 18 && my <= y + 35) {
             configOpen = !configOpen;
+            if (configOpen) upgradesOpen = false;  // Ferme l'autre
             return;
         }
 
-        // 2. Si config ouverte, check clics sur boutons face
+        // 2. Clic onglet UPGRADES (droite, x=xSize-2, 15x17)
+        if (mx >= x + xSize - 2 && mx <= x + xSize + 13
+            && my >= y + 18 && my <= y + 35) {
+            upgradesOpen = !upgradesOpen;
+            if (upgradesOpen) configOpen = false;  // Ferme l'autre
+            return;
+        }
+
+        // 3. Si config ouvert, check clics sur boutons faces
         if (configOpen) {
-            int px = x + xSize + 12;
+            int px = x - CONFIG_W - 6;
             int py = y + 10;
-            int pw = 110;
-            int bs = 24, bg = 2;
-            int cx = px + (pw - (bs * 3 + bg * 2)) / 2;
-            int cy = py + 20;
+            int bs = 28, bg = 3;
+            int totalW = bs * 3 + bg * 2;
+            int cx = px + (CONFIG_W - totalW) / 2;
+            int cy = py + 22;
             int[][] btns = {
                 {1, cx + bs + bg, cy},
                 {4, cx, cy + bs + bg},
@@ -358,13 +450,11 @@ public class GuiFurnaceNexus extends GuiContainer {
                 if (mx >= bx && mx <= bx + bs && my >= by && my <= by + bs) {
                     SideConfig sc = tile.getSideConfig();
                     if (isShiftKeyDown()) {
-                        // Toggle FUEL_IN
                         sc.toggleFace(TileFurnaceNexus.SC_TYPE_FUEL_IN, face);
-                        int id = TileFurnaceNexus.SC_TYPE_FUEL_IN * 6 + face;
                         mc.playerController.sendEnchantPacket(
-                            inventorySlots.windowId, id);
+                            inventorySlots.windowId,
+                            TileFurnaceNexus.SC_TYPE_FUEL_IN * 6 + face);
                     } else {
-                        // Cycle None -> In -> Out -> Both -> None
                         boolean in = sc.isFaceActive(TileFurnaceNexus.SC_TYPE_ITEM_IN, face);
                         boolean out = sc.isFaceActive(TileFurnaceNexus.SC_TYPE_ITEM_OUT, face);
                         int curState = (in ? 1 : 0) | (out ? 2 : 0);
@@ -418,6 +508,13 @@ public class GuiFurnaceNexus extends GuiContainer {
         return 0xFF000000 | (Math.min(255, r) << 16) | (Math.min(255, g) << 8) | Math.min(255, b);
     }
 
+    private int darken(int color, float factor) {
+        int r = (int)(((color >> 16) & 0xFF) * (1 - factor));
+        int g = (int)(((color >> 8) & 0xFF) * (1 - factor));
+        int b = (int)((color & 0xFF) * (1 - factor));
+        return 0xFF000000 | (r << 16) | (g << 8) | b;
+    }
+
     private String getTierDisplayName(FurnaceTier tier) {
         switch (tier) {
             case IRON:       return "Fourneau de Fer";
@@ -459,26 +556,6 @@ public class GuiFurnaceNexus extends GuiContainer {
             case EMERADIC:   return 0xFF80FF90;
             case VOSSIUM_IV: return 0xFFCC80FF;
             default:         return 0xFF9090FF;
-        }
-    }
-
-    private String getUpgradeLabel(FurnaceUpgrade up) {
-        switch (up) {
-            case RF_CONVERTER:  return "Convertisseur RF";
-            case IO_EXPANSION:  return "Extension I/O";
-            case SPEED_BOOSTER: return "Accelerateur";
-            case EFFICIENCY:    return "Carte Efficience";
-            default:            return up.registrySuffix;
-        }
-    }
-
-    private String getUpgradeHint(FurnaceUpgrade up) {
-        switch (up) {
-            case RF_CONVERTER:  return "Coal -> RF, +5% vitesse";
-            case IO_EXPANSION:  return "Plus de slots (RF requis)";
-            case SPEED_BOOSTER: return "+30% vitesse, +40% conso /stack";
-            case EFFICIENCY:    return "-8% conso /stack";
-            default:            return "";
         }
     }
 }
