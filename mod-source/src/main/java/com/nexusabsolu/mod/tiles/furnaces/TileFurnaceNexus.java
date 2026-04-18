@@ -68,7 +68,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
 
     private int cookProgress = 0;          // ticks de cuisson en cours
     private int maxCookTime = 200;          // ticks requis (depend du tier)
-    private int fuelRemaining = 0;          // operations restantes sur le coal actuel
+
+    // Systeme fuel style vanilla : ticks restants + ticks totaux pour la flamme
+    // qui descend progressivement.
+    private int fuelBurnTicks = 0;         // ticks restants sur le fuel actuel
+    private int fuelTotalBurnTicks = 0;    // ticks totaux du fuel actuel (pour ratio flamme)
 
     // Configuration des 6 faces pour auto I/O (style Mekanism)
     private final com.nexusabsolu.mod.tiles.SideConfig sideConfig =
@@ -100,14 +104,26 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     public FurnaceTier getTier() { return tier; }
     public int getCookProgress() { return cookProgress; }
     public int getMaxCookTime() { return maxCookTime; }
-    public int getFuelRemaining() { return fuelRemaining; }
+    /** Ticks restants sur le fuel actuel (0 = pas de fuel actif). */
+    public int getFuelBurnTicks() { return fuelBurnTicks; }
+    /** Ticks totaux du fuel consomme (pour calculer le ratio de flamme). */
+    public int getFuelTotalBurnTicks() { return fuelTotalBurnTicks; }
+
+    /**
+     * Alias retro-compat : true si un fuel brule actuellement.
+     * Utilise par les ancien codes (GUI, BlockFurnaceNexus.getActualState...).
+     */
+    public int getFuelRemaining() { return fuelBurnTicks > 0 ? 1 : 0; }
     public int getEnergyStored() { return energyStorage.getEnergyStored(); }
     public int getMaxEnergy() { return energyStorage.getMaxEnergyStored(); }
 
     // Setters client-side : appeles par ContainerFurnaceNexus.updateProgressBar
     // pour refleter l'etat serveur dans le GUI client.
     public void setCookProgressClient(int v) { this.cookProgress = v; }
-    public void setFuelRemainingClient(int v) { this.fuelRemaining = v; }
+    public void setFuelBurnTicksClient(int v) { this.fuelBurnTicks = v; }
+    public void setFuelTotalBurnTicksClient(int v) { this.fuelTotalBurnTicks = v; }
+    public void setEnergyStoredClient(int v) { this.energyStorage.setEnergy(v); }
+    public void setMaxCookTimeClient(int v) { this.maxCookTime = v; }
     public void setEnergyStoredClient(int v) { this.energyStorage.setEnergy(v); }
     public void setMaxCookTimeClient(int v) { this.maxCookTime = v; }
 
@@ -171,7 +187,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     public void update() {
         if (world.isRemote) return;
 
-        boolean wasActive = cookProgress > 0 || fuelRemaining > 0;
+        boolean wasActive = cookProgress > 0 || fuelBurnTicks > 0;
 
         // 1. Recette disponible ?
         ItemStack input = inventory[SLOT_INPUT];
@@ -197,7 +213,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
             }
         }
 
-        // 2. Fuel disponible ?
+        // 2. Fuel disponible ? (consumeFuelIfNeeded decremente fuelBurnTicks de 1)
         if (!consumeFuelIfNeeded()) {
             resetProgress();
             return;
@@ -217,12 +233,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
             input.shrink(1);
             if (input.getCount() <= 0) inventory[SLOT_INPUT] = ItemStack.EMPTY;
             cookProgress = 0;
-            // Decremente fuel (1 op consommee)
-            if (!isRFMode()) fuelRemaining--;
+            // Note: fuelBurnTicks est decremente tick-par-tick dans consumeFuelIfNeeded
+            // Pas de decrement supplementaire ici (ancien systeme ops = supprime)
             markDirty();
         }
 
-        boolean isActive = cookProgress > 0 || fuelRemaining > 0;
+        boolean isActive = cookProgress > 0 || fuelBurnTicks > 0;
         if (wasActive != isActive) markDirty();
 
         // Auto I/O selon SideConfig (tous les 10 ticks = 0.5s = confort joueur)
@@ -336,12 +352,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     }
 
     /**
-     * Consomme du fuel si necessaire pour que le furnace continue a tourner ce tick.
-     * Retourne true si le furnace peut tourner ce tick.
+     * Consomme du fuel (1 tick). Style vanilla :
+     * - Mode RF : consomme baseRfPerTick RF par tick (+ modifs upgrades)
+     * - Mode coal : decremente fuelBurnTicks de 1 par tick. Si arrive a 0,
+     *   prend un nouveau fuel dans le slot et initialise fuelBurnTicks.
      *
-     * Mode coal : si fuelRemaining > 0 on consomme rien (le coal actuel dure),
-     *             sinon on prend un item du slot fuel et on recharge fuelRemaining.
-     * Mode RF   : on consomme baseRfPerTick par tick. Si pas assez, on s'arrete.
+     * La flamme visible (ratio fuelBurnTicks / fuelTotalBurnTicks) descend
+     * donc progressivement sur la duree du fuel (comme vanilla).
      */
     private boolean consumeFuelIfNeeded() {
         if (isRFMode()) {
@@ -352,16 +369,26 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
             return true;
         }
 
-        // Mode coal : un stack entier couvre N operations
-        if (fuelRemaining > 0) return true;
+        // Mode coal (ticks-based)
+        if (fuelBurnTicks > 0) {
+            fuelBurnTicks--;
+            if (fuelBurnTicks <= 0) {
+                fuelTotalBurnTicks = 0;
+                markDirty();
+            }
+            return true;
+        }
 
+        // Plus de fuel : essaye d'en consommer un nouveau
         ItemStack fuel = inventory[SLOT_FUEL];
         if (fuel.isEmpty()) return false;
 
-        int ops = getCoalOps(fuel);
-        if (ops <= 0) return false;
+        int burnTime = net.minecraft.tileentity.TileEntityFurnace.getItemBurnTime(fuel);
+        if (burnTime <= 0) return false;
 
-        fuelRemaining = ops;
+        // Initialise le nouveau fuel
+        fuelTotalBurnTicks = burnTime;
+        fuelBurnTicks = burnTime - 1;  // -1 car on en consomme 1 ce tick
         fuel.shrink(1);
         if (fuel.getCount() <= 0) inventory[SLOT_FUEL] = ItemStack.EMPTY;
         markDirty();
@@ -369,24 +396,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     }
 
     /**
-     * Nombre d'operations qu'un ItemStack de fuel peut alimenter.
-     * Utilise le burn time vanilla/Forge (marche pour tous les mods : coal, charcoal,
-     * coal block, lava bucket, blaze rod, bois, fuels modes via
-     * FuelHandler.addFuelProvider...). 1 op = tier.baseCookTime() ticks.
-     *
-     * Compatible notamment avec :
-     *   - minecraft:coal (1600 ticks)
-     *   - minecraft:coal_block (16000 ticks)
-     *   - minecraft:blaze_rod (2400 ticks)
-     *   - thermalfoundation:material:* (fuels custom)
-     *   - tout autre mod qui register ses fuels via GameRegistry.registerFuelHandler
+     * Helper pour auto-IO pullFromNeighborToSlot : verifie qu'un item est un fuel valide.
+     * Compatible tous mods via TileEntityFurnace.getItemBurnTime (registry Forge).
      */
     private int getCoalOps(ItemStack fuel) {
-        int burnTime = net.minecraft.tileentity.TileEntityFurnace.getItemBurnTime(fuel);
-        if (burnTime <= 0) return 0;
-        int cookTime = Math.max(1, tier.baseCookTime());
-        int ops = burnTime / cookTime;
-        return Math.max(1, ops);  // au moins 1 op pour eviter d'avoir un fuel valide mais 0 op
+        // Retourne juste le burn time > 0 pour savoir si c'est un fuel valide.
+        // (Plus utilise pour calcul ops, mais gardee pour compatibilite avec doAutoIO)
+        return net.minecraft.tileentity.TileEntityFurnace.getItemBurnTime(fuel);
     }
 
     // === NBT ===
@@ -397,7 +413,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         nbt.setString("tier", tier.registryName);
         nbt.setInteger("cookProgress", cookProgress);
         nbt.setInteger("maxCookTime", maxCookTime);
-        nbt.setInteger("fuelRemaining", fuelRemaining);
+        nbt.setInteger("fuelBurnTicks", fuelBurnTicks);
+        nbt.setInteger("fuelTotalBurnTicks", fuelTotalBurnTicks);
         nbt.setInteger("energy", energyStorage.getEnergyStored());
 
         NBTTagList items = new NBTTagList();
@@ -431,7 +448,17 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         }
         this.cookProgress = nbt.getInteger("cookProgress");
         if (nbt.hasKey("maxCookTime")) this.maxCookTime = nbt.getInteger("maxCookTime");
-        this.fuelRemaining = nbt.getInteger("fuelRemaining");
+        // Nouveau format v1.0.197 : ticks-based flame (fuelBurnTicks + fuelTotalBurnTicks)
+        // Fallback pour anciens saves avec 'fuelRemaining' (ops-based)
+        if (nbt.hasKey("fuelBurnTicks")) {
+            this.fuelBurnTicks = nbt.getInteger("fuelBurnTicks");
+            this.fuelTotalBurnTicks = nbt.getInteger("fuelTotalBurnTicks");
+        } else if (nbt.hasKey("fuelRemaining")) {
+            // Migration depuis ancien format : estime les ticks a partir des ops
+            int oldOps = nbt.getInteger("fuelRemaining");
+            this.fuelBurnTicks = oldOps * Math.max(1, tier.baseCookTime());
+            this.fuelTotalBurnTicks = this.fuelBurnTicks;
+        }
 
         for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
         NBTTagList items = nbt.getTagList("items", 10);

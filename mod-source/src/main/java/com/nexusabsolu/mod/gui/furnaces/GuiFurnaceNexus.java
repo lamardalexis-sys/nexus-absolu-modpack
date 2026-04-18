@@ -83,16 +83,19 @@ public class GuiFurnaceNexus extends GuiContainer {
             tile.getEnergyStored(), tile.getMaxEnergy(),
             0xFFCC4444, 0xFFFF6666);
 
-        // === FLAMME fuel indicator (dessinee dans le tube flamme (68, 55) 24x8) ===
-        int fuel = tile.getFuelRemaining();
+        // === FLAMME fuel indicator style vanilla (descend avec le fuel restant) ===
+        // Zone : (68, 55) a (91, 62) = 24x8
+        int fuelBurnTicks = tile.getFuelBurnTicks();
+        int fuelTotal = tile.getFuelTotalBurnTicks();
         boolean rfActive = tile.getEnergyStored() > 0 && tile.getCookProgress() > 0;
-        if (fuel > 0) {
-            // Flamme orange - fill proportionnel
-            int fuelMax = Math.max(1, fuel);
-            fillBarHorizontal(x + 69, y + 56, 22, 6, fuel, fuelMax,
+
+        if (fuelBurnTicks > 0 && fuelTotal > 0) {
+            // Flamme orange proportionnelle au fuel restant (ratio descend dans le temps)
+            fillBarHorizontal(x + 69, y + 56, 22, 6,
+                fuelBurnTicks, fuelTotal,
                 0xFFCC3D10, 0xFFFF8830);
         } else if (rfActive) {
-            // Mode RF : remplit en bleu
+            // Mode RF : barre pleine bleue constante (l'energie est continue)
             fillBarHorizontal(x + 69, y + 56, 22, 6, 1, 1,
                 0xFF4455CC, 0xFF7788FF);
         }
@@ -177,11 +180,19 @@ public class GuiFurnaceNexus extends GuiContainer {
                 "Cuisson: " + pct + "%"), mx, my);
         }
 
-        // Flame fuel tooltip
+        // Flame fuel tooltip (affiche pourcentage + ticks style vanilla)
         if (inRect(mx, my, x + 68, y + 55, 24, 8)) {
-            String status = tile.getFuelRemaining() > 0
-                ? tile.getFuelRemaining() + " operations"
-                : (tile.getEnergyStored() > 0 ? "Mode RF" : "Vide");
+            int ticks = tile.getFuelBurnTicks();
+            int total = tile.getFuelTotalBurnTicks();
+            String status;
+            if (ticks > 0 && total > 0) {
+                int pct = ticks * 100 / total;
+                status = pct + "% (" + ticks + " ticks)";
+            } else if (tile.getEnergyStored() > 0 && tile.getCookProgress() > 0) {
+                status = "Mode RF";
+            } else {
+                status = "Vide";
+            }
             drawHoveringText(Collections.singletonList(
                 "Combustible: " + status), mx, my);
         }

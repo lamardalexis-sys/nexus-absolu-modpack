@@ -28,7 +28,8 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 public class ContainerFurnaceNexus extends Container {
 
     private final TileFurnaceNexus tile;
-    private int[] cachedFields = new int[4];  // cookProgress, fuelRemaining, energy, maxCookTime
+    // 5 champs syncs : cookProgress, fuelBurnTicks, energy, maxCookTime, fuelTotalBurnTicks
+    private int[] cachedFields = new int[5];
 
     public ContainerFurnaceNexus(InventoryPlayer playerInv, TileFurnaceNexus tile) {
         this.tile = tile;
@@ -141,16 +142,17 @@ public class ContainerFurnaceNexus extends Container {
         return result;
     }
 
-    // === SYNC CLIENT (progress, fuel, energy) ===
+    // === SYNC CLIENT (progress, fuel ticks, energy, maxCookTime, fuelTotalBurnTicks) ===
 
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         int[] currentFields = {
             tile.getCookProgress(),
-            tile.getFuelRemaining(),
+            tile.getFuelBurnTicks(),          // id=1 : ticks restants sur fuel
             tile.getEnergyStored(),
-            tile.getMaxCookTime()
+            tile.getMaxCookTime(),
+            tile.getFuelTotalBurnTicks()      // id=4 : ticks totaux du fuel (pour ratio flamme)
         };
         for (IContainerListener listener : this.listeners) {
             for (int i = 0; i < currentFields.length; i++) {
@@ -167,9 +169,10 @@ public class ContainerFurnaceNexus extends Container {
         // Client receive, apply to local copy of tile
         switch (id) {
             case 0: tile.setCookProgressClient(data); break;
-            case 1: tile.setFuelRemainingClient(data); break;
+            case 1: tile.setFuelBurnTicksClient(data); break;
             case 2: tile.setEnergyStoredClient(data); break;
             case 3: tile.setMaxCookTimeClient(data); break;
+            case 4: tile.setFuelTotalBurnTicksClient(data); break;
         }
     }
 
