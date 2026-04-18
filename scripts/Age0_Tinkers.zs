@@ -35,4 +35,13 @@
 // NOTE : les alliages Tinkers sont dans le JSON config, pas CraftTweaker
 // On gerera ca dans les configs Tinkers
 
+// ==========================================
+// BLOQUER LE CRAFT GRAVEL -> FLINT (Tinkers)
+// Tinkers Construct ajoute une recette 3 gravel -> 1 flint
+// qui court-circuite le scavenging (drop flint a 1% en Age 0)
+// On veut que le flint soit un drop rare, pas un craft trivial
+// ==========================================
+
+recipes.remove(<minecraft:flint>);
+
 print("[Nexus Absolu] Age0_Tinkers.zs loaded");

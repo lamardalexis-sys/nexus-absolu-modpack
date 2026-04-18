@@ -20,8 +20,13 @@ public class ModItems {
     public static final List<Item> ITEMS = new ArrayList<>();
 
     // === PIOCHES CUSTOM ===
+    // MAT_FRAGMENTEE: meme que WOOD vanilla sauf durabilite augmentee (97 au lieu de 59)
+    // harvestLevel=0 (peut miner stone, pas iron), efficiency=2.0 (comme WOOD), enchantability=15
+    private static final Item.ToolMaterial MAT_FRAGMENTEE = net.minecraftforge.common.util.EnumHelper
+        .addToolMaterial("NEXUS_FRAGMENTEE", 0, 97, 2.0F, 0.0F, 15);
+
     public static final Item PIOCHE_FRAGMENTEE = new ItemPioche("pioche_fragmentee",
-        Item.ToolMaterial.WOOD, 1);
+        MAT_FRAGMENTEE, 1);
     public static final Item PIOCHE_RENFORCEE = new ItemPioche("pioche_renforcee",
         Item.ToolMaterial.IRON, 2);
 
