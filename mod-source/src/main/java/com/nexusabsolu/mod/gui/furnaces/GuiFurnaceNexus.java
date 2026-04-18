@@ -203,9 +203,9 @@ public class GuiFurnaceNexus extends GuiContainer {
     // PANNEAU CONFIG I/O (a GAUCHE du GUI, couleurs saturees)
     // ======================================================================
 
-    // Dimensions panneau config (plus grand que v1.0.188)
-    private static final int CONFIG_W = 130;
-    private static final int CONFIG_H = 165;
+    // Dimensions panneau config (agrandi v1.0.194 : instruction deborde)
+    private static final int CONFIG_W = 150;
+    private static final int CONFIG_H = 175;
 
     private void drawConfigPanel(int mx, int my) {
         int px = guiLeft - CONFIG_W - 6;  // A GAUCHE du GUI
@@ -222,7 +222,7 @@ public class GuiFurnaceNexus extends GuiContainer {
             px + 5, py + 4, 0xFFEEAAFF);
         drawRect(px + 3, py + 16, px + CONFIG_W - 3, py + 17, 0xFFBB77FF);
 
-        // Boutons face en croix (plus gros : 28x28 au lieu de 24x24)
+        // Boutons face en croix (plus gros : 28x28)
         SideConfig sc = tile.getSideConfig();
         int bs = 28, bg = 3;
         int totalW = bs * 3 + bg * 2;
@@ -236,17 +236,18 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawFaceBtn(cx, cy + (bs + bg) * 2, bs, 0, sc, mx, my);           // DOWN
         drawFaceBtn(cx + bs + bg, cy + (bs + bg) * 2, bs, 2, sc, mx, my); // NORTH
 
-        // Instructions
+        // Instructions split sur 3 lignes (evite de couper)
         int helpY = cy + (bs + bg) * 3 + 6;
-        fontRenderer.drawString("Clic : cycle None/In/Out/Both", px + 4, helpY, 0xFFAAAAAA);
-        fontRenderer.drawString("Maj+Clic : toggle Fuel IN", px + 4, helpY + 10, 0xFFAAAAAA);
+        fontRenderer.drawString("Clic : cycle None/In/",      px + 4, helpY,       0xFFAAAAAA);
+        fontRenderer.drawString("              Out/Both",     px + 4, helpY + 10,  0xFFAAAAAA);
+        fontRenderer.drawString("Maj+Clic : toggle Fuel IN",  px + 4, helpY + 22,  0xFFAAAAAA);
 
-        // Legende couleurs saturees (2 lignes)
-        int legY = helpY + 25;
-        drawColorLegend(px + 4, legY, COL_IN, "Input", 0xFF88CCFF);
-        drawColorLegend(px + 68, legY, COL_OUT, "Output", 0xFFFFCC88);
-        drawColorLegend(px + 4, legY + 12, COL_BOTH, "Both", 0xFFEEAAFF);
-        drawColorLegend(px + 68, legY + 12, COL_FUEL, "Fuel", 0xFFFFDD77);
+        // Legende couleurs (2 lignes de 2)
+        int legY = helpY + 38;
+        drawColorLegend(px + 4,  legY,      COL_IN,   "Input",  0xFF88CCFF);
+        drawColorLegend(px + 78, legY,      COL_OUT,  "Output", 0xFFFFCC88);
+        drawColorLegend(px + 4,  legY + 12, COL_BOTH, "Both",   0xFFEEAAFF);
+        drawColorLegend(px + 78, legY + 12, COL_FUEL, "Fuel",   0xFFFFDD77);
 
         // Tooltips hover faces
         int[][] btns = {
