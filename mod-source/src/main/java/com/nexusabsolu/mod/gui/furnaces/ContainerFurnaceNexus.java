@@ -34,28 +34,27 @@ public class ContainerFurnaceNexus extends Container {
         this.tile = tile;
 
         // === SLOTS MACHINE ===
-        // 0 : input (accepte tout item smeltable)
+        // Positions matchent la texture gui_furnace.png
+        // 0 : input (56, 17) correspond au slot dessine a (55, 16)
         addSlotToContainer(new Slot(tile, TileFurnaceNexus.SLOT_INPUT, 56, 17) {
             @Override
             public boolean isItemValid(ItemStack stack) {
                 return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
             }
         });
-        // 1 : fuel (SlotFurnaceFuel accepte coal/charcoal/autres fuels)
+        // 1 : fuel (56, 53) correspond a (55, 52) dans la texture
         addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 56, 53));
-        // 2 : output (SlotFurnaceOutput empeche l'insert manuel)
-        // Position du slot = centre du OUTPUT_LARGE (26x26 commence a 111,30) = 116, 35 pour le slot 18x18
+        // 2 : output (120, 34) correspond a OUTPUT_LARGE (116, 30) centre
         addSlotToContainer(new SlotFurnaceOutput(
-            playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 116, 35));
+            playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 120, 34));
 
-        // === 4 SLOTS UPGRADES ===
-        // Sprint C : slots presents mais n'importe quel item accepte pour l'instant.
-        // Sprint B validera par type d'item (ItemFurnaceUpgrade avec categorie = slot).
-        int upgradeX = 152;
+        // === 4 SLOTS UPGRADES (162, 16/34/52/70) ===
+        // Matchent la texture upgrade slots at (161, 15+18*i)
+        int upgradeX = 162;
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
-            final FurnaceUpgrade upgrade = up;  // effectively final pour lambda
+            final FurnaceUpgrade upgrade = up;
             int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
-            int yPos = 17 + up.slotIndex * 18;
+            int yPos = 16 + up.slotIndex * 18;
             addSlotToContainer(new Slot(tile, slotIdx, upgradeX, yPos) {
                 @Override
                 public int getSlotStackLimit() {
@@ -63,8 +62,7 @@ public class ContainerFurnaceNexus extends Container {
                 }
                 @Override
                 public boolean isItemValid(ItemStack stack) {
-                    // TODO Sprint B : verifier que stack est le bon ItemFurnaceUpgrade
-                    // pour ce slot.category. Pour l'instant, accept all.
+                    // Sprint B validera par type
                     return true;
                 }
             });
