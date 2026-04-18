@@ -4,6 +4,7 @@ import com.nexusabsolu.mod.items.ItemBase;
 import com.nexusabsolu.mod.items.ItemCleLiberte;
 import com.nexusabsolu.mod.items.ItemCleLiberteActivee;
 import com.nexusabsolu.mod.items.ItemCompose;
+import com.nexusabsolu.mod.items.ItemFurnaceUpgrade;
 import com.nexusabsolu.mod.items.ItemGrabberVoss;
 import com.nexusabsolu.mod.items.ItemGrit;
 import com.nexusabsolu.mod.items.ItemPioche;
@@ -195,4 +196,18 @@ public class ModItems {
 
     // === THE NEXUS ABSOLU ===
     public static final Item NEXUS_ABSOLU = new ItemNexusAbsolu();
+
+    // === FURNACES UPGRADES (Sprint B) ===
+    public static final Item UPGRADE_RF_CONVERTER = new ItemFurnaceUpgrade(
+        "upgrade_rf_converter",
+        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.RF_CONVERTER);
+    public static final Item UPGRADE_IO_EXPANSION = new ItemFurnaceUpgrade(
+        "upgrade_io_expansion",
+        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.IO_EXPANSION);
+    public static final Item UPGRADE_SPEED_BOOSTER = new ItemFurnaceUpgrade(
+        "upgrade_speed_booster",
+        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.SPEED_BOOSTER);
+    public static final Item UPGRADE_EFFICIENCY = new ItemFurnaceUpgrade(
+        "upgrade_efficiency",
+        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.EFFICIENCY);
 }

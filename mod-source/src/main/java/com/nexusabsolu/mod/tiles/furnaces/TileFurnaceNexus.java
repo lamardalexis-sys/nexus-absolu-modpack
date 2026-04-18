@@ -120,6 +120,53 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         return !rfSlot.isEmpty();
     }
 
+    /** Nombre d'items dans le slot SPEED_BOOSTER (0 si vide). */
+    private int getSpeedBoosterCount() {
+        ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.SPEED_BOOSTER.slotIndex];
+        return slot.isEmpty() ? 0 : slot.getCount();
+    }
+
+    /** Nombre d'items dans le slot EFFICIENCY (0 si vide). */
+    private int getEfficiencyCount() {
+        ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.EFFICIENCY.slotIndex];
+        return slot.isEmpty() ? 0 : slot.getCount();
+    }
+
+    /**
+     * Temps de cuisson effectif en ticks en tenant compte :
+     *  - vitesse base du tier (baseCookTime)
+     *  - bonus RF_CONVERTER si mode RF (+5%)
+     *  - bonus SPEED_BOOSTER (+30% par item, stackable 8 fois)
+     *
+     * Retourne un nb de ticks minimum de 1.
+     */
+    public int getEffectiveMaxCookTime() {
+        float speedMult = 1.0F;
+        // Bonus RF converter
+        if (isRFMode() && !tier.nativeRF) speedMult += 0.05F;
+        // Bonus speed boosters : +30% par item stacke
+        speedMult += getSpeedBoosterCount() * 0.30F;
+        // Applique sur le temps de base : temps / multiplicateur
+        int baseCook = tier.baseCookTime();
+        int effective = (int)(baseCook / speedMult);
+        return Math.max(1, effective);
+    }
+
+    /**
+     * Consommation RF/tick effective en mode RF, avec :
+     *  - baseRfPerTick du tier
+     *  - SPEED_BOOSTER : x1.40 par item (cumulatif multiplicatif)
+     *  - EFFICIENCY : x0.92 par item (cumulatif multiplicatif)
+     */
+    public int getEffectiveRfPerTick() {
+        float consoMult = 1.0F;
+        int spdCount = getSpeedBoosterCount();
+        for (int i = 0; i < spdCount; i++) consoMult *= 1.40F;
+        int effCount = getEfficiencyCount();
+        for (int i = 0; i < effCount; i++) consoMult *= 0.92F;
+        return Math.max(1, (int)(tier.baseRfPerTick * consoMult));
+    }
+
     // === TICK ===
 
     @Override
@@ -158,7 +205,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
             return;
         }
 
-        // 3. Cuisson progress
+        // 3. Cuisson progress (utilise le temps effectif avec upgrades)
+        maxCookTime = getEffectiveMaxCookTime();
         cookProgress++;
         if (cookProgress >= maxCookTime) {
             // Execute la cuisson
@@ -299,9 +347,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
      */
     private boolean consumeFuelIfNeeded() {
         if (isRFMode()) {
-            // Mode RF : consomme tick-by-tick
-            if (energyStorage.getEnergyStored() < tier.baseRfPerTick) return false;
-            energyStorage.drainInternal(tier.baseRfPerTick);
+            // Mode RF : consomme tick-by-tick (avec upgrades)
+            int rfConso = getEffectiveRfPerTick();
+            if (energyStorage.getEnergyStored() < rfConso) return false;
+            energyStorage.drainInternal(rfConso);
             return true;
         }
 

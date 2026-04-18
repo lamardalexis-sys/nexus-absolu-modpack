@@ -162,3 +162,9 @@ tile.nexusabsolu.furnace_gold.name=Fourneau d'Or
 tile.nexusabsolu.furnace_invar.name=Fourneau d'Invar
 tile.nexusabsolu.furnace_emeradic.name=Fourneau de Cristal Emeradic
 tile.nexusabsolu.furnace_vossium_iv.name=Fourneau de Vossium IV
+
+# === FURNACE UPGRADES (Sprint B) ===
+item.nexusabsolu.upgrade_rf_converter.name=Convertisseur RF
+item.nexusabsolu.upgrade_io_expansion.name=Extension I/O
+item.nexusabsolu.upgrade_speed_booster.name=Accelerateur
+item.nexusabsolu.upgrade_efficiency.name=Carte d'Efficience

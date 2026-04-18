@@ -62,8 +62,15 @@ public class ContainerFurnaceNexus extends Container {
                 }
                 @Override
                 public boolean isItemValid(ItemStack stack) {
-                    // Sprint B validera par type
-                    return true;
+                    // Sprint B: valide que l'item est un ItemFurnaceUpgrade
+                    // ET que sa categorie matche le slot
+                    if (stack.isEmpty()) return true;
+                    if (stack.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade) {
+                        com.nexusabsolu.mod.items.ItemFurnaceUpgrade item =
+                            (com.nexusabsolu.mod.items.ItemFurnaceUpgrade) stack.getItem();
+                        return item.getCategory() == upgrade;
+                    }
+                    return false;
                 }
             });
         }
