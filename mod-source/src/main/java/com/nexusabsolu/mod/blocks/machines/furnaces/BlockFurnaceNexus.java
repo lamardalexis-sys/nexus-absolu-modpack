@@ -78,7 +78,7 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing facing = EnumFacing.byIndex(meta);
+        EnumFacing facing = EnumFacing.getFront(meta);
         if (facing.getAxis() == EnumFacing.Axis.Y) facing = EnumFacing.NORTH;
         return getDefaultState().withProperty(FACING, facing);
     }
@@ -90,7 +90,7 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
 
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing,
-            float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+            float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
@@ -119,7 +119,7 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }
+    public BlockRenderLayer getBlockLayer() { return BlockRenderLayer.CUTOUT; }
 
     // === GUI on right-click ===
 
