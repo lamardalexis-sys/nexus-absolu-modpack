@@ -53,6 +53,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     public static final int SLOT_UPGRADE_BASE = 3;  // 3..6 pour les 4 upgrades
     public static final int TOTAL_SLOTS = 7;
 
+    // Types SideConfig pour les furnaces (indice dans SideConfig.faceConfig[type])
+    public static final int SC_TYPE_ITEM_IN  = 0;
+    public static final int SC_TYPE_ITEM_OUT = 1;
+    public static final int SC_TYPE_ENERGY   = 2;
+    public static final int SC_TYPE_FUEL_IN  = 3;
+
     // Coal bonus : charbon = 2x ops, charcoal = 1.5x, coal block = 16x (config Alexis)
     private static final int OPS_PER_COAL = 2;
     private static final int OPS_PER_CHARCOAL = 1;   // 1.5 arrondi a 1 (vanilla-compat)
@@ -66,6 +72,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     private int maxCookTime = 200;          // ticks requis (depend du tier)
     private int fuelRemaining = 0;          // operations restantes sur le coal actuel
 
+    // Configuration des 6 faces pour auto I/O (style Mekanism)
+    private final com.nexusabsolu.mod.tiles.SideConfig sideConfig =
+        new com.nexusabsolu.mod.tiles.SideConfig();
+
+    // Tick counter pour throttle les operations I/O cross-faces (tous les 10 ticks)
+    private int ioTickCounter = 0;
+
     public TileFurnaceNexus() {
         this(FurnaceTier.IRON);  // default pour lecture NBT
     }
@@ -76,7 +89,15 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
         this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), 1000);
         this.maxCookTime = tier.baseCookTime();
+        // Defaults Mekanism-like : output face = bas, rien d'autre
+        this.sideConfig.setFace(SC_TYPE_ITEM_OUT, 0, true);  // face 0 = DOWN
+        // Energy accepte partout (decide par Alexis v1.0.184)
+        for (int f = 0; f < 6; f++) {
+            this.sideConfig.setFace(SC_TYPE_ENERGY, f, true);
+        }
     }
+
+    public com.nexusabsolu.mod.tiles.SideConfig getSideConfig() { return sideConfig; }
 
     public FurnaceTier getTier() { return tier; }
     public int getCookProgress() { return cookProgress; }
@@ -157,6 +178,108 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
 
         boolean isActive = cookProgress > 0 || fuelRemaining > 0;
         if (wasActive != isActive) markDirty();
+
+        // Auto I/O selon SideConfig (tous les 10 ticks = 0.5s = confort joueur)
+        ioTickCounter++;
+        if (ioTickCounter >= 10) {
+            ioTickCounter = 0;
+            doAutoIO();
+        }
+    }
+
+    /**
+     * Auto pull/push items selon SideConfig, toutes les 10 ticks.
+     * - Face ITEM_IN  : pull du voisin vers SLOT_INPUT (filtre : smeltable)
+     * - Face FUEL_IN  : pull du voisin vers SLOT_FUEL (filtre : getCoalOps > 0)
+     * - Face ITEM_OUT : push du SLOT_OUTPUT vers voisin
+     * Energy est gere automatiquement par la capability CapabilityEnergy sur toutes faces.
+     */
+    private void doAutoIO() {
+        for (int faceIdx = 0; faceIdx < 6; faceIdx++) {
+            EnumFacing face = EnumFacing.getFront(faceIdx);
+            // Position du voisin
+            net.minecraft.util.math.BlockPos neighborPos = getPos().offset(face);
+            TileEntity neighbor = world.getTileEntity(neighborPos);
+            if (neighbor == null) continue;
+
+            // Capability opposee (face qui fait face a notre face)
+            EnumFacing opposite = face.getOpposite();
+
+            net.minecraftforge.items.IItemHandler neighborHandler = neighbor.getCapability(
+                CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, opposite);
+            if (neighborHandler == null) continue;
+
+            // ITEM_OUT : push SLOT_OUTPUT vers voisin
+            if (sideConfig.isFaceActive(SC_TYPE_ITEM_OUT, faceIdx)) {
+                ItemStack out = inventory[SLOT_OUTPUT];
+                if (!out.isEmpty()) {
+                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(neighborHandler, out.copy(), false);
+                    int inserted = out.getCount() - remaining.getCount();
+                    if (inserted > 0) {
+                        out.shrink(inserted);
+                        if (out.getCount() <= 0) inventory[SLOT_OUTPUT] = ItemStack.EMPTY;
+                        markDirty();
+                    }
+                }
+            }
+
+            // ITEM_IN : pull smeltables vers SLOT_INPUT
+            if (sideConfig.isFaceActive(SC_TYPE_ITEM_IN, faceIdx)) {
+                pullFromNeighborToSlot(neighborHandler, SLOT_INPUT, true, false);
+            }
+
+            // FUEL_IN : pull fuels vers SLOT_FUEL
+            if (sideConfig.isFaceActive(SC_TYPE_FUEL_IN, faceIdx)) {
+                pullFromNeighborToSlot(neighborHandler, SLOT_FUEL, false, true);
+            }
+        }
+    }
+
+    /**
+     * Tire un item depuis le voisin vers un slot local, selon le filtre.
+     * @param filterSmeltable true = seuls les items smeltables sont acceptes
+     * @param filterFuel true = seuls les items fuel (coal/charcoal/coal block) sont acceptes
+     */
+    private void pullFromNeighborToSlot(net.minecraftforge.items.IItemHandler handler,
+                                         int targetSlot,
+                                         boolean filterSmeltable,
+                                         boolean filterFuel) {
+        ItemStack current = inventory[targetSlot];
+        // Si deja plein ou stack max, skip
+        if (!current.isEmpty() && current.getCount() >= current.getMaxStackSize()) return;
+
+        for (int s = 0; s < handler.getSlots(); s++) {
+            ItemStack extracted = handler.extractItem(s, 64, true);  // simulate
+            if (extracted.isEmpty()) continue;
+
+            // Filtre
+            if (filterSmeltable && FurnaceRecipes.instance().getSmeltingResult(extracted).isEmpty()) continue;
+            if (filterFuel && getCoalOps(extracted) <= 0) continue;
+
+            // Combien on peut accepter dans notre slot ?
+            int canAccept;
+            if (current.isEmpty()) {
+                canAccept = Math.min(extracted.getMaxStackSize(), extracted.getCount());
+            } else {
+                if (!ItemHandlerHelper.canItemStacksStack(current, extracted)) continue;
+                canAccept = Math.min(
+                    current.getMaxStackSize() - current.getCount(),
+                    extracted.getCount());
+            }
+            if (canAccept <= 0) continue;
+
+            // Extraction reelle
+            ItemStack taken = handler.extractItem(s, canAccept, false);
+            if (taken.isEmpty()) continue;
+
+            if (current.isEmpty()) {
+                inventory[targetSlot] = taken;
+            } else {
+                current.grow(taken.getCount());
+            }
+            markDirty();
+            return;  // un slot source pull par tick = suffit
+        }
     }
 
     private void resetProgress() {
@@ -235,6 +358,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
             }
         }
         nbt.setTag("items", items);
+
+        // Side config (6 faces x 4 types + eject/pull bits)
+        NBTTagCompound scTag = new NBTTagCompound();
+        sideConfig.writeToNBT(scTag);
+        nbt.setTag("sideConfig", scTag);
+
         return nbt;
     }
 
@@ -260,6 +389,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
             if (slot >= 0 && slot < TOTAL_SLOTS) {
                 inventory[slot] = new ItemStack(itemTag);
             }
+        }
+
+        // Side config (si present dans le save, sinon garde les defaults)
+        if (nbt.hasKey("sideConfig")) {
+            sideConfig.readFromNBT(nbt.getCompoundTag("sideConfig"));
         }
     }
 

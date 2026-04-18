@@ -174,5 +174,33 @@ public class ContainerFurnaceNexus extends Container {
             tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5) <= 64.0;
     }
 
+    /**
+     * Recoit les clics du GUI cote client et les execute cote serveur.
+     * Pattern KRDA : on utilise mc.playerController.sendEnchantPacket cote client,
+     * qui arrive ici avec un "id" qu'on decode.
+     *
+     * Encodage des ids:
+     *   0..23  : toggle face (type * 6 + face) - 4 types x 6 faces = 24 ids
+     *            ex. id=6 = type 1 face 0 (ITEM_OUT face DOWN)
+     *
+     * Pour les furnaces on n'expose que 3 types a l'utilisateur (ITEM_IN, ITEM_OUT,
+     * FUEL_IN), l'ENERGY etant auto-acceptee partout.
+     */
+    @Override
+    public boolean enchantItem(EntityPlayer player, int id) {
+        if (id >= 0 && id < 24) {
+            int type = id / 6;
+            int face = id % 6;
+            // On ignore toggle sur ENERGY (type 2) cote user : energy toujours on
+            if (type == com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus.SC_TYPE_ENERGY) {
+                return false;
+            }
+            tile.getSideConfig().toggleFace(type, face);
+            tile.markDirty();
+            return true;
+        }
+        return false;
+    }
+
     public TileFurnaceNexus getTile() { return tile; }
 }
