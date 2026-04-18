@@ -77,9 +77,9 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // === RF BAR horizontale (sous les slots machine) ===
-        // Texture zone : (40, 70) a (131, 77) = 92x8 max fill
-        fillBarHorizontal(x + 41, y + 71, 90, 6,
+        // === RF BAR VERTICALE a droite (v7) ===
+        // Texture zone : (140, 12) a (150, 84) = 10x72 max fill
+        fillBarVertical(x + 141, y + 13, 8, 70,
             tile.getEnergyStored(), tile.getMaxEnergy(),
             0xFFCC4444, 0xFFFF6666);
 
@@ -141,8 +141,8 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Label Inventaire (ajuste a ySize=186 -> inv a y=93+)
         fontRenderer.drawStringWithShadow("Inventaire", 8, 93, 0xFF8866AA);
 
-        // Label RF sous la barre
-        fontRenderer.drawStringWithShadow("RF", 8, 71, 0xFFCC4444);
+        // Label RF au-dessus de la barre verticale
+        fontRenderer.drawStringWithShadow("RF", 137, 4, 0xFFCC4444);
     }
 
     // ======================================================================
@@ -163,8 +163,8 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // RF bar tooltip
-        if (inRect(mx, my, x + 40, y + 70, 92, 8)) {
+        // RF bar tooltip (zone verticale (140,12)-(150,84))
+        if (inRect(mx, my, x + 140, y + 12, 10, 72)) {
             drawHoveringText(Collections.singletonList(
                 tile.getEnergyStored() + " / " + tile.getMaxEnergy() + " RF"), mx, my);
         }
@@ -493,6 +493,34 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawRect(bx, by, bx + fillW, by + bh, color);
         if (fillW > 2) {
             drawRect(bx, by, bx + fillW, by + 1, shine);
+        }
+    }
+
+    /** Barre verticale qui se remplit du BAS vers le HAUT avec degrade rouge->jaune. */
+    private void fillBarVertical(int bx, int by, int bw, int bh,
+                                  int value, int max, int color, int shine) {
+        if (max <= 0 || value <= 0) return;
+        float ratio = Math.min(1.0F, (float) value / max);
+        int fillH = (int)(bh * ratio);
+        if (fillH <= 0) return;
+
+        // Degrade rouge (bas) -> jaune (haut) pixel par pixel
+        for (int dy = 0; dy < fillH; dy++) {
+            // dy = 0 = tout en bas du remplissage = rouge fonce
+            // dy = fillH-1 = haut du remplissage = jaune vif
+            float t = (float) dy / Math.max(1, fillH - 1);
+            int r = 255;
+            int g = (int)(40 + (220 - 40) * t);   // 40 -> 220
+            int b = (int)(40 * (1 - t));           // 40 -> 0
+            int col = 0xFF000000 | (r << 16) | (g << 8) | b;
+            int py = by + bh - 1 - dy;   // dessine du bas vers le haut
+            drawRect(bx, py, bx + bw, py + 1, col);
+        }
+
+        // Shine brillant au sommet du remplissage
+        if (fillH > 2) {
+            int topY = by + bh - fillH;
+            drawRect(bx, topY, bx + bw, topY + 1, 0xFFFFFFAA);
         }
     }
 
