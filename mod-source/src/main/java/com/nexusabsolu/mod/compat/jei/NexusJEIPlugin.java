@@ -65,6 +65,7 @@ public class NexusJEIPlugin implements IModPlugin {
         registry.addAdvancedGuiHandlers(new ConvertisseurGuiHandler());
         registry.addAdvancedGuiHandlers(new MachineHumaineGuiHandler());
         registry.addAdvancedGuiHandlers(new MachineKRDAGuiHandler());
+        registry.addAdvancedGuiHandlers(new FurnaceGuiHandler());
 
         // === ITEM INFO ===
         // Signalhee ingot

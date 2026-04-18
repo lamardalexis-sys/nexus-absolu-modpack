@@ -37,6 +37,9 @@ public class GuiFurnaceNexus extends GuiContainer {
     private boolean configOpen = false;
     private boolean upgradesOpen = false;
 
+    public boolean isConfigOpen() { return configOpen; }
+    public boolean isUpgradesOpen() { return upgradesOpen; }
+
     // Couleurs Mekanism SATUREES (feedback Alexis : trop pales dans v1.0.188)
     private static final int COL_NONE = 0xFF3A3A40;
     private static final int COL_IN = 0xFF2299FF;        // bleu vif
