@@ -2,11 +2,7 @@ package com.nexusabsolu.mod.tiles.furnaces;
 
 import com.nexusabsolu.mod.tiles.InternalEnergyStorage;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -59,10 +55,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     public static final int SC_TYPE_ENERGY   = 2;
     public static final int SC_TYPE_FUEL_IN  = 3;
 
-    // Coal bonus : charbon = 2x ops, charcoal = 1.5x, coal block = 16x (config Alexis)
-    private static final int OPS_PER_COAL = 2;
-    private static final int OPS_PER_CHARCOAL = 1;   // 1.5 arrondi a 1 (vanilla-compat)
-    private static final int OPS_PER_COAL_BLOCK = 16;
+    // Coal ops : calcule dynamiquement depuis le burn time vanilla (compatible tous mods).
+    // 1 op = tier.baseCookTime() ticks, donc ops = burnTime / baseCookTime.
+    // Exemples :
+    //   - Coal (1600 ticks) dans Iron Furnace (base 160) = 10 ops
+    //   - Coal block (16000 ticks) dans Vossium IV (base 50) = 320 ops
+    //   - Tout fuel Forge-register (lava bucket, blaze rod, etc.) fonctionne aussi
 
     private FurnaceTier tier;
     private ItemStack[] inventory;
@@ -370,20 +368,25 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         return true;
     }
 
-    /** Nombre d'operations qu'un ItemStack de fuel peut alimenter. */
+    /**
+     * Nombre d'operations qu'un ItemStack de fuel peut alimenter.
+     * Utilise le burn time vanilla/Forge (marche pour tous les mods : coal, charcoal,
+     * coal block, lava bucket, blaze rod, bois, fuels modes via
+     * FuelHandler.addFuelProvider...). 1 op = tier.baseCookTime() ticks.
+     *
+     * Compatible notamment avec :
+     *   - minecraft:coal (1600 ticks)
+     *   - minecraft:coal_block (16000 ticks)
+     *   - minecraft:blaze_rod (2400 ticks)
+     *   - thermalfoundation:material:* (fuels custom)
+     *   - tout autre mod qui register ses fuels via GameRegistry.registerFuelHandler
+     */
     private int getCoalOps(ItemStack fuel) {
-        Item item = fuel.getItem();
-        if (item == Items.COAL) {
-            // Coal OR charcoal (meta 0 = coal, meta 1 = charcoal)
-            return fuel.getMetadata() == 1 ? OPS_PER_CHARCOAL : OPS_PER_COAL;
-        }
-        if (item instanceof ItemBlock && ((ItemBlock) item).getBlock() == Blocks.COAL_BLOCK) {
-            return OPS_PER_COAL_BLOCK;
-        }
-        // Fallback : vanilla furnace burn time -> 1 op par 200 ticks
         int burnTime = net.minecraft.tileentity.TileEntityFurnace.getItemBurnTime(fuel);
-        if (burnTime >= 200) return burnTime / 200;
-        return 0;
+        if (burnTime <= 0) return 0;
+        int cookTime = Math.max(1, tier.baseCookTime());
+        int ops = burnTime / cookTime;
+        return Math.max(1, ops);  // au moins 1 op pour eviter d'avoir un fuel valide mais 0 op
     }
 
     // === NBT ===
