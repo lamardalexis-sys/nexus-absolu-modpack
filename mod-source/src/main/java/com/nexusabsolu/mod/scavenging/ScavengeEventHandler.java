@@ -146,15 +146,15 @@ public class ScavengeEventHandler {
         double r = rand.nextDouble();
 
         if (multiplier <= 1) {
-            // Pioche Fragmentee: wall_dust + bonus (bonus stoppe en Age 2)
-            spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1 + rand.nextInt(2)));
+            // Pioche Fragmentee: cobblestone_fragment garanti 1-2 + bonus (bonus stoppe en Age 2)
+            spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1 + rand.nextInt(2)));
             if (!age2) {
                 // Drops bonus (bornes cumulatives):
-                //   0.00-0.30 -> cobblestone_fragment (30%)
-                //   0.30-0.45 -> clay_ball            (15%)
-                //   0.45-0.46 -> flint                 (1%, nerf: craft TiC gravel->flint supprime)
-                //   0.46-1.00 -> rien                 (54%)
-                if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.COBBLESTONE_FRAGMENT, 1));
+                //   0.00-0.30 -> wall_dust             (30%)
+                //   0.30-0.45 -> clay_ball             (15%)
+                //   0.45-0.46 -> flint                  (1%, nerf: craft TiC gravel->flint supprime)
+                //   0.46-1.00 -> rien                  (54%)
+                if (r < 0.30)      spawnDrop(world, player, new ItemStack(ModItems.WALL_DUST, 1));
                 else if (r < 0.45) spawnDrop(world, player, new ItemStack(Items.CLAY_BALL, 1));
                 else if (r < 0.46) spawnDrop(world, player, new ItemStack(Items.FLINT, 1));
             }
