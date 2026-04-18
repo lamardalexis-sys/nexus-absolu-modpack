@@ -1,6 +1,11 @@
 package com.nexusabsolu.mod.gui.furnaces;
 
 import com.nexusabsolu.mod.Reference;
+import com.nexusabsolu.mod.gui.furnaces.elements.GuiPowerBarNexus;
+import com.nexusabsolu.mod.gui.furnaces.elements.GuiProgressNexus;
+import com.nexusabsolu.mod.gui.furnaces.elements.GuiSlotNexus;
+import com.nexusabsolu.mod.gui.furnaces.elements.GuiSlotNexus.SlotOverlay;
+import com.nexusabsolu.mod.gui.furnaces.elements.GuiSlotNexus.SlotType;
 import com.nexusabsolu.mod.tiles.furnaces.FurnaceTier;
 import com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade;
 import com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus;
@@ -12,21 +17,21 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Arrays;
 
 /**
- * GUI Furnaces Nexus, style Mekanism/Nexus Absolu (cf. GuiMachineHumaine).
+ * GUI Furnaces Nexus - refactor style Mekanism (v3, texture decomposee).
  *
- * Pattern : texture PNG 256x256 en fond + fillBar pour indicateurs dynamiques
- * (progress, flamme, RF). Tooltips sur hover des slots upgrades et bars.
+ * Pattern:
+ *  1. Texture de fond minimaliste (vanilla gris beige + zone inventaire)
+ *  2. Elements superposes : GuiSlotNexus, GuiProgressNexus, GuiPowerBarNexus
+ *  3. Foreground : titre + tooltips
  *
- * Layout (xSize=176, ySize=166) :
- *  - Titre en haut
- *  - Slot INPUT (56, 17)
- *  - Slot FUEL (56, 53)
- *  - Flamme verticale (79-90, 38-49) indicateur fuel restant
- *  - Progress bar horizontale (94-114, 35-49) fleche qui avance
- *  - Slot OUTPUT (116, 35) avec cadre Mekanism-style
- *  - Barre RF verticale (140-148, 17-71)
- *  - 4 slots upgrades (152, 17/35/53/71)
- *  - Inventaire joueur + hotbar
+ * Positions slots (coordonnees container, sans guiLeft/guiTop) :
+ *   INPUT   (56, 17)
+ *   FUEL    (56, 53)
+ *   OUTPUT  (111, 30) - 26x26 (OUTPUT_LARGE)
+ *   UPGRADES (152, 17/35/53/71) - 4 verticaux
+ *   PROGRESS ARROW (79, 35) - 28x11
+ *   POWER BAR (140, 15) - 14x54
+ *   FLAME indicator (77, 37) - 14x13 entre input et fuel
  */
 public class GuiFurnaceNexus extends GuiContainer {
 
@@ -42,106 +47,97 @@ public class GuiFurnaceNexus extends GuiContainer {
         this.ySize = 166;
     }
 
-    // === BACKGROUND (texture + barres dynamiques) ===
-
     @Override
     protected void drawGuiContainerBackgroundLayer(float pt, int mx, int my) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.getTextureManager().bindTexture(TEXTURE);
-        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-
         int x = guiLeft;
         int y = guiTop;
 
-        // === FLAMME FUEL (verticale, fill du bas vers le haut) ===
-        // Zone du tube = (79, 38) a (90, 49) = 11 wide x 11 tall
-        int fuel = tile.getFuelRemaining();
-        // Ratio base sur 10 operations max = 1 coal par defaut
-        int fuelMax = 10;
-        fillBarVertical(x + 79, y + 38, 11, 11, fuel, fuelMax,
-                        0xFFCC3D10, 0xFFFF8830);
+        // === 1. Texture de fond (vanilla gris + inventaire) ===
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        mc.getTextureManager().bindTexture(TEXTURE);
+        drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 
-        // === PROGRESS BAR (horizontale, fleche qui avance) ===
-        // Zone = (94, 35) a (114, 49) = 20 wide x 14 tall
-        int prog = tile.getCookProgress();
-        int maxP = tile.getMaxCookTime();
-        if (maxP > 0 && prog > 0) {
-            int fillW = (int)(20.0F * prog / maxP);
-            // Couleur tier-colored
-            int tierCol = getTierAccentColor(tile.getTier());
-            int tierColBright = getTierAccentBrightColor(tile.getTier());
-            drawRect(x + 94, y + 41, x + 94 + fillW, y + 44, tierCol);
-            if (fillW > 4) {
-                // Pointe de fleche plus brillante
-                drawRect(x + 94 + fillW - 2, y + 39,
-                         x + 94 + fillW + 1, y + 46, tierColBright);
-            }
+        // === 2. Slots par-dessus (style Mekanism : decomposes) ===
+        // Input slot
+        GuiSlotNexus.draw(this, SlotType.INPUT, x + 55, y + 16);
+        // Fuel slot avec overlay flamme
+        GuiSlotNexus.draw(this, SlotType.FUEL, SlotOverlay.FLAME, x + 55, y + 52);
+        // Output large slot (26x26)
+        GuiSlotNexus.draw(this, SlotType.OUTPUT_LARGE, x + 111, y + 30);
+        // 4 Upgrade slots a droite avec cadre violet Nexus
+        for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
+            GuiSlotNexus.draw(this, SlotType.UPGRADE,
+                x + 151, y + 16 + up.slotIndex * 18);
         }
 
-        // === RF BAR (verticale, fond -> haut) ===
-        // Zone = (140, 17) a (148, 71) = 8 wide x 54 tall
-        int rf = tile.getEnergyStored();
-        int rfMax = tile.getMaxEnergy();
-        fillBarVertical(x + 140, y + 17, 8, 54, rf, rfMax,
-                        0xFFCC4444, 0xFFFF6666);
-    }
+        // === 3. Power bar (RF) verticale ===
+        GuiPowerBarNexus.drawPowerBar(this, x + 139, y + 15,
+            tile.getEnergyStored(), tile.getMaxEnergy());
 
-    // === FOREGROUND (titre + textes) ===
+        // === 4. Flamme indicator (au-dessus fuel slot) ===
+        boolean fuelActive = tile.getFuelRemaining() > 0
+            || (tile.getEnergyStored() > 0 && tile.getCookProgress() > 0);
+        GuiPowerBarNexus.drawFlame(this, x + 81, y + 38, fuelActive);
+
+        // === 5. Progress arrow (entre fuel et output) ===
+        float progress = 0;
+        if (tile.getMaxCookTime() > 0) {
+            progress = (float) tile.getCookProgress() / tile.getMaxCookTime();
+        }
+        GuiProgressNexus.draw(this, tile.getTier(), x + 79, y + 35, progress);
+    }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mx, int my) {
-        // Titre tier-colored
         FurnaceTier tier = tile.getTier();
         String title = getTierDisplayName(tier);
+        int titleColor = 0x404040;  // style vanilla Mekanism (sombre)
+
+        // Titre centre
         int tw = fontRenderer.getStringWidth(title);
-        int titleColor = getTierAccentBrightColor(tier);
-        fontRenderer.drawStringWithShadow(title, (xSize - tw) / 2.0F, 4, titleColor);
+        fontRenderer.drawString(title, (xSize - tw) / 2, 6, titleColor);
 
-        // Label "Inventaire"
-        fontRenderer.drawStringWithShadow("Inventaire", 8, 71, 0xFF8866AA);
+        // Label "Inventaire" en bas
+        fontRenderer.drawString("Inventaire", 8, ySize - 96 + 2, titleColor);
 
-        // Label "Vitesse x.xx" sous la progress bar
+        // Vitesse sous la progress bar
         String speedStr = "x" + tier.speedMultiplier;
-        fontRenderer.drawStringWithShadow(speedStr, 94, 52, 0xFFDD88FF);
-
-        // === TOOLTIPS sur hover ===
-        drawTooltips(mx, my);
+        fontRenderer.drawString(speedStr, 79, 50, 0x606060);
     }
-
-    // === drawScreen pour tooltips sur bars (hors des slots) ===
 
     @Override
     public void drawScreen(int mx, int my, float pt) {
         drawDefaultBackground();
         super.drawScreen(mx, my, pt);
         renderHoveredToolTip(mx, my);
+        drawTooltips(mx, my);
     }
 
     private void drawTooltips(int mx, int my) {
         int rmx = mx - guiLeft;
         int rmy = my - guiTop;
 
-        // RF bar tooltip
-        if (inRect(rmx, rmy, 140, 17, 8, 54)) {
+        // Power bar tooltip (14x54 at 139, 15)
+        if (inRect(rmx, rmy, 139, 15, 14, 54)) {
             drawHoveringText(Arrays.asList(
                 "\u00A7eEnergie",
                 tile.getEnergyStored() + " / " + tile.getMaxEnergy() + " RF"
             ), rmx, rmy);
         }
 
-        // Flamme fuel tooltip
-        if (inRect(rmx, rmy, 79, 38, 11, 11)) {
-            String fuelStatus = tile.getFuelRemaining() > 0
+        // Flame indicator tooltip (14x13 at 81, 38)
+        if (inRect(rmx, rmy, 81, 38, 14, 13)) {
+            String status = tile.getFuelRemaining() > 0
                 ? tile.getFuelRemaining() + " operations restantes"
-                : "Vide";
+                : (tile.getEnergyStored() > 0 ? "Mode RF actif" : "Vide");
             drawHoveringText(Arrays.asList(
-                "\u00A76Fuel",
-                fuelStatus
+                "\u00A76Combustible",
+                "\u00A77" + status
             ), rmx, rmy);
         }
 
-        // Progress bar tooltip
-        if (inRect(rmx, rmy, 94, 35, 20, 14)) {
+        // Progress arrow tooltip (28x11 at 79, 35)
+        if (inRect(rmx, rmy, 79, 35, 28, 11)) {
             int pct = tile.getMaxCookTime() > 0
                 ? tile.getCookProgress() * 100 / tile.getMaxCookTime() : 0;
             drawHoveringText(Arrays.asList(
@@ -151,13 +147,13 @@ public class GuiFurnaceNexus extends GuiContainer {
             ), rmx, rmy);
         }
 
-        // Upgrade slots tooltips (4 slots a 152, 17+18*i)
+        // Upgrade slots tooltips (18x18 at 151, 16+18*i)
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
-            int sx = 152, sy = 17 + up.slotIndex * 18;
-            if (inRect(rmx, rmy, sx, sy, 16, 16)) {
-                // Ne dessine le tooltip que si le slot est VIDE
-                // (sinon le tooltip de l'item prendra le dessus)
-                if (tile.getStackInSlot(TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex).isEmpty()) {
+            int sx = 151, sy = 16 + up.slotIndex * 18;
+            if (inRect(rmx, rmy, sx, sy, 18, 18)) {
+                int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
+                // Tooltip seulement si slot vide (sinon tooltip de l'item)
+                if (tile.getStackInSlot(slotIdx).isEmpty()) {
                     drawHoveringText(Arrays.asList(
                         "\u00A7b" + getUpgradeLabel(up),
                         "\u00A77" + getUpgradeHint(up),
@@ -169,20 +165,6 @@ public class GuiFurnaceNexus extends GuiContainer {
     }
 
     // === HELPERS ===
-
-    /** Barre verticale qui se remplit du bas vers le haut (style Mekanism). */
-    private void fillBarVertical(int bx, int by, int bw, int bh,
-                                  int value, int max, int color, int shine) {
-        if (max <= 0 || value <= 0) return;
-        float ratio = Math.min(1.0F, (float) value / max);
-        int fillH = (int)(bh * ratio);
-        drawRect(bx, by + bh - fillH, bx + bw, by + bh, color);
-        // Highlight en haut du fill
-        if (fillH > 2) {
-            drawRect(bx, by + bh - fillH,
-                     bx + bw, by + bh - fillH + 2, shine);
-        }
-    }
 
     private boolean inRect(int mx, int my, int rx, int ry, int rw, int rh) {
         return mx >= rx && mx <= rx + rw && my >= ry && my <= ry + rh;
@@ -196,30 +178,6 @@ public class GuiFurnaceNexus extends GuiContainer {
             case EMERADIC:   return "Fourneau Emeradic";
             case VOSSIUM_IV: return "Fourneau Vossium IV";
             default:         return "Fourneau " + tier.registryName;
-        }
-    }
-
-    /** Couleur sombre tier pour la barre de progression (corps). */
-    private int getTierAccentColor(FurnaceTier tier) {
-        switch (tier) {
-            case IRON:       return 0xFF808090;
-            case GOLD:       return 0xFFC8A032;
-            case INVAR:      return 0xFF96A596;
-            case EMERADIC:   return 0xFF46AA5A;
-            case VOSSIUM_IV: return 0xFF783CAA;
-            default:         return 0xFF5050A0;
-        }
-    }
-
-    /** Couleur claire tier pour la pointe de fleche + titre. */
-    private int getTierAccentBrightColor(FurnaceTier tier) {
-        switch (tier) {
-            case IRON:       return 0xFFBBBBCC;
-            case GOLD:       return 0xFFFFDD60;
-            case INVAR:      return 0xFFBBDDBB;
-            case EMERADIC:   return 0xFF80E690;
-            case VOSSIUM_IV: return 0xFFC070FF;
-            default:         return 0xFF8888FF;
         }
     }
 
@@ -237,8 +195,8 @@ public class GuiFurnaceNexus extends GuiContainer {
         switch (up) {
             case RF_CONVERTER:  return "Convertit coal en RF (+5% vitesse)";
             case IO_EXPANSION:  return "Augmente slots in/out (requiert RF)";
-            case SPEED_BOOSTER: return "+30% vitesse, +40% conso par stack";
-            case EFFICIENCY:    return "-8% conso par stack";
+            case SPEED_BOOSTER: return "+30% vitesse, +40% conso / stack";
+            case EFFICIENCY:    return "-8% conso / stack";
             default:            return "";
         }
     }

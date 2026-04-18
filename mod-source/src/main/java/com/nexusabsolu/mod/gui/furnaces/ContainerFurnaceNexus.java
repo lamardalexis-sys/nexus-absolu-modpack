@@ -44,6 +44,7 @@ public class ContainerFurnaceNexus extends Container {
         // 1 : fuel (SlotFurnaceFuel accepte coal/charcoal/autres fuels)
         addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 56, 53));
         // 2 : output (SlotFurnaceOutput empeche l'insert manuel)
+        // Position du slot = centre du OUTPUT_LARGE (26x26 commence a 111,30) = 116, 35 pour le slot 18x18
         addSlotToContainer(new SlotFurnaceOutput(
             playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 116, 35));
 
