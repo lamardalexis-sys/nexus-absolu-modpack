@@ -320,11 +320,14 @@ public class GuiFurnaceNexus extends GuiContainer {
     // PANNEAU UPGRADES (a DROITE du GUI)
     // ======================================================================
 
-    private static final int UPGRADES_W = 110;
-    private static final int UPGRADES_H = 130;
+    // Taille reduite : les descriptions sont dans les tooltips des items au survol,
+    // pas besoin de les redessiner dans le panneau.
+    // Plus le panneau est etroit, plus il reste de place a droite pour les tooltips.
+    private static final int UPGRADES_W = 66;
+    private static final int UPGRADES_H = 80;
 
     private void drawUpgradesPanel(int mx, int my) {
-        int px = guiLeft + xSize + 6;  // A DROITE du GUI
+        int px = guiLeft + xSize + 2;  // Tout colle au GUI (gap=2)
         int py = guiTop + 10;
 
         // Fond panneau
@@ -333,20 +336,18 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawRect(px, py, px + UPGRADES_W, py + UPGRADES_H, 0xFF1A1030);
 
         // Barre titre
-        drawRect(px + 1, py + 1, px + UPGRADES_W - 1, py + 16, 0xFF3A1F5E);
-        fontRenderer.drawStringWithShadow("\u00A7e\u2726 Upgrades",
-            px + 5, py + 4, 0xFFFFDD77);
-        drawRect(px + 3, py + 16, px + UPGRADES_W - 3, py + 17, 0xFFBB77FF);
+        drawRect(px + 1, py + 1, px + UPGRADES_W - 1, py + 13, 0xFF3A1F5E);
+        fontRenderer.drawStringWithShadow("\u00A7eUpgrades",
+            px + 4, py + 3, 0xFFFFDD77);
+        drawRect(px + 3, py + 13, px + UPGRADES_W - 3, py + 14, 0xFFBB77FF);
 
-        // Carre 2x2 des 4 slots (positions calculees pour centre du panneau)
-        int slotSize = 20;  // cadre autour du slot de 18x18 + 2px de bord
-        int gap = 6;
+        // Carre 2x2 des 4 slots compacts
+        int slotSize = 20;
+        int gap = 4;
         int totalW = slotSize * 2 + gap;
         int startX = px + (UPGRADES_W - totalW) / 2;
-        int startY = py + 25;
+        int startY = py + 18;
 
-        // Labels au-dessus des slots
-        String[] labels = {"RF", "I/O", "SPD", "EFF"};
         int[][] slotPositions = {
             {0, 0}, {1, 0}, {0, 1}, {1, 1}
         };
@@ -362,19 +363,12 @@ public class GuiFurnaceNexus extends GuiContainer {
             drawRect(sx + 1, sy + 1, sx + slotSize - 1, sy + slotSize - 1, 0xFF0A0818);
         }
 
-        // Labels de chaque slot (sous)
-        int labelY = startY + (slotSize + gap) * 2;
-        fontRenderer.drawStringWithShadow("RF",  startX + 4, labelY, 0xFFFFAAAA);
-        fontRenderer.drawStringWithShadow("I/O", startX + slotSize + gap + 4, labelY, 0xFF88CCFF);
-        fontRenderer.drawStringWithShadow("SPD", startX + 4, labelY + 10, 0xFFFFCC88);
-        fontRenderer.drawStringWithShadow("EFF", startX + slotSize + gap + 4, labelY + 10, 0xFF88DD88);
-
-        // Description (en bas)
-        int descY = labelY + 25;
-        fontRenderer.drawString("RF: mode energie", px + 4, descY, 0xFFAAAAAA);
-        fontRenderer.drawString("I/O: slots in/out", px + 4, descY + 10, 0xFFAAAAAA);
-        fontRenderer.drawString("SPD: vitesse +30%/item", px + 4, descY + 20, 0xFFAAAAAA);
-        fontRenderer.drawString("EFF: conso -8%/item", px + 4, descY + 30, 0xFFAAAAAA);
+        // Mini-labels sous chaque paire (compact)
+        int labelY = startY + (slotSize + gap) * 2 + 2;
+        fontRenderer.drawString("RF",  startX + 4, labelY, 0xFFFFAAAA);
+        fontRenderer.drawString("IO",  startX + slotSize + gap + 5, labelY, 0xFF88CCFF);
+        fontRenderer.drawString("SP",  startX + 4, labelY + 10, 0xFFFFCC88);
+        fontRenderer.drawString("EF",  startX + slotSize + gap + 5, labelY + 10, 0xFF88DD88);
     }
 
     /**
@@ -383,12 +377,13 @@ public class GuiFurnaceNexus extends GuiContainer {
      * Sinon : hors-ecran.
      */
     private void updateUpgradeSlotPositions() {
+        // Doit matcher EXACTEMENT drawUpgradesPanel
         int slotSize = 20;
-        int gap = 6;
+        int gap = 4;
         int totalW = slotSize * 2 + gap;
-        int panelX = xSize + 6;  // Relative to guiLeft
+        int panelX = xSize + 2;  // Gap=2 (tout colle au GUI)
         int startX = panelX + (UPGRADES_W - totalW) / 2 + 2;  // +2 pour centrer le slot 18 dans cadre 20
-        int startY = 10 + 25 + 2;  // py + decalage + 2
+        int startY = 10 + 18 + 2;  // py + 18 + 2
 
         int[][] slotPositions = {
             {0, 0}, {1, 0}, {0, 1}, {1, 1}
