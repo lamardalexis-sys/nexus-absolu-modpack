@@ -85,6 +85,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     public int getEnergyStored() { return energyStorage.getEnergyStored(); }
     public int getMaxEnergy() { return energyStorage.getMaxEnergyStored(); }
 
+    // Setters client-side : appeles par ContainerFurnaceNexus.updateProgressBar
+    // pour refleter l'etat serveur dans le GUI client.
+    public void setCookProgressClient(int v) { this.cookProgress = v; }
+    public void setFuelRemainingClient(int v) { this.fuelRemaining = v; }
+    public void setEnergyStoredClient(int v) { this.energyStorage.setEnergy(v); }
+    public void setMaxCookTimeClient(int v) { this.maxCookTime = v; }
+
     /** Mode RF actif si l'upgrade RF_CONVERTER est presente OU si le tier est nativeRF. */
     public boolean isRFMode() {
         if (tier.nativeRF) return true;

@@ -128,18 +128,11 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
             EntityPlayer player, EnumHand hand, EnumFacing facing,
             float hitX, float hitY, float hitZ) {
         if (!world.isRemote) {
-            // Sprint A: pas de GUI encore. Les upgrades + interface arrivent Sprint C.
-            // En attendant, on peut tester via hoppers (capability ItemHandler).
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof TileFurnaceNexus) {
-                TileFurnaceNexus furnace = (TileFurnaceNexus) te;
-                player.sendStatusMessage(
-                    new net.minecraft.util.text.TextComponentString(
-                        "Furnace " + furnace.getTier().registryName
-                        + " | Progress: " + furnace.getCookProgress() + "/" + furnace.getMaxCookTime()
-                        + " | Fuel: " + furnace.getFuelRemaining()
-                        + " | RF: " + furnace.getEnergyStored() + "/" + furnace.getMaxEnergy()),
-                    false);
+                // GUI_ID 10 = FURNACE_NEXUS_GUI (voir GuiHandler)
+                player.openGui(NexusAbsoluMod.instance, 10, world,
+                    pos.getX(), pos.getY(), pos.getZ());
             }
         }
         return true;

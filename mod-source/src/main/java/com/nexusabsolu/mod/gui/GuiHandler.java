@@ -24,6 +24,7 @@ public class GuiHandler implements IGuiHandler {
     public static final int AUTO_SCAVENGER_GUI = 4;
     public static final int MACHINE_HUMAINE_GUI = 5;
     public static final int MACHINE_KRDA_GUI = 6;
+    public static final int FURNACE_NEXUS_GUI = 10;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -61,6 +62,12 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == MACHINE_KRDA_GUI && te instanceof TileMachineKRDA) {
             return new ContainerMachineKRDA(player.inventory, (TileMachineKRDA) te);
+        }
+        if (ID == FURNACE_NEXUS_GUI
+            && te instanceof com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus) {
+            return new com.nexusabsolu.mod.gui.furnaces.ContainerFurnaceNexus(
+                player.inventory,
+                (com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus) te);
         }
         return null;
     }
@@ -101,6 +108,12 @@ public class GuiHandler implements IGuiHandler {
         }
         if (ID == MACHINE_KRDA_GUI && te instanceof TileMachineKRDA) {
             return new GuiMachineKRDA(player.inventory, (TileMachineKRDA) te);
+        }
+        if (ID == FURNACE_NEXUS_GUI
+            && te instanceof com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus) {
+            return new com.nexusabsolu.mod.gui.furnaces.GuiFurnaceNexus(
+                player.inventory,
+                (com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus) te);
         }
         return null;
     }
