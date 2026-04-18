@@ -34,7 +34,7 @@ public class ContainerFurnaceNexus extends Container {
         this.tile = tile;
 
         // === SLOTS MACHINE ===
-        // Positions matchent la texture gui_furnace.png
+        // Positions matchent la texture gui_furnace.png v5
         // 0 : input (56, 17) correspond au slot dessine a (55, 16)
         addSlotToContainer(new Slot(tile, TileFurnaceNexus.SLOT_INPUT, 56, 17) {
             @Override
@@ -44,26 +44,33 @@ public class ContainerFurnaceNexus extends Container {
         });
         // 1 : fuel (56, 53) correspond a (55, 52) dans la texture
         addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 56, 53));
-        // 2 : output (120, 34) correspond a OUTPUT_LARGE (116, 30) centre
+        // 2 : output (100, 34) correspond a OUTPUT_LARGE (96, 30) centre
         addSlotToContainer(new SlotFurnaceOutput(
-            playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 120, 34));
+            playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 100, 34));
 
-        // === 4 SLOTS UPGRADES (162, 16/34/52/70) ===
-        // Matchent la texture upgrade slots at (161, 15+18*i)
-        int upgradeX = 162;
+        // === 4 SLOTS UPGRADES EN CARRE 2x2 ===
+        // Positions dans la texture :
+        //   Upgrade 0 (RF)    : (126, 16) -> slot a (127, 17)
+        //   Upgrade 1 (IO)    : (144, 16) -> slot a (145, 17)
+        //   Upgrade 2 (Speed) : (126, 34) -> slot a (127, 35)
+        //   Upgrade 3 (Eff)   : (144, 34) -> slot a (145, 35)
+        int[][] upgradeSlotPos = {
+            {127, 17},  // RF_CONVERTER
+            {145, 17},  // IO_EXPANSION
+            {127, 35},  // SPEED_BOOSTER
+            {145, 35},  // EFFICIENCY
+        };
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
             int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
-            int yPos = 16 + up.slotIndex * 18;
-            addSlotToContainer(new Slot(tile, slotIdx, upgradeX, yPos) {
+            int[] pos = upgradeSlotPos[up.slotIndex];
+            addSlotToContainer(new Slot(tile, slotIdx, pos[0], pos[1]) {
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;
                 }
                 @Override
                 public boolean isItemValid(ItemStack stack) {
-                    // Sprint B: valide que l'item est un ItemFurnaceUpgrade
-                    // ET que sa categorie matche le slot
                     if (stack.isEmpty()) return true;
                     if (stack.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade) {
                         com.nexusabsolu.mod.items.ItemFurnaceUpgrade item =
