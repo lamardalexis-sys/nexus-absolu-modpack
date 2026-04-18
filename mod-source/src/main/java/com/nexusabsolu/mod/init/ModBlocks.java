@@ -71,6 +71,23 @@ public class ModBlocks {
     public static final BlockNexusWallT2 NEXUS_WALL_T2 = new BlockNexusWallT2();
     public static final BlockEcranControle ECRAN_CONTROLE = new BlockEcranControle();
 
+    // === FURNACES NEXUS (T1-T5, Sprint A base) ===
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_IRON =
+        new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.IRON);
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_GOLD =
+        new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.GOLD);
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_INVAR =
+        new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.INVAR);
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_EMERADIC =
+        new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.EMERADIC);
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_VOSSIUM_IV =
+        new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.VOSSIUM_IV);
+
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }
 }

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "nexusabsolu:furnace_emeradic" },
+    "facing=south": { "model": "nexusabsolu:furnace_emeradic", "y": 180 },
+    "facing=west":  { "model": "nexusabsolu:furnace_emeradic", "y": 270 },
+    "facing=east":  { "model": "nexusabsolu:furnace_emeradic", "y": 90 }
+  }
+}

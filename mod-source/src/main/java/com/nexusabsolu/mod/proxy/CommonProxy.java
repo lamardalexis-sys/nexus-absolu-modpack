@@ -74,6 +74,8 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "machine_humaine"));
         GameRegistry.registerTileEntity(TileMachineKRDA.class,
             new ResourceLocation(Reference.MOD_ID, "machine_krda"));
+        GameRegistry.registerTileEntity(com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus.class,
+            new ResourceLocation(Reference.MOD_ID, "furnace_nexus"));
     }
 
     public void init(FMLInitializationEvent event) {
