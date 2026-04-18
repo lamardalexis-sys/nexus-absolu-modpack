@@ -48,8 +48,6 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
 
     public static final PropertyDirection FACING = PropertyDirection.create(
         "facing", EnumFacing.Plane.HORIZONTAL);
-    public static final net.minecraft.block.properties.PropertyBool BURNING =
-        net.minecraft.block.properties.PropertyBool.create("burning");
 
     private final FurnaceTier tier;
 
@@ -64,28 +62,25 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
         setResistance(15.0F);
         setSoundType(SoundType.METAL);
         setHarvestLevel("pickaxe", 1);
-        setDefaultState(this.blockState.getBaseState()
-            .withProperty(FACING, EnumFacing.NORTH)
-            .withProperty(BURNING, false));
+        setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
 
     public FurnaceTier getTier() { return tier; }
 
-    // === BlockState / Facing + Burning ===
+    // === BlockState / Facing ===
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, BURNING);
+        return new BlockStateContainer(this, FACING);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        // Meta ne contient QUE facing (BURNING est calculee dynamiquement)
         EnumFacing facing = EnumFacing.getFront(meta);
         if (facing.getAxis() == EnumFacing.Axis.Y) facing = EnumFacing.NORTH;
-        return getDefaultState().withProperty(FACING, facing).withProperty(BURNING, false);
+        return getDefaultState().withProperty(FACING, facing);
     }
 
     @Override
@@ -93,30 +88,10 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
         return state.getValue(FACING).getIndex();
     }
 
-    /**
-     * Calcule la valeur de BURNING a partir de la TileEntity.
-     * Cette methode est appelee par le renderer a chaque frame -- BURNING
-     * est donc toujours synchronise avec l'etat de cuisson reel.
-     */
-    @Override
-    public IBlockState getActualState(IBlockState state,
-            net.minecraft.world.IBlockAccess worldIn, BlockPos pos) {
-        net.minecraft.tileentity.TileEntity te = worldIn.getTileEntity(pos);
-        boolean burning = false;
-        if (te instanceof TileFurnaceNexus) {
-            TileFurnaceNexus furnace = (TileFurnaceNexus) te;
-            burning = furnace.getCookProgress() > 0
-                   || furnace.getFuelRemaining() > 0;
-        }
-        return state.withProperty(BURNING, burning);
-    }
-
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing,
             float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return getDefaultState()
-            .withProperty(FACING, placer.getHorizontalFacing().getOpposite())
-            .withProperty(BURNING, false);
+        return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
     // === TileEntity ===

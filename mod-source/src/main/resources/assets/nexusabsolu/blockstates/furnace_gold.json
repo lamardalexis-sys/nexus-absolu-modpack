@@ -1,12 +1,8 @@
 {
   "variants": {
-    "facing=north,burning=false": { "model": "nexusabsolu:furnace_gold" },
-    "facing=south,burning=false": { "model": "nexusabsolu:furnace_gold", "y": 180 },
-    "facing=west,burning=false":  { "model": "nexusabsolu:furnace_gold", "y": 270 },
-    "facing=east,burning=false":  { "model": "nexusabsolu:furnace_gold", "y": 90 },
-    "facing=north,burning=true": { "model": "nexusabsolu:furnace_gold_on" },
-    "facing=south,burning=true": { "model": "nexusabsolu:furnace_gold_on", "y": 180 },
-    "facing=west,burning=true":  { "model": "nexusabsolu:furnace_gold_on", "y": 270 },
-    "facing=east,burning=true":  { "model": "nexusabsolu:furnace_gold_on", "y": 90 }
+    "facing=north": { "model": "nexusabsolu:furnace_gold" },
+    "facing=south": { "model": "nexusabsolu:furnace_gold", "y": 180 },
+    "facing=west":  { "model": "nexusabsolu:furnace_gold", "y": 270 },
+    "facing=east":  { "model": "nexusabsolu:furnace_gold", "y": 90 }
   }
 }
