@@ -156,12 +156,27 @@ public class GuiFurnaceNexus extends GuiContainer {
     public void drawScreen(int mx, int my, float pt) {
         drawDefaultBackground();
         super.drawScreen(mx, my, pt);
-        // Pattern vanilla simple, identique a Thermal Expansion (verifie en
-        // analysant CoFHCore.GuiContainerCore.drawScreen) : ils utilisent juste
-        // renderHoveredToolTip sans aucune triche. Le tooltip qui chevauche les
-        // tabs side-attached est le comportement normal accepte par tout le monde
-        // (Thermal, Mekanism, IC2 font pareil).
+
+        // TRICK : juste avant renderHoveredToolTip, on AGRANDIT xSize
+        // temporairement pour inclure les panneaux ouverts. Comme ca Minecraft
+        // sait qu'il y a un panneau et n'affiche pas le tooltip dessus
+        // (bascule a gauche du curseur si pas de place a droite).
+        int realXSize = this.xSize;
+        int realGuiLeft = this.guiLeft;
+        if (upgradesOpen) {
+            this.xSize += UPGRADES_W + 4;
+        }
+        if (configOpen) {
+            this.guiLeft -= (CONFIG_W + 6);
+            this.xSize += (CONFIG_W + 6);
+        }
+
         renderHoveredToolTip(mx, my);
+
+        // RESTORE pour le reste
+        this.xSize = realXSize;
+        this.guiLeft = realGuiLeft;
+
         drawCustomTooltips(mx, my);
         if (configOpen) drawConfigPanel(mx, my);
         if (upgradesOpen) drawUpgradesPanel(mx, my);
@@ -367,7 +382,9 @@ public class GuiFurnaceNexus extends GuiContainer {
             {0, 0}, {1, 0}, {0, 1}, {1, 1}
         };
 
-        // 1. Dessine cadres + stocke positions ecran pour hover/click
+        // Cadres violets autour des slots (les vrais slots Minecraft sont
+        // dessines automatiquement par-dessus par GuiContainer.drawScreen
+        // quand updateUpgradeSlotPositions les met aux bonnes positions)
         for (int i = 0; i < 4; i++) {
             int col = slotPositions[i][0];
             int row = slotPositions[i][1];
@@ -377,40 +394,6 @@ public class GuiFurnaceNexus extends GuiContainer {
             // Cadre violet
             drawRect(sx, sy, sx + slotSize, sy + slotSize, 0xFF8855BB);
             drawRect(sx + 1, sy + 1, sx + slotSize - 1, sy + slotSize - 1, 0xFF0A0818);
-
-            // Stocke la position ecran de la zone item (centree dans le cadre 20x20)
-            upgradeSlotScreenX[i] = sx + 1;  // +1 pour centrer 18 dans 20
-            upgradeSlotScreenY[i] = sy + 1;
-        }
-
-        // 2. Dessine MANUELLEMENT les ItemStacks des slots upgrade
-        // (slots vrais sont a -1000,-1000 donc Minecraft ne les dessine pas)
-        net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-        for (int i = 0; i < 4; i++) {
-            Slot slot = inventorySlots.inventorySlots.get(3 + i);
-            net.minecraft.item.ItemStack stack = slot.getStack();
-            if (!stack.isEmpty()) {
-                this.itemRender.renderItemAndEffectIntoGUI(stack,
-                    upgradeSlotScreenX[i], upgradeSlotScreenY[i]);
-                this.itemRender.renderItemOverlayIntoGUI(fontRenderer, stack,
-                    upgradeSlotScreenX[i], upgradeSlotScreenY[i], null);
-            }
-        }
-        net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-
-        // 3. Highlight si curseur sur un slot (effet vanilla blanc semi-transparent)
-        for (int i = 0; i < 4; i++) {
-            if (isOverUpgradeSlot(mx, my, i)) {
-                GlStateManager.disableLighting();
-                GlStateManager.disableDepth();
-                GlStateManager.colorMask(true, true, true, false);
-                drawGradientRect(upgradeSlotScreenX[i], upgradeSlotScreenY[i],
-                    upgradeSlotScreenX[i] + 16, upgradeSlotScreenY[i] + 16,
-                    -2130706433, -2130706433);
-                GlStateManager.colorMask(true, true, true, true);
-                GlStateManager.enableLighting();
-                GlStateManager.enableDepth();
-            }
         }
 
         // Mini-labels sous chaque paire (compact)
@@ -419,52 +402,44 @@ public class GuiFurnaceNexus extends GuiContainer {
         fontRenderer.drawStringWithShadow("IO  I/O",      px + 4, labelY + 10, 0xFF88CCFF);
         fontRenderer.drawStringWithShadow("SP  Vitesse",  px + 4, labelY + 20, 0xFFFFCC88);
         fontRenderer.drawStringWithShadow("EF  Effic.",   px + 4, labelY + 30, 0xFF88DD88);
+    }
 
-        // 4. Tooltip MANUEL sur l'item survole (a la position du curseur, contrôle 100%)
+    /**
+     * Pattern Thermal Expansion (CoFHCore TabAugment) :
+     * - Quand le panneau est OUVERT : slots aux positions visibles dans le panneau
+     *   (Minecraft les voit normalement -> tooltip vanilla affiche)
+     * - Quand le panneau est FERME : slots a (-1000, -1000) (planques)
+     *
+     * Le tooltip vanilla qui peut deborder sur les autres elements est le
+     * comportement normal de Minecraft 1.12.2 et de tous les mods (Thermal,
+     * Mekanism, etc.). On accepte.
+     */
+    private void updateUpgradeSlotPositions() {
+        // Doit matcher EXACTEMENT drawUpgradesPanel
+        int slotSize = 20;
+        int gap = 4;
+        int totalW = slotSize * 2 + gap;
+        int panelX = xSize + 2;
+        int startX = panelX + (UPGRADES_W - totalW) / 2 + 2;  // +2 pour centrer 18 dans 20
+        int startY = 10 + 18 + 2;  // py + 18 + 2
+
+        int[][] slotPositions = {
+            {0, 0}, {1, 0}, {0, 1}, {1, 1}
+        };
+
         for (int i = 0; i < 4; i++) {
-            if (isOverUpgradeSlot(mx, my, i)) {
-                Slot slot = inventorySlots.inventorySlots.get(3 + i);
-                net.minecraft.item.ItemStack stack = slot.getStack();
-                if (!stack.isEmpty()) {
-                    renderToolTip(stack, mx, my);
-                }
-                break;
+            Slot slot = inventorySlots.inventorySlots.get(3 + i);
+            if (upgradesOpen) {
+                int col = slotPositions[i][0];
+                int row = slotPositions[i][1];
+                slot.xPos = startX + col * (slotSize + gap);
+                slot.yPos = startY + row * (slotSize + gap);
+            } else {
+                slot.xPos = -1000;
+                slot.yPos = -1000;
             }
         }
     }
-
-    /** True si le curseur est sur la zone 16x16 d'un slot upgrade dessine. */
-    private boolean isOverUpgradeSlot(int mx, int my, int slotIdx) {
-        int sx = upgradeSlotScreenX[slotIdx];
-        int sy = upgradeSlotScreenY[slotIdx];
-        return mx >= sx && mx < sx + 16 && my >= sy && my < sy + 16;
-    }
-
-    /**
-     * Repositionne les 4 slots upgrade selon upgradesOpen.
-     * Si panneau ouvert : slots visibles dans le panneau.
-     * Sinon : hors-ecran.
-     */
-    /**
-     * Pattern Thermal Expansion (CoFHCore TabAugment.java) :
-     * Les 4 slots upgrade restent TOUJOURS hors-ecran (pos negative). Minecraft ne
-     * les survole donc jamais -> pas de tooltip vanilla declenche -> on controle
-     * 100% l'affichage du panneau et de ses tooltips.
-     *
-     * On dessine nous-memes les items + les tooltips manuellement dans
-     * drawUpgradesPanel (rendering) et mouseClicked (interactions).
-     */
-    private void updateUpgradeSlotPositions() {
-        for (int i = 0; i < 4; i++) {
-            Slot slot = inventorySlots.inventorySlots.get(3 + i);
-            slot.xPos = -1000;  // Toujours hors-ecran
-            slot.yPos = -1000;
-        }
-    }
-
-    /** Stockage des positions ecran des 4 slots dessines manuellement, pour hover/click. */
-    private int[] upgradeSlotScreenX = new int[4];
-    private int[] upgradeSlotScreenY = new int[4];
 
     // ======================================================================
     // SOURIS
@@ -488,24 +463,6 @@ public class GuiFurnaceNexus extends GuiContainer {
             upgradesOpen = !upgradesOpen;
             if (upgradesOpen) configOpen = false;  // Ferme l'autre
             return;
-        }
-
-        // 2.5 Si upgrades ouvert, intercepter clics sur les slots manuels
-        // (les vrais slots sont a -1000,-1000 donc Minecraft ne les voit pas)
-        if (upgradesOpen) {
-            for (int i = 0; i < 4; i++) {
-                if (isOverUpgradeSlot(mx, my, i)) {
-                    // Slot 3+i dans le container = vrai slot upgrade
-                    int slotId = 3 + i;
-                    net.minecraft.client.Minecraft.getMinecraft().playerController.windowClick(
-                        inventorySlots.windowId,
-                        slotId,
-                        btn,
-                        net.minecraft.inventory.ClickType.PICKUP,
-                        mc.player);
-                    return;
-                }
-            }
         }
 
         // 3. Si config ouvert, check clics sur boutons faces
