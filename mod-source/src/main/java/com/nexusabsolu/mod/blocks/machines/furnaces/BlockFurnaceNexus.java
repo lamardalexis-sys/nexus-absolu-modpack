@@ -177,20 +177,27 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     // === DROP MEKANISM-STYLE : conserve tout dans NBT ===
 
     /**
-     * Quand le joueur casse le bloc, on genere un ItemStack unique avec
-     * un tag "BlockEntityTag" contenant l'etat complet de la TileEntity.
-     * Minecraft applique automatiquement ce tag au placement.
+     * v1.0.220 : Utilise ThreadLocal pour passer la reference TileEntity
+     * de harvestBlock vers getDrops. En effet, MC invalide la TileEntity
+     * entre removedByPlayer et getDrops, donc world.getTileEntity() peut
+     * retourner null dans getDrops, resultant en un ItemStack sans NBT.
+     *
+     * Pattern vanilla : BlockShulkerBox fait exactement ca en 1.12.2.
      */
+    private static final ThreadLocal<TileFurnaceNexus> CAPTURED_TE = new ThreadLocal<>();
+
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess worldIn, BlockPos pos,
             IBlockState state, int fortune) {
         ItemStack stack = new ItemStack(Item.getItemFromBlock(this));
 
-        TileEntity te = worldIn.getTileEntity(pos);
+        // Essaye d'abord la TE capturee par harvestBlock (chemin normal :
+        // joueur casse le bloc avec harvest=true)
+        TileFurnaceNexus captured = CAPTURED_TE.get();
+        TileEntity te = captured != null ? captured : worldIn.getTileEntity(pos);
+
         if (te instanceof TileFurnaceNexus) {
             NBTTagCompound teTag = te.writeToNBT(new NBTTagCompound());
-            // Wrap dans "BlockEntityTag" -- nom reserve Minecraft qui sera
-            // automatiquement re-applique a la TileEntity au placement
             NBTTagCompound itemTag = new NBTTagCompound();
             itemTag.setTag("BlockEntityTag", teTag);
             stack.setTagCompound(itemTag);
@@ -200,9 +207,24 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     }
 
     /**
-     * Override harvestBlock pour skip le drop vanilla par defaut
-     * (sinon double-drop : 1 via getDrops + 1 via inventaire spille).
-     * On ne veut QUE le drop getDrops qui a le NBT.
+     * v1.0.220 : override breakBlock pour NE PAS dumper l'inventaire (pattern
+     * Mekanism). Sans ca, MC vanilla Block.breakBlock() appelle
+     * InventoryHelper.dropInventoryItems() qui aurait drope les items de
+     * l'IInventory comme ItemEntities dans le monde, causant des duplicates
+     * ou au contraire la perte si on a deja dropee l'ItemStack avec NBT.
+     */
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        // On ne fait RIEN (skip InventoryHelper.dropInventoryItems du super).
+        // Le drop ItemStack avec NBT est gere par harvestBlock/getDrops.
+        // On delegue juste a Block.breakBlock qui removeTileEntity.
+        super.breakBlock(world, pos, state);
+    }
+
+    /**
+     * Override removedByPlayer pour retarder la suppression du bloc jusqu'apres
+     * harvestBlock. Pattern vanilla BlockShulkerBox pour preserver la TE pendant
+     * getDrops.
      */
     @Override
     public boolean removedByPlayer(IBlockState state, World world, BlockPos pos,
@@ -214,7 +236,19 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     @Override
     public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state,
             TileEntity te, ItemStack tool) {
-        super.harvestBlock(world, player, pos, state, te, tool);
+        // v1.0.220 : capture la TE dans ThreadLocal pour que getDrops y ait
+        // acces, meme si world.getTileEntity(pos) retourne null entre-temps.
+        if (te instanceof TileFurnaceNexus) {
+            CAPTURED_TE.set((TileFurnaceNexus) te);
+        }
+        try {
+            super.harvestBlock(world, player, pos, state, te, tool);
+        } finally {
+            CAPTURED_TE.remove();
+        }
+        // Finalise la suppression du bloc (removedByPlayer a retourne true sans
+        // le retirer, c'est a nous de le faire maintenant que les drops sont
+        // generes)
         world.setBlockToAir(pos);
     }
 
