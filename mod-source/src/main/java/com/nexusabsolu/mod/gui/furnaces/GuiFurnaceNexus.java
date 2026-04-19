@@ -386,9 +386,9 @@ public class GuiFurnaceNexus extends GuiContainer {
     // PANNEAU UPGRADES (a DROITE du GUI)
     // ======================================================================
 
-    // Dimensions panneau Upgrades v1.0.202 : hauteur 100 -> 110 (EF Effic. etait coupe)
-    private static final int UPGRADES_W = 66;
-    private static final int UPGRADES_H = 110;
+    // Dimensions panneau Upgrades v1.0.203 : W=75 (apres test visuel Alexis)
+    private static final int UPGRADES_W = 75;
+    private static final int UPGRADES_H = 100;
 
     private void drawUpgradesPanel(int mx, int my) {
         int px = guiLeft + xSize + 2;  // Tout colle au GUI (gap=2)
