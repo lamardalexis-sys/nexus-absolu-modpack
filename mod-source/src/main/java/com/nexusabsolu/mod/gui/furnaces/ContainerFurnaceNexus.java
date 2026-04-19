@@ -50,23 +50,20 @@ public class ContainerFurnaceNexus extends Container {
             playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 104, 24));
 
         // === 4 SLOTS UPGRADES (hors-ecran par defaut, GUI les repositionne dans le panneau) ===
-        // v1.0.218 : pointent vers l'IInventory SEPARE tile.getUpgradeInventory()
-        // avec index 0-3 au lieu de l'inventaire principal avec index 3-6.
-        // Empeche toute extraction externe par mods tiers.
-        net.minecraft.inventory.IInventory upgInv = tile.getUpgradeInventory();
+        // Pattern Mekanism : tous les slots dans le MEME IInventory (tile).
+        // La protection contre extraction externe vient de ISidedInventory
+        // (getSlotsForFace expose seulement INPUT/FUEL/OUTPUT).
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
-            int slotIdx = up.slotIndex;  // 0..3
+            int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
             // Position -1000 = cache. Le GUI les deplace quand upgradesOpen = true.
-            addSlotToContainer(new Slot(upgInv, slotIdx, -1000, -1000) {
+            addSlotToContainer(new Slot(tile, slotIdx, -1000, -1000) {
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;
                 }
                 @Override
                 public boolean isItemValid(ItemStack stack) {
-                    // v1.0.212 : slots upgrade inactifs si le furnace n'est pas Enhanced
-                    // (empeche shift+click de placer un upgrade avant installation du Kit)
                     if (!tile.isEnhanced()) return false;
                     if (stack.isEmpty()) return true;
                     if (stack.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade) {

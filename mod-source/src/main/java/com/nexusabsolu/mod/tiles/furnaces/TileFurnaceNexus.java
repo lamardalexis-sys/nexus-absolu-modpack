@@ -47,12 +47,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_FUEL = 1;
     public static final int SLOT_OUTPUT = 2;
-    /** Nombre total de slots dans l'IInventory principal (input/fuel/output).
-     *  Les 4 slots upgrades sont dans un IInventory SEPARE (upgradeInventory)
-     *  pour empecher toute extraction externe par mods tiers. */
-    public static final int TOTAL_SLOTS = 3;
-    /** Nombre de slots upgrade dans l'inventaire SEPARE (RF/IO/SPEED/EFFICIENCY). */
-    public static final int UPGRADE_SLOTS = 4;
+    public static final int SLOT_UPGRADE_BASE = 3;  // 3..6 pour les 4 upgrades
+    /** Total slots : 3 principaux + 4 upgrades = 7. Pattern Mekanism :
+     *  tous dans le meme IInventory. La protection contre extraction externe
+     *  vient de ISidedInventory.getSlotsForFace qui n'expose que 3 slots. */
+    public static final int TOTAL_SLOTS = 7;
 
     // Types SideConfig pour les furnaces (indice dans SideConfig.faceConfig[type])
     public static final int SC_TYPE_ITEM_IN  = 0;
@@ -68,15 +67,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     //   - Tout fuel Forge-register (lava bucket, blaze rod, etc.) fonctionne aussi
 
     private FurnaceTier tier;
-    /** Inventaire principal : INPUT, FUEL, OUTPUT (3 slots). */
+    /** Inventaire : INPUT, FUEL, OUTPUT + 4 upgrades (slots 3..6).
+     *  Pattern Mekanism : tout dans un seul tableau. La protection externe
+     *  vient de ISidedInventory (getSlotsForFace expose seulement 0,1,2). */
     private ItemStack[] inventory;
-    /** Inventaire upgrade : RF_CONVERTER, IO_EXPANSION, SPEED_BOOSTER, EFFICIENCY.
-     *  Index = FurnaceUpgrade.slotIndex (0..3). SEPARE du main inventory pour
-     *  empecher extraction externe via IInventory/ISidedInventory/capability. */
-    private ItemStack[] upgrades;
-    /** IInventory wrapper sur upgrades[], expose aux Containers GUI uniquement. */
-    private final UpgradeInventory upgradeInventory = new UpgradeInventory();
-
     private InternalEnergyStorage energyStorage;
 
     private int cookProgress = 0;          // ticks de cuisson en cours
@@ -109,8 +103,6 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         this.tier = tier;
         this.inventory = new ItemStack[TOTAL_SLOTS];
         for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
-        this.upgrades = new ItemStack[UPGRADE_SLOTS];
-        for (int i = 0; i < UPGRADE_SLOTS; i++) upgrades[i] = ItemStack.EMPTY;
         this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), 1000);
         this.maxCookTime = tier.baseCookTime();
         // Defaults Mekanism-like : output face = bas, rien d'autre
@@ -169,7 +161,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     /** Mode RF actif si l'upgrade RF_CONVERTER est presente OU si le tier est nativeRF. */
     public boolean isRFMode() {
         if (tier.nativeRF) return true;
-        ItemStack rfSlot = upgrades[FurnaceUpgrade.RF_CONVERTER.slotIndex];
+        ItemStack rfSlot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.RF_CONVERTER.slotIndex];
         return !rfSlot.isEmpty();
     }
 
@@ -186,20 +178,14 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     /** Nombre d'items dans le slot SPEED_BOOSTER (0 si vide). */
     private int getSpeedBoosterCount() {
-        ItemStack slot = upgrades[FurnaceUpgrade.SPEED_BOOSTER.slotIndex];
+        ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.SPEED_BOOSTER.slotIndex];
         return slot.isEmpty() ? 0 : slot.getCount();
     }
 
     /** Nombre d'items dans le slot EFFICIENCY (0 si vide). */
     private int getEfficiencyCount() {
-        ItemStack slot = upgrades[FurnaceUpgrade.EFFICIENCY.slotIndex];
+        ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.EFFICIENCY.slotIndex];
         return slot.isEmpty() ? 0 : slot.getCount();
-    }
-
-    /** Accesseur pour les Containers GUI. Les upgrades ne sont accessibles
-     *  QUE via ce wrapper, pas via IInventory du TileEntity. */
-    public net.minecraft.inventory.IInventory getUpgradeInventory() {
-        return upgradeInventory;
     }
 
     /**
@@ -271,19 +257,6 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
         // 2. Fuel disponible ? (consumeFuelIfNeeded decremente fuelBurnTicks de 1)
         if (!consumeFuelIfNeeded()) {
-            // DEBUG v1.0.219 : log pourquoi on ne peut pas cuire
-            if (world.getTotalWorldTime() % 20 == 0) {
-                com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.info(
-                    "[FurnaceNexus] NO FUEL/RF @ " + pos
-                    + " | isRFMode=" + isRFMode()
-                    + " | RF=" + energyStorage.getEnergyStored() + "/" + energyStorage.getMaxEnergyStored()
-                    + " | conso=" + getEffectiveRfPerTick()
-                    + " | nativeRF=" + tier.nativeRF
-                    + " | upgrades=[RF=" + !upgrades[FurnaceUpgrade.RF_CONVERTER.slotIndex].isEmpty()
-                    + " SP=" + upgrades[FurnaceUpgrade.SPEED_BOOSTER.slotIndex].getCount()
-                    + " EF=" + upgrades[FurnaceUpgrade.EFFICIENCY.slotIndex].getCount() + "]"
-                );
-            }
             resetProgress();
             return;
         }
@@ -503,19 +476,6 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         }
         nbt.setTag("items", items);
 
-        // v1.0.218 : upgrades sauvegardees dans un tag SEPARE ("upgrades") pour
-        // indiquer clairement qu'elles ne font pas partie de l'inventaire principal
-        NBTTagList upgList = new NBTTagList();
-        for (int i = 0; i < UPGRADE_SLOTS; i++) {
-            if (!upgrades[i].isEmpty()) {
-                NBTTagCompound itemTag = new NBTTagCompound();
-                itemTag.setInteger("Slot", i);
-                upgrades[i].writeToNBT(itemTag);
-                upgList.appendTag(itemTag);
-            }
-        }
-        nbt.setTag("upgrades", upgList);
-
         // Side config (6 faces x 4 types + eject/pull bits)
         NBTTagCompound scTag = new NBTTagCompound();
         sideConfig.writeToNBT(scTag);
@@ -552,28 +512,24 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         }
 
         for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
-        for (int i = 0; i < UPGRADE_SLOTS; i++) upgrades[i] = ItemStack.EMPTY;
         NBTTagList items = nbt.getTagList("items", 10);
         for (int i = 0; i < items.tagCount(); i++) {
             NBTTagCompound itemTag = items.getCompoundTagAt(i);
             int slot = itemTag.getInteger("Slot");
             if (slot >= 0 && slot < TOTAL_SLOTS) {
                 inventory[slot] = new ItemStack(itemTag);
-            } else if (slot >= 3 && slot < 7) {
-                // Migration v1.0.218 : anciens saves avaient upgrades dans slots 3-6
-                // de l'inventaire principal. On les recupere dans upgrades[0..3].
-                upgrades[slot - 3] = new ItemStack(itemTag);
             }
         }
 
-        // v1.0.218 : upgrades dans tag separe
+        // Migration v1.0.218 -> v1.0.222 : si le save contient un tag 'upgrades'
+        // separe (format temporaire v1.0.218-221), on re-integre dans slots 3-6
         if (nbt.hasKey("upgrades")) {
             NBTTagList upgList = nbt.getTagList("upgrades", 10);
             for (int i = 0; i < upgList.tagCount(); i++) {
                 NBTTagCompound itemTag = upgList.getCompoundTagAt(i);
                 int slot = itemTag.getInteger("Slot");
-                if (slot >= 0 && slot < UPGRADE_SLOTS) {
-                    upgrades[slot] = new ItemStack(itemTag);
+                if (slot >= 0 && slot < 4) {
+                    inventory[SLOT_UPGRADE_BASE + slot] = new ItemStack(itemTag);
                 }
             }
         }
@@ -738,99 +694,4 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override public String getName() { return "container.nexus.furnace_" + tier.registryName; }
     @Override public boolean hasCustomName() { return false; }
     @Override public ITextComponent getDisplayName() { return new TextComponentString(getName()); }
-
-    // ==========================================================================
-    // UpgradeInventory : IInventory SEPARE pour les 4 slots upgrades
-    // ==========================================================================
-    //
-    // Physiquement separe de l'inventaire principal pour empecher toute
-    // extraction externe par des mods tiers qui pourraient bypasser la
-    // capability ISidedInventory en appelant directement tile.getStackInSlot().
-    //
-    // Les upgrades sont accessibles UNIQUEMENT via :
-    //  - TileFurnaceNexus.getUpgradeInventory() (pour les Containers GUI)
-    //  - les accesseurs internes isRFMode(), getSpeedBoosterCount(), etc.
-    //
-    // L'inner class a acces direct au tableau upgrades[] du TileFurnaceNexus.
-    // ==========================================================================
-    private class UpgradeInventory implements net.minecraft.inventory.IInventory {
-        @Override public int getSizeInventory() { return UPGRADE_SLOTS; }
-        @Override public boolean isEmpty() {
-            for (ItemStack s : upgrades) if (!s.isEmpty()) return false;
-            return true;
-        }
-        @Override public ItemStack getStackInSlot(int index) {
-            return (index >= 0 && index < UPGRADE_SLOTS) ? upgrades[index] : ItemStack.EMPTY;
-        }
-
-        @Override
-        public ItemStack decrStackSize(int index, int count) {
-            if (index < 0 || index >= UPGRADE_SLOTS) return ItemStack.EMPTY;
-            ItemStack stack = upgrades[index];
-            if (stack.isEmpty()) return ItemStack.EMPTY;
-            ItemStack result;
-            if (stack.getCount() <= count) {
-                result = stack;
-                upgrades[index] = ItemStack.EMPTY;
-            } else {
-                result = stack.splitStack(count);
-                if (stack.getCount() == 0) upgrades[index] = ItemStack.EMPTY;
-            }
-            markDirty();
-            return result;
-        }
-
-        @Override
-        public ItemStack removeStackFromSlot(int index) {
-            if (index < 0 || index >= UPGRADE_SLOTS) return ItemStack.EMPTY;
-            ItemStack s = upgrades[index];
-            upgrades[index] = ItemStack.EMPTY;
-            return s;
-        }
-
-        @Override
-        public void setInventorySlotContents(int index, ItemStack stack) {
-            if (index < 0 || index >= UPGRADE_SLOTS) return;
-            upgrades[index] = stack;
-            if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
-                stack.setCount(getInventoryStackLimit());
-            }
-            markDirty();
-        }
-
-        @Override public int getInventoryStackLimit() { return 64; }
-        @Override public boolean isUsableByPlayer(EntityPlayer player) {
-            return TileFurnaceNexus.this.isUsableByPlayer(player);
-        }
-        @Override public void openInventory(EntityPlayer player) {}
-        @Override public void closeInventory(EntityPlayer player) {}
-
-        /** Delegate au TileEntity parent pour propager save NBT. */
-        @Override
-        public void markDirty() {
-            TileFurnaceNexus.this.markDirty();
-        }
-
-        @Override
-        public boolean isItemValidForSlot(int index, ItemStack stack) {
-            // Le Slot du Container fait ses propres checks, mais on respecte
-            // l'interface : l'upgrade doit correspondre a la categorie du slot.
-            if (index < 0 || index >= UPGRADE_SLOTS) return false;
-            if (stack.isEmpty()) return true;
-            if (!(stack.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade)) return false;
-            com.nexusabsolu.mod.items.ItemFurnaceUpgrade item =
-                (com.nexusabsolu.mod.items.ItemFurnaceUpgrade) stack.getItem();
-            return item.getCategory().slotIndex == index;
-        }
-
-        @Override public int getField(int id) { return 0; }
-        @Override public void setField(int id, int value) {}
-        @Override public int getFieldCount() { return 0; }
-        @Override public void clear() {
-            for (int i = 0; i < UPGRADE_SLOTS; i++) upgrades[i] = ItemStack.EMPTY;
-        }
-        @Override public String getName() { return "container.nexus.furnace_upgrades"; }
-        @Override public boolean hasCustomName() { return false; }
-        @Override public ITextComponent getDisplayName() { return new TextComponentString(getName()); }
-    }
 }

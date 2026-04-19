@@ -46,28 +46,24 @@ public class ContainerFurnaceUpgrades extends Container {
             {0, 0}, {1, 0}, {0, 1}, {1, 1}
         };
 
-        // v1.0.218 : Slots pointent vers l'IInventory SEPARE (tile.getUpgradeInventory())
-        // Les upgrades ne sont PAS dans l'IInventory principal du TileEntity.
-        net.minecraft.inventory.IInventory upgInv = tile.getUpgradeInventory();
+        // Slots upgrade pointent directement sur tile (pattern Mekanism)
+        // avec index 3-6 (SLOT_UPGRADE_BASE + slotIndex).
 
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
-            int slotIdx = up.slotIndex;  // 0..3 (dans upgInv)
+            int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
             int col = slotPositions[up.slotIndex][0];
             int row = slotPositions[up.slotIndex][1];
             int sx = startX + col * (slotSize + gap);
             int sy = startY + row * (slotSize + gap);
 
-            addSlotToContainer(new Slot(upgInv, slotIdx, sx, sy) {
+            addSlotToContainer(new Slot(tile, slotIdx, sx, sy) {
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;
                 }
                 @Override
                 public boolean isItemValid(ItemStack stack) {
-                    // Securite : meme si on est dans le GUI Upgrades, on verifie
-                    // le flag enhanced. Normalement le joueur ne peut pas arriver
-                    // ici sans etre enhanced, mais on double-check cote serveur.
                     if (!tile.isEnhanced()) return false;
                     if (stack.isEmpty()) return true;
                     if (stack.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade) {
