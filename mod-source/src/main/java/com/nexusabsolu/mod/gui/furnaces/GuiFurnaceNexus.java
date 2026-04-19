@@ -214,9 +214,9 @@ public class GuiFurnaceNexus extends GuiContainer {
     // PANNEAU CONFIG I/O (a GAUCHE du GUI, couleurs saturees)
     // ======================================================================
 
-    // Dimensions panneau config (agrandi v1.0.194 : instruction deborde)
+    // Dimensions panneau config (agrandi v1.0.199 : hauteur 175->185 pour eviter coupure)
     private static final int CONFIG_W = 150;
-    private static final int CONFIG_H = 175;
+    private static final int CONFIG_H = 185;
 
     private void drawConfigPanel(int mx, int my) {
         int px = guiLeft - CONFIG_W - 6;  // A GAUCHE du GUI

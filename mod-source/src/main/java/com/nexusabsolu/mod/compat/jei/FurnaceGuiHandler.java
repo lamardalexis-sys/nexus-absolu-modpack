@@ -35,14 +35,14 @@ public class FurnaceGuiHandler implements IAdvancedGuiHandler<GuiFurnaceNexus> {
         // Onglet UPGRADES a droite (x=xSize-2, y=18, 15x17)
         areas.add(new Rectangle(guiRight - 2, guiTop + 18, 15, 17));
 
-        // Panneau CONFIG (ouvert a gauche, 150x175) - seulement si configOpen
+        // Panneau CONFIG (ouvert a gauche, 150x185) - seulement si configOpen
         if (gui.isConfigOpen()) {
             // CONFIG_W = 150, gap = 6, donc px = guiLeft - 156
             areas.add(new Rectangle(
                 guiLeft - 156,
                 guiTop + 8,          // py - 2 pour inclure bordure
                 155,                  // CONFIG_W + 5 marge
-                180                   // CONFIG_H + 5 marge
+                190                   // CONFIG_H + 5 marge
             ));
         }
 
