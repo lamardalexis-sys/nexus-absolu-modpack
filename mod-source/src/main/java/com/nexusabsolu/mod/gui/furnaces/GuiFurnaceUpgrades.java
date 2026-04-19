@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.math.BlockPos;
 
 import java.io.IOException;
@@ -82,38 +83,38 @@ public class GuiFurnaceUpgrades extends GuiContainer {
         drawRect(x + 3, y + 20, x + xSize - 3, y + 21, 0xFFBB77FF);
 
         // Cadres violets autour des 4 slots upgrade (positions matchent le Container)
+        // Les labels (RF/IO/SP/EF) s'affichent DANS le slot quand il est vide,
+        // et disparaissent quand un upgrade est place (Minecraft rend l'item par-dessus).
         int slotSize = 18;
         int gap = 4;
         int totalW = slotSize * 2 + gap;
         int startX = x + (xSize - totalW) / 2;
         int startY = y + 30;
 
+        // Couleur + label par slot (index matche le slot : 0=RF, 1=IO, 2=SP, 3=EF)
+        String[] labels = { "RF", "IO", "SP", "EF" };
+        int[] colors = { 0xFFFFAAAA, 0xFF88CCFF, 0xFFFFCC88, 0xFF88DD88 };
         int[][] slotPositions = { {0, 0}, {1, 0}, {0, 1}, {1, 1} };
+
         for (int i = 0; i < 4; i++) {
             int col = slotPositions[i][0];
             int row = slotPositions[i][1];
-            int sx = startX + col * (slotSize + gap) - 1;  // -1 pour le cadre autour
-            int sy = startY + row * (slotSize + gap) - 1;
-            // Cadre violet autour du slot
-            drawRect(sx, sy, sx + slotSize + 2, sy + slotSize + 2, 0xFF8855BB);
-            drawRect(sx + 1, sy + 1, sx + slotSize + 1, sy + slotSize + 1, 0xFF0A0818);
+            int sx = startX + col * (slotSize + gap);
+            int sy = startY + row * (slotSize + gap);
+
+            // Cadre violet autour du slot (-1 pour la bordure externe)
+            drawRect(sx - 1, sy - 1, sx + slotSize + 1, sy + slotSize + 1, 0xFF8855BB);
+            drawRect(sx, sy, sx + slotSize, sy + slotSize, 0xFF0A0818);
+
+            // Label DANS le slot, uniquement si slot vide
+            Slot slot = this.inventorySlots.inventorySlots.get(i);
+            if (!slot.getHasStack()) {
+                String label = labels[i];
+                int labelX = sx + slotSize / 2 - fontRenderer.getStringWidth(label) / 2;
+                int labelY = sy + (slotSize - 8) / 2;  // centre vertical (font = 8px haut)
+                fontRenderer.drawStringWithShadow(label, labelX, labelY, colors[i]);
+            }
         }
-
-        // Labels rangee 1 (RF, IO) sous les slots de la rangee 1
-        int labelY1 = startY + slotSize + 3;
-        fontRenderer.drawStringWithShadow("RF",
-            startX + slotSize / 2 - fontRenderer.getStringWidth("RF") / 2, labelY1, 0xFFFFAAAA);
-        fontRenderer.drawStringWithShadow("IO",
-            startX + slotSize + gap + slotSize / 2 - fontRenderer.getStringWidth("IO") / 2,
-            labelY1, 0xFF88CCFF);
-
-        // Labels rangee 2 (SP, EF) sous les slots de la rangee 2
-        int labelY2 = startY + (slotSize + gap) + slotSize + 3;
-        fontRenderer.drawStringWithShadow("SP",
-            startX + slotSize / 2 - fontRenderer.getStringWidth("SP") / 2, labelY2, 0xFFFFCC88);
-        fontRenderer.drawStringWithShadow("EF",
-            startX + slotSize + gap + slotSize / 2 - fontRenderer.getStringWidth("EF") / 2,
-            labelY2, 0xFF88DD88);
     }
 
     @Override
