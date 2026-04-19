@@ -173,9 +173,11 @@ public class GuiFurnaceNexus extends GuiContainer {
     }
 
     /**
-    /**
-     * Dessine le tooltip de l'item survole AU-DESSUS du curseur,
-     * avec clamp pour rester dans l'ecran.
+     * Dessine le tooltip de l'item survole dans le panneau Upgrades.
+     *
+     * Strategie : le tooltip est affiche DANS L'ESPACE LIBRE A DROITE du panneau.
+     * Si y'a pas assez de place (ecran coupe), fallback a GAUCHE du GUI principal.
+     * Le tooltip est aligne verticalement sur le curseur (suit la hauteur du slot survole).
      */
     private void drawUpgradesSlotTooltip(int mx, int my) {
         net.minecraft.inventory.Slot hovered = getSlotUnderMouse();
@@ -186,26 +188,31 @@ public class GuiFurnaceNexus extends GuiContainer {
         java.util.List<String> lines = this.getItemToolTip(stack);
         if (lines.isEmpty()) return;
 
-        // Calcule dimensions du tooltip
+        // Dimensions tooltip
         int tooltipWidth = 0;
         for (String line : lines) {
             int w = fontRenderer.getStringWidth(line);
             if (w > tooltipWidth) tooltipWidth = w;
         }
-        int totalW = tooltipWidth + 12;  // padding interne
+        int totalW = tooltipWidth + 12;
         int totalH = lines.size() == 1 ? 10 : (10 + (lines.size() - 1) * 10 + 2);
-        totalH += 8;  // padding interne vertical
+        totalH += 8;
 
-        // Position : AU-DESSUS du curseur, centre sur X du curseur
-        int tooltipX = mx - totalW / 2;
-        int tooltipY = my - totalH - 8;  // 8px de gap au-dessus du curseur
+        // Position X : d'abord essaie a DROITE du panneau Upgrades
+        int panelRight = guiLeft + xSize + 2 + UPGRADES_W;  // bord droit du panneau
+        int tooltipX = panelRight + 8;  // 8px de gap apres panneau
 
-        // Clamp horizontal : tooltip reste dans l'ecran
-        if (tooltipX < 5) tooltipX = 5;
-        if (tooltipX + totalW > this.width - 5) tooltipX = this.width - totalW - 5;
+        // Si deborde a droite de l'ecran, fallback : a GAUCHE du GUI principal
+        if (tooltipX + totalW > this.width - 5) {
+            tooltipX = guiLeft - totalW - 8;  // 8px avant le bord gauche du GUI
+            // Si deborde aussi a gauche, clamp a 5
+            if (tooltipX < 5) tooltipX = 5;
+        }
 
-        // Clamp vertical : si deborde en haut, bascule sous le curseur
-        if (tooltipY < 5) tooltipY = my + 12;
+        // Position Y : aligne sur le curseur mais clamp dans l'ecran
+        int tooltipY = my - totalH / 2;  // centre verticalement sur le curseur
+        if (tooltipY < 5) tooltipY = 5;
+        if (tooltipY + totalH > this.height - 5) tooltipY = this.height - totalH - 5;
 
         // Ruse pour que drawHoveringText utilise notre position :
         // la methode ajoute +12 a x et -12 a y. On compense.
