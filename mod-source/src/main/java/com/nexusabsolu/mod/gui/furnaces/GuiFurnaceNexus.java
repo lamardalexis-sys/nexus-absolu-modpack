@@ -332,11 +332,10 @@ public class GuiFurnaceNexus extends GuiContainer {
     // PANNEAU UPGRADES (a DROITE du GUI)
     // ======================================================================
 
-    // Taille reduite : les descriptions sont dans les tooltips des items au survol,
-    // pas besoin de les redessiner dans le panneau.
-    // Plus le panneau est etroit, plus il reste de place a droite pour les tooltips.
+    // Dimensions panneau Upgrades v1.0.200 : hauteur augmentee 80 -> 100
+    // pour plus d'air entre les slots et les labels
     private static final int UPGRADES_W = 66;
-    private static final int UPGRADES_H = 80;
+    private static final int UPGRADES_H = 100;
 
     private void drawUpgradesPanel(int mx, int my) {
         int px = guiLeft + xSize + 2;  // Tout colle au GUI (gap=2)
@@ -375,12 +374,12 @@ public class GuiFurnaceNexus extends GuiContainer {
             drawRect(sx + 1, sy + 1, sx + slotSize - 1, sy + slotSize - 1, 0xFF0A0818);
         }
 
-        // Mini-labels sous chaque paire (compact)
-        int labelY = startY + (slotSize + gap) * 2 + 2;
-        fontRenderer.drawString("RF",  startX + 4, labelY, 0xFFFFAAAA);
-        fontRenderer.drawString("IO",  startX + slotSize + gap + 5, labelY, 0xFF88CCFF);
-        fontRenderer.drawString("SP",  startX + 4, labelY + 10, 0xFFFFCC88);
-        fontRenderer.drawString("EF",  startX + slotSize + gap + 5, labelY + 10, 0xFF88DD88);
+        // Labels plus espaces sur 4 lignes (grace a la hauteur augmentee)
+        int labelY = startY + (slotSize + gap) * 2 + 4;
+        fontRenderer.drawStringWithShadow("RF  Energie",  px + 4, labelY,      0xFFFFAAAA);
+        fontRenderer.drawStringWithShadow("IO  I/O",      px + 4, labelY + 10, 0xFF88CCFF);
+        fontRenderer.drawStringWithShadow("SP  Vitesse",  px + 4, labelY + 20, 0xFFFFCC88);
+        fontRenderer.drawStringWithShadow("EF  Effic.",   px + 4, labelY + 30, 0xFF88DD88);
     }
 
     /**
