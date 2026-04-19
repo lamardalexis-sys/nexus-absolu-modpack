@@ -48,6 +48,8 @@ public class CommonProxy {
         NexusPacketHandler.init();
         MinecraftForge.EVENT_BUS.register(new ScavengeEventHandler());
         MinecraftForge.EVENT_BUS.register(new DimensionChangeHandler());
+        MinecraftForge.EVENT_BUS.register(
+            new com.nexusabsolu.mod.events.FurnaceCraftTransmissionHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
         GameRegistry.registerTileEntity(TileCondenseurEnergy.class,

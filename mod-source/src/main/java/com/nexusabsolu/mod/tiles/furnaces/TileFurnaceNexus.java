@@ -81,6 +81,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     // Tick counter pour throttle les operations I/O cross-faces (tous les 10 ticks)
     private int ioTickCounter = 0;
 
+    // v1.0.212 : flag "Enhanced" debloque par l'Upgrade Kit
+    // - false (defaut) : furnace basique, juste input/fuel/output + config I/O
+    // - true : debloque jauge RF + 4 slots upgrade + onglet Upgrades
+    // Hereditee via NBT de l'ItemStack (ItemBlock) pour que le kit se
+    // transmette lors des crafts de furnace tier superieur.
+    private boolean isEnhanced = false;
+
     public TileFurnaceNexus() {
         this(FurnaceTier.IRON);  // default pour lecture NBT
     }
@@ -103,6 +110,25 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
 
     public FurnaceTier getTier() { return tier; }
     public int getCookProgress() { return cookProgress; }
+
+    // v1.0.212 : getters/setters pour le flag Enhanced
+    public boolean isEnhanced() { return isEnhanced; }
+
+    /** Applique l'Upgrade Kit : debloque RF + slots upgrade. Irreversible. */
+    public void applyEnhancement() {
+        if (isEnhanced) return;  // deja enhanced, no-op
+        this.isEnhanced = true;
+        markDirty();
+        // Sync client via notifyBlockUpdate pour que le BlockState update les LED
+        if (world != null && !world.isRemote) {
+            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+        }
+    }
+
+    /** Setter direct utilise au placement du bloc (lit le NBT de l'ItemStack). */
+    public void setEnhancedFromItemStack(boolean enhanced) {
+        this.isEnhanced = enhanced;
+    }
     public int getMaxCookTime() { return maxCookTime; }
     /** Ticks restants sur le fuel actuel (0 = pas de fuel actif). */
     public int getFuelBurnTicks() { return fuelBurnTicks; }
@@ -431,6 +457,9 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         sideConfig.writeToNBT(scTag);
         nbt.setTag("sideConfig", scTag);
 
+        // v1.0.212 : flag Enhanced
+        nbt.setBoolean("enhanced", isEnhanced);
+
         return nbt;
     }
 
@@ -472,6 +501,34 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         if (nbt.hasKey("sideConfig")) {
             sideConfig.readFromNBT(nbt.getCompoundTag("sideConfig"));
         }
+
+        // v1.0.212 : flag Enhanced
+        this.isEnhanced = nbt.getBoolean("enhanced");
+    }
+
+    // === Sync client (necessaire pour que isEnhanced se propage aux clients
+    //     des que applyEnhancement est appelee, pour mise a jour LED BlockState) ===
+
+    @Override
+    public net.minecraft.network.play.server.SPacketUpdateTileEntity getUpdatePacket() {
+        return new net.minecraft.network.play.server.SPacketUpdateTileEntity(
+            pos, 1, getUpdateTag());
+    }
+
+    @Override
+    public void onDataPacket(net.minecraft.network.NetworkManager net,
+            net.minecraft.network.play.server.SPacketUpdateTileEntity pkt) {
+        readFromNBT(pkt.getNbtCompound());
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        return writeToNBT(new NBTTagCompound());
+    }
+
+    @Override
+    public void handleUpdateTag(NBTTagCompound tag) {
+        readFromNBT(tag);
     }
 
     // === Capabilities (RF + ItemHandler) ===

@@ -10,6 +10,7 @@ import com.nexusabsolu.mod.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -48,6 +49,9 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
 
     public static final PropertyDirection FACING = PropertyDirection.create(
         "facing", EnumFacing.Plane.HORIZONTAL);
+    // v1.0.212 : property calculee depuis la TileEntity via getActualState
+    // (pas stockee en meta - le meta reste facing-only, 2 bits)
+    public static final PropertyBool ENHANCED = PropertyBool.create("enhanced");
 
     private final FurnaceTier tier;
 
@@ -62,7 +66,9 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
         setResistance(15.0F);
         setSoundType(SoundType.METAL);
         setHarvestLevel("pickaxe", 1);
-        setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setDefaultState(this.blockState.getBaseState()
+            .withProperty(FACING, EnumFacing.NORTH)
+            .withProperty(ENHANCED, Boolean.FALSE));
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
@@ -73,18 +79,33 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
+        return new BlockStateContainer(this, FACING, ENHANCED);
+    }
+
+    /**
+     * v1.0.212 : lit le flag isEnhanced depuis la TileEntity pour que le
+     * blockstate JSON puisse choisir le bon modele (avec LED ou sans).
+     */
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+        TileEntity te = world.getTileEntity(pos);
+        boolean enhanced = (te instanceof TileFurnaceNexus)
+            && ((TileFurnaceNexus) te).isEnhanced();
+        return state.withProperty(ENHANCED, enhanced);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing facing = EnumFacing.getFront(meta);
         if (facing.getAxis() == EnumFacing.Axis.Y) facing = EnumFacing.NORTH;
+        // ENHANCED n'est PAS dans le meta - toujours false au getStateFromMeta,
+        // getActualState le remplacera en lisant la TileEntity
         return getDefaultState().withProperty(FACING, facing);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
+        // meta = facing seulement, ENHANCED vient de la TileEntity
         return state.getValue(FACING).getIndex();
     }
 
@@ -121,19 +142,46 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() { return BlockRenderLayer.CUTOUT; }
 
-    // === GUI on right-click ===
+    // === GUI on right-click / Upgrade Kit handling ===
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
             EntityPlayer player, EnumHand hand, EnumFacing facing,
             float hitX, float hitY, float hitZ) {
-        if (!world.isRemote) {
-            TileEntity te = world.getTileEntity(pos);
-            if (te instanceof TileFurnaceNexus) {
-                // GUI_ID 10 = FURNACE_NEXUS_GUI (voir GuiHandler)
-                player.openGui(NexusAbsoluMod.instance, 10, world,
-                    pos.getX(), pos.getY(), pos.getZ());
+        TileEntity te = world.getTileEntity(pos);
+        if (!(te instanceof TileFurnaceNexus)) return true;
+
+        TileFurnaceNexus furnace = (TileFurnaceNexus) te;
+        ItemStack held = player.getHeldItem(hand);
+
+        // Shift + clic droit avec FurnaceUpgradeKit = applique l'amelioration
+        if (player.isSneaking()
+            && !held.isEmpty()
+            && held.getItem() == com.nexusabsolu.mod.init.ModItems.FURNACE_UPGRADE_KIT
+            && !furnace.isEnhanced()) {
+            if (!world.isRemote) {
+                furnace.applyEnhancement();
+                // Consomme 1 kit (sauf si joueur creatif)
+                if (!player.capabilities.isCreativeMode) {
+                    held.shrink(1);
+                }
+                // Son + message
+                world.playSound(null, pos,
+                    net.minecraft.init.SoundEvents.BLOCK_ANVIL_USE,
+                    net.minecraft.util.SoundCategory.BLOCKS,
+                    0.5F, 2.0F);
+                player.sendStatusMessage(
+                    new net.minecraft.util.text.TextComponentString(
+                        "\u00A7eFurnace ameliore ! Jauge RF + upgrades debloques."),
+                    true);
             }
+            return true;
+        }
+
+        // Sinon : ouvre le GUI Furnace (le GUI s'adapte selon furnace.isEnhanced())
+        if (!world.isRemote) {
+            player.openGui(NexusAbsoluMod.instance, 10, world,
+                pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
     }

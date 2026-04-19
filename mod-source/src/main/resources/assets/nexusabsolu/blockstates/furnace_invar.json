@@ -1,8 +1,34 @@
 {
   "variants": {
-    "facing=north": { "model": "nexusabsolu:furnace_invar" },
-    "facing=south": { "model": "nexusabsolu:furnace_invar", "y": 180 },
-    "facing=west":  { "model": "nexusabsolu:furnace_invar", "y": 270 },
-    "facing=east":  { "model": "nexusabsolu:furnace_invar", "y": 90 }
+    "facing=north,enhanced=false": {
+      "model": "nexusabsolu:furnace_invar"
+    },
+    "facing=south,enhanced=false": {
+      "model": "nexusabsolu:furnace_invar",
+      "y": 180
+    },
+    "facing=west,enhanced=false": {
+      "model": "nexusabsolu:furnace_invar",
+      "y": 270
+    },
+    "facing=east,enhanced=false": {
+      "model": "nexusabsolu:furnace_invar",
+      "y": 90
+    },
+    "facing=north,enhanced=true": {
+      "model": "nexusabsolu:furnace_invar_enhanced"
+    },
+    "facing=south,enhanced=true": {
+      "model": "nexusabsolu:furnace_invar_enhanced",
+      "y": 180
+    },
+    "facing=west,enhanced=true": {
+      "model": "nexusabsolu:furnace_invar_enhanced",
+      "y": 270
+    },
+    "facing=east,enhanced=true": {
+      "model": "nexusabsolu:furnace_invar_enhanced",
+      "y": 90
+    }
   }
 }

@@ -61,6 +61,10 @@ public class ContainerFurnaceUpgrades extends Container {
                 }
                 @Override
                 public boolean isItemValid(ItemStack stack) {
+                    // Securite : meme si on est dans le GUI Upgrades, on verifie
+                    // le flag enhanced. Normalement le joueur ne peut pas arriver
+                    // ici sans etre enhanced, mais on double-check cote serveur.
+                    if (!tile.isEnhanced()) return false;
                     if (stack.isEmpty()) return true;
                     if (stack.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade) {
                         com.nexusabsolu.mod.items.ItemFurnaceUpgrade item =

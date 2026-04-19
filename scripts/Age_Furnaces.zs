@@ -87,4 +87,13 @@ recipes.addShaped("nexus_upgrade_efficiency", <nexusabsolu:upgrade_efficiency>,
      [<minecraft:emerald>,   <nexusabsolu:upgrade_rf_converter>,    <minecraft:emerald>],
      [<ore:dustLapis>,       <minecraft:emerald>,                   <ore:dustLapis>]]);
 
-print("[Nexus Absolu] Age_Furnaces.zs charge : 5 furnaces + 4 upgrades");
+// === UPGRADE KIT (v1.0.212) ===
+// Tech-tier recipe : Invarium + Compose A + EnderIO Basic Component
+// Shift+clic droit sur un Furnace Nexus pour le passer en mode Enhanced :
+// debloque jauge RF + 4 slots upgrade.
+recipes.addShaped("nexus_furnace_upgrade_kit", <nexusabsolu:furnace_upgrade_kit>,
+    [[<nexusabsolu:invarium_ingot>, <nexusabsolu:compose_a>,       <nexusabsolu:invarium_ingot>],
+     [<nexusabsolu:compose_a>,      <enderio:item_material:0>,     <nexusabsolu:compose_a>],
+     [<nexusabsolu:invarium_ingot>, <nexusabsolu:compose_a>,       <nexusabsolu:invarium_ingot>]]);
+
+print("[Nexus Absolu] Age_Furnaces.zs charge : 5 furnaces + 4 upgrades + 1 kit");

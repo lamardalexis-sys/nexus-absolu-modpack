@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "nexusabsolu:blocks/furnace_emeradic_top_enhanced",
+    "front": "nexusabsolu:blocks/furnace_emeradic_front_on_enhanced",
+    "side": "nexusabsolu:blocks/furnace_emeradic_side"
+  }
+}

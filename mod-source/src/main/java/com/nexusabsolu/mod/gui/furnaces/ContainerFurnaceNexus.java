@@ -61,6 +61,9 @@ public class ContainerFurnaceNexus extends Container {
                 }
                 @Override
                 public boolean isItemValid(ItemStack stack) {
+                    // v1.0.212 : slots upgrade inactifs si le furnace n'est pas Enhanced
+                    // (empeche shift+click de placer un upgrade avant installation du Kit)
+                    if (!tile.isEnhanced()) return false;
                     if (stack.isEmpty()) return true;
                     if (stack.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade) {
                         com.nexusabsolu.mod.items.ItemFurnaceUpgrade item =

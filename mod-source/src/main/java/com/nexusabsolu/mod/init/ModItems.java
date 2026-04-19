@@ -210,4 +210,8 @@ public class ModItems {
     public static final Item UPGRADE_EFFICIENCY = new ItemFurnaceUpgrade(
         "upgrade_efficiency",
         com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.EFFICIENCY);
+
+    // v1.0.212 : Kit d'Amelioration pour debloquer RF + upgrades sur un furnace
+    public static final Item FURNACE_UPGRADE_KIT =
+        new com.nexusabsolu.mod.items.ItemFurnaceUpgradeKit();
 }

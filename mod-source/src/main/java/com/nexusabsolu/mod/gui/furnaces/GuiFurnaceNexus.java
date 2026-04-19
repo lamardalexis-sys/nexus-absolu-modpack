@@ -78,17 +78,20 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // === RF BAR VERTICALE a droite (v7) ===
+        // === RF BAR VERTICALE a droite (v7) - UNIQUEMENT si enhanced ===
         // Texture zone : (140, 12) a (150, 84) = 10x72 max fill
-        fillBarVertical(x + 141, y + 13, 8, 70,
-            tile.getEnergyStored(), tile.getMaxEnergy(),
-            0xFFCC4444, 0xFFFF6666);
+        if (tile.isEnhanced()) {
+            fillBarVertical(x + 141, y + 13, 8, 70,
+                tile.getEnergyStored(), tile.getMaxEnergy(),
+                0xFFCC4444, 0xFFFF6666);
+        }
 
         // === FLAMME fuel indicator style vanilla (descend avec le fuel restant) ===
         // Zone : (68, 55) a (91, 62) = 24x8
         int fuelBurnTicks = tile.getFuelBurnTicks();
         int fuelTotal = tile.getFuelTotalBurnTicks();
-        boolean rfActive = tile.getEnergyStored() > 0 && tile.getCookProgress() > 0;
+        boolean rfActive = tile.isEnhanced()
+            && tile.getEnergyStored() > 0 && tile.getCookProgress() > 0;
 
         if (fuelBurnTicks > 0 && fuelTotal > 0) {
             // Flamme orange proportionnelle au fuel restant (ratio descend dans le temps)
@@ -118,10 +121,12 @@ public class GuiFurnaceNexus extends GuiContainer {
         // === ONGLETS LATERAUX ===
         mc.getTextureManager().bindTexture(TEXTURE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        // Onglet CONFIG a GAUCHE (depasse a gauche, x=-13)
+        // Onglet CONFIG a GAUCHE (toujours present)
         drawTexturedModalRect(x - 13, y + 18, 176, 0, 15, 17);
-        // Onglet UPGRADES a DROITE (depasse a droite, x=xSize-2)
-        drawTexturedModalRect(x + xSize - 2, y + 18, 176, 17, 15, 17);
+        // Onglet UPGRADES a DROITE - uniquement si enhanced
+        if (tile.isEnhanced()) {
+            drawTexturedModalRect(x + xSize - 2, y + 18, 176, 17, 15, 17);
+        }
     }
 
     // ======================================================================
@@ -145,8 +150,10 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Label Inventaire (ajuste a ySize=186 -> inv a y=93+)
         fontRenderer.drawStringWithShadow("Inventaire", 8, 93, 0xFF8866AA);
 
-        // Label RF au-dessus de la barre verticale
-        fontRenderer.drawStringWithShadow("RF", 137, 4, 0xFFCC4444);
+        // Label RF au-dessus de la barre verticale - uniquement si enhanced
+        if (tile.isEnhanced()) {
+            fontRenderer.drawStringWithShadow("RF", 137, 4, 0xFFCC4444);
+        }
     }
 
     // ======================================================================
@@ -182,8 +189,8 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // RF bar tooltip (zone verticale (140,12)-(150,84))
-        if (inRect(mx, my, x + 140, y + 12, 10, 72)) {
+        // RF bar tooltip (zone verticale (140,12)-(150,84)) - uniquement si enhanced
+        if (tile.isEnhanced() && inRect(mx, my, x + 140, y + 12, 10, 72)) {
             drawHoveringText(Collections.singletonList(
                 tile.getEnergyStored() + " / " + tile.getMaxEnergy() + " RF"), mx, my);
         }
@@ -204,7 +211,8 @@ public class GuiFurnaceNexus extends GuiContainer {
             if (ticks > 0 && total > 0) {
                 int pct = ticks * 100 / total;
                 status = pct + "% (" + ticks + " ticks)";
-            } else if (tile.getEnergyStored() > 0 && tile.getCookProgress() > 0) {
+            } else if (tile.isEnhanced()
+                && tile.getEnergyStored() > 0 && tile.getCookProgress() > 0) {
                 status = "Mode RF";
             } else {
                 status = "Vide";
@@ -219,8 +227,8 @@ public class GuiFurnaceNexus extends GuiContainer {
                 configOpen ? "Fermer Config I/O" : "Ouvrir Config I/O"), mx, my);
         }
 
-        // Onglet Upgrades (droite) - ouvre le GUI dedie
-        if (inRect(mx, my, x + xSize - 2, y + 18, 15, 17)) {
+        // Onglet Upgrades (droite) - uniquement si enhanced
+        if (tile.isEnhanced() && inRect(mx, my, x + xSize - 2, y + 18, 15, 17)) {
             drawHoveringText(Collections.singletonList("Ouvrir Upgrades"), mx, my);
         }
     }
@@ -378,9 +386,10 @@ public class GuiFurnaceNexus extends GuiContainer {
             return;
         }
 
-        // 2. Clic onglet UPGRADES (droite, x=xSize-2, 15x17)
+        // 2. Clic onglet UPGRADES (droite, x=xSize-2, 15x17) - uniquement si enhanced
         // Pattern Mekanism : ouvre un GUI dedie a la place d'un side-panel
-        if (mx >= x + xSize - 2 && mx <= x + xSize + 13
+        if (tile.isEnhanced()
+            && mx >= x + xSize - 2 && mx <= x + xSize + 13
             && my >= y + 18 && my <= y + 35) {
             net.minecraft.util.math.BlockPos pos = tile.getPos();
             mc.player.openGui(
