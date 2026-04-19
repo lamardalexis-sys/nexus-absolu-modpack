@@ -46,13 +46,13 @@ public class FurnaceGuiHandler implements IAdvancedGuiHandler<GuiFurnaceNexus> {
             ));
         }
 
-        // Panneau UPGRADES (compact, ouvert a droite 66x100) - seulement si upgradesOpen
+        // Panneau UPGRADES (ouvert a droite 66x110) - seulement si upgradesOpen
         if (gui.isUpgradesOpen()) {
             areas.add(new Rectangle(
-                guiRight + 0,         // gap=2 dans le GUI, -2 pour marge ok
+                guiRight + 0,
                 guiTop + 8,
                 72,                    // UPGRADES_W + 6 marge
-                105                    // UPGRADES_H + 5 marge (v1.0.200 : 85->105)
+                115                    // UPGRADES_H + 5 marge
             ));
         }
 

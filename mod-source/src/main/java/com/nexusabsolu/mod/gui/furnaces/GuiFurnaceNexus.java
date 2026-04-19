@@ -157,19 +157,12 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawDefaultBackground();
         super.drawScreen(mx, my, pt);
 
-        // v1.0.201 FIX tooltip coupe a droite :
-        // Quand on survole un slot du panneau Upgrades, le tooltip vanilla
-        // essaie de s'afficher a DROITE du curseur mais deborde de l'ecran.
-        // On ruse : on triche sur la largeur d'ecran percue par drawHoveringText
-        // pour forcer l'affichage a GAUCHE du curseur.
+        // v1.0.202 : tooltip a gauche dans panneau Upgrades
+        // Plutot que de ruser sur this.width (qui fait deborder le tooltip
+        // sur le GUI), on intercepte le tooltip de l'item et on le dessine
+        // nous-meme a une position calculee explicitement.
         if (upgradesOpen && isInUpgradesPanel(mx, my)) {
-            // Sauvegarde la vraie largeur d'ecran
-            int realWidth = this.width;
-            // Met une fausse largeur tres petite pour forcer le tooltip a gauche
-            this.width = mx - 4;
-            renderHoveredToolTip(mx, my);
-            // Restore
-            this.width = realWidth;
+            drawUpgradesSlotTooltip(mx, my);
         } else {
             renderHoveredToolTip(mx, my);
         }
@@ -177,6 +170,42 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawCustomTooltips(mx, my);
         if (configOpen) drawConfigPanel(mx, my);
         if (upgradesOpen) drawUpgradesPanel(mx, my);
+    }
+
+    /**
+     * Dessine le tooltip de l'item survole dans le panneau Upgrades,
+     * force a gauche du curseur pour eviter qu'il deborde de l'ecran.
+     */
+    private void drawUpgradesSlotTooltip(int mx, int my) {
+        net.minecraft.inventory.Slot hovered = getSlotUnderMouse();
+        if (hovered == null || !hovered.getHasStack()) return;
+        net.minecraft.item.ItemStack stack = hovered.getStack();
+
+        // Recupere le tooltip texte
+        java.util.List<String> lines = this.getItemToolTip(stack);
+
+        // Calcule largeur max du tooltip
+        int tooltipWidth = 0;
+        for (String line : lines) {
+            int w = fontRenderer.getStringWidth(line);
+            if (w > tooltipWidth) tooltipWidth = w;
+        }
+        // Largeur totale avec padding (5px de chaque cote = 10 total, selon Gui.drawHoveringText)
+        int totalW = tooltipWidth + 12;
+
+        // Force a gauche : position x = mx - totalW - 12 (12 = gap entre curseur et tooltip)
+        // Clamp : si deborde a gauche (x < 0), on force x = 5 minimum
+        int tooltipX = mx - totalW - 12;
+        if (tooltipX < 5) tooltipX = 5;
+
+        // Ruse : drawHoveringText ajoute +12 a x. On compense.
+        // Au lieu d'override la methode, on utilise une position simulee
+        // en trichant sur this.width pour que Gui calcule x = tooltipX.
+        int fakeMx = tooltipX + 12;  // pour que le "+12" interne donne tooltipX
+        int realWidth = this.width;
+        this.width = fakeMx + totalW + 100;  // largeur grande pour eviter clamp a droite
+        renderToolTip(stack, fakeMx, my);
+        this.width = realWidth;
     }
 
     /** True si le curseur est dans le panneau Upgrades (zone des 4 slots). */
@@ -357,10 +386,9 @@ public class GuiFurnaceNexus extends GuiContainer {
     // PANNEAU UPGRADES (a DROITE du GUI)
     // ======================================================================
 
-    // Dimensions panneau Upgrades v1.0.200 : hauteur augmentee 80 -> 100
-    // pour plus d'air entre les slots et les labels
+    // Dimensions panneau Upgrades v1.0.202 : hauteur 100 -> 110 (EF Effic. etait coupe)
     private static final int UPGRADES_W = 66;
-    private static final int UPGRADES_H = 100;
+    private static final int UPGRADES_H = 110;
 
     private void drawUpgradesPanel(int mx, int my) {
         int px = guiLeft + xSize + 2;  // Tout colle au GUI (gap=2)
