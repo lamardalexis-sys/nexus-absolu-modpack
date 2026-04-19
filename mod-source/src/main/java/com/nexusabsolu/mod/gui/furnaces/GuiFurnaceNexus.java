@@ -156,10 +156,35 @@ public class GuiFurnaceNexus extends GuiContainer {
     public void drawScreen(int mx, int my, float pt) {
         drawDefaultBackground();
         super.drawScreen(mx, my, pt);
-        renderHoveredToolTip(mx, my);
+
+        // v1.0.201 FIX tooltip coupe a droite :
+        // Quand on survole un slot du panneau Upgrades, le tooltip vanilla
+        // essaie de s'afficher a DROITE du curseur mais deborde de l'ecran.
+        // On ruse : on triche sur la largeur d'ecran percue par drawHoveringText
+        // pour forcer l'affichage a GAUCHE du curseur.
+        if (upgradesOpen && isInUpgradesPanel(mx, my)) {
+            // Sauvegarde la vraie largeur d'ecran
+            int realWidth = this.width;
+            // Met une fausse largeur tres petite pour forcer le tooltip a gauche
+            this.width = mx - 4;
+            renderHoveredToolTip(mx, my);
+            // Restore
+            this.width = realWidth;
+        } else {
+            renderHoveredToolTip(mx, my);
+        }
+
         drawCustomTooltips(mx, my);
         if (configOpen) drawConfigPanel(mx, my);
         if (upgradesOpen) drawUpgradesPanel(mx, my);
+    }
+
+    /** True si le curseur est dans le panneau Upgrades (zone des 4 slots). */
+    private boolean isInUpgradesPanel(int mx, int my) {
+        int px = guiLeft + xSize + 2;
+        int py = guiTop + 10;
+        return mx >= px && mx <= px + UPGRADES_W
+            && my >= py && my <= py + UPGRADES_H;
     }
 
     private void drawCustomTooltips(int mx, int my) {
