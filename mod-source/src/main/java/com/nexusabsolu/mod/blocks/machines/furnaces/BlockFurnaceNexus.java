@@ -142,46 +142,21 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() { return BlockRenderLayer.CUTOUT; }
 
-    // === GUI on right-click / Upgrade Kit handling ===
+    // === GUI on right-click (l'Upgrade Kit est gere par
+    //     ItemFurnaceUpgradeKit.onItemUseFirst pour capturer le shift+clic
+    //     avant que Minecraft cancel l'interaction bloc a cause du sneak) ===
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state,
             EntityPlayer player, EnumHand hand, EnumFacing facing,
             float hitX, float hitY, float hitZ) {
-        TileEntity te = world.getTileEntity(pos);
-        if (!(te instanceof TileFurnaceNexus)) return true;
-
-        TileFurnaceNexus furnace = (TileFurnaceNexus) te;
-        ItemStack held = player.getHeldItem(hand);
-
-        // Shift + clic droit avec FurnaceUpgradeKit = applique l'amelioration
-        if (player.isSneaking()
-            && !held.isEmpty()
-            && held.getItem() == com.nexusabsolu.mod.init.ModItems.FURNACE_UPGRADE_KIT
-            && !furnace.isEnhanced()) {
-            if (!world.isRemote) {
-                furnace.applyEnhancement();
-                // Consomme 1 kit (sauf si joueur creatif)
-                if (!player.capabilities.isCreativeMode) {
-                    held.shrink(1);
-                }
-                // Son + message
-                world.playSound(null, pos,
-                    net.minecraft.init.SoundEvents.BLOCK_ANVIL_USE,
-                    net.minecraft.util.SoundCategory.BLOCKS,
-                    0.5F, 2.0F);
-                player.sendStatusMessage(
-                    new net.minecraft.util.text.TextComponentString(
-                        "\u00A7eFurnace ameliore ! Jauge RF + upgrades debloques."),
-                    true);
-            }
-            return true;
-        }
-
-        // Sinon : ouvre le GUI Furnace (le GUI s'adapte selon furnace.isEnhanced())
         if (!world.isRemote) {
-            player.openGui(NexusAbsoluMod.instance, 10, world,
-                pos.getX(), pos.getY(), pos.getZ());
+            TileEntity te = world.getTileEntity(pos);
+            if (te instanceof TileFurnaceNexus) {
+                // Ouvre le GUI Furnace (le GUI s'adapte selon tile.isEnhanced())
+                player.openGui(NexusAbsoluMod.instance, 10, world,
+                    pos.getX(), pos.getY(), pos.getZ());
+            }
         }
         return true;
     }
@@ -235,8 +210,11 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerModels() {
+        // IMPORTANT : on pointe l'item vers une VRAIE variante du blockstate
+        // (pas "inventory" qui n'existe pas). Sinon Minecraft affiche la
+        // texture missing violet+noir pour l'item dans l'inventaire.
         ModelLoader.setCustomModelResourceLocation(
             Item.getItemFromBlock(this), 0,
-            new ModelResourceLocation(getRegistryName(), "inventory"));
+            new ModelResourceLocation(getRegistryName(), "facing=north,enhanced=false"));
     }
 }
