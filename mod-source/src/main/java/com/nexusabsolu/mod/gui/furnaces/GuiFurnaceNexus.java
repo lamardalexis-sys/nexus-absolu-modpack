@@ -35,10 +35,11 @@ public class GuiFurnaceNexus extends GuiContainer {
 
     private final TileFurnaceNexus tile;
     private boolean configOpen = false;
-    private boolean upgradesOpen = false;
 
     public boolean isConfigOpen() { return configOpen; }
-    public boolean isUpgradesOpen() { return upgradesOpen; }
+    /** @deprecated Plus de side-panel Upgrades depuis v1.0.210, GUI dedie a la place.
+     *  Conserve pour compatibilite FurnaceGuiHandler JEI (retourne false). */
+    public boolean isUpgradesOpen() { return false; }
 
     // Couleurs Mekanism SATUREES (feedback Alexis : trop pales dans v1.0.188)
     private static final int COL_NONE = 0xFF3A3A40;
@@ -67,7 +68,7 @@ public class GuiFurnaceNexus extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float pt, int mx, int my) {
-        // Repositionne les 4 slots upgrade selon upgradesOpen
+        // Planque les 4 slots upgrade hors-ecran (accessibles via GUI dedie)
         updateUpgradeSlotPositions();
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -157,15 +158,11 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawDefaultBackground();
         super.drawScreen(mx, my, pt);
 
-        // TRICK : juste avant renderHoveredToolTip, on AGRANDIT xSize
-        // temporairement pour inclure les panneaux ouverts. Comme ca Minecraft
-        // sait qu'il y a un panneau et n'affiche pas le tooltip dessus
-        // (bascule a gauche du curseur si pas de place a droite).
+        // TRICK : pour le panneau Config (a gauche), agrandir xSize/guiLeft
+        // temporairement pour que Minecraft calcule correctement la position
+        // du tooltip (evite debordement sur le panneau).
         int realXSize = this.xSize;
         int realGuiLeft = this.guiLeft;
-        if (upgradesOpen) {
-            this.xSize += UPGRADES_W + 4;
-        }
         if (configOpen) {
             this.guiLeft -= (CONFIG_W + 6);
             this.xSize += (CONFIG_W + 6);
@@ -179,7 +176,6 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         drawCustomTooltips(mx, my);
         if (configOpen) drawConfigPanel(mx, my);
-        if (upgradesOpen) drawUpgradesPanel(mx, my);
     }
 
     private void drawCustomTooltips(int mx, int my) {
@@ -223,10 +219,9 @@ public class GuiFurnaceNexus extends GuiContainer {
                 configOpen ? "Fermer Config I/O" : "Ouvrir Config I/O"), mx, my);
         }
 
-        // Onglet Upgrades (droite)
+        // Onglet Upgrades (droite) - ouvre le GUI dedie
         if (inRect(mx, my, x + xSize - 2, y + 18, 15, 17)) {
-            drawHoveringText(Collections.singletonList(
-                upgradesOpen ? "Fermer Upgrades" : "Ouvrir Upgrades"), mx, my);
+            drawHoveringText(Collections.singletonList("Ouvrir Upgrades"), mx, my);
         }
     }
 
@@ -349,95 +344,22 @@ public class GuiFurnaceNexus extends GuiContainer {
     }
 
     // ======================================================================
-    // PANNEAU UPGRADES (a DROITE du GUI)
+    // SLOTS UPGRADE (planques hors-ecran dans le GUI Furnace principal)
     // ======================================================================
-
-    // Dimensions panneau Upgrades v1.0.203 : W=75 (apres test visuel Alexis)
-    private static final int UPGRADES_W = 75;
-    private static final int UPGRADES_H = 100;
-
-    private void drawUpgradesPanel(int mx, int my) {
-        int px = guiLeft + xSize + 2;  // Tout colle au GUI (gap=2)
-        int py = guiTop + 10;
-
-        // Fond panneau
-        drawRect(px - 2, py - 2, px + UPGRADES_W + 2, py + UPGRADES_H + 2, 0xFF5030A0);
-        drawRect(px - 1, py - 1, px + UPGRADES_W + 1, py + UPGRADES_H + 1, 0xFFBB77FF);
-        drawRect(px, py, px + UPGRADES_W, py + UPGRADES_H, 0xFF1A1030);
-
-        // Barre titre
-        drawRect(px + 1, py + 1, px + UPGRADES_W - 1, py + 13, 0xFF3A1F5E);
-        fontRenderer.drawStringWithShadow("\u00A7eUpgrades",
-            px + 4, py + 3, 0xFFFFDD77);
-        drawRect(px + 3, py + 13, px + UPGRADES_W - 3, py + 14, 0xFFBB77FF);
-
-        // Carre 2x2 des 4 slots compacts
-        int slotSize = 20;
-        int gap = 4;
-        int totalW = slotSize * 2 + gap;
-        int startX = px + (UPGRADES_W - totalW) / 2;
-        int startY = py + 18;
-
-        int[][] slotPositions = {
-            {0, 0}, {1, 0}, {0, 1}, {1, 1}
-        };
-
-        // Cadres violets autour des slots (les vrais slots Minecraft sont
-        // dessines automatiquement par-dessus par GuiContainer.drawScreen
-        // quand updateUpgradeSlotPositions les met aux bonnes positions)
-        for (int i = 0; i < 4; i++) {
-            int col = slotPositions[i][0];
-            int row = slotPositions[i][1];
-            int sx = startX + col * (slotSize + gap);
-            int sy = startY + row * (slotSize + gap);
-
-            // Cadre violet
-            drawRect(sx, sy, sx + slotSize, sy + slotSize, 0xFF8855BB);
-            drawRect(sx + 1, sy + 1, sx + slotSize - 1, sy + slotSize - 1, 0xFF0A0818);
-        }
-
-        // Mini-labels sous chaque paire (compact)
-        int labelY = startY + (slotSize + gap) * 2 + 4;
-        fontRenderer.drawStringWithShadow("RF  Energie",  px + 4, labelY,      0xFFFFAAAA);
-        fontRenderer.drawStringWithShadow("IO  I/O",      px + 4, labelY + 10, 0xFF88CCFF);
-        fontRenderer.drawStringWithShadow("SP  Vitesse",  px + 4, labelY + 20, 0xFFFFCC88);
-        fontRenderer.drawStringWithShadow("EF  Effic.",   px + 4, labelY + 30, 0xFF88DD88);
-    }
+    // Les 4 slots upgrade du ContainerFurnaceNexus sont maintenant TOUJOURS
+    // planques a (-1000, -1000) dans le GUI principal. Ils sont accessibles
+    // via le GUI dedie GuiFurnaceUpgrades (ouvert par un clic sur l'onglet
+    // Upgrades, pattern Mekanism).
 
     /**
-     * Pattern Thermal Expansion (CoFHCore TabAugment) :
-     * - Quand le panneau est OUVERT : slots aux positions visibles dans le panneau
-     *   (Minecraft les voit normalement -> tooltip vanilla affiche)
-     * - Quand le panneau est FERME : slots a (-1000, -1000) (planques)
-     *
-     * Le tooltip vanilla qui peut deborder sur les autres elements est le
-     * comportement normal de Minecraft 1.12.2 et de tous les mods (Thermal,
-     * Mekanism, etc.). On accepte.
+     * Maintient les 4 slots upgrade du container toujours hors-ecran
+     * dans ce GUI (ils sont visibles dans le GUI Upgrades dedie).
      */
     private void updateUpgradeSlotPositions() {
-        // Doit matcher EXACTEMENT drawUpgradesPanel
-        int slotSize = 20;
-        int gap = 4;
-        int totalW = slotSize * 2 + gap;
-        int panelX = xSize + 2;
-        int startX = panelX + (UPGRADES_W - totalW) / 2 + 2;  // +2 pour centrer 18 dans 20
-        int startY = 10 + 18 + 2;  // py + 18 + 2
-
-        int[][] slotPositions = {
-            {0, 0}, {1, 0}, {0, 1}, {1, 1}
-        };
-
         for (int i = 0; i < 4; i++) {
             Slot slot = inventorySlots.inventorySlots.get(3 + i);
-            if (upgradesOpen) {
-                int col = slotPositions[i][0];
-                int row = slotPositions[i][1];
-                slot.xPos = startX + col * (slotSize + gap);
-                slot.yPos = startY + row * (slotSize + gap);
-            } else {
-                slot.xPos = -1000;
-                slot.yPos = -1000;
-            }
+            slot.xPos = -1000;
+            slot.yPos = -1000;
         }
     }
 
@@ -453,15 +375,20 @@ public class GuiFurnaceNexus extends GuiContainer {
         // 1. Clic onglet CONFIG (gauche, x=-13, 15x17)
         if (mx >= x - 13 && mx <= x + 2 && my >= y + 18 && my <= y + 35) {
             configOpen = !configOpen;
-            if (configOpen) upgradesOpen = false;  // Ferme l'autre
             return;
         }
 
         // 2. Clic onglet UPGRADES (droite, x=xSize-2, 15x17)
+        // Pattern Mekanism : ouvre un GUI dedie a la place d'un side-panel
         if (mx >= x + xSize - 2 && mx <= x + xSize + 13
             && my >= y + 18 && my <= y + 35) {
-            upgradesOpen = !upgradesOpen;
-            if (upgradesOpen) configOpen = false;  // Ferme l'autre
+            net.minecraft.util.math.BlockPos pos = tile.getPos();
+            mc.player.openGui(
+                com.nexusabsolu.mod.NexusAbsoluMod.instance,
+                com.nexusabsolu.mod.gui.GuiHandler.FURNACE_UPGRADES_GUI,
+                mc.world,
+                pos.getX(), pos.getY(), pos.getZ()
+            );
             return;
         }
 
