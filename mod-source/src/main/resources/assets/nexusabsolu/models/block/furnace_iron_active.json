@@ -2,7 +2,7 @@
   "parent": "block/orientable",
   "textures": {
     "top": "nexusabsolu:blocks/furnace_iron_top",
-    "front": "nexusabsolu:blocks/furnace_iron_front",
+    "front": "nexusabsolu:blocks/furnace_iron_front_on",
     "side": "nexusabsolu:blocks/furnace_iron_side"
   }
 }

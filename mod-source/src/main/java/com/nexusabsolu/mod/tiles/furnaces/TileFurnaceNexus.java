@@ -158,6 +158,17 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         return !rfSlot.isEmpty();
     }
 
+    /**
+     * True si le furnace est actuellement en train de cuire (flamme visible).
+     * Utilise par le BlockFurnaceNexus pour activer la property ACTIVE du
+     * blockstate (differencie front_on/top_on allume vs front/top eteint,
+     * et de meme pour les LED enhanced brillantes vs grises).
+     */
+    public boolean isActivelyCooking() {
+        return (fuelBurnTicks > 0 || (isRFMode() && energyStorage.getEnergyStored() > 0))
+            && cookProgress > 0;
+    }
+
     /** Nombre d'items dans le slot SPEED_BOOSTER (0 si vide). */
     private int getSpeedBoosterCount() {
         ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.SPEED_BOOSTER.slotIndex];
@@ -263,7 +274,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         }
 
         boolean isActive = cookProgress > 0 || fuelBurnTicks > 0;
-        if (wasActive != isActive) markDirty();
+        if (wasActive != isActive) {
+            markDirty();
+            // v1.0.216 : force le re-render du blockstate ACTIVE pour switcher
+            // entre texture eteinte (LED grise) et allumee (LED cyan brillante)
+            net.minecraft.block.state.IBlockState state = world.getBlockState(pos);
+            world.notifyBlockUpdate(pos, state, state, 3);
+        }
 
         // Auto I/O selon SideConfig (tous les 10 ticks = 0.5s = confort joueur)
         ioTickCounter++;

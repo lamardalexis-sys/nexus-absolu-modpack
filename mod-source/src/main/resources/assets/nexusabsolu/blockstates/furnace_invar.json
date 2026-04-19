@@ -1,34 +1,64 @@
 {
   "variants": {
-    "enhanced=false,facing=north": {
+    "active=false,enhanced=false,facing=north": {
       "model": "nexusabsolu:furnace_invar"
     },
-    "enhanced=false,facing=south": {
-      "model": "nexusabsolu:furnace_invar",
-      "y": 180
-    },
-    "enhanced=false,facing=west": {
-      "model": "nexusabsolu:furnace_invar",
-      "y": 270
-    },
-    "enhanced=false,facing=east": {
+    "active=false,enhanced=false,facing=east": {
       "model": "nexusabsolu:furnace_invar",
       "y": 90
     },
-    "enhanced=true,facing=north": {
-      "model": "nexusabsolu:furnace_invar_enhanced"
-    },
-    "enhanced=true,facing=south": {
-      "model": "nexusabsolu:furnace_invar_enhanced",
+    "active=false,enhanced=false,facing=south": {
+      "model": "nexusabsolu:furnace_invar",
       "y": 180
     },
-    "enhanced=true,facing=west": {
-      "model": "nexusabsolu:furnace_invar_enhanced",
+    "active=false,enhanced=false,facing=west": {
+      "model": "nexusabsolu:furnace_invar",
       "y": 270
     },
-    "enhanced=true,facing=east": {
-      "model": "nexusabsolu:furnace_invar_enhanced",
+    "active=true,enhanced=false,facing=north": {
+      "model": "nexusabsolu:furnace_invar_active"
+    },
+    "active=true,enhanced=false,facing=east": {
+      "model": "nexusabsolu:furnace_invar_active",
       "y": 90
+    },
+    "active=true,enhanced=false,facing=south": {
+      "model": "nexusabsolu:furnace_invar_active",
+      "y": 180
+    },
+    "active=true,enhanced=false,facing=west": {
+      "model": "nexusabsolu:furnace_invar_active",
+      "y": 270
+    },
+    "active=false,enhanced=true,facing=north": {
+      "model": "nexusabsolu:furnace_invar_enhanced_idle"
+    },
+    "active=false,enhanced=true,facing=east": {
+      "model": "nexusabsolu:furnace_invar_enhanced_idle",
+      "y": 90
+    },
+    "active=false,enhanced=true,facing=south": {
+      "model": "nexusabsolu:furnace_invar_enhanced_idle",
+      "y": 180
+    },
+    "active=false,enhanced=true,facing=west": {
+      "model": "nexusabsolu:furnace_invar_enhanced_idle",
+      "y": 270
+    },
+    "active=true,enhanced=true,facing=north": {
+      "model": "nexusabsolu:furnace_invar_enhanced_active"
+    },
+    "active=true,enhanced=true,facing=east": {
+      "model": "nexusabsolu:furnace_invar_enhanced_active",
+      "y": 90
+    },
+    "active=true,enhanced=true,facing=south": {
+      "model": "nexusabsolu:furnace_invar_enhanced_active",
+      "y": 180
+    },
+    "active=true,enhanced=true,facing=west": {
+      "model": "nexusabsolu:furnace_invar_enhanced_active",
+      "y": 270
     }
   }
 }

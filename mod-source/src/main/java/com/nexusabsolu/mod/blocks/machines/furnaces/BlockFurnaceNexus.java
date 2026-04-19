@@ -52,6 +52,11 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     // v1.0.212 : property calculee depuis la TileEntity via getActualState
     // (pas stockee en meta - le meta reste facing-only, 2 bits)
     public static final PropertyBool ENHANCED = PropertyBool.create("enhanced");
+    // v1.0.216 : true si le furnace cuit activement (flamme visible).
+    // Permet au blockstate de choisir entre:
+    //   - base : texture neutre (pas de lumiere, LED grise si enhanced)
+    //   - active : front_on+top avec flamme + LED cyan brillante si enhanced
+    public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
     private final FurnaceTier tier;
 
@@ -68,7 +73,8 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
         setHarvestLevel("pickaxe", 1);
         setDefaultState(this.blockState.getBaseState()
             .withProperty(FACING, EnumFacing.NORTH)
-            .withProperty(ENHANCED, Boolean.FALSE));
+            .withProperty(ENHANCED, Boolean.FALSE)
+            .withProperty(ACTIVE, Boolean.FALSE));
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
@@ -79,33 +85,40 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, ENHANCED);
+        return new BlockStateContainer(this, FACING, ENHANCED, ACTIVE);
     }
 
     /**
-     * v1.0.212 : lit le flag isEnhanced depuis la TileEntity pour que le
-     * blockstate JSON puisse choisir le bon modele (avec LED ou sans).
+     * v1.0.212/216 : lit les flags isEnhanced + isActivelyCooking depuis la
+     * TileEntity pour que le blockstate JSON puisse choisir le bon modele :
+     *   - active=false : texture eteinte (LED grise si enhanced)
+     *   - active=true  : texture allumee (LED cyan brillante si enhanced)
      */
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
         TileEntity te = world.getTileEntity(pos);
-        boolean enhanced = (te instanceof TileFurnaceNexus)
-            && ((TileFurnaceNexus) te).isEnhanced();
-        return state.withProperty(ENHANCED, enhanced);
+        boolean enhanced = false;
+        boolean active = false;
+        if (te instanceof TileFurnaceNexus) {
+            TileFurnaceNexus furnace = (TileFurnaceNexus) te;
+            enhanced = furnace.isEnhanced();
+            active = furnace.isActivelyCooking();
+        }
+        return state.withProperty(ENHANCED, enhanced).withProperty(ACTIVE, active);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
         EnumFacing facing = EnumFacing.getFront(meta);
         if (facing.getAxis() == EnumFacing.Axis.Y) facing = EnumFacing.NORTH;
-        // ENHANCED n'est PAS dans le meta - toujours false au getStateFromMeta,
-        // getActualState le remplacera en lisant la TileEntity
+        // ENHANCED et ACTIVE ne sont PAS dans le meta - toujours false au
+        // getStateFromMeta, getActualState les remplace depuis la TileEntity
         return getDefaultState().withProperty(FACING, facing);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        // meta = facing seulement, ENHANCED vient de la TileEntity
+        // meta = facing seulement, ENHANCED et ACTIVE viennent de la TileEntity
         return state.getValue(FACING).getIndex();
     }
 
@@ -210,10 +223,11 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerModels() {
-        // IMPORTANT : properties en ordre ALPHABETIQUE (enhanced avant facing)
-        // Minecraft 1.12.2 matche les variants du blockstate par ce format exact.
+        // Properties ORDRE ALPHABETIQUE : active, enhanced, facing
+        // MC 1.12.2 compose la cle de variant dans cet ordre.
         ModelLoader.setCustomModelResourceLocation(
             Item.getItemFromBlock(this), 0,
-            new ModelResourceLocation(getRegistryName(), "enhanced=false,facing=north"));
+            new ModelResourceLocation(getRegistryName(),
+                "active=false,enhanced=false,facing=north"));
     }
 }

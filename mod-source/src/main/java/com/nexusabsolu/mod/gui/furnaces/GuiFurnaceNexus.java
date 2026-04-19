@@ -78,19 +78,32 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // === RF BAR VERTICALE a droite (v7) - UNIQUEMENT si enhanced ===
-        // Texture zone : (140, 12) a (150, 84) = 10x72 max fill
-        if (tile.isEnhanced()) {
+        // === RF BAR VERTICALE a droite (style Thermal) - UNIQUEMENT si
+        // l'upgrade RF Converter est placee dans le slot correspondant ===
+        // Zone : (140, 12) a (150, 84) = 10x72 max fill
+        if (tile.isRFMode()) {
+            // Cadre noir (1px) autour pour demarquer (style Thermal)
+            drawRect(x + 140, y + 12, x + 150, y + 84, 0xFF1A1A1A);
+            // Fond sombre (rouge fonce satureee) pour vide = contraste
+            drawRect(x + 141, y + 13, x + 149, y + 83, 0xFF3D0A0A);
+            // Fill : degrade vertical rouge fonce -> rouge vif -> orange (bas->haut)
+            // Style Thermal Redstone Furnace
             fillBarVertical(x + 141, y + 13, 8, 70,
                 tile.getEnergyStored(), tile.getMaxEnergy(),
-                0xFFCC4444, 0xFFFF6666);
+                0xFFB22222, 0xFFFF8A3C);
+            // Highlight vertical cote gauche (1px brillant pour effet 3D)
+            int fillH = tile.getMaxEnergy() > 0
+                ? (int)(70.0F * tile.getEnergyStored() / tile.getMaxEnergy()) : 0;
+            if (fillH > 0) {
+                drawRect(x + 141, y + 83 - fillH, x + 142, y + 83, 0xFFFFAA44);
+            }
         }
 
         // === FLAMME fuel indicator style vanilla (descend avec le fuel restant) ===
         // Zone : (68, 55) a (91, 62) = 24x8
         int fuelBurnTicks = tile.getFuelBurnTicks();
         int fuelTotal = tile.getFuelTotalBurnTicks();
-        boolean rfActive = tile.isEnhanced()
+        boolean rfActive = tile.isRFMode()
             && tile.getEnergyStored() > 0 && tile.getCookProgress() > 0;
 
         if (fuelBurnTicks > 0 && fuelTotal > 0) {
@@ -150,8 +163,8 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Label Inventaire (ajuste a ySize=186 -> inv a y=93+)
         fontRenderer.drawStringWithShadow("Inventaire", 8, 93, 0xFF8866AA);
 
-        // Label RF au-dessus de la barre verticale - uniquement si enhanced
-        if (tile.isEnhanced()) {
+        // Label RF au-dessus de la barre verticale - uniquement si RF Converter place
+        if (tile.isRFMode()) {
             fontRenderer.drawStringWithShadow("RF", 137, 4, 0xFFCC4444);
         }
     }
@@ -189,8 +202,8 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // RF bar tooltip (zone verticale (140,12)-(150,84)) - uniquement si enhanced
-        if (tile.isEnhanced() && inRect(mx, my, x + 140, y + 12, 10, 72)) {
+        // RF bar tooltip (zone verticale (140,12)-(150,84)) - uniquement si RF Converter place
+        if (tile.isRFMode() && inRect(mx, my, x + 140, y + 12, 10, 72)) {
             drawHoveringText(Collections.singletonList(
                 tile.getEnergyStored() + " / " + tile.getMaxEnergy() + " RF"), mx, my);
         }
@@ -211,7 +224,7 @@ public class GuiFurnaceNexus extends GuiContainer {
             if (ticks > 0 && total > 0) {
                 int pct = ticks * 100 / total;
                 status = pct + "% (" + ticks + " ticks)";
-            } else if (tile.isEnhanced()
+            } else if (tile.isRFMode()
                 && tile.getEnergyStored() > 0 && tile.getCookProgress() > 0) {
                 status = "Mode RF";
             } else {
