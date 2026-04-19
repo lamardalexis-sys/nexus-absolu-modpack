@@ -16,7 +16,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 /**
  * TileEntity generique pour les Furnaces Nexus. Parametree par FurnaceTier.
@@ -41,7 +41,8 @@ import net.minecraftforge.items.wrapper.InvWrapper;
  *   - Progresse maxCookTime = tier.baseCookTime() ticks
  *   - Output vers slot 2 si stackable
  */
-public class TileFurnaceNexus extends TileEntity implements ITickable, IInventory {
+public class TileFurnaceNexus extends TileEntity implements ITickable,
+        net.minecraft.inventory.ISidedInventory {
 
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_FUEL = 1;
@@ -562,7 +563,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityEnergy.ENERGY) return (T) energyStorage;
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return (T) new InvWrapper(this);
+            // v1.0.217 : SidedInvWrapper respecte getSlotsForFace + canInsert/canExtract
+            // et expose donc SEULEMENT les slots input/fuel/output aux hoppers/pipes.
+            // Sans ca, InvWrapper(this) exposerait aussi les slots upgrades et un
+            // hopper adjacent pouvait les extraire du four.
+            return (T) new SidedInvWrapper(this, facing);
         }
         return super.getCapability(capability, facing);
     }
@@ -623,6 +628,40 @@ public class TileFurnaceNexus extends TileEntity implements ITickable, IInventor
         if (index == SLOT_INPUT) return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
         // Upgrade slots : valide seulement si c'est le bon type d'item (check Sprint C)
         return true;
+    }
+
+    // === ISidedInventory : CRITICAL securite slots upgrades ===
+    //
+    // Sans ISidedInventory, un InvWrapper(this) expose TOUS les slots (y compris
+    // les 4 upgrades), ce qui permet a un hopper/pipe adjacent d'EXTRAIRE les
+    // upgrades du four. Bug ingame rapporte v1.0.216 : la Carte d'Efficience
+    // sort du four toute seule.
+    //
+    // Ici on expose SEULEMENT les 3 slots input/fuel/output aux faces
+    // exterieures. Les slots upgrades (3-6) sont totalement invisibles aux
+    // hoppers/pipes et restent accessibles uniquement via le GUI.
+    private static final int[] EXPOSED_SLOTS = { SLOT_INPUT, SLOT_FUEL, SLOT_OUTPUT };
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        return EXPOSED_SLOTS;
+    }
+
+    @Override
+    public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
+        // Validations par slot :
+        //   INPUT : seulement smeltables
+        //   FUEL  : seulement fuel (coal/charcoal/etc.)
+        //   OUTPUT : rien ne peut y etre insere
+        if (index == SLOT_INPUT) return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
+        if (index == SLOT_FUEL) return getCoalOps(stack) > 0;
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+        // Seul SLOT_OUTPUT peut etre extrait (recettes cuites)
+        return index == SLOT_OUTPUT;
     }
 
     @Override public int getField(int id) { return 0; }
