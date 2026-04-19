@@ -173,8 +173,9 @@ public class GuiFurnaceNexus extends GuiContainer {
     }
 
     /**
-     * Dessine le tooltip de l'item survole dans le panneau Upgrades,
-     * force a gauche du curseur pour eviter qu'il deborde de l'ecran.
+    /**
+     * Dessine le tooltip de l'item survole AU-DESSUS du panneau Upgrades
+     * (pas a cote du curseur). Evite debordement ecran a droite et chevauchement GUI.
      */
     private void drawUpgradesSlotTooltip(int mx, int my) {
         net.minecraft.inventory.Slot hovered = getSlotUnderMouse();
@@ -183,29 +184,41 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         // Recupere le tooltip texte
         java.util.List<String> lines = this.getItemToolTip(stack);
+        if (lines.isEmpty()) return;
 
-        // Calcule largeur max du tooltip
+        // Calcule dimensions du tooltip
         int tooltipWidth = 0;
         for (String line : lines) {
             int w = fontRenderer.getStringWidth(line);
             if (w > tooltipWidth) tooltipWidth = w;
         }
-        // Largeur totale avec padding (5px de chaque cote = 10 total, selon Gui.drawHoveringText)
-        int totalW = tooltipWidth + 12;
+        int totalW = tooltipWidth + 12;  // +12 pour le padding interne de drawHoveringText
+        // Hauteur approx : premiere ligne = 10px (+2 spacing), lignes suivantes = 10px chacune
+        int totalH = lines.size() == 1 ? 10 : (10 + (lines.size() - 1) * 10 + 2);
+        totalH += 8;  // padding interne vertical
 
-        // Force a gauche : position x = mx - totalW - 12 (12 = gap entre curseur et tooltip)
-        // Clamp : si deborde a gauche (x < 0), on force x = 5 minimum
-        int tooltipX = mx - totalW - 12;
+        // Position cible : centre sur le panneau en X, au-DESSUS du panneau en Y
+        int panelPx = guiLeft + xSize + 2;
+        int panelPy = guiTop + 10;
+        int tooltipX = panelPx + (UPGRADES_W - totalW) / 2;
+        int tooltipY = panelPy - totalH - 4;  // 4px de gap au-dessus du panneau
+
+        // Clamp : tooltip ne doit pas sortir de l'ecran
         if (tooltipX < 5) tooltipX = 5;
+        if (tooltipX + totalW > this.width - 5) tooltipX = this.width - totalW - 5;
+        if (tooltipY < 5) tooltipY = 5;  // si panneau trop haut, clamp en haut de l'ecran
 
-        // Ruse : drawHoveringText ajoute +12 a x. On compense.
-        // Au lieu d'override la methode, on utilise une position simulee
-        // en trichant sur this.width pour que Gui calcule x = tooltipX.
-        int fakeMx = tooltipX + 12;  // pour que le "+12" interne donne tooltipX
+        // Ruse pour que drawHoveringText utilise notre position :
+        // la methode ajoute +12 a x et -12 a y. On compense.
+        int fakeMx = tooltipX + 12;
+        int fakeMy = tooltipY + 12;
         int realWidth = this.width;
-        this.width = fakeMx + totalW + 100;  // largeur grande pour eviter clamp a droite
-        renderToolTip(stack, fakeMx, my);
+        int realHeight = this.height;
+        this.width = fakeMx + totalW + 100;
+        this.height = fakeMy + totalH + 100;
+        renderToolTip(stack, fakeMx, fakeMy);
         this.width = realWidth;
+        this.height = realHeight;
     }
 
     /** True si le curseur est dans le panneau Upgrades (zone des 4 slots). */
