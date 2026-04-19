@@ -805,6 +805,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         @Override public void openInventory(EntityPlayer player) {}
         @Override public void closeInventory(EntityPlayer player) {}
 
+        /** Delegate au TileEntity parent pour propager save NBT. */
+        @Override
+        public void markDirty() {
+            TileFurnaceNexus.this.markDirty();
+        }
+
         @Override
         public boolean isItemValidForSlot(int index, ItemStack stack) {
             // Le Slot du Container fait ses propres checks, mais on respecte
