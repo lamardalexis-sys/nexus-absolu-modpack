@@ -154,13 +154,18 @@ public class ContainerFurnaceNexus extends Container {
             tile.getMaxCookTime(),
             tile.getFuelTotalBurnTicks()      // id=4 : ticks totaux du fuel (pour ratio flamme)
         };
+        // Pattern ContainerCondenseur : envoie d'abord a tous les listeners,
+        // puis update cachedFields APRES la boucle (sinon seul le premier
+        // listener recoit la mise a jour)
         for (IContainerListener listener : this.listeners) {
             for (int i = 0; i < currentFields.length; i++) {
                 if (cachedFields[i] != currentFields[i]) {
                     listener.sendWindowProperty(this, i, currentFields[i]);
-                    cachedFields[i] = currentFields[i];
                 }
             }
+        }
+        for (int i = 0; i < currentFields.length; i++) {
+            cachedFields[i] = currentFields[i];
         }
     }
 

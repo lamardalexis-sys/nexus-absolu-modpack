@@ -156,83 +156,14 @@ public class GuiFurnaceNexus extends GuiContainer {
     public void drawScreen(int mx, int my, float pt) {
         drawDefaultBackground();
         super.drawScreen(mx, my, pt);
-
-        // v1.0.202 : tooltip a gauche dans panneau Upgrades
-        // Plutot que de ruser sur this.width (qui fait deborder le tooltip
-        // sur le GUI), on intercepte le tooltip de l'item et on le dessine
-        // nous-meme a une position calculee explicitement.
-        if (upgradesOpen && isInUpgradesPanel(mx, my)) {
-            drawUpgradesSlotTooltip(mx, my);
-        } else {
-            renderHoveredToolTip(mx, my);
-        }
-
+        // Pattern vanilla simple (comme GuiCondenseur, GuiConvertisseur, etc.)
+        // JEI recule grace a FurnaceGuiHandler (IAdvancedGuiHandler) donc il
+        // reste de la place pour les tooltips. Minecraft place naturellement
+        // le tooltip a droite du curseur, bascule a gauche si pas de place.
+        renderHoveredToolTip(mx, my);
         drawCustomTooltips(mx, my);
         if (configOpen) drawConfigPanel(mx, my);
         if (upgradesOpen) drawUpgradesPanel(mx, my);
-    }
-
-    /**
-     * Dessine le tooltip de l'item survole dans le panneau Upgrades.
-     *
-     * Strategie : le tooltip est affiche DANS L'ESPACE LIBRE A DROITE du panneau.
-     * Si y'a pas assez de place (ecran coupe), fallback a GAUCHE du GUI principal.
-     * Le tooltip est aligne verticalement sur le curseur (suit la hauteur du slot survole).
-     */
-    private void drawUpgradesSlotTooltip(int mx, int my) {
-        net.minecraft.inventory.Slot hovered = getSlotUnderMouse();
-        if (hovered == null || !hovered.getHasStack()) return;
-        net.minecraft.item.ItemStack stack = hovered.getStack();
-
-        // Recupere le tooltip texte
-        java.util.List<String> lines = this.getItemToolTip(stack);
-        if (lines.isEmpty()) return;
-
-        // Dimensions tooltip
-        int tooltipWidth = 0;
-        for (String line : lines) {
-            int w = fontRenderer.getStringWidth(line);
-            if (w > tooltipWidth) tooltipWidth = w;
-        }
-        int totalW = tooltipWidth + 12;
-        int totalH = lines.size() == 1 ? 10 : (10 + (lines.size() - 1) * 10 + 2);
-        totalH += 8;
-
-        // Position X : d'abord essaie a DROITE du panneau Upgrades
-        int panelRight = guiLeft + xSize + 2 + UPGRADES_W;  // bord droit du panneau
-        int tooltipX = panelRight + 8;  // 8px de gap apres panneau
-
-        // Si deborde a droite de l'ecran, fallback : a GAUCHE du GUI principal
-        if (tooltipX + totalW > this.width - 5) {
-            tooltipX = guiLeft - totalW - 8;  // 8px avant le bord gauche du GUI
-            // Si deborde aussi a gauche, clamp a 5
-            if (tooltipX < 5) tooltipX = 5;
-        }
-
-        // Position Y : aligne sur le curseur mais clamp dans l'ecran
-        int tooltipY = my - totalH / 2;  // centre verticalement sur le curseur
-        if (tooltipY < 5) tooltipY = 5;
-        if (tooltipY + totalH > this.height - 5) tooltipY = this.height - totalH - 5;
-
-        // Ruse pour que drawHoveringText utilise notre position :
-        // la methode ajoute +12 a x et -12 a y. On compense.
-        int fakeMx = tooltipX + 12;
-        int fakeMy = tooltipY + 12;
-        int realWidth = this.width;
-        int realHeight = this.height;
-        this.width = fakeMx + totalW + 100;
-        this.height = fakeMy + totalH + 100;
-        renderToolTip(stack, fakeMx, fakeMy);
-        this.width = realWidth;
-        this.height = realHeight;
-    }
-
-    /** True si le curseur est dans le panneau Upgrades (zone des 4 slots). */
-    private boolean isInUpgradesPanel(int mx, int my) {
-        int px = guiLeft + xSize + 2;
-        int py = guiTop + 10;
-        return mx >= px && mx <= px + UPGRADES_W
-            && my >= py && my <= py + UPGRADES_H;
     }
 
     private void drawCustomTooltips(int mx, int my) {
