@@ -50,11 +50,15 @@ public class ContainerFurnaceNexus extends Container {
             playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 104, 24));
 
         // === 4 SLOTS UPGRADES (hors-ecran par defaut, GUI les repositionne dans le panneau) ===
+        // v1.0.218 : pointent vers l'IInventory SEPARE tile.getUpgradeInventory()
+        // avec index 0-3 au lieu de l'inventaire principal avec index 3-6.
+        // Empeche toute extraction externe par mods tiers.
+        net.minecraft.inventory.IInventory upgInv = tile.getUpgradeInventory();
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
-            int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
+            int slotIdx = up.slotIndex;  // 0..3
             // Position -1000 = cache. Le GUI les deplace quand upgradesOpen = true.
-            addSlotToContainer(new Slot(tile, slotIdx, -1000, -1000) {
+            addSlotToContainer(new Slot(upgInv, slotIdx, -1000, -1000) {
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;

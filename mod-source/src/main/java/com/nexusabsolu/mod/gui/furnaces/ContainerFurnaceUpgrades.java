@@ -46,15 +46,19 @@ public class ContainerFurnaceUpgrades extends Container {
             {0, 0}, {1, 0}, {0, 1}, {1, 1}
         };
 
+        // v1.0.218 : Slots pointent vers l'IInventory SEPARE (tile.getUpgradeInventory())
+        // Les upgrades ne sont PAS dans l'IInventory principal du TileEntity.
+        net.minecraft.inventory.IInventory upgInv = tile.getUpgradeInventory();
+
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
-            int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
+            int slotIdx = up.slotIndex;  // 0..3 (dans upgInv)
             int col = slotPositions[up.slotIndex][0];
             int row = slotPositions[up.slotIndex][1];
             int sx = startX + col * (slotSize + gap);
             int sy = startY + row * (slotSize + gap);
 
-            addSlotToContainer(new Slot(tile, slotIdx, sx, sy) {
+            addSlotToContainer(new Slot(upgInv, slotIdx, sx, sy) {
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;
