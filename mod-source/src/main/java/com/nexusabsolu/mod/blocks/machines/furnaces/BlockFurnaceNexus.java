@@ -210,11 +210,10 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerModels() {
-        // IMPORTANT : on pointe l'item vers une VRAIE variante du blockstate
-        // (pas "inventory" qui n'existe pas). Sinon Minecraft affiche la
-        // texture missing violet+noir pour l'item dans l'inventaire.
+        // IMPORTANT : properties en ordre ALPHABETIQUE (enhanced avant facing)
+        // Minecraft 1.12.2 matche les variants du blockstate par ce format exact.
         ModelLoader.setCustomModelResourceLocation(
             Item.getItemFromBlock(this), 0,
-            new ModelResourceLocation(getRegistryName(), "facing=north,enhanced=false"));
+            new ModelResourceLocation(getRegistryName(), "enhanced=false,facing=north"));
     }
 }

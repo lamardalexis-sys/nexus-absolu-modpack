@@ -1,32 +1,32 @@
 {
   "variants": {
-    "facing=north,enhanced=false": {
+    "enhanced=false,facing=north": {
       "model": "nexusabsolu:furnace_vossium_iv"
     },
-    "facing=south,enhanced=false": {
+    "enhanced=false,facing=south": {
       "model": "nexusabsolu:furnace_vossium_iv",
       "y": 180
     },
-    "facing=west,enhanced=false": {
+    "enhanced=false,facing=west": {
       "model": "nexusabsolu:furnace_vossium_iv",
       "y": 270
     },
-    "facing=east,enhanced=false": {
+    "enhanced=false,facing=east": {
       "model": "nexusabsolu:furnace_vossium_iv",
       "y": 90
     },
-    "facing=north,enhanced=true": {
+    "enhanced=true,facing=north": {
       "model": "nexusabsolu:furnace_vossium_iv_enhanced"
     },
-    "facing=south,enhanced=true": {
+    "enhanced=true,facing=south": {
       "model": "nexusabsolu:furnace_vossium_iv_enhanced",
       "y": 180
     },
-    "facing=west,enhanced=true": {
+    "enhanced=true,facing=west": {
       "model": "nexusabsolu:furnace_vossium_iv_enhanced",
       "y": 270
     },
-    "facing=east,enhanced=true": {
+    "enhanced=true,facing=east": {
       "model": "nexusabsolu:furnace_vossium_iv_enhanced",
       "y": 90
     }
