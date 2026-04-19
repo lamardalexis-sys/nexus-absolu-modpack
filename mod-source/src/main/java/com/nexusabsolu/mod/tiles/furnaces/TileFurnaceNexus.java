@@ -271,6 +271,19 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
         // 2. Fuel disponible ? (consumeFuelIfNeeded decremente fuelBurnTicks de 1)
         if (!consumeFuelIfNeeded()) {
+            // DEBUG v1.0.219 : log pourquoi on ne peut pas cuire
+            if (world.getTotalWorldTime() % 20 == 0) {
+                com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.info(
+                    "[FurnaceNexus] NO FUEL/RF @ " + pos
+                    + " | isRFMode=" + isRFMode()
+                    + " | RF=" + energyStorage.getEnergyStored() + "/" + energyStorage.getMaxEnergyStored()
+                    + " | conso=" + getEffectiveRfPerTick()
+                    + " | nativeRF=" + tier.nativeRF
+                    + " | upgrades=[RF=" + !upgrades[FurnaceUpgrade.RF_CONVERTER.slotIndex].isEmpty()
+                    + " SP=" + upgrades[FurnaceUpgrade.SPEED_BOOSTER.slotIndex].getCount()
+                    + " EF=" + upgrades[FurnaceUpgrade.EFFICIENCY.slotIndex].getCount() + "]"
+                );
+            }
             resetProgress();
             return;
         }
