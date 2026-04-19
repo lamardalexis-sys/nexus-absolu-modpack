@@ -156,10 +156,11 @@ public class GuiFurnaceNexus extends GuiContainer {
     public void drawScreen(int mx, int my, float pt) {
         drawDefaultBackground();
         super.drawScreen(mx, my, pt);
-        // Pattern vanilla simple (comme GuiCondenseur, GuiConvertisseur, etc.)
-        // JEI recule grace a FurnaceGuiHandler (IAdvancedGuiHandler) donc il
-        // reste de la place pour les tooltips. Minecraft place naturellement
-        // le tooltip a droite du curseur, bascule a gauche si pas de place.
+        // Pattern vanilla simple, identique a Thermal Expansion (verifie en
+        // analysant CoFHCore.GuiContainerCore.drawScreen) : ils utilisent juste
+        // renderHoveredToolTip sans aucune triche. Le tooltip qui chevauche les
+        // tabs side-attached est le comportement normal accepte par tout le monde
+        // (Thermal, Mekanism, IC2 font pareil).
         renderHoveredToolTip(mx, my);
         drawCustomTooltips(mx, my);
         if (configOpen) drawConfigPanel(mx, my);
