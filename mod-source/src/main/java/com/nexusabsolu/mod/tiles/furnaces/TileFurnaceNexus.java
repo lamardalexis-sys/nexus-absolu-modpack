@@ -623,7 +623,6 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override public ItemStack getStackInSlot(int index) { return inventory[index]; }
 
     @Override
-    @Override
     public ItemStack decrStackSize(int index, int count) {
         // v1.0.227 : protection slots upgrade contre extraction externe.
         // Seules les operations issues de notre Container GUI ont le droit
