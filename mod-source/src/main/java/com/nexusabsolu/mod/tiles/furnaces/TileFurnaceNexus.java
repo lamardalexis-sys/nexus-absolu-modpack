@@ -605,6 +605,15 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public ItemStack decrStackSize(int index, int count) {
         ItemStack stack = inventory[index];
         if (stack.isEmpty()) return ItemStack.EMPTY;
+
+        // DEBUG v1.0.225 : log quand un slot upgrade perd des items
+        if (index >= SLOT_UPGRADE_BASE && !stack.isEmpty()) {
+            com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.warn(
+                "[FurnaceNexus] decrStackSize UPGRADE slot=" + index
+                + " count=" + count + " stack=" + stack
+                + " @ " + pos, new Throwable("trace"));
+        }
+
         ItemStack result;
         if (stack.getCount() <= count) {
             result = stack;
@@ -620,12 +629,29 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override
     public ItemStack removeStackFromSlot(int index) {
         ItemStack s = inventory[index];
+
+        // DEBUG v1.0.225 : log quand un slot upgrade est vide de force
+        if (index >= SLOT_UPGRADE_BASE && !s.isEmpty()) {
+            com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.warn(
+                "[FurnaceNexus] removeStackFromSlot UPGRADE slot=" + index
+                + " stack=" + s + " @ " + pos, new Throwable("trace"));
+        }
+
         inventory[index] = ItemStack.EMPTY;
         return s;
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
+        // DEBUG v1.0.225 : log quand un slot upgrade passe de non-vide a vide
+        if (index >= SLOT_UPGRADE_BASE
+            && !inventory[index].isEmpty() && stack.isEmpty()) {
+            com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.warn(
+                "[FurnaceNexus] setInventorySlotContents UPGRADE slot=" + index
+                + " old=" + inventory[index] + " new=EMPTY @ " + pos,
+                new Throwable("trace"));
+        }
+
         inventory[index] = stack;
         if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
             stack.setCount(getInventoryStackLimit());
