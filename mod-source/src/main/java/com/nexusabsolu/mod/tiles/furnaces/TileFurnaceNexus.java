@@ -286,63 +286,74 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     }
 
     /**
-     * Logique de cuisson d'un tick : recette, fuel, progression.
-     * Peut return early si pas de recette/fuel/output plein sans impacter
-     * le doAutoIO (fait en amont dans update()).
+     * Logique de cuisson d'un tick, en mode cuisson parallele.
+     *
+     * Pour chaque paire (input[i], output[i]) ou i < getIOSlotCount() :
+     *   - Si input[i] a une recette valide ET output[i] peut accepter le resultat,
+     *     cette paire est consideree ACTIVE.
+     *
+     * Pendant la cuisson : conso fuel/RF x nombre de paires actives.
+     * A la fin du cycle (cookProgress >= maxCookTime) : chaque paire active
+     * consomme 1 item de son input et produit 1 item dans son output.
+     *
+     * Timer global partage : toutes les paires cuisent en synchrone.
      */
     private void tryCookTick() {
         boolean wasActive = cookProgress > 0 || fuelBurnTicks > 0;
 
-        // 1. Recette disponible ?
-        ItemStack input = inventory.get(SLOT_INPUT);
-        if (input.isEmpty()) {
-            resetProgress();
-            updateActiveState(wasActive);
-            return;
-        }
-        ItemStack result = FurnaceRecipes.instance().getSmeltingResult(input);
-        if (result.isEmpty()) {
-            resetProgress();
-            updateActiveState(wasActive);
-            return;
-        }
-        // Output stackable ?
-        ItemStack output = inventory.get(SLOT_OUTPUT);
-        if (!output.isEmpty()) {
-            if (!ItemHandlerHelper.canItemStacksStack(output, result)) {
-                resetProgress();
-                updateActiveState(wasActive);
-                return;
+        int slotCount = getIOSlotCount();
+
+        // 1. Identifier les paires actives et cacher leurs resultats
+        ItemStack[] cachedResults = new ItemStack[SLOT_INPUT_MAX];
+        int activeCount = 0;
+        for (int i = 0; i < slotCount; i++) {
+            ItemStack input = inventory.get(SLOT_INPUT_BASE + i);
+            if (input.isEmpty()) continue;
+            ItemStack result = FurnaceRecipes.instance().getSmeltingResult(input);
+            if (result.isEmpty()) continue;
+            ItemStack output = inventory.get(SLOT_OUTPUT_BASE + i);
+            if (!output.isEmpty()) {
+                if (!ItemHandlerHelper.canItemStacksStack(output, result)) continue;
+                if (output.getCount() + result.getCount() > output.getMaxStackSize()) continue;
             }
-            if (output.getCount() + result.getCount() > output.getMaxStackSize()) {
-                resetProgress();
-                updateActiveState(wasActive);
-                return;
-            }
+            cachedResults[i] = result;
+            activeCount++;
         }
 
-        // 2. Fuel disponible ? (consumeFuelIfNeeded decremente fuelBurnTicks de 1)
-        if (!consumeFuelIfNeeded()) {
+        if (activeCount == 0) {
             resetProgress();
             updateActiveState(wasActive);
             return;
         }
 
-        // 3. Cuisson progress (utilise le temps effectif avec upgrades)
+        // 2. Fuel : conso = activeCount x baseRF (ou activeCount ticks de burn en coal)
+        if (!consumeFuelIfNeeded(activeCount)) {
+            resetProgress();
+            updateActiveState(wasActive);
+            return;
+        }
+
+        // 3. Progress
         maxCookTime = getEffectiveMaxCookTime();
         cookProgress++;
         if (cookProgress >= maxCookTime) {
-            // Execute la cuisson
-            ItemStack copy = result.copy();
-            if (output.isEmpty()) {
-                inventory.set(SLOT_OUTPUT, copy);
-            } else {
-                output.grow(copy.getCount());
+            // Execute la cuisson pour chaque paire active
+            for (int i = 0; i < slotCount; i++) {
+                ItemStack result = cachedResults[i];
+                if (result == null) continue;
+
+                ItemStack input = inventory.get(SLOT_INPUT_BASE + i);
+                ItemStack output = inventory.get(SLOT_OUTPUT_BASE + i);
+
+                if (output.isEmpty()) {
+                    inventory.set(SLOT_OUTPUT_BASE + i, result.copy());
+                } else {
+                    output.grow(result.getCount());
+                }
+                input.shrink(1);
+                if (input.getCount() <= 0) inventory.set(SLOT_INPUT_BASE + i, ItemStack.EMPTY);
             }
-            input.shrink(1);
-            if (input.getCount() <= 0) inventory.set(SLOT_INPUT, ItemStack.EMPTY);
             cookProgress = 0;
-            // Note: fuelBurnTicks est decremente tick-par-tick dans consumeFuelIfNeeded
             markDirty();
         }
 
@@ -369,12 +380,22 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
      * - Face ITEM_OUT : push du SLOT_OUTPUT vers voisin
      * Energy est gere automatiquement par la capability CapabilityEnergy sur toutes faces.
      */
+    /**
+     * Auto pull/push items selon SideConfig, toutes les 10 ticks.
+     * - Face ITEM_IN  : pull du voisin vers 1er input libre (parmi les slots actifs)
+     * - Face FUEL_IN  : pull du voisin vers SLOT_FUEL
+     * - Face ITEM_OUT : push depuis tous les outputs non-vides vers voisin
+     *
+     * Energy est gere automatiquement par la capability CapabilityEnergy sur toutes faces.
+     *
+     * v1.0.249 : adapte a la Phase 2 IO Expansion. Push parcourt tous les slots
+     * output[0..N-1] selon getIOSlotCount(). Pull cherche le 1er input libre
+     * dans [0..N-1] ou le 1er input stackable avec un item extrait.
+     */
     private void doAutoIO() {
+        int slotCount = getIOSlotCount();  // 1, 3, 5, 7 ou 9
+
         for (int faceIdx = 0; faceIdx < 6; faceIdx++) {
-            // Optim v1.0.238 : skip immediat si cette face n'a AUCUNE action IO
-            // active. Evite les appels couteux a world.getTileEntity et getCapability
-            // quand le furnace est dans sa config par defaut (seule face DOWN
-            // active pour ITEM_OUT).
             boolean outActive = sideConfig.isFaceActive(SC_TYPE_ITEM_OUT, faceIdx);
             boolean inActive = sideConfig.isFaceActive(SC_TYPE_ITEM_IN, faceIdx);
             boolean fuelActive = sideConfig.isFaceActive(SC_TYPE_FUEL_IN, faceIdx);
@@ -390,30 +411,57 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
                 CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, opposite);
             if (neighborHandler == null) continue;
 
-            // ITEM_OUT : push SLOT_OUTPUT vers voisin
+            // ITEM_OUT : push depuis tous les slots output actifs
             if (outActive) {
-                ItemStack out = inventory.get(SLOT_OUTPUT);
-                if (!out.isEmpty()) {
+                for (int i = 0; i < slotCount; i++) {
+                    int slotIdx = SLOT_OUTPUT_BASE + i;
+                    ItemStack out = inventory.get(slotIdx);
+                    if (out.isEmpty()) continue;
                     ItemStack remaining = ItemHandlerHelper.insertItemStacked(neighborHandler, out.copy(), false);
                     int inserted = out.getCount() - remaining.getCount();
                     if (inserted > 0) {
                         out.shrink(inserted);
-                        if (out.getCount() <= 0) inventory.set(SLOT_OUTPUT, ItemStack.EMPTY);
+                        if (out.getCount() <= 0) inventory.set(slotIdx, ItemStack.EMPTY);
                         markDirty();
                     }
                 }
             }
 
-            // ITEM_IN : pull smeltables vers SLOT_INPUT
+            // ITEM_IN : pull vers le 1er slot input qui peut accepter (stackable ou vide)
             if (inActive) {
-                pullFromNeighborToSlot(neighborHandler, SLOT_INPUT, true, false);
+                pullFromNeighborToAnyInput(neighborHandler, slotCount);
             }
 
-            // FUEL_IN : pull fuels vers SLOT_FUEL
+            // FUEL_IN : pull fuels vers SLOT_FUEL (toujours unique)
             if (fuelActive) {
                 pullFromNeighborToSlot(neighborHandler, SLOT_FUEL, false, true);
             }
         }
+    }
+
+    /**
+     * Pull smeltables depuis le voisin vers le PREMIER input slot qui peut
+     * l'accepter parmi [0..slotCount-1]. Priorite : slots deja remplis stackables
+     * en premier (pour remplir avant d'etendre), puis slots vides.
+     */
+    private void pullFromNeighborToAnyInput(net.minecraftforge.items.IItemHandler handler, int slotCount) {
+        // Essayer chaque slot input, dans l'ordre
+        for (int i = 0; i < slotCount; i++) {
+            int slotIdx = SLOT_INPUT_BASE + i;
+            ItemStack current = inventory.get(slotIdx);
+            if (!current.isEmpty() && current.getCount() >= current.getMaxStackSize()) continue;
+            // pullFromNeighborToSlot retourne dès qu'il a pulled 1 fois. Ici on le
+            // laisse tenter chaque input jusqu'a un succes. Un seul pull par tick IO.
+            int before = countItem(slotIdx);
+            pullFromNeighborToSlot(handler, slotIdx, true, false);
+            if (countItem(slotIdx) > before) return;  // pull reussi, stop
+        }
+    }
+
+    /** Helper : count d'un slot (0 si empty). */
+    private int countItem(int slotIdx) {
+        ItemStack s = inventory.get(slotIdx);
+        return s.isEmpty() ? 0 : s.getCount();
     }
 
     /**
@@ -471,46 +519,59 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     }
 
     /**
-     * Consomme du fuel (1 tick). Style vanilla :
-     * - Mode RF : consomme baseRfPerTick RF par tick (+ modifs upgrades)
-     * - Mode coal : decremente fuelBurnTicks de 1 par tick. Si arrive a 0,
-     *   prend un nouveau fuel dans le slot et initialise fuelBurnTicks.
+     * Consomme du fuel pour N paires actives en parallele.
      *
-     * La flamme visible (ratio fuelBurnTicks / fuelTotalBurnTicks) descend
-     * donc progressivement sur la duree du fuel (comme vanilla).
+     * - Mode RF : consomme baseRfPerTick * multiplier RF ce tick
+     *             (plus la machine a de slots actifs, plus elle consomme)
+     * - Mode coal : consomme 'multiplier' ticks de burn d'un coup.
+     *               Si fuelBurnTicks epuise, recharge depuis SLOT_FUEL.
+     *
+     * Retourne true si la conso a reussi (fuel suffisant trouve), false sinon.
+     * En cas d'echec partiel (ex. 5 ticks consumed sur 7 demandes), l'etat du
+     * fuel reste dans l'etat consomme (fuel brule mais cuisson echouee ce tick).
      */
-    private boolean consumeFuelIfNeeded() {
+    private boolean consumeFuelIfNeeded(int multiplier) {
+        if (multiplier <= 0) return true;
+
         if (isRFMode()) {
-            // Mode RF : consomme tick-by-tick (avec upgrades)
-            int rfConso = getEffectiveRfPerTick();
+            int rfConso = getEffectiveRfPerTick() * multiplier;
             if (energyStorage.getEnergyStored() < rfConso) return false;
             energyStorage.drainInternal(rfConso);
             return true;
         }
 
-        // Mode coal (ticks-based)
-        if (fuelBurnTicks > 0) {
-            fuelBurnTicks--;
-            if (fuelBurnTicks <= 0) {
-                fuelTotalBurnTicks = 0;
-                markDirty();
+        // Mode coal : consomme 'multiplier' ticks de burn, en rechargeant au besoin
+        int remaining = multiplier;
+        boolean dirty = false;
+        while (remaining > 0) {
+            if (fuelBurnTicks > 0) {
+                int canConsume = Math.min(remaining, fuelBurnTicks);
+                fuelBurnTicks -= canConsume;
+                remaining -= canConsume;
+                if (fuelBurnTicks <= 0) {
+                    fuelTotalBurnTicks = 0;
+                    dirty = true;
+                }
+            } else {
+                // Plus de burn en cours : recharge depuis SLOT_FUEL
+                ItemStack fuel = inventory.get(SLOT_FUEL);
+                if (fuel.isEmpty()) {
+                    if (dirty) markDirty();
+                    return false;
+                }
+                int burnTime = net.minecraft.tileentity.TileEntityFurnace.getItemBurnTime(fuel);
+                if (burnTime <= 0) {
+                    if (dirty) markDirty();
+                    return false;
+                }
+                fuelTotalBurnTicks = burnTime;
+                fuelBurnTicks = burnTime;
+                fuel.shrink(1);
+                if (fuel.getCount() <= 0) inventory.set(SLOT_FUEL, ItemStack.EMPTY);
+                dirty = true;
             }
-            return true;
         }
-
-        // Plus de fuel : essaye d'en consommer un nouveau
-        ItemStack fuel = inventory.get(SLOT_FUEL);
-        if (fuel.isEmpty()) return false;
-
-        int burnTime = net.minecraft.tileentity.TileEntityFurnace.getItemBurnTime(fuel);
-        if (burnTime <= 0) return false;
-
-        // Initialise le nouveau fuel
-        fuelTotalBurnTicks = burnTime;
-        fuelBurnTicks = burnTime - 1;  // -1 car on en consomme 1 ce tick
-        fuel.shrink(1);
-        if (fuel.getCount() <= 0) inventory.set(SLOT_FUEL, ItemStack.EMPTY);
-        markDirty();
+        if (dirty) markDirty();
         return true;
     }
 
