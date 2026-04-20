@@ -131,30 +131,29 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
         int visibleSlots = tile.getIOSlotCount();
-        int extraH = ySize - 186;  // 0 si tier 0-I, >0 sinon
+        int extraH = ySize - 186;
 
-        if (extraH == 0) {
-            // Cas vanilla : une seule blit 176x186
+        if (visibleSlots == 1) {
+            // === Tier 0 : texture vanilla integrale (inchange par rapport a avant) ===
             drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
         } else {
-            // Cas extension : 3 zones
-            //   1) Top machine (0..93) : slot input principal, fuel, flamme, etc.
-            drawTexturedModalRect(x, y, 0, 0, xSize, 93);
-            //   2) Extension (93..93+extraH) : fond uni violet sombre assorti
-            drawRect(x, y + 93, x + xSize, y + 93 + extraH, 0xFF1B0E2A);
-            //   3) Bottom inventaire (93+extraH..ySize) = texture 93..186
+            // === Tier >= I : fond uni machine + texture inventaire bas + bordures manuelles ===
+            // 1) Fond uni panneau machine (y = 0 a 93+extraH)
+            drawRect(x, y, x + xSize, y + 93 + extraH, 0xFF1B0E2A);
+            // 2) Texture inventaire (partie bas de la texture originale)
             drawTexturedModalRect(x, y + 93 + extraH, 0, 93, xSize, 93);
-        }
 
-        // === BORDURES DES SLOTS INPUT/OUTPUT SUPPLEMENTAIRES ===
-        // Le slot[0] input et output sont deja dessines sur la texture vanilla.
-        // Pour les slots 1..N-1 on dessine manuellement un cadre + fond sombre.
-        for (int i = 1; i < visibleSlots; i++) {
-            int slotY = y + 19 + i * 18;
-            // Slot input colonne gauche (x=41)
-            drawSlotBorder(x + 41, slotY);
-            // Slot output colonne droite (x=104)
-            drawSlotBorder(x + 104, slotY);
+            // 3) Bordures des slots INPUT[0..N-1] en colonne gauche
+            for (int i = 0; i < visibleSlots; i++) {
+                drawSlotBorder(x + 41, y + 19 + i * 18);
+            }
+            // 4) Bordures des slots OUTPUT[0..N-1] en colonne droite
+            for (int i = 0; i < visibleSlots; i++) {
+                drawSlotBorder(x + 104, y + 19 + i * 18);
+            }
+            // 5) Bordure du slot FUEL (position deplacee sous la colonne input)
+            int fuelY = 19 + visibleSlots * 18 + 2;  // 2px de marge sous le dernier input
+            drawSlotBorder(x + 41, y + fuelY);
         }
 
         // === RF BAR VERTICALE a droite (style Thermal) ===
@@ -175,7 +174,7 @@ public class GuiFurnaceNexus extends GuiContainer {
             }
         }
 
-        // === FLAMME fuel indicator style vanilla (descend avec le fuel restant) ===
+        // === FLAMME fuel indicator ===
         int fuelBurnTicks = tile.getFuelBurnTicks();
         int fuelTotal = tile.getFuelTotalBurnTicks();
         boolean rfActive = tile.isRFMode()

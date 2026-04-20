@@ -86,8 +86,14 @@ public class ContainerFurnaceNexus extends Container {
             });
         }
 
-        // === FUEL (position inchangee) ===
-        addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 41, 51));
+        // === FUEL (position variable selon tier) ===
+        // Tier 0 : position vanilla (41, 51), juste sous le slot input unique
+        // Tier >= I : deplace en BAS de la colonne input pour eviter la collision
+        //             (sinon fuel y=51 chevauche input[1] y=37 et input[2] y=55)
+        int fuelY = (visibleIOSlots <= 1)
+            ? 51
+            : SLOT_VERTICAL_START + visibleIOSlots * SLOT_VERTICAL_STEP + 2;  // 2px de marge
+        addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 41, fuelY));
 
         // === 9 SLOTS OUTPUT (colonne verticale droite) ===
         for (int i = 0; i < TileFurnaceNexus.SLOT_OUTPUT_MAX; i++) {
