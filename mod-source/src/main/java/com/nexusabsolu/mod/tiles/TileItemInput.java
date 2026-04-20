@@ -143,7 +143,10 @@ public class TileItemInput extends TileEntity implements IInventory {
     @Override public void closeInventory(EntityPlayer player) {}
     @Override public boolean isItemValidForSlot(int index, ItemStack stack) {
         if (stack.isEmpty()) return true;
-        String id = stack.getItem().getRegistryName().toString();
+        // Null-safety : certains mods exotiques peuvent avoir un registry name null
+        net.minecraft.util.ResourceLocation rl = stack.getItem().getRegistryName();
+        if (rl == null) return false;
+        String id = rl.toString();
         switch (index) {
             case 0: // CM slot 1: compact machines or poop
             case 1: // CM slot 2: compact machines or poop

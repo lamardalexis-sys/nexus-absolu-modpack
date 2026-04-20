@@ -104,7 +104,10 @@ public class CondenseurRecipes {
         }
 
         private boolean slotMatches(ItemStack stack, String id, int meta) {
-            String stackId = stack.getItem().getRegistryName().toString();
+            // Null-safety : item non registre (save corrompu, mod exotique)
+            net.minecraft.util.ResourceLocation rl = stack.getItem().getRegistryName();
+            if (rl == null) return false;
+            String stackId = rl.toString();
             return stackId.equals(id) && stack.getMetadata() == meta;
         }
 
