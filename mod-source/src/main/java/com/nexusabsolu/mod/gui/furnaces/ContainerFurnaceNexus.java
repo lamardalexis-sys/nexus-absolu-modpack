@@ -28,27 +28,20 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 public class ContainerFurnaceNexus extends Container {
 
     private final TileFurnaceNexus tile;
+
     /**
-     * 10 champs syncs = 5 valeurs int * 2 shorts chacune (low 16 bits + high 16 bits).
-     *
-     * sendWindowProperty cote Minecraft 1.12.2 envoie un SHORT SIGNE (-32768..32767).
-     * Pour des valeurs int qui peuvent depasser 32767 (notamment energyStored pour les
-     * tiers T6+, ou fuelBurnTicks avec du coal block = 16000 * speed upgrade), il faut
-     * splitter :
-     *   id 2k   = bits bas (stockes dans short via (short)value)
-     *   id 2k+1 = bits hauts ((short)(value >>> 16))
-     *
-     * Layout des ids :
-     *   0,1 = cookProgress       (<<32767 OK en pratique mais split par coherence)
-     *   2,3 = fuelBurnTicks      (coal block * speed upgrade peut depasser)
-     *   4,5 = energyStored       (T6+ = 60k+, critique)
-     *   6,7 = maxCookTime        (<<32767 OK)
-     *   8,9 = fuelTotalBurnTicks (coal block = 16000, avec upgrades possible >32767)
-     *
-     * Pattern emprunte a Thermal Expansion et Mekanism qui utilisent ce split pour
-     * tous leurs containers.
+     * Helper pour sync serveur->client des valeurs int > 32767.
+     * 5 champs : cookProgress, fuelBurnTicks, energy, maxCookTime, fuelTotalBurnTicks.
+     * Chaque champ utilise 2 ids (low+high 16 bits). Voir ContainerSyncHelper.
      */
-    private int[] cachedFields = new int[5];
+    private final com.nexusabsolu.mod.gui.util.ContainerSyncHelper sync =
+        new com.nexusabsolu.mod.gui.util.ContainerSyncHelper(5);
+
+    private static final int FIELD_COOK_PROGRESS = 0;
+    private static final int FIELD_FUEL_BURN_TICKS = 1;
+    private static final int FIELD_ENERGY = 2;
+    private static final int FIELD_MAX_COOK_TIME = 3;
+    private static final int FIELD_FUEL_TOTAL_BURN_TICKS = 4;
 
     public ContainerFurnaceNexus(InventoryPlayer playerInv, TileFurnaceNexus tile) {
         this.tile = tile;
@@ -182,101 +175,43 @@ public class ContainerFurnaceNexus extends Container {
 
     // === SYNC CLIENT (progress, fuel ticks, energy, maxCookTime, fuelTotalBurnTicks) ===
     //
-    // Pattern split int -> 2 shorts : sendWindowProperty envoie un short signe.
-    // Pour un int N :
-    //   - bits bas : (short)N        -> reconstitues cote client par (int)((short)low) & 0xFFFF
-    //     (le cast (short) tronque automatiquement, puis & 0xFFFF pour non-sign-extend)
-    //   - bits hauts : (short)(N >>> 16)  -> cote client (high << 16)
-    // Total : low | high = int d'origine, exact.
+    // Utilise ContainerSyncHelper pour le split int->2 shorts afin de contourner
+    // la limite 32767 de sendWindowProperty en Minecraft 1.12.2.
 
-    /**
-     * v1.0.241 : force l'envoi des valeurs actuelles a un listener qui vient
-     * juste de s'attacher (au moment ou le joueur ouvre le GUI). Sinon le GUI
-     * affiche 0 pour tous les champs pendant 1 tick avant le prochain
-     * detectAndSendChanges.
-     */
+    /** Construit le tableau des valeurs actuelles dans l'ordre des FIELD_*. */
+    private int[] fetchFields() {
+        int[] fields = new int[5];
+        fields[FIELD_COOK_PROGRESS] = tile.getCookProgress();
+        fields[FIELD_FUEL_BURN_TICKS] = tile.getFuelBurnTicks();
+        fields[FIELD_ENERGY] = tile.getEnergyStored();
+        fields[FIELD_MAX_COOK_TIME] = tile.getMaxCookTime();
+        fields[FIELD_FUEL_TOTAL_BURN_TICKS] = tile.getFuelTotalBurnTicks();
+        return fields;
+    }
+
     @Override
     public void addListener(IContainerListener listener) {
         super.addListener(listener);
-        int[] initialFields = {
-            tile.getCookProgress(),
-            tile.getFuelBurnTicks(),
-            tile.getEnergyStored(),
-            tile.getMaxCookTime(),
-            tile.getFuelTotalBurnTicks()
-        };
-        for (int i = 0; i < initialFields.length; i++) {
-            int value = initialFields[i];
-            listener.sendWindowProperty(this, i * 2, value & 0xFFFF);
-            listener.sendWindowProperty(this, i * 2 + 1, (value >>> 16) & 0xFFFF);
-        }
+        sync.sendInitial(this, listener, fetchFields());
     }
 
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        int[] currentFields = {
-            tile.getCookProgress(),         // id 0/1
-            tile.getFuelBurnTicks(),        // id 2/3
-            tile.getEnergyStored(),         // id 4/5
-            tile.getMaxCookTime(),          // id 6/7
-            tile.getFuelTotalBurnTicks()    // id 8/9
-        };
-        // Envoie a tous les listeners, puis update cachedFields APRES la boucle
-        // (sinon seul le premier listener recoit la mise a jour)
-        for (IContainerListener listener : this.listeners) {
-            for (int i = 0; i < currentFields.length; i++) {
-                if (cachedFields[i] != currentFields[i]) {
-                    int value = currentFields[i];
-                    // Low 16 bits
-                    listener.sendWindowProperty(this, i * 2, value & 0xFFFF);
-                    // High 16 bits
-                    listener.sendWindowProperty(this, i * 2 + 1, (value >>> 16) & 0xFFFF);
-                }
-            }
-        }
-        for (int i = 0; i < currentFields.length; i++) {
-            cachedFields[i] = currentFields[i];
-        }
+        sync.detectChanges(this, this.listeners, fetchFields());
     }
-
-    /**
-     * Recoit un short client-side. On reconstitue l'int en combinant low/high
-     * via un buffer intermediaire (pendingFields[]) car les 2 paquets low et
-     * high arrivent separement.
-     */
-    private final int[] pendingFields = new int[5];
 
     @Override
     public void updateProgressBar(int id, int data) {
-        // data arrive comme int mais en realite = short tronque cote serveur.
-        // On le convertit en unsigned 16-bit pour avoir la vraie valeur du split.
-        int unsigned = data & 0xFFFF;
-
-        int fieldIdx = id / 2;
-        boolean isHighBits = (id % 2) == 1;
-
-        if (fieldIdx < 0 || fieldIdx >= pendingFields.length) return;
-
-        if (isHighBits) {
-            // Combine les high bits avec les low bits deja recus
-            pendingFields[fieldIdx] = (pendingFields[fieldIdx] & 0x0000FFFF) | (unsigned << 16);
-            // On applique la valeur finale au tile (apres reception low+high)
-            int finalValue = pendingFields[fieldIdx];
-            applyFieldToTile(fieldIdx, finalValue);
-        } else {
-            // Stocke les low bits, attend le high
-            pendingFields[fieldIdx] = (pendingFields[fieldIdx] & 0xFFFF0000) | unsigned;
-        }
-    }
-
-    private void applyFieldToTile(int fieldIdx, int value) {
+        int fieldIdx = sync.receiveProperty(id, data);
+        if (fieldIdx < 0) return;  // en attente des high bits
+        int value = sync.getField(fieldIdx);
         switch (fieldIdx) {
-            case 0: tile.setCookProgressClient(value); break;
-            case 1: tile.setFuelBurnTicksClient(value); break;
-            case 2: tile.setEnergyStoredClient(value); break;
-            case 3: tile.setMaxCookTimeClient(value); break;
-            case 4: tile.setFuelTotalBurnTicksClient(value); break;
+            case FIELD_COOK_PROGRESS:          tile.setCookProgressClient(value); break;
+            case FIELD_FUEL_BURN_TICKS:        tile.setFuelBurnTicksClient(value); break;
+            case FIELD_ENERGY:                 tile.setEnergyStoredClient(value); break;
+            case FIELD_MAX_COOK_TIME:          tile.setMaxCookTimeClient(value); break;
+            case FIELD_FUEL_TOTAL_BURN_TICKS:  tile.setFuelTotalBurnTicksClient(value); break;
         }
     }
 

@@ -19,7 +19,23 @@ public class ContainerCondenseurT2 extends Container {
     private final TileItemInput inputTile;
     private final TileItemOutput outputTile;
 
-    // Synced fields
+    /**
+     * Helper pour sync serveur->client des valeurs int > 32767.
+     * Capacite energie d'un T2 peut depasser 32767 (bug latent sans split).
+     * Voir ContainerSyncHelper pour le protocole.
+     */
+    private final com.nexusabsolu.mod.gui.util.ContainerSyncHelper sync =
+        new com.nexusabsolu.mod.gui.util.ContainerSyncHelper(7);
+
+    private static final int FIELD_PROCESS_TIME     = 0;
+    private static final int FIELD_MAX_PROCESS_TIME = 1;
+    private static final int FIELD_ENERGY           = 2;
+    private static final int FIELD_MAX_ENERGY       = 3;
+    private static final int FIELD_STRUCTURE_FORMED = 4;
+    private static final int FIELD_FLUID_AMOUNT     = 5;
+    private static final int FIELD_FLUID_CAPACITY   = 6;
+
+    // Valeurs cote client (remplies depuis updateProgressBar pour le GUI)
     private int processTime = 0;
     private int maxProcessTime = 0;
     private int energy = 0;
@@ -95,46 +111,45 @@ public class ContainerCondenseurT2 extends Container {
                                     master.getPos().getZ() + 0.5) <= 64;
     }
 
+    /** Construit le tableau des valeurs actuelles serveur dans l'ordre FIELD_*. */
+    private int[] fetchFields() {
+        int[] fields = new int[7];
+        fields[FIELD_PROCESS_TIME]     = master.getProcessTime();
+        fields[FIELD_MAX_PROCESS_TIME] = master.getMaxProcessTime();
+        fields[FIELD_ENERGY]           = master.getEnergyStored();
+        fields[FIELD_MAX_ENERGY]       = master.getMaxEnergyStored();
+        fields[FIELD_STRUCTURE_FORMED] = master.isStructureValid() ? 1 : 0;
+        fields[FIELD_FLUID_AMOUNT]     = master.getFluidAmount();
+        fields[FIELD_FLUID_CAPACITY]   = master.getFluidCapacity();
+        return fields;
+    }
+
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        sync.sendInitial(this, listener, fetchFields());
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (IContainerListener listener : listeners) {
-            if (processTime != master.getProcessTime())
-                listener.sendWindowProperty(this, 0, master.getProcessTime());
-            if (maxProcessTime != master.getMaxProcessTime())
-                listener.sendWindowProperty(this, 1, master.getMaxProcessTime());
-            if (energy != master.getEnergyStored())
-                listener.sendWindowProperty(this, 2, master.getEnergyStored());
-            if (maxEnergy != master.getMaxEnergyStored())
-                listener.sendWindowProperty(this, 3, master.getMaxEnergyStored());
-            int formed = master.isStructureValid() ? 1 : 0;
-            if (structureFormed != formed)
-                listener.sendWindowProperty(this, 4, formed);
-            if (fluidAmount != master.getFluidAmount())
-                listener.sendWindowProperty(this, 5, master.getFluidAmount());
-            if (fluidCapacity != master.getFluidCapacity())
-                listener.sendWindowProperty(this, 6, master.getFluidCapacity());
-        }
-        processTime = master.getProcessTime();
-        maxProcessTime = master.getMaxProcessTime();
-        energy = master.getEnergyStored();
-        maxEnergy = master.getMaxEnergyStored();
-        structureFormed = master.isStructureValid() ? 1 : 0;
-        fluidAmount = master.getFluidAmount();
-        fluidCapacity = master.getFluidCapacity();
+        sync.detectChanges(this, this.listeners, fetchFields());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
-        switch (id) {
-            case 0: processTime = data; break;
-            case 1: maxProcessTime = data; break;
-            case 2: energy = data; break;
-            case 3: maxEnergy = data; break;
-            case 4: structureFormed = data; break;
-            case 5: fluidAmount = data; break;
-            case 6: fluidCapacity = data; break;
+        int fieldIdx = sync.receiveProperty(id, data);
+        if (fieldIdx < 0) return;  // en attente des high bits
+        int value = sync.getField(fieldIdx);
+        switch (fieldIdx) {
+            case FIELD_PROCESS_TIME:     processTime = value; break;
+            case FIELD_MAX_PROCESS_TIME: maxProcessTime = value; break;
+            case FIELD_ENERGY:           energy = value; break;
+            case FIELD_MAX_ENERGY:       maxEnergy = value; break;
+            case FIELD_STRUCTURE_FORMED: structureFormed = value; break;
+            case FIELD_FLUID_AMOUNT:     fluidAmount = value; break;
+            case FIELD_FLUID_CAPACITY:   fluidCapacity = value; break;
         }
     }
 

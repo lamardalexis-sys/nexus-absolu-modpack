@@ -13,6 +13,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ContainerAutoScavenger extends Container {
 
     private final TileAutoScavenger tile;
+
+    /**
+     * Helper sync serveur->client. energy peut depasser 32767 (voir
+     * ContainerSyncHelper pour la raison).
+     */
+    private final com.nexusabsolu.mod.gui.util.ContainerSyncHelper sync =
+        new com.nexusabsolu.mod.gui.util.ContainerSyncHelper(3);
+
+    private static final int FIELD_PROCESS_TIME = 0;
+    private static final int FIELD_ENERGY       = 1;
+    private static final int FIELD_SPEED_LEVEL  = 2;
+
     private int processTime = 0;
     private int energy = 0;
     private int speedLevel = 1;
@@ -44,29 +56,36 @@ public class ContainerAutoScavenger extends Container {
         return tile.isUsableByPlayer(player);
     }
 
+    private int[] fetchFields() {
+        int[] fields = new int[3];
+        fields[FIELD_PROCESS_TIME] = tile.getMineTimer();
+        fields[FIELD_ENERGY]       = tile.getEnergyStored();
+        fields[FIELD_SPEED_LEVEL]  = tile.getSpeedLevel();
+        return fields;
+    }
+
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        sync.sendInitial(this, listener, fetchFields());
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (IContainerListener listener : listeners) {
-            if (processTime != tile.getMineTimer())
-                listener.sendWindowProperty(this, 0, tile.getMineTimer());
-            if (energy != tile.getEnergyStored())
-                listener.sendWindowProperty(this, 1, tile.getEnergyStored());
-            if (speedLevel != tile.getSpeedLevel())
-                listener.sendWindowProperty(this, 2, tile.getSpeedLevel());
-        }
-        processTime = tile.getMineTimer();
-        energy = tile.getEnergyStored();
-        speedLevel = tile.getSpeedLevel();
+        sync.detectChanges(this, this.listeners, fetchFields());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
-        switch (id) {
-            case 0: processTime = data; break;
-            case 1: energy = data; break;
-            case 2: speedLevel = data; break;
+        int fieldIdx = sync.receiveProperty(id, data);
+        if (fieldIdx < 0) return;
+        int value = sync.getField(fieldIdx);
+        switch (fieldIdx) {
+            case FIELD_PROCESS_TIME: processTime = value; break;
+            case FIELD_ENERGY:       energy = value; break;
+            case FIELD_SPEED_LEVEL:  speedLevel = value; break;
         }
     }
 
