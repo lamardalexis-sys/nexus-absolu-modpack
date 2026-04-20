@@ -212,12 +212,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
      * Consommation RF/tick effective en mode RF, avec :
      *  - baseRfPerTick du tier
      *  - SPEED_BOOSTER : x1.40 par item (cumulatif multiplicatif)
-     *  - EFFICIENCY : x0.92 par item (cumulatif multiplicatif)
+     *  - EFFICIENCY : x0.85 par item (cumulatif multiplicatif = -15%/item)
      */
     public int getEffectiveRfPerTick() {
         int spdCount = getSpeedBoosterCount();
         int effCount = getEfficiencyCount();
-        float consoMult = (float) (Math.pow(1.40, spdCount) * Math.pow(0.92, effCount));
+        float consoMult = (float) (Math.pow(1.40, spdCount) * Math.pow(0.85, effCount));
         return Math.max(1, (int)(tier.baseRfPerTick * consoMult));
     }
 

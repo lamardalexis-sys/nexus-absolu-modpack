@@ -56,7 +56,7 @@ public class ItemFurnaceUpgrade extends ItemBase {
             case RF_CONVERTER:  return "Active mode RF : consomme energie au lieu de coal";
             case IO_EXPANSION:  return "Augmente les slots in/out (reserve Sprint B2)";
             case SPEED_BOOSTER: return "+30% vitesse par item (cumul. conso x1.40)";
-            case EFFICIENCY:    return "-8% conso par item (multiplicatif)";
+            case EFFICIENCY:    return "-15% conso par item (multiplicatif)";
             default:            return "";
         }
     }

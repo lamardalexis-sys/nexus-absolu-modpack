@@ -84,16 +84,17 @@ public class GuiFurnaceNexus extends GuiContainer {
     private static final int FUEL_FLAME_HITBOX_W = 24;
     private static final int FUEL_FLAME_HITBOX_H = 8;
 
-    /** Fleche progress horizontale. Zone (68..92, 30..34) = 24x4. */
-    private static final int PROGRESS_X = 68;
-    private static final int PROGRESS_Y = 30;
-    private static final int PROGRESS_W = 24;
-    private static final int PROGRESS_H = 4;
+    /** Fleche progress horizontale. Zone (64..96, 29..36) = 32x7.
+     *  Agrandie v1.0.245 (24x4 -> 32x7) pour meilleure visibilite. */
+    private static final int PROGRESS_X = 64;
+    private static final int PROGRESS_Y = 29;
+    private static final int PROGRESS_W = 32;
+    private static final int PROGRESS_H = 7;
     /** Hitbox tooltip progress plus large. */
-    private static final int PROGRESS_HITBOX_X = 68;
-    private static final int PROGRESS_HITBOX_Y = 27;
-    private static final int PROGRESS_HITBOX_W = 24;
-    private static final int PROGRESS_HITBOX_H = 10;
+    private static final int PROGRESS_HITBOX_X = 64;
+    private static final int PROGRESS_HITBOX_Y = 26;
+    private static final int PROGRESS_HITBOX_W = 32;
+    private static final int PROGRESS_HITBOX_H = 13;
 
     /** Onglets lateraux (CONFIG a gauche, UPGRADES a droite). 15x17. */
     private static final int TAB_Y = 18;

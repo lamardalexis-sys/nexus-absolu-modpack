@@ -7,7 +7,7 @@ package com.nexusabsolu.mod.tiles.furnaces;
  *  - RF_CONVERTER   : slot 0, stack max 1, pre-requis pour SPEED/IO/EFFICIENCY
  *  - IO_EXPANSION   : slot 1, stack max 1, mais 4 items distincts (IO I..IV) crafted sequentiellement
  *  - SPEED_BOOSTER  : slot 2, stack max 8, +30%/stack vitesse, +40%/stack conso
- *  - EFFICIENCY     : slot 3, stack max 10, -8%/stack conso (multiplicatif)
+ *  - EFFICIENCY     : slot 3, stack max 10, -15%/stack conso (multiplicatif)
  *
  * Pour T7+ (nativeRF=true), une upgrade COAL_CONVERTER viendra remplacer RF_CONVERTER
  * (ajout dans phase ulterieure).
