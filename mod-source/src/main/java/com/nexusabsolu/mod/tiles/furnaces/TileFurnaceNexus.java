@@ -641,11 +641,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override
     public ItemStack decrStackSize(int index, int count) {
         // v1.0.227 : protection slots upgrade contre extraction externe.
-        // Seules les operations issues de notre Container GUI ont le droit
-        // de modifier les slots 3-6. Les mods externes (Refined Storage,
-        // Inventory Tweaks, etc.) qui appellent decrStackSize directement
-        // sont bloques.
-        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()) {
+        // SEULEMENT cote serveur. Cote client c'est juste le miroir de l'etat
+        // serveur, le bloquer casse la synchronisation SPacketWindowItems.
+        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()
+            && world != null && !world.isRemote) {
             return ItemStack.EMPTY;
         }
 
@@ -665,8 +664,9 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     @Override
     public ItemStack removeStackFromSlot(int index) {
-        // v1.0.227 : protection slots upgrade (voir decrStackSize)
-        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()) {
+        // v1.0.227 : protection slots upgrade (seulement cote serveur)
+        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()
+            && world != null && !world.isRemote) {
             return ItemStack.EMPTY;
         }
         ItemStack s = inventory[index];
@@ -676,14 +676,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        // v1.0.227 : protection slots upgrade contre modification externe
-        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()) {
-            // DEBUG v1.0.230 : log toute tentative bloquee
-            com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.warn(
-                "[FurnaceNexus] BLOCKED setInventorySlotContents slot=" + index
-                + " new=" + (stack.isEmpty() ? "EMPTY" : stack.getItem().getRegistryName())
-                + " old=" + (inventory[index].isEmpty() ? "EMPTY" : inventory[index].getItem().getRegistryName())
-                + " @ " + pos, new Throwable("trace"));
+        // v1.0.227 : protection slots upgrade contre modification externe.
+        // Bloque SEULEMENT cote serveur. Cote client c'est le miroir de
+        // l'etat serveur (SPacketWindowItems/SPacketSetSlot) et doit
+        // toujours etre a jour.
+        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()
+            && world != null && !world.isRemote) {
             return;
         }
         inventory[index] = stack;
