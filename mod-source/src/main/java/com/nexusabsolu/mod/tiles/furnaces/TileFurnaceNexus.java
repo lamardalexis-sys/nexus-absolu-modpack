@@ -677,11 +677,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         // v1.0.227 : protection slots upgrade contre modification externe
-        // (ex: un mod qui tente de vider le slot en ecrivant EMPTY direct).
-        // Les operations de drop bloc (harvestBlock + readFromNBT au placement)
-        // utilisent directement le tableau inventory[] via readFromNBT, donc
-        // ne sont pas impactees par cette protection.
         if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()) {
+            // DEBUG v1.0.230 : log toute tentative bloquee
+            com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.warn(
+                "[FurnaceNexus] BLOCKED setInventorySlotContents slot=" + index
+                + " new=" + (stack.isEmpty() ? "EMPTY" : stack.getItem().getRegistryName())
+                + " old=" + (inventory[index].isEmpty() ? "EMPTY" : inventory[index].getItem().getRegistryName())
+                + " @ " + pos, new Throwable("trace"));
             return;
         }
         inventory[index] = stack;
