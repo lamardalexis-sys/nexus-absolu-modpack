@@ -13,12 +13,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ContainerCondenseur extends Container {
 
     private final TileCondenseur tile;
-    private int processTime;
-    private int maxProcessTime;
-    private int energy;
-    private int maxEnergy;
-    private int structureValid;
-    private int autoMode;
+
+    /** Helper sync avec split low/high pour eviter overflow 32767 (energy Condenseur). */
+    private final com.nexusabsolu.mod.gui.util.ContainerSyncHelper sync =
+        new com.nexusabsolu.mod.gui.util.ContainerSyncHelper(6);
+
+    // Le tile utilise getField/setField(id) pour 6 champs.
+    // On conserve les memes indices pour compatibilite.
+    private static final int NUM_FIELDS = 6;
 
     public ContainerCondenseur(InventoryPlayer playerInv, TileCondenseur tile) {
         this.tile = tile;
@@ -46,35 +48,32 @@ public class ContainerCondenseur extends Container {
         }
     }
 
+    private int[] fetchFields() {
+        int[] fields = new int[NUM_FIELDS];
+        for (int i = 0; i < NUM_FIELDS; i++) {
+            fields[i] = tile.getField(i);
+        }
+        return fields;
+    }
+
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        sync.sendInitial(this, listener, fetchFields());
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (IContainerListener listener : this.listeners) {
-            if (processTime != tile.getField(0))
-                listener.sendWindowProperty(this, 0, tile.getField(0));
-            if (maxProcessTime != tile.getField(1))
-                listener.sendWindowProperty(this, 1, tile.getField(1));
-            if (energy != tile.getField(2))
-                listener.sendWindowProperty(this, 2, tile.getField(2));
-            if (maxEnergy != tile.getField(3))
-                listener.sendWindowProperty(this, 3, tile.getField(3));
-            if (structureValid != tile.getField(4))
-                listener.sendWindowProperty(this, 4, tile.getField(4));
-            if (autoMode != tile.getField(5))
-                listener.sendWindowProperty(this, 5, tile.getField(5));
-        }
-        processTime = tile.getField(0);
-        maxProcessTime = tile.getField(1);
-        energy = tile.getField(2);
-        maxEnergy = tile.getField(3);
-        structureValid = tile.getField(4);
-        autoMode = tile.getField(5);
+        sync.detectChanges(this, this.listeners, fetchFields());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
-        tile.setField(id, data);
+        int fieldIdx = sync.receiveProperty(id, data);
+        if (fieldIdx < 0) return;
+        tile.setField(fieldIdx, sync.getField(fieldIdx));
     }
 
     @Override

@@ -10,7 +10,12 @@ import net.minecraft.inventory.Slot;
 public class ContainerConvertisseur extends Container {
 
     private final TileConvertisseur tile;
-    private int[] cachedFields = new int[15];
+
+    /** Helper sync split int->2 shorts pour eviter overflow 32767. */
+    private final com.nexusabsolu.mod.gui.util.ContainerSyncHelper sync =
+        new com.nexusabsolu.mod.gui.util.ContainerSyncHelper(15);
+
+    private static final int NUM_FIELDS = 15;
 
     public ContainerConvertisseur(InventoryPlayer playerInv, TileConvertisseur tile) {
         this.tile = tile;
@@ -29,23 +34,31 @@ public class ContainerConvertisseur extends Container {
         }
     }
 
+    private int[] fetchFields() {
+        int[] fields = new int[NUM_FIELDS];
+        for (int i = 0; i < NUM_FIELDS; i++) {
+            fields[i] = tile.getField(i);
+        }
+        return fields;
+    }
+
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        sync.sendInitial(this, listener, fetchFields());
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (IContainerListener listener : this.listeners) {
-            for (int i = 0; i < 15; i++) {
-                int val = tile.getField(i);
-                if (cachedFields[i] != val) {
-                    listener.sendWindowProperty(this, i, val);
-                    cachedFields[i] = val;
-                }
-            }
-        }
+        sync.detectChanges(this, this.listeners, fetchFields());
     }
 
     @Override
     public void updateProgressBar(int id, int data) {
-        tile.setField(id, data);
+        int fieldIdx = sync.receiveProperty(id, data);
+        if (fieldIdx < 0) return;
+        tile.setField(fieldIdx, sync.getField(fieldIdx));
     }
 
     // Button clicks from GUI: id 0-5 = toggle output face

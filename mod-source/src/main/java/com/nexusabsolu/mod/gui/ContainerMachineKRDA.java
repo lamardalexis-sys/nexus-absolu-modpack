@@ -11,7 +11,10 @@ import net.minecraft.item.ItemStack;
 public class ContainerMachineKRDA extends Container {
 
     private final TileMachineKRDA tile;
-    private final int[] cached = new int[TileMachineKRDA.FIELD_COUNT];
+
+    /** Helper sync split int->2 shorts (evite overflow 32767). */
+    private final com.nexusabsolu.mod.gui.util.ContainerSyncHelper sync =
+        new com.nexusabsolu.mod.gui.util.ContainerSyncHelper(TileMachineKRDA.FIELD_COUNT);
 
     private static final int INV_X = 19;
     private static final int INV_Y = 138;
@@ -47,23 +50,31 @@ public class ContainerMachineKRDA extends Container {
         }
     }
 
+    private int[] fetchFields() {
+        int[] fields = new int[TileMachineKRDA.FIELD_COUNT];
+        for (int i = 0; i < TileMachineKRDA.FIELD_COUNT; i++) {
+            fields[i] = tile.getField(i);
+        }
+        return fields;
+    }
+
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        sync.sendInitial(this, listener, fetchFields());
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (IContainerListener l : this.listeners) {
-            for (int i = 0; i < TileMachineKRDA.FIELD_COUNT; i++) {
-                int val = tile.getField(i);
-                if (cached[i] != val) {
-                    l.sendWindowProperty(this, i, val);
-                    cached[i] = val;
-                }
-            }
-        }
+        sync.detectChanges(this, this.listeners, fetchFields());
     }
 
     @Override
     public void updateProgressBar(int id, int data) {
-        tile.setField(id, data);
+        int fieldIdx = sync.receiveProperty(id, data);
+        if (fieldIdx < 0) return;
+        tile.setField(fieldIdx, sync.getField(fieldIdx));
     }
 
     @Override

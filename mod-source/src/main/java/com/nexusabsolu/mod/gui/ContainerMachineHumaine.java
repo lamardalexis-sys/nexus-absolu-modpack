@@ -12,7 +12,10 @@ import net.minecraft.item.ItemStack;
 public class ContainerMachineHumaine extends Container {
 
     private final TileMachineHumaine tile;
-    private final int[] cached = new int[TileMachineHumaine.FIELD_COUNT];
+
+    /** Helper sync split int->2 shorts (evite overflow 32767). */
+    private final com.nexusabsolu.mod.gui.util.ContainerSyncHelper sync =
+        new com.nexusabsolu.mod.gui.util.ContainerSyncHelper(TileMachineHumaine.FIELD_COUNT);
 
     // GUI is 200 wide (vs 176 vanilla). Slot positions in GUI coords.
     // Food slot, bucket in, bucket out are in the machine area.
@@ -52,23 +55,31 @@ public class ContainerMachineHumaine extends Container {
         }
     }
 
+    private int[] fetchFields() {
+        int[] fields = new int[TileMachineHumaine.FIELD_COUNT];
+        for (int i = 0; i < TileMachineHumaine.FIELD_COUNT; i++) {
+            fields[i] = tile.getField(i);
+        }
+        return fields;
+    }
+
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        sync.sendInitial(this, listener, fetchFields());
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        for (IContainerListener listener : this.listeners) {
-            for (int i = 0; i < TileMachineHumaine.FIELD_COUNT; i++) {
-                int val = tile.getField(i);
-                if (cached[i] != val) {
-                    listener.sendWindowProperty(this, i, val);
-                    cached[i] = val;
-                }
-            }
-        }
+        sync.detectChanges(this, this.listeners, fetchFields());
     }
 
     @Override
     public void updateProgressBar(int id, int data) {
-        tile.setField(id, data);
+        int fieldIdx = sync.receiveProperty(id, data);
+        if (fieldIdx < 0) return;
+        tile.setField(fieldIdx, sync.getField(fieldIdx));
     }
 
     // Button actions from GUI
