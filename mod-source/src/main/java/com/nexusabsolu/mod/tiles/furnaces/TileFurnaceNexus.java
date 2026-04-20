@@ -229,17 +229,42 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public void update() {
         if (world.isRemote) return;
 
+        // v1.0.240 FIX : doAutoIO doit TOUJOURS tourner tous les 10 ticks,
+        // meme si le four est vide/sans fuel/sans recette. Sinon les hoppers
+        // auto-pull configures par l'utilisateur ne peuvent pas AMORCER le
+        // four : ils attendraient un four deja actif pour tirer du fuel,
+        // ce qui est impossible sans fuel initial.
+        //
+        // On tick le counter en tete, et on delegue a tryCookTick() pour
+        // la logique de cuisson qui peut return early sans bloquer l'IO.
+        ioTickCounter++;
+        if (ioTickCounter >= 10) {
+            ioTickCounter = 0;
+            doAutoIO();
+        }
+
+        tryCookTick();
+    }
+
+    /**
+     * Logique de cuisson d'un tick : recette, fuel, progression.
+     * Peut return early si pas de recette/fuel/output plein sans impacter
+     * le doAutoIO (fait en amont dans update()).
+     */
+    private void tryCookTick() {
         boolean wasActive = cookProgress > 0 || fuelBurnTicks > 0;
 
         // 1. Recette disponible ?
         ItemStack input = inventory.get(SLOT_INPUT);
         if (input.isEmpty()) {
             resetProgress();
+            updateActiveState(wasActive);
             return;
         }
         ItemStack result = FurnaceRecipes.instance().getSmeltingResult(input);
         if (result.isEmpty()) {
             resetProgress();
+            updateActiveState(wasActive);
             return;
         }
         // Output stackable ?
@@ -247,10 +272,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         if (!output.isEmpty()) {
             if (!ItemHandlerHelper.canItemStacksStack(output, result)) {
                 resetProgress();
+                updateActiveState(wasActive);
                 return;
             }
             if (output.getCount() + result.getCount() > output.getMaxStackSize()) {
                 resetProgress();
+                updateActiveState(wasActive);
                 return;
             }
         }
@@ -258,6 +285,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         // 2. Fuel disponible ? (consumeFuelIfNeeded decremente fuelBurnTicks de 1)
         if (!consumeFuelIfNeeded()) {
             resetProgress();
+            updateActiveState(wasActive);
             return;
         }
 
@@ -276,24 +304,22 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             if (input.getCount() <= 0) inventory.set(SLOT_INPUT, ItemStack.EMPTY);
             cookProgress = 0;
             // Note: fuelBurnTicks est decremente tick-par-tick dans consumeFuelIfNeeded
-            // Pas de decrement supplementaire ici (ancien systeme ops = supprime)
             markDirty();
         }
 
+        updateActiveState(wasActive);
+    }
+
+    /**
+     * Re-render le blockstate si l'etat actif a change depuis le debut du tick.
+     * Force la transition LED grise <-> LED cyan et texture eteinte <-> active.
+     */
+    private void updateActiveState(boolean wasActive) {
         boolean isActive = cookProgress > 0 || fuelBurnTicks > 0;
         if (wasActive != isActive) {
             markDirty();
-            // v1.0.216 : force le re-render du blockstate ACTIVE pour switcher
-            // entre texture eteinte (LED grise) et allumee (LED cyan brillante)
             net.minecraft.block.state.IBlockState state = world.getBlockState(pos);
             world.notifyBlockUpdate(pos, state, state, 3);
-        }
-
-        // Auto I/O selon SideConfig (tous les 10 ticks = 0.5s = confort joueur)
-        ioTickCounter++;
-        if (ioTickCounter >= 10) {
-            ioTickCounter = 0;
-            doAutoIO();
         }
     }
 
