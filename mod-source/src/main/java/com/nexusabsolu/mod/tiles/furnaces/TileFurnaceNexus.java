@@ -263,6 +263,22 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
         // 2. Fuel disponible ? (consumeFuelIfNeeded decremente fuelBurnTicks de 1)
         if (!consumeFuelIfNeeded()) {
+            // DEBUG v1.0.229 : log tous les 2s quand cuisson bloquee
+            if (world.getTotalWorldTime() % 40 == 0) {
+                ItemStack inp = inventory[SLOT_INPUT];
+                ItemStack rf = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.RF_CONVERTER.slotIndex];
+                com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.info(
+                    "[FurnaceNexus] NO COOK @ " + pos
+                    + " tier=" + tier.registryName
+                    + " isRFMode=" + isRFMode()
+                    + " RF=" + energyStorage.getEnergyStored() + "/" + energyStorage.getMaxEnergyStored()
+                    + " conso=" + getEffectiveRfPerTick()
+                    + " nativeRF=" + tier.nativeRF
+                    + " RFslot=" + (rf.isEmpty() ? "EMPTY" : rf.getItem().getRegistryName())
+                    + " input=" + (inp.isEmpty() ? "EMPTY" : inp.getDisplayName())
+                    + " cookProgress=" + cookProgress
+                );
+            }
             resetProgress();
             return;
         }
