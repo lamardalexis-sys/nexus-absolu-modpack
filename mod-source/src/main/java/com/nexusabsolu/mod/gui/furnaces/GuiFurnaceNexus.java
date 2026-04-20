@@ -178,24 +178,25 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawDefaultBackground();
         super.drawScreen(mx, my, pt);
 
-        // TRICK : pour le panneau Config (a gauche), agrandir xSize/guiLeft
-        // temporairement pour que Minecraft calcule correctement la position
-        // du tooltip (evite debordement sur le panneau).
+        // Panneau Config dessine EN PREMIER (derriere tooltips)
+        if (configOpen) drawConfigPanel(mx, my);
+
+        // Tooltips en DERNIER pour qu'ils soient au-dessus de tout.
+        // On fait le trick xSize pour que le tooltip des items soit positionne
+        // correctement meme quand le panneau Config est ouvert.
         int realXSize = this.xSize;
         int realGuiLeft = this.guiLeft;
         if (configOpen) {
             this.guiLeft -= (CONFIG_W + 6);
             this.xSize += (CONFIG_W + 6);
         }
-
         renderHoveredToolTip(mx, my);
-
-        // RESTORE pour le reste
         this.xSize = realXSize;
         this.guiLeft = realGuiLeft;
 
+        // Custom tooltips (RF bar, progress, flame, onglets) - APRES renderHoveredToolTip
+        // pour qu'ils s'affichent par-dessus les tooltip items standards (rare collision)
         drawCustomTooltips(mx, my);
-        if (configOpen) drawConfigPanel(mx, my);
     }
 
     private void drawCustomTooltips(int mx, int my) {
