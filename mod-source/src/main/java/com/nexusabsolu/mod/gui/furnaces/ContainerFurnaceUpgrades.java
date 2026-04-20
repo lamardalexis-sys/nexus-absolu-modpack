@@ -46,18 +46,54 @@ public class ContainerFurnaceUpgrades extends Container {
             {0, 0}, {1, 0}, {0, 1}, {1, 1}
         };
 
-        // Slots upgrade pointent directement sur tile (pattern Mekanism)
-        // avec index 3-6 (SLOT_UPGRADE_BASE + slotIndex).
+        // v1.0.226 : pattern Thermal SlotAugment - bypass IInventory total.
+        // Les slots manipulent directement tile.getAugmentSlots() (tableau separe)
+        // et retournent false a isHere() pour que le Container ne les traite pas
+        // comme des slots IInventory.
 
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
-            int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
+            final int augIdx = up.slotIndex;  // 0..3
             int col = slotPositions[up.slotIndex][0];
             int row = slotPositions[up.slotIndex][1];
             int sx = startX + col * (slotSize + gap);
             int sy = startY + row * (slotSize + gap);
 
-            addSlotToContainer(new Slot(tile, slotIdx, sx, sy) {
+            addSlotToContainer(new Slot(null, augIdx, sx, sy) {
+                @Override
+                public ItemStack getStack() {
+                    return tile.getAugmentSlots()[augIdx];
+                }
+                @Override
+                public void putStack(ItemStack stack) {
+                    tile.getAugmentSlots()[augIdx] = stack;
+                    onSlotChanged();
+                }
+                @Override
+                public void onSlotChanged() {
+                    tile.markDirty();
+                }
+                @Override
+                public ItemStack decrStackSize(int amount) {
+                    ItemStack current = tile.getAugmentSlots()[augIdx];
+                    if (current.isEmpty()) return ItemStack.EMPTY;
+                    ItemStack result;
+                    if (current.getCount() <= amount) {
+                        result = current;
+                        tile.getAugmentSlots()[augIdx] = ItemStack.EMPTY;
+                    } else {
+                        result = current.splitStack(amount);
+                        if (current.getCount() == 0) {
+                            tile.getAugmentSlots()[augIdx] = ItemStack.EMPTY;
+                        }
+                    }
+                    tile.markDirty();
+                    return result;
+                }
+                @Override
+                public boolean isHere(net.minecraft.inventory.IInventory inv, int slot) {
+                    return false;
+                }
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;

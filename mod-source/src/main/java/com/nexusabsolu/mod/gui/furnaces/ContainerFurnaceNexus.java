@@ -49,15 +49,55 @@ public class ContainerFurnaceNexus extends Container {
         addSlotToContainer(new SlotFurnaceOutput(
             playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 104, 24));
 
-        // === 4 SLOTS UPGRADES (hors-ecran par defaut, GUI les repositionne dans le panneau) ===
-        // Pattern Mekanism : tous les slots dans le MEME IInventory (tile).
-        // La protection contre extraction externe vient de ISidedInventory
-        // (getSlotsForFace expose seulement INPUT/FUEL/OUTPUT).
+        // === 4 SLOTS AUGMENT (hors-ecran par defaut, GUI les repositionne dans le panneau) ===
+        // v1.0.226 : pattern Thermal SlotAugment - les slots bypass totalement
+        // IInventory du TileEntity. getStack/putStack/decrStackSize manipulent
+        // directement tile.getAugmentSlots() (un tableau separe augments[]).
+        // isHere(inventory, slot) retourne false -> le Container ne reconnait
+        // pas ces slots comme slots IInventory -> aucun mod externe ne peut
+        // les atteindre via tile.getStackInSlot().
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
-            int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
+            final int augIdx = up.slotIndex;  // 0..3 dans augments[]
+            // Constructeur Slot(null, slotIndex, x, y) : le champ inventory est null.
             // Position -1000 = cache. Le GUI les deplace quand upgradesOpen = true.
-            addSlotToContainer(new Slot(tile, slotIdx, -1000, -1000) {
+            addSlotToContainer(new Slot(null, augIdx, -1000, -1000) {
+                @Override
+                public ItemStack getStack() {
+                    return tile.getAugmentSlots()[augIdx];
+                }
+                @Override
+                public void putStack(ItemStack stack) {
+                    tile.getAugmentSlots()[augIdx] = stack;
+                    onSlotChanged();
+                }
+                @Override
+                public void onSlotChanged() {
+                    tile.markDirty();
+                }
+                @Override
+                public ItemStack decrStackSize(int amount) {
+                    ItemStack current = tile.getAugmentSlots()[augIdx];
+                    if (current.isEmpty()) return ItemStack.EMPTY;
+                    ItemStack result;
+                    if (current.getCount() <= amount) {
+                        result = current;
+                        tile.getAugmentSlots()[augIdx] = ItemStack.EMPTY;
+                    } else {
+                        result = current.splitStack(amount);
+                        if (current.getCount() == 0) {
+                            tile.getAugmentSlots()[augIdx] = ItemStack.EMPTY;
+                        }
+                    }
+                    tile.markDirty();
+                    return result;
+                }
+                @Override
+                public boolean isHere(net.minecraft.inventory.IInventory inv, int slot) {
+                    // CRITIQUE : retourne false - le Container ne traite pas ce Slot
+                    // comme appartenant a un IInventory du TileEntity.
+                    return false;
+                }
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;
