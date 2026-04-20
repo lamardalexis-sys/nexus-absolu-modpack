@@ -104,16 +104,13 @@ public class GuiFurnaceNexus extends GuiContainer {
     public GuiFurnaceNexus(InventoryPlayer playerInv, TileFurnaceNexus tile) {
         super(new ContainerFurnaceNexus(playerInv, tile));
         this.tile = tile;
-        this.xSize = 176;
-        // ySize dynamique selon tier IO installe (doit matcher Container) :
-        //   extraH = max(0, (N-4) * 18) ou N = getIOSlotCount()
-        //   - Tier 0/I (1/3 slots)  : 186 (base)
-        //   - Tier II (5)           : 186 + 18 = 204
-        //   - Tier III (7)          : 186 + 54 = 240
-        //   - Tier IV (9)           : 186 + 90 = 276
+        // Layout horizontal Mekanism-Factory-style : xSize dynamique, ySize fixe.
+        //   xSize = max(176, N*18 + 46) ou N = getIOSlotCount()
+        //   - Tier 0/I/II/III (1/3/5/7 slots) : 176 (tient)
+        //   - Tier IV (9 slots)               : 208 (elargi)
         int visibleSlots = tile.getIOSlotCount();
-        int extraH = Math.max(0, (visibleSlots - 4) * 18);
-        this.ySize = 186 + extraH;
+        this.xSize = Math.max(176, visibleSlots * 18 + 46);
+        this.ySize = 186;  // inchange quel que soit le tier
     }
 
     // ======================================================================
@@ -131,78 +128,101 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
         int visibleSlots = tile.getIOSlotCount();
-        int extraH = ySize - 186;
 
         if (visibleSlots == 1) {
-            // === Tier 0 : texture vanilla integrale (inchange par rapport a avant) ===
-            drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+            // === Tier 0 : texture vanilla integrale (inchange, xSize=ySize=176x186) ===
+            drawTexturedModalRect(x, y, 0, 0, 176, ySize);
         } else {
-            // === Tier >= I : fond uni machine + texture inventaire bas + bordures manuelles ===
-            // 1) Fond uni panneau machine (y = 0 a 93+extraH)
-            drawRect(x, y, x + xSize, y + 93 + extraH, 0xFF1B0E2A);
-            // 2) Texture inventaire (partie bas de la texture originale)
-            drawTexturedModalRect(x, y + 93 + extraH, 0, 93, xSize, 93);
+            // === Tier >= I : layout horizontal Mekanism, dessin manuel ===
+            // 1) Fond uni panneau machine (0..93) sur toute la largeur xSize
+            drawRect(x, y, x + xSize, y + 93, 0xFF1B0E2A);
+            // 2) Texture inventaire (texture vanilla 176x93 de y=93 a y=186)
+            //    Centre horizontalement si xSize > 176.
+            int invTextureX = (xSize - 176) / 2;
+            drawTexturedModalRect(x + invTextureX, y + 93, 0, 93, 176, 93);
+            // 3) Si xSize > 176, remplir les cotes gauche et droit de l'inventaire
+            //    avec fond uni (pour eviter trous visuels).
+            if (invTextureX > 0) {
+                drawRect(x, y + 93, x + invTextureX, y + ySize, 0xFF1B0E2A);
+                drawRect(x + invTextureX + 176, y + 93, x + xSize, y + ySize, 0xFF1B0E2A);
+            }
 
-            // 3) Bordures des slots INPUT[0..N-1] en colonne gauche
+            // 4) Calculer position de depart pour la ligne de slots (centrage)
+            int slotsStartX = (xSize - visibleSlots * 18) / 2;
+
+            // 5) Bordures des slots INPUT (ligne haute)
             for (int i = 0; i < visibleSlots; i++) {
-                drawSlotBorder(x + 41, y + 19 + i * 18);
+                drawSlotBorder(x + slotsStartX + i * 18, y + 19);
             }
-            // 4) Bordures des slots OUTPUT[0..N-1] en colonne droite
+            // 6) Bordures des slots OUTPUT (ligne basse)
             for (int i = 0; i < visibleSlots; i++) {
-                drawSlotBorder(x + 104, y + 19 + i * 18);
+                drawSlotBorder(x + slotsStartX + i * 18, y + 55);
             }
-            // 5) Bordure du slot FUEL (position deplacee sous la colonne input)
-            int fuelY = 19 + visibleSlots * 18 + 2;  // 2px de marge sous le dernier input
-            drawSlotBorder(x + 41, y + fuelY);
+            // 7) Bordure du slot FUEL (bas gauche)
+            drawSlotBorder(x + 16, y + 77);
         }
 
-        // === RF BAR VERTICALE a droite (style Thermal) ===
+        // === RF BAR VERTICALE a droite (position dynamique selon xSize) ===
+        // RF bar etait a x=140 pour xSize=176, soit 36px du bord droit.
+        // On garde cette marge : RF_BAR_X = xSize - 36
+        int rfBarX = xSize - 36;
+        int rfFillX = rfBarX + 1;
         if (tile.isRFMode()) {
-            drawRect(x + RF_BAR_X, y + RF_BAR_Y,
-                     x + RF_BAR_X + RF_BAR_W, y + RF_BAR_Y + RF_BAR_H, 0xFF1A1A1A);
-            drawRect(x + RF_FILL_X, y + RF_FILL_Y,
-                     x + RF_FILL_X + RF_FILL_W, y + RF_FILL_Y + RF_FILL_H, 0xFF3D0A0A);
-            GuiUtils.fillBarVertical(x + RF_FILL_X, y + RF_FILL_Y, RF_FILL_W, RF_FILL_H,
+            drawRect(x + rfBarX, y + RF_BAR_Y,
+                     x + rfBarX + RF_BAR_W, y + RF_BAR_Y + RF_BAR_H, 0xFF1A1A1A);
+            drawRect(x + rfFillX, y + RF_FILL_Y,
+                     x + rfFillX + RF_FILL_W, y + RF_FILL_Y + RF_FILL_H, 0xFF3D0A0A);
+            GuiUtils.fillBarVertical(x + rfFillX, y + RF_FILL_Y, RF_FILL_W, RF_FILL_H,
                 tile.getEnergyStored(), tile.getMaxEnergy(),
                 0xFFB22222, 0xFFFF8A3C);
             int fillH = tile.getMaxEnergy() > 0
                 ? (int)(RF_FILL_H * (float)tile.getEnergyStored() / tile.getMaxEnergy()) : 0;
             if (fillH > 0) {
                 int fillBottom = y + RF_FILL_Y + RF_FILL_H;
-                drawRect(x + RF_FILL_X, fillBottom - fillH,
-                         x + RF_FILL_X + 1, fillBottom, 0xFFFFAA44);
+                drawRect(x + rfFillX, fillBottom - fillH,
+                         x + rfFillX + 1, fillBottom, 0xFFFFAA44);
             }
         }
 
         // === FLAMME fuel indicator ===
+        // Position tier 0 : (69, 56) comme avant (centre sous progress)
+        // Position tier >= I : a cote du slot fuel (36, 83) a droite du fuel a (16, 77)
+        int flameX = (visibleSlots == 1) ? FUEL_FLAME_X : 36;
+        int flameY = (visibleSlots == 1) ? FUEL_FLAME_Y : 83;
+
         int fuelBurnTicks = tile.getFuelBurnTicks();
         int fuelTotal = tile.getFuelTotalBurnTicks();
         boolean rfActive = tile.isRFMode()
             && tile.getEnergyStored() > 0 && tile.getCookProgress() > 0;
 
         if (fuelBurnTicks > 0 && fuelTotal > 0) {
-            GuiUtils.fillBarHorizontal(x + FUEL_FLAME_X, y + FUEL_FLAME_Y,
+            GuiUtils.fillBarHorizontal(x + flameX, y + flameY,
                 FUEL_FLAME_W, FUEL_FLAME_H,
                 fuelBurnTicks, fuelTotal,
                 0xFFCC3D10, 0xFFFF8830);
         } else if (rfActive) {
-            GuiUtils.fillBarHorizontal(x + FUEL_FLAME_X, y + FUEL_FLAME_Y,
+            GuiUtils.fillBarHorizontal(x + flameX, y + flameY,
                 FUEL_FLAME_W, FUEL_FLAME_H, 1, 1,
                 0xFF4455CC, 0xFF7788FF);
         }
 
-        // === PROGRESS fleche qui avance ===
+        // === PROGRESS fleche : centree horizontalement entre input et output rows ===
+        // Tier 0 : position vanilla (64, 29)
+        // Tier >= I : centree a (xSize - PROGRESS_W) / 2, y=40 entre input y=35 et output y=55
+        int progX = (visibleSlots == 1) ? PROGRESS_X : (xSize - PROGRESS_W) / 2;
+        int progY = (visibleSlots == 1) ? PROGRESS_Y : 40;
+
         int prog = tile.getCookProgress();
         int maxP = tile.getMaxCookTime();
         if (maxP > 0 && prog > 0) {
             int fillW = (int)(PROGRESS_W * (float)prog / maxP);
             int tierCol = FurnaceTierStyle.getProgressColor(tile.getTier());
             int tierBright = FurnaceTierStyle.getProgressBright(tile.getTier());
-            drawRect(x + PROGRESS_X, y + PROGRESS_Y,
-                     x + PROGRESS_X + fillW, y + PROGRESS_Y + PROGRESS_H, tierCol);
+            drawRect(x + progX, y + progY,
+                     x + progX + fillW, y + progY + PROGRESS_H, tierCol);
             if (fillW > 2) {
-                drawRect(x + PROGRESS_X, y + PROGRESS_Y,
-                         x + PROGRESS_X + fillW, y + PROGRESS_Y + 1, tierBright);
+                drawRect(x + progX, y + progY,
+                         x + progX + fillW, y + progY + 1, tierBright);
             }
         }
 
@@ -250,9 +270,10 @@ public class GuiFurnaceNexus extends GuiContainer {
         String speedStr = "x" + tier.speedMultiplier;
         fontRenderer.drawStringWithShadow(speedStr, 68, 40, 0xFF8866AA);
 
-        // Label Inventaire (decale par extraH pour matcher l'inventaire decale)
-        int extraH = ySize - 186;
-        fontRenderer.drawStringWithShadow("Inventaire", 8, 93 + extraH, 0xFF8866AA);
+        // Label Inventaire a y=93 (inchange, layout horizontal ne decale plus l'inv)
+        // Recentrer horizontalement si xSize > 176 pour matcher l'inv centre
+        int invTextureX = (xSize - 176) / 2;
+        fontRenderer.drawStringWithShadow("Inventaire", 8 + invTextureX, 93, 0xFF8866AA);
 
         // Label RF au-dessus de la barre verticale - uniquement si RF Converter place
         if (tile.isRFMode()) {

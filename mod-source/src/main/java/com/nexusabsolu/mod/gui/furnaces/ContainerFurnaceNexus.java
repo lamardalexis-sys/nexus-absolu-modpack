@@ -45,68 +45,65 @@ public class ContainerFurnaceNexus extends Container {
 
     /**
      * Nombre de slots input/output visibles pour le tier IO au moment de
-     * la creation du Container. Fige pour la duree de vie du Container :
-     * si le joueur retire la carte IO pendant qu'il est dans le GUI, les
-     * slots actuellement visibles restent mais bloquent les nouvelles
-     * insertions via isItemValid dynamique.
+     * la creation du Container. Fige pour la duree de vie du Container.
      */
     private final int visibleIOSlots;
 
-    // === Layout Mekanism-style colonnes verticales ===
-    // INPUT  : colonne gauche, x=41
-    // OUTPUT : colonne droite, x=104
-    // Espacement vertical : 18 px entre slots
-    private static final int INPUT_COL_X = 41;
-    private static final int OUTPUT_COL_X = 104;
-    private static final int SLOT_VERTICAL_START = 19;
-    private static final int SLOT_VERTICAL_STEP = 18;
+    /** xSize du GUI pour ce container (stocke pour que le GUI le lise). */
+    private final int containerXSize;
+
+    // === Layout Mekanism-Factory-style HORIZONTAL ===
+    // Input row : y=19
+    // Output row : y=55
+    // Espacement : 18 px entre slots
+    // Centrage horizontal : slots_start_x = (xSize - N*18) / 2
+    private static final int INPUT_ROW_Y = 19;
+    private static final int OUTPUT_ROW_Y = 55;
+    private static final int SLOT_HORIZONTAL_STEP = 18;
 
     public ContainerFurnaceNexus(InventoryPlayer playerInv, TileFurnaceNexus tile) {
         this.tile = tile;
         this.visibleIOSlots = tile.getIOSlotCount();  // 1, 3, 5, 7 ou 9
 
-        // === 9 SLOTS INPUT (colonne verticale gauche) ===
-        // Slots [0 .. visibleIOSlots-1] : positions visibles colonne
+        // xSize dynamique pour accommoder N slots en ligne + RF bar + marges
+        //   xSize = max(176, N*18 + 46)
+        //   - N=1,3,5 : xSize = 176 (inchange)
+        //   - N=7     : xSize = 176 (tient juste)
+        //   - N=9     : xSize = 208 (elargi)
+        this.containerXSize = Math.max(176, visibleIOSlots * 18 + 46);
+
+        // Centrage horizontal des N slots dans xSize
+        int slotsStartX = (containerXSize - visibleIOSlots * SLOT_HORIZONTAL_STEP) / 2;
+
+        // === 9 SLOTS INPUT (ligne horizontale haute) ===
+        // Slots [0 .. visibleIOSlots-1] : positions visibles en ligne
         // Slots [visibleIOSlots .. 8]   : positions hors-ecran (-1000)
-        // isItemValid check dynamique : interdit si i >= getIOSlotCount() au moment du clic
         for (int i = 0; i < TileFurnaceNexus.SLOT_INPUT_MAX; i++) {
             final int slotIdx = i;
-            int posX = (i < visibleIOSlots) ? INPUT_COL_X : -1000;
-            int posY = (i < visibleIOSlots)
-                ? SLOT_VERTICAL_START + i * SLOT_VERTICAL_STEP
-                : -1000;
+            int posX = (i < visibleIOSlots) ? slotsStartX + i * SLOT_HORIZONTAL_STEP : -1000;
+            int posY = (i < visibleIOSlots) ? INPUT_ROW_Y : -1000;
             addSlotToContainer(new Slot(tile,
                     TileFurnaceNexus.SLOT_INPUT_BASE + i, posX, posY) {
                 @Override
                 public boolean isItemValid(ItemStack stack) {
-                    // Re-check tier courant (permet de bloquer si carte retiree)
                     if (slotIdx >= tile.getIOSlotCount()) return false;
                     return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
                 }
             });
         }
 
-        // === FUEL (position variable selon tier) ===
-        // Tier 0 : position vanilla (41, 51), juste sous le slot input unique
-        // Tier >= I : deplace en BAS de la colonne input pour eviter la collision
-        //             (sinon fuel y=51 chevauche input[1] y=37 et input[2] y=55)
-        int fuelY = (visibleIOSlots <= 1)
-            ? 51
-            : SLOT_VERTICAL_START + visibleIOSlots * SLOT_VERTICAL_STEP + 2;  // 2px de marge
-        addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 41, fuelY));
+        // === FUEL (bas gauche, sous les outputs, ne chevauche rien) ===
+        addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 16, 77));
 
-        // === 9 SLOTS OUTPUT (colonne verticale droite) ===
+        // === 9 SLOTS OUTPUT (ligne horizontale basse) ===
         for (int i = 0; i < TileFurnaceNexus.SLOT_OUTPUT_MAX; i++) {
-            int posX = (i < visibleIOSlots) ? OUTPUT_COL_X : -1000;
-            int posY = (i < visibleIOSlots)
-                ? SLOT_VERTICAL_START + i * SLOT_VERTICAL_STEP
-                : -1000;
+            int posX = (i < visibleIOSlots) ? slotsStartX + i * SLOT_HORIZONTAL_STEP : -1000;
+            int posY = (i < visibleIOSlots) ? OUTPUT_ROW_Y : -1000;
             addSlotToContainer(new SlotFurnaceOutput(playerInv.player, tile,
                 TileFurnaceNexus.SLOT_OUTPUT_BASE + i, posX, posY));
         }
 
         // === 4 SLOTS UPGRADES (hors-ecran par defaut, GUI les repositionne) ===
-        // Voir v1.0.227 pour le pattern ThreadLocal GUI_OPERATION.
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
             int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
@@ -129,31 +126,27 @@ public class ContainerFurnaceNexus extends Container {
             });
         }
 
-        // === INVENTAIRE JOUEUR (position y adaptee a ySize dynamique) ===
-        // Slot max input/output : y = 19 + (N-1)*18, finit a y = 35 + (N-1)*18
-        // Pour ne pas chevaucher l'inventaire vanilla (y=104), on decale :
-        //   extraH = max(0, (N-4) * 18)
-        // - Tier 0 (N=1) : extraH = 0 (inchange)
-        // - Tier I (N=3) : extraH = 0 (inchange)
-        // - Tier II (N=5): extraH = 18
-        // - Tier III (N=7): extraH = 54
-        // - Tier IV (N=9): extraH = 90
-        int extraH = Math.max(0, (visibleIOSlots - 4) * SLOT_VERTICAL_STEP);
-        int invY = 104 + extraH;
-        int hotbarY = 162 + extraH;
+        // === INVENTAIRE JOUEUR (position vanilla inchangee : layout horizontal
+        // tient dans ySize=186 quel que soit le tier) ===
+        // Centrage horizontal aussi : si xSize > 176, decaler inv
+        int invStartX = (containerXSize - 162) / 2;  // 9 slots * 18 = 162 px
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 addSlotToContainer(new Slot(
-                    playerInv, col + row * 9 + 9, 8 + col * 18, invY + row * 18));
+                    playerInv, col + row * 9 + 9,
+                    invStartX + col * 18, 104 + row * 18));
             }
         }
         for (int col = 0; col < 9; col++) {
-            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, hotbarY));
+            addSlotToContainer(new Slot(playerInv, col, invStartX + col * 18, 162));
         }
     }
 
     /** Pour le GUI : combien de slots IO sont visibles dans ce container ? */
     public int getVisibleIOSlots() { return visibleIOSlots; }
+
+    /** Pour le GUI : xSize calcule du container (a matcher par le GUI). */
+    public int getContainerXSize() { return containerXSize; }
 
     // === SHIFT-CLICK ===
 
