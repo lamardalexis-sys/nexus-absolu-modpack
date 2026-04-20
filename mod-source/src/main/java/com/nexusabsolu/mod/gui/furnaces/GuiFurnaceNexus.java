@@ -411,16 +411,17 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         // 2. Clic onglet UPGRADES (droite, x=xSize-2, 15x17) - uniquement si enhanced
         // Pattern Mekanism : ouvre un GUI dedie a la place d'un side-panel
+        // v1.0.233 : on envoie un paquet enchantItem(100) au serveur via
+        // playerController. Cote serveur le Container.enchantItem ouvre le
+        // GUI avec EntityPlayerMP.openGui ce qui cree aussi le Container
+        // serveur. mc.player.openGui cote client n'ouvrait que le GUI client
+        // -> les slotClick du GUI Upgrades arrivaient au ContainerFurnaceNexus
+        // (pas au ContainerFurnaceUpgrades) cote serveur, et ces clics
+        // echouaient silencieusement.
         if (tile.isEnhanced()
             && mx >= x + xSize - 2 && mx <= x + xSize + 13
             && my >= y + 18 && my <= y + 35) {
-            net.minecraft.util.math.BlockPos pos = tile.getPos();
-            mc.player.openGui(
-                com.nexusabsolu.mod.NexusAbsoluMod.instance,
-                com.nexusabsolu.mod.gui.GuiHandler.FURNACE_UPGRADES_GUI,
-                mc.world,
-                pos.getX(), pos.getY(), pos.getZ()
-            );
+            mc.playerController.sendEnchantPacket(this.inventorySlots.windowId, 100);
             return;
         }
 

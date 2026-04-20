@@ -257,6 +257,22 @@ public class ContainerFurnaceNexus extends Container {
             tile.markDirty();
             return true;
         }
+        // v1.0.233 : id=100 = demande ouverture du GUI Upgrades.
+        // DOIT etre fait cote SERVEUR avec un EntityPlayerMP. mc.player.openGui
+        // cote client n'envoie pas de packet au serveur donc le serveur garde
+        // ce Container et les slotClick destines au GUI Upgrades sont traites
+        // contre le mauvais Container (=> silent no-op). Ici on ouvre bien
+        // le GUI via enchantItem qui est route client->serveur par vanilla.
+        if (id == 100 && tile.isEnhanced()) {
+            net.minecraft.util.math.BlockPos pos = tile.getPos();
+            player.openGui(
+                com.nexusabsolu.mod.NexusAbsoluMod.instance,
+                com.nexusabsolu.mod.gui.GuiHandler.FURNACE_UPGRADES_GUI,
+                player.world,
+                pos.getX(), pos.getY(), pos.getZ()
+            );
+            return true;
+        }
         return false;
     }
 
