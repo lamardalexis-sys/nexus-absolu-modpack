@@ -496,6 +496,16 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
                 items.appendTag(itemTag);
             }
         }
+        // DEBUG v1.0.232 : log contenu upgrade slots au save (1x/5s max)
+        if (world != null && !world.isRemote && world.getTotalWorldTime() % 100 == 0) {
+            StringBuilder sb = new StringBuilder("[FurnaceNexus] writeToNBT @ " + pos + " upgrades=[");
+            for (int i = SLOT_UPGRADE_BASE; i < TOTAL_SLOTS; i++) {
+                sb.append(inventory[i].isEmpty() ? "EMPTY" : inventory[i].getItem().getRegistryName());
+                if (i < TOTAL_SLOTS - 1) sb.append(",");
+            }
+            sb.append("]");
+            com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.info(sb.toString());
+        }
         nbt.setTag("items", items);
 
         // Side config (6 faces x 4 types + eject/pull bits)
@@ -683,6 +693,14 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()
             && world != null && !world.isRemote) {
             return;
+        }
+        // DEBUG v1.0.232 : log placement sur slot upgrade (cote serveur seulement)
+        if (index >= SLOT_UPGRADE_BASE && world != null && !world.isRemote) {
+            com.nexusabsolu.mod.NexusAbsoluMod.LOGGER.info(
+                "[FurnaceNexus] setInvSlot slot=" + index
+                + " new=" + (stack.isEmpty() ? "EMPTY" : stack.getItem().getRegistryName())
+                + " GUI_OP=" + GUI_OPERATION.get()
+                + " @ " + pos);
         }
         inventory[index] = stack;
         if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
