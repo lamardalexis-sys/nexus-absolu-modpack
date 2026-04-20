@@ -119,6 +119,10 @@ public class GuiFurnaceUpgrades extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mx, int my) {
+        // Pattern Mekanism : reset color GL au debut pour eviter state leaks
+        // qui causent des "textes doubles" au rendu du tooltip etendu shift-hover.
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
         // Titre centre
         String tierName = tile.getTier().registryName;
         String title = "Upgrades - " + Character.toUpperCase(tierName.charAt(0))
@@ -129,5 +133,8 @@ public class GuiFurnaceUpgrades extends GuiContainer {
         // Label inventaire joueur (traduit si possible, sinon fallback)
         String invLabel = net.minecraft.client.resources.I18n.format("container.inventory");
         fontRenderer.drawString(invLabel, 8, ySize - 96 + 2, 0xAAAAAA);
+
+        // Reset color GL avant de laisser la main au tooltip vanilla
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

@@ -148,6 +148,12 @@ public class GuiFurnaceNexus extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mx, int my) {
+        // Pattern Mekanism : reset color GL au cas ou un drawRect/drawString
+        // anterieur aurait laisse la couleur dans un etat non-blanc.
+        // Empeche les state leaks qui causent les textes "doublons" au
+        // rendu du tooltip etendu shift-hover.
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
         FurnaceTier tier = tile.getTier();
 
         // Titre centre
@@ -167,6 +173,9 @@ public class GuiFurnaceNexus extends GuiContainer {
         if (tile.isRFMode()) {
             fontRenderer.drawStringWithShadow("RF", 137, 4, 0xFFCC4444);
         }
+
+        // Reset color GL avant de laisser la main au tooltip vanilla
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     // ======================================================================
