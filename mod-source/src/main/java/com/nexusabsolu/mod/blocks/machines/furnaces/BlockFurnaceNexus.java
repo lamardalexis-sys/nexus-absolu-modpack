@@ -167,8 +167,9 @@ public class BlockFurnaceNexus extends Block implements IHasModel {
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof TileFurnaceNexus) {
                 // Ouvre le GUI Furnace (le GUI s'adapte selon tile.isEnhanced())
-                player.openGui(NexusAbsoluMod.instance, 10, world,
-                    pos.getX(), pos.getY(), pos.getZ());
+                player.openGui(NexusAbsoluMod.instance,
+                    com.nexusabsolu.mod.gui.GuiHandler.FURNACE_NEXUS_GUI,
+                    world, pos.getX(), pos.getY(), pos.getZ());
             }
         }
         return true;

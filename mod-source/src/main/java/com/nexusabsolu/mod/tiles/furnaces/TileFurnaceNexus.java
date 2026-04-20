@@ -315,21 +315,27 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
      */
     private void doAutoIO() {
         for (int faceIdx = 0; faceIdx < 6; faceIdx++) {
+            // Optim v1.0.238 : skip immediat si cette face n'a AUCUNE action IO
+            // active. Evite les appels couteux a world.getTileEntity et getCapability
+            // quand le furnace est dans sa config par defaut (seule face DOWN
+            // active pour ITEM_OUT).
+            boolean outActive = sideConfig.isFaceActive(SC_TYPE_ITEM_OUT, faceIdx);
+            boolean inActive = sideConfig.isFaceActive(SC_TYPE_ITEM_IN, faceIdx);
+            boolean fuelActive = sideConfig.isFaceActive(SC_TYPE_FUEL_IN, faceIdx);
+            if (!outActive && !inActive && !fuelActive) continue;
+
             EnumFacing face = EnumFacing.getFront(faceIdx);
-            // Position du voisin
             net.minecraft.util.math.BlockPos neighborPos = getPos().offset(face);
             TileEntity neighbor = world.getTileEntity(neighborPos);
             if (neighbor == null) continue;
 
-            // Capability opposee (face qui fait face a notre face)
             EnumFacing opposite = face.getOpposite();
-
             net.minecraftforge.items.IItemHandler neighborHandler = neighbor.getCapability(
                 CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, opposite);
             if (neighborHandler == null) continue;
 
             // ITEM_OUT : push SLOT_OUTPUT vers voisin
-            if (sideConfig.isFaceActive(SC_TYPE_ITEM_OUT, faceIdx)) {
+            if (outActive) {
                 ItemStack out = inventory.get(SLOT_OUTPUT);
                 if (!out.isEmpty()) {
                     ItemStack remaining = ItemHandlerHelper.insertItemStacked(neighborHandler, out.copy(), false);
@@ -343,12 +349,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             }
 
             // ITEM_IN : pull smeltables vers SLOT_INPUT
-            if (sideConfig.isFaceActive(SC_TYPE_ITEM_IN, faceIdx)) {
+            if (inActive) {
                 pullFromNeighborToSlot(neighborHandler, SLOT_INPUT, true, false);
             }
 
             // FUEL_IN : pull fuels vers SLOT_FUEL
-            if (sideConfig.isFaceActive(SC_TYPE_FUEL_IN, faceIdx)) {
+            if (fuelActive) {
                 pullFromNeighborToSlot(neighborHandler, SLOT_FUEL, false, true);
             }
         }
