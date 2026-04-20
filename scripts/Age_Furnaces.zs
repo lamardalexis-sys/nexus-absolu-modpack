@@ -69,11 +69,37 @@ recipes.addShaped("nexus_upgrade_rf_converter", <nexusabsolu:upgrade_rf_converte
      [<thermalfoundation:material:512>,     <minecraft:redstone_block>, <thermalfoundation:material:512>],
      [<ore:dustRedstone>,                   <ore:ingotGold>,            <ore:dustRedstone>]]);
 
-// === IO EXPANSION ===
-recipes.addShaped("nexus_upgrade_io_expansion", <nexusabsolu:upgrade_io_expansion>,
-    [[<ore:ingotIron>,        <minecraft:hopper>,                    <ore:ingotIron>],
-     [<minecraft:hopper>,     <nexusabsolu:upgrade_rf_converter>,    <minecraft:hopper>],
-     [<ore:ingotIron>,        <minecraft:hopper>,                    <ore:ingotIron>]]);
+// === IO EXPANSION (v1.0.247 : 4 tiers sequentiels) ===
+// Chaque tier superieur requiert le precedent au centre.
+// Plus on monte, plus les materiaux sont couteux (compose A -> E, vossium I -> IV).
+
+// Tier I : 3 slots in + 3 slots out
+//   Materiaux Age 0/1 : iron, hopper, RF converter
+recipes.addShaped("nexus_upgrade_io_expansion_1", <nexusabsolu:upgrade_io_expansion_1>,
+    [[<ore:ingotIron>,     <minecraft:hopper>,                    <ore:ingotIron>],
+     [<minecraft:hopper>,  <nexusabsolu:upgrade_rf_converter>,    <minecraft:hopper>],
+     [<ore:ingotIron>,     <minecraft:hopper>,                    <ore:ingotIron>]]);
+
+// Tier II : 5 slots in + 5 slots out
+//   Requiert tier I au centre + compose A + hoppers
+recipes.addShaped("nexus_upgrade_io_expansion_2", <nexusabsolu:upgrade_io_expansion_2>,
+    [[<nexusabsolu:compose_a>,   <minecraft:hopper>,                       <nexusabsolu:compose_a>],
+     [<minecraft:hopper>,        <nexusabsolu:upgrade_io_expansion_1>,     <minecraft:hopper>],
+     [<nexusabsolu:compose_a>,   <minecraft:hopper>,                       <nexusabsolu:compose_a>]]);
+
+// Tier III : 7 slots in + 7 slots out
+//   Requiert tier II au centre + compose B + vossium II ingots
+recipes.addShaped("nexus_upgrade_io_expansion_3", <nexusabsolu:upgrade_io_expansion_3>,
+    [[<nexusabsolu:compose_b>,        <nexusabsolu:vossium_ii_ingot>,           <nexusabsolu:compose_b>],
+     [<nexusabsolu:vossium_ii_ingot>, <nexusabsolu:upgrade_io_expansion_2>,     <nexusabsolu:vossium_ii_ingot>],
+     [<nexusabsolu:compose_b>,        <nexusabsolu:vossium_ii_ingot>,           <nexusabsolu:compose_b>]]);
+
+// Tier IV : 9 slots in + 9 slots out
+//   Requiert tier III au centre + compose C + vossium IV ingots (endgame)
+recipes.addShaped("nexus_upgrade_io_expansion_4", <nexusabsolu:upgrade_io_expansion_4>,
+    [[<nexusabsolu:compose_c>,        <nexusabsolu:vossium_iv_ingot>,           <nexusabsolu:compose_c>],
+     [<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:upgrade_io_expansion_3>,     <nexusabsolu:vossium_iv_ingot>],
+     [<nexusabsolu:compose_c>,        <nexusabsolu:vossium_iv_ingot>,           <nexusabsolu:compose_c>]]);
 
 // === SPEED BOOSTER ===
 recipes.addShaped("nexus_upgrade_speed_booster", <nexusabsolu:upgrade_speed_booster>,
@@ -96,4 +122,4 @@ recipes.addShaped("nexus_furnace_upgrade_kit", <nexusabsolu:furnace_upgrade_kit>
      [<nexusabsolu:compose_a>,      <enderio:item_material:0>,     <nexusabsolu:compose_a>],
      [<nexusabsolu:invarium_ingot>, <nexusabsolu:compose_a>,       <nexusabsolu:invarium_ingot>]]);
 
-print("[Nexus Absolu] Age_Furnaces.zs charge : 5 furnaces + 4 upgrades + 1 kit");
+print("[Nexus Absolu] Age_Furnaces.zs charge : 5 furnaces + 3 upgrades + 4 IO tiers + 1 kit");
