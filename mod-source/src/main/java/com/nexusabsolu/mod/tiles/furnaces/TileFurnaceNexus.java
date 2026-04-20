@@ -66,8 +66,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     //   - Tout fuel Forge-register (lava bucket, blaze rod, etc.) fonctionne aussi
 
     private FurnaceTier tier;
-    /** Inventaire IInventory : INPUT, FUEL, OUTPUT, UPGRADE_0..3 (7 slots). */
-    private ItemStack[] inventory;
+    /** Inventaire IInventory : INPUT, FUEL, OUTPUT, UPGRADE_0..3 (7 slots).
+     *  NonNullList garantit qu'aucun element n'est null (ItemStack.EMPTY a la place).
+     *  C'est le type que Minecraft 1.12 Forge utilise par defaut pour les
+     *  inventaires, compatible avec ItemStackHelper.saveAllItems/loadAllItems. */
+    private net.minecraft.util.NonNullList<ItemStack> inventory;
     private InternalEnergyStorage energyStorage;
 
     /** Flag thread-local : true pendant les operations issues du GUI Container.
@@ -112,8 +115,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     public TileFurnaceNexus(FurnaceTier tier) {
         this.tier = tier;
-        this.inventory = new ItemStack[TOTAL_SLOTS];
-        for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
+        this.inventory = net.minecraft.util.NonNullList.withSize(TOTAL_SLOTS, ItemStack.EMPTY);
         this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), 1000);
         this.maxCookTime = tier.baseCookTime();
         // Defaults Mekanism-like : output face = bas, rien d'autre
@@ -139,7 +141,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         markDirty();
         // Sync client via notifyBlockUpdate pour que le BlockState update les LED
         if (world != null && !world.isRemote) {
-            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+            net.minecraft.block.state.IBlockState state = world.getBlockState(pos);
+            world.notifyBlockUpdate(pos, state, state, 3);
         }
     }
 
@@ -172,7 +175,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     /** Mode RF actif si l'upgrade RF_CONVERTER est presente OU si le tier est nativeRF. */
     public boolean isRFMode() {
         if (tier.nativeRF) return true;
-        ItemStack rfSlot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.RF_CONVERTER.slotIndex];
+        ItemStack rfSlot = inventory.get(SLOT_UPGRADE_BASE + FurnaceUpgrade.RF_CONVERTER.slotIndex);
         return !rfSlot.isEmpty();
     }
 
@@ -184,13 +187,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     /** Nombre d'items dans le slot SPEED_BOOSTER (0 si vide). Public pour le GUI. */
     public int getSpeedBoosterCount() {
-        ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.SPEED_BOOSTER.slotIndex];
+        ItemStack slot = inventory.get(SLOT_UPGRADE_BASE + FurnaceUpgrade.SPEED_BOOSTER.slotIndex);
         return slot.isEmpty() ? 0 : slot.getCount();
     }
 
     /** Nombre d'items dans le slot EFFICIENCY (0 si vide). Public pour le GUI. */
     public int getEfficiencyCount() {
-        ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.EFFICIENCY.slotIndex];
+        ItemStack slot = inventory.get(SLOT_UPGRADE_BASE + FurnaceUpgrade.EFFICIENCY.slotIndex);
         return slot.isEmpty() ? 0 : slot.getCount();
     }
 
@@ -238,7 +241,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         boolean wasActive = cookProgress > 0 || fuelBurnTicks > 0;
 
         // 1. Recette disponible ?
-        ItemStack input = inventory[SLOT_INPUT];
+        ItemStack input = inventory.get(SLOT_INPUT);
         if (input.isEmpty()) {
             resetProgress();
             return;
@@ -249,7 +252,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             return;
         }
         // Output stackable ?
-        ItemStack output = inventory[SLOT_OUTPUT];
+        ItemStack output = inventory.get(SLOT_OUTPUT);
         if (!output.isEmpty()) {
             if (!ItemHandlerHelper.canItemStacksStack(output, result)) {
                 resetProgress();
@@ -274,12 +277,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             // Execute la cuisson
             ItemStack copy = result.copy();
             if (output.isEmpty()) {
-                inventory[SLOT_OUTPUT] = copy;
+                inventory.set(SLOT_OUTPUT, copy);
             } else {
                 output.grow(copy.getCount());
             }
             input.shrink(1);
-            if (input.getCount() <= 0) inventory[SLOT_INPUT] = ItemStack.EMPTY;
+            if (input.getCount() <= 0) inventory.set(SLOT_INPUT, ItemStack.EMPTY);
             cookProgress = 0;
             // Note: fuelBurnTicks est decremente tick-par-tick dans consumeFuelIfNeeded
             // Pas de decrement supplementaire ici (ancien systeme ops = supprime)
@@ -327,13 +330,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
             // ITEM_OUT : push SLOT_OUTPUT vers voisin
             if (sideConfig.isFaceActive(SC_TYPE_ITEM_OUT, faceIdx)) {
-                ItemStack out = inventory[SLOT_OUTPUT];
+                ItemStack out = inventory.get(SLOT_OUTPUT);
                 if (!out.isEmpty()) {
                     ItemStack remaining = ItemHandlerHelper.insertItemStacked(neighborHandler, out.copy(), false);
                     int inserted = out.getCount() - remaining.getCount();
                     if (inserted > 0) {
                         out.shrink(inserted);
-                        if (out.getCount() <= 0) inventory[SLOT_OUTPUT] = ItemStack.EMPTY;
+                        if (out.getCount() <= 0) inventory.set(SLOT_OUTPUT, ItemStack.EMPTY);
                         markDirty();
                     }
                 }
@@ -360,7 +363,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
                                          int targetSlot,
                                          boolean filterSmeltable,
                                          boolean filterFuel) {
-        ItemStack current = inventory[targetSlot];
+        ItemStack current = inventory.get(targetSlot);
         // Si deja plein ou stack max, skip
         if (!current.isEmpty() && current.getCount() >= current.getMaxStackSize()) return;
 
@@ -389,7 +392,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             if (taken.isEmpty()) continue;
 
             if (current.isEmpty()) {
-                inventory[targetSlot] = taken;
+                inventory.set(targetSlot, taken);
             } else {
                 current.grow(taken.getCount());
             }
@@ -434,7 +437,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         }
 
         // Plus de fuel : essaye d'en consommer un nouveau
-        ItemStack fuel = inventory[SLOT_FUEL];
+        ItemStack fuel = inventory.get(SLOT_FUEL);
         if (fuel.isEmpty()) return false;
 
         int burnTime = net.minecraft.tileentity.TileEntityFurnace.getItemBurnTime(fuel);
@@ -444,7 +447,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         fuelTotalBurnTicks = burnTime;
         fuelBurnTicks = burnTime - 1;  // -1 car on en consomme 1 ce tick
         fuel.shrink(1);
-        if (fuel.getCount() <= 0) inventory[SLOT_FUEL] = ItemStack.EMPTY;
+        if (fuel.getCount() <= 0) inventory.set(SLOT_FUEL, ItemStack.EMPTY);
         markDirty();
         return true;
     }
@@ -473,10 +476,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
         NBTTagList items = new NBTTagList();
         for (int i = 0; i < TOTAL_SLOTS; i++) {
-            if (!inventory[i].isEmpty()) {
+            if (!inventory.get(i).isEmpty()) {
                 NBTTagCompound itemTag = new NBTTagCompound();
                 itemTag.setInteger("Slot", i);
-                inventory[i].writeToNBT(itemTag);
+                inventory.get(i).writeToNBT(itemTag);
                 items.appendTag(itemTag);
             }
         }
@@ -517,36 +520,36 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             this.fuelTotalBurnTicks = this.fuelBurnTicks;
         }
 
-        for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
+        for (int i = 0; i < TOTAL_SLOTS; i++) inventory.set(i, ItemStack.EMPTY);
         NBTTagList items = nbt.getTagList("items", 10);
         for (int i = 0; i < items.tagCount(); i++) {
             NBTTagCompound itemTag = items.getCompoundTagAt(i);
             int slot = itemTag.getInteger("Slot");
             if (slot >= 0 && slot < TOTAL_SLOTS) {
-                inventory[slot] = new ItemStack(itemTag);
+                inventory.set(slot, new ItemStack(itemTag));
             }
         }
 
-        // Migration v1.0.226 : tag "Augments" separe -> redirige vers inventory[3-6]
+        // Migration v1.0.226 : tag "Augments" separe -> redirige vers inventory.get(3-6)
         if (nbt.hasKey("Augments")) {
             NBTTagList augList = nbt.getTagList("Augments", 10);
             for (int i = 0; i < augList.tagCount(); i++) {
                 NBTTagCompound itemTag = augList.getCompoundTagAt(i);
                 int slot = itemTag.getInteger("Slot");
                 if (slot >= 0 && slot < 4) {
-                    inventory[SLOT_UPGRADE_BASE + slot] = new ItemStack(itemTag);
+                    inventory.set(SLOT_UPGRADE_BASE + slot, new ItemStack(itemTag));
                 }
             }
         }
 
-        // Migration v1.0.218-221 : tag "upgrades" separe -> inventory[3-6]
+        // Migration v1.0.218-221 : tag "upgrades" separe -> inventory.get(3-6)
         if (nbt.hasKey("upgrades")) {
             NBTTagList upgList = nbt.getTagList("upgrades", 10);
             for (int i = 0; i < upgList.tagCount(); i++) {
                 NBTTagCompound itemTag = upgList.getCompoundTagAt(i);
                 int slot = itemTag.getInteger("Slot");
                 if (slot >= 0 && slot < 4) {
-                    inventory[SLOT_UPGRADE_BASE + slot] = new ItemStack(itemTag);
+                    inventory.set(SLOT_UPGRADE_BASE + slot, new ItemStack(itemTag));
                 }
             }
         }
@@ -620,7 +623,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         for (ItemStack s : inventory) if (!s.isEmpty()) return false;
         return true;
     }
-    @Override public ItemStack getStackInSlot(int index) { return inventory[index]; }
+    @Override public ItemStack getStackInSlot(int index) { return inventory.get(index); }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
@@ -632,15 +635,15 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             return ItemStack.EMPTY;
         }
 
-        ItemStack stack = inventory[index];
+        ItemStack stack = inventory.get(index);
         if (stack.isEmpty()) return ItemStack.EMPTY;
         ItemStack result;
         if (stack.getCount() <= count) {
             result = stack;
-            inventory[index] = ItemStack.EMPTY;
+            inventory.set(index, ItemStack.EMPTY);
         } else {
             result = stack.splitStack(count);
-            if (stack.getCount() == 0) inventory[index] = ItemStack.EMPTY;
+            if (stack.getCount() == 0) inventory.set(index, ItemStack.EMPTY);
         }
         markDirty();
         return result;
@@ -653,8 +656,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             && world != null && !world.isRemote) {
             return ItemStack.EMPTY;
         }
-        ItemStack s = inventory[index];
-        inventory[index] = ItemStack.EMPTY;
+        ItemStack s = inventory.get(index);
+        inventory.set(index, ItemStack.EMPTY);
         return s;
     }
 
@@ -668,7 +671,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             && world != null && !world.isRemote) {
             return;
         }
-        inventory[index] = stack;
+        inventory.set(index, stack);
         if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
             stack.setCount(getInventoryStackLimit());
         }
@@ -738,7 +741,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override public void setField(int id, int value) {}
     @Override public int getFieldCount() { return 0; }
     @Override public void clear() {
-        for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
+        for (int i = 0; i < TOTAL_SLOTS; i++) inventory.set(i, ItemStack.EMPTY);
     }
 
     @Override public String getName() { return "container.nexus.furnace_" + tier.registryName; }
