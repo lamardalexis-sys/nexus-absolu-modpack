@@ -189,6 +189,26 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     }
 
     /**
+     * Tier de la carte IO_EXPANSION installee, 0 si aucune.
+     *  0 : 1 input + 1 output (vanilla)
+     *  1 : 3 inputs + 3 outputs
+     *  2 : 5 + 5
+     *  3 : 7 + 7
+     *  4 : 9 + 9
+     */
+    public int getIOTier() {
+        ItemStack slot = inventory.get(SLOT_UPGRADE_BASE + FurnaceUpgrade.IO_EXPANSION.slotIndex);
+        if (slot.isEmpty()) return 0;
+        if (!(slot.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade)) return 0;
+        return ((com.nexusabsolu.mod.items.ItemFurnaceUpgrade) slot.getItem()).getTier();
+    }
+
+    /** Nombre de slots input (= nombre de slots output) selon le tier IO. */
+    public int getIOSlotCount() {
+        return 1 + 2 * getIOTier();  // tier 0 = 1, 1 = 3, 2 = 5, 3 = 7, 4 = 9
+    }
+
+    /**
      * Temps de cuisson effectif en ticks en tenant compte :
      *  - vitesse base du tier (baseCookTime)
      *  - bonus RF_CONVERTER si mode RF (+5%)

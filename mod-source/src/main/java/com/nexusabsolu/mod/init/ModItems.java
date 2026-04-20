@@ -201,9 +201,18 @@ public class ModItems {
     public static final Item UPGRADE_RF_CONVERTER = new ItemFurnaceUpgrade(
         "upgrade_rf_converter",
         com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.RF_CONVERTER);
-    public static final Item UPGRADE_IO_EXPANSION = new ItemFurnaceUpgrade(
-        "upgrade_io_expansion",
-        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.IO_EXPANSION);
+    public static final Item UPGRADE_IO_EXPANSION_I = new ItemFurnaceUpgrade(
+        "upgrade_io_expansion_1",
+        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.IO_EXPANSION, 1);
+    public static final Item UPGRADE_IO_EXPANSION_II = new ItemFurnaceUpgrade(
+        "upgrade_io_expansion_2",
+        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.IO_EXPANSION, 2);
+    public static final Item UPGRADE_IO_EXPANSION_III = new ItemFurnaceUpgrade(
+        "upgrade_io_expansion_3",
+        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.IO_EXPANSION, 3);
+    public static final Item UPGRADE_IO_EXPANSION_IV = new ItemFurnaceUpgrade(
+        "upgrade_io_expansion_4",
+        com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.IO_EXPANSION, 4);
     public static final Item UPGRADE_SPEED_BOOSTER = new ItemFurnaceUpgrade(
         "upgrade_speed_booster",
         com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade.SPEED_BOOSTER);
