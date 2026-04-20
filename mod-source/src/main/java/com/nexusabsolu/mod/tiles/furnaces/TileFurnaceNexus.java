@@ -146,21 +146,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         }
     }
 
-    /** Setter direct utilise au placement du bloc (lit le NBT de l'ItemStack). */
-    public void setEnhancedFromItemStack(boolean enhanced) {
-        this.isEnhanced = enhanced;
-    }
     public int getMaxCookTime() { return maxCookTime; }
     /** Ticks restants sur le fuel actuel (0 = pas de fuel actif). */
     public int getFuelBurnTicks() { return fuelBurnTicks; }
     /** Ticks totaux du fuel consomme (pour calculer le ratio de flamme). */
     public int getFuelTotalBurnTicks() { return fuelTotalBurnTicks; }
 
-    /**
-     * Alias retro-compat : true si un fuel brule actuellement.
-     * Utilise par les ancien codes (GUI, BlockFurnaceNexus.getActualState...).
-     */
-    public int getFuelRemaining() { return fuelBurnTicks > 0 ? 1 : 0; }
     public int getEnergyStored() { return energyStorage.getEnergyStored(); }
     public int getMaxEnergy() { return energyStorage.getMaxEnergyStored(); }
 
@@ -526,7 +517,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             this.fuelTotalBurnTicks = this.fuelBurnTicks;
         }
 
-        for (int i = 0; i < TOTAL_SLOTS; i++) inventory.set(i, ItemStack.EMPTY);
+        // v1.0.239 : Collections.fill plus idiomatique que le loop explicite
+        java.util.Collections.fill(inventory, ItemStack.EMPTY);
         NBTTagList items = nbt.getTagList("items", 10);
         for (int i = 0; i < items.tagCount(); i++) {
             NBTTagCompound itemTag = items.getCompoundTagAt(i);
@@ -747,7 +739,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override public void setField(int id, int value) {}
     @Override public int getFieldCount() { return 0; }
     @Override public void clear() {
-        for (int i = 0; i < TOTAL_SLOTS; i++) inventory.set(i, ItemStack.EMPTY);
+        java.util.Collections.fill(inventory, ItemStack.EMPTY);
     }
 
     @Override public String getName() { return "container.nexus.furnace_" + tier.registryName; }
