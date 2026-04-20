@@ -44,13 +44,34 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 public class TileFurnaceNexus extends TileEntity implements ITickable,
         net.minecraft.inventory.ISidedInventory {
 
-    public static final int SLOT_INPUT = 0;
-    public static final int SLOT_FUEL = 1;
-    public static final int SLOT_OUTPUT = 2;
-    public static final int SLOT_UPGRADE_BASE = 3;  // 3..6 pour les 4 upgrades
-    /** 7 slots : INPUT, FUEL, OUTPUT + 4 upgrades. Approche simple IInventory
-     *  unique (pattern Mekanism) + flag interne pour bloquer extraction externe. */
-    public static final int TOTAL_SLOTS = 7;
+    // === NOUVEAUX INDICES SLOTS (v1.0.248 Phase 2 IO Expansion) ===
+    // Structure etendue pour supporter IO I..IV (1/3/5/7/9 inputs+outputs).
+    //
+    // Ancienne structure (v1.0.247 et avant) : 7 slots
+    //   0 INPUT, 1 FUEL, 2 OUTPUT, 3..6 upgrades
+    //
+    // Nouvelle structure : 23 slots
+    //   0..8  : 9 slots INPUT (seuls les N premiers sont utilises selon tier IO)
+    //   9..17 : 9 slots OUTPUT (miroir des inputs, par position)
+    //   18    : FUEL (1 slot)
+    //   19..22: 4 upgrades (RF_CONVERTER, IO_EXPANSION, SPEED_BOOSTER, EFFICIENCY)
+    //
+    // Migration des saves v1.0.247 geree dans readFromNBT via InvFormat.
+    public static final int SLOT_INPUT_BASE = 0;
+    public static final int SLOT_INPUT_MAX = 9;
+    public static final int SLOT_OUTPUT_BASE = 9;
+    public static final int SLOT_OUTPUT_MAX = 9;
+    public static final int SLOT_FUEL = 18;
+    public static final int SLOT_UPGRADE_BASE = 19;  // 19..22
+
+    /** Alias pour retro-compat code : pointe sur le 1er input. */
+    public static final int SLOT_INPUT = SLOT_INPUT_BASE;
+    /** Alias pour retro-compat code : pointe sur le 1er output. */
+    public static final int SLOT_OUTPUT = SLOT_OUTPUT_BASE;
+
+    /** 23 slots total. Inventory unique (pattern Mekanism) avec flag GUI_OPERATION
+     *  pour bloquer extraction externe sur les slots upgrades 19..22. */
+    public static final int TOTAL_SLOTS = 23;
 
     // Types SideConfig pour les furnaces (indice dans SideConfig.faceConfig[type])
     public static final int SC_TYPE_ITEM_IN  = 0;
@@ -525,6 +546,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             }
         }
         nbt.setTag("items", items);
+        // v1.0.248 : marque le format v2 (23 slots) pour differencier des saves v1 (7 slots)
+        nbt.setInteger("InvFormat", 2);
 
         // Side config (6 faces x 4 types + eject/pull bits)
         NBTTagCompound scTag = new NBTTagCompound();
@@ -563,10 +586,19 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
         // v1.0.239 : Collections.fill plus idiomatique que le loop explicite
         java.util.Collections.fill(inventory, ItemStack.EMPTY);
+        // v1.0.248 : migration NBT pour Phase 2 IO Expansion.
+        //   Ancien format (InvFormat absent / == 0) : 7 slots
+        //     0=INPUT, 1=FUEL, 2=OUTPUT, 3..6=upgrades
+        //   Nouveau format (InvFormat == 2) : 23 slots
+        //     0..8=INPUT, 9..17=OUTPUT, 18=FUEL, 19..22=upgrades
+        int invFormat = nbt.getInteger("InvFormat");
         NBTTagList items = nbt.getTagList("items", 10);
         for (int i = 0; i < items.tagCount(); i++) {
             NBTTagCompound itemTag = items.getCompoundTagAt(i);
             int slot = itemTag.getInteger("Slot");
+            if (invFormat < 2) {
+                slot = migrateSlotIndexV1(slot);
+            }
             if (slot >= 0 && slot < TOTAL_SLOTS) {
                 inventory.set(slot, new ItemStack(itemTag));
             }
@@ -603,6 +635,41 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
         // v1.0.212 : flag Enhanced
         this.isEnhanced = nbt.getBoolean("enhanced");
+    }
+
+    /**
+     * Migration des indices d'inventory du format v1 (v1.0.247 et avant) vers
+     * le format v2 (v1.0.248+, Phase 2 IO Expansion).
+     *
+     * Format v1 (7 slots) :
+     *   0 = INPUT, 1 = FUEL, 2 = OUTPUT, 3..6 = upgrades (RF, IO, SPEED, EFF)
+     *
+     * Format v2 (23 slots) :
+     *   0..8  = INPUT   (SLOT_INPUT_BASE)
+     *   9..17 = OUTPUT  (SLOT_OUTPUT_BASE)
+     *   18    = FUEL
+     *   19..22 = upgrades (SLOT_UPGRADE_BASE + 0..3)
+     *
+     * Chaque item du v1 est mappe vers son equivalent v2 :
+     *   v1 slot 0 (INPUT)    -> v2 slot 0  (1er input)
+     *   v1 slot 1 (FUEL)     -> v2 slot 18
+     *   v1 slot 2 (OUTPUT)   -> v2 slot 9  (1er output)
+     *   v1 slot 3..6 (upg)   -> v2 slot 19..22
+     *
+     * @param oldSlot indice v1 lu depuis le NBT
+     * @return indice v2 equivalent, ou -1 si invalide
+     */
+    private int migrateSlotIndexV1(int oldSlot) {
+        switch (oldSlot) {
+            case 0: return SLOT_INPUT_BASE;          // INPUT
+            case 1: return SLOT_FUEL;                 // FUEL
+            case 2: return SLOT_OUTPUT_BASE;          // OUTPUT
+            case 3: return SLOT_UPGRADE_BASE + 0;     // RF_CONVERTER
+            case 4: return SLOT_UPGRADE_BASE + 1;     // IO_EXPANSION
+            case 5: return SLOT_UPGRADE_BASE + 2;     // SPEED_BOOSTER
+            case 6: return SLOT_UPGRADE_BASE + 3;     // EFFICIENCY
+            default: return -1;
+        }
     }
 
     // === Sync client (necessaire pour que isEnhanced se propage aux clients
@@ -730,10 +797,15 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        if (index == SLOT_OUTPUT) return false;
+        // OUTPUT : rien ne peut etre insere manuellement dans un output
+        if (isOutputSlot(index)) return false;
+        // FUEL : seulement du fuel valide
         if (index == SLOT_FUEL) return getCoalOps(stack) > 0;
-        if (index == SLOT_INPUT) return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
-        // Slots upgrade 3-6 : valides si c'est le bon type d'upgrade item.
+        // INPUT (tous les 9) : seulement des smeltables
+        if (isInputSlot(index)) {
+            return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
+        }
+        // Slots upgrade : valides si c'est le bon type d'upgrade item
         if (index >= SLOT_UPGRADE_BASE && index < TOTAL_SLOTS) {
             if (!isEnhanced) return false;
             if (stack.isEmpty()) return true;
@@ -745,6 +817,15 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         return false;
     }
 
+    /** Helper : slot dans la plage INPUT [0..8]. */
+    public static boolean isInputSlot(int index) {
+        return index >= SLOT_INPUT_BASE && index < SLOT_INPUT_BASE + SLOT_INPUT_MAX;
+    }
+    /** Helper : slot dans la plage OUTPUT [9..17]. */
+    public static boolean isOutputSlot(int index) {
+        return index >= SLOT_OUTPUT_BASE && index < SLOT_OUTPUT_BASE + SLOT_OUTPUT_MAX;
+    }
+
     // === ISidedInventory : CRITICAL securite slots upgrades ===
     //
     // Sans ISidedInventory, un InvWrapper(this) expose TOUS les slots (y compris
@@ -752,10 +833,17 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     // upgrades du four. Bug ingame rapporte v1.0.216 : la Carte d'Efficience
     // sort du four toute seule.
     //
-    // Ici on expose SEULEMENT les 3 slots input/fuel/output aux faces
-    // exterieures. Les slots upgrades (3-6) sont totalement invisibles aux
-    // hoppers/pipes et restent accessibles uniquement via le GUI.
-    private static final int[] EXPOSED_SLOTS = { SLOT_INPUT, SLOT_FUEL, SLOT_OUTPUT };
+    // v1.0.248 : on expose maintenant TOUS les slots input/fuel/output aux faces
+    // exterieures (9 inputs + 9 outputs + 1 fuel = 19 slots). Les slots upgrades
+    // restent cachees des hoppers.
+    private static final int[] EXPOSED_SLOTS;
+    static {
+        EXPOSED_SLOTS = new int[SLOT_INPUT_MAX + SLOT_OUTPUT_MAX + 1];
+        int idx = 0;
+        for (int i = 0; i < SLOT_INPUT_MAX; i++) EXPOSED_SLOTS[idx++] = SLOT_INPUT_BASE + i;
+        for (int i = 0; i < SLOT_OUTPUT_MAX; i++) EXPOSED_SLOTS[idx++] = SLOT_OUTPUT_BASE + i;
+        EXPOSED_SLOTS[idx] = SLOT_FUEL;
+    }
 
     @Override
     public int[] getSlotsForFace(EnumFacing side) {
@@ -764,19 +852,18 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     @Override
     public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
-        // Validations par slot :
-        //   INPUT : seulement smeltables
-        //   FUEL  : seulement fuel (coal/charcoal/etc.)
-        //   OUTPUT : rien ne peut y etre insere
-        if (index == SLOT_INPUT) return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
+        // INPUT : seulement smeltables
+        // FUEL  : seulement fuel (coal/charcoal/etc.)
+        // OUTPUT : rien ne peut y etre insere
+        if (isInputSlot(index)) return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
         if (index == SLOT_FUEL) return getCoalOps(stack) > 0;
         return false;
     }
 
     @Override
     public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-        // Seul SLOT_OUTPUT peut etre extrait (recettes cuites)
-        return index == SLOT_OUTPUT;
+        // Seuls les OUTPUT peuvent etre extraits (recettes cuites)
+        return isOutputSlot(index);
     }
 
     @Override public int getField(int id) { return 0; }

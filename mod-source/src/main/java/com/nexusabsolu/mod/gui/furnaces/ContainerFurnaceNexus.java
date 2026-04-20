@@ -129,9 +129,18 @@ public class ContainerFurnaceNexus extends Container {
         ItemStack stack = slot.getStack();
         result = stack.copy();
 
-        int machineSlotsEnd = 7;        // slots 0-6 = machine
-        int playerInvStart = 7;         // slots 7-33 = inv + hotbar
-        int playerInvEnd = 43;
+        // Indices dans le CONTAINER (pas dans le tile) :
+        //   0 = INPUT (1 slot container, meme si tile a 9 inputs visibles plus tard)
+        //   1 = FUEL
+        //   2 = OUTPUT
+        //   3..6 = 4 upgrades (caches mais presents)
+        //   7..42 = inventaire joueur (27 inv + 9 hotbar)
+        final int C_INPUT = 0;
+        final int C_FUEL = 1;
+        final int C_OUTPUT = 2;
+        final int machineSlotsEnd = 7;
+        final int playerInvStart = 7;
+        final int playerInvEnd = 43;
 
         if (index < machineSlotsEnd) {
             // Machine -> inventaire
@@ -142,14 +151,12 @@ public class ContainerFurnaceNexus extends Container {
             // Inventaire -> machine (priorite intelligente)
             if (!FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty()) {
                 // Smeltable -> slot input
-                if (!mergeItemStack(stack, TileFurnaceNexus.SLOT_INPUT,
-                        TileFurnaceNexus.SLOT_INPUT + 1, false)) {
+                if (!mergeItemStack(stack, C_INPUT, C_INPUT + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (net.minecraft.tileentity.TileEntityFurnace.isItemFuel(stack)) {
                 // Fuel -> slot fuel
-                if (!mergeItemStack(stack, TileFurnaceNexus.SLOT_FUEL,
-                        TileFurnaceNexus.SLOT_FUEL + 1, false)) {
+                if (!mergeItemStack(stack, C_FUEL, C_FUEL + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (index >= playerInvStart && index < playerInvStart + 27) {
