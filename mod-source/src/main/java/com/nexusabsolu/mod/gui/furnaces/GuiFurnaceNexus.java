@@ -105,7 +105,15 @@ public class GuiFurnaceNexus extends GuiContainer {
         super(new ContainerFurnaceNexus(playerInv, tile));
         this.tile = tile;
         this.xSize = 176;
-        this.ySize = 186;  // HAUTEUR AUGMENTEE de 166 -> 186
+        // ySize dynamique selon tier IO installe (doit matcher Container) :
+        //   extraH = max(0, (N-4) * 18) ou N = getIOSlotCount()
+        //   - Tier 0/I (1/3 slots)  : 186 (base)
+        //   - Tier II (5)           : 186 + 18 = 204
+        //   - Tier III (7)          : 186 + 54 = 240
+        //   - Tier IV (9)           : 186 + 90 = 276
+        int visibleSlots = tile.getIOSlotCount();
+        int extraH = Math.max(0, (visibleSlots - 4) * 18);
+        this.ySize = 186 + extraH;
     }
 
     // ======================================================================
@@ -119,26 +127,45 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         mc.getTextureManager().bindTexture(TEXTURE);
-        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         int x = guiLeft;
         int y = guiTop;
+        int visibleSlots = tile.getIOSlotCount();
+        int extraH = ySize - 186;  // 0 si tier 0-I, >0 sinon
 
-        // === RF BAR VERTICALE a droite (style Thermal) - UNIQUEMENT si
-        // l'upgrade RF Converter est placee dans le slot correspondant ===
+        if (extraH == 0) {
+            // Cas vanilla : une seule blit 176x186
+            drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        } else {
+            // Cas extension : 3 zones
+            //   1) Top machine (0..93) : slot input principal, fuel, flamme, etc.
+            drawTexturedModalRect(x, y, 0, 0, xSize, 93);
+            //   2) Extension (93..93+extraH) : fond uni violet sombre assorti
+            drawRect(x, y + 93, x + xSize, y + 93 + extraH, 0xFF1B0E2A);
+            //   3) Bottom inventaire (93+extraH..ySize) = texture 93..186
+            drawTexturedModalRect(x, y + 93 + extraH, 0, 93, xSize, 93);
+        }
+
+        // === BORDURES DES SLOTS INPUT/OUTPUT SUPPLEMENTAIRES ===
+        // Le slot[0] input et output sont deja dessines sur la texture vanilla.
+        // Pour les slots 1..N-1 on dessine manuellement un cadre + fond sombre.
+        for (int i = 1; i < visibleSlots; i++) {
+            int slotY = y + 19 + i * 18;
+            // Slot input colonne gauche (x=41)
+            drawSlotBorder(x + 41, slotY);
+            // Slot output colonne droite (x=104)
+            drawSlotBorder(x + 104, slotY);
+        }
+
+        // === RF BAR VERTICALE a droite (style Thermal) ===
         if (tile.isRFMode()) {
-            // Cadre noir (1px) autour pour demarquer (style Thermal)
             drawRect(x + RF_BAR_X, y + RF_BAR_Y,
                      x + RF_BAR_X + RF_BAR_W, y + RF_BAR_Y + RF_BAR_H, 0xFF1A1A1A);
-            // Fond sombre (rouge fonce satureee) pour vide = contraste
             drawRect(x + RF_FILL_X, y + RF_FILL_Y,
                      x + RF_FILL_X + RF_FILL_W, y + RF_FILL_Y + RF_FILL_H, 0xFF3D0A0A);
-            // Fill : degrade vertical rouge fonce -> rouge vif -> orange (bas->haut)
-            // Style Thermal Redstone Furnace
             GuiUtils.fillBarVertical(x + RF_FILL_X, y + RF_FILL_Y, RF_FILL_W, RF_FILL_H,
                 tile.getEnergyStored(), tile.getMaxEnergy(),
                 0xFFB22222, 0xFFFF8A3C);
-            // Highlight vertical cote gauche (1px brillant pour effet 3D)
             int fillH = tile.getMaxEnergy() > 0
                 ? (int)(RF_FILL_H * (float)tile.getEnergyStored() / tile.getMaxEnergy()) : 0;
             if (fillH > 0) {
@@ -155,13 +182,11 @@ public class GuiFurnaceNexus extends GuiContainer {
             && tile.getEnergyStored() > 0 && tile.getCookProgress() > 0;
 
         if (fuelBurnTicks > 0 && fuelTotal > 0) {
-            // Flamme orange proportionnelle au fuel restant (ratio descend dans le temps)
             GuiUtils.fillBarHorizontal(x + FUEL_FLAME_X, y + FUEL_FLAME_Y,
                 FUEL_FLAME_W, FUEL_FLAME_H,
                 fuelBurnTicks, fuelTotal,
                 0xFFCC3D10, 0xFFFF8830);
         } else if (rfActive) {
-            // Mode RF : barre pleine bleue constante (l'energie est continue)
             GuiUtils.fillBarHorizontal(x + FUEL_FLAME_X, y + FUEL_FLAME_Y,
                 FUEL_FLAME_W, FUEL_FLAME_H, 1, 1,
                 0xFF4455CC, 0xFF7788FF);
@@ -177,7 +202,6 @@ public class GuiFurnaceNexus extends GuiContainer {
             drawRect(x + PROGRESS_X, y + PROGRESS_Y,
                      x + PROGRESS_X + fillW, y + PROGRESS_Y + PROGRESS_H, tierCol);
             if (fillW > 2) {
-                // 1px de highlight en haut pour effet brillant
                 drawRect(x + PROGRESS_X, y + PROGRESS_Y,
                          x + PROGRESS_X + fillW, y + PROGRESS_Y + 1, tierBright);
             }
@@ -186,12 +210,21 @@ public class GuiFurnaceNexus extends GuiContainer {
         // === ONGLETS LATERAUX ===
         mc.getTextureManager().bindTexture(TEXTURE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        // Onglet CONFIG a GAUCHE (toujours present)
         drawTexturedModalRect(x - 13, y + TAB_Y, 176, 0, TAB_W, TAB_H);
-        // Onglet UPGRADES a DROITE - uniquement si enhanced
         if (tile.isEnhanced()) {
             drawTexturedModalRect(x + xSize - 2, y + TAB_Y, 176, 17, TAB_W, TAB_H);
         }
+    }
+
+    /**
+     * Dessine un slot 16x16 avec cadre 1px style vanilla Minecraft.
+     * Position (x, y) = coin top-left du slot interne (ou l'item apparait).
+     */
+    private void drawSlotBorder(int x, int y) {
+        // Cadre exterieur sombre 18x18
+        drawRect(x - 1, y - 1, x + 17, y + 17, 0xFF373737);
+        // Fond slot 16x16 couleur vanilla
+        drawRect(x, y, x + 16, y + 16, 0xFF8B8B8B);
     }
 
     // ======================================================================
@@ -218,8 +251,9 @@ public class GuiFurnaceNexus extends GuiContainer {
         String speedStr = "x" + tier.speedMultiplier;
         fontRenderer.drawStringWithShadow(speedStr, 68, 40, 0xFF8866AA);
 
-        // Label Inventaire (ajuste a ySize=186 -> inv a y=93+)
-        fontRenderer.drawStringWithShadow("Inventaire", 8, 93, 0xFF8866AA);
+        // Label Inventaire (decale par extraH pour matcher l'inventaire decale)
+        int extraH = ySize - 186;
+        fontRenderer.drawStringWithShadow("Inventaire", 8, 93 + extraH, 0xFF8866AA);
 
         // Label RF au-dessus de la barre verticale - uniquement si RF Converter place
         if (tile.isRFMode()) {

@@ -43,36 +43,67 @@ public class ContainerFurnaceNexus extends Container {
     private static final int FIELD_MAX_COOK_TIME = 3;
     private static final int FIELD_FUEL_TOTAL_BURN_TICKS = 4;
 
+    /**
+     * Nombre de slots input/output visibles pour le tier IO au moment de
+     * la creation du Container. Fige pour la duree de vie du Container :
+     * si le joueur retire la carte IO pendant qu'il est dans le GUI, les
+     * slots actuellement visibles restent mais bloquent les nouvelles
+     * insertions via isItemValid dynamique.
+     */
+    private final int visibleIOSlots;
+
+    // === Layout Mekanism-style colonnes verticales ===
+    // INPUT  : colonne gauche, x=41
+    // OUTPUT : colonne droite, x=104
+    // Espacement vertical : 18 px entre slots
+    private static final int INPUT_COL_X = 41;
+    private static final int OUTPUT_COL_X = 104;
+    private static final int SLOT_VERTICAL_START = 19;
+    private static final int SLOT_VERTICAL_STEP = 18;
+
     public ContainerFurnaceNexus(InventoryPlayer playerInv, TileFurnaceNexus tile) {
         this.tile = tile;
+        this.visibleIOSlots = tile.getIOSlotCount();  // 1, 3, 5, 7 ou 9
 
-        // === SLOTS MACHINE ===
-        // Positions matchent la texture gui_furnace.png v6 (ySize=186)
-        // 0 : input dessine a (40, 18) -> slot a (41, 19)
-        addSlotToContainer(new Slot(tile, TileFurnaceNexus.SLOT_INPUT, 41, 19) {
-            @Override
-            public boolean isItemValid(ItemStack stack) {
-                return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
-            }
-        });
-        // 1 : fuel dessine a (40, 50) -> slot a (41, 51)
+        // === 9 SLOTS INPUT (colonne verticale gauche) ===
+        // Slots [0 .. visibleIOSlots-1] : positions visibles colonne
+        // Slots [visibleIOSlots .. 8]   : positions hors-ecran (-1000)
+        // isItemValid check dynamique : interdit si i >= getIOSlotCount() au moment du clic
+        for (int i = 0; i < TileFurnaceNexus.SLOT_INPUT_MAX; i++) {
+            final int slotIdx = i;
+            int posX = (i < visibleIOSlots) ? INPUT_COL_X : -1000;
+            int posY = (i < visibleIOSlots)
+                ? SLOT_VERTICAL_START + i * SLOT_VERTICAL_STEP
+                : -1000;
+            addSlotToContainer(new Slot(tile,
+                    TileFurnaceNexus.SLOT_INPUT_BASE + i, posX, posY) {
+                @Override
+                public boolean isItemValid(ItemStack stack) {
+                    // Re-check tier courant (permet de bloquer si carte retiree)
+                    if (slotIdx >= tile.getIOSlotCount()) return false;
+                    return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
+                }
+            });
+        }
+
+        // === FUEL (position inchangee) ===
         addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 41, 51));
-        // 2 : output_large dessine a (100, 20) 26x26 -> slot a (104, 24)
-        addSlotToContainer(new SlotFurnaceOutput(
-            playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 104, 24));
 
-        // === 4 SLOTS UPGRADES (hors-ecran par defaut, GUI les repositionne dans le panneau) ===
-        // v1.0.227 : retour Slot classique. La protection contre extraction externe
-        // est maintenant faite par TileFurnaceNexus via le flag ThreadLocal
-        // GUI_OPERATION : setGuiOperation(true) avant chaque slotClick/transferStack-
-        // InSlot dans ce Container, puis setGuiOperation(false) apres (via try/finally).
-        // Toutes les autres tentatives d'extraction (mods externes, hoppers bypass,
-        // etc.) sont bloquees au niveau decrStackSize/removeStackFromSlot/setInventory-
-        // SlotContents qui refusent les operations sur slots 3-6.
+        // === 9 SLOTS OUTPUT (colonne verticale droite) ===
+        for (int i = 0; i < TileFurnaceNexus.SLOT_OUTPUT_MAX; i++) {
+            int posX = (i < visibleIOSlots) ? OUTPUT_COL_X : -1000;
+            int posY = (i < visibleIOSlots)
+                ? SLOT_VERTICAL_START + i * SLOT_VERTICAL_STEP
+                : -1000;
+            addSlotToContainer(new SlotFurnaceOutput(playerInv.player, tile,
+                TileFurnaceNexus.SLOT_OUTPUT_BASE + i, posX, posY));
+        }
+
+        // === 4 SLOTS UPGRADES (hors-ecran par defaut, GUI les repositionne) ===
+        // Voir v1.0.227 pour le pattern ThreadLocal GUI_OPERATION.
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
             int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
-            // Position -1000 = cache. Le GUI les deplace quand upgradesOpen = true.
             addSlotToContainer(new Slot(tile, slotIdx, -1000, -1000) {
                 @Override
                 public int getSlotStackLimit() {
@@ -92,20 +123,31 @@ public class ContainerFurnaceNexus extends Container {
             });
         }
 
-        // === INVENTAIRE JOUEUR (positions ajustees a ySize=186) ===
-        // Texture: inventaire rangees y=103,121,139, hotbar y=161
-        // Slot MC = xPos/yPos + 1 par rapport au frame texture
+        // === INVENTAIRE JOUEUR (position y adaptee a ySize dynamique) ===
+        // Slot max input/output : y = 19 + (N-1)*18, finit a y = 35 + (N-1)*18
+        // Pour ne pas chevaucher l'inventaire vanilla (y=104), on decale :
+        //   extraH = max(0, (N-4) * 18)
+        // - Tier 0 (N=1) : extraH = 0 (inchange)
+        // - Tier I (N=3) : extraH = 0 (inchange)
+        // - Tier II (N=5): extraH = 18
+        // - Tier III (N=7): extraH = 54
+        // - Tier IV (N=9): extraH = 90
+        int extraH = Math.max(0, (visibleIOSlots - 4) * SLOT_VERTICAL_STEP);
+        int invY = 104 + extraH;
+        int hotbarY = 162 + extraH;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 addSlotToContainer(new Slot(
-                    playerInv, col + row * 9 + 9, 8 + col * 18, 104 + row * 18));
+                    playerInv, col + row * 9 + 9, 8 + col * 18, invY + row * 18));
             }
         }
-        // Hotbar a y=162 (frame y=161 + 1)
         for (int col = 0; col < 9; col++) {
-            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, 162));
+            addSlotToContainer(new Slot(playerInv, col, 8 + col * 18, hotbarY));
         }
     }
+
+    /** Pour le GUI : combien de slots IO sont visibles dans ce container ? */
+    public int getVisibleIOSlots() { return visibleIOSlots; }
 
     // === SHIFT-CLICK ===
 
@@ -129,18 +171,21 @@ public class ContainerFurnaceNexus extends Container {
         ItemStack stack = slot.getStack();
         result = stack.copy();
 
-        // Indices dans le CONTAINER (pas dans le tile) :
-        //   0 = INPUT (1 slot container, meme si tile a 9 inputs visibles plus tard)
-        //   1 = FUEL
-        //   2 = OUTPUT
-        //   3..6 = 4 upgrades (caches mais presents)
-        //   7..42 = inventaire joueur (27 inv + 9 hotbar)
-        final int C_INPUT = 0;
-        final int C_FUEL = 1;
-        final int C_OUTPUT = 2;
-        final int machineSlotsEnd = 7;
-        final int playerInvStart = 7;
-        final int playerInvEnd = 43;
+        // === Indices dans le CONTAINER (avec Phase 2c, 9+9 slots) ===
+        //   0..8    : 9 slots INPUT
+        //   9       : FUEL
+        //   10..18  : 9 slots OUTPUT
+        //   19..22  : 4 upgrades (caches par defaut, visible quand upgrades GUI)
+        //   23..49  : inventaire joueur (27)
+        //   50..58  : hotbar (9)
+        final int C_INPUT_BASE = 0;
+        final int C_INPUT_END = 9;          // exclusif
+        final int C_FUEL = 9;
+        final int C_OUTPUT_BASE = 10;
+        final int C_OUTPUT_END = 19;
+        final int machineSlotsEnd = 23;
+        final int playerInvStart = 23;
+        final int playerInvEnd = 59;
 
         if (index < machineSlotsEnd) {
             // Machine -> inventaire
@@ -150,8 +195,8 @@ public class ContainerFurnaceNexus extends Container {
         } else {
             // Inventaire -> machine (priorite intelligente)
             if (!FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty()) {
-                // Smeltable -> slot input
-                if (!mergeItemStack(stack, C_INPUT, C_INPUT + 1, false)) {
+                // Smeltable -> premier slot input libre (merge sur tous les inputs visibles)
+                if (!mergeItemStack(stack, C_INPUT_BASE, C_INPUT_END, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (net.minecraft.tileentity.TileEntityFurnace.isItemFuel(stack)) {
