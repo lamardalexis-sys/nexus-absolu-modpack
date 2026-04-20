@@ -189,6 +189,29 @@ public class ContainerFurnaceNexus extends Container {
     //   - bits hauts : (short)(N >>> 16)  -> cote client (high << 16)
     // Total : low | high = int d'origine, exact.
 
+    /**
+     * v1.0.241 : force l'envoi des valeurs actuelles a un listener qui vient
+     * juste de s'attacher (au moment ou le joueur ouvre le GUI). Sinon le GUI
+     * affiche 0 pour tous les champs pendant 1 tick avant le prochain
+     * detectAndSendChanges.
+     */
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        int[] initialFields = {
+            tile.getCookProgress(),
+            tile.getFuelBurnTicks(),
+            tile.getEnergyStored(),
+            tile.getMaxCookTime(),
+            tile.getFuelTotalBurnTicks()
+        };
+        for (int i = 0; i < initialFields.length; i++) {
+            int value = initialFields[i];
+            listener.sendWindowProperty(this, i * 2, value & 0xFFFF);
+            listener.sendWindowProperty(this, i * 2 + 1, (value >>> 16) & 0xFFFF);
+        }
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();

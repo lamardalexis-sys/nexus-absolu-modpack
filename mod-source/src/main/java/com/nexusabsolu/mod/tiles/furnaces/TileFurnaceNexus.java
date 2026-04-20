@@ -215,11 +215,9 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
      *  - EFFICIENCY : x0.92 par item (cumulatif multiplicatif)
      */
     public int getEffectiveRfPerTick() {
-        float consoMult = 1.0F;
         int spdCount = getSpeedBoosterCount();
-        for (int i = 0; i < spdCount; i++) consoMult *= 1.40F;
         int effCount = getEfficiencyCount();
-        for (int i = 0; i < effCount; i++) consoMult *= 0.92F;
+        float consoMult = (float) (Math.pow(1.40, spdCount) * Math.pow(0.92, effCount));
         return Math.max(1, (int)(tier.baseRfPerTick * consoMult));
     }
 
