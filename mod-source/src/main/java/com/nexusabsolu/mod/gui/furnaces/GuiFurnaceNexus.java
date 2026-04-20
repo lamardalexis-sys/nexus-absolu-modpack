@@ -1,6 +1,7 @@
 package com.nexusabsolu.mod.gui.furnaces;
 
 import com.nexusabsolu.mod.Reference;
+import com.nexusabsolu.mod.gui.util.GuiUtils;
 import com.nexusabsolu.mod.tiles.SideConfig;
 import com.nexusabsolu.mod.tiles.furnaces.FurnaceTier;
 import com.nexusabsolu.mod.tiles.furnaces.FurnaceUpgrade;
@@ -55,6 +56,50 @@ public class GuiFurnaceNexus extends GuiContainer {
         "Bas", "Haut", "Nord", "Sud", "Ouest", "Est"
     };
 
+    // ======================================================================
+    // LAYOUT : coordonnees et tailles des elements GUI, centralises ici pour
+    // qu'on n'ait pas a chasser les nombres magiques dans chaque methode.
+    // Les coordonnees sont en LOCAL (relatives a guiLeft/guiTop).
+    // ======================================================================
+
+    /** Jauge RF verticale (cote droit). Zone (140..150, 12..84) = 10x72 fill. */
+    private static final int RF_BAR_X = 140;
+    private static final int RF_BAR_Y = 12;
+    private static final int RF_BAR_W = 10;   // incluant le cadre 1px de chaque cote
+    private static final int RF_BAR_H = 72;
+    /** Zone fill INTERIEURE de la jauge RF (apres cadre 1px + fond 1px). */
+    private static final int RF_FILL_X = RF_BAR_X + 1;
+    private static final int RF_FILL_Y = RF_BAR_Y + 1;
+    private static final int RF_FILL_W = 8;   // 10 - 2*1px
+    private static final int RF_FILL_H = 70;  // 72 - 2*1px
+
+    /** Flamme fuel sous la fleche progress. Zone (69..91, 56..62) = 22x6. */
+    private static final int FUEL_FLAME_X = 69;
+    private static final int FUEL_FLAME_Y = 56;
+    private static final int FUEL_FLAME_W = 22;
+    private static final int FUEL_FLAME_H = 6;
+    /** Hitbox tooltip flamme un peu plus large que la barre. */
+    private static final int FUEL_FLAME_HITBOX_X = 68;
+    private static final int FUEL_FLAME_HITBOX_Y = 55;
+    private static final int FUEL_FLAME_HITBOX_W = 24;
+    private static final int FUEL_FLAME_HITBOX_H = 8;
+
+    /** Fleche progress horizontale. Zone (68..92, 30..34) = 24x4. */
+    private static final int PROGRESS_X = 68;
+    private static final int PROGRESS_Y = 30;
+    private static final int PROGRESS_W = 24;
+    private static final int PROGRESS_H = 4;
+    /** Hitbox tooltip progress plus large. */
+    private static final int PROGRESS_HITBOX_X = 68;
+    private static final int PROGRESS_HITBOX_Y = 27;
+    private static final int PROGRESS_HITBOX_W = 24;
+    private static final int PROGRESS_HITBOX_H = 10;
+
+    /** Onglets lateraux (CONFIG a gauche, UPGRADES a droite). 15x17. */
+    private static final int TAB_Y = 18;
+    private static final int TAB_W = 15;
+    private static final int TAB_H = 17;
+
     public GuiFurnaceNexus(InventoryPlayer playerInv, TileFurnaceNexus tile) {
         super(new ContainerFurnaceNexus(playerInv, tile));
         this.tile = tile;
@@ -80,27 +125,29 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         // === RF BAR VERTICALE a droite (style Thermal) - UNIQUEMENT si
         // l'upgrade RF Converter est placee dans le slot correspondant ===
-        // Zone : (140, 12) a (150, 84) = 10x72 max fill
         if (tile.isRFMode()) {
             // Cadre noir (1px) autour pour demarquer (style Thermal)
-            drawRect(x + 140, y + 12, x + 150, y + 84, 0xFF1A1A1A);
+            drawRect(x + RF_BAR_X, y + RF_BAR_Y,
+                     x + RF_BAR_X + RF_BAR_W, y + RF_BAR_Y + RF_BAR_H, 0xFF1A1A1A);
             // Fond sombre (rouge fonce satureee) pour vide = contraste
-            drawRect(x + 141, y + 13, x + 149, y + 83, 0xFF3D0A0A);
+            drawRect(x + RF_FILL_X, y + RF_FILL_Y,
+                     x + RF_FILL_X + RF_FILL_W, y + RF_FILL_Y + RF_FILL_H, 0xFF3D0A0A);
             // Fill : degrade vertical rouge fonce -> rouge vif -> orange (bas->haut)
             // Style Thermal Redstone Furnace
-            fillBarVertical(x + 141, y + 13, 8, 70,
+            GuiUtils.fillBarVertical(x + RF_FILL_X, y + RF_FILL_Y, RF_FILL_W, RF_FILL_H,
                 tile.getEnergyStored(), tile.getMaxEnergy(),
                 0xFFB22222, 0xFFFF8A3C);
             // Highlight vertical cote gauche (1px brillant pour effet 3D)
             int fillH = tile.getMaxEnergy() > 0
-                ? (int)(70.0F * tile.getEnergyStored() / tile.getMaxEnergy()) : 0;
+                ? (int)(RF_FILL_H * (float)tile.getEnergyStored() / tile.getMaxEnergy()) : 0;
             if (fillH > 0) {
-                drawRect(x + 141, y + 83 - fillH, x + 142, y + 83, 0xFFFFAA44);
+                int fillBottom = y + RF_FILL_Y + RF_FILL_H;
+                drawRect(x + RF_FILL_X, fillBottom - fillH,
+                         x + RF_FILL_X + 1, fillBottom, 0xFFFFAA44);
             }
         }
 
         // === FLAMME fuel indicator style vanilla (descend avec le fuel restant) ===
-        // Zone : (68, 55) a (91, 62) = 24x8
         int fuelBurnTicks = tile.getFuelBurnTicks();
         int fuelTotal = tile.getFuelTotalBurnTicks();
         boolean rfActive = tile.isRFMode()
@@ -108,26 +155,30 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         if (fuelBurnTicks > 0 && fuelTotal > 0) {
             // Flamme orange proportionnelle au fuel restant (ratio descend dans le temps)
-            fillBarHorizontal(x + 69, y + 56, 22, 6,
+            GuiUtils.fillBarHorizontal(x + FUEL_FLAME_X, y + FUEL_FLAME_Y,
+                FUEL_FLAME_W, FUEL_FLAME_H,
                 fuelBurnTicks, fuelTotal,
                 0xFFCC3D10, 0xFFFF8830);
         } else if (rfActive) {
             // Mode RF : barre pleine bleue constante (l'energie est continue)
-            fillBarHorizontal(x + 69, y + 56, 22, 6, 1, 1,
+            GuiUtils.fillBarHorizontal(x + FUEL_FLAME_X, y + FUEL_FLAME_Y,
+                FUEL_FLAME_W, FUEL_FLAME_H, 1, 1,
                 0xFF4455CC, 0xFF7788FF);
         }
 
         // === PROGRESS fleche qui avance ===
-        // Zone : (68, 27) a (91, 36) = 24x10
         int prog = tile.getCookProgress();
         int maxP = tile.getMaxCookTime();
         if (maxP > 0 && prog > 0) {
-            int fillW = (int)(24.0F * prog / maxP);
-            int tierCol = getTierProgressColor(tile.getTier());
-            int tierBright = getTierProgressBright(tile.getTier());
-            drawRect(x + 68, y + 30, x + 68 + fillW, y + 34, tierCol);
+            int fillW = (int)(PROGRESS_W * (float)prog / maxP);
+            int tierCol = FurnaceTierStyle.getProgressColor(tile.getTier());
+            int tierBright = FurnaceTierStyle.getProgressBright(tile.getTier());
+            drawRect(x + PROGRESS_X, y + PROGRESS_Y,
+                     x + PROGRESS_X + fillW, y + PROGRESS_Y + PROGRESS_H, tierCol);
             if (fillW > 2) {
-                drawRect(x + 68, y + 30, x + 68 + fillW, y + 31, tierBright);
+                // 1px de highlight en haut pour effet brillant
+                drawRect(x + PROGRESS_X, y + PROGRESS_Y,
+                         x + PROGRESS_X + fillW, y + PROGRESS_Y + 1, tierBright);
             }
         }
 
@@ -135,10 +186,10 @@ public class GuiFurnaceNexus extends GuiContainer {
         mc.getTextureManager().bindTexture(TEXTURE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         // Onglet CONFIG a GAUCHE (toujours present)
-        drawTexturedModalRect(x - 13, y + 18, 176, 0, 15, 17);
+        drawTexturedModalRect(x - 13, y + TAB_Y, 176, 0, TAB_W, TAB_H);
         // Onglet UPGRADES a DROITE - uniquement si enhanced
         if (tile.isEnhanced()) {
-            drawTexturedModalRect(x + xSize - 2, y + 18, 176, 17, 15, 17);
+            drawTexturedModalRect(x + xSize - 2, y + TAB_Y, 176, 17, TAB_W, TAB_H);
         }
     }
 
@@ -157,9 +208,9 @@ public class GuiFurnaceNexus extends GuiContainer {
         FurnaceTier tier = tile.getTier();
 
         // Titre centre
-        String title = getTierDisplayName(tier);
+        String title = FurnaceTierStyle.getDisplayName(tier);
         int tw = fontRenderer.getStringWidth(title);
-        int titleColor = getTierTitleColor(tier);
+        int titleColor = FurnaceTierStyle.getTitleColor(tier);
         fontRenderer.drawStringWithShadow(title, (xSize - tw) / 2.0F, 6, titleColor);
 
         // Vitesse sous la progress arrow
@@ -212,13 +263,12 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // RF bar tooltip (zone verticale (140,12)-(150,84)) - uniquement si RF Converter place
-        // v1.0.234 : tooltip enrichi style Mek - montre aussi conso RF/tick et
+        // RF bar tooltip - v1.0.234 enrichi style Mek avec conso RF/tick +
         // autonomie restante estimee en secondes
-        if (tile.isRFMode() && inRect(mx, my, x + 140, y + 12, 10, 72)) {
+        if (tile.isRFMode() && GuiUtils.inRect(mx, my, x + RF_BAR_X, y + RF_BAR_Y, RF_BAR_W, RF_BAR_H)) {
             java.util.List<String> lines = new java.util.ArrayList<>();
-            lines.add("\u00a7eEnergie\u00a7r: " + formatRf(tile.getEnergyStored())
-                + " / " + formatRf(tile.getMaxEnergy()) + " RF");
+            lines.add("\u00a7eEnergie\u00a7r: " + GuiUtils.formatRf(tile.getEnergyStored())
+                + " / " + GuiUtils.formatRf(tile.getMaxEnergy()) + " RF");
             int rfPerTick = tile.getEffectiveRfPerTick();
             lines.add("\u00a77Conso: \u00a7f" + rfPerTick + " RF/tick");
             // Autonomie : RF stocke / RF par tick = ticks -> secondes (20 ticks/s)
@@ -234,7 +284,8 @@ public class GuiFurnaceNexus extends GuiContainer {
         }
 
         // Progress bar tooltip - v1.0.234 enrichi avec stats cuisson
-        if (inRect(mx, my, x + 68, y + 27, 24, 10)) {
+        if (GuiUtils.inRect(mx, my, x + PROGRESS_HITBOX_X, y + PROGRESS_HITBOX_Y,
+                   PROGRESS_HITBOX_W, PROGRESS_HITBOX_H)) {
             java.util.List<String> lines = new java.util.ArrayList<>();
             int pct = tile.getMaxCookTime() > 0
                 ? tile.getCookProgress() * 100 / tile.getMaxCookTime() : 0;
@@ -263,7 +314,8 @@ public class GuiFurnaceNexus extends GuiContainer {
         }
 
         // Flame fuel tooltip (affiche pourcentage + ticks style vanilla)
-        if (inRect(mx, my, x + 68, y + 55, 24, 8)) {
+        if (GuiUtils.inRect(mx, my, x + FUEL_FLAME_HITBOX_X, y + FUEL_FLAME_HITBOX_Y,
+                   FUEL_FLAME_HITBOX_W, FUEL_FLAME_HITBOX_H)) {
             int ticks = tile.getFuelBurnTicks();
             int total = tile.getFuelTotalBurnTicks();
             String status;
@@ -281,13 +333,13 @@ public class GuiFurnaceNexus extends GuiContainer {
         }
 
         // Onglet Config (gauche)
-        if (inRect(mx, my, x - 13, y + 18, 15, 17)) {
+        if (GuiUtils.inRect(mx, my, x - 13, y + TAB_Y, TAB_W, TAB_H)) {
             drawHoveringText(Collections.singletonList(
                 configOpen ? "Fermer Config I/O" : "Ouvrir Config I/O"), mx, my);
         }
 
         // Onglet Upgrades (droite) - uniquement si enhanced
-        if (tile.isEnhanced() && inRect(mx, my, x + xSize - 2, y + 18, 15, 17)) {
+        if (tile.isEnhanced() && GuiUtils.inRect(mx, my, x + xSize - 2, y + TAB_Y, TAB_W, TAB_H)) {
             drawHoveringText(Collections.singletonList("Ouvrir Upgrades"), mx, my);
         }
     }
@@ -397,8 +449,8 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         // Corps gradient
         drawRect(bx, by, bx + sz, by + sz, color);
-        int colorBright = brighten(color, 0.4f);
-        int colorDim = darken(color, 0.3f);
+        int colorBright = GuiUtils.brighten(color, 0.4f);
+        int colorDim = GuiUtils.darken(color, 0.3f);
         drawRect(bx + 2, by + 2, bx + sz - 2, by + sz - 2, colorBright);
         drawRect(bx + 5, by + 5, bx + sz - 5, by + sz - 5, color);
         // Ombre interne bas-droite
@@ -439,13 +491,14 @@ public class GuiFurnaceNexus extends GuiContainer {
         int x = guiLeft;
         int y = guiTop;
 
-        // 1. Clic onglet CONFIG (gauche, x=-13, 15x17)
-        if (mx >= x - 13 && mx <= x + 2 && my >= y + 18 && my <= y + 35) {
+        // 1. Clic onglet CONFIG (gauche)
+        if (mx >= x - 13 && mx <= x + 2
+            && my >= y + TAB_Y && my <= y + TAB_Y + TAB_H) {
             configOpen = !configOpen;
             return;
         }
 
-        // 2. Clic onglet UPGRADES (droite, x=xSize-2, 15x17) - uniquement si enhanced
+        // 2. Clic onglet UPGRADES (droite) - uniquement si enhanced
         // Pattern Mekanism : ouvre un GUI dedie a la place d'un side-panel
         // v1.0.233 : on envoie un paquet enchantItem(100) au serveur via
         // playerController. Cote serveur le Container.enchantItem ouvre le
@@ -456,7 +509,7 @@ public class GuiFurnaceNexus extends GuiContainer {
         // echouaient silencieusement.
         if (tile.isEnhanced()
             && mx >= x + xSize - 2 && mx <= x + xSize + 13
-            && my >= y + 18 && my <= y + 35) {
+            && my >= y + TAB_Y && my <= y + TAB_Y + TAB_H) {
             mc.playerController.sendEnchantPacket(this.inventorySlots.windowId, 100);
             return;
         }
@@ -512,117 +565,5 @@ public class GuiFurnaceNexus extends GuiContainer {
         }
 
         super.mouseClicked(mx, my, btn);
-    }
-
-    // ======================================================================
-    // HELPERS
-    // ======================================================================
-
-    private void fillBarHorizontal(int bx, int by, int bw, int bh,
-                                    int value, int max, int color, int shine) {
-        if (max <= 0 || value <= 0) return;
-        float ratio = Math.min(1.0F, (float) value / max);
-        int fillW = (int)(bw * ratio);
-        drawRect(bx, by, bx + fillW, by + bh, color);
-        if (fillW > 2) {
-            drawRect(bx, by, bx + fillW, by + 1, shine);
-        }
-    }
-
-    /** Barre verticale qui se remplit du BAS vers le HAUT avec degrade rouge->jaune. */
-    private void fillBarVertical(int bx, int by, int bw, int bh,
-                                  int value, int max, int color, int shine) {
-        if (max <= 0 || value <= 0) return;
-        float ratio = Math.min(1.0F, (float) value / max);
-        int fillH = (int)(bh * ratio);
-        if (fillH <= 0) return;
-
-        // Degrade rouge (bas) -> jaune (haut) pixel par pixel
-        for (int dy = 0; dy < fillH; dy++) {
-            // dy = 0 = tout en bas du remplissage = rouge fonce
-            // dy = fillH-1 = haut du remplissage = jaune vif
-            float t = (float) dy / Math.max(1, fillH - 1);
-            int r = 255;
-            int g = (int)(40 + (220 - 40) * t);   // 40 -> 220
-            int b = (int)(40 * (1 - t));           // 40 -> 0
-            int col = 0xFF000000 | (r << 16) | (g << 8) | b;
-            int py = by + bh - 1 - dy;   // dessine du bas vers le haut
-            drawRect(bx, py, bx + bw, py + 1, col);
-        }
-
-        // Shine brillant au sommet du remplissage
-        if (fillH > 2) {
-            int topY = by + bh - fillH;
-            drawRect(bx, topY, bx + bw, topY + 1, 0xFFFFFFAA);
-        }
-    }
-
-    private boolean inRect(int mx, int my, int rx, int ry, int rw, int rh) {
-        return mx >= rx && mx <= rx + rw && my >= ry && my <= ry + rh;
-    }
-
-    private int brighten(int color, float factor) {
-        int r = (int)(((color >> 16) & 0xFF) + (255 - ((color >> 16) & 0xFF)) * factor);
-        int g = (int)(((color >> 8) & 0xFF) + (255 - ((color >> 8) & 0xFF)) * factor);
-        int b = (int)((color & 0xFF) + (255 - (color & 0xFF)) * factor);
-        return 0xFF000000 | (Math.min(255, r) << 16) | (Math.min(255, g) << 8) | Math.min(255, b);
-    }
-
-    private int darken(int color, float factor) {
-        int r = (int)(((color >> 16) & 0xFF) * (1 - factor));
-        int g = (int)(((color >> 8) & 0xFF) * (1 - factor));
-        int b = (int)((color & 0xFF) * (1 - factor));
-        return 0xFF000000 | (r << 16) | (g << 8) | b;
-    }
-
-    private String getTierDisplayName(FurnaceTier tier) {
-        switch (tier) {
-            case IRON:       return "Fourneau de Fer";
-            case GOLD:       return "Fourneau d'Or";
-            case INVAR:      return "Fourneau d'Invar";
-            case EMERADIC:   return "Fourneau Emeradic";
-            case VOSSIUM_IV: return "Fourneau Vossium IV";
-            default:         return "Fourneau " + tier.registryName;
-        }
-    }
-
-    private int getTierTitleColor(FurnaceTier tier) {
-        switch (tier) {
-            case IRON:       return 0xFFCCCCCC;
-            case GOLD:       return 0xFFFFDD60;
-            case INVAR:      return 0xFFBBDDBB;
-            case EMERADIC:   return 0xFF80E690;
-            case VOSSIUM_IV: return 0xFFC070FF;
-            default:         return 0xFFDD88FF;
-        }
-    }
-
-    private int getTierProgressColor(FurnaceTier tier) {
-        switch (tier) {
-            case IRON:       return 0xFF808090;
-            case GOLD:       return 0xFFC8A032;
-            case INVAR:      return 0xFF96A596;
-            case EMERADIC:   return 0xFF46AA5A;
-            case VOSSIUM_IV: return 0xFF783CAA;
-            default:         return 0xFF5050A0;
-        }
-    }
-
-    private int getTierProgressBright(FurnaceTier tier) {
-        switch (tier) {
-            case IRON:       return 0xFFDDDDEE;
-            case GOLD:       return 0xFFFFE680;
-            case INVAR:      return 0xFFDDEEDD;
-            case EMERADIC:   return 0xFF80FF90;
-            case VOSSIUM_IV: return 0xFFCC80FF;
-            default:         return 0xFF9090FF;
-        }
-    }
-
-    /** Formatte un nombre RF pour lisibilite : 20000 -> 20.0k, 1500000 -> 1.5M */
-    private String formatRf(int rf) {
-        if (rf >= 1_000_000) return String.format("%.1fM", rf / 1_000_000.0F);
-        if (rf >= 1_000)     return String.format("%.1fk", rf / 1_000.0F);
-        return String.valueOf(rf);
     }
 }
