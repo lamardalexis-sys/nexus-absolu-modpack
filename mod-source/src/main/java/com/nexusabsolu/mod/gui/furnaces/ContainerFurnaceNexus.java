@@ -49,55 +49,19 @@ public class ContainerFurnaceNexus extends Container {
         addSlotToContainer(new SlotFurnaceOutput(
             playerInv.player, tile, TileFurnaceNexus.SLOT_OUTPUT, 104, 24));
 
-        // === 4 SLOTS AUGMENT (hors-ecran par defaut, GUI les repositionne dans le panneau) ===
-        // v1.0.226 : pattern Thermal SlotAugment - les slots bypass totalement
-        // IInventory du TileEntity. getStack/putStack/decrStackSize manipulent
-        // directement tile.getAugmentSlots() (un tableau separe augments[]).
-        // isHere(inventory, slot) retourne false -> le Container ne reconnait
-        // pas ces slots comme slots IInventory -> aucun mod externe ne peut
-        // les atteindre via tile.getStackInSlot().
+        // === 4 SLOTS UPGRADES (hors-ecran par defaut, GUI les repositionne dans le panneau) ===
+        // v1.0.227 : retour Slot classique. La protection contre extraction externe
+        // est maintenant faite par TileFurnaceNexus via le flag ThreadLocal
+        // GUI_OPERATION : setGuiOperation(true) avant chaque slotClick/transferStack-
+        // InSlot dans ce Container, puis setGuiOperation(false) apres (via try/finally).
+        // Toutes les autres tentatives d'extraction (mods externes, hoppers bypass,
+        // etc.) sont bloquees au niveau decrStackSize/removeStackFromSlot/setInventory-
+        // SlotContents qui refusent les operations sur slots 3-6.
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
-            final int augIdx = up.slotIndex;  // 0..3 dans augments[]
-            // Constructeur Slot(null, slotIndex, x, y) : le champ inventory est null.
+            int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
             // Position -1000 = cache. Le GUI les deplace quand upgradesOpen = true.
-            addSlotToContainer(new Slot(null, augIdx, -1000, -1000) {
-                @Override
-                public ItemStack getStack() {
-                    return tile.getAugmentSlots()[augIdx];
-                }
-                @Override
-                public void putStack(ItemStack stack) {
-                    tile.getAugmentSlots()[augIdx] = stack;
-                    onSlotChanged();
-                }
-                @Override
-                public void onSlotChanged() {
-                    tile.markDirty();
-                }
-                @Override
-                public ItemStack decrStackSize(int amount) {
-                    ItemStack current = tile.getAugmentSlots()[augIdx];
-                    if (current.isEmpty()) return ItemStack.EMPTY;
-                    ItemStack result;
-                    if (current.getCount() <= amount) {
-                        result = current;
-                        tile.getAugmentSlots()[augIdx] = ItemStack.EMPTY;
-                    } else {
-                        result = current.splitStack(amount);
-                        if (current.getCount() == 0) {
-                            tile.getAugmentSlots()[augIdx] = ItemStack.EMPTY;
-                        }
-                    }
-                    tile.markDirty();
-                    return result;
-                }
-                @Override
-                public boolean isHere(net.minecraft.inventory.IInventory inv, int slot) {
-                    // CRITIQUE : retourne false - le Container ne traite pas ce Slot
-                    // comme appartenant a un IInventory du TileEntity.
-                    return false;
-                }
+            addSlotToContainer(new Slot(tile, slotIdx, -1000, -1000) {
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;
@@ -135,6 +99,17 @@ public class ContainerFurnaceNexus extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
+        // v1.0.227 : active le flag GUI_OPERATION pour autoriser decrStackSize/
+        // setInventorySlotContents sur les slots upgrades 3-6.
+        TileFurnaceNexus.setGuiOperation(true);
+        try {
+            return doTransferStackInSlot(player, index);
+        } finally {
+            TileFurnaceNexus.setGuiOperation(false);
+        }
+    }
+
+    private ItemStack doTransferStackInSlot(EntityPlayer player, int index) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         if (slot == null || !slot.getHasStack()) return result;
@@ -229,6 +204,32 @@ public class ContainerFurnaceNexus extends Container {
     public boolean canInteractWith(EntityPlayer player) {
         return player.getDistanceSq(tile.getPos().getX() + 0.5,
             tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5) <= 64.0;
+    }
+
+    /**
+     * v1.0.227 : wrap slotClick avec flag GUI_OPERATION pour autoriser les
+     * modifications des slots upgrade 3-6. La protection TileFurnaceNexus
+     * bloque toute autre tentative d'extraction (mods tiers, hoppers bypass).
+     */
+    @Override
+    public ItemStack slotClick(int slotId, int dragType,
+            net.minecraft.inventory.ClickType clickType, EntityPlayer player) {
+        TileFurnaceNexus.setGuiOperation(true);
+        try {
+            return super.slotClick(slotId, dragType, clickType, player);
+        } finally {
+            TileFurnaceNexus.setGuiOperation(false);
+        }
+    }
+
+    @Override
+    public void onContainerClosed(EntityPlayer player) {
+        TileFurnaceNexus.setGuiOperation(true);
+        try {
+            super.onContainerClosed(player);
+        } finally {
+            TileFurnaceNexus.setGuiOperation(false);
+        }
     }
 
     /**

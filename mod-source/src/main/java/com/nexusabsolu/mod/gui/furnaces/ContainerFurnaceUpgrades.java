@@ -46,54 +46,18 @@ public class ContainerFurnaceUpgrades extends Container {
             {0, 0}, {1, 0}, {0, 1}, {1, 1}
         };
 
-        // v1.0.226 : pattern Thermal SlotAugment - bypass IInventory total.
-        // Les slots manipulent directement tile.getAugmentSlots() (tableau separe)
-        // et retournent false a isHere() pour que le Container ne les traite pas
-        // comme des slots IInventory.
-
+        // v1.0.227 : retour Slot classique. Protection extraction externe via
+        // flag ThreadLocal GUI_OPERATION dans TileFurnaceNexus (voir commentaires
+        // dans ContainerFurnaceNexus).
         for (FurnaceUpgrade up : FurnaceUpgrade.values()) {
             final FurnaceUpgrade upgrade = up;
-            final int augIdx = up.slotIndex;  // 0..3
+            int slotIdx = TileFurnaceNexus.SLOT_UPGRADE_BASE + up.slotIndex;
             int col = slotPositions[up.slotIndex][0];
             int row = slotPositions[up.slotIndex][1];
             int sx = startX + col * (slotSize + gap);
             int sy = startY + row * (slotSize + gap);
 
-            addSlotToContainer(new Slot(null, augIdx, sx, sy) {
-                @Override
-                public ItemStack getStack() {
-                    return tile.getAugmentSlots()[augIdx];
-                }
-                @Override
-                public void putStack(ItemStack stack) {
-                    tile.getAugmentSlots()[augIdx] = stack;
-                    onSlotChanged();
-                }
-                @Override
-                public void onSlotChanged() {
-                    tile.markDirty();
-                }
-                @Override
-                public ItemStack decrStackSize(int amount) {
-                    ItemStack current = tile.getAugmentSlots()[augIdx];
-                    if (current.isEmpty()) return ItemStack.EMPTY;
-                    ItemStack result;
-                    if (current.getCount() <= amount) {
-                        result = current;
-                        tile.getAugmentSlots()[augIdx] = ItemStack.EMPTY;
-                    } else {
-                        result = current.splitStack(amount);
-                        if (current.getCount() == 0) {
-                            tile.getAugmentSlots()[augIdx] = ItemStack.EMPTY;
-                        }
-                    }
-                    tile.markDirty();
-                    return result;
-                }
-                @Override
-                public boolean isHere(net.minecraft.inventory.IInventory inv, int slot) {
-                    return false;
-                }
+            addSlotToContainer(new Slot(tile, slotIdx, sx, sy) {
                 @Override
                 public int getSlotStackLimit() {
                     return upgrade.maxStackSize;
@@ -133,6 +97,15 @@ public class ContainerFurnaceUpgrades extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
+        TileFurnaceNexus.setGuiOperation(true);
+        try {
+            return doTransferStackInSlot(player, index);
+        } finally {
+            TileFurnaceNexus.setGuiOperation(false);
+        }
+    }
+
+    private ItemStack doTransferStackInSlot(EntityPlayer player, int index) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         if (slot == null || !slot.getHasStack()) return result;
@@ -165,5 +138,30 @@ public class ContainerFurnaceUpgrades extends Container {
         if (stack.isEmpty()) slot.putStack(ItemStack.EMPTY);
         else slot.onSlotChanged();
         return result;
+    }
+
+    /**
+     * v1.0.227 : wrap slotClick et onContainerClosed pour autoriser les modifs
+     * des slots upgrade via le flag ThreadLocal GUI_OPERATION.
+     */
+    @Override
+    public ItemStack slotClick(int slotId, int dragType,
+            net.minecraft.inventory.ClickType clickType, EntityPlayer player) {
+        TileFurnaceNexus.setGuiOperation(true);
+        try {
+            return super.slotClick(slotId, dragType, clickType, player);
+        } finally {
+            TileFurnaceNexus.setGuiOperation(false);
+        }
+    }
+
+    @Override
+    public void onContainerClosed(EntityPlayer player) {
+        TileFurnaceNexus.setGuiOperation(true);
+        try {
+            super.onContainerClosed(player);
+        } finally {
+            TileFurnaceNexus.setGuiOperation(false);
+        }
     }
 }

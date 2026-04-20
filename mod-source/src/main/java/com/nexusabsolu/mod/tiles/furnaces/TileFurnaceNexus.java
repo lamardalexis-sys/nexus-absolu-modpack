@@ -47,12 +47,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_FUEL = 1;
     public static final int SLOT_OUTPUT = 2;
-    /** Nombre total de slots dans l'IInventory principal (input/fuel/output).
-     *  Les upgrades sont stockees dans un tableau SEPARE augments[] accede
-     *  par SlotAugment qui bypass totalement IInventory (pattern Thermal). */
-    public static final int TOTAL_SLOTS = 3;
-    /** Nombre de slots augment/upgrade dans le tableau separe. */
-    public static final int AUGMENT_SLOTS = 4;
+    public static final int SLOT_UPGRADE_BASE = 3;  // 3..6 pour les 4 upgrades
+    /** 7 slots : INPUT, FUEL, OUTPUT + 4 upgrades. Approche simple IInventory
+     *  unique (pattern Mekanism) + flag interne pour bloquer extraction externe. */
+    public static final int TOTAL_SLOTS = 7;
 
     // Types SideConfig pour les furnaces (indice dans SideConfig.faceConfig[type])
     public static final int SC_TYPE_ITEM_IN  = 0;
@@ -68,16 +66,23 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     //   - Tout fuel Forge-register (lava bucket, blaze rod, etc.) fonctionne aussi
 
     private FurnaceTier tier;
-    /** Inventaire IInventory : INPUT, FUEL, OUTPUT (3 slots seulement).
-     *  Les upgrades ne sont PAS ici. */
+    /** Inventaire IInventory : INPUT, FUEL, OUTPUT, UPGRADE_0..3 (7 slots). */
     private ItemStack[] inventory;
-    /** Tableau augment SEPARE (pattern Thermal TileAugmentableSecure).
-     *  Index 0..3 correspondant a FurnaceUpgrade.slotIndex.
-     *  Accede uniquement via SlotAugment.getStack/putStack qui bypass IInventory.
-     *  Aucun mod externe ne peut extraire ces items car ils ne sont pas dans
-     *  tile.getStackInSlot() ni dans la capability ITEM_HANDLER. */
-    private ItemStack[] augments;
     private InternalEnergyStorage energyStorage;
+
+    /** Flag thread-local : true pendant les operations issues du GUI Container.
+     *  Seules les operations GUI ont le droit de modifier les slots upgrade (3-6).
+     *  Protege contre extraction externe par mods tiers qui appelleraient
+     *  tile.decrStackSize() ou tile.setInventorySlotContents() en ignorant
+     *  ISidedInventory.canExtractItem. */
+    private static final ThreadLocal<Boolean> GUI_OPERATION =
+        ThreadLocal.withInitial(() -> Boolean.FALSE);
+
+    /** Active le flag GUI_OPERATION autour d'une operation Container.
+     *  Appelee depuis les Containers avant/apres chaque manipulation de slot upgrade. */
+    public static void setGuiOperation(boolean active) {
+        GUI_OPERATION.set(active);
+    }
 
     private int cookProgress = 0;          // ticks de cuisson en cours
     private int maxCookTime = 200;          // ticks requis (depend du tier)
@@ -109,8 +114,6 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         this.tier = tier;
         this.inventory = new ItemStack[TOTAL_SLOTS];
         for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
-        this.augments = new ItemStack[AUGMENT_SLOTS];
-        for (int i = 0; i < AUGMENT_SLOTS; i++) augments[i] = ItemStack.EMPTY;
         this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), 1000);
         this.maxCookTime = tier.baseCookTime();
         // Defaults Mekanism-like : output face = bas, rien d'autre
@@ -169,13 +172,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     /** Mode RF actif si l'upgrade RF_CONVERTER est presente OU si le tier est nativeRF. */
     public boolean isRFMode() {
         if (tier.nativeRF) return true;
-        ItemStack rfSlot = augments[FurnaceUpgrade.RF_CONVERTER.slotIndex];
+        ItemStack rfSlot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.RF_CONVERTER.slotIndex];
         return !rfSlot.isEmpty();
     }
 
-    /**
-     * True si le furnace est actuellement en train de cuire (flamme visible).
-     */
+    /** True si le furnace est actuellement en train de cuire (flamme visible). */
     public boolean isActivelyCooking() {
         return (fuelBurnTicks > 0 || (isRFMode() && energyStorage.getEnergyStored() > 0))
             && cookProgress > 0;
@@ -183,25 +184,14 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     /** Nombre d'items dans le slot SPEED_BOOSTER (0 si vide). */
     private int getSpeedBoosterCount() {
-        ItemStack slot = augments[FurnaceUpgrade.SPEED_BOOSTER.slotIndex];
+        ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.SPEED_BOOSTER.slotIndex];
         return slot.isEmpty() ? 0 : slot.getCount();
     }
 
     /** Nombre d'items dans le slot EFFICIENCY (0 si vide). */
     private int getEfficiencyCount() {
-        ItemStack slot = augments[FurnaceUpgrade.EFFICIENCY.slotIndex];
+        ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.EFFICIENCY.slotIndex];
         return slot.isEmpty() ? 0 : slot.getCount();
-    }
-
-    /**
-     * Pattern Thermal IAugmentable : expose le tableau augments[] aux SlotAugment
-     * qui vont l'acceder directement par reference. Les Slots lisent/ecrivent
-     * dans ce tableau sans passer par IInventory. Cela garantit que les mods
-     * externes ne peuvent PAS extraire les upgrades car ils ne sont pas dans
-     * l'inventaire principal.
-     */
-    public ItemStack[] getAugmentSlots() {
-        return augments;
     }
 
     /**
@@ -492,20 +482,6 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         }
         nbt.setTag("items", items);
 
-        // v1.0.226 : Augments dans tag SEPARE (pattern Thermal TileAugmentableSecure).
-        // Les upgrades ne sont PAS dans "items" : elles ne font pas partie de
-        // l'inventaire IInventory du TileEntity.
-        NBTTagList augList = new NBTTagList();
-        for (int i = 0; i < AUGMENT_SLOTS; i++) {
-            if (!augments[i].isEmpty()) {
-                NBTTagCompound itemTag = new NBTTagCompound();
-                itemTag.setInteger("Slot", i);
-                augments[i].writeToNBT(itemTag);
-                augList.appendTag(itemTag);
-            }
-        }
-        nbt.setTag("Augments", augList);
-
         // Side config (6 faces x 4 types + eject/pull bits)
         NBTTagCompound scTag = new NBTTagCompound();
         sideConfig.writeToNBT(scTag);
@@ -542,40 +518,35 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         }
 
         for (int i = 0; i < TOTAL_SLOTS; i++) inventory[i] = ItemStack.EMPTY;
-        for (int i = 0; i < AUGMENT_SLOTS; i++) augments[i] = ItemStack.EMPTY;
         NBTTagList items = nbt.getTagList("items", 10);
         for (int i = 0; i < items.tagCount(); i++) {
             NBTTagCompound itemTag = items.getCompoundTagAt(i);
             int slot = itemTag.getInteger("Slot");
             if (slot >= 0 && slot < TOTAL_SLOTS) {
                 inventory[slot] = new ItemStack(itemTag);
-            } else if (slot >= 3 && slot < 7) {
-                // Migration v1.0.217/v1.0.222 : anciens saves avaient les 4 upgrades
-                // dans inventory[3-6]. On les recupere dans augments[0-3].
-                augments[slot - 3] = new ItemStack(itemTag);
             }
         }
 
-        // v1.0.226 : Augments dans tag separe (pattern Thermal).
+        // Migration v1.0.226 : tag "Augments" separe -> redirige vers inventory[3-6]
         if (nbt.hasKey("Augments")) {
             NBTTagList augList = nbt.getTagList("Augments", 10);
             for (int i = 0; i < augList.tagCount(); i++) {
                 NBTTagCompound itemTag = augList.getCompoundTagAt(i);
                 int slot = itemTag.getInteger("Slot");
-                if (slot >= 0 && slot < AUGMENT_SLOTS) {
-                    augments[slot] = new ItemStack(itemTag);
+                if (slot >= 0 && slot < 4) {
+                    inventory[SLOT_UPGRADE_BASE + slot] = new ItemStack(itemTag);
                 }
             }
         }
 
-        // Migration v1.0.218-221 : tag temporaire "upgrades" -> augments[]
+        // Migration v1.0.218-221 : tag "upgrades" separe -> inventory[3-6]
         if (nbt.hasKey("upgrades")) {
             NBTTagList upgList = nbt.getTagList("upgrades", 10);
             for (int i = 0; i < upgList.tagCount(); i++) {
                 NBTTagCompound itemTag = upgList.getCompoundTagAt(i);
                 int slot = itemTag.getInteger("Slot");
-                if (slot >= 0 && slot < AUGMENT_SLOTS) {
-                    augments[slot] = new ItemStack(itemTag);
+                if (slot >= 0 && slot < 4) {
+                    inventory[SLOT_UPGRADE_BASE + slot] = new ItemStack(itemTag);
                 }
             }
         }
@@ -628,11 +599,15 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityEnergy.ENERGY) return (T) energyStorage;
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            // v1.0.217 : SidedInvWrapper respecte getSlotsForFace + canInsert/canExtract
-            // et expose donc SEULEMENT les slots input/fuel/output aux hoppers/pipes.
-            // Sans ca, InvWrapper(this) exposerait aussi les slots upgrades et un
-            // hopper adjacent pouvait les extraire du four.
-            return (T) new SidedInvWrapper(this, facing);
+            // Pattern Thermal TileInventory.getCapability :
+            // - facing != null : SidedInvWrapper (respecte ISidedInventory)
+            // - facing == null : InvWrapper sur l'IInventory (7 slots mais
+            //   protection upgrade via flag GUI_OPERATION dans les operations)
+            if (facing != null) {
+                return (T) new SidedInvWrapper(this, facing);
+            } else {
+                return (T) new net.minecraftforge.items.wrapper.InvWrapper(this);
+            }
         }
         return super.getCapability(capability, facing);
     }
@@ -648,7 +623,17 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override public ItemStack getStackInSlot(int index) { return inventory[index]; }
 
     @Override
+    @Override
     public ItemStack decrStackSize(int index, int count) {
+        // v1.0.227 : protection slots upgrade contre extraction externe.
+        // Seules les operations issues de notre Container GUI ont le droit
+        // de modifier les slots 3-6. Les mods externes (Refined Storage,
+        // Inventory Tweaks, etc.) qui appellent decrStackSize directement
+        // sont bloques.
+        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()) {
+            return ItemStack.EMPTY;
+        }
+
         ItemStack stack = inventory[index];
         if (stack.isEmpty()) return ItemStack.EMPTY;
         ItemStack result;
@@ -665,6 +650,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     @Override
     public ItemStack removeStackFromSlot(int index) {
+        // v1.0.227 : protection slots upgrade (voir decrStackSize)
+        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()) {
+            return ItemStack.EMPTY;
+        }
         ItemStack s = inventory[index];
         inventory[index] = ItemStack.EMPTY;
         return s;
@@ -672,6 +661,14 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
+        // v1.0.227 : protection slots upgrade contre modification externe
+        // (ex: un mod qui tente de vider le slot en ecrivant EMPTY direct).
+        // Les operations de drop bloc (harvestBlock + readFromNBT au placement)
+        // utilisent directement le tableau inventory[] via readFromNBT, donc
+        // ne sont pas impactees par cette protection.
+        if (index >= SLOT_UPGRADE_BASE && !GUI_OPERATION.get()) {
+            return;
+        }
         inventory[index] = stack;
         if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
             stack.setCount(getInventoryStackLimit());
@@ -692,7 +689,16 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         if (index == SLOT_OUTPUT) return false;
         if (index == SLOT_FUEL) return getCoalOps(stack) > 0;
         if (index == SLOT_INPUT) return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
-        return false;  // v1.0.226 : IInventory a seulement 3 slots (augments separe)
+        // Slots upgrade 3-6 : valides si c'est le bon type d'upgrade item.
+        if (index >= SLOT_UPGRADE_BASE && index < TOTAL_SLOTS) {
+            if (!isEnhanced) return false;
+            if (stack.isEmpty()) return true;
+            if (!(stack.getItem() instanceof com.nexusabsolu.mod.items.ItemFurnaceUpgrade)) return false;
+            com.nexusabsolu.mod.items.ItemFurnaceUpgrade item =
+                (com.nexusabsolu.mod.items.ItemFurnaceUpgrade) stack.getItem();
+            return (SLOT_UPGRADE_BASE + item.getCategory().slotIndex) == index;
+        }
+        return false;
     }
 
     // === ISidedInventory : CRITICAL securite slots upgrades ===
