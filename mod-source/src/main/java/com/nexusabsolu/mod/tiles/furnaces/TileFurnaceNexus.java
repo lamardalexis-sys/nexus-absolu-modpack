@@ -182,14 +182,14 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             && cookProgress > 0;
     }
 
-    /** Nombre d'items dans le slot SPEED_BOOSTER (0 si vide). */
-    private int getSpeedBoosterCount() {
+    /** Nombre d'items dans le slot SPEED_BOOSTER (0 si vide). Public pour le GUI. */
+    public int getSpeedBoosterCount() {
         ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.SPEED_BOOSTER.slotIndex];
         return slot.isEmpty() ? 0 : slot.getCount();
     }
 
-    /** Nombre d'items dans le slot EFFICIENCY (0 si vide). */
-    private int getEfficiencyCount() {
+    /** Nombre d'items dans le slot EFFICIENCY (0 si vide). Public pour le GUI. */
+    public int getEfficiencyCount() {
         ItemStack slot = inventory[SLOT_UPGRADE_BASE + FurnaceUpgrade.EFFICIENCY.slotIndex];
         return slot.isEmpty() ? 0 : slot.getCount();
     }

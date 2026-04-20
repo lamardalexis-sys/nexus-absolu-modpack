@@ -48,13 +48,11 @@ public class GuiFurnaceUpgrades extends GuiContainer {
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
             // Retour au GUI Furnace principal
-            BlockPos pos = tile.getPos();
-            mc.player.openGui(
-                com.nexusabsolu.mod.NexusAbsoluMod.instance,
-                com.nexusabsolu.mod.gui.GuiHandler.FURNACE_NEXUS_GUI,
-                mc.world,
-                pos.getX(), pos.getY(), pos.getZ()
-            );
+            // v1.0.234 : meme bug qu'ouverture - mc.player.openGui cote client
+            // n'ouvre que le GUI client, le serveur garde ContainerFurnaceUpgrades
+            // ouvert. On passe par enchantItem(101) pour demander au serveur
+            // d'ouvrir le GUI principal proprement.
+            mc.playerController.sendEnchantPacket(this.inventorySlots.windowId, 101);
         }
     }
 

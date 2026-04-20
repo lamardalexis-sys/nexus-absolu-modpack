@@ -105,6 +105,26 @@ public class ContainerFurnaceUpgrades extends Container {
         }
     }
 
+    /**
+     * v1.0.234 : id=101 = retour au GUI principal. Cote serveur ouvre le
+     * Container principal proprement (meme pattern que enchantItem(100)
+     * dans ContainerFurnaceNexus pour l'ouverture du GUI Upgrades).
+     */
+    @Override
+    public boolean enchantItem(EntityPlayer player, int id) {
+        if (id == 101) {
+            net.minecraft.util.math.BlockPos pos = tile.getPos();
+            player.openGui(
+                com.nexusabsolu.mod.NexusAbsoluMod.instance,
+                com.nexusabsolu.mod.gui.GuiHandler.FURNACE_NEXUS_GUI,
+                player.world,
+                pos.getX(), pos.getY(), pos.getZ()
+            );
+            return true;
+        }
+        return false;
+    }
+
     private ItemStack doTransferStackInSlot(EntityPlayer player, int index) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);

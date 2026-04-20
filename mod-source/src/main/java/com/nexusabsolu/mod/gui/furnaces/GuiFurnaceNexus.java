@@ -213,17 +213,53 @@ public class GuiFurnaceNexus extends GuiContainer {
         int y = guiTop;
 
         // RF bar tooltip (zone verticale (140,12)-(150,84)) - uniquement si RF Converter place
+        // v1.0.234 : tooltip enrichi style Mek - montre aussi conso RF/tick et
+        // autonomie restante estimee en secondes
         if (tile.isRFMode() && inRect(mx, my, x + 140, y + 12, 10, 72)) {
-            drawHoveringText(Collections.singletonList(
-                tile.getEnergyStored() + " / " + tile.getMaxEnergy() + " RF"), mx, my);
+            java.util.List<String> lines = new java.util.ArrayList<>();
+            lines.add("\u00a7eEnergie\u00a7r: " + formatRf(tile.getEnergyStored())
+                + " / " + formatRf(tile.getMaxEnergy()) + " RF");
+            int rfPerTick = tile.getEffectiveRfPerTick();
+            lines.add("\u00a77Conso: \u00a7f" + rfPerTick + " RF/tick");
+            // Autonomie : RF stocke / RF par tick = ticks -> secondes (20 ticks/s)
+            if (rfPerTick > 0 && tile.getEnergyStored() > 0) {
+                int secondsLeft = tile.getEnergyStored() / (rfPerTick * 20);
+                if (secondsLeft > 60) {
+                    lines.add("\u00a77Autonomie: \u00a7a" + (secondsLeft / 60) + "m " + (secondsLeft % 60) + "s");
+                } else {
+                    lines.add("\u00a77Autonomie: \u00a7a" + secondsLeft + "s");
+                }
+            }
+            drawHoveringText(lines, mx, my);
         }
 
-        // Progress bar tooltip
+        // Progress bar tooltip - v1.0.234 enrichi avec stats cuisson
         if (inRect(mx, my, x + 68, y + 27, 24, 10)) {
+            java.util.List<String> lines = new java.util.ArrayList<>();
             int pct = tile.getMaxCookTime() > 0
                 ? tile.getCookProgress() * 100 / tile.getMaxCookTime() : 0;
-            drawHoveringText(Collections.singletonList(
-                "Cuisson: " + pct + "%"), mx, my);
+            lines.add("\u00a7eCuisson\u00a7r: " + pct + "%");
+            // Temps de cuisson effectif (avec upgrades)
+            int ticks = tile.getEffectiveMaxCookTime();
+            float seconds = ticks / 20.0F;
+            int speedCount = tile.getSpeedBoosterCount();
+            int effCount = tile.getEfficiencyCount();
+            String upgradesInfo = "";
+            if (speedCount > 0 || effCount > 0) {
+                upgradesInfo = " (" + speedCount + " SP";
+                if (effCount > 0) upgradesInfo += ", " + effCount + " EF";
+                upgradesInfo += ")";
+            }
+            lines.add(String.format("\u00a77Cuit en: \u00a7f%.2fs%s", seconds, upgradesInfo));
+            // Taux : items par seconde
+            float itemsPerSec = 20.0F / ticks;
+            lines.add(String.format("\u00a77Taux: \u00a7f%.2f items/s", itemsPerSec));
+            // Reste ticks avant fin cuisson (utile quand on voit la progression)
+            if (tile.getCookProgress() > 0 && tile.getMaxCookTime() > 0) {
+                int remaining = tile.getMaxCookTime() - tile.getCookProgress();
+                lines.add("\u00a77Reste: \u00a7f" + remaining + " ticks");
+            }
+            drawHoveringText(lines, mx, my);
         }
 
         // Flame fuel tooltip (affiche pourcentage + ticks style vanilla)
@@ -581,5 +617,12 @@ public class GuiFurnaceNexus extends GuiContainer {
             case VOSSIUM_IV: return 0xFFCC80FF;
             default:         return 0xFF9090FF;
         }
+    }
+
+    /** Formatte un nombre RF pour lisibilite : 20000 -> 20.0k, 1500000 -> 1.5M */
+    private String formatRf(int rf) {
+        if (rf >= 1_000_000) return String.format("%.1fM", rf / 1_000_000.0F);
+        if (rf >= 1_000)     return String.format("%.1fk", rf / 1_000.0F);
+        return String.valueOf(rf);
     }
 }
