@@ -158,8 +158,9 @@ public class GuiFurnaceNexus extends GuiContainer {
             for (int i = 0; i < visibleSlots; i++) {
                 drawSlotBorder(x + slotsStartX + i * 18, y + 55);
             }
-            // 7) Bordure du slot FUEL (bas gauche)
-            drawSlotBorder(x + 16, y + 77);
+            // 7) Bordure du slot FUEL (centre horizontalement a y=77)
+            int fuelSlotX = (xSize - 16) / 2;
+            drawSlotBorder(x + fuelSlotX, y + 77);
         }
 
         // === RF BAR VERTICALE a droite (position dynamique selon xSize) ===
@@ -185,10 +186,17 @@ public class GuiFurnaceNexus extends GuiContainer {
         }
 
         // === FLAMME fuel indicator ===
-        // Position tier 0 : (69, 56) comme avant (centre sous progress)
-        // Position tier >= I : a cote du slot fuel (36, 83) a droite du fuel a (16, 77)
-        int flameX = (visibleSlots == 1) ? FUEL_FLAME_X : 36;
-        int flameY = (visibleSlots == 1) ? FUEL_FLAME_Y : 83;
+        // Tier 0 : position vanilla (69, 56) sous la progress arrow
+        // Tier >= I : a DROITE du slot fuel centre (fuelSlotX + 20, 83)
+        int flameX, flameY;
+        if (visibleSlots == 1) {
+            flameX = FUEL_FLAME_X;
+            flameY = FUEL_FLAME_Y;
+        } else {
+            int fuelSlotX = (xSize - 16) / 2;
+            flameX = fuelSlotX + 20;  // 20px = slot width + 4px marge
+            flameY = 83;
+        }
 
         int fuelBurnTicks = tile.getFuelBurnTicks();
         int fuelTotal = tile.getFuelTotalBurnTicks();
@@ -208,9 +216,17 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         // === PROGRESS fleche : centree horizontalement entre input et output rows ===
         // Tier 0 : position vanilla (64, 29)
-        // Tier >= I : centree a (xSize - PROGRESS_W) / 2, y=40 entre input y=35 et output y=55
-        int progX = (visibleSlots == 1) ? PROGRESS_X : (xSize - PROGRESS_W) / 2;
-        int progY = (visibleSlots == 1) ? PROGRESS_Y : 40;
+        // Tier >= I : centree sur la ZONE MACHINE (hors RF bar a droite)
+        //   zone = 0..xSize-40 (meme logique que titre)
+        int progX, progY;
+        if (visibleSlots == 1) {
+            progX = PROGRESS_X;
+            progY = PROGRESS_Y;
+        } else {
+            int titleZoneW = xSize - 40;
+            progX = (titleZoneW - PROGRESS_W) / 2;
+            progY = 40;  // entre input row y=19-35 et output row y=55-71
+        }
 
         int prog = tile.getCookProgress();
         int maxP = tile.getMaxCookTime();
@@ -260,15 +276,20 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         FurnaceTier tier = tile.getTier();
 
-        // Titre centre
+        // Titre : centre sur la zone machine (hors RF bar a droite)
+        // Zone utilisable : 0..xSize-40 (RF bar commence a xSize-36)
         String title = FurnaceTierStyle.getDisplayName(tier);
         int tw = fontRenderer.getStringWidth(title);
         int titleColor = FurnaceTierStyle.getTitleColor(tier);
-        fontRenderer.drawStringWithShadow(title, (xSize - tw) / 2.0F, 6, titleColor);
+        int titleZoneW = xSize - 40;  // laisse 40px pour la RF bar
+        fontRenderer.drawStringWithShadow(title, (titleZoneW - tw) / 2.0F, 6, titleColor);
 
-        // Vitesse sous la progress arrow
+        // Vitesse centree sous la progress arrow (sur zone machine, pas toute xSize)
+        // Pour tier >= I : position ajustee sous la progress arrow a y=40
         String speedStr = "x" + tier.speedMultiplier;
-        fontRenderer.drawStringWithShadow(speedStr, 68, 40, 0xFF8866AA);
+        int sw = fontRenderer.getStringWidth(speedStr);
+        int speedY = (tile.getIOSlotCount() == 1) ? 40 : 48;  // tier >= I : juste sous progress (y=40..47)
+        fontRenderer.drawStringWithShadow(speedStr, (titleZoneW - sw) / 2.0F, speedY, 0xFF8866AA);
 
         // Label Inventaire a y=93 (inchange, layout horizontal ne decale plus l'inv)
         // Recentrer horizontalement si xSize > 176 pour matcher l'inv centre
@@ -276,8 +297,9 @@ public class GuiFurnaceNexus extends GuiContainer {
         fontRenderer.drawStringWithShadow("Inventaire", 8 + invTextureX, 93, 0xFF8866AA);
 
         // Label RF au-dessus de la barre verticale - uniquement si RF Converter place
+        // Position dynamique alignee sur la barre (qui est a xSize-36)
         if (tile.isRFMode()) {
-            fontRenderer.drawStringWithShadow("RF", 137, 4, 0xFFCC4444);
+            fontRenderer.drawStringWithShadow("RF", xSize - 39, 4, 0xFFCC4444);
         }
 
         // Reset color GL avant de laisser la main au tooltip vanilla

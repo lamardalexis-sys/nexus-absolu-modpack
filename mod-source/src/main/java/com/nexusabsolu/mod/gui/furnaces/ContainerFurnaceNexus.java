@@ -92,8 +92,17 @@ public class ContainerFurnaceNexus extends Container {
             });
         }
 
-        // === FUEL (bas gauche, sous les outputs, ne chevauche rien) ===
-        addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, 16, 77));
+        // === FUEL (centre horizontalement, entre output row et inventaire) ===
+        // Position : y=77 (sous output row y=55+16=71, 6px marge), x centre
+        // Pour tier 0 : position vanilla (41, 51) preservee
+        int fuelX, fuelY;
+        if (visibleIOSlots == 1) {
+            fuelX = 41; fuelY = 51;  // position vanilla inchangee tier 0
+        } else {
+            fuelX = (containerXSize - 16) / 2;  // centre (slot = 16px)
+            fuelY = 77;
+        }
+        addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, fuelX, fuelY));
 
         // === 9 SLOTS OUTPUT (ligne horizontale basse) ===
         for (int i = 0; i < TileFurnaceNexus.SLOT_OUTPUT_MAX; i++) {
