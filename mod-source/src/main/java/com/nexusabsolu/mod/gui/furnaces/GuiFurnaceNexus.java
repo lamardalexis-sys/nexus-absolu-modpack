@@ -101,6 +101,12 @@ public class GuiFurnaceNexus extends GuiContainer {
     private static final int TAB_W = 15;
     private static final int TAB_H = 17;
 
+    /** Bouton Auto-Sort sous l'onglet CONFIG. 15x15. v1.0.256 */
+    private static final int SORT_BTN_X = -13;        // meme x que tab CONFIG
+    private static final int SORT_BTN_Y = 40;          // sous le tab CONFIG
+    private static final int SORT_BTN_W = 15;
+    private static final int SORT_BTN_H = 15;
+
     public GuiFurnaceNexus(InventoryPlayer playerInv, TileFurnaceNexus tile) {
         super(new ContainerFurnaceNexus(playerInv, tile));
         this.tile = tile;
@@ -259,6 +265,22 @@ public class GuiFurnaceNexus extends GuiContainer {
         if (tile.isEnhanced()) {
             drawTexturedModalRect(x + xSize - 2, y + TAB_Y, 176, 17, TAB_W, TAB_H);
         }
+
+        // === BOUTON AUTO-SORT (sous onglet CONFIG, tier >= I uniquement) ===
+        // Dessin manuel : carre avec bordure + lettre 'S' + couleur selon etat
+        // Vert si actif, gris si desactive.
+        if (tile.getIOSlotCount() > 1) {
+            int btnX = x + SORT_BTN_X;
+            int btnY = y + SORT_BTN_Y;
+            boolean enabled = tile.isAutoSortEnabled();
+            // Fond : vert sature si actif, gris sombre si desactive
+            int bgColor = enabled ? 0xFF3AA638 : 0xFF444444;
+            int borderColor = enabled ? 0xFF7AEB78 : 0xFF888888;
+            // Bordure
+            drawRect(btnX, btnY, btnX + SORT_BTN_W, btnY + SORT_BTN_H, borderColor);
+            // Fond interieur (1px de marge pour la bordure)
+            drawRect(btnX + 1, btnY + 1, btnX + SORT_BTN_W - 1, btnY + SORT_BTN_H - 1, bgColor);
+        }
     }
 
     /**
@@ -310,6 +332,22 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Position dynamique alignee sur la barre (qui est a xSize-36)
         if (tile.isRFMode()) {
             fontRenderer.drawStringWithShadow("RF", xSize - 39, 4, 0xFFCC4444);
+        }
+
+        // === BOUTON AUTO-SORT : lettre 'S' + label On/Off (tier >= I) ===
+        // Foreground coords sont locales (origine a guiLeft/guiTop).
+        // Le bouton est dessine en background a SORT_BTN_X=-13, SORT_BTN_Y=40.
+        if (tile.getIOSlotCount() > 1) {
+            boolean enabled = tile.isAutoSortEnabled();
+            // Lettre 'S' centree dans le bouton 15x15
+            // btnCenterX = -13 + 15/2 = -5.5 -> charWidth 'S' = 5 -> x = -13 + 5 = -8
+            fontRenderer.drawStringWithShadow("S", SORT_BTN_X + 5, SORT_BTN_Y + 4,
+                enabled ? 0xFFFFFFFF : 0xFFCCCCCC);
+            // Label On/Off sous le bouton
+            String stateLabel = enabled ? "On" : "Off";
+            int labelColor = enabled ? 0xFF88FF88 : 0xFFAAAAAA;
+            fontRenderer.drawStringWithShadow(stateLabel,
+                SORT_BTN_X + 1, SORT_BTN_Y + SORT_BTN_H + 2, labelColor);
         }
 
         // Reset color GL avant de laisser la main au tooltip vanilla
@@ -428,6 +466,18 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Onglet Upgrades (droite) - uniquement si enhanced
         if (tile.isEnhanced() && GuiUtils.inRect(mx, my, x + xSize - 2, y + TAB_Y, TAB_W, TAB_H)) {
             drawHoveringText(Collections.singletonList("Ouvrir Upgrades"), mx, my);
+        }
+
+        // Bouton Auto-Sort (sous Config, tier >= I uniquement)
+        if (tile.getIOSlotCount() > 1
+            && GuiUtils.inRect(mx, my, x + SORT_BTN_X, y + SORT_BTN_Y, SORT_BTN_W, SORT_BTN_H)) {
+            java.util.List<String> lines = new java.util.ArrayList<>();
+            boolean enabled = tile.isAutoSortEnabled();
+            lines.add((enabled ? "\u00A7aAuto-Sort: On" : "\u00A77Auto-Sort: Off"));
+            lines.add("\u00A77Distribue les stacks equitablement");
+            lines.add("\u00A77entre tous les inputs actifs.");
+            lines.add("\u00A78Clic : " + (enabled ? "desactiver" : "activer"));
+            drawHoveringText(lines, mx, my);
         }
     }
 
@@ -605,6 +655,15 @@ public class GuiFurnaceNexus extends GuiContainer {
         if (mx >= x - 13 && mx <= x + 2
             && my >= y + TAB_Y && my <= y + TAB_Y + TAB_H) {
             configOpen = !configOpen;
+            return;
+        }
+
+        // 1b. Clic bouton AUTO-SORT (sous CONFIG, tier >= I uniquement)
+        if (tile.getIOSlotCount() > 1
+            && mx >= x + SORT_BTN_X && mx <= x + SORT_BTN_X + SORT_BTN_W
+            && my >= y + SORT_BTN_Y && my <= y + SORT_BTN_Y + SORT_BTN_H) {
+            // Envoi packet serveur : enchantItem(200) -> Container.toggleAutoSort
+            mc.playerController.sendEnchantPacket(inventorySlots.windowId, 200);
             return;
         }
 

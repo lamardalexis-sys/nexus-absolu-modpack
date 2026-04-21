@@ -129,6 +129,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     // Hereditee via NBT de l'ItemStack (ItemBlock) pour que le kit se
     // transmette lors des crafts de furnace tier superieur.
     private boolean isEnhanced = false;
+    /** v1.0.256 : flag auto-sort (distribue stack dans tous les inputs actifs). */
+    private boolean autoSortEnabled = false;
 
     public TileFurnaceNexus() {
         this(FurnaceTier.IRON);  // default pour lecture NBT
@@ -154,6 +156,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     // v1.0.212 : getters/setters pour le flag Enhanced
     public boolean isEnhanced() { return isEnhanced; }
+
+    /** v1.0.256 : true si l'auto-sort des inputs est active. */
+    public boolean isAutoSortEnabled() { return autoSortEnabled; }
+    public void toggleAutoSort() { autoSortEnabled = !autoSortEnabled; markDirty(); }
 
     /** Applique l'Upgrade Kit : debloque RF + slots upgrade. Irreversible. */
     public void applyEnhancement() {
@@ -617,6 +623,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
         // v1.0.212 : flag Enhanced
         nbt.setBoolean("enhanced", isEnhanced);
+        nbt.setBoolean("autoSort", autoSortEnabled);
 
         return nbt;
     }
@@ -696,6 +703,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
         // v1.0.212 : flag Enhanced
         this.isEnhanced = nbt.getBoolean("enhanced");
+        this.autoSortEnabled = nbt.getBoolean("autoSort");
     }
 
     /**

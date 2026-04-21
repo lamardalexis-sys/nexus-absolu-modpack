@@ -297,9 +297,9 @@ public class ContainerFurnaceNexus extends Container {
         TileFurnaceNexus.setGuiOperation(true);
         try {
             ItemStack result = super.slotClick(slotId, dragType, clickType, player);
-            // Auto-sort : si le clic a ete fait sur un slot INPUT (0..8), redistribuer
-            // Indices container : 0..8 = inputs, 9 = fuel, 10..18 = outputs, etc.
-            if (slotId >= 0 && slotId < 9 && visibleIOSlots > 1) {
+            // Auto-sort : actif seulement si le flag tile est true + slot INPUT + tier >= I
+            if (slotId >= 0 && slotId < 9 && visibleIOSlots > 1
+                    && tile.isAutoSortEnabled()) {
                 autoSortInputs();
             }
             return result;
@@ -418,6 +418,16 @@ public class ContainerFurnaceNexus extends Container {
                 player.world,
                 pos.getX(), pos.getY(), pos.getZ()
             );
+            return true;
+        }
+        // v1.0.256 : id=200 = toggle auto-sort des inputs
+        if (id == 200) {
+            tile.toggleAutoSort();
+            // Si on vient d'activer l'auto-sort, lance un sort immediat
+            // pour reorganiser les inputs existants
+            if (tile.isAutoSortEnabled() && visibleIOSlots > 1) {
+                autoSortInputs();
+            }
             return true;
         }
         return false;
