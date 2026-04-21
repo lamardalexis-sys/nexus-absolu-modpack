@@ -52,37 +52,46 @@ public class ContainerFurnaceNexus extends Container {
     /** xSize du GUI pour ce container (stocke pour que le GUI le lise). */
     private final int containerXSize;
 
+    /**
+     * Y positions input/output/fuel : conditionnel selon mode RF.
+     * v1.0.258 : quand fuel est cache (mode RF), on peut centrer les slots
+     * verticalement dans le panneau. Quand fuel visible, layout compact.
+     */
+    private final int inputRowY;
+    private final int outputRowY;
+
     // === Layout Mekanism-Factory-style HORIZONTAL ===
-    // Input row : y=19
-    // Output row : y=55
-    // Espacement : 18 px entre slots
-    // Centrage horizontal : slots_start_x = (xSize - N*18) / 2
-    private static final int INPUT_ROW_Y = 19;
-    private static final int OUTPUT_ROW_Y = 55;
     private static final int SLOT_HORIZONTAL_STEP = 18;
 
     public ContainerFurnaceNexus(InventoryPlayer playerInv, TileFurnaceNexus tile) {
         this.tile = tile;
         this.visibleIOSlots = tile.getIOSlotCount();  // 1, 3, 5, 7 ou 9
 
-        // xSize dynamique pour accommoder N slots en ligne + RF bar (40px) + marges
-        //   xSize = max(176, N*18 + 50)
-        //   - N=1,3,5,7 : xSize = 176 (tient)
-        //   - N=9       : xSize = 212 (elargi, evite chevauchement RF bar)
+        // xSize dynamique pour accommoder N slots en ligne + RF bar (48px) + marges
+        //   xSize = max(176, N*18 + 58)
         this.containerXSize = Math.max(176, visibleIOSlots * 18 + 58);
 
+        // Y positions : centrees si fuel cache (mode RF), compactes sinon
+        // v1.0.258 : en mode RF pour tier >= I, centre input/progress/output
+        // dans le panneau 0..93 (sous titre y=18, au-dessus inv y=93)
+        boolean rfMode = tile.isRFMode();
+        if (visibleIOSlots > 1 && rfMode) {
+            this.inputRowY = 27;
+            this.outputRowY = 63;
+        } else {
+            this.inputRowY = 19;
+            this.outputRowY = 55;
+        }
+
         // Centrage horizontal des N slots sur la ZONE MACHINE (hors RF bar)
-        // Zone machine = 0..containerXSize-40 (RF bar occupe 36..xSize-4)
         int machineZoneW = containerXSize - 48;
         int slotsStartX = (machineZoneW - visibleIOSlots * SLOT_HORIZONTAL_STEP) / 2;
 
         // === 9 SLOTS INPUT (ligne horizontale haute) ===
-        // Slots [0 .. visibleIOSlots-1] : positions visibles en ligne
-        // Slots [visibleIOSlots .. 8]   : positions hors-ecran (-1000)
         for (int i = 0; i < TileFurnaceNexus.SLOT_INPUT_MAX; i++) {
             final int slotIdx = i;
             int posX = (i < visibleIOSlots) ? slotsStartX + i * SLOT_HORIZONTAL_STEP : -1000;
-            int posY = (i < visibleIOSlots) ? INPUT_ROW_Y : -1000;
+            int posY = (i < visibleIOSlots) ? inputRowY : -1000;
             addSlotToContainer(new Slot(tile,
                     TileFurnaceNexus.SLOT_INPUT_BASE + i, posX, posY) {
                 @Override
@@ -94,9 +103,6 @@ public class ContainerFurnaceNexus extends Container {
         }
 
         // === FUEL (position fixe gauche pour tier >= I) ===
-        // Pour tier 0 : position vanilla (41, 51) preservee
-        // Pour tier >= I : gauche a (20, 73), la flamme sera a cote (droite)
-        //   73+16=89, juste au-dessus de l'inventaire a y=93 (4px marge)
         int fuelX, fuelY;
         if (visibleIOSlots == 1) {
             fuelX = 41; fuelY = 51;
@@ -108,7 +114,7 @@ public class ContainerFurnaceNexus extends Container {
         // === 9 SLOTS OUTPUT (ligne horizontale basse) ===
         for (int i = 0; i < TileFurnaceNexus.SLOT_OUTPUT_MAX; i++) {
             int posX = (i < visibleIOSlots) ? slotsStartX + i * SLOT_HORIZONTAL_STEP : -1000;
-            int posY = (i < visibleIOSlots) ? OUTPUT_ROW_Y : -1000;
+            int posY = (i < visibleIOSlots) ? outputRowY : -1000;
             addSlotToContainer(new SlotFurnaceOutput(playerInv.player, tile,
                 TileFurnaceNexus.SLOT_OUTPUT_BASE + i, posX, posY));
         }
@@ -157,6 +163,12 @@ public class ContainerFurnaceNexus extends Container {
 
     /** Pour le GUI : xSize calcule du container (a matcher par le GUI). */
     public int getContainerXSize() { return containerXSize; }
+
+    /** Pour le GUI : y position de la ligne input (varie selon mode RF). */
+    public int getInputRowY() { return inputRowY; }
+
+    /** Pour le GUI : y position de la ligne output (varie selon mode RF). */
+    public int getOutputRowY() { return outputRowY; }
 
     // === SHIFT-CLICK ===
 

@@ -164,18 +164,23 @@ public class GuiFurnaceNexus extends GuiContainer {
             drawTexturedModalRect(x + invTextureX, y + 93, 0, 93, 176, 93);
 
             // 4) Calculer position de depart pour la ligne de slots (centrage)
-            //    Sur ZONE MACHINE (0..xSize-40), pas sur xSize entier
-            //    pour eviter le chevauchement avec RF bar a x=xSize-36
+            //    Sur ZONE MACHINE (0..xSize-48), pas sur xSize entier
+            //    pour eviter le chevauchement avec RF bar a x=xSize-44
             int machineZoneW = xSize - 48;
             int slotsStartX = (machineZoneW - visibleSlots * 18) / 2;
 
+            // v1.0.258 : y positions adaptees selon mode RF (centrees si fuel cache)
+            ContainerFurnaceNexus container = (ContainerFurnaceNexus) inventorySlots;
+            int inputY = container.getInputRowY();
+            int outputY = container.getOutputRowY();
+
             // 5) Bordures des slots INPUT (ligne haute)
             for (int i = 0; i < visibleSlots; i++) {
-                drawSlotBorder(x + slotsStartX + i * 18, y + 19);
+                drawSlotBorder(x + slotsStartX + i * 18, y + inputY);
             }
             // 6) Bordures des slots OUTPUT (ligne basse)
             for (int i = 0; i < visibleSlots; i++) {
-                drawSlotBorder(x + slotsStartX + i * 18, y + 55);
+                drawSlotBorder(x + slotsStartX + i * 18, y + outputY);
             }
             // 7) Bordure du slot FUEL a gauche (matche Container : x=20, y=73)
             //    Cachee en mode RF (coal inutile quand RF mode)
@@ -244,7 +249,11 @@ public class GuiFurnaceNexus extends GuiContainer {
         } else {
             int titleZoneW = xSize - 48;
             progX = (titleZoneW - PROGRESS_W) / 2;
-            progY = 40;  // entre input row y=19-35 et output row y=55-71
+            // Progress y = entre input (y=inputY, h=16) et output (y=outputY)
+            // Centre vertical : inputY + 16 + (outputY - (inputY+16) - PROGRESS_H) / 2
+            ContainerFurnaceNexus ct = (ContainerFurnaceNexus) inventorySlots;
+            int gapMiddle = (ct.getInputRowY() + 16 + ct.getOutputRowY() - PROGRESS_H) / 2;
+            progY = gapMiddle;
         }
 
         int prog = tile.getCookProgress();
@@ -323,7 +332,16 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Pour tier >= I : position ajustee sous la progress arrow a y=40
         String speedStr = "x" + tier.speedMultiplier;
         int sw = fontRenderer.getStringWidth(speedStr);
-        int speedY = (tile.getIOSlotCount() == 1) ? 40 : 48;  // tier >= I : juste sous progress (y=40..47)
+        // Label x1.2 : tier 0 reste a y=40 (vanilla-like), tier >= I juste sous la progress
+        int speedY;
+        if (tile.getIOSlotCount() == 1) {
+            speedY = 40;
+        } else {
+            // Sous la progress arrow qui est a progressY + 7 (PROGRESS_H)
+            ContainerFurnaceNexus ct = (ContainerFurnaceNexus) inventorySlots;
+            int progY2 = (ct.getInputRowY() + 16 + ct.getOutputRowY() - 7) / 2;
+            speedY = progY2 + 8;
+        }
         fontRenderer.drawStringWithShadow(speedStr, (titleZoneW - sw) / 2.0F, speedY, 0xFF8866AA);
 
         // Label Inventaire a y=93 (inchange, layout horizontal ne decale plus l'inv)
