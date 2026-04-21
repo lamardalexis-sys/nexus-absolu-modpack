@@ -159,7 +159,16 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     /** v1.0.256 : true si l'auto-sort des inputs est active. */
     public boolean isAutoSortEnabled() { return autoSortEnabled; }
-    public void toggleAutoSort() { autoSortEnabled = !autoSortEnabled; markDirty(); }
+    public void toggleAutoSort() {
+        autoSortEnabled = !autoSortEnabled;
+        markDirty();
+        // Force un block update pour que le client voie le nouvel etat du flag.
+        // Sans ca, le bouton S ne changerait pas de couleur cote client apres clic.
+        if (world != null && !world.isRemote) {
+            net.minecraft.block.state.IBlockState state = world.getBlockState(pos);
+            world.notifyBlockUpdate(pos, state, state, 3);
+        }
+    }
 
     /** Applique l'Upgrade Kit : debloque RF + slots upgrade. Irreversible. */
     public void applyEnhancement() {

@@ -117,7 +117,7 @@ public class GuiFurnaceNexus extends GuiContainer {
         //   - Tier 0/I/II/III (1/3/5/7 slots) : 176 (tient)
         //   - Tier IV (9 slots)               : 212 (elargi)
         int visibleSlots = tile.getIOSlotCount();
-        this.xSize = Math.max(176, visibleSlots * 18 + 50);
+        this.xSize = Math.max(176, visibleSlots * 18 + 58);
         this.ySize = 186;  // inchange quel que soit le tier
     }
 
@@ -149,21 +149,24 @@ public class GuiFurnaceNexus extends GuiContainer {
             // === Tier >= I : layout horizontal Mekanism, dessin manuel ===
             // 1) Fond uni panneau machine (0..93) sur toute la largeur xSize
             drawRect(x, y, x + xSize, y + 93, 0xFF1B0E2A);
-            // 2) Texture inventaire (texture vanilla 176x93 de y=93 a y=186)
-            //    Centre horizontalement si xSize > 176.
-            int invTextureX = (xSize - 176) / 2;
-            drawTexturedModalRect(x + invTextureX, y + 93, 0, 93, 176, 93);
             // 3) Si xSize > 176, remplir les cotes gauche et droit de l'inventaire
             //    avec fond uni (pour eviter trous visuels).
+            int invTextureX = (xSize - 176) / 2;
             if (invTextureX > 0) {
                 drawRect(x, y + 93, x + invTextureX, y + ySize, 0xFF1B0E2A);
                 drawRect(x + invTextureX + 176, y + 93, x + xSize, y + ySize, 0xFF1B0E2A);
             }
+            // 2) Texture inventaire (texture vanilla 176x93 de y=93 a y=186)
+            //    APRES les drawRect : il faut rebinder la texture + reset color
+            //    sinon la texture vanilla est dessinee avec un tint violet.
+            mc.getTextureManager().bindTexture(TEXTURE);
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            drawTexturedModalRect(x + invTextureX, y + 93, 0, 93, 176, 93);
 
             // 4) Calculer position de depart pour la ligne de slots (centrage)
             //    Sur ZONE MACHINE (0..xSize-40), pas sur xSize entier
             //    pour eviter le chevauchement avec RF bar a x=xSize-36
-            int machineZoneW = xSize - 40;
+            int machineZoneW = xSize - 48;
             int slotsStartX = (machineZoneW - visibleSlots * 18) / 2;
 
             // 5) Bordures des slots INPUT (ligne haute)
@@ -182,9 +185,9 @@ public class GuiFurnaceNexus extends GuiContainer {
         }
 
         // === RF BAR VERTICALE a droite (position dynamique selon xSize) ===
-        // RF bar etait a x=140 pour xSize=176, soit 36px du bord droit.
-        // On garde cette marge : RF_BAR_X = xSize - 36
-        int rfBarX = xSize - 36;
+        // v1.0.257 : deplacee de xSize-36 a xSize-44 (4px de marge au bord droit)
+        // Alexis : 'pas collee mais un peu plus eloignee'
+        int rfBarX = xSize - 44;
         int rfFillX = rfBarX + 1;
         if (tile.isRFMode()) {
             drawRect(x + rfBarX, y + RF_BAR_Y,
@@ -239,7 +242,7 @@ public class GuiFurnaceNexus extends GuiContainer {
             progX = PROGRESS_X;
             progY = PROGRESS_Y;
         } else {
-            int titleZoneW = xSize - 40;
+            int titleZoneW = xSize - 48;
             progX = (titleZoneW - PROGRESS_W) / 2;
             progY = 40;  // entre input row y=19-35 et output row y=55-71
         }
@@ -313,7 +316,7 @@ public class GuiFurnaceNexus extends GuiContainer {
         String title = FurnaceTierStyle.getDisplayName(tier);
         int tw = fontRenderer.getStringWidth(title);
         int titleColor = FurnaceTierStyle.getTitleColor(tier);
-        int titleZoneW = xSize - 40;  // laisse 40px pour la RF bar
+        int titleZoneW = xSize - 48;  // laisse 40px pour la RF bar
         fontRenderer.drawStringWithShadow(title, (titleZoneW - tw) / 2.0F, 6, titleColor);
 
         // Vitesse centree sous la progress arrow (sur zone machine, pas toute xSize)
@@ -331,7 +334,7 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Label RF au-dessus de la barre verticale - uniquement si RF Converter place
         // Position dynamique alignee sur la barre (qui est a xSize-36)
         if (tile.isRFMode()) {
-            fontRenderer.drawStringWithShadow("RF", xSize - 39, 4, 0xFFCC4444);
+            fontRenderer.drawStringWithShadow("RF", xSize - 47, 4, 0xFFCC4444);
         }
 
         // === BOUTON AUTO-SORT : lettre 'S' + label On/Off (tier >= I) ===

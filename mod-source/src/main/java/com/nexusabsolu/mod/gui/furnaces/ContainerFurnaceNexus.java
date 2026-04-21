@@ -69,11 +69,11 @@ public class ContainerFurnaceNexus extends Container {
         //   xSize = max(176, N*18 + 50)
         //   - N=1,3,5,7 : xSize = 176 (tient)
         //   - N=9       : xSize = 212 (elargi, evite chevauchement RF bar)
-        this.containerXSize = Math.max(176, visibleIOSlots * 18 + 50);
+        this.containerXSize = Math.max(176, visibleIOSlots * 18 + 58);
 
         // Centrage horizontal des N slots sur la ZONE MACHINE (hors RF bar)
         // Zone machine = 0..containerXSize-40 (RF bar occupe 36..xSize-4)
-        int machineZoneW = containerXSize - 40;
+        int machineZoneW = containerXSize - 48;
         int slotsStartX = (machineZoneW - visibleIOSlots * SLOT_HORIZONTAL_STEP) / 2;
 
         // === 9 SLOTS INPUT (ligne horizontale haute) ===
