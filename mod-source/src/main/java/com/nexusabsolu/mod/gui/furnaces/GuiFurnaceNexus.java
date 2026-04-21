@@ -134,6 +134,11 @@ public class GuiFurnaceNexus extends GuiContainer {
         if (visibleSlots == 1) {
             // === Tier 0 : texture vanilla integrale (inchange, xSize=ySize=176x186) ===
             drawTexturedModalRect(x, y, 0, 0, 176, ySize);
+            // En mode RF : masque le slot fuel (vanilla a x=41, y=51)
+            // avec un rectangle violet pour cacher la bordure de la texture
+            if (tile.isRFMode()) {
+                drawRect(x + 40, y + 50, x + 58, y + 68, 0xFF312A3E);
+            }
         } else {
             // === Tier >= I : layout horizontal Mekanism, dessin manuel ===
             // 1) Fond uni panneau machine (0..93) sur toute la largeur xSize
@@ -164,7 +169,10 @@ public class GuiFurnaceNexus extends GuiContainer {
                 drawSlotBorder(x + slotsStartX + i * 18, y + 55);
             }
             // 7) Bordure du slot FUEL a gauche (matche Container : x=20, y=73)
-            drawSlotBorder(x + 20, y + 73);
+            //    Cachee en mode RF (coal inutile quand RF mode)
+            if (!tile.isRFMode()) {
+                drawSlotBorder(x + 20, y + 73);
+            }
         }
 
         // === RF BAR VERTICALE a droite (position dynamique selon xSize) ===
@@ -192,29 +200,28 @@ public class GuiFurnaceNexus extends GuiContainer {
         // === FLAMME fuel indicator ===
         // Tier 0 : position vanilla (69, 56) sous la progress arrow
         // Tier >= I : a droite du fuel slot a x=20 -> flamme a x=40, y=79
+        // En mode RF + tier >= I : pas de flamme (slot fuel est cache, flamme inutile)
         int flameX, flameY;
+        boolean showFlame = true;
         if (visibleSlots == 1) {
             flameX = FUEL_FLAME_X;
             flameY = FUEL_FLAME_Y;
+            // Tier 0 + mode RF : cache la flamme aussi (slot fuel masque)
+            if (tile.isRFMode()) showFlame = false;
         } else {
             flameX = 40;  // fuel.x (20) + slot_width (18) + 2 marge
             flameY = 79;  // vertical center du slot fuel y=73..89
+            if (tile.isRFMode()) showFlame = false;
         }
 
         int fuelBurnTicks = tile.getFuelBurnTicks();
         int fuelTotal = tile.getFuelTotalBurnTicks();
-        boolean rfActive = tile.isRFMode()
-            && tile.getEnergyStored() > 0 && tile.getCookProgress() > 0;
 
-        if (fuelBurnTicks > 0 && fuelTotal > 0) {
+        if (showFlame && fuelBurnTicks > 0 && fuelTotal > 0) {
             GuiUtils.fillBarHorizontal(x + flameX, y + flameY,
                 FUEL_FLAME_W, FUEL_FLAME_H,
                 fuelBurnTicks, fuelTotal,
                 0xFFCC3D10, 0xFFFF8830);
-        } else if (rfActive) {
-            GuiUtils.fillBarHorizontal(x + flameX, y + flameY,
-                FUEL_FLAME_W, FUEL_FLAME_H, 1, 1,
-                0xFF4455CC, 0xFF7788FF);
         }
 
         // === PROGRESS fleche : centree horizontalement entre input et output rows ===
@@ -551,14 +558,37 @@ public class GuiFurnaceNexus extends GuiContainer {
     // Upgrades, pattern Mekanism).
 
     /**
-     * Maintient les 4 slots upgrade du container toujours hors-ecran
-     * dans ce GUI (ils sont visibles dans le GUI Upgrades dedie).
+     * Maintient les 4 slots upgrade du container toujours hors-ecran dans ce GUI
+     * (ils sont visibles dans le GUI Upgrades dedie).
+     *
+     * Avec le nouveau layout v1.0.252 :
+     *   Indices container : 9 inputs (0-8), 1 fuel (9), 9 outputs (10-18),
+     *                       4 upgrades (19-22)
+     *
+     * Cache aussi le SLOT FUEL en mode RF (v1.0.255) : quand le four tourne a
+     * l'energie RF, le coal est inutile donc on cache son slot.
      */
     private void updateUpgradeSlotPositions() {
+        // Cache les 4 slots upgrade (indices 19-22)
         for (int i = 0; i < 4; i++) {
-            Slot slot = inventorySlots.inventorySlots.get(3 + i);
+            Slot slot = inventorySlots.inventorySlots.get(19 + i);
             slot.xPos = -1000;
             slot.yPos = -1000;
+        }
+
+        // Cache le slot FUEL (indice 9) si mode RF
+        Slot fuelSlot = inventorySlots.inventorySlots.get(9);
+        if (tile.isRFMode()) {
+            fuelSlot.xPos = -1000;
+            fuelSlot.yPos = -1000;
+        } else {
+            // Restaure position selon tier
+            int visibleSlots = tile.getIOSlotCount();
+            if (visibleSlots == 1) {
+                fuelSlot.xPos = 41; fuelSlot.yPos = 51;
+            } else {
+                fuelSlot.xPos = 20; fuelSlot.yPos = 73;
+            }
         }
     }
 

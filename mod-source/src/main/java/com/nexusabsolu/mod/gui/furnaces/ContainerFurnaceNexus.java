@@ -286,16 +286,87 @@ public class ContainerFurnaceNexus extends Container {
      * v1.0.227 : wrap slotClick avec flag GUI_OPERATION pour autoriser les
      * modifications des slots upgrade 3-6. La protection TileFurnaceNexus
      * bloque toute autre tentative d'extraction (mods tiers, hoppers bypass).
+     *
+     * v1.0.255 : apres un slotClick qui depose un stack dans un slot INPUT,
+     * redistribue automatiquement le contenu equitablement dans tous les
+     * inputs actifs (style Mekanism Factory).
      */
     @Override
     public ItemStack slotClick(int slotId, int dragType,
             net.minecraft.inventory.ClickType clickType, EntityPlayer player) {
         TileFurnaceNexus.setGuiOperation(true);
         try {
-            return super.slotClick(slotId, dragType, clickType, player);
+            ItemStack result = super.slotClick(slotId, dragType, clickType, player);
+            // Auto-sort : si le clic a ete fait sur un slot INPUT (0..8), redistribuer
+            // Indices container : 0..8 = inputs, 9 = fuel, 10..18 = outputs, etc.
+            if (slotId >= 0 && slotId < 9 && visibleIOSlots > 1) {
+                autoSortInputs();
+            }
+            return result;
         } finally {
             TileFurnaceNexus.setGuiOperation(false);
         }
+    }
+
+    /**
+     * Redistribue equitablement tous les items presents dans les slots input
+     * actifs [0..N-1]. Regroupe d'abord les items compatibles (meme type+NBT),
+     * puis divise le total par le nombre de slots actifs et distribue.
+     *
+     * Si plusieurs types d'items sont presents, chaque type est redistribue
+     * independamment en occupant les slots vides disponibles apres le type
+     * precedent.
+     *
+     * Exemple : 5 slots actifs, 64 iron dans slot 0 -> redistribue
+     *   slot 0: 13, slot 1: 13, slot 2: 13, slot 3: 13, slot 4: 12
+     */
+    private void autoSortInputs() {
+        int n = visibleIOSlots;
+        if (n <= 1) return;
+
+        // Regrouper les items par type (key = item+meta+NBT ish)
+        // Note : ItemStack n'a pas de equals "correct", on utilise canItemStacksStack
+        java.util.List<ItemStack> buckets = new java.util.ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            ItemStack stack = tile.getStackInSlot(TileFurnaceNexus.SLOT_INPUT_BASE + i);
+            if (stack.isEmpty()) continue;
+            boolean merged = false;
+            for (ItemStack bucket : buckets) {
+                if (net.minecraftforge.items.ItemHandlerHelper.canItemStacksStack(bucket, stack)) {
+                    bucket.grow(stack.getCount());
+                    merged = true;
+                    break;
+                }
+            }
+            if (!merged) {
+                buckets.add(stack.copy());
+            }
+        }
+
+        // Vider tous les slots inputs
+        for (int i = 0; i < n; i++) {
+            tile.setInventorySlotContents(TileFurnaceNexus.SLOT_INPUT_BASE + i, ItemStack.EMPTY);
+        }
+
+        // Redistribuer chaque bucket equitablement dans les slots disponibles
+        int nextSlot = 0;
+        for (ItemStack bucket : buckets) {
+            int total = bucket.getCount();
+            int slotsLeft = n - nextSlot;
+            if (slotsLeft <= 0) break;  // plus de place (ne devrait pas arriver)
+            int base = total / slotsLeft;
+            int remainder = total % slotsLeft;
+            for (int j = 0; j < slotsLeft; j++) {
+                int count = base + (j < remainder ? 1 : 0);
+                if (count <= 0) break;
+                ItemStack copy = bucket.copy();
+                copy.setCount(count);
+                tile.setInventorySlotContents(TileFurnaceNexus.SLOT_INPUT_BASE + nextSlot, copy);
+                nextSlot++;
+            }
+        }
+
+        detectAndSendChanges();
     }
 
     @Override
