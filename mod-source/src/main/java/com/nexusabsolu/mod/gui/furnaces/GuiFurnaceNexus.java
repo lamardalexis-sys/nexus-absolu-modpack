@@ -105,11 +105,13 @@ public class GuiFurnaceNexus extends GuiContainer {
         super(new ContainerFurnaceNexus(playerInv, tile));
         this.tile = tile;
         // Layout horizontal Mekanism-Factory-style : xSize dynamique, ySize fixe.
-        //   xSize = max(176, N*18 + 46) ou N = getIOSlotCount()
+        //   xSize = max(176, N*18 + 50) ou N = getIOSlotCount()
+        //   Les slots sont centres sur la ZONE MACHINE (0..xSize-40) pour eviter
+        //   le chevauchement avec la RF bar a droite.
         //   - Tier 0/I/II/III (1/3/5/7 slots) : 176 (tient)
-        //   - Tier IV (9 slots)               : 208 (elargi)
+        //   - Tier IV (9 slots)               : 212 (elargi)
         int visibleSlots = tile.getIOSlotCount();
-        this.xSize = Math.max(176, visibleSlots * 18 + 46);
+        this.xSize = Math.max(176, visibleSlots * 18 + 50);
         this.ySize = 186;  // inchange quel que soit le tier
     }
 
@@ -148,7 +150,10 @@ public class GuiFurnaceNexus extends GuiContainer {
             }
 
             // 4) Calculer position de depart pour la ligne de slots (centrage)
-            int slotsStartX = (xSize - visibleSlots * 18) / 2;
+            //    Sur ZONE MACHINE (0..xSize-40), pas sur xSize entier
+            //    pour eviter le chevauchement avec RF bar a x=xSize-36
+            int machineZoneW = xSize - 40;
+            int slotsStartX = (machineZoneW - visibleSlots * 18) / 2;
 
             // 5) Bordures des slots INPUT (ligne haute)
             for (int i = 0; i < visibleSlots; i++) {
@@ -158,9 +163,8 @@ public class GuiFurnaceNexus extends GuiContainer {
             for (int i = 0; i < visibleSlots; i++) {
                 drawSlotBorder(x + slotsStartX + i * 18, y + 55);
             }
-            // 7) Bordure du slot FUEL (centre horizontalement a y=77)
-            int fuelSlotX = (xSize - 16) / 2;
-            drawSlotBorder(x + fuelSlotX, y + 77);
+            // 7) Bordure du slot FUEL a gauche (matche Container : x=20, y=73)
+            drawSlotBorder(x + 20, y + 73);
         }
 
         // === RF BAR VERTICALE a droite (position dynamique selon xSize) ===
@@ -187,15 +191,14 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         // === FLAMME fuel indicator ===
         // Tier 0 : position vanilla (69, 56) sous la progress arrow
-        // Tier >= I : a DROITE du slot fuel centre (fuelSlotX + 20, 83)
+        // Tier >= I : a droite du fuel slot a x=20 -> flamme a x=40, y=79
         int flameX, flameY;
         if (visibleSlots == 1) {
             flameX = FUEL_FLAME_X;
             flameY = FUEL_FLAME_Y;
         } else {
-            int fuelSlotX = (xSize - 16) / 2;
-            flameX = fuelSlotX + 20;  // 20px = slot width + 4px marge
-            flameY = 83;
+            flameX = 40;  // fuel.x (20) + slot_width (18) + 2 marge
+            flameY = 79;  // vertical center du slot fuel y=73..89
         }
 
         int fuelBurnTicks = tile.getFuelBurnTicks();

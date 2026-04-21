@@ -65,15 +65,16 @@ public class ContainerFurnaceNexus extends Container {
         this.tile = tile;
         this.visibleIOSlots = tile.getIOSlotCount();  // 1, 3, 5, 7 ou 9
 
-        // xSize dynamique pour accommoder N slots en ligne + RF bar + marges
-        //   xSize = max(176, N*18 + 46)
-        //   - N=1,3,5 : xSize = 176 (inchange)
-        //   - N=7     : xSize = 176 (tient juste)
-        //   - N=9     : xSize = 208 (elargi)
-        this.containerXSize = Math.max(176, visibleIOSlots * 18 + 46);
+        // xSize dynamique pour accommoder N slots en ligne + RF bar (40px) + marges
+        //   xSize = max(176, N*18 + 50)
+        //   - N=1,3,5,7 : xSize = 176 (tient)
+        //   - N=9       : xSize = 212 (elargi, evite chevauchement RF bar)
+        this.containerXSize = Math.max(176, visibleIOSlots * 18 + 50);
 
-        // Centrage horizontal des N slots dans xSize
-        int slotsStartX = (containerXSize - visibleIOSlots * SLOT_HORIZONTAL_STEP) / 2;
+        // Centrage horizontal des N slots sur la ZONE MACHINE (hors RF bar)
+        // Zone machine = 0..containerXSize-40 (RF bar occupe 36..xSize-4)
+        int machineZoneW = containerXSize - 40;
+        int slotsStartX = (machineZoneW - visibleIOSlots * SLOT_HORIZONTAL_STEP) / 2;
 
         // === 9 SLOTS INPUT (ligne horizontale haute) ===
         // Slots [0 .. visibleIOSlots-1] : positions visibles en ligne
@@ -92,15 +93,15 @@ public class ContainerFurnaceNexus extends Container {
             });
         }
 
-        // === FUEL (centre horizontalement, entre output row et inventaire) ===
-        // Position : y=77 (sous output row y=55+16=71, 6px marge), x centre
+        // === FUEL (position fixe gauche pour tier >= I) ===
         // Pour tier 0 : position vanilla (41, 51) preservee
+        // Pour tier >= I : gauche a (20, 73), la flamme sera a cote (droite)
+        //   73+16=89, juste au-dessus de l'inventaire a y=93 (4px marge)
         int fuelX, fuelY;
         if (visibleIOSlots == 1) {
-            fuelX = 41; fuelY = 51;  // position vanilla inchangee tier 0
+            fuelX = 41; fuelY = 51;
         } else {
-            fuelX = (containerXSize - 16) / 2;  // centre (slot = 16px)
-            fuelY = 77;
+            fuelX = 20; fuelY = 73;
         }
         addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, fuelX, fuelY));
 
