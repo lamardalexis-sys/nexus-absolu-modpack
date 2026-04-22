@@ -283,6 +283,16 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public void update() {
         if (world.isRemote) return;
 
+        // v1.0.259 : purge le RF orphelin si le four n'est pas en mode RF.
+        // Un save precedent (avant ce fix) peut avoir stocke du RF alors que
+        // le four n'est pas enhanced ou n'a pas de carte RF Converter. Ce
+        // RF est invisible a l'usage donc on le purge pour eviter la confusion
+        // ('24k RF dans un four qui ne peut pas les utiliser').
+        if (!isRFMode() && energyStorage.getEnergyStored() > 0) {
+            energyStorage.drainInternal(energyStorage.getEnergyStored());
+            markDirty();
+        }
+
         // v1.0.240 FIX : doAutoIO doit TOUJOURS tourner tous les 10 ticks,
         // meme si le four est vide/sans fuel/sans recette. Sinon les hoppers
         // auto-pull configures par l'utilisateur ne peuvent pas AMORCER le
@@ -779,7 +789,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityEnergy.ENERGY) return true;
+        if (capability == CapabilityEnergy.ENERGY) {
+            // v1.0.259 : ne PAS exposer la capability energy si le four n'est
+            // pas en mode RF. Sinon des cables/machines remplissent inutilement
+            // le stockage interne avec du RF que le four ne peut meme pas utiliser
+            // (ex. energy cube Mekanism qui pousse en continu).
+            return isRFMode();
+        }
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return true;
         return super.hasCapability(capability, facing);
     }
@@ -787,11 +803,15 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityEnergy.ENERGY) return (T) energyStorage;
+        if (capability == CapabilityEnergy.ENERGY) {
+            // Meme check que hasCapability : pas de capability en mode coal
+            if (!isRFMode()) return null;
+            return (T) energyStorage;
+        }
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             // Pattern Thermal TileInventory.getCapability :
             // - facing != null : SidedInvWrapper (respecte ISidedInventory)
-            // - facing == null : InvWrapper sur l'IInventory (7 slots mais
+            // - facing == null : InvWrapper sur l'IInventory (23 slots mais
             //   protection upgrade via flag GUI_OPERATION dans les operations)
             if (facing != null) {
                 return (T) new SidedInvWrapper(this, facing);
