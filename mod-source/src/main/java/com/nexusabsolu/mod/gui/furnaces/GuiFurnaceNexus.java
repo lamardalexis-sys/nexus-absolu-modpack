@@ -313,12 +313,12 @@ public class GuiFurnaceNexus extends GuiContainer {
         FurnaceTier tier = tile.getTier();
 
         // Titre : centre sur la zone machine (hors RF bar a droite)
-        // Zone utilisable : 0..xSize-40 (RF bar commence a xSize-36)
-        // v1.0.263b : centrage texte sur xSize entier avec clamp RF bar
+        // v1.0.265 : maxTextEndX passe de xSize-46 a xSize-54 (marge 16px
+        // au lieu de 8px) pour eviter 'Fourneau Vossium IVRF' (capture Alexis).
         String title = FurnaceTierStyle.getDisplayName(tier);
         int tw = fontRenderer.getStringWidth(title);
         int titleColor = FurnaceTierStyle.getTitleColor(tier);
-        int maxTextEndX = xSize - 46;
+        int maxTextEndX = xSize - 54;
         float titleX = (xSize - tw) / 2.0F;
         if (titleX + tw > maxTextEndX) titleX = maxTextEndX - tw;
         fontRenderer.drawStringWithShadow(title, titleX, 6, titleColor);
