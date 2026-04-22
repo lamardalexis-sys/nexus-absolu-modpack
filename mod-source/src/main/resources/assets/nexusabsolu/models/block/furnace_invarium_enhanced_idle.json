@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "nexusabsolu:blocks/furnace_invarium_top_enhanced_idle",
+    "front": "nexusabsolu:blocks/furnace_invarium_front_enhanced_idle",
+    "side": "nexusabsolu:blocks/furnace_invarium_side"
+  }
+}

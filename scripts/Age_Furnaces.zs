@@ -28,13 +28,14 @@ recipes.addShaped("nexus_furnace_gold", <nexusabsolu:furnace_gold>,
      [<thermalexpansion:frame>,     <nexusabsolu:furnace_iron>,   <thermalexpansion:frame>],
      [<ore:ingotGold>,              <ore:ingotGold>,              <ore:ingotGold>]]);
 
-// === T3 : INVAR FURNACE (Age 1, parallele au Gold) ===
-// FIX : immersiveengineering:metal_decoration0:0 etait Copper Coil Block, pas Heavy Engineering.
-// Remplace par un item OreDict + steel ingot pour voie tech fiable.
-recipes.addShaped("nexus_furnace_invar", <nexusabsolu:furnace_invar>,
-    [[<ore:ingotInvar>,             <ore:ingotInvar>,             <ore:ingotInvar>],
-     [<ore:ingotSteel>,             <nexusabsolu:furnace_iron>,   <ore:ingotSteel>],
-     [<ore:ingotInvar>,             <minecraft:coal_block>,       <ore:ingotInvar>]]);
+// === T3 : INVARIUM FURNACE (Age 1, progression Gold -> Invarium) ===
+// v1.0.268 : renomme de 'invar' a 'invarium'. Progression logique :
+// Iron -> Gold -> Invarium -> Emeradic -> Vossium IV.
+// Utilise le Gold Furnace au centre (au lieu de Iron) + Invarium ingots.
+recipes.addShaped("nexus_furnace_invarium", <nexusabsolu:furnace_invarium>,
+    [[<nexusabsolu:invarium_ingot>,  <nexusabsolu:invarium_ingot>,  <nexusabsolu:invarium_ingot>],
+     [<ore:ingotSteel>,              <nexusabsolu:furnace_gold>,    <ore:ingotSteel>],
+     [<nexusabsolu:invarium_ingot>,  <minecraft:coal_block>,        <nexusabsolu:invarium_ingot>]]);
 
 // === T4 : EMERADIC CRYSTAL FURNACE (Age 1 tard) ===
 // FIX : emeradic_crystal vient d'Actually Additions, pas d'Environmental Tech.
@@ -42,7 +43,7 @@ recipes.addShaped("nexus_furnace_invar", <nexusabsolu:furnace_invar>,
 // FIX : enderio:item_material:55 n'existait pas. Industrial Machine Chassis = :1
 recipes.addShaped("nexus_furnace_emeradic", <nexusabsolu:furnace_emeradic>,
     [[<actuallyadditions:item_crystal:4>, <actuallyadditions:item_crystal:4>, <actuallyadditions:item_crystal:4>],
-     [<enderio:item_material:1>,          <nexusabsolu:furnace_invar>,        <enderio:item_material:1>],
+     [<enderio:item_material:1>,          <nexusabsolu:furnace_invarium>,     <enderio:item_material:1>],
      [<actuallyadditions:item_crystal:4>, <minecraft:redstone_block>,         <actuallyadditions:item_crystal:4>]]);
 
 // === T5 : VOSSIUM IV FURNACE (Age 2) ===

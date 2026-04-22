@@ -1,63 +1,63 @@
 {
   "variants": {
     "active=false,enhanced=false,facing=north": {
-      "model": "nexusabsolu:furnace_invar"
+      "model": "nexusabsolu:furnace_invarium"
     },
     "active=false,enhanced=false,facing=east": {
-      "model": "nexusabsolu:furnace_invar",
+      "model": "nexusabsolu:furnace_invarium",
       "y": 90
     },
     "active=false,enhanced=false,facing=south": {
-      "model": "nexusabsolu:furnace_invar",
+      "model": "nexusabsolu:furnace_invarium",
       "y": 180
     },
     "active=false,enhanced=false,facing=west": {
-      "model": "nexusabsolu:furnace_invar",
+      "model": "nexusabsolu:furnace_invarium",
       "y": 270
     },
     "active=true,enhanced=false,facing=north": {
-      "model": "nexusabsolu:furnace_invar_active"
+      "model": "nexusabsolu:furnace_invarium_active"
     },
     "active=true,enhanced=false,facing=east": {
-      "model": "nexusabsolu:furnace_invar_active",
+      "model": "nexusabsolu:furnace_invarium_active",
       "y": 90
     },
     "active=true,enhanced=false,facing=south": {
-      "model": "nexusabsolu:furnace_invar_active",
+      "model": "nexusabsolu:furnace_invarium_active",
       "y": 180
     },
     "active=true,enhanced=false,facing=west": {
-      "model": "nexusabsolu:furnace_invar_active",
+      "model": "nexusabsolu:furnace_invarium_active",
       "y": 270
     },
     "active=false,enhanced=true,facing=north": {
-      "model": "nexusabsolu:furnace_invar_enhanced_idle"
+      "model": "nexusabsolu:furnace_invarium_enhanced_idle"
     },
     "active=false,enhanced=true,facing=east": {
-      "model": "nexusabsolu:furnace_invar_enhanced_idle",
+      "model": "nexusabsolu:furnace_invarium_enhanced_idle",
       "y": 90
     },
     "active=false,enhanced=true,facing=south": {
-      "model": "nexusabsolu:furnace_invar_enhanced_idle",
+      "model": "nexusabsolu:furnace_invarium_enhanced_idle",
       "y": 180
     },
     "active=false,enhanced=true,facing=west": {
-      "model": "nexusabsolu:furnace_invar_enhanced_idle",
+      "model": "nexusabsolu:furnace_invarium_enhanced_idle",
       "y": 270
     },
     "active=true,enhanced=true,facing=north": {
-      "model": "nexusabsolu:furnace_invar_enhanced_active"
+      "model": "nexusabsolu:furnace_invarium_enhanced_active"
     },
     "active=true,enhanced=true,facing=east": {
-      "model": "nexusabsolu:furnace_invar_enhanced_active",
+      "model": "nexusabsolu:furnace_invarium_enhanced_active",
       "y": 90
     },
     "active=true,enhanced=true,facing=south": {
-      "model": "nexusabsolu:furnace_invar_enhanced_active",
+      "model": "nexusabsolu:furnace_invarium_enhanced_active",
       "y": 180
     },
     "active=true,enhanced=true,facing=west": {
-      "model": "nexusabsolu:furnace_invar_enhanced_active",
+      "model": "nexusabsolu:furnace_invarium_enhanced_active",
       "y": 270
     }
   }

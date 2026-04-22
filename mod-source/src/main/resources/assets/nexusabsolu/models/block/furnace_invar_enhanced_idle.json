@@ -1,8 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "top": "nexusabsolu:blocks/furnace_invar_top_enhanced_idle",
-    "front": "nexusabsolu:blocks/furnace_invar_front_enhanced_idle",
-    "side": "nexusabsolu:blocks/furnace_invar_side"
-  }
-}

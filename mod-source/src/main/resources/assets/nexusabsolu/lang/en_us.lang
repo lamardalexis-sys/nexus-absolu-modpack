@@ -159,7 +159,7 @@ item.nexusabsolu.tuosss_ingot.name=Lingot de Tuosss
 # === FURNACES NEXUS (T1-T5) ===
 tile.nexusabsolu.furnace_iron.name=Fourneau de Fer
 tile.nexusabsolu.furnace_gold.name=Fourneau d'Or
-tile.nexusabsolu.furnace_invar.name=Fourneau d'Invar
+tile.nexusabsolu.furnace_invarium.name=Fourneau d'Invarium
 tile.nexusabsolu.furnace_emeradic.name=Fourneau de Cristal Emeradic
 tile.nexusabsolu.furnace_vossium_iv.name=Fourneau de Vossium IV
 

@@ -15,10 +15,10 @@ package com.nexusabsolu.mod.tiles.furnaces;
  * T6-T9 declares mais non-register dans ModBlocks (a activer quand pret).
  */
 public enum FurnaceTier {
-    //                   id             speed   coal    rf/t   nativeRF  age
+    //                   id              speed   coal    rf/t   nativeRF  age
     IRON      ("iron",       1.2f,  0.10f,  20,   false, 0),
     GOLD      ("gold",       1.4f,  0.11f,  30,   false, 1),
-    INVAR     ("invar",      1.4f,  0.10f,  25,   false, 1),
+    INVARIUM  ("invarium",   1.7f,  0.12f,  40,   false, 1),     // v1.0.268 : invar -> invarium, stats boostees pour etre meilleur que gold
     EMERADIC  ("emeradic",   2.0f,  0.12f,  60,   false, 1),
     VOSSIUM_IV("vossium_iv", 3.0f,  0.15f,  120,  false, 2),
     DARK_ASTRAL("dark_astral", 6.0f, 0.20f, 300,  false, 3),   // phase ulterieure
@@ -69,6 +69,8 @@ public enum FurnaceTier {
     }
 
     public static FurnaceTier byName(String name) {
+        // v1.0.268 : alias legacy pour saves existants (invar -> invarium)
+        if ("invar".equals(name)) return INVARIUM;
         for (FurnaceTier t : values()) {
             if (t.registryName.equals(name)) return t;
         }

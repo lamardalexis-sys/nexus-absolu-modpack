@@ -78,9 +78,9 @@ public class ModBlocks {
     public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_GOLD =
         new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
             com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.GOLD);
-    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_INVAR =
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_INVARIUM =
         new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
-            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.INVAR);
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.INVARIUM);
     public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_EMERADIC =
         new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
             com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.EMERADIC);

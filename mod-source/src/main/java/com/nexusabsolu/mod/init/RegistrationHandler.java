@@ -36,4 +36,27 @@ public class RegistrationHandler {
             }
         }
     }
+
+    /**
+     * v1.0.268 : remappe les anciens IDs furnace_invar vers furnace_invarium
+     * pour ne pas perdre les fours deja poses dans les saves existants apres
+     * le renommage.
+     */
+    @SubscribeEvent
+    public static void onMissingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
+        for (RegistryEvent.MissingMappings.Mapping<Block> m : event.getAllMappings()) {
+            if (m.key.toString().equals(Reference.MOD_ID + ":furnace_invar")) {
+                m.remap(ModBlocks.FURNACE_INVARIUM);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMissingItemMappings(RegistryEvent.MissingMappings<Item> event) {
+        for (RegistryEvent.MissingMappings.Mapping<Item> m : event.getAllMappings()) {
+            if (m.key.toString().equals(Reference.MOD_ID + ":furnace_invar")) {
+                m.remap(Item.getItemFromBlock(ModBlocks.FURNACE_INVARIUM));
+            }
+        }
+    }
 }
