@@ -61,31 +61,27 @@ recipes.addShaped("nexus_furnace_vossium_iv", <nexusabsolu:furnace_vossium_iv>,
 
 // === T6 : DARK ASTRAL FURNACE (Age 3) ===
 // Progression : Vossium IV + constellations Astral Sorcery.
-// astralsorcery:itemcraftingcomponent:2 = Infused Glass (confirme dans dump)
-// astralsorcery:itemcelestialcrystal = Celestial Crystal
-// astralsorcery:itemlinkingtool pas confirme - on prend starmetal plutot
-// astralsorcery:blockmarble:3 = Starmetal Ore, starmetal ingot = itemcraftingcomponent:1
+// itemcraftingcomponent:1 = Starmetal Ingot (confirme dump)
+// itemcraftingcomponent:2 = Stardust (confirme dump)
+// itemcelestialcrystal:0 = Celestial Crystal
 recipes.addShaped("nexus_furnace_dark_astral", <nexusabsolu:furnace_dark_astral>,
     [[<astralsorcery:itemcelestialcrystal>,     <astralsorcery:itemcraftingcomponent:2>,  <astralsorcery:itemcelestialcrystal>],
      [<astralsorcery:itemcraftingcomponent:1>,  <nexusabsolu:furnace_vossium_iv>,         <astralsorcery:itemcraftingcomponent:1>],
      [<astralsorcery:itemcelestialcrystal>,     <draconicevolution:draconium_block>,      <astralsorcery:itemcelestialcrystal>]]);
 
 // === T7 : GAIA LUDICRITE FURNACE (Age 4, nativeRF=true) ===
-// Progression : Dark Astral + gaia/ludicrite Botania.
-// botania:manaresource:5 = Terrasteel Ingot
-// botania:manaresource:22 = Gaia Spirit Ingot (drop Guardian of Gaia)
-// botania:gaiaingot = Gaia Spirit (autre registre possible, on verifie)
-// On prend terrasteel et manaresource:14 (Pixie Dust)
+// IDs Botania verifies (dump items.csv) :
+//   manaresource:0 = Manasteel, :4 = Terrasteel, :5 = Gaia Spirit
+//   manaresource:7 = Elementium, :8 = Pixie Dust
+// v1.0.273 : fix IDs (avant :5=Gaia Spirit etait correct mais :22 et :14 etaient inventes)
 recipes.addShaped("nexus_furnace_gaia_ludicrite", <nexusabsolu:furnace_gaia_ludicrite>,
-    [[<botania:manaresource:5>,                 <botania:manaresource:22>,                <botania:manaresource:5>],
-     [<botania:manaresource:14>,                <nexusabsolu:furnace_dark_astral>,        <botania:manaresource:14>],
-     [<botania:manaresource:5>,                 <draconicevolution:draconic_core>,        <botania:manaresource:5>]]);
+    [[<botania:manaresource:4>,                 <botania:manaresource:5>,                 <botania:manaresource:4>],
+     [<botania:manaresource:8>,                 <nexusabsolu:furnace_dark_astral>,        <botania:manaresource:8>],
+     [<botania:manaresource:7>,                 <draconicevolution:draconic_core>,        <botania:manaresource:7>]]);
 
 // === T8 : PALLANUTRO FURNACE (Age 5, nativeRF=true) ===
-// Progression : Gaia Ludicrite + endgame draconium + infinity catalyst.
-// draconicevolution:draconic_core, wyvern_core (boss drops / high crafts)
-// draconicevolution:chaos_shard = Chaos Shard (ender dragon quest alternative)
-// Pour l'esprit endgame : wyvern + draconic + chaos
+// IDs Draconic Evolution verifies (dump items.csv) :
+//   chaos_shard = Chaos Shard, draconic_core / wyvern_core / awakened_core
 recipes.addShaped("nexus_furnace_pallanutro", <nexusabsolu:furnace_pallanutro>,
     [[<draconicevolution:chaos_shard>,          <draconicevolution:draconic_core>,        <draconicevolution:chaos_shard>],
      [<draconicevolution:wyvern_core>,          <nexusabsolu:furnace_gaia_ludicrite>,     <draconicevolution:wyvern_core>],
