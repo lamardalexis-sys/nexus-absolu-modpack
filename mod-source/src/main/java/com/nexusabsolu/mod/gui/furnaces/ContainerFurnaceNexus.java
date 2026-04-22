@@ -83,9 +83,19 @@ public class ContainerFurnaceNexus extends Container {
             this.outputRowY = 55;
         }
 
-        // Centrage horizontal des N slots sur la ZONE MACHINE (hors RF bar)
-        int machineZoneW = containerXSize - 48;
-        int slotsStartX = (machineZoneW - visibleIOSlots * SLOT_HORIZONTAL_STEP) / 2;
+        // v1.0.263b : centrage sur tout le panneau (xSize entier) avec clamp
+        // pour eviter le chevauchement avec la RF bar a xSize-44.
+        // Pour tier I/II (3-5 slots) : centrage parfait au milieu du GUI.
+        // Pour tier III/IV (7-9 slots) : les slots se decalent juste assez
+        // a gauche pour laisser passer la RF bar.
+        int idealStartX = (containerXSize - visibleIOSlots * SLOT_HORIZONTAL_STEP) / 2;
+        int maxEndX = containerXSize - 46;  // 2px avant RF bar
+        int slotsStartX;
+        if (idealStartX + visibleIOSlots * SLOT_HORIZONTAL_STEP > maxEndX) {
+            slotsStartX = maxEndX - visibleIOSlots * SLOT_HORIZONTAL_STEP;
+        } else {
+            slotsStartX = idealStartX;
+        }
 
         // === 9 SLOTS INPUT (ligne horizontale haute) ===
         for (int i = 0; i < TileFurnaceNexus.SLOT_INPUT_MAX; i++) {

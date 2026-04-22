@@ -242,10 +242,16 @@ public class GuiFurnaceNexus extends GuiContainer {
             progX = PROGRESS_X;
             progY = PROGRESS_Y;
         } else {
-            int titleZoneW = xSize - 48;
-            progX = (titleZoneW - PROGRESS_W) / 2;
+            // v1.0.263b : progress centree sur xSize entier avec clamp
+            // pour eviter RF bar a xSize-44 (stop a xSize-46)
+            int idealProgX = (xSize - PROGRESS_W) / 2;
+            int maxProgEndX = xSize - 46;
+            if (idealProgX + PROGRESS_W > maxProgEndX) {
+                progX = maxProgEndX - PROGRESS_W;
+            } else {
+                progX = idealProgX;
+            }
             // Progress y = entre input (y=inputY, h=16) et output (y=outputY)
-            // Centre vertical : inputY + 16 + (outputY - (inputY+16) - PROGRESS_H) / 2
             ContainerFurnaceNexus ct = (ContainerFurnaceNexus) inventorySlots;
             int gapMiddle = (ct.getInputRowY() + 16 + ct.getOutputRowY() - PROGRESS_H) / 2;
             progY = gapMiddle;
@@ -308,27 +314,29 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         // Titre : centre sur la zone machine (hors RF bar a droite)
         // Zone utilisable : 0..xSize-40 (RF bar commence a xSize-36)
+        // v1.0.263b : centrage texte sur xSize entier avec clamp RF bar
         String title = FurnaceTierStyle.getDisplayName(tier);
         int tw = fontRenderer.getStringWidth(title);
         int titleColor = FurnaceTierStyle.getTitleColor(tier);
-        int titleZoneW = xSize - 48;  // laisse 40px pour la RF bar
-        fontRenderer.drawStringWithShadow(title, (titleZoneW - tw) / 2.0F, 6, titleColor);
+        int maxTextEndX = xSize - 46;
+        float titleX = (xSize - tw) / 2.0F;
+        if (titleX + tw > maxTextEndX) titleX = maxTextEndX - tw;
+        fontRenderer.drawStringWithShadow(title, titleX, 6, titleColor);
 
-        // Vitesse centree sous la progress arrow (sur zone machine, pas toute xSize)
-        // Pour tier >= I : position ajustee sous la progress arrow a y=40
+        // Vitesse centree sous la progress arrow
         String speedStr = "x" + tier.speedMultiplier;
         int sw = fontRenderer.getStringWidth(speedStr);
-        // Label x1.2 : tier 0 reste a y=40 (vanilla-like), tier >= I juste sous la progress
         int speedY;
         if (tile.getIOSlotCount() == 1) {
             speedY = 40;
         } else {
-            // Sous la progress arrow qui est a progressY + 7 (PROGRESS_H)
             ContainerFurnaceNexus ct = (ContainerFurnaceNexus) inventorySlots;
             int progY2 = (ct.getInputRowY() + 16 + ct.getOutputRowY() - 7) / 2;
             speedY = progY2 + 8;
         }
-        fontRenderer.drawStringWithShadow(speedStr, (titleZoneW - sw) / 2.0F, speedY, 0xFF8866AA);
+        float speedX = (xSize - sw) / 2.0F;
+        if (speedX + sw > maxTextEndX) speedX = maxTextEndX - sw;
+        fontRenderer.drawStringWithShadow(speedStr, speedX, speedY, 0xFF8866AA);
 
         // Label Inventaire a y=93 (inchange, layout horizontal ne decale plus l'inv)
         // Recentrer horizontalement si xSize > 176 pour matcher l'inv centre
