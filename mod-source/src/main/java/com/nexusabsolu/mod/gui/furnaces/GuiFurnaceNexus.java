@@ -147,25 +147,63 @@ public class GuiFurnaceNexus extends GuiContainer {
             }
         } else {
             // === Tier >= I : layout horizontal Mekanism, dessin manuel ===
-            // 1) Fond uni panneau machine (0..93) sur toute la largeur xSize
-            drawRect(x, y, x + xSize, y + 93, 0xFF1B0E2A);
-            // 3) Si xSize > 176, remplir les cotes gauche et droit de l'inventaire
-            //    avec fond uni (pour eviter trous visuels).
+            // v1.0.260 : refonte visuelle pour ressembler au GUI vanilla
+            // (cadre en relief, contraste titre/machine, bordure panneau).
+            //
+            // Palette cohesive Nexus (violets graduelles) :
+            //   BORDER_OUT    = bordure exterieure sombre
+            //   BG_MACHINE    = fond panneau machine (titre + slots)
+            //   BG_TITLE_BAND = bande titre (legerement plus claire)
+            //   HILITE_TOP    = highlight clair pour relief haut
+            //   SHADOW_BOT    = ombre sombre pour relief bas
+            final int BORDER_OUT    = 0xFF0D0618;
+            final int BG_MACHINE    = 0xFF1B0E2A;
+            final int BG_TITLE_BAND = 0xFF261238;
+            final int BG_INV_BORDER = 0xFF140920;
+            final int HILITE_TOP    = 0xFF3D1F5A;
+            final int SHADOW_BOT    = 0xFF0A0414;
+
+            // 1) BORDURE EXTERIEURE : rectangle plein fonce sur toute la surface
+            drawRect(x, y, x + xSize, y + ySize, BORDER_OUT);
+
+            // 2) PANNEAU MACHINE (interieur bordure 3px)
+            //    Zone : y=3 a y=90 (au-dessus de la separation avec l'inventaire)
+            drawRect(x + 3, y + 3, x + xSize - 3, y + 90, BG_MACHINE);
+
+            // 3) BANDE TITRE (contraste leger sur la partie haute)
+            //    Zone : y=3 a y=16 (hauteur titre + 3px padding)
+            drawRect(x + 3, y + 3, x + xSize - 3, y + 16, BG_TITLE_BAND);
+            // Ligne separation titre / machine (1px highlight)
+            drawRect(x + 3, y + 16, x + xSize - 3, y + 17, HILITE_TOP);
+
+            // 4) Highlight haut (1px clair sous bordure top)
+            drawRect(x + 3, y + 3, x + xSize - 3, y + 4, HILITE_TOP);
+            // Highlight gauche
+            drawRect(x + 3, y + 3, x + 4, y + 90, HILITE_TOP);
+            // Ombre droite
+            drawRect(x + xSize - 4, y + 3, x + xSize - 3, y + 90, SHADOW_BOT);
+            // Ombre bas (avant separation)
+            drawRect(x + 3, y + 89, x + xSize - 3, y + 90, SHADOW_BOT);
+
+            // 5) SEPARATEUR entre panneau machine et inventaire (y=90 a 93)
+            //    Ligne sombre + ligne claire pour effet grave
+            drawRect(x + 3, y + 90, x + xSize - 3, y + 91, SHADOW_BOT);
+            drawRect(x + 3, y + 92, x + xSize - 3, y + 93, HILITE_TOP);
+
+            // 6) TEXTURE INVENTAIRE vanilla a y=93
+            //    Centre horizontalement si xSize > 176
             int invTextureX = (xSize - 176) / 2;
+            // Bordures laterales de l'inventaire si xSize > 176
             if (invTextureX > 0) {
-                drawRect(x, y + 93, x + invTextureX, y + ySize, 0xFF1B0E2A);
-                drawRect(x + invTextureX + 176, y + 93, x + xSize, y + ySize, 0xFF1B0E2A);
+                drawRect(x, y + 93, x + invTextureX, y + ySize, BG_INV_BORDER);
+                drawRect(x + invTextureX + 176, y + 93, x + xSize, y + ySize, BG_INV_BORDER);
             }
-            // 2) Texture inventaire (texture vanilla 176x93 de y=93 a y=186)
-            //    APRES les drawRect : il faut rebinder la texture + reset color
-            //    sinon la texture vanilla est dessinee avec un tint violet.
+            // Rebind texture + reset color apres drawRect
             mc.getTextureManager().bindTexture(TEXTURE);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             drawTexturedModalRect(x + invTextureX, y + 93, 0, 93, 176, 93);
 
-            // 4) Calculer position de depart pour la ligne de slots (centrage)
-            //    Sur ZONE MACHINE (0..xSize-48), pas sur xSize entier
-            //    pour eviter le chevauchement avec RF bar a x=xSize-44
+            // 7) Calculer position de depart pour la ligne de slots (centrage)
             int machineZoneW = xSize - 48;
             int slotsStartX = (machineZoneW - visibleSlots * 18) / 2;
 
@@ -174,18 +212,17 @@ public class GuiFurnaceNexus extends GuiContainer {
             int inputY = container.getInputRowY();
             int outputY = container.getOutputRowY();
 
-            // 5) Bordures des slots INPUT (ligne haute)
+            // 8) Slots INPUT en ligne (avec bordure en relief)
             for (int i = 0; i < visibleSlots; i++) {
-                drawSlotBorder(x + slotsStartX + i * 18, y + inputY);
+                drawSlotBorder3D(x + slotsStartX + i * 18, y + inputY);
             }
-            // 6) Bordures des slots OUTPUT (ligne basse)
+            // 9) Slots OUTPUT en ligne (avec bordure en relief)
             for (int i = 0; i < visibleSlots; i++) {
-                drawSlotBorder(x + slotsStartX + i * 18, y + outputY);
+                drawSlotBorder3D(x + slotsStartX + i * 18, y + outputY);
             }
-            // 7) Bordure du slot FUEL a gauche (matche Container : x=20, y=73)
-            //    Cachee en mode RF (coal inutile quand RF mode)
+            // 10) Slot FUEL a gauche - cache en mode RF
             if (!tile.isRFMode()) {
-                drawSlotBorder(x + 20, y + 73);
+                drawSlotBorder3D(x + 20, y + 73);
             }
         }
 
@@ -304,6 +341,29 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawRect(x - 1, y - 1, x + 17, y + 17, 0xFF373737);
         // Fond slot 16x16 couleur vanilla
         drawRect(x, y, x + 16, y + 16, 0xFF8B8B8B);
+    }
+
+    /**
+     * v1.0.260 : slot 16x16 avec effet 3D enfonce (style vanilla).
+     * Bordure top+left en ombre sombre, bottom+right en highlight clair.
+     * Resultat visuel : slot qui semble creuse dans le panneau.
+     * Position (x, y) = coin top-left du slot interne (ou l'item apparait).
+     */
+    private void drawSlotBorder3D(int x, int y) {
+        final int SHADOW = 0xFF373737;
+        final int HILITE = 0xFFFFFFFF;
+        final int BG     = 0xFF8B8B8B;
+
+        // Ombre top (ligne sombre au-dessus du slot)
+        drawRect(x - 1, y - 1, x + 17, y,    SHADOW);
+        // Ombre left (ligne sombre a gauche)
+        drawRect(x - 1, y - 1, x,    y + 17, SHADOW);
+        // Highlight right (ligne claire a droite, effet relief)
+        drawRect(x + 16, y - 1, x + 17, y + 17, HILITE);
+        // Highlight bottom (ligne claire en bas)
+        drawRect(x - 1, y + 16, x + 17, y + 17, HILITE);
+        // Fond slot 16x16 couleur vanilla
+        drawRect(x, y, x + 16, y + 16, BG);
     }
 
     // ======================================================================
