@@ -6,8 +6,8 @@ package com.nexusabsolu.mod.tiles.furnaces;
  * 4 categories, 4 slots dedies dans le GUI (un slot par categorie) :
  *  - RF_CONVERTER   : slot 0, stack max 1, pre-requis pour SPEED/IO/EFFICIENCY
  *  - IO_EXPANSION   : slot 1, stack max 1, mais 4 items distincts (IO I..IV) crafted sequentiellement
- *  - SPEED_BOOSTER  : slot 2, stack max 8, +30%/stack vitesse, +40%/stack conso
- *  - EFFICIENCY     : slot 3, stack max 10, -15%/stack conso (multiplicatif)
+ *  - SPEED_BOOSTER  : slot 2, stack max 8, -30%/stack temps cuisson, x1.30/stack conso (cumulatif)
+ *  - EFFICIENCY     : slot 3, stack max 10, x0.80/stack conso (cumulatif multiplicatif = -20%/stack)
  *
  * Pour T7+ (nativeRF=true), une upgrade COAL_CONVERTER viendra remplacer RF_CONVERTER
  * (ajout dans phase ulterieure).

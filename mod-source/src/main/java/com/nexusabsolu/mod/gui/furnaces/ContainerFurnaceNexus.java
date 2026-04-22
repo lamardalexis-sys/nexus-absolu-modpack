@@ -15,15 +15,20 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 /**
  * Container GUI pour les Furnaces Nexus (tous tiers).
  *
- * Layout slots :
- *  0 : input  (x=56, y=17)
- *  1 : fuel   (x=56, y=53)
- *  2 : output (x=116, y=35)
- *  3 : upgrade RF_CONVERTER  (x=152, y=17)
- *  4 : upgrade IO_EXPANSION  (x=152, y=35)
- *  5 : upgrade SPEED_BOOSTER (x=152, y=53)
- *  6 : upgrade EFFICIENCY    (x=152, y=71)
- *  puis inventaire joueur (27 slots) + hotbar (9 slots)
+ * Layout slots (v1.0.270+ avec support IO Expansion I-IV) :
+ *  Tier 0 (pas de carte IO) :
+ *    0..8   : 9 INPUT slots (seul slot 0 visible a (41, 19), autres hors-ecran)
+ *    9      : FUEL a (41, 51)
+ *    10..18 : 9 OUTPUT slots (seul slot 10 visible a (104, 24))
+ *    19..22 : 4 upgrades caches (accessibles via GUI Upgrades dedie)
+ *
+ *  Tier >= I (1/3/5/7/9 slots visibles) :
+ *    Slots INPUT centres en ligne horizontale a y=inputRowY
+ *    Slots OUTPUT centres en ligne horizontale a y=outputRowY
+ *    FUEL a (20, 73) sauf en mode RF ou il est cache
+ *    Upgrades caches
+ *
+ *  Puis inventaire joueur (27 slots) + hotbar (9 slots)
  */
 public class ContainerFurnaceNexus extends Container {
 
@@ -391,8 +396,11 @@ public class ContainerFurnaceNexus extends Container {
         }
 
         // Redistribuer chaque bucket equitablement dans les slots disponibles
+        // v1.0.271 : clamp count a maxStackSize pour eviter la perte d'items
+        // si un bucket total > slotsLeft * 64
         int nextSlot = 0;
         for (ItemStack bucket : buckets) {
+            int maxStack = bucket.getMaxStackSize();
             int total = bucket.getCount();
             int slotsLeft = n - nextSlot;
             if (slotsLeft <= 0) break;  // plus de place (ne devrait pas arriver)
@@ -401,6 +409,7 @@ public class ContainerFurnaceNexus extends Container {
             for (int j = 0; j < slotsLeft; j++) {
                 int count = base + (j < remainder ? 1 : 0);
                 if (count <= 0) break;
+                count = Math.min(count, maxStack);  // pas plus que 64 (ou stack max de l'item)
                 ItemStack copy = bucket.copy();
                 copy.setCount(count);
                 tile.setInventorySlotContents(TileFurnaceNexus.SLOT_INPUT_BASE + nextSlot, copy);

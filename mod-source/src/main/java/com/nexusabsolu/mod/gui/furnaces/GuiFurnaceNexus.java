@@ -80,10 +80,12 @@ public class GuiFurnaceNexus extends GuiContainer {
     // Les coordonnees sont en LOCAL (relatives a guiLeft/guiTop).
     // ======================================================================
 
-    /** Jauge RF verticale (cote droit). Zone (140..150, 12..84) = 10x72 fill. */
-    private static final int RF_BAR_X = 140;
+    /** Jauge RF verticale (cote droit). 
+     *  v1.0.270 : texture vanilla regeneree avec RF bar a x=132 (matche le style
+     *  des textures IO : xSize-44 = 176-44 = 132). Zone (132..141, 12..84) = 10x72 fill. */
+    private static final int RF_BAR_X = 132;
     private static final int RF_BAR_Y = 12;
-    private static final int RF_BAR_W = 10;   // incluant le cadre 1px de chaque cote
+    private static final int RF_BAR_W = 10;
     private static final int RF_BAR_H = 72;
     /** Zone fill INTERIEURE de la jauge RF (apres cadre 1px + fond 1px). */
     private static final int RF_FILL_X = RF_BAR_X + 1;
@@ -176,15 +178,15 @@ public class GuiFurnaceNexus extends GuiContainer {
         }
 
         // === RF BAR VERTICALE a droite ===
-        // Tier 0 : la texture PNG vanilla a une zone noire pre-dessinee pour la
-        //   RF bar a x=140 (constantes RF_BAR_X). Il faut dessiner LA jauge a la
-        //   meme position sinon on a 2 jauges superposees (texture + dessin).
-        // Tier >= I : xSize peut etre plus large que 176 et on n'utilise pas la
-        //   texture panneau machine. On dessine a xSize-44 (aligne au bord droit).
+        // Tier 0 : texture vanilla (v1.0.270) a RF bar dessinee a x=132.
+        //   On dessine la JAUGE par-dessus a la meme position pour que
+        //   le fill remplace le fond rouge statique de la texture.
+        // Tier >= I : xSize peut etre plus large que 176, on dessine a xSize-44
+        //   (memaligne que les textures IO).
         int rfBarX, rfFillX;
         if (visibleSlots == 1) {
-            rfBarX = RF_BAR_X;   // 140 (matche la texture vanilla)
-            rfFillX = RF_FILL_X; // 141
+            rfBarX = RF_BAR_X;   // 132 (matche texture vanilla v1.0.270)
+            rfFillX = RF_FILL_X; // 133
         } else {
             rfBarX = xSize - 44;
             rfFillX = rfBarX + 1;
@@ -359,10 +361,11 @@ public class GuiFurnaceNexus extends GuiContainer {
         fontRenderer.drawStringWithShadow("Inventaire", 8 + invTextureX, 93, 0xFF8866AA);
 
         // Label RF au-dessus de la barre verticale - uniquement si RF Converter place
-        // Position dynamique alignee sur la barre (qui est a xSize-36)
         if (tile.isRFMode()) {
-            // Position label RF : tier 0 aligne sur la texture (x=137), tier >= I sur xSize-47
-            int rfLabelX = (tile.getIOSlotCount() == 1) ? 137 : xSize - 47;
+            // Position label RF : tier 0 aligne sur RF bar x=132 (v1.0.270),
+            // tier >= I sur xSize-47. 'RF' = 13px large, bar = 10px, donc on
+            // centre : rfBarX + 5 (milieu bar) - 6 (demi texte) = rfBarX - 1
+            int rfLabelX = (tile.getIOSlotCount() == 1) ? (RF_BAR_X - 1) : (xSize - 47);
             fontRenderer.drawStringWithShadow("RF", rfLabelX, 4, 0xFFCC4444);
         }
 
@@ -422,7 +425,9 @@ public class GuiFurnaceNexus extends GuiContainer {
 
         // RF bar tooltip - v1.0.234 enrichi style Mek avec conso RF/tick +
         // autonomie restante estimee en secondes
-        if (tile.isRFMode() && GuiUtils.inRect(mx, my, x + RF_BAR_X, y + RF_BAR_Y, RF_BAR_W, RF_BAR_H)) {
+        // v1.0.271 : hitbox dynamique selon tier (tier 0 = RF_BAR_X, tier >= I = xSize-44)
+        int rfHitboxX = (tile.getIOSlotCount() == 1) ? RF_BAR_X : (xSize - 44);
+        if (tile.isRFMode() && GuiUtils.inRect(mx, my, x + rfHitboxX, y + RF_BAR_Y, RF_BAR_W, RF_BAR_H)) {
             java.util.List<String> lines = new java.util.ArrayList<>();
             lines.add("\u00a7eEnergie\u00a7r: " + GuiUtils.formatRf(tile.getEnergyStored())
                 + " / " + GuiUtils.formatRf(tile.getMaxEnergy()) + " RF");

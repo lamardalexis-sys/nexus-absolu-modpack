@@ -24,7 +24,7 @@ public final class FurnaceTierStyle {
         switch (tier) {
             case IRON:       return "Fourneau de Fer";
             case GOLD:       return "Fourneau d'Or";
-            case INVARIUM:      return "Fourneau d\u0027Invarium";
+            case INVARIUM:   return "Fourneau d\u0027Invarium";
             case EMERADIC:   return "Fourneau Emeradic";
             case VOSSIUM_IV: return "Fourneau Vossium IV";
             default:         return "Fourneau " + tier.registryName;
@@ -36,7 +36,7 @@ public final class FurnaceTierStyle {
         switch (tier) {
             case IRON:       return 0xFFCCCCCC;  // gris acier
             case GOLD:       return 0xFFFFDD60;  // dore
-            case INVARIUM:      return 0xFFBBDDBB;  // vert-gris
+            case INVARIUM:   return 0xFFBBDDBB;  // vert-gris
             case EMERADIC:   return 0xFF80E690;  // emeraude
             case VOSSIUM_IV: return 0xFFC070FF;  // violet Vossium
             default:         return 0xFFDD88FF;  // rose default
@@ -48,7 +48,7 @@ public final class FurnaceTierStyle {
         switch (tier) {
             case IRON:       return 0xFF808090;
             case GOLD:       return 0xFFC8A032;
-            case INVARIUM:      return 0xFF96A596;
+            case INVARIUM:   return 0xFF96A596;
             case EMERADIC:   return 0xFF46AA5A;
             case VOSSIUM_IV: return 0xFF783CAA;
             default:         return 0xFF5050A0;
@@ -60,7 +60,7 @@ public final class FurnaceTierStyle {
         switch (tier) {
             case IRON:       return 0xFFDDDDEE;
             case GOLD:       return 0xFFFFE680;
-            case INVARIUM:      return 0xFFDDEEDD;
+            case INVARIUM:   return 0xFFDDEEDD;
             case EMERADIC:   return 0xFF80FF90;
             case VOSSIUM_IV: return 0xFFCC80FF;
             default:         return 0xFF9090FF;

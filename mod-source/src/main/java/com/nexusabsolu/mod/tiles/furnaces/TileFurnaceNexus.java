@@ -21,25 +21,27 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 /**
  * TileEntity generique pour les Furnaces Nexus. Parametree par FurnaceTier.
  *
- * Layout inventaire (Sprint A, pre-upgrades) :
- *   slot 0 : input (item a cuire)
- *   slot 1 : fuel (coal, charcoal, coal block)
- *   slot 2 : output
- *   slot 3 : RF_CONVERTER upgrade     (reserve Sprint C)
- *   slot 4 : IO_EXPANSION upgrade     (reserve Sprint C)
- *   slot 5 : SPEED_BOOSTER upgrade    (reserve Sprint C)
- *   slot 6 : EFFICIENCY_CARD upgrade  (reserve Sprint C)
+ * Layout inventaire (v1.0.248+ Phase 2 IO Expansion, 23 slots) :
+ *   0..8   : 9 INPUT slots (selon tier IO : 1, 3, 5, 7 ou 9 utilises)
+ *   9..17  : 9 OUTPUT slots (miroirs des inputs)
+ *   18     : FUEL (coal, charcoal, coal block)
+ *   19     : RF_CONVERTER upgrade
+ *   20     : IO_EXPANSION upgrade (IO I..IV selon tier)
+ *   21     : SPEED_BOOSTER upgrade (stack jusqu'a 8)
+ *   22     : EFFICIENCY_CARD upgrade (stack jusqu'a 10)
  *
  * Mode energie:
- *   - Par defaut : coal (lit slot 1, consomme un coal = N operations)
- *   - Avec upgrade RF_CONVERTER (slot 3) : consomme RF du buffer interne,
- *     au rythme baseRfPerTick * consoMultiplier.
+ *   - Par defaut : coal (lit slot 18, consomme un coal = N operations)
+ *   - Avec upgrade RF_CONVERTER (slot 19) ou tier.nativeRF=true :
+ *     consomme RF du buffer interne, au rythme baseRfPerTick * consoMultiplier.
  *
- * Logique de cook simple (Sprint A, sans upgrades actives) :
- *   - Verifie recette furnace vanilla existe pour input
- *   - Verifie fuel disponible (coal OU energie RF si natif RF)
- *   - Progresse maxCookTime = tier.baseCookTime() ticks
- *   - Output vers slot 2 si stackable
+ * Logique de cook parallele (v1.0.249+) :
+ *   - Pour chaque paire (input[i], output[i]) ou i < getIOSlotCount() :
+ *     - Verifie recette furnace vanilla existe pour input
+ *     - Verifie output peut accepter le resultat
+ *   - Si >= 1 paire active : consomme fuel * activeCount par tick
+ *   - Progresse maxCookTime = tier.baseCookTime() ticks (meme timer pour toutes paires)
+ *   - Output vers slot correspondant au meme index (quand timer atteint max)
  */
 public class TileFurnaceNexus extends TileEntity implements ITickable,
         net.minecraft.inventory.ISidedInventory {
@@ -87,10 +89,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     //   - Tout fuel Forge-register (lava bucket, blaze rod, etc.) fonctionne aussi
 
     private FurnaceTier tier;
-    /** Inventaire IInventory : INPUT, FUEL, OUTPUT, UPGRADE_0..3 (7 slots).
+    /** Inventaire NonNullList de 23 slots (INPUT[0..8], OUTPUT[9..17], FUEL[18],
+     *  UPGRADES[19..22]). Voir header de classe pour detail.
      *  NonNullList garantit qu'aucun element n'est null (ItemStack.EMPTY a la place).
-     *  C'est le type que Minecraft 1.12 Forge utilise par defaut pour les
-     *  inventaires, compatible avec ItemStackHelper.saveAllItems/loadAllItems. */
+     *  Compatible avec ItemStackHelper.saveAllItems/loadAllItems. */
     private net.minecraft.util.NonNullList<ItemStack> inventory;
     private InternalEnergyStorage energyStorage;
 
@@ -957,10 +959,16 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
     @Override
     public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
-        // INPUT : seulement smeltables
+        // INPUT : seulement smeltables, ET seulement dans les slots ACTIFS selon tier IO
         // FUEL  : seulement fuel (coal/charcoal/etc.)
         // OUTPUT : rien ne peut y etre insere
-        if (isInputSlot(index)) return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
+        // v1.0.271 : ajout du check getIOSlotCount pour eviter que des hoppers
+        // inserent dans les slots input 1-8 quand il n'y a pas de carte IO
+        // (tier 0 = seulement slot 0 actif).
+        if (isInputSlot(index)) {
+            if (index - SLOT_INPUT_BASE >= getIOSlotCount()) return false;
+            return !FurnaceRecipes.instance().getSmeltingResult(stack).isEmpty();
+        }
         if (index == SLOT_FUEL) return getCoalOps(stack) > 0;
         return false;
     }
@@ -968,7 +976,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     @Override
     public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
         // Seuls les OUTPUT peuvent etre extraits (recettes cuites)
-        return isOutputSlot(index);
+        // v1.0.271 : meme check pour les outputs : seulement slots actifs
+        if (isOutputSlot(index)) {
+            return index - SLOT_OUTPUT_BASE < getIOSlotCount();
+        }
+        return false;
     }
 
     @Override public int getField(int id) { return 0; }

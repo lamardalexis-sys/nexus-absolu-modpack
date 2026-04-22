@@ -15,11 +15,11 @@ import net.minecraft.item.ItemStack;
  * au lieu d'avoir un side-panel qui fait conflict avec les tooltips, on ouvre
  * un GUI complet dedie quand le joueur clique sur l'onglet Upgrades du Furnace.
  *
- * Layout slots :
- *  0 : upgrade RF_CONVERTER  (slot 3 du TileEntity)
- *  1 : upgrade IO_EXPANSION  (slot 4)
- *  2 : upgrade SPEED_BOOSTER (slot 5)
- *  3 : upgrade EFFICIENCY    (slot 6)
+ * Layout slots (v1.0.248+ : 23 slots TileEntity) :
+ *  0 : upgrade RF_CONVERTER  (slot 19 du TileEntity)
+ *  1 : upgrade IO_EXPANSION  (slot 20)
+ *  2 : upgrade SPEED_BOOSTER (slot 21)
+ *  3 : upgrade EFFICIENCY    (slot 22)
  *  puis inventaire joueur (27 slots) + hotbar (9 slots) = slots 4..39
  *
  * Les 4 slots upgrade pointent vers le MEME TileEntity que ContainerFurnaceNexus.
