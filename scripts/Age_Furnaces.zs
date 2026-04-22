@@ -43,13 +43,21 @@ recipes.addShaped("nexus_furnace_gold", <nexusabsolu:furnace_gold>,
      [<ore:ingotGold>,                    <ore:dustRedstone>,                         <ore:ingotGold>]]);
 
 // === T3 : INVARIUM FURNACE (Age 1, progression Gold -> Invarium) ===
-// v1.0.268 : renomme de 'invar' a 'invarium'. Progression logique :
-// Iron -> Gold -> Invarium -> Emeradic -> Vossium IV.
-// Utilise le Gold Furnace au centre (au lieu de Iron) + Invarium ingots.
+// v1.0.276 : nouveau design Alexis. Progression inter-mod (Galacticraft + TE + Nexus) :
+//   IMI    I = invarium ingot (nexusabsolu)
+//   CGC    M = machine frame (thermalexpansion:frame)
+//   IVI    C = compressed steel (galacticraft, ore:compressedSteel)
+//          G = gold furnace (tier precedent, nexusabsolu)
+//          V = vossium ingot (nexusabsolu, = Invarium + Compose A via Alloy Smelter)
+// Layout : top = invarium + machine frame (fonction chaleur amelioree),
+//          centre = compressed steel encadrant le gold_furnace (coeur),
+//          bas = invarium + vossium (anchor + gating composite).
+// Force 3 mods : Galacticraft + Thermal Expansion + Nexus Absolu.
+// Gating : le Vossium ingot requiert Compose A => progression tiered fine.
 recipes.addShaped("nexus_furnace_invarium", <nexusabsolu:furnace_invarium>,
-    [[<nexusabsolu:invarium_ingot>,  <nexusabsolu:invarium_ingot>,  <nexusabsolu:invarium_ingot>],
-     [<ore:ingotSteel>,              <nexusabsolu:furnace_gold>,    <ore:ingotSteel>],
-     [<nexusabsolu:invarium_ingot>,  <minecraft:coal_block>,        <nexusabsolu:invarium_ingot>]]);
+    [[<nexusabsolu:invarium_ingot>, <thermalexpansion:frame>,     <nexusabsolu:invarium_ingot>],
+     [<ore:compressedSteel>,         <nexusabsolu:furnace_gold>,   <ore:compressedSteel>],
+     [<nexusabsolu:invarium_ingot>, <nexusabsolu:vossium_ingot>,  <nexusabsolu:invarium_ingot>]]);
 
 // === T4 : EMERADIC CRYSTAL FURNACE (Age 1 tard) ===
 // FIX : emeradic_crystal vient d'Actually Additions, pas d'Environmental Tech.
