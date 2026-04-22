@@ -98,10 +98,21 @@ public class ContainerFurnaceNexus extends Container {
         }
 
         // === 9 SLOTS INPUT (ligne horizontale haute) ===
+        // v1.0.270 : pour TIER 0 (1 slot), positions VANILLA originales
+        // qui matchent gui_furnace.png (pas les calculs slotsStartX).
         for (int i = 0; i < TileFurnaceNexus.SLOT_INPUT_MAX; i++) {
             final int slotIdx = i;
-            int posX = (i < visibleIOSlots) ? slotsStartX + i * SLOT_HORIZONTAL_STEP : -1000;
-            int posY = (i < visibleIOSlots) ? inputRowY : -1000;
+            int posX, posY;
+            if (i < visibleIOSlots) {
+                if (visibleIOSlots == 1) {
+                    posX = 41; posY = 19;  // vanilla
+                } else {
+                    posX = slotsStartX + i * SLOT_HORIZONTAL_STEP;
+                    posY = inputRowY;
+                }
+            } else {
+                posX = -1000; posY = -1000;
+            }
             addSlotToContainer(new Slot(tile,
                     TileFurnaceNexus.SLOT_INPUT_BASE + i, posX, posY) {
                 @Override
@@ -112,7 +123,7 @@ public class ContainerFurnaceNexus extends Container {
             });
         }
 
-        // === FUEL (position fixe gauche pour tier >= I) ===
+        // === FUEL ===
         int fuelX, fuelY;
         if (visibleIOSlots == 1) {
             fuelX = 41; fuelY = 51;
@@ -121,10 +132,19 @@ public class ContainerFurnaceNexus extends Container {
         }
         addSlotToContainer(new SlotFurnaceFuel(tile, TileFurnaceNexus.SLOT_FUEL, fuelX, fuelY));
 
-        // === 9 SLOTS OUTPUT (ligne horizontale basse) ===
+        // === 9 SLOTS OUTPUT ===
         for (int i = 0; i < TileFurnaceNexus.SLOT_OUTPUT_MAX; i++) {
-            int posX = (i < visibleIOSlots) ? slotsStartX + i * SLOT_HORIZONTAL_STEP : -1000;
-            int posY = (i < visibleIOSlots) ? outputRowY : -1000;
+            int posX, posY;
+            if (i < visibleIOSlots) {
+                if (visibleIOSlots == 1) {
+                    posX = 104; posY = 24;  // vanilla (slot plus grand)
+                } else {
+                    posX = slotsStartX + i * SLOT_HORIZONTAL_STEP;
+                    posY = outputRowY;
+                }
+            } else {
+                posX = -1000; posY = -1000;
+            }
             addSlotToContainer(new SlotFurnaceOutput(playerInv.player, tile,
                 TileFurnaceNexus.SLOT_OUTPUT_BASE + i, posX, posY));
         }
