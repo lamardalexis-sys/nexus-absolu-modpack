@@ -14,19 +14,33 @@ import crafttweaker.item.IItemStack;
 // ==================================================================
 
 // === T1 : IRON FURNACE (Age 0) ===
-// Items utilises : tous confirmes existants
+// v1.0.275 : nouveau design Alexis. Simple, accessible Age 0 :
+//   ABA  A = iron ingot (obtenu via sieve/tinkers en CM)
+//   BCB  B = cobblestone (vanilla)
+//   ARA  C = furnace vanilla (coeur)
+//        R = redstone dust (power base)
+// Layout : top = metal (fonction chaleur), centre = furnace vanilla (coeur),
+//          bas = iron + redstone (base power).
 recipes.addShaped("nexus_furnace_iron", <nexusabsolu:furnace_iron>,
-    [[<nexusabsolu:iron_grit>, <minecraft:cobblestone>,      <nexusabsolu:iron_grit>],
-     [<minecraft:cobblestone>, <minecraft:furnace>,          <minecraft:cobblestone>],
-     [<nexusabsolu:iron_grit>, <ore:dustWall>,               <nexusabsolu:iron_grit>]]);
+    [[<ore:ingotIron>,    <minecraft:cobblestone>, <ore:ingotIron>],
+     [<minecraft:cobblestone>, <minecraft:furnace>, <minecraft:cobblestone>],
+     [<ore:ingotIron>,    <ore:dustRedstone>,      <ore:ingotIron>]]);
 
 // === T2 : GOLD FURNACE (Age 1) ===
-// FIX : thermalfoundation:material:288 etait Steel Gear, pas Machine Frame.
-// Le vrai Machine Frame est thermalexpansion:frame (confirme via grep scripts).
+// v1.0.275 : nouveau design Alexis. Progression inter-mod (IE + TF + Nexus) :
+//   GKG  G = gold ingot (vanilla)
+//   EIE  K = kiln brick (Immersive Engineering, stone_decoration:10)
+//   GRG  E = Gold Gear (Thermal Foundation, material:25)
+//        I = iron furnace (tier precedent, nexusabsolu)
+//        R = redstone dust (assumed, convention du pack)
+// Layout : top = gold frame + kiln brick (fonction chaleur amelioree),
+//          centre = gears TF autour du iron_furnace (coeur + mecanisme),
+//          bas = gold + redstone (base power).
+// Force 3 mods : Immersive Engineering + Thermal Foundation + Nexus Absolu.
 recipes.addShaped("nexus_furnace_gold", <nexusabsolu:furnace_gold>,
-    [[<ore:ingotGold>,              <ore:ingotGold>,              <ore:ingotGold>],
-     [<thermalexpansion:frame>,     <nexusabsolu:furnace_iron>,   <thermalexpansion:frame>],
-     [<ore:ingotGold>,              <ore:ingotGold>,              <ore:ingotGold>]]);
+    [[<ore:ingotGold>,                    <immersiveengineering:stone_decoration:10>, <ore:ingotGold>],
+     [<thermalfoundation:material:25>,    <nexusabsolu:furnace_iron>,                 <thermalfoundation:material:25>],
+     [<ore:ingotGold>,                    <ore:dustRedstone>,                         <ore:ingotGold>]]);
 
 // === T3 : INVARIUM FURNACE (Age 1, progression Gold -> Invarium) ===
 // v1.0.268 : renomme de 'invar' a 'invarium'. Progression logique :
