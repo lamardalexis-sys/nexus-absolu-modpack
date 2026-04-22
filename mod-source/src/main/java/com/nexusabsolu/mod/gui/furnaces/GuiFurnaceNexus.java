@@ -226,11 +226,20 @@ public class GuiFurnaceNexus extends GuiContainer {
             }
         }
 
-        // === RF BAR VERTICALE a droite (position dynamique selon xSize) ===
-        // v1.0.257 : deplacee de xSize-36 a xSize-44 (4px de marge au bord droit)
-        // Alexis : 'pas collee mais un peu plus eloignee'
-        int rfBarX = xSize - 44;
-        int rfFillX = rfBarX + 1;
+        // === RF BAR VERTICALE a droite ===
+        // Tier 0 : la texture PNG vanilla a une zone noire pre-dessinee pour la
+        //   RF bar a x=140 (constantes RF_BAR_X). Il faut dessiner LA jauge a la
+        //   meme position sinon on a 2 jauges superposees (texture + dessin).
+        // Tier >= I : xSize peut etre plus large que 176 et on n'utilise pas la
+        //   texture panneau machine. On dessine a xSize-44 (aligne au bord droit).
+        int rfBarX, rfFillX;
+        if (visibleSlots == 1) {
+            rfBarX = RF_BAR_X;   // 140 (matche la texture vanilla)
+            rfFillX = RF_FILL_X; // 141
+        } else {
+            rfBarX = xSize - 44;
+            rfFillX = rfBarX + 1;
+        }
         if (tile.isRFMode()) {
             drawRect(x + rfBarX, y + RF_BAR_Y,
                      x + rfBarX + RF_BAR_W, y + RF_BAR_Y + RF_BAR_H, 0xFF1A1A1A);
@@ -412,7 +421,9 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Label RF au-dessus de la barre verticale - uniquement si RF Converter place
         // Position dynamique alignee sur la barre (qui est a xSize-36)
         if (tile.isRFMode()) {
-            fontRenderer.drawStringWithShadow("RF", xSize - 47, 4, 0xFFCC4444);
+            // Position label RF : tier 0 aligne sur la texture (x=137), tier >= I sur xSize-47
+            int rfLabelX = (tile.getIOSlotCount() == 1) ? 137 : xSize - 47;
+            fontRenderer.drawStringWithShadow("RF", rfLabelX, 4, 0xFFCC4444);
         }
 
         // === BOUTON AUTO-SORT : lettre 'S' + label On/Off (tier >= I) ===
