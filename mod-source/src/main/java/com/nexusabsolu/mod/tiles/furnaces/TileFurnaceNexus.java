@@ -267,25 +267,21 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     /**
      * Consommation RF/tick effective en mode RF, avec :
      *  - baseRfPerTick du tier
-     *  - SPEED_BOOSTER : conso augmente au MEME rythme que la vitesse
-     *    (si 2x plus rapide, 2x plus de RF/tick = meme RF/op)
-     *  - EFFICIENCY : x0.85 par item (cumulatif multiplicatif = -15%/item)
+     *  - SPEED_BOOSTER : x1.30 par item (cumulatif multiplicatif)
+     *    Avant v1.0.265 : x1.40 (trop violent)
+     *    v1.0.265 (bug) : +30% lineaire (trop faible, Alexis : 'il faut consommer plus')
+     *    v1.0.266 : x1.30 cumulatif (compromis raisonnable)
+     *  - EFFICIENCY : x0.80 par item (cumulatif multiplicatif = -20%/item)
      *
-     * v1.0.265 : avant, speed booster augmentait conso x1.40 par item
-     *   (cumulatif exponentiel). Pour Vossium IV + 8 Speed avec auto-sort
-     *   a 7 paires actives, ca montait a ~4500 RF/tick soit 90k RF/sec.
-     *   Le stockage de 24k RF se vidait en moins d'une seconde.
-     * Nouveau : conso speed multiplier = meme facteur que vitesse
-     *   (getSpeedBoosterCount * 30%, cumulatif lineaire).
-     *   Ca garde 'cost per operation' constant : x1 plus rapide = x1 RF/op.
+     * Avec 8 Speed : 1.30^8 = 8.16 (avant 14.76). Toujours eleve mais gerable
+     * avec la capacite augmentee du four (v1.0.266 : × 10) et une energy cube
+     * branchee.
      */
     public int getEffectiveRfPerTick() {
         int spdCount = getSpeedBoosterCount();
         int effCount = getEfficiencyCount();
-        // Speed boost multiplier : meme +30% par item que getEffectiveMaxCookTime
-        float speedMult = 1.0F + spdCount * 0.30F;
-        float effMult = (float) Math.pow(0.85, effCount);
-        return Math.max(1, (int)(tier.baseRfPerTick * speedMult * effMult));
+        float consoMult = (float) (Math.pow(1.30, spdCount) * Math.pow(0.80, effCount));
+        return Math.max(1, (int)(tier.baseRfPerTick * consoMult));
     }
 
     // === TICK ===

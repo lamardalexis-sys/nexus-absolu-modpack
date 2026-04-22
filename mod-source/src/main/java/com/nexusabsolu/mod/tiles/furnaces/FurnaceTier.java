@@ -48,10 +48,19 @@ public enum FurnaceTier {
         return Math.max(1, (int)(200f / speedMultiplier));
     }
 
-    /** Capacite energie de base. Proportionnelle a la conso pour 10s d'autonomie. */
+    /**
+     * Capacite energie de base. Proportionnelle a la conso pour ~100s
+     * d'autonomie a conso de base, soit ~10s avec Speed + auto-sort.
+     *
+     * v1.0.266 : formule × 10 (baseRfPerTick * 2000 au lieu de 200).
+     * Avant : Vossium IV = 24k RF = 10s d'autonomie de base, se vide en
+     * ~330ms avec Speed+auto-sort 9 paires. Maintenant : 240k RF = 3-5s
+     * minimum meme dans le pire cas, donc jouable.
+     *
+     * Minimum 50000 RF pour que les tiers bas aient une reserve confortable.
+     */
     public int baseEnergyCapacity() {
-        // Minimum 20000 RF pour eviter les tiers bas avec capacite ridicule
-        return Math.max(20000, baseRfPerTick * 200);
+        return Math.max(50000, baseRfPerTick * 2000);
     }
 
     /** Tiers implementes dans la phase actuelle (T1-T5). */
