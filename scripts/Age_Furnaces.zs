@@ -71,15 +71,15 @@ recipes.addShaped("nexus_furnace_emeradic", <nexusabsolu:furnace_emeradic>,
 // === T5 : VOSSIUM IV FURNACE (Age 2) ===
 // astralsorcery:itemcelestialcrystal confirme dans dump (existe bien).
 // draconicevolution:draconium_ingot confirme dans dump.
-// bloodmagic:slate pas confirme dans le dump visible => remplace par OreDict / item plus commun.
-// Pour rester dans l'esprit 'magic mod' Age 2 avec items garantis, on prend :
-//   - astralsorcery:itemcelestialcrystal (confirmer une derniere fois via JEI in-game)
-//   - draconicevolution:draconium_ingot
-//   - bloodmagic:blood_orb:0 (Weak Blood Orb, confirme dans dump)
+// v1.0.277 : fix Alexis. L'ancien <bloodmagic:blood_orb:0> sans NBT ne matchait
+// aucun orb reel (tous les blood orbs partagent item+meta, distingues UNIQUEMENT
+// par le NBT tag 'orb'). Remplace par Apprentice Blood Orb explicite :
+//   <bloodmagic:blood_orb>.withTag({orb: "bloodmagic:apprentice"})
+// Apprentice = tier 2 du Blood Magic, gating propre Age 2 (pas trop easy comme Weak).
 recipes.addShaped("nexus_furnace_vossium_iv", <nexusabsolu:furnace_vossium_iv>,
-    [[<nexusabsolu:vossium_iv_ingot>,       <astralsorcery:itemcelestialcrystal>, <nexusabsolu:vossium_iv_ingot>],
-     [<draconicevolution:draconium_ingot>,  <nexusabsolu:furnace_emeradic>,       <draconicevolution:draconium_ingot>],
-     [<nexusabsolu:vossium_iv_ingot>,       <bloodmagic:blood_orb:0>,             <nexusabsolu:vossium_iv_ingot>]]);
+    [[<nexusabsolu:vossium_iv_ingot>,       <astralsorcery:itemcelestialcrystal>,                           <nexusabsolu:vossium_iv_ingot>],
+     [<draconicevolution:draconium_ingot>,  <nexusabsolu:furnace_emeradic>,                                 <draconicevolution:draconium_ingot>],
+     [<nexusabsolu:vossium_iv_ingot>,       <bloodmagic:blood_orb>.withTag({orb: "bloodmagic:apprentice"}), <nexusabsolu:vossium_iv_ingot>]]);
 
 // === T6 : DARK ASTRAL FURNACE (Age 3) ===
 // Progression : Vossium IV + constellations Astral Sorcery.
