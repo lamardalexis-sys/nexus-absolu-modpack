@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "nexusabsolu:blocks/furnace_dark_astral_top",
+    "front": "nexusabsolu:blocks/furnace_dark_astral_front",
+    "side": "nexusabsolu:blocks/furnace_dark_astral_side"
+  }
+}

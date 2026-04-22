@@ -27,6 +27,9 @@ public final class FurnaceTierStyle {
             case INVARIUM:   return "Fourneau d\u0027Invarium";
             case EMERADIC:   return "Fourneau Emeradic";
             case VOSSIUM_IV: return "Fourneau Vossium IV";
+            case DARK_ASTRAL:    return "Fourneau Dark Astral";
+            case GAIA_LUDICRITE: return "Fourneau Gaia Ludicrite";
+            case PALLANUTRO:     return "Fourneau Pallanutro";
             default:         return "Fourneau " + tier.registryName;
         }
     }
@@ -39,6 +42,9 @@ public final class FurnaceTierStyle {
             case INVARIUM:   return 0xFFBBDDBB;  // vert-gris
             case EMERADIC:   return 0xFF80E690;  // emeraude
             case VOSSIUM_IV: return 0xFFC070FF;  // violet Vossium
+            case DARK_ASTRAL:    return 0xFF8866FF;  // violet sombre astral
+            case GAIA_LUDICRITE: return 0xFFFF88DD;  // rose Ludicrite
+            case PALLANUTRO:     return 0xFFFFCC55;  // or flamboyant
             default:         return 0xFFDD88FF;  // rose default
         }
     }
@@ -51,6 +57,9 @@ public final class FurnaceTierStyle {
             case INVARIUM:   return 0xFF96A596;
             case EMERADIC:   return 0xFF46AA5A;
             case VOSSIUM_IV: return 0xFF783CAA;
+            case DARK_ASTRAL:    return 0xFF5632A0;
+            case GAIA_LUDICRITE: return 0xFFCC5099;
+            case PALLANUTRO:     return 0xFFDD9020;
             default:         return 0xFF5050A0;
         }
     }
@@ -63,6 +72,9 @@ public final class FurnaceTierStyle {
             case INVARIUM:   return 0xFFDDEEDD;
             case EMERADIC:   return 0xFF80FF90;
             case VOSSIUM_IV: return 0xFFCC80FF;
+            case DARK_ASTRAL:    return 0xFFAA88FF;
+            case GAIA_LUDICRITE: return 0xFFFFB0DD;
+            case PALLANUTRO:     return 0xFFFFDD66;
             default:         return 0xFF9090FF;
         }
     }

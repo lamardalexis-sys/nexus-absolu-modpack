@@ -21,9 +21,9 @@ public enum FurnaceTier {
     INVARIUM  ("invarium",   1.7f,  0.12f,  40,   false, 1),     // v1.0.268 : invar -> invarium, stats boostees pour etre meilleur que gold
     EMERADIC  ("emeradic",   2.0f,  0.12f,  60,   false, 1),
     VOSSIUM_IV("vossium_iv", 3.0f,  0.15f,  120,  false, 2),
-    DARK_ASTRAL("dark_astral", 6.0f, 0.20f, 300,  false, 3),   // phase ulterieure
-    GAIA_LUDICRITE("gaia_ludicrite", 21.0f, 0f, 800, true, 4), // phase ulterieure, RF natif
-    PALLANUTRO("pallanutro", 56.0f, 0f,    2000, true,  5),    // phase ulterieure, RF natif
+    DARK_ASTRAL("dark_astral", 6.0f, 0.20f, 300,  false, 3),   // v1.0.272 : implemente
+    GAIA_LUDICRITE("gaia_ludicrite", 21.0f, 0f, 800, true, 4), // v1.0.272 : implemente (RF natif)
+    PALLANUTRO("pallanutro", 56.0f, 0f,    2000, true,  5),    // v1.0.272 : implemente (RF natif)
     INFINITE  ("infinite",  101.0f, 0f,    5000, true,  6);    // phase ulterieure, multiblock
 
     public final String registryName;
@@ -63,9 +63,10 @@ public enum FurnaceTier {
         return Math.max(50000, baseRfPerTick * 2000);
     }
 
-    /** Tiers implementes dans la phase actuelle (T1-T5). */
+    /** Tiers implementes dans la phase actuelle (T1-T8).
+     *  T9 Infinite reste a faire en multiblock 3x3x3. */
     public boolean isImplemented() {
-        return this.ordinal() <= VOSSIUM_IV.ordinal();
+        return this.ordinal() <= PALLANUTRO.ordinal();
     }
 
     public static FurnaceTier byName(String name) {

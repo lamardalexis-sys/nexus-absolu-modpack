@@ -162,6 +162,9 @@ tile.nexusabsolu.furnace_gold.name=Fourneau d'Or
 tile.nexusabsolu.furnace_invarium.name=Fourneau d'Invarium
 tile.nexusabsolu.furnace_emeradic.name=Fourneau de Cristal Emeradic
 tile.nexusabsolu.furnace_vossium_iv.name=Fourneau de Vossium IV
+tile.nexusabsolu.furnace_dark_astral.name=Fourneau Dark Astral
+tile.nexusabsolu.furnace_gaia_ludicrite.name=Fourneau Gaia Ludicrite
+tile.nexusabsolu.furnace_pallanutro.name=Fourneau Pallanutro
 
 # === FURNACE UPGRADES (Sprint B) ===
 item.nexusabsolu.upgrade_rf_converter.name=Convertisseur RF

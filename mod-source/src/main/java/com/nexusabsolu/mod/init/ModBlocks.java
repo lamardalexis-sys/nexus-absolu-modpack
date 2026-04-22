@@ -71,7 +71,7 @@ public class ModBlocks {
     public static final BlockNexusWallT2 NEXUS_WALL_T2 = new BlockNexusWallT2();
     public static final BlockEcranControle ECRAN_CONTROLE = new BlockEcranControle();
 
-    // === FURNACES NEXUS (T1-T5, Sprint A base) ===
+    // === FURNACES NEXUS (T1-T8 implementes ; T9 Infinite reste multiblock a faire) ===
     public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_IRON =
         new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
             com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.IRON);
@@ -87,6 +87,16 @@ public class ModBlocks {
     public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_VOSSIUM_IV =
         new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
             com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.VOSSIUM_IV);
+    // v1.0.272 : nouveaux tiers phase avancee
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_DARK_ASTRAL =
+        new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.DARK_ASTRAL);
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_GAIA_LUDICRITE =
+        new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.GAIA_LUDICRITE);
+    public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_PALLANUTRO =
+        new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(
+            com.nexusabsolu.mod.tiles.furnaces.FurnaceTier.PALLANUTRO);
 
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }

@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "nexusabsolu:blocks/furnace_gaia_ludicrite_top",
+    "front": "nexusabsolu:blocks/furnace_gaia_ludicrite_front_on",
+    "side": "nexusabsolu:blocks/furnace_gaia_ludicrite_side"
+  }
+}
