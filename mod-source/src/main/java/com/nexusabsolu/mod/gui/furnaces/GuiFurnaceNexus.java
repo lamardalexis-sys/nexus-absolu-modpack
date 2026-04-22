@@ -323,19 +323,34 @@ public class GuiFurnaceNexus extends GuiContainer {
         if (titleX + tw > maxTextEndX) titleX = maxTextEndX - tw;
         fontRenderer.drawStringWithShadow(title, titleX, 6, titleColor);
 
-        // Vitesse centree sous la progress arrow
+        // Vitesse : position differente selon tier
+        // Tier 0 (vanilla) : y=40 a droite de la progress arrow (style vanilla)
+        // Tier >= I : a DROITE de la progress arrow, meme y, pour ne pas
+        //   chevaucher les lignes input/output qui sont tres proches
+        //   (en mode RF notamment : input y=27, output y=63, progress y=49)
         String speedStr = "x" + tier.speedMultiplier;
         int sw = fontRenderer.getStringWidth(speedStr);
-        int speedY;
+        float speedX, speedY;
         if (tile.getIOSlotCount() == 1) {
+            speedX = 68;
             speedY = 40;
         } else {
             ContainerFurnaceNexus ct = (ContainerFurnaceNexus) inventorySlots;
             int progY2 = (ct.getInputRowY() + 16 + ct.getOutputRowY() - 7) / 2;
-            speedY = progY2 + 8;
+            // Progress arrow : centre xSize, largeur 32
+            int idealProgX = (xSize - 32) / 2;
+            int maxProgEndX2 = xSize - 46;
+            int progressXPos;
+            if (idealProgX + 32 > maxProgEndX2) progressXPos = maxProgEndX2 - 32;
+            else progressXPos = idealProgX;
+            // Speed label : 4px a DROITE de la progress arrow, meme hauteur
+            speedX = progressXPos + 32 + 4;
+            speedY = progY2 - 1;  // vertical-align avec la progress arrow
+            // Clamp : si depasse la RF bar, mettre a gauche de la progress
+            if (speedX + sw > maxTextEndX) {
+                speedX = progressXPos - sw - 4;
+            }
         }
-        float speedX = (xSize - sw) / 2.0F;
-        if (speedX + sw > maxTextEndX) speedX = maxTextEndX - sw;
         fontRenderer.drawStringWithShadow(speedStr, speedX, speedY, 0xFF8866AA);
 
         // Label Inventaire a y=93 (inchange, layout horizontal ne decale plus l'inv)
