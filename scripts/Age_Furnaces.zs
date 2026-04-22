@@ -69,17 +69,24 @@ recipes.addShaped("nexus_furnace_emeradic", <nexusabsolu:furnace_emeradic>,
      [<actuallyadditions:item_crystal:4>, <minecraft:redstone_block>,         <actuallyadditions:item_crystal:4>]]);
 
 // === T5 : VOSSIUM IV FURNACE (Age 2) ===
-// astralsorcery:itemcelestialcrystal confirme dans dump (existe bien).
-// draconicevolution:draconium_ingot confirme dans dump.
-// v1.0.277 : fix Alexis. L'ancien <bloodmagic:blood_orb:0> sans NBT ne matchait
-// aucun orb reel (tous les blood orbs partagent item+meta, distingues UNIQUEMENT
-// par le NBT tag 'orb'). Remplace par Apprentice Blood Orb explicite :
-//   <bloodmagic:blood_orb>.withTag({orb: "bloodmagic:apprentice"})
-// Apprentice = tier 2 du Blood Magic, gating propre Age 2 (pas trop easy comme Weak).
+// v1.0.278 : nouveau design Alexis — thematisation Age 2 renforcee :
+//   Intermedium Essence (Mystical Agriculture, crafting:2) REMPLACE Celestial Crystal
+//   Tuosss Ingot (nexusabsolu, Age 2 overworld mining) REMPLACE Draconium Ingot
+// Raison : Astral Sorcery + Draconic etaient hors-theme pour Age 2 intermediate.
+// Mystical Agriculture + minerai Tuosss sont les vrais items Age 2 :
+//   - Intermedium = tier 3 MA (force farming setup)
+//   - Tuosss = minerai overworld custom Age 2+ (gate avant Digital Miner Mekanism)
+//
+// Layout :
+//   vossium_iv | intermedium_essence    | vossium_iv     TOP: magic Age 2 (MA farming)
+//   tuosss     | EMERADIC_FURNACE       | tuosss         CENTRE: tier precedent + metal custom Age 2
+//   vossium_iv | apprentice_blood_orb   | vossium_iv     BASE: blood magic tier 2
+//
+// Force 3 mods : Mystical Agriculture + Blood Magic + Nexus Absolu.
 recipes.addShaped("nexus_furnace_vossium_iv", <nexusabsolu:furnace_vossium_iv>,
-    [[<nexusabsolu:vossium_iv_ingot>,       <astralsorcery:itemcelestialcrystal>,                           <nexusabsolu:vossium_iv_ingot>],
-     [<draconicevolution:draconium_ingot>,  <nexusabsolu:furnace_emeradic>,                                 <draconicevolution:draconium_ingot>],
-     [<nexusabsolu:vossium_iv_ingot>,       <bloodmagic:blood_orb>.withTag({orb: "bloodmagic:apprentice"}), <nexusabsolu:vossium_iv_ingot>]]);
+    [[<nexusabsolu:vossium_iv_ingot>,  <mysticalagriculture:crafting:2>,                                <nexusabsolu:vossium_iv_ingot>],
+     [<nexusabsolu:tuosss_ingot>,      <nexusabsolu:furnace_emeradic>,                                  <nexusabsolu:tuosss_ingot>],
+     [<nexusabsolu:vossium_iv_ingot>,  <bloodmagic:blood_orb>.withTag({orb: "bloodmagic:apprentice"}),  <nexusabsolu:vossium_iv_ingot>]]);
 
 // === T6 : DARK ASTRAL FURNACE (Age 3) ===
 // Progression : Vossium IV + constellations Astral Sorcery.
