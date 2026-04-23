@@ -141,7 +141,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public TileFurnaceNexus(FurnaceTier tier) {
         this.tier = tier;
         this.inventory = net.minecraft.util.NonNullList.withSize(TOTAL_SLOTS, ItemStack.EMPTY);
-        this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), 1000);
+        this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), tier.baseMaxReceive());
         this.maxCookTime = tier.baseCookTime();
         // Defaults Mekanism-like : output face = bas, rien d'autre
         this.sideConfig.setFace(SC_TYPE_ITEM_OUT, 0, true);  // face 0 = DOWN
@@ -675,7 +675,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             this.maxCookTime = tier.baseCookTime();
             // Re-init energy storage avec la capacite du tier (mais preserve l'energie stockee)
             int storedEnergy = nbt.getInteger("energy");
-            this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), 1000, storedEnergy);
+            this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), tier.baseMaxReceive(), storedEnergy);
         }
         this.cookProgress = nbt.getInteger("cookProgress");
         if (nbt.hasKey("maxCookTime")) this.maxCookTime = nbt.getInteger("maxCookTime");

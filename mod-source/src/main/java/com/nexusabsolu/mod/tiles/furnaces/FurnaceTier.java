@@ -63,6 +63,34 @@ public enum FurnaceTier {
         return Math.max(50000, baseRfPerTick * 2000);
     }
 
+    /**
+     * Debit max d'entree RF (RF/tick acceptable depuis un cable externe).
+     *
+     * v1.0.281 : avant cette version, maxReceive etait hardcode a 1000 RF/t
+     * pour TOUS les tiers. Probleme evident sur les hauts tiers :
+     *   - Pallanutro : consomme 2000 RF/t a conso de base (= 18000 RF/t en
+     *     pire cas auto-sort 9 paires). Input plafonne a 1000/t => le four
+     *     ne peut JAMAIS se recharger assez vite pour cuire. La batterie
+     *     se vide en permanence, cuisson s'arrete.
+     *   - Infinite (5000 RF/t base) : encore pire.
+     *
+     * Formule : maxReceive = max(1000, baseRfPerTick * SLOT_IO_MAX * 2)
+     *   - SLOT_IO_MAX = 9 (tier IV auto-sort = 9 paires en parallele)
+     *   - x2 pour marge de remplissage rapide de la batterie
+     *   - plancher 1000 pour ne pas degrader Iron/Gold/Invarium
+     *
+     * Valeurs resultantes :
+     *   Iron/Gold/Invar/Emeradic : 1000 RF/t (inchange, plancher)
+     *   Vossium IV  : 2160 RF/t
+     *   Dark Astral : 5400 RF/t
+     *   Gaia        : 14400 RF/t
+     *   Pallanutro  : 36000 RF/t
+     *   Infinite    : 90000 RF/t
+     */
+    public int baseMaxReceive() {
+        return Math.max(1000, baseRfPerTick * 9 * 2);
+    }
+
     /** Tiers implementes dans la phase actuelle (T1-T8).
      *  T9 Infinite reste a faire en multiblock 3x3x3. */
     public boolean isImplemented() {
