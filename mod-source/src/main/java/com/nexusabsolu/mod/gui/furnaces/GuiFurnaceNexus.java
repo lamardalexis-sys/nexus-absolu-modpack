@@ -461,11 +461,7 @@ public class GuiFurnaceNexus extends GuiContainer {
                 // Couleur : rouge si autoSort ON (valeur actuellement appliquee),
                 // gris si autoSort OFF (indicatif, serait la conso si active)
                 String color = autoSort ? "\u00a7c" : "\u00a78";
-                String multiStr = (multiplierIfAutoSort == (int) multiplierIfAutoSort)
-                    ? "x" + (int) multiplierIfAutoSort
-                    : "x" + multiplierIfAutoSort;
-                lines.add("\u00a77Conso max: " + color + GuiUtils.formatRf(rfMaxConso)
-                    + " RF/t \u00a77(" + multiStr + " IO t" + ioTier + ")");
+                lines.add("\u00a77Conso max: " + color + GuiUtils.formatRf(rfMaxConso) + " RF/t");
             }
 
             // Autonomie : calculee sur la conso effectivement appliquee maintenant
