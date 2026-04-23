@@ -66,29 +66,26 @@ public enum FurnaceTier {
     /**
      * Debit max d'entree RF (RF/tick acceptable depuis un cable externe).
      *
-     * v1.0.281 : avant cette version, maxReceive etait hardcode a 1000 RF/t
-     * pour TOUS les tiers. Probleme evident sur les hauts tiers :
-     *   - Pallanutro : consomme 2000 RF/t a conso de base (= 18000 RF/t en
-     *     pire cas auto-sort 9 paires). Input plafonne a 1000/t => le four
-     *     ne peut JAMAIS se recharger assez vite pour cuire. La batterie
-     *     se vide en permanence, cuisson s'arrete.
-     *   - Infinite (5000 RF/t base) : encore pire.
+     * v1.0.282 (Alexis) : passe a Integer.MAX_VALUE pour tous les tiers.
+     * 'mets la maxReceive a infi sur tous' — le four accepte tout ce qu'un
+     * cable veut lui envoyer. Simple et sans surprise.
      *
-     * Formule : maxReceive = max(1000, baseRfPerTick * SLOT_IO_MAX * 2)
-     *   - SLOT_IO_MAX = 9 (tier IV auto-sort = 9 paires en parallele)
-     *   - x2 pour marge de remplissage rapide de la batterie
-     *   - plancher 1000 pour ne pas degrader Iron/Gold/Invarium
+     * Historique :
+     *   v1.0.281 : formule par tier (max(1000, baseRf*9*2)). Marchait mais
+     *              ajoutait une limite artificielle qui n'aidait personne.
+     *   < v1.0.281 : 1000 RF/t hardcode, cassait les hauts tiers (Pallanutro
+     *                consommait plus qu'il recevait).
      *
-     * Valeurs resultantes :
-     *   Iron/Gold/Invar/Emeradic : 1000 RF/t (inchange, plancher)
-     *   Vossium IV  : 2160 RF/t
-     *   Dark Astral : 5400 RF/t
-     *   Gaia        : 14400 RF/t
-     *   Pallanutro  : 36000 RF/t
-     *   Infinite    : 90000 RF/t
+     * Pourquoi Integer.MAX_VALUE plutot qu'un chiffre :
+     *   - La batterie interne (baseEnergyCapacity) borne deja ce qui peut
+     *     etre stocke. receiveEnergy() clamp automatiquement contre
+     *     (capacity - energy). Pas de risque d'overflow.
+     *   - Supprime le besoin de calculer un maxReceive par tier.
+     *   - Comportement pareil que les cells energy de Mekanism/EnderIO qui
+     *     acceptent instantanement toute offre RF.
      */
     public int baseMaxReceive() {
-        return Math.max(1000, baseRfPerTick * 9 * 2);
+        return Integer.MAX_VALUE;
     }
 
     /** Tiers implementes dans la phase actuelle (T1-T8).
