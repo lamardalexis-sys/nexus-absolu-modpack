@@ -25,9 +25,13 @@ public class GuiConvertisseur extends GuiContainer {
         0xFF2A1A3E, 0xFFCC4CFF, 0xFFB299E6, 0xFF80CCB2, 0xFF4CE680, 0xFF33FF4C
     };
     private static final String[] TIER_NAMES = {"", "A", "B", "C", "D", "E"};
-    private static final String[] FACE_LABELS = {"B", "H", "N", "S", "O", "E"};
+    // v1.0.289 (Alexis) : labels relatifs a la machine, plus intuitifs.
+    //   Avant : B/H/N/S/O/E (conventions cardinales)
+    //   Apres : Ba/H/Ar/Av/Ga/Dr (relatifs a la machine)
+    // Voir GuiFurnaceNexus pour le mapping detaille EnumFacing <-> label.
+    private static final String[] FACE_LABELS = {"Ba", "H", "Ar", "Av", "Ga", "Dr"};
     private static final String[] FACE_NAMES = {
-        "Bas", "Haut", "Nord", "Sud", "Ouest", "Est"
+        "Bas", "Haut", "Arriere", "Avant", "Gauche", "Droite"
     };
 
     public GuiConvertisseur(InventoryPlayer playerInv, TileConvertisseur tile) {

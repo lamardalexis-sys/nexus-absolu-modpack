@@ -267,6 +267,27 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     }
 
     /**
+     * Multiplicateur de vitesse EFFECTIF par rapport au four vanilla (200 ticks).
+     *
+     * v1.0.289 : avant, le GUI affichait tier.speedMultiplier (valeur BASE fixe
+     * du tier, ne changeait jamais). Maintenant affiche le vrai multiplier avec
+     * tous les bonus actifs (base tier + RF converter + Speed Boosters).
+     *
+     * Ex. Dark Astral (base 6.0) :
+     *   - 0 Speed : x6.0
+     *   - 4 Speed : 200 / (33 / 2.2) = x13.3
+     *   - 8 Speed : 200 / (33 / 3.4) = x20.6
+     *   - 8 Speed + RF : x20.9
+     *
+     * Note : a haut tier (Pallanutro, Infinite), le temps effectif est clamp
+     * a 1 tick min, donc le multiplier peut atteindre x200 max (200 ticks vanilla
+     * / 1 tick effectif).
+     */
+    public float getEffectiveSpeedMultiplier() {
+        return 200.0F / getEffectiveMaxCookTime();
+    }
+
+    /**
      * Consommation RF/tick effective en mode RF, avec :
      *  - baseRfPerTick du tier
      *  - SPEED_BOOSTER : x1.30 par item (cumulatif multiplicatif)

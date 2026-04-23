@@ -33,9 +33,10 @@ public class GuiMachineKRDA extends GuiContainer {
     private static final String[] TYPE_NAMES = {
         "Signalum", "Diarrhee", "Energy", "Sortie"
     };
-    private static final String[] FACE_LABELS = {"B","H","N","S","O","E"};
+    // v1.0.289 (Alexis) : labels relatifs a la machine, plus intuitifs.
+    private static final String[] FACE_LABELS = {"Ba","H","Ar","Av","Ga","Dr"};
     private static final String[] FACE_NAMES = {
-        "Bas", "Haut", "Nord", "Sud", "Ouest", "Est"
+        "Bas", "Haut", "Arriere", "Avant", "Gauche", "Droite"
     };
 
     public GuiMachineKRDA(InventoryPlayer playerInv, TileMachineKRDA tile) {

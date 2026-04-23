@@ -346,7 +346,11 @@ public class GuiFurnaceNexus extends GuiContainer {
         // Tier >= I : a DROITE de la progress arrow, meme y, pour ne pas
         //   chevaucher les lignes input/output qui sont tres proches
         //   (en mode RF notamment : input y=27, output y=63, progress y=49)
-        String speedStr = "x" + tier.speedMultiplier;
+        // v1.0.289 : utilise getEffectiveSpeedMultiplier() qui inclut les
+        //   Speed Boosters installes, au lieu de tier.speedMultiplier (base fixe).
+        //   Le nombre se met maintenant a jour live quand on ajoute/retire un booster.
+        //   Locale.US pour forcer le format "x20.6" (point decimal) au lieu de "x20,6".
+        String speedStr = String.format(java.util.Locale.US, "x%.1f", tile.getEffectiveSpeedMultiplier());
         int sw = fontRenderer.getStringWidth(speedStr);
         float speedX, speedY;
         if (tile.getIOSlotCount() == 1) {
