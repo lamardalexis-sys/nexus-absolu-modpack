@@ -427,11 +427,9 @@ public class GuiFurnaceNexus extends GuiContainer {
         // autonomie restante estimee en secondes
         // v1.0.271 : hitbox dynamique selon tier (tier 0 = RF_BAR_X, tier >= I = xSize-44)
         // v1.0.285 : ajout conso max + autonomie corrigee selon etat autoSort.
-        //   Avant : tooltip affichait uniquement conso PAR PAIRE (ex. 2447 RF/t), donnant
-        //           l'illusion que le four consomme peu. Mais en IO4 + autoSort ON, le
-        //           four consomme x9 (ex. 22 023 RF/t) et l'autonomie chute de 12s a 1.4s.
-        //   Apres : affiche conso/paire, conso max (x nbSlots), et autonomie calculee
-        //           sur le pire cas reel (autoSort ON) ou base (autoSort OFF).
+        // v1.0.286 : la 'Conso max' utilise maintenant le multiplier tier IO
+        //            (1.5/2/4/6) au lieu du nombre brut de slots (3/5/7/9).
+        //            Cf. TileFurnaceNexus.getAutoSortConsumptionMultiplier().
         int rfHitboxX = (tile.getIOSlotCount() == 1) ? RF_BAR_X : (xSize - 44);
         if (tile.isRFMode() && GuiUtils.inRect(mx, my, x + rfHitboxX, y + RF_BAR_Y, RF_BAR_W, RF_BAR_H)) {
             java.util.List<String> lines = new java.util.ArrayList<>();
@@ -439,24 +437,40 @@ public class GuiFurnaceNexus extends GuiContainer {
                 + " / " + GuiUtils.formatRf(tile.getMaxEnergy()) + " RF");
             int rfPerPair = tile.getEffectiveRfPerTick();
             int maxSlots = tile.getIOSlotCount();
-            int rfMaxConso = rfPerPair * maxSlots;
             boolean autoSort = tile.isAutoSortEnabled();
+
+            // Multiplier reellement applique si autoSort ON (1.5, 2.0, 4.0, 6.0)
+            // peu importe combien de paires sont actives actuellement.
+            // Si carte IO absente (maxSlots==1), multiplier vaut 1.0.
+            int ioTier = Math.max(0, (maxSlots - 1) / 2);
+            float multiplierIfAutoSort;
+            switch (ioTier) {
+                case 1:  multiplierIfAutoSort = 1.5F; break;
+                case 2:  multiplierIfAutoSort = 2.0F; break;
+                case 3:  multiplierIfAutoSort = 4.0F; break;
+                case 4:  multiplierIfAutoSort = 6.0F; break;
+                default: multiplierIfAutoSort = 1.0F; break;  // tier 0
+            }
+            int rfMaxConso = (int)(rfPerPair * multiplierIfAutoSort);
 
             // Ligne 1 : conso par paire (= base * upgrades Speed/Efficiency)
             lines.add("\u00a77Conso/paire: \u00a7f" + rfPerPair + " RF/t");
 
-            // Ligne 2 (tier >= I uniquement) : conso max theorique si tous les slots actifs
+            // Ligne 2 (tier >= I uniquement) : conso max si autoSort active
             if (maxSlots > 1) {
-                // Couleur : rouge si autoSort ON (la valeur reelle potentielle),
-                // gris si autoSort OFF (juste indicatif, pas applicable)
+                // Couleur : rouge si autoSort ON (valeur actuellement appliquee),
+                // gris si autoSort OFF (indicatif, serait la conso si active)
                 String color = autoSort ? "\u00a7c" : "\u00a78";
+                String multiStr = (multiplierIfAutoSort == (int) multiplierIfAutoSort)
+                    ? "x" + (int) multiplierIfAutoSort
+                    : "x" + multiplierIfAutoSort;
                 lines.add("\u00a77Conso max: " + color + GuiUtils.formatRf(rfMaxConso)
-                    + " RF/t \u00a77(x" + maxSlots + " slots)");
+                    + " RF/t \u00a77(" + multiStr + " IO t" + ioTier + ")");
             }
 
-            // Autonomie : calculee sur le pire cas effectif
-            //   autoSort ON : conso = rfMaxConso (x nbSlots)
-            //   autoSort OFF : conso = rfPerPair (1 paire a la fois, sequentiel)
+            // Autonomie : calculee sur la conso effectivement appliquee maintenant
+            //   autoSort ON  : rfForAutonomie = rfMaxConso
+            //   autoSort OFF : rfForAutonomie = rfPerPair (sequentiel)
             int rfForAutonomie = autoSort ? rfMaxConso : rfPerPair;
             if (rfForAutonomie > 0 && tile.getEnergyStored() > 0) {
                 int secondsLeft = tile.getEnergyStored() / (rfForAutonomie * 20);

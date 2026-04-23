@@ -286,6 +286,42 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         return Math.max(1, (int)(tier.baseRfPerTick * consoMult));
     }
 
+    /**
+     * Multiplicateur de conso applique en mode autoSort ON, selon la carte IO.
+     *
+     * v1.0.286 (Alexis) : avant, la conso en autoSort ON etait conso_par_paire
+     * x activeCount (jusqu'a x9). Trop abusif. Remplace par un multiplier fixe
+     * selon le tier de la carte IO installee :
+     *
+     *   Tier 0 (pas de carte, 1 slot) : x1.0
+     *   Tier I   (3 slots visibles)   : x1.5
+     *   Tier II  (5 slots visibles)   : x2.0
+     *   Tier III (7 slots visibles)   : x4.0
+     *   Tier IV  (9 slots visibles)   : x6.0
+     *
+     * Ce multiplier s'applique UNIQUEMENT si autoSort ON. En mode sequentiel
+     * (autoSort OFF), la conso reste x1 (comme un four vanilla : 1 paire a la
+     * fois).
+     *
+     * Resultat : un four Pallanutro + IO4 + 8 Speed en autoSort ON consomme
+     * maintenant 2000 * 1.30^8 * 6 = ~98k RF/t au lieu de 147k. Plus accessible
+     * avec cables Mekanism Ultimate.
+     */
+    public float getAutoSortConsumptionMultiplier() {
+        if (!autoSortEnabled) return 1.0F;
+        int slots = getIOSlotCount();
+        // ioTier = (slots - 1) / 2 : 1->0, 3->1, 5->2, 7->3, 9->4
+        int ioTier = Math.max(0, (slots - 1) / 2);
+        switch (ioTier) {
+            case 0:  return 1.0F;   // pas de carte IO = 1 slot vanilla, pas d'autoSort possible
+            case 1:  return 1.5F;
+            case 2:  return 2.0F;
+            case 3:  return 4.0F;
+            case 4:  return 6.0F;
+            default: return 1.0F;   // safety fallback
+        }
+    }
+
     // === TICK ===
 
     @Override
@@ -369,9 +405,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             return;
         }
 
-        // 2. Fuel : conso = activeCount x baseRF (parallele) ou 1x (sequentiel).
-        // En mode sequentiel, activeCount vaut toujours 0 ou 1 apres le break.
-        if (!consumeFuelIfNeeded(activeCount)) {
+        // 2. Fuel : conso selon mode autoSort.
+        // v1.0.286 : avant = activeCount (jusqu'a x9 abusif).
+        // Maintenant : si autoSort ON, multiplier fixe selon carte IO (1.5/2/4/6),
+        //              si autoSort OFF, multiplier = 1.0 (sequentiel, 1 paire a la fois).
+        float consoMultiplier = autoSortEnabled ? getAutoSortConsumptionMultiplier() : 1.0F;
+        if (!consumeFuelIfNeeded(consoMultiplier)) {
             resetProgress();
             updateActiveState(wasActive);
             return;
@@ -566,27 +605,32 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     /**
      * Consomme du fuel pour N paires actives en parallele.
      *
-     * - Mode RF : consomme baseRfPerTick * multiplier RF ce tick
-     *             (plus la machine a de slots actifs, plus elle consomme)
-     * - Mode coal : consomme 'multiplier' ticks de burn d'un coup.
+     * v1.0.286 : signature passee de int a float pour accepter les multipliers
+     * fractionnaires de autoSort (1.5, 2.0, 4.0, 6.0 selon tier carte IO).
+     *
+     * - Mode RF : consomme (int)(baseRfPerTick * multiplier) RF ce tick.
+     *             Troncature d'int, donc slight underconsumption pour les
+     *             multipliers fractionnaires (ex. 1.5 * 100 = 150 round-down OK).
+     * - Mode coal : arrondit au plus proche int pour convertir multiplier en
+     *               ticks de burn, minimum 1. Ex. 1.5 -> 2 ticks de burn.
      *               Si fuelBurnTicks epuise, recharge depuis SLOT_FUEL.
      *
      * Retourne true si la conso a reussi (fuel suffisant trouve), false sinon.
      * En cas d'echec partiel (ex. 5 ticks consumed sur 7 demandes), l'etat du
      * fuel reste dans l'etat consomme (fuel brule mais cuisson echouee ce tick).
      */
-    private boolean consumeFuelIfNeeded(int multiplier) {
-        if (multiplier <= 0) return true;
+    private boolean consumeFuelIfNeeded(float multiplier) {
+        if (multiplier <= 0F) return true;
 
         if (isRFMode()) {
-            int rfConso = getEffectiveRfPerTick() * multiplier;
+            int rfConso = Math.max(1, (int)(getEffectiveRfPerTick() * multiplier));
             if (energyStorage.getEnergyStored() < rfConso) return false;
             energyStorage.drainInternal(rfConso);
             return true;
         }
 
-        // Mode coal : consomme 'multiplier' ticks de burn, en rechargeant au besoin
-        int remaining = multiplier;
+        // Mode coal : convertit multiplier en int (round), minimum 1 tick
+        int remaining = Math.max(1, Math.round(multiplier));
         boolean dirty = false;
         while (remaining > 0) {
             if (fuelBurnTicks > 0) {
