@@ -89,32 +89,54 @@ recipes.addShaped("nexus_furnace_vossium_iv", <nexusabsolu:furnace_vossium_iv>,
      [<nexusabsolu:vossium_iv_ingot>,  <bloodmagic:blood_orb>.withTag({orb: "bloodmagic:apprentice"}),  <nexusabsolu:vossium_iv_ingot>]]);
 
 // === T6 : DARK ASTRAL FURNACE (Age 3) ===
-// Progression : Vossium IV + constellations Astral Sorcery.
-// itemcraftingcomponent:1 = Starmetal Ingot (confirme dump)
-// itemcraftingcomponent:2 = Stardust (confirme dump)
-// itemcelestialcrystal:0 = Celestial Crystal
+// Progression : Vossium IV + constellations Astral Sorcery + gate cross-mod.
+// v1.0.283 (Alexis) : remplacements pour mix inter-mod plus riche :
+//   Starmetal Ingot (astralsorcery:itemcraftingcomponent:1) -> Dark Soularium Ingot
+//                                                              (simplyjetpacks:metaitemmods:12)
+//   Stardust        (astralsorcery:itemcraftingcomponent:2) -> Superium Ingot
+//                                                              (mysticalagriculture:crafting:36)
+// Gate : force 4 mods sur la recette (Astral Sorcery conserve le centre celeste,
+//        Simply Jetpacks apporte son materiau endgame, Mystical Agriculture son
+//        ingot tier 4, Draconic le socle bas, Nexus au centre).
 recipes.addShaped("nexus_furnace_dark_astral", <nexusabsolu:furnace_dark_astral>,
-    [[<astralsorcery:itemcelestialcrystal>,     <astralsorcery:itemcraftingcomponent:2>,  <astralsorcery:itemcelestialcrystal>],
-     [<astralsorcery:itemcraftingcomponent:1>,  <nexusabsolu:furnace_vossium_iv>,         <astralsorcery:itemcraftingcomponent:1>],
+    [[<astralsorcery:itemcelestialcrystal>,     <mysticalagriculture:crafting:36>,        <astralsorcery:itemcelestialcrystal>],
+     [<simplyjetpacks:metaitemmods:12>,         <nexusabsolu:furnace_vossium_iv>,         <simplyjetpacks:metaitemmods:12>],
      [<astralsorcery:itemcelestialcrystal>,     <draconicevolution:draconium_block>,      <astralsorcery:itemcelestialcrystal>]]);
 
 // === T7 : GAIA LUDICRITE FURNACE (Age 4, nativeRF=true) ===
 // IDs Botania verifies (dump items.csv) :
 //   manaresource:0 = Manasteel, :4 = Terrasteel, :5 = Gaia Spirit
 //   manaresource:7 = Elementium, :8 = Pixie Dust
-// v1.0.273 : fix IDs (avant :5=Gaia Spirit etait correct mais :22 et :14 etaient inventes)
+// v1.0.273 : fix IDs Botania (avant :22 et :14 etaient inventes)
+// v1.0.283 (Alexis) : Elementium (manaresource:7) -> Ludicrite Ingot (bigreactors:ingotludicrite)
+//   Coherence thematique : c'est un 'Gaia LUDICRITE Furnace', donc inclure le vrai
+//   Ludicrite Ingot de Big Reactors a la base a du sens nominal.
+//   Force 3 mods : Botania (terrasteel/gaia_spirit/pixie_dust) + Big Reactors (ludicrite)
+//   + Draconic (core) + Nexus Absolu (centre).
 recipes.addShaped("nexus_furnace_gaia_ludicrite", <nexusabsolu:furnace_gaia_ludicrite>,
     [[<botania:manaresource:4>,                 <botania:manaresource:5>,                 <botania:manaresource:4>],
      [<botania:manaresource:8>,                 <nexusabsolu:furnace_dark_astral>,        <botania:manaresource:8>],
-     [<botania:manaresource:7>,                 <draconicevolution:draconic_core>,        <botania:manaresource:7>]]);
+     [<bigreactors:ingotludicrite>,             <draconicevolution:draconic_core>,        <bigreactors:ingotludicrite>]]);
 
 // === T8 : PALLANUTRO FURNACE (Age 5, nativeRF=true) ===
-// IDs Draconic Evolution verifies (dump items.csv) :
-//   chaos_shard = Chaos Shard, draconic_core / wyvern_core / awakened_core
+// v1.0.283 (Alexis) : refonte complete de la recette pour endgame multi-mod :
+//   Chaos Shard (draconicevolution:chaos_shard)   -> Palladium Ingot (extraplanets:tier5_items:5)
+//   Wyvern Core (draconicevolution:wyvern_core)   -> Neutronium Ingot (avaritia:resource:4)
+//   Draconic Core (draconicevolution:draconic_core) -> Awakened Core (draconicevolution:awakened_core)
+// Awakened Core conserve en bas-centre aussi. Donc 2 awakened cores total dans
+// la recette (haut + bas). Alexis confirmed implicite (pas mentionne de changer
+// celle du bas), je l'execute tel quel.
+// Force 3 mods endgame : Extra Planets (palladium tier 5 planetes Jupiter+) +
+// Avaritia (neutronium, ingot ultime cosmique) + Draconic (2x awakened core) +
+// Nexus Absolu (centre).
+//
+// Gate : ce craft demande maintenant acces Extra Planets tier 5 (voyage Jupiter)
+// ET Avaritia neutronium compressor (8 min cobble -> neutronium). C'est un vrai
+// endgame multi-mod.
 recipes.addShaped("nexus_furnace_pallanutro", <nexusabsolu:furnace_pallanutro>,
-    [[<draconicevolution:chaos_shard>,          <draconicevolution:draconic_core>,        <draconicevolution:chaos_shard>],
-     [<draconicevolution:wyvern_core>,          <nexusabsolu:furnace_gaia_ludicrite>,     <draconicevolution:wyvern_core>],
-     [<draconicevolution:chaos_shard>,          <draconicevolution:awakened_core>,        <draconicevolution:chaos_shard>]]);
+    [[<extraplanets:tier5_items:5>,             <draconicevolution:awakened_core>,        <extraplanets:tier5_items:5>],
+     [<avaritia:resource:4>,                    <nexusabsolu:furnace_gaia_ludicrite>,     <avaritia:resource:4>],
+     [<extraplanets:tier5_items:5>,             <draconicevolution:awakened_core>,        <extraplanets:tier5_items:5>]]);
 
 // ==================================================================
 // UPGRADE RECIPES
