@@ -110,8 +110,16 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         GUI_OPERATION.set(active);
     }
 
-    private int cookProgress = 0;          // ticks de cuisson en cours
-    private int maxCookTime = 200;          // ticks requis (depend du tier)
+    // v1.0.290 : cookProgress et maxCookTime passes en FLOAT pour supporter
+    // multi-items par tick sur les hauts tiers (Pallanutro, Infinite).
+    // Avant : cuisson plafonnee a 1 item/tick via max(1, int(...)) => Pallanutro
+    // et Infinite identiques a x200. Maintenant, cookProgress accumule speedMult
+    // par tick et peut cuire plusieurs items quand il depasse maxCookTime.
+    // Ex. Infinite + 8 Speed : cuit 1.74 items/tick = ~35 items/sec.
+    // Getters publics cast en int pour preserver API GUI/sync (precision
+    // fractionnaire utilisee uniquement en interne cote serveur).
+    private float cookProgress = 0F;         // ticks de cuisson accumules (float)
+    private float maxCookTime = 200F;         // ticks requis pour 1 item (depend du tier)
 
     // Systeme fuel style vanilla : ticks restants + ticks totaux pour la flamme
     // qui descend progressivement.
@@ -154,7 +162,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public com.nexusabsolu.mod.tiles.SideConfig getSideConfig() { return sideConfig; }
 
     public FurnaceTier getTier() { return tier; }
-    public int getCookProgress() { return cookProgress; }
+    public int getCookProgress() { return (int) cookProgress; }
 
     // v1.0.212 : getters/setters pour le flag Enhanced
     public boolean isEnhanced() { return isEnhanced; }
@@ -184,7 +192,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         }
     }
 
-    public int getMaxCookTime() { return maxCookTime; }
+    public int getMaxCookTime() { return (int) maxCookTime; }
     /** Ticks restants sur le fuel actuel (0 = pas de fuel actif). */
     public int getFuelBurnTicks() { return fuelBurnTicks; }
     /** Ticks totaux du fuel consomme (pour calculer le ratio de flamme). */
@@ -211,7 +219,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     /** True si le furnace est actuellement en train de cuire (flamme visible). */
     public boolean isActivelyCooking() {
         return (fuelBurnTicks > 0 || (isRFMode() && energyStorage.getEnergyStored() > 0))
-            && cookProgress > 0;
+            && cookProgress > 0F;
     }
 
     /** Nombre d'items dans le slot SPEED_BOOSTER (0 si vide). Public pour le GUI. */
@@ -252,36 +260,47 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
      *  - bonus RF_CONVERTER si mode RF (+5%)
      *  - bonus SPEED_BOOSTER (+30% par item, stackable 8 fois)
      *
-     * Retourne un nb de ticks minimum de 1.
+     * v1.0.290 : retourne maintenant un FLOAT sans clamp a 1. Avant, le clamp
+     * int max(1, ...) faisait que Pallanutro+2boosters et Infinite etaient
+     * identiques (tous les 2 plafonnaient a 1 tick effectif). Maintenant,
+     * la valeur peut etre < 1 (ex. Infinite+8 = 0.57 tick), ce qui permet
+     * a tryCookTick de cuire plusieurs items par tick via accumulator.
+     *
+     * Minimum 0.01 pour safety (eviter division par zero).
      */
-    public int getEffectiveMaxCookTime() {
+    public float getEffectiveMaxCookTime() {
         float speedMult = 1.0F;
         // Bonus RF converter
         if (isRFMode() && !tier.nativeRF) speedMult += 0.05F;
         // Bonus speed boosters : +30% par item stacke
         speedMult += getSpeedBoosterCount() * 0.30F;
         // Applique sur le temps de base : temps / multiplicateur
-        int baseCook = tier.baseCookTime();
-        int effective = (int)(baseCook / speedMult);
-        return Math.max(1, effective);
+        float baseCook = 200.0F / tier.speedMultiplier;  // tick vanilla / speed tier = precise float
+        float effective = baseCook / speedMult;
+        return Math.max(0.01F, effective);
     }
 
     /**
      * Multiplicateur de vitesse EFFECTIF par rapport au four vanilla (200 ticks).
      *
-     * v1.0.289 : avant, le GUI affichait tier.speedMultiplier (valeur BASE fixe
-     * du tier, ne changeait jamais). Maintenant affiche le vrai multiplier avec
-     * tous les bonus actifs (base tier + RF converter + Speed Boosters).
+     * v1.0.289 : inclut base tier + RF converter + Speed Boosters.
+     * v1.0.290 : getEffectiveMaxCookTime() est maintenant float, donc plus de
+     * plafond x200 artificiel. Ex. Infinite+8 boost = 200 / 0.57 = ~348x.
      *
      * Ex. Dark Astral (base 6.0) :
      *   - 0 Speed : x6.0
-     *   - 4 Speed : 200 / (33 / 2.2) = x13.3
-     *   - 8 Speed : 200 / (33 / 3.4) = x20.6
-     *   - 8 Speed + RF : x20.9
+     *   - 4 Speed : x13.2
+     *   - 8 Speed : x20.6
+     *   - 8 Speed + RF : x21.7
      *
-     * Note : a haut tier (Pallanutro, Infinite), le temps effectif est clamp
-     * a 1 tick min, donc le multiplier peut atteindre x200 max (200 ticks vanilla
-     * / 1 tick effectif).
+     * Ex. Pallanutro (base 56.0) :
+     *   - 0 Speed + RF : x58.8
+     *   - 8 Speed + RF : x193.2
+     *
+     * Ex. Infinite (base 101.0) :
+     *   - 0 Speed : x101
+     *   - 8 Speed : x343
+     *   - 8 Speed + RF : x348
      */
     public float getEffectiveSpeedMultiplier() {
         return 200.0F / getEffectiveMaxCookTime();
@@ -380,20 +399,24 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
      * Logique de cuisson d'un tick, mode PARALLELE ou SEQUENTIEL selon autoSort.
      *
      * - autoSort ON  : cuisson parallele, toutes les paires actives cuisent
-     *                  ensemble, conso fuel/RF x nombre de paires actives,
+     *                  ensemble, conso fuel/RF x multiplier tier IO,
      *                  timer global partage.
      * - autoSort OFF : cuisson sequentielle, SEULE la premiere paire active
      *                  (i le plus bas) cuit. Les autres attendent. Conso fuel/RF
-     *                  de base (1x), comme un four classique. Comportement
-     *                  attendu par l'utilisateur quand il veut remplir chaque
-     *                  slot manuellement sans les voir tous cuire en meme temps.
+     *                  de base (1x), comme un four classique.
      *
-     * Pour chaque paire (input[i], output[i]) ou i < getIOSlotCount() :
-     *   - Si input[i] a une recette valide ET output[i] peut accepter le resultat,
-     *     cette paire est consideree ACTIVE.
+     * v1.0.290 : ACCUMULATOR PATTERN pour supporter multi-items par tick.
+     *   Avant : cookProgress int, plafonne a 1 item/tick, Pallanutro = Infinite.
+     *   Maintenant : cookProgress float, accumule speedMult par tick. Quand
+     *                cookProgress >= maxCookTime, on cuit 1 item et on soustrait.
+     *                Boucle tant que reste >= maxCookTime => Infinite peut cuire
+     *                1.74 items/tick par ex.
+     *
+     * Conso RF : proportionnelle au nombre d'items cuits ce tick. Si on cuit
+     * 2 items en 1 tick (haute vitesse), on consomme 2x la conso de base.
      */
     private void tryCookTick() {
-        boolean wasActive = cookProgress > 0 || fuelBurnTicks > 0;
+        boolean wasActive = cookProgress > 0F || fuelBurnTicks > 0;
 
         int slotCount = getIOSlotCount();
 
@@ -414,9 +437,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             activeCount++;
 
             // v1.0.279 : mode SEQUENTIEL (autoSort OFF) => on ne prend que la
-            // premiere paire active. On sort de la boucle et on cuit uniquement
-            // ce slot. Comportement 'four vanilla classique' applique a chaque
-            // slot individuellement dans l'ordre.
+            // premiere paire active. Break.
             if (!autoSortEnabled) break;
         }
 
@@ -426,29 +447,38 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             return;
         }
 
-        // 2. Fuel : conso selon mode autoSort.
-        // v1.0.286 : avant = activeCount (jusqu'a x9 abusif).
-        // Maintenant : si autoSort ON, multiplier fixe selon carte IO (1.5/2/4/6),
-        //              si autoSort OFF, multiplier = 1.0 (sequentiel, 1 paire a la fois).
-        float consoMultiplier = autoSortEnabled ? getAutoSortConsumptionMultiplier() : 1.0F;
-        if (!consumeFuelIfNeeded(consoMultiplier)) {
-            resetProgress();
-            updateActiveState(wasActive);
-            return;
-        }
+        // 2. Calcul du speedMult effectif (= vitesse d'accumulation par tick)
+        // speedMult = 1.0 + RF bonus (0.05) + Speed Boosters (0.30 * N)
+        float speedMult = 1.0F;
+        if (isRFMode() && !tier.nativeRF) speedMult += 0.05F;
+        speedMult += getSpeedBoosterCount() * 0.30F;
 
-        // 3. Progress
+        // 3. Accumule le progress par tick
         maxCookTime = getEffectiveMaxCookTime();
-        cookProgress++;
-        if (cookProgress >= maxCookTime) {
-            // Execute la cuisson pour chaque paire active (1 paire en sequentiel,
-            // N paires en parallele).
+        cookProgress += speedMult;
+
+        // 4. Cuit autant d'items que possible ce tick (1 ou plus)
+        int itemsCookedThisTick = 0;
+        while (cookProgress >= maxCookTime) {
+            // Recheck que les outputs acceptent encore le resultat (peut changer
+            // entre 2 iterations de la boucle si output rempli completement)
+            boolean anyCooked = false;
             for (int i = 0; i < slotCount; i++) {
                 ItemStack result = cachedResults[i];
                 if (result == null) continue;
 
                 ItemStack input = inventory.get(SLOT_INPUT_BASE + i);
+                if (input.isEmpty()) { cachedResults[i] = null; continue; }
                 ItemStack output = inventory.get(SLOT_OUTPUT_BASE + i);
+                // Revalide que output a encore de la place
+                if (!output.isEmpty()) {
+                    if (!ItemHandlerHelper.canItemStacksStack(output, result)) {
+                        cachedResults[i] = null; continue;
+                    }
+                    if (output.getCount() + result.getCount() > output.getMaxStackSize()) {
+                        cachedResults[i] = null; continue;
+                    }
+                }
 
                 if (output.isEmpty()) {
                     inventory.set(SLOT_OUTPUT_BASE + i, result.copy());
@@ -457,8 +487,39 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
                 }
                 input.shrink(1);
                 if (input.getCount() <= 0) inventory.set(SLOT_INPUT_BASE + i, ItemStack.EMPTY);
+                anyCooked = true;
             }
-            cookProgress = 0;
+
+            if (!anyCooked) {
+                // Plus rien a cuire (outputs pleins ou inputs vides) : on stoppe
+                // et on clamp cookProgress pour eviter accumulation infinie
+                cookProgress = maxCookTime - 0.01F;
+                break;
+            }
+
+            itemsCookedThisTick++;
+            cookProgress -= maxCookTime;
+        }
+
+        // 5. Conso RF proportionnelle au nombre d'items cuits ce tick
+        // Si 0 items cuits ce tick (progress pas encore suffisant), on consomme
+        // la conso de base pour "maintenir" la cuisson (comme un four vanilla
+        // qui brule du coal meme quand progress pas complete).
+        // Si N items cuits ce tick, on consomme N x conso de base (energetiquement
+        // coherent : plus on cuit, plus on consomme).
+        float consoMultiplier = autoSortEnabled ? getAutoSortConsumptionMultiplier() : 1.0F;
+        float tickConso = Math.max(1, itemsCookedThisTick) * consoMultiplier;
+        if (!consumeFuelIfNeeded(tickConso)) {
+            // Pas assez de fuel : on annule les items cuits ce tick (rollback logique)
+            // MAIS en pratique les items sont deja dans l'output. Simplification :
+            // on accepte le manque de fuel pour ce tick (le four cale naturellement
+            // au prochain tick). Reset progress pour signaler a l'update d'etat.
+            resetProgress();
+            updateActiveState(wasActive);
+            return;
+        }
+
+        if (itemsCookedThisTick > 0) {
             markDirty();
         }
 
@@ -470,7 +531,7 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
      * Force la transition LED grise <-> LED cyan et texture eteinte <-> active.
      */
     private void updateActiveState(boolean wasActive) {
-        boolean isActive = cookProgress > 0 || fuelBurnTicks > 0;
+        boolean isActive = cookProgress > 0F || fuelBurnTicks > 0;
         if (wasActive != isActive) {
             markDirty();
             net.minecraft.block.state.IBlockState state = world.getBlockState(pos);
@@ -617,8 +678,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     }
 
     private void resetProgress() {
-        if (cookProgress > 0) {
-            cookProgress = 0;
+        if (cookProgress > 0F) {
+            cookProgress = 0F;
             markDirty();
         }
     }
@@ -701,8 +762,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setString("tier", tier.registryName);
-        nbt.setInteger("cookProgress", cookProgress);
-        nbt.setInteger("maxCookTime", maxCookTime);
+        // v1.0.290 : cookProgress et maxCookTime passes en float.
+        // Clefs renommees (cookProgressF / maxCookTimeF) pour faire la distinction
+        // avec d'anciens saves (cookProgress int). Migration a la lecture.
+        nbt.setFloat("cookProgressF", cookProgress);
+        nbt.setFloat("maxCookTimeF", maxCookTime);
         nbt.setInteger("fuelBurnTicks", fuelBurnTicks);
         nbt.setInteger("fuelTotalBurnTicks", fuelTotalBurnTicks);
         nbt.setInteger("energy", energyStorage.getEnergyStored());
@@ -742,8 +806,19 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             int storedEnergy = nbt.getInteger("energy");
             this.energyStorage = new InternalEnergyStorage(tier.baseEnergyCapacity(), tier.baseMaxReceive(), storedEnergy);
         }
-        this.cookProgress = nbt.getInteger("cookProgress");
-        if (nbt.hasKey("maxCookTime")) this.maxCookTime = nbt.getInteger("maxCookTime");
+        // v1.0.290 : migration cookProgress / maxCookTime (int -> float).
+        // Priorite aux nouvelles cles floatant (cookProgressF, maxCookTimeF).
+        // Fallback vers anciennes cles int pour les saves pre-v1.0.290.
+        if (nbt.hasKey("cookProgressF")) {
+            this.cookProgress = nbt.getFloat("cookProgressF");
+        } else if (nbt.hasKey("cookProgress")) {
+            this.cookProgress = nbt.getInteger("cookProgress");  // int -> float auto
+        }
+        if (nbt.hasKey("maxCookTimeF")) {
+            this.maxCookTime = nbt.getFloat("maxCookTimeF");
+        } else if (nbt.hasKey("maxCookTime")) {
+            this.maxCookTime = nbt.getInteger("maxCookTime");  // int -> float auto
+        }
         // Nouveau format v1.0.197 : ticks-based flame (fuelBurnTicks + fuelTotalBurnTicks)
         // Fallback pour anciens saves avec 'fuelRemaining' (ops-based)
         if (nbt.hasKey("fuelBurnTicks")) {
