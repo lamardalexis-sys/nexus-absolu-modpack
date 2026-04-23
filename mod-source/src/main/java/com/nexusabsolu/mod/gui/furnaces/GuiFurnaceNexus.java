@@ -426,20 +426,47 @@ public class GuiFurnaceNexus extends GuiContainer {
         // RF bar tooltip - v1.0.234 enrichi style Mek avec conso RF/tick +
         // autonomie restante estimee en secondes
         // v1.0.271 : hitbox dynamique selon tier (tier 0 = RF_BAR_X, tier >= I = xSize-44)
+        // v1.0.285 : ajout conso max + autonomie corrigee selon etat autoSort.
+        //   Avant : tooltip affichait uniquement conso PAR PAIRE (ex. 2447 RF/t), donnant
+        //           l'illusion que le four consomme peu. Mais en IO4 + autoSort ON, le
+        //           four consomme x9 (ex. 22 023 RF/t) et l'autonomie chute de 12s a 1.4s.
+        //   Apres : affiche conso/paire, conso max (x nbSlots), et autonomie calculee
+        //           sur le pire cas reel (autoSort ON) ou base (autoSort OFF).
         int rfHitboxX = (tile.getIOSlotCount() == 1) ? RF_BAR_X : (xSize - 44);
         if (tile.isRFMode() && GuiUtils.inRect(mx, my, x + rfHitboxX, y + RF_BAR_Y, RF_BAR_W, RF_BAR_H)) {
             java.util.List<String> lines = new java.util.ArrayList<>();
             lines.add("\u00a7eEnergie\u00a7r: " + GuiUtils.formatRf(tile.getEnergyStored())
                 + " / " + GuiUtils.formatRf(tile.getMaxEnergy()) + " RF");
-            int rfPerTick = tile.getEffectiveRfPerTick();
-            lines.add("\u00a77Conso: \u00a7f" + rfPerTick + " RF/tick");
-            // Autonomie : RF stocke / RF par tick = ticks -> secondes (20 ticks/s)
-            if (rfPerTick > 0 && tile.getEnergyStored() > 0) {
-                int secondsLeft = tile.getEnergyStored() / (rfPerTick * 20);
+            int rfPerPair = tile.getEffectiveRfPerTick();
+            int maxSlots = tile.getIOSlotCount();
+            int rfMaxConso = rfPerPair * maxSlots;
+            boolean autoSort = tile.isAutoSortEnabled();
+
+            // Ligne 1 : conso par paire (= base * upgrades Speed/Efficiency)
+            lines.add("\u00a77Conso/paire: \u00a7f" + rfPerPair + " RF/t");
+
+            // Ligne 2 (tier >= I uniquement) : conso max theorique si tous les slots actifs
+            if (maxSlots > 1) {
+                // Couleur : rouge si autoSort ON (la valeur reelle potentielle),
+                // gris si autoSort OFF (juste indicatif, pas applicable)
+                String color = autoSort ? "\u00a7c" : "\u00a78";
+                lines.add("\u00a77Conso max: " + color + GuiUtils.formatRf(rfMaxConso)
+                    + " RF/t \u00a77(x" + maxSlots + " slots)");
+            }
+
+            // Autonomie : calculee sur le pire cas effectif
+            //   autoSort ON : conso = rfMaxConso (x nbSlots)
+            //   autoSort OFF : conso = rfPerPair (1 paire a la fois, sequentiel)
+            int rfForAutonomie = autoSort ? rfMaxConso : rfPerPair;
+            if (rfForAutonomie > 0 && tile.getEnergyStored() > 0) {
+                int secondsLeft = tile.getEnergyStored() / (rfForAutonomie * 20);
+                String autonomieLabel = (maxSlots > 1)
+                    ? (autoSort ? "Autonomie (auto-sort)" : "Autonomie (sequentiel)")
+                    : "Autonomie";
                 if (secondsLeft > 60) {
-                    lines.add("\u00a77Autonomie: \u00a7a" + (secondsLeft / 60) + "m " + (secondsLeft % 60) + "s");
+                    lines.add("\u00a77" + autonomieLabel + ": \u00a7a" + (secondsLeft / 60) + "m " + (secondsLeft % 60) + "s");
                 } else {
-                    lines.add("\u00a77Autonomie: \u00a7a" + secondsLeft + "s");
+                    lines.add("\u00a77" + autonomieLabel + ": \u00a7a" + secondsLeft + "s");
                 }
             }
             drawHoveringText(lines, mx, my);
