@@ -76,17 +76,15 @@ public class ContainerFurnaceNexus extends Container {
         //   xSize = max(176, N*18 + 58)
         this.containerXSize = Math.max(176, visibleIOSlots * 18 + 58);
 
-        // Y positions : centrees si fuel cache (mode RF), compactes sinon
-        // v1.0.258 : en mode RF pour tier >= I, centre input/progress/output
-        // dans le panneau 0..93 (sous titre y=18, au-dessus inv y=93)
-        boolean rfMode = tile.isRFMode();
-        if (visibleIOSlots > 1 && rfMode) {
-            this.inputRowY = 27;
-            this.outputRowY = 63;
-        } else {
-            this.inputRowY = 19;
-            this.outputRowY = 55;
-        }
+        // v1.0.279 FIX ALIGNEMENT : les textures gui_furnace_io1..4.png ont toutes
+        // leurs slots dessines a y=19 (input) / y=55 (output). Le shift rfMode
+        // a 27/63 (anciennement v1.0.258 pour 'centrer quand fuel cache') causait
+        // un decalage visuel de 8px entre les items rendus et les slot boxes de
+        // la texture. Cosmetique de centrage sacrifie pour alignement exact.
+        // Les textures elles-memes devront etre regenerees si on veut un layout
+        // plus compact en mode RF (qui masque le fuel slot).
+        this.inputRowY = 19;
+        this.outputRowY = 55;
 
         // v1.0.263b : centrage sur tout le panneau (xSize entier) avec clamp
         // pour eviter le chevauchement avec la RF bar a xSize-44.

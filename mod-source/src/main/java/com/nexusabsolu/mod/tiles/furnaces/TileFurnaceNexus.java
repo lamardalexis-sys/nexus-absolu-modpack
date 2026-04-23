@@ -320,17 +320,20 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     }
 
     /**
-     * Logique de cuisson d'un tick, en mode cuisson parallele.
+     * Logique de cuisson d'un tick, mode PARALLELE ou SEQUENTIEL selon autoSort.
+     *
+     * - autoSort ON  : cuisson parallele, toutes les paires actives cuisent
+     *                  ensemble, conso fuel/RF x nombre de paires actives,
+     *                  timer global partage.
+     * - autoSort OFF : cuisson sequentielle, SEULE la premiere paire active
+     *                  (i le plus bas) cuit. Les autres attendent. Conso fuel/RF
+     *                  de base (1x), comme un four classique. Comportement
+     *                  attendu par l'utilisateur quand il veut remplir chaque
+     *                  slot manuellement sans les voir tous cuire en meme temps.
      *
      * Pour chaque paire (input[i], output[i]) ou i < getIOSlotCount() :
      *   - Si input[i] a une recette valide ET output[i] peut accepter le resultat,
      *     cette paire est consideree ACTIVE.
-     *
-     * Pendant la cuisson : conso fuel/RF x nombre de paires actives.
-     * A la fin du cycle (cookProgress >= maxCookTime) : chaque paire active
-     * consomme 1 item de son input et produit 1 item dans son output.
-     *
-     * Timer global partage : toutes les paires cuisent en synchrone.
      */
     private void tryCookTick() {
         boolean wasActive = cookProgress > 0 || fuelBurnTicks > 0;
@@ -352,6 +355,12 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             }
             cachedResults[i] = result;
             activeCount++;
+
+            // v1.0.279 : mode SEQUENTIEL (autoSort OFF) => on ne prend que la
+            // premiere paire active. On sort de la boucle et on cuit uniquement
+            // ce slot. Comportement 'four vanilla classique' applique a chaque
+            // slot individuellement dans l'ordre.
+            if (!autoSortEnabled) break;
         }
 
         if (activeCount == 0) {
@@ -360,7 +369,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             return;
         }
 
-        // 2. Fuel : conso = activeCount x baseRF (ou activeCount ticks de burn en coal)
+        // 2. Fuel : conso = activeCount x baseRF (parallele) ou 1x (sequentiel).
+        // En mode sequentiel, activeCount vaut toujours 0 ou 1 apres le break.
         if (!consumeFuelIfNeeded(activeCount)) {
             resetProgress();
             updateActiveState(wasActive);
@@ -371,7 +381,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         maxCookTime = getEffectiveMaxCookTime();
         cookProgress++;
         if (cookProgress >= maxCookTime) {
-            // Execute la cuisson pour chaque paire active
+            // Execute la cuisson pour chaque paire active (1 paire en sequentiel,
+            // N paires en parallele).
             for (int i = 0; i < slotCount; i++) {
                 ItemStack result = cachedResults[i];
                 if (result == null) continue;
