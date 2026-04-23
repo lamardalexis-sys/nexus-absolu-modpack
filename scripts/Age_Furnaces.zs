@@ -108,33 +108,31 @@ recipes.addShaped("nexus_furnace_dark_astral", <nexusabsolu:furnace_dark_astral>
 //   manaresource:0 = Manasteel, :4 = Terrasteel, :5 = Gaia Spirit
 //   manaresource:7 = Elementium, :8 = Pixie Dust
 // v1.0.273 : fix IDs Botania (avant :22 et :14 etaient inventes)
-// v1.0.283 (Alexis) : Elementium (manaresource:7) -> Ludicrite Ingot (bigreactors:ingotludicrite)
-//   Coherence thematique : c'est un 'Gaia LUDICRITE Furnace', donc inclure le vrai
-//   Ludicrite Ingot de Big Reactors a la base a du sens nominal.
-//   Force 3 mods : Botania (terrasteel/gaia_spirit/pixie_dust) + Big Reactors (ludicrite)
-//   + Draconic (core) + Nexus Absolu (centre).
+// v1.0.283 : Elementium -> Ludicrite Ingot (coherence nominale avec nom du four)
+// v1.0.284 (Alexis) : 2 modifications supplementaires :
+//   - TOP-CENTER : Gaia Spirit (manaresource:5) -> Supremium Ingot (mysticalagriculture:crafting:37)
+//   - BOTTOM-CENTER : Draconic Core -> Gaia Spirit (descend a la base)
+//   Supremium = tier 5 Mystical Agriculture (au-dessus du Superium T4 du Dark Astral).
+//   Progression MA coherente entre T6 et T7 : Superium -> Supremium.
+//   Force 3 mods : Botania + Big Reactors + Mystical Agriculture + Nexus (plus Draconic).
 recipes.addShaped("nexus_furnace_gaia_ludicrite", <nexusabsolu:furnace_gaia_ludicrite>,
-    [[<botania:manaresource:4>,                 <botania:manaresource:5>,                 <botania:manaresource:4>],
+    [[<botania:manaresource:4>,                 <mysticalagriculture:crafting:37>,        <botania:manaresource:4>],
      [<botania:manaresource:8>,                 <nexusabsolu:furnace_dark_astral>,        <botania:manaresource:8>],
-     [<bigreactors:ingotludicrite>,             <draconicevolution:draconic_core>,        <bigreactors:ingotludicrite>]]);
+     [<bigreactors:ingotludicrite>,             <botania:manaresource:5>,                 <bigreactors:ingotludicrite>]]);
 
 // === T8 : PALLANUTRO FURNACE (Age 5, nativeRF=true) ===
-// v1.0.283 (Alexis) : refonte complete de la recette pour endgame multi-mod :
-//   Chaos Shard (draconicevolution:chaos_shard)   -> Palladium Ingot (extraplanets:tier5_items:5)
-//   Wyvern Core (draconicevolution:wyvern_core)   -> Neutronium Ingot (avaritia:resource:4)
-//   Draconic Core (draconicevolution:draconic_core) -> Awakened Core (draconicevolution:awakened_core)
-// Awakened Core conserve en bas-centre aussi. Donc 2 awakened cores total dans
-// la recette (haut + bas). Alexis confirmed implicite (pas mentionne de changer
-// celle du bas), je l'execute tel quel.
-// Force 3 mods endgame : Extra Planets (palladium tier 5 planetes Jupiter+) +
-// Avaritia (neutronium, ingot ultime cosmique) + Draconic (2x awakened core) +
-// Nexus Absolu (centre).
-//
-// Gate : ce craft demande maintenant acces Extra Planets tier 5 (voyage Jupiter)
-// ET Avaritia neutronium compressor (8 min cobble -> neutronium). C'est un vrai
-// endgame multi-mod.
+// v1.0.283 : refonte endgame cross-mod (chaos_shard -> palladium, wyvern_core ->
+//            neutronium, draconic_core -> awakened_core).
+// v1.0.284 (Alexis) : TOP-CENTER awakened_core -> Insanium Ingot (mysticalagradditions:insanium:2).
+//   Resout le doublon Awakened Core (v1.0.283 en avait 2, celle du bas etait deja la
+//   avant refonte). Progression Mystical Agriculture finale :
+//     T6 Dark Astral   : Superium   (MA T4, crafting:36)
+//     T7 Gaia          : Supremium  (MA T5, crafting:37)
+//     T8 Pallanutro    : Insanium   (MAgradditions T6, insanium:2) <- le tier ULTIME
+//   Force 4 mods endgame : Extra Planets + Avaritia + Mystical Agradditions + Draconic + Nexus.
+//   Progression de difficulte : Insanium requiert Tier 6 Crafting Seed + 8 Supremium Essence.
 recipes.addShaped("nexus_furnace_pallanutro", <nexusabsolu:furnace_pallanutro>,
-    [[<extraplanets:tier5_items:5>,             <draconicevolution:awakened_core>,        <extraplanets:tier5_items:5>],
+    [[<extraplanets:tier5_items:5>,             <mysticalagradditions:insanium:2>,        <extraplanets:tier5_items:5>],
      [<avaritia:resource:4>,                    <nexusabsolu:furnace_gaia_ludicrite>,     <avaritia:resource:4>],
      [<extraplanets:tier5_items:5>,             <draconicevolution:awakened_core>,        <extraplanets:tier5_items:5>]]);
 
