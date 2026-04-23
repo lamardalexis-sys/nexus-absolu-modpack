@@ -510,7 +510,9 @@ public class GuiFurnaceNexus extends GuiContainer {
                 ? tile.getCookProgress() * 100 / tile.getMaxCookTime() : 0;
             lines.add("\u00a7eCuisson\u00a7r: " + pct + "%");
             // Temps de cuisson effectif (avec upgrades)
-            int ticks = tile.getEffectiveMaxCookTime();
+            // v1.0.290 : getEffectiveMaxCookTime() retourne maintenant un float
+            // (peut etre < 1 tick pour les tres hauts tiers avec boosters).
+            float ticks = tile.getEffectiveMaxCookTime();
             float seconds = ticks / 20.0F;
             int speedCount = tile.getSpeedBoosterCount();
             int effCount = tile.getEfficiencyCount();
