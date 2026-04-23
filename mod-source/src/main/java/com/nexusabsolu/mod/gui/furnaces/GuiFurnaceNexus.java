@@ -69,9 +69,25 @@ public class GuiFurnaceNexus extends GuiContainer {
     private static final int COL_BORDER = 0xFFBB77FF;
     private static final int COL_BORDER_HOV = 0xFFEEAAFF;
 
-    private static final String[] FACE_LABELS = {"B", "H", "N", "S", "O", "E"};
+    // v1.0.288 (Alexis) : labels relatifs au four, plus intuitifs pour le joueur.
+    //   Avant : B/H/N/S/O/E (conventions cardinales Minecraft)
+    //   Apres : Ba/H/Ar/Av/Ga/Dr (positions relatives au four)
+    //
+    // Mapping (index = EnumFacing.getIndex()) :
+    //   [0] DOWN  -> "Ba" (Bas, face au sol)
+    //   [1] UP    -> "H"  (Haut)
+    //   [2] NORTH -> "Ar" (Arriere, face derriere le four)
+    //   [3] SOUTH -> "Av" (Avant, face devant le four / front)
+    //   [4] WEST  -> "Ga" (Gauche)
+    //   [5] EAST  -> "Dr" (Droite)
+    //
+    // NOTE design : le layout GUI place DOWN en bas-gauche et NORTH en bas-centre
+    // du panneau. Chaque label reste rigoureusement associe a sa face Minecraft
+    // reelle : cliquer 'Ba' change bien la face DU SOL du block, cliquer 'Ar'
+    // change bien la face arriere.
+    private static final String[] FACE_LABELS = {"Ba", "H", "Ar", "Av", "Ga", "Dr"};
     private static final String[] FACE_NAMES = {
-        "Bas", "Haut", "Nord", "Sud", "Ouest", "Est"
+        "Bas", "Haut", "Arriere", "Avant", "Gauche", "Droite"
     };
 
     // ======================================================================
