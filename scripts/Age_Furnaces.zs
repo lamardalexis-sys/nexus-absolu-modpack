@@ -136,6 +136,25 @@ recipes.addShaped("nexus_furnace_pallanutro", <nexusabsolu:furnace_pallanutro>,
      [<avaritia:resource:4>,                    <nexusabsolu:furnace_gaia_ludicrite>,     <avaritia:resource:4>],
      [<extraplanets:tier5_items:5>,             <draconicevolution:awakened_core>,        <extraplanets:tier5_items:5>]]);
 
+// === T9 : INFINITE FURNACE (BACKLOG, multiblock 3x3x3) ===
+// Le tier T9 INFINITE existe comme enum dans FurnaceTier.java mais n'est pas
+// encore implemente en tant que bloc (prevu en multiblock 3x3x3).
+//
+// v1.0.297 (plan Alexis) : quand le bloc sera implemente, la recette utilisera
+// l'Ultimate Furnace de Mystical Agriculture comme ingredient central, qui
+// requiert la chaine complete Inferium -> Prudentium -> Intermedium -> Superium
+// -> Supremium pour etre craftee.
+//
+// Les 6 furnaces MA sont DESACTIVES en right-click (MAFurnaceBlockerHandler.java
+// v1.0.297) mais restent craftables pour permettre d'atteindre l'Ultimate =
+// gate de progression vers l'Infinite Nexus.
+//
+// Recette prevue (ingredient central = mysticalagriculture:ultimate_furnace) :
+//   [???]                                [infinite_craft_component_top]      [???]
+//   [???]                                <mysticalagriculture:ultimate_furnace> [???]
+//   [???]                                [furnace_pallanutro]                [???]
+// Les ??? seront definis par Alexis plus tard selon le design multiblock.
+
 // ==================================================================
 // UPGRADE RECIPES
 // ==================================================================

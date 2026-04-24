@@ -50,6 +50,11 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new DimensionChangeHandler());
         MinecraftForge.EVENT_BUS.register(
             new com.nexusabsolu.mod.events.FurnaceCraftTransmissionHandler());
+        // v1.0.297 : bloque l'interaction sur les 6 furnaces Mystical Agriculture
+        // (ils restent craftables pour chaine progression -> Infinite Furnace Nexus,
+        // mais le right-click pour ouvrir GUI est cancel).
+        MinecraftForge.EVENT_BUS.register(
+            new com.nexusabsolu.mod.events.MAFurnaceBlockerHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
         GameRegistry.registerTileEntity(TileCondenseurEnergy.class,
