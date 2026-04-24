@@ -159,11 +159,14 @@ recipes.addShaped("nexus_upgrade_io_expansion_1", <nexusabsolu:upgrade_io_expans
      [<ore:ingotIron>,     <minecraft:hopper>,                    <ore:ingotIron>]]);
 
 // Tier II : 5 slots in + 5 slots out
-//   Requiert tier I au centre + compose A + hoppers
+// Tier II : 5 slots in + 5 slots out
+//   Requiert tier I au centre + compose C + hoppers
+//   v1.0.294 (Alexis) : Compose A -> Compose C. Renforce le gate de progression
+//   (Compose C est Age 1 mid-tier, pas trivialement accessible).
 recipes.addShaped("nexus_upgrade_io_expansion_2", <nexusabsolu:upgrade_io_expansion_2>,
-    [[<nexusabsolu:compose_a>,   <minecraft:hopper>,                       <nexusabsolu:compose_a>],
+    [[<nexusabsolu:compose_c>,   <minecraft:hopper>,                       <nexusabsolu:compose_c>],
      [<minecraft:hopper>,        <nexusabsolu:upgrade_io_expansion_1>,     <minecraft:hopper>],
-     [<nexusabsolu:compose_a>,   <minecraft:hopper>,                       <nexusabsolu:compose_a>]]);
+     [<nexusabsolu:compose_c>,   <minecraft:hopper>,                       <nexusabsolu:compose_c>]]);
 
 // Tier III : 7 slots in + 7 slots out
 //   Requiert tier II au centre + compose B + vossium II ingots

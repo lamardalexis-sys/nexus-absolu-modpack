@@ -169,6 +169,13 @@ tile.nexusabsolu.furnace_pallanutro.name=Fourneau Pallanutro
 # === FURNACE UPGRADES (Sprint B) ===
 item.nexusabsolu.upgrade_rf_converter.name=Convertisseur RF
 item.nexusabsolu.upgrade_io_expansion.name=Extension I/O
+# v1.0.294 (Alexis) : traductions courtes pour les 4 tiers IO Expansion
+#   Avant : affichait "item.nexusabsolu.upgrade_io_expansion_2.name" (cle brute).
+#   Apres : nom court et lisible, le tier est aussi dans la 2eme ligne du tooltip.
+item.nexusabsolu.upgrade_io_expansion_1.name=Extension I/O I
+item.nexusabsolu.upgrade_io_expansion_2.name=Extension I/O II
+item.nexusabsolu.upgrade_io_expansion_3.name=Extension I/O III
+item.nexusabsolu.upgrade_io_expansion_4.name=Extension I/O IV
 item.nexusabsolu.upgrade_speed_booster.name=Accelerateur
 item.nexusabsolu.upgrade_efficiency.name=Carte d'Efficience
 item.nexusabsolu.furnace_upgrade_kit.name=Kit d'Amelioration Voss
