@@ -1,223 +1,460 @@
-# Nexus Storage System — Design Document (BACKLOG)
+# Archives Voss — Système de Stockage Nexus (DESIGN FINAL v2)
 
-**Statut** : Design en cours — inspiration Refined Storage étudié.
-**Créé** : v1.0.297 (session fours)
-**Priorité** : À démarrer quand Alexis le décide (post Age 2 complet probable).
-
----
-
-## Objectif
-
-Créer un **système de stockage centralisé natif Nexus Absolu**, alternatif à
-AE2 et Refined Storage (que Alexis refuse d'ajouter), intégré thématiquement
-à l'univers du Dr. Voss et au système Voss Energy (VE) prévu.
-
-Principe de design : **apprendre de RS, simplifier drastiquement**.
+**Statut** : Design finalisé après discussion Alexis (v1.0.297+).
+**Priorité** : Prochain gros chantier après stabilisation fours.
+**Inspiration** : Refined Storage (étudié) + vision Alexis (thématique Voss).
 
 ---
 
-## Analyse Refined Storage (source github.com/refinedmods/refinedstorage)
+## Vision d'ensemble
 
-**Taille totale RS** : 641 fichiers Java, 55 164 lignes (8+ ans de dev)
-
-### Architecture RS (les concepts fondamentaux)
-
-RS se découpe en 4 concepts :
-
-**1. Network** (`INetwork`) — le cerveau
-- Un bloc "Controller" qui représente le réseau
-- Scan des blocs connectés (BFS depuis le controller)
-- Maintient une liste de tous les nœuds connectés
-- Gère l'énergie consommée par tous les nœuds
-
-**2. Network Node** (`INetworkNode`) — tous les blocs du réseau
-- Chaque bloc du réseau implémente cette interface
-- Un câble, un disk drive, un importer, un exporter = tous NetworkNode
-- Chacun consomme X énergie par tick
-- Chacun peut "visit" ses voisins pour étendre le réseau
-
-**3. Storage** (`IStorage`) — stockage physique
-- Représente 1 unité de stockage (cell, external inventory, etc.)
-- Methods `insert(stack)`, `extract(stack, size)`, `getStored()`
-- Plusieurs storages = plusieurs disks dans un drive
-
-**4. Grid** (`IGrid`) — interface utilisateur
-- Le GUI que le joueur ouvre
-- Accès au réseau depuis l'interface
-- Search, filter, tri, craft
-
-### Ce qu'on GARDE de RS (bonnes idées)
-
-- **Séparation Network / Node / Storage** : clean et scalable
-- **BFS pour découvrir le réseau** depuis un Controller
-- **NBT serialization du graphe** (persistance entre sessions)
-- **Capability système Forge** (meilleure intégration que custom interface)
-
-### Ce qu'on NE GARDE PAS (sur-ingénierie pour notre cas)
-
-- **Autocrafting Manager** (ICraftingManager, ~2000 lignes RS) → trop complexe,
-  on laisse AE2 être le "meilleur système autocraft"
-- **Security Manager** (ISecurityManager) → pas de multi-joueur security layer
-- **Wireless Grid** (IWirelessTransmitter) → nice-to-have, pas MVP
-- **External Storage** (adapter vers inventaires externes) → phase 2
-- **Fluid support** → phase 2 (items only pour MVP)
+Système de stockage centralisé **natif Nexus Absolu**, intégré à l'Age 1
+du pack, concurrent accessible d'AE2 avec sa propre identité :
+- **Multiblock industriel** visible (pas juste des câbles cachés)
+- **Refroidissement fluide** thématique (cycle eau fermé avec perte 50 mB)
+- **Télécommande inter-dimensions** qui contourne la limite Compact Machines
+- **Autocraft simple** mais fonctionnel
+- **Visuel style Dr. Voss** (industriel-vintage, rust patina)
 
 ---
 
-## Design Nexus Storage System
+## 1. Le Multiblock Central — "Archives Voss"
 
-### Thème & narrative
+### Forme (8 blocs)
 
-**"Archives Quantiques du Dr. Voss"** (ou "Matrix Voss") :
-- Dr. Voss a découvert une technologie de stockage dans son exploration dimensionnelle
-- Les items sont "déphasés" dans une dimension de poche stable
-- Besoin de Voss Energy pour maintenir la cohésion quantique
-- Aesthétique industrielle-vintage cohérente avec les Fourneaux Voss
+```
+Vue latérale (coupe) :
+         ███          <- Couche 2 (3 blocs, milieu)
+       █████          <- Couche 1 (5 blocs, au sol)
 
-### Progression — Débloqué Age 3
+Vue de dessus couche 1: A A A A A
+Vue de dessus couche 2:   A A A
 
-- **Age 0-2** : joueur utilise des coffres vanilla + Storage Drawers (existant)
-- **Age 3 early** : Alexis introduit le système Nexus Storage (alternative accessible)
-- **Age 3 mid** : les Archives Quantiques deviennent le backbone du pack
-- **Age 4+** : AE2 reste disponible pour ceux qui veulent autocraft avancé
+Structure en podium / T renversé.
+```
 
-Le Nexus Storage est un **choix** entre AE2 (power gamer, complexe) et Nexus
-(plus intégré narrativement, plus simple, pas d'autocraft).
+### Composition des 8 blocs
 
-### MVP (5 blocs + 1 item)
+**1 × Controller (centre de couche 2)** — `voss_archive_controller`
+- Cerveau du multiblock. GUI dédié (autocraft + config + monitoring).
+- Connecte le réseau de câbles/drives externes.
+- Requiert RF + Eau Voss Froide fournie.
 
-#### 1. **Cœur des Archives** (`nexus_archive_core`)
-- Bloc controller central du réseau
-- Stocke l'état global (liste des items), consomme VE (Voss Energy) passive
-- GUI basique (voir items, config)
-- Un seul par réseau (détection de conflit si 2 cœurs connectés)
+**2 × Frames (extrémités de couche 2)** — `voss_archive_frame`
+- Structure/cosmétique.
 
-#### 2. **Cellule Quantique** (`nexus_quantum_cell`)
-- 4 tiers de capacité :
-  - T1 Cellule Basique : 1k items (64 stacks)
-  - T2 Cellule Stable : 8k items
-  - T3 Cellule Améliorée : 64k items
-  - T4 Cellule Absolue : 256k items
-- Peut contenir jusqu'à **N types d'items différents** (pas infini comme AE2)
-- Tier 4 absolu : 1024 types d'items
+**3 × Blocs thermiques (milieu de couche 1)** — `voss_archive_thermal_core`
+- Où circule l'eau de refroidissement.
 
-#### 3. **Conduit Quantique** (`nexus_quantum_conduit`)
-- Câble qui connecte les blocs du réseau
-- Pas de coût en VE (passif)
-- Style visuel cohérent avec Fourneaux Voss (rust patina)
+**2 × Ports latéraux (extrémités de couche 1)** — fixes par design
+- **Port Input** d'un côté (ex. gauche).
+- **Port Output** forcément de l'autre côté (ex. droite).
+- **Réutilise les blocs `ItemInput` / `ItemOutput` déjà codés** → ZÉRO nouveau
+  travail pour ces 2 blocs (juste les placer dans la structure).
+- Contrainte : Input et Output **ne peuvent pas** être du même côté.
 
-#### 4. **Terminal d'Archives** (`nexus_archive_terminal`)
-- Interface d'accès au réseau (search + extract)
-- Un GUI simple avec barre de recherche
-- Peut être placé n'importe où sur le réseau
-- Pas de wireless (= doit être posé physiquement connecté)
+### Validation du multiblock
 
-#### 5. **Interface E/S** (`nexus_archive_io`)
-- Un bloc avec 6 faces configurables (input / output / none)
-- Utilise déjà la convention SideConfig du pack (cohérence UX)
-- Un côté input tire d'un inventaire externe, un côté output pousse
-- Même système de face labels que les Fourneaux Voss
-
-#### 6. **Item : Clé d'Archives** (`nexus_archive_key`)
-- Item qui permet de "lier" un réseau à un autre bloc (ex: coffre externe)
-- Shift+click sur Cœur → clé mémorise le réseau
-- Click sur inventaire externe → ajouté au réseau comme "external storage"
-
-### Balance par rapport à AE2
-
-| Aspect | AE2 | Nexus Storage |
-|---|---|---|
-| Courbe d'apprentissage | ⭐⭐⭐⭐⭐ très haute | ⭐⭐ basse |
-| Autocraft | ✅ Complet, puissant | ❌ Absent (MVP) |
-| Capacité | Quasi infinie (types) | 4 tiers + plafond types |
-| Power | RF | **VE (Voss Energy)** |
-| Wireless | ✅ Nombreux adapters | ❌ MVP local only |
-| Conduits | Multi-type, complexe | 1 type simple |
-| Storage externe | ✅ | ✅ via clé |
-
-Clairement le Nexus Storage est **"AE2 simplifié"**, pas "AE2 en mieux".
-Positionnement : 90% des joueurs Nexus l'adopteront, les power gamers
-continueront AE2 pour l'autocraft.
-
-### Intégration Voss Energy
-
-Le Nexus Storage serait **la première utilisation pratique** du système VE
-(currently in `VOSS_ENERGY_SYSTEM_DESIGN.md` backlog).
-
-Consommation VE par réseau :
-- Cœur : 50 VE/tick passive
-- Par cellule : +10 VE/tick
-- Par terminal actif : +20 VE/tick pendant recherche
-- Par IO actif : +30 VE/tick pendant transfert
-
-Donc un réseau moyen (1 cœur + 5 cellules + 1 terminal + 2 IO) consomme :
-50 + 50 + 20 + 60 = **180 VE/tick** (~360 RF/tick converti, très gérable).
-
-**Interdependance forte** : pas de Nexus Storage sans VE opérationnel.
-Alexis voudra peut-être **coder VE avant Storage** pour cette raison.
+Le controller fait un scan à chaque placement/destruction :
+- Vérifie les 8 blocs en forme correcte
+- Vérifie Input d'un côté, Output de l'autre
+- Si invalide : GUI bloqué, message "Structure incomplète"
+- Si valide : `structureFormed = true`, réseau opérationnel
 
 ---
 
-## Plan d'implémentation Superpowers (MVP)
+## 2. Refroidissement — Le Compresseur d'Eau Voss
 
-### Sprint S1 — API & Network Core (~500 lignes, 3-4 sessions)
-**Livrable** : le controller scanne le réseau, garde une liste de blocs connectés.
+### Le problème Minecraft
 
-- `INetworkNode` interface
-- `BlockArchiveCore` + `TileArchiveCore`
-- `BlockArchiveConduit` + `TileArchiveConduit`
-- Algorithme BFS de scan + invalidation sur break
-- Tests manuels : poser cœur + câbles + vérifier que le cœur "voit" les câbles
+Vanilla water = 1 seul fluide, pas de notion "chaud/froid" et même
+texture. Alexis l'a noté : "dans Minecraft je ne sais pas comment on
+fait de l'eau chaude et la couleur reste la même".
 
-### Sprint S2 — Cellules & Storage (~600 lignes, 3-4 sessions)
-**Livrable** : on peut stocker des items dans des cellules connectées au cœur.
+### Solution : 2 fluides custom Nexus
 
-- `IStorage` interface (nexus)
-- `BlockQuantumCell` + `TileQuantumCell` x 4 tiers
-- Capability Forge `ItemHandler` pour chaque cellule
-- Ajout / retrait d'items (via commande debug au début)
-- NBT serialization
+**`nexusabsolu:eau_voss_froide`**
+- Couleur bleu clair vif (RGB ~100, 200, 255).
+- Produite par le Compresseur d'Eau Voss.
+- Consommée par les Archives Voss.
 
-### Sprint S3 — Terminal GUI (~700 lignes, 4-5 sessions)
-**Livrable** : joueur ouvre un terminal, voit les items, peut les extract.
+**`nexusabsolu:eau_voss_chaude`**
+- Couleur bleu grisé/ternie (RGB ~60, 100, 130).
+- Sortie des Archives Voss après absorption de chaleur.
+- Entrée du Compresseur pour être refroidie à nouveau.
 
-- `BlockArchiveTerminal` + `TileArchiveTerminal`
-- `GuiArchiveTerminal` avec barre recherche + scroll
-- `ContainerArchiveTerminal` avec network sync
-- Icons custom + texture tooltips
-- Packet sync client-serveur pour refresh list
+### Cycle fermé avec 50 mB de perte
 
-### Sprint S4 — IO + Clé (~400 lignes, 2-3 sessions)
-**Livrable** : auto-import/export via blocs IO + linking via clé.
+```
+           ┌─── Eau Froide ────►[Archives Voss]
+           │                          │
+    [Compresseur Voss]◄── Eau Chaude ─┘
+       + RF  + 50 mB Water vanilla (appoint)
+```
 
-- `BlockArchiveIO` + `TileArchiveIO` avec SideConfig réutilisé
-- `ItemArchiveKey` avec NBT storing coordinates
-- Handler pour external storage
+**La perte de 50 mB par cycle** = le joueur doit périodiquement ajouter
+de l'eau vanilla pour compenser. Crée une logistique active sans être
+pénible (~1 bucket tous les 20 cycles).
 
-### Sprint S5 — Polish + recettes + quêtes (~300 lignes, 2-3 sessions)
-- Textures PNG finalisées (style Fourneaux Voss)
-- Recettes CraftTweaker
-- Quêtes BetterQuesting (5-10 quêtes "Archives Quantiques")
-- Patchouli book entry
+### Le Compresseur d'Eau Voss (single block)
 
-**Total estimé MVP** : ~2500 lignes Java + ~400 lignes ressources + docs.
-**Temps estimé** : 15-20 sessions de dev focus (~3-4 semaines à rythme normal).
+- **Input** : Eau Voss Chaude (cycle) OU Water vanilla (appoint)
+- **Input** : Énergie RF
+- **Output** : Eau Voss Froide
+- Consomme 50 mB par cycle (la perte)
+- Tier unique (Age 1 accessible, pas de progression tier ici)
+- GUI simple : fluide in + RF bar + progress + fluide out
 
----
+### Note pédagogique in-game
 
-## Prérequis avant de démarrer
-
-- [ ] Voss Energy system implémenté (ou au moins Sprint A de son design doc fait)
-- [ ] Age 2 complet et stable (pour que le storage soit vraiment utile)
-- [ ] Décision Alexis sur : garder ou pas l'autocraft dans une v2 plus tard
+La quête d'introduction doit **expliquer clairement** le cycle au joueur
+(sinon il va croire que c'est cassé quand il voit 2 fluides bleus
+différents). Prévoir :
+- Patchouli book entry "Hydraulique Voss"
+- Tooltip sur le Compresseur expliquant le cycle
+- Couleurs visuellement distinctes (important)
 
 ---
 
-## Prochaines étapes (quand on lance)
+## 3. Disques & Drive
 
-1. Commencer Sprint S1 : créer le package `com.nexusabsolu.mod.storage`
-2. Implémenter `INetworkNode` + `BlockArchiveCore` minimal
-3. Algo BFS de scan réseau
-4. Tests manuels in-game avant de passer au S2
+### Les 4 tiers de disques (progression x5)
 
-**Status actuel : BACKLOG** — attendre feu vert Alexis pour démarrer.
+| Tier | Nom | Capacité | Types d'items max | Gate |
+|---|---|---:|---:|---|
+| T1 | **Disque Voss Fragmentaire** | 500 | 27 | Age 1 early |
+| T2 | **Disque Voss Stable** | 2 500 | 63 | Composé A |
+| T3 | **Disque Voss Cohérent** | 12 500 | 127 | Composé C |
+| T4 | **Disque Voss Absolu** | 62 500 | 255 | Composé E |
+
+Double limite (style AE2) : capacité totale + types distincts. Ça empêche
+de stocker 500 000 items répartis en 1000 types dans un T1.
+
+### Drive Voss (le boîtier)
+
+- **Single block** avec GUI de 10 slots disques
+- Insérer/retirer disques à la main
+- Consommation RF négligeable (~10 RF/tick)
+- Placeable n'importe où sur le réseau (via câble)
+- **Plusieurs drives** possibles sur un même réseau
+
+**Exemple endgame** : 5 drives × 10 disques T4 = **3 125 000 items**
+stockables. Largement suffisant pour un factory.
+
+---
+
+## 4. Auto-Craft (simple mais fonctionnel)
+
+### Design : "RS-simplifié, sans chaînes récursives"
+
+Alexis : "simple simple simple enfin comme même un peu complexe enfaite
+mais pas trop dans l'abu".
+
+→ On fait : patterns + crafter fonctionnel, mais **pas de craft récursif
+automatique**. Si un ingrédient manque et qu'il a lui-même un pattern,
+le joueur doit le crafter manuellement avant.
+
+### 4 composants auto-craft
+
+**1. Encodeur de Pattern** (`voss_pattern_encoder`) — single block
+- GUI à 2 grilles : input 3x3 + output 1 slot
+- Le joueur dépose ingrédients + résultat voulu → produit un **Item Pattern**
+- L'item Pattern encode la recette en NBT
+
+**2. Slots Pattern dans le Controller**
+- Le Controller Archives a **9 slots Pattern** insérés dans son GUI
+- Chaque pattern slot = 1 recette autocraftable
+- Le joueur voit "Quels items sont craftables" dans son terminal
+
+**3. Exécution du craft (dans le multiblock)**
+- Terminal de Craft → joueur clique "Crafter 64 Iron Pickaxes"
+- Système vérifie pattern : "j'ai besoin de 3 iron + 2 stick par pickaxe"
+- Pull des ingrédients depuis le stockage
+- Progress bar + production + delivery
+- Si ingrédient manquant → erreur "il faut plus de X"
+
+**4. Accélérateur de Craft** (`voss_craft_accelerator`) — single block
+- Stackable jusqu'à **8** (comme Speed Boosters fours)
+- Chaque accélérateur = +25% vitesse autocraft
+- Consomme RF proportionnellement à la vitesse
+- Max 8 = craft ×3.0 plus rapide
+
+### Terminal de Craft (bloc séparé)
+
+- `voss_crafting_terminal` — single block posable partout sur le réseau
+- GUI avec liste des patterns encodés
+- Clic sur un item → popup quantité → launch
+- Progress bar pendant le craft
+- Items livrés dans l'inventaire joueur quand prêts
+
+---
+
+## 5. Terminal de Stockage (Grid RS-style)
+
+### Features portées de RS (étudié dans `/home/claude/rs-src/refinedstorage`)
+
+- **Barre de recherche** en haut du GUI
+- **Grille d'items** 9×4 visible (avec scrollbar si plus)
+- **Tri configurable** (nom / quantité / ID / mod)
+- **Affichage quantité condensé** ("1.2k" au lieu de "1234", "5.5M" pour millions)
+- **Clic gauche** = prendre 1 stack complet
+- **Shift+clic** = prendre 1 stack + déposer dans inventaire direct
+- **Clic droit** = prendre 1 seul item
+- **Scroll wheel** au-dessus d'un item = ±1 item
+- **Hover tooltip** enrichi (nom + mod + quantité totale + répartition par disque)
+
+### Implementation technique
+
+- Packet sync client↔serveur efficace (delta packets uniquement)
+- ContainerListener pattern (refresh que quand changement réel)
+- GUI renderer adapté de `GuiGrid.java` de RS
+- Typage Java générique pour réutiliser avec Terminal de Craft
+
+---
+
+## 6. Télécommande Voss (wireless)
+
+### Fonctionnalités
+
+- Item tenu en main ou offhand
+- **Clic droit en l'air** → ouvre le Terminal de Stockage à distance
+- Fonctionne **dans n'importe quelle dimension** (Overworld, Nether, Compact Machines, Twilight, End, etc.)
+- Accès à **tous les réseaux Voss liés** à cette télécommande
+
+### Liaison réseau
+
+- **Shift+clic droit** sur un Controller = lier ce réseau
+- L'item stocke les UUID des réseaux liés dans NBT
+- GUI sélecteur si plusieurs réseaux liés (style AE2 Wireless Terminal)
+- Option "délier" via GUI
+
+### Énergie (anti-OP)
+
+- Capacité interne : 100 000 RF
+- Coût par ouverture : 1 000 RF
+- Coût par tick d'utilisation active : 50 RF
+- Recharge via n'importe quel bloc RF externe (wireless chargeur, Energy Cell posée, etc.)
+
+**Balance** : ~100 ouvertures sans recharge = confortable mais pas illimité.
+
+---
+
+## 7. Communication Inter-Compact Machines
+
+### Solution : "Lien Dimensionnel Voss"
+
+- Bloc single : `voss_dimension_link`
+- Se pose dans un réseau Voss
+- On lui donne une **Clé de Liaison** (item) encodée avec les coordonnées d'un autre Lien
+- Deux Liens jumelés → les 2 réseaux se partagent les items/autocrafts
+- 1 Lien peut partager avec **jusqu'à 8 autres Liens**
+- Consomme **500 RF/tick par lien actif**
+
+### Cas d'usage typique
+
+- **CM "Base"** : stockage principal, 50 disques T4, autocraft
+- **CM "Farm A"** : produit du Composé A en masse → envoie tout au stockage
+- **CM "Farm B"** : produit du Composé C → idem
+
+→ Un Lien dans chaque CM, tous jumelés au Lien de la Base.
+→ La Télécommande en Overworld voit **tous** les items des 3 CM ensemble.
+
+### Technique
+
+- `TileEntity` sauvegardé par dimension (NBT dim ID + UUID)
+- Controller maintient `linked_dimensions[]`
+- Au GUI access : fusion virtuelle des listes d'items des réseaux liés
+- Les transferts sont **logiques** (pas de téléportation physique d'item entity)
+
+---
+
+## 8. Câbles Voss
+
+- **Single block** : `voss_cable`
+- Connecte les composants du réseau (controller, drives, terminals, IO, etc.)
+- Aucune consommation RF
+- **Connected textures** (détection voisinage pour visuel continu)
+- 1 seul tier (simplifie vs RS qui a cable/constructor/destructor/cover)
+
+---
+
+## 9. Import / Output avec filtres
+
+### Réutilisation blocs existants
+
+Les blocs `ItemInput` et `ItemOutput` sont **déjà codés** dans le pack
+(confirmé par grep `mod-source/src/main/java/com/nexusabsolu/mod/blocks/`).
+Ils ont déjà la gestion de faces (SideConfig standardisé).
+
+### Extension nécessaire (~200 lignes chaque)
+
+**ItemInput — nouveau GUI filtres** :
+- 9 slots de filtres (ghost items, pas de consommation)
+- Mode **whitelist** (seulement ces items passent) ou **blacklist** (tout sauf eux)
+- Toggle "ignore NBT" (match par ID/meta only) ou "match NBT" (strict)
+- Direction : inventaire externe → réseau Voss
+
+**ItemOutput — nouveau GUI filtres** :
+- Idem (9 slots + whitelist/blacklist + NBT toggle)
+- Direction : réseau Voss → inventaire externe
+
+---
+
+## 10. Progression & Gating (quêtes)
+
+### Age 1 (early)
+
+- **Quête "Hydraulique Voss"** → débloque Compresseur d'Eau + recette
+- **Quête "Les Archives"** → débloque multiblock 8 blocs
+- **Quête "Premier Disque"** → Disque T1 Fragmentaire
+- **Quête "Câbles et Liens"** → câbles + extension Input/Output filtres
+
+### Age 1 (mid)
+
+- **Quête "Stockage Stable"** → Disque T2 (gate Composé A)
+- **Quête "Drive Industriel"** → Drive Voss 10 slots
+- **Quête "Automatisation Voss"** → Encodeur de Pattern + 1er autocraft
+
+### Age 2
+
+- **Quête "Résonance Voss"** → Disque T3 Cohérent (Composé C)
+- **Quête "Terminal Portable"** → Télécommande Voss
+- **Quête "Accélération"** → Accélérateur de Craft
+- **Quête "Craft Distribué"** → Terminal de Craft séparé
+
+### Age 3+
+
+- **Quête "Absolu"** → Disque T4 (Composé E)
+- **Quête "Dimensions Voss"** → Lien Dimensionnel Voss
+- **Quête "Réseau Total"** → connecter plusieurs CM
+
+**Total ~15 quêtes** réparties sur 3 Ages.
+
+---
+
+## 11. Plan Superpowers — 7 Sprints
+
+### Sprint 1 — Multiblock & Refroidissement (~800 lignes)
+
+**Livrable** : multiblock Archives valide sa structure, Compresseur d'Eau
+convertit les fluides, 2 fluides visibles en jeu.
+
+- `BlockArchiveController` + TileEntity (scan 8 blocs)
+- `BlockArchiveFrame` + `BlockArchiveThermalCore`
+- Fluides `eau_voss_froide` + `eau_voss_chaude` (registration + textures)
+- `BlockCompresseurEau` + GUI basique
+- NBT serialization multiblock state
+
+### Sprint 2 — Network + Câbles + IO filtres (~700 lignes)
+
+**Livrable** : réseau scanné depuis Controller, IO push/pull avec filtres.
+
+- `INexusNetworkNode` interface
+- `BlockVossCable` + TileEntity (BFS scan)
+- Extension `ItemInput` / `ItemOutput` avec GUI 9 slots filtres
+- Capability Forge pour `IItemHandler` sur Controller
+
+### Sprint 3 — Disques + Drive (~600 lignes)
+
+**Livrable** : 4 tiers de disques craftables, Drive 10 slots fonctionnel.
+
+- `ItemDisqueVoss` × 4 tiers (capacité + types + NBT items stockés)
+- `BlockDriveVoss` + GUI 10 slots
+- Fill policy (round-robin entre disques)
+- Tests NBT : persister 500+ items puis reload
+
+### Sprint 4 — Terminal de Stockage RS-style (~900 lignes)
+
+**Livrable** : GUI visuel des items, search/sort/extract.
+
+- `BlockTerminalStockage` + TileEntity
+- `GuiTerminalStockage` (inspiré `GuiGrid.java` RS)
+- `ContainerTerminalStockage` + delta sync packets
+- ContainerListener pattern pour efficient refresh
+
+### Sprint 5 — Auto-Craft (~900 lignes)
+
+**Livrable** : encoder pattern + lancer craft via terminal dédié.
+
+- `ItemPattern` NBT-encoded
+- `BlockPatternEncoder` + GUI 2 grilles
+- `BlockCraftAccelerator` (stackable ×8)
+- `BlockTerminalCraft` + GUI liste patterns
+- Engine d'exécution (pull ingredients + progress + delivery)
+
+### Sprint 6 — Télécommande + Inter-CM (~700 lignes)
+
+**Livrable** : télécommande accessible Overworld↔CM, Lien Dimensionnel
+fonctionnel.
+
+- `ItemTelecommandeVoss` NBT RF + linked networks + GUI selector
+- Bind/unbind logic (shift+click Controller)
+- `BlockLienDimensionnel` + `ItemCleDimensionnelle`
+- Cross-dim network merging (virtual item list fusion)
+
+### Sprint 7 — Polish (~400 lignes)
+
+**Livrable** : système pleinement jouable et intégré.
+
+- Textures PNG style Fourneaux Voss (rust patina thème)
+- Modèles JSON (connected textures câbles, multiblock complet)
+- Recettes CraftTweaker (`scripts/Age1_Storage.zs`)
+- Quêtes BetterQuesting (~15 quêtes Ages 1-3)
+- Patchouli book entries
+- Balance testing
+
+### Total estimé
+
+- **~5000 lignes Java** + ressources + docs
+- **7 sprints** = 25-30 sessions de dev focus
+- **Temps calendaire** : 2-3 mois à rythme normal
+
+---
+
+## 12. Interdépendances & Découplages
+
+### ❌ Pas de dépendance à Voss Energy (VE)
+
+Alexis a explicitement choisi **RF standard**. Donc le système Archives
+Voss peut être codé **sans attendre** l'implémentation du système VE.
+Les deux projets sont découplés.
+
+### ✅ Dépendance à Compact Machines (déjà installé)
+
+Le mod `compactmachines3-1.12.2-3.0.18-b278.jar` est dans le pack.
+Les Liens Dimensionnels utilisent son API (ou au pire : NBT dim ID direct).
+
+### ✅ Dépendance aux composés Nexus existants
+
+Composé A/C/E utilisés comme gates pour les tiers de disques. Ces composés
+existent déjà dans le mod (vérifié `ModItems.java`).
+
+### ✅ Réutilisation Blocs existants du pack
+
+- `ItemInput` et `ItemOutput` (déjà codés, juste extension filtres)
+- SideConfig standardisé (déjà utilisé par les fours, labels Ba/H/Ar/Av/Ga/Dr)
+- Patterns `GuiUtils.formatRf`, `InternalEnergyStorage` (déjà existants)
+
+---
+
+## 13. Prochaines étapes
+
+1. **Alexis valide** ce design doc final (relire, ajuster si besoin)
+2. **Création branche** `feature/archives-voss` depuis main
+3. **Sprint 1** : commencer par multiblock + fluides custom
+4. **Commits réguliers**, tests in-game à chaque sprint
+5. **Merge main** uniquement quand un sprint est stable et testé
+
+**Statut actuel** : DESIGN VALIDÉ — prêt à démarrer quand Alexis dit GO.
+
+---
+
+## 14. Points ouverts / à décider plus tard
+
+- Nom exact du Compresseur (Compresseur vs Détendeur Cryogénique)
+- Textures finales (cohérence avec quelle palette Voss ?)
+- Balance exacte RF par opération (tuning en testing)
+- Sound effects custom ou vanilla
+- Optimisations réseau (si réseau > 100 blocs lag, à voir)
+- Phase 2 autocraft récursif (optionnel post-MVP)
+- Phase 2 fluid support dans le stockage (optionnel post-MVP)
