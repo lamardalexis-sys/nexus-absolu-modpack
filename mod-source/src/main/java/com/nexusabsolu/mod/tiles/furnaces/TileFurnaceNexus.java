@@ -157,11 +157,10 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         for (int f = 0; f < 6; f++) {
             this.sideConfig.setFace(SC_TYPE_ENERGY, f, true);
         }
-        // v1.0.298 (Alexis) : Eject (OUT) et AutoPull (IN) ON par defaut.
-        // Master switches globaux qui gate le push/pull dans doAutoIO().
-        // ON = comportement historique (backwards compat avec fours existants).
-        this.sideConfig.toggleEject(SC_TYPE_ITEM_OUT);
-        this.sideConfig.toggleAutoPull(SC_TYPE_ITEM_IN);
+        // v1.0.298/v1.0.299 : Eject et AutoPull par defaut OFF (Alexis confirme).
+        // Le joueur doit activer explicitement via les boutons du Config I/O.
+        // Coherence : nouveaux fours et anciens fours ont le meme default.
+        // Pas besoin de migration NBT.
     }
 
     public com.nexusabsolu.mod.tiles.SideConfig getSideConfig() { return sideConfig; }
