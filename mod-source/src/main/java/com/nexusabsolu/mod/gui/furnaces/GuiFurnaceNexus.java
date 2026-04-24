@@ -81,10 +81,10 @@ public class GuiFurnaceNexus extends GuiContainer {
     //   [4] WEST  -> "Ga" (Gauche)
     //   [5] EAST  -> "Dr" (Droite)
     //
-    // NOTE design : le layout GUI place DOWN en bas-gauche et NORTH en bas-centre
-    // du panneau. Chaque label reste rigoureusement associe a sa face Minecraft
-    // reelle : cliquer 'Ba' change bien la face DU SOL du block, cliquer 'Ar'
-    // change bien la face arriere.
+    // NOTE design : le layout GUI place maintenant NORTH en bas-gauche et DOWN
+    // en bas-centre (v1.0.292, swap visuel demande par Alexis). Chaque label reste
+    // rigoureusement associe a sa face Minecraft reelle : cliquer 'Ba' change bien
+    // la face DU SOL du block, cliquer 'Ar' change bien la face arriere.
     private static final String[] FACE_LABELS = {"Ba", "H", "Ar", "Av", "Ga", "Dr"};
     private static final String[] FACE_NAMES = {
         "Bas", "Haut", "Arriere", "Avant", "Gauche", "Droite"
@@ -611,8 +611,11 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawFaceBtn(cx, cy + bs + bg, bs, 4, sc, mx, my);                 // WEST
         drawFaceBtn(cx + bs + bg, cy + bs + bg, bs, 3, sc, mx, my);       // SOUTH (front)
         drawFaceBtn(cx + (bs + bg) * 2, cy + bs + bg, bs, 5, sc, mx, my); // EAST
-        drawFaceBtn(cx, cy + (bs + bg) * 2, bs, 0, sc, mx, my);           // DOWN
-        drawFaceBtn(cx + bs + bg, cy + (bs + bg) * 2, bs, 2, sc, mx, my); // NORTH
+        // v1.0.292 (Alexis) : swap positions visuelles Ba/Ar (Ba en bas-centre, Ar en bas-gauche)
+        // Les faces physiques restent intactes : cliquer 'Ba' = DOWN, cliquer 'Ar' = NORTH.
+        // Seul le layout visuel change pour une lecture plus intuitive.
+        drawFaceBtn(cx, cy + (bs + bg) * 2, bs, 2, sc, mx, my);           // NORTH (Ar, bas-gauche)
+        drawFaceBtn(cx + bs + bg, cy + (bs + bg) * 2, bs, 0, sc, mx, my); // DOWN  (Ba, bas-centre)
 
         // Instructions split sur 3 lignes (evite de couper)
         int helpY = cy + (bs + bg) * 3 + 6;
@@ -628,13 +631,14 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawColorLegend(px + 78, legY + 12, COL_FUEL, "Fuel",   0xFFFFDD77);
 
         // Tooltips hover faces
+        // v1.0.292 : ordre aligne sur drawFaceBtn (Ar bas-gauche, Ba bas-centre)
         int[][] btns = {
             {1, cx + bs + bg, cy},
             {4, cx, cy + bs + bg},
             {3, cx + bs + bg, cy + bs + bg},
             {5, cx + (bs + bg) * 2, cy + bs + bg},
-            {0, cx, cy + (bs + bg) * 2},
-            {2, cx + bs + bg, cy + (bs + bg) * 2}
+            {2, cx, cy + (bs + bg) * 2},
+            {0, cx + bs + bg, cy + (bs + bg) * 2}
         };
         for (int[] b : btns) {
             int face = b[0], bx = b[1], by = b[2];
@@ -787,13 +791,14 @@ public class GuiFurnaceNexus extends GuiContainer {
             int totalW = bs * 3 + bg * 2;
             int cx = px + (CONFIG_W - totalW) / 2;
             int cy = py + 22;
+            // v1.0.292 : ordre aligne sur drawFaceBtn (Ar bas-gauche, Ba bas-centre)
             int[][] btns = {
                 {1, cx + bs + bg, cy},
                 {4, cx, cy + bs + bg},
                 {3, cx + bs + bg, cy + bs + bg},
                 {5, cx + (bs + bg) * 2, cy + bs + bg},
-                {0, cx, cy + (bs + bg) * 2},
-                {2, cx + bs + bg, cy + (bs + bg) * 2}
+                {2, cx, cy + (bs + bg) * 2},
+                {0, cx + bs + bg, cy + (bs + bg) * 2}
             };
             for (int[] b : btns) {
                 int face = b[0], bx = b[1], by = b[2];
