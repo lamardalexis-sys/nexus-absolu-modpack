@@ -179,18 +179,29 @@ recipes.addShaped("nexus_upgrade_io_expansion_3", <nexusabsolu:upgrade_io_expans
      [<nexusabsolu:compose_e>,        <nexusabsolu:vossium_iv_ingot>,           <nexusabsolu:compose_e>]]);
 
 // Tier IV : 9 slots in + 9 slots out
-//   Requiert tier III au centre + compose C + vossium IV ingots (endgame)
-// TODO (Alexis, backlog) : actuellement tier IV MOINS restrictif que tier III
-//   depuis v1.0.295 (tier III utilise compose E + vossium IV, tier IV utilise
-//   compose C + vossium IV). Alexis va reflechir a une vraie recette endgame
-//   integrant : elements de Botania + Astral Sorcery + Tough Alloy.
-//   Candidats possibles : gaia_spirit / pixie_dust (Botania), celestialcrystal /
-//   starmetal (Astral), tough_alloy (ex mek tough alloy ou IE uranium plate ?).
-//   A rediscuter.
+//   v1.0.296 (Alexis) : refonte endgame cross-mod 5 mods forces.
+//     A = Tough Alloy   (nuclearcraft:alloy:1)
+//     B = Manasteel Ingot (botania:manaresource:0)
+//     F = Quantum Storage Unit (quantumstorage:quantum_storage_unit)
+//     G = Expansion III (tier precedent, nexusabsolu)
+//     H = Tuosss Ingot (nexusabsolu:tuosss_ingot, minerai overworld Age 2+)
+//     N = Resonating Gem (astralsorcery:itemcraftingcomponent:4)
+//   Layout :
+//     A B A   = Tough Alloy | Manasteel     | Tough Alloy
+//     F G H   = Quantum     | Expansion III | Tuosss
+//     N B N   = Resonating  | Manasteel     | Resonating
+//   Force 5 mods : NuclearCraft + Botania + QuantumStorage + Astral Sorcery + Nexus Absolu.
+//   Vrai gate endgame Age 3+, requiert maitrise cross-mod complete.
+//
+//   ATTENTION (Alexis a confirmer) : l'ID quantumstorage:quantum_storage_unit
+//   est DEDUIT du unlocalized name 'tile.quantumstorage.quantum_storage_unit'
+//   fourni par Alexis. Le mod QuantumStorage n'apparait pas dans
+//   minecraftinstance.json ni dans les configs. Si l'ID est faux, JEI affichera
+//   la recette avec un slot vide. Simple a corriger (1 str_replace).
 recipes.addShaped("nexus_upgrade_io_expansion_4", <nexusabsolu:upgrade_io_expansion_4>,
-    [[<nexusabsolu:compose_c>,        <nexusabsolu:vossium_iv_ingot>,           <nexusabsolu:compose_c>],
-     [<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:upgrade_io_expansion_3>,     <nexusabsolu:vossium_iv_ingot>],
-     [<nexusabsolu:compose_c>,        <nexusabsolu:vossium_iv_ingot>,           <nexusabsolu:compose_c>]]);
+    [[<nuclearcraft:alloy:1>,                  <botania:manaresource:0>,                <nuclearcraft:alloy:1>],
+     [<quantumstorage:quantum_storage_unit>,   <nexusabsolu:upgrade_io_expansion_3>,    <nexusabsolu:tuosss_ingot>],
+     [<astralsorcery:itemcraftingcomponent:4>, <botania:manaresource:0>,                <astralsorcery:itemcraftingcomponent:4>]]);
 
 // === SPEED BOOSTER ===
 recipes.addShaped("nexus_upgrade_speed_booster", <nexusabsolu:upgrade_speed_booster>,
