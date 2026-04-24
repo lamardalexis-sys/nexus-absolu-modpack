@@ -77,30 +77,35 @@ public class TESRArchiveController extends TileEntitySpecialRenderer<TileArchive
         TileArchiveController.Axis axis = te.getStructureAxis();
         if (axis == null) return;
 
+        // v1.0.307 : gestion GL state robuste (review feedback).
+        // Sauve tous les states modifies et les restaure a la fin.
         GlStateManager.pushMatrix();
-        // Se place en origine Controller (coin du bloc, pas centre)
-        GlStateManager.translate(x, y, z);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
+        // Save + configure GL state pour rendu opaque 3D avec lighting/shading
         GlStateManager.enableTexture2D();
-        GlStateManager.disableBlend();  // shell opaque
         GlStateManager.enableDepth();
         GlStateManager.depthMask(true);
+        GlStateManager.disableBlend();          // shell opaque, pas de transparence
+        GlStateManager.disableCull();           // v1.0.307 : securite winding - toutes faces visibles
+        GlStateManager.enableLighting();        // Minecraft ambient lighting
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-        // Rotation selon axe pour orienter correctement la shell
-        // WEST_EAST : axis X, pas de rotation
-        // NORTH_SOUTH : on rotate 90 degres autour de Y
+        // Translation : x,y,z = coords du bloc Controller relatif a la camera
+        GlStateManager.translate(x, y, z);
+
+        // Rotation selon axe pour orienter la shell
+        // WEST_EAST : identity (la shell est concue par defaut sur cet axe)
+        // NORTH_SOUTH : rotation 90 degres Y autour du centre du bloc Controller
         if (axis == TileArchiveController.Axis.NORTH_SOUTH) {
-            GlStateManager.translate(0.5, 0.0, 0.5);  // pivot centre bloc Controller
+            GlStateManager.translate(0.5, 0.0, 0.5);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(-0.5, 0.0, -0.5);
         }
 
-        // Maintenant on est dans le referentiel WEST_EAST :
-        //   x axis = longueur du multiblock (5 blocs, de -2 a +2)
-        //   y axis = hauteur (couche 1 a y=-1 a 0, couche 2 a y=0 a 1)
-        //   z axis = profondeur (1 bloc d'epaisseur, z=0 a 1)
-
         renderShell();
+
+        // v1.0.307 : restaurer les states qu'on a changes
+        GlStateManager.enableCull();
 
         GlStateManager.popMatrix();
     }

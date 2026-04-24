@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0.306"
+version = "1.0.307"
 group = "com.nexusabsolu"
 archivesBaseName = "NexusAbsolu"
 

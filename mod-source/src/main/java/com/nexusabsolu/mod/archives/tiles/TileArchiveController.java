@@ -248,4 +248,24 @@ public class TileArchiveController extends TileEntity implements ITickable {
                                   net.minecraft.block.state.IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
     }
+
+    /**
+     * v1.0.307 : bounding box elargie pour le TESR.
+     * Sans ca, quand le bloc Controller est hors de l'ecran, le TESR ne
+     * tick plus et la shell disparait, meme si d'autres blocs du multiblock
+     * sont encore visibles.
+     * Retourne une AABB couvrant les 8 blocs du multiblock (5x2x1 autour du
+     * Controller pour toute orientation).
+     */
+    @Override
+    @net.minecraftforge.fml.relauncher.SideOnly(net.minecraftforge.fml.relauncher.Side.CLIENT)
+    public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox() {
+        // Couvre 5 blocs dans chaque direction horizontale (par safety : on ne
+        // sait pas l'orientation cote tick rendering), 2 blocs vertical.
+        net.minecraft.util.math.BlockPos p = getPos();
+        return new net.minecraft.util.math.AxisAlignedBB(
+            p.getX() - 3, p.getY() - 2, p.getZ() - 3,
+            p.getX() + 4, p.getY() + 2, p.getZ() + 4
+        );
+    }
 }

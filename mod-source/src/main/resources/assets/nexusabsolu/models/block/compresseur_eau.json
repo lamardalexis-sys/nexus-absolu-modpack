@@ -1,1 +1,12 @@
-{ "parent": "block/cube_all", "textures": { "all": "nexusabsolu:blocks/compresseur_eau" } }
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "nexusabsolu:blocks/compresseur_eau_front",
+    "down": "nexusabsolu:blocks/compresseur_eau_bottom",
+    "up": "nexusabsolu:blocks/compresseur_eau_top",
+    "north": "nexusabsolu:blocks/compresseur_eau_front",
+    "south": "nexusabsolu:blocks/compresseur_eau_back",
+    "east": "nexusabsolu:blocks/compresseur_eau_side",
+    "west": "nexusabsolu:blocks/compresseur_eau_side"
+  }
+}
