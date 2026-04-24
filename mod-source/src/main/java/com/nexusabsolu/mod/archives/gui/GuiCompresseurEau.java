@@ -106,38 +106,42 @@ public class GuiCompresseurEau extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mx, int my) {
-        // Tooltips hover sur tanks et barre RF (coordinates relative to GUI)
-        int relX = mx - guiLeft;
-        int relY = my - guiTop;
+        // v1.0.305 FIX : les parametres mx/my de drawGuiContainerForegroundLayer
+        // sont deja en coords RELATIVES au GUI (contrairement a mouseClicked
+        // qui recoit les coords absolues). On utilisait avant des relX/relY
+        // recalcules = double offset, tooltip s'affichait hors du GUI et
+        // passait sous JEI.
+        // Maintenant : mx/my sont les coords relatives, on check directement
+        // et on passe ces memes coords a drawHoveringText.
 
         // Tank input
-        if (relX >= 24 && relX <= 40 && relY >= 22 && relY <= 74) {
+        if (mx >= 24 && mx <= 40 && my >= 22 && my <= 74) {
             drawHoveringText(Arrays.asList(
                 "\u00a7bInput",
                 "\u00a77" + tile.getInputTank().getFluidAmount() + " / "
                     + TileCompresseurEau.TANK_CAPACITY + " mB",
                 "\u00a78Eau Chaude ou Eau vanilla"
-            ), relX, relY);
+            ), mx, my);
         }
         // Tank output
-        if (relX >= 136 && relX <= 152 && relY >= 22 && relY <= 74) {
+        if (mx >= 136 && mx <= 152 && my >= 22 && my <= 74) {
             drawHoveringText(Arrays.asList(
                 "\u00a7bOutput",
                 "\u00a77" + tile.getOutputTank().getFluidAmount() + " / "
                     + TileCompresseurEau.TANK_CAPACITY + " mB",
                 "\u00a78Eau Voss Froide"
-            ), relX, relY);
+            ), mx, my);
         }
         // RF bar
-        if (relX >= 160 && relX <= 168 && relY >= 22 && relY <= 74) {
+        if (mx >= 160 && mx <= 168 && my >= 22 && my <= 74) {
             drawHoveringText(Arrays.asList(
                 "\u00a7eEnergie\u00a7r: " + GuiUtils.formatRf(tile.getEnergyStored())
                     + " / " + GuiUtils.formatRf(tile.getMaxEnergy()) + " RF",
                 "\u00a77Conso: 50 RF/t quand actif"
-            ), relX, relY);
+            ), mx, my);
         }
         // Progress bar
-        if (relX >= 60 && relX <= 110 && relY >= 44 && relY <= 54) {
+        if (mx >= 60 && mx <= 110 && my >= 44 && my <= 54) {
             int pct = (int)((float) tile.getProgress() / tile.getMaxProgress() * 100);
             drawHoveringText(Arrays.asList(
                 "\u00a7aProgress: " + pct + "%",
