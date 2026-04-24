@@ -21,11 +21,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  *
  * <p>Placement in the multiblock : bottom layer center, 3 positions between
  * the Input port (left) and Output port (right) of the lower layer.
- * Purely cosmetic/structural — no tick, no TileEntity.
+ * Purely cosmetic/structural - no tick, no TileEntity.
  *
  * <p>Narrative : these blocks contain the "resonance coils" through which
  * the Eau Voss Froide circulates to dissipate the heat of quantum storage.
- * Visual should suggest piping/coils, rust patina cohérent with Fourneaux.
+ * Visual should suggest piping/coils, rust patina coherent with Fourneaux.
  *
  * @since v1.0.302 (Archives Voss Sprint 1)
  */

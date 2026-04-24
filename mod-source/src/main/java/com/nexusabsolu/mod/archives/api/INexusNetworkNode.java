@@ -12,7 +12,7 @@ import net.minecraft.world.World;
  * all nodes in the network.
  *
  * <p><b>Design inspiration</b> : RS {@code INetworkNode} (simplified for our
- * smaller scope — no security, no async crafting manager, no wireless).
+ * smaller scope - no security, no async crafting manager, no wireless).
  *
  * <p><b>Lifecycle</b> :
  * <ul>

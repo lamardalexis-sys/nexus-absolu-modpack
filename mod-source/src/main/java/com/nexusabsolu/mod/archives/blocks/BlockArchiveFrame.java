@@ -20,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Frame block of the Archives Voss multiblock.
  *
  * <p>Placement in the multiblock : top layer, 2 positions (left and right of
- * the Controller on the upper layer). Purely cosmetic/structural — no tick,
+ * the Controller on the upper layer). Purely cosmetic/structural - no tick,
  * no TileEntity.
  *
  * <p>Visual theme : industriel-vintage rust patina, matching the Fourneaux

@@ -20,15 +20,15 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate;
  *
  * <p>Cycle de fonctionnement :
  * <ol>
- *   <li>Vérifie si inputTank contient >=200 mB (eau_voss_chaude OU water vanilla)</li>
- *   <li>Vérifie si outputTank a au moins 150 mB d'espace libre</li>
- *   <li>Vérifie si energy stocké >=5000 RF (cost total d'un cycle)</li>
- *   <li>Incremente progress de 50 RF/tick drainé (100 ticks total = 5s)</li>
+ *   <li>Verifie si inputTank contient >=200 mB (eau_voss_chaude OU water vanilla)</li>
+ *   <li>Verifie si outputTank a au moins 150 mB d'espace libre</li>
+ *   <li>Verifie si energy stocke >=5000 RF (cost total d'un cycle)</li>
+ *   <li>Incremente progress de 50 RF/tick draine (100 ticks total = 5s)</li>
  *   <li>A progress=100 : drain 200 mB input, ajoute 150 mB eau_voss_froide output,
  *       50 mB perdus (force appoint regulier)</li>
  * </ol>
  *
- * <p>Capacité tanks : 4000 mB chacun (4 buckets). RF capacity : 20000.
+ * <p>Capacite tanks : 4000 mB chacun (4 buckets). RF capacity : 20000.
  *
  * @since v1.0.302 (Archives Voss Sprint 1)
  */

@@ -22,38 +22,38 @@ import net.minecraft.util.math.BlockPos;
  *   <li>Own the fluid tanks eau_voss_froide IN / eau_voss_chaude OUT (Sprint 2+)</li>
  * </ul>
  *
- * <p><b>Structure du multiblock</b> (Controller placé au centre de la couche 2) :
+ * <p><b>Structure du multiblock</b> (Controller place au centre de la couche 2) :
  *
  * <pre>
  *   Couche 2 (y+1, au-dessus du sol) :   FRAME  CONTROLLER  FRAME
  *   Couche 1 (y+0, au niveau du sol) :   IN     THERMAL  THERMAL  THERMAL  OUT
- *                                        ▲                                  ▲
+ *                                        ^                                  ^
  *                                        ItemInput (bloc existant)          ItemOutput (bloc existant)
  * </pre>
  *
- * <p>Soit vue de coté (section transversale) :
+ * <p>Soit vue de cote (section transversale) :
  *
  * <pre>
- *           [  F ] [CTRL] [  F ]         ← y+1
- *   [IN] [TC] [TC] [TC] [OUT]            ← y+0
+ *           [  F ] [CTRL] [  F ]         <- y+1
+ *   [IN] [TC] [TC] [TC] [OUT]            <- y+0
  * </pre>
  *
  * <p>Le Controller a donc :
  * <ul>
- *   <li>1 FRAME à gauche (west) même niveau</li>
- *   <li>1 FRAME à droite (east) même niveau</li>
- *   <li>1 THERMAL_CORE directement en-dessous (y-1, centré)</li>
- *   <li>1 THERMAL_CORE à (y-1, west)</li>
- *   <li>1 THERMAL_CORE à (y-1, east)</li>
- *   <li>1 ItemInput à (y-1, west-west) = 2 blocs à gauche du thermal center</li>
- *   <li>1 ItemOutput à (y-1, east-east) = 2 blocs à droite</li>
+ *   <li>1 FRAME a gauche (west) meme niveau</li>
+ *   <li>1 FRAME a droite (east) meme niveau</li>
+ *   <li>1 THERMAL_CORE directement en-dessous (y-1, centre)</li>
+ *   <li>1 THERMAL_CORE a (y-1, west)</li>
+ *   <li>1 THERMAL_CORE a (y-1, east)</li>
+ *   <li>1 ItemInput a (y-1, west-west) = 2 blocs a gauche du thermal center</li>
+ *   <li>1 ItemOutput a (y-1, east-east) = 2 blocs a droite</li>
  * </ul>
  *
  * <p>L'orientation (axe Ouest-Est VS Nord-Sud) est determinee au 1er placement :
  * on cherche quelle orientation valide la structure.
  *
  * <p><b>Scan frequency</b> : re-scan uniquement sur neighborChanged events
- * (optimisation critique — voir pièges doc ARCHIVES_VOSS_RESEARCH_SYNTHESIS).
+ * (optimisation critique - voir pieges doc ARCHIVES_VOSS_RESEARCH_SYNTHESIS).
  *
  * @since v1.0.302 (Archives Voss Sprint 1)
  */

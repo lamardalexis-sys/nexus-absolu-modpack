@@ -39,7 +39,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  *       (via TileEntity update)</li>
  *   <li>Right-click : opens GUI (only if multiblock valid)</li>
  *   <li>Right-click when multiblock invalid : displays chat message
- *       "Structure incomplète" with details</li>
+ *       "Structure incomplete" with details</li>
  *   <li>When broken : releases network, disconnects all nodes</li>
  * </ul>
  *
@@ -79,8 +79,8 @@ public class BlockArchiveController extends Block implements ITileEntityProvider
         if (!controller.isStructureFormed()) {
             // Message d'aide pour le joueur qui n'a pas encore valide la structure
             player.sendMessage(new TextComponentString(
-                TextFormatting.RED + "Structure incomplète"
-                + TextFormatting.GRAY + " — il manque des blocs au multiblock Archives."
+                TextFormatting.RED + "Structure incomplete"
+                + TextFormatting.GRAY + " - il manque des blocs au multiblock Archives."
             ));
             return true;
         }

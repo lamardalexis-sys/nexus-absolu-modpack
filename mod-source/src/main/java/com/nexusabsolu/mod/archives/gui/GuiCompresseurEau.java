@@ -24,7 +24,7 @@ import net.minecraft.util.ResourceLocation;
  *   <li>Inventaire joueur en bas</li>
  * </ul>
  *
- * <p>Style visuel : purple/violet cohérent avec le pack Nexus (comme les fours).
+ * <p>Style visuel : purple/violet coherent avec le pack Nexus (comme les fours).
  * Textures des tanks : bleu clair pour output, bleu grise pour input chaud.
  *
  * @since v1.0.302 (Archives Voss Sprint 1)

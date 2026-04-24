@@ -28,7 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 /**
  * Compresseur d'Eau Voss.
  *
- * <p>Machine single-block. Cycle frigorifique (contre-intuitif mais simplifié
+ * <p>Machine single-block. Cycle frigorifique (contre-intuitif mais simplifie
  * pour gameplay) :
  * <ul>
  *   <li><b>Input</b> : Eau Voss Chaude (cycle) OU Water vanilla (appoint)</li>
@@ -38,7 +38,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * </ul>
  *
  * <p>Consommation : 50 RF/tick quand actif. Vitesse : 1 cycle = 100 ticks (5s).
- * Chaque cycle convertit 200 mB entrée -> 150 mB sortie (50 mB perte).
+ * Chaque cycle convertit 200 mB entree -> 150 mB sortie (50 mB perte).
  *
  * @since v1.0.302 (Archives Voss Sprint 1)
  */

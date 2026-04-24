@@ -8,31 +8,31 @@
  * <p><b>Architecture overview</b> (inspired by Refined Storage, simplified) :
  *
  * <pre>
- *   ┌─────────────────────────────────────────────┐
- *   │         Archives Voss Multiblock            │
- *   │                                             │
- *   │  Controller (INexusNetwork impl) ─┐         │
- *   │                                   │         │
- *   │  Frame blocks                     ▼         │
- *   │  Thermal core blocks       ┌──────────────┐ │
- *   │  Input port / Output port  │ Node list    │ │
- *   │                            └──────────────┘ │
- *   └─────────────────────────────────────────────┘
- *                          ▲
- *                          │ (cables)
- *                          ▼
- *   ┌────────────┐  ┌────────────┐  ┌────────────┐
- *   │   Drive    │  │  Terminal  │  │ Interface  │  ...
- *   │ 10 disques │  │  Stockage  │  │   Craft    │
- *   └────────────┘  └────────────┘  └────────────┘
+ *   +---------------------------------------------+
+ *   |         Archives Voss Multiblock            |
+ *   |                                             |
+ *   |  Controller (INexusNetwork impl) --+        |
+ *   |                                    |        |
+ *   |  Frame blocks                      V        |
+ *   |  Thermal core blocks       +--------------+ |
+ *   |  Input port / Output port  | Node list    | |
+ *   |                            +--------------+ |
+ *   +---------------------------------------------+
+ *                          ^
+ *                          | (cables)
+ *                          V
+ *   +------------+  +------------+  +------------+
+ *   |   Drive    |  |  Terminal  |  | Interface  |  ...
+ *   | 10 disques |  |  Stockage  |  |   Craft    |
+ *   +------------+  +------------+  +------------+
  *       (all implement INexusNetworkNode)
  * </pre>
  *
  * <p><b>Entry points</b> :
  * <ul>
- *   <li>{@link com.nexusabsolu.mod.archives.api.INexusNetwork} — the network
+ *   <li>{@link com.nexusabsolu.mod.archives.api.INexusNetwork} - the network
  *       itself (one per controller)</li>
- *   <li>{@link com.nexusabsolu.mod.archives.api.INexusNetworkNode} — any
+ *   <li>{@link com.nexusabsolu.mod.archives.api.INexusNetworkNode} - any
  *       block that participates in a network</li>
  * </ul>
  *

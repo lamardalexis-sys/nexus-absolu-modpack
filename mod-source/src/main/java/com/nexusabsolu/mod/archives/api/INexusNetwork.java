@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
- * Contract for a Voss Archives Network — the logical network tied to a
+ * Contract for a Voss Archives Network - the logical network tied to a
  * Controller block in a valid Archives Voss multiblock.
  *
  * <p>A network owns one Controller and N nodes (cables, drives, terminals,
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
  * energy storage, orchestrates item movement, and owns the network identity.
  *
  * <p><b>Design inspiration</b> : RS {@code INetwork} (significantly simplified
- * — no crafting manager interface here, no security, no fluid support at MVP).
+ * - no crafting manager interface here, no security, no fluid support at MVP).
  *
  * <p><b>Single-controller invariant</b> : if a scan discovers two controllers
  * in the same connected component, BOTH controllers enter "conflict" state
