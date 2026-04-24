@@ -586,7 +586,17 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             EnumFacing opposite = face.getOpposite();
             net.minecraftforge.items.IItemHandler neighborHandler = neighbor.getCapability(
                 CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, opposite);
-            if (neighborHandler == null) continue;
+
+            // v1.0.300 : si neighborHandler est null, on check si c'est un Logistical
+            // Transporter Mekanism (qui n'expose pas IItemHandler, mais sa propre
+            // capability proprietaire). Necessaire pour push OUT uniquement.
+            // Pour le pull IN, on skip car un transporter ne tient pas d'items
+            // "stationnaires" (ils transitent), donc pas de pull sensible.
+            boolean isLogisticalTransporter = neighborHandler == null
+                && com.nexusabsolu.mod.compat.MekanismIntegration
+                    .isLogisticalTransporter(neighbor, opposite);
+
+            if (neighborHandler == null && !isLogisticalTransporter) continue;
 
             // ITEM_OUT : push depuis tous les slots output actifs
             // v1.0.298 : gate par master switch ejectEnabled
@@ -595,8 +605,21 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
                     int slotIdx = SLOT_OUTPUT_BASE + i;
                     ItemStack out = inventory.get(slotIdx);
                     if (out.isEmpty()) continue;
-                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(neighborHandler, out.copy(), false);
-                    int inserted = out.getCount() - remaining.getCount();
+
+                    int inserted;
+                    if (isLogisticalTransporter) {
+                        // Insertion via Mekanism Logistical Transporter
+                        ItemStack before = out.copy();
+                        ItemStack rejected = com.nexusabsolu.mod.compat.MekanismIntegration
+                            .tryInsertIntoTransporter(this, neighbor, opposite, before);
+                        inserted = before.getCount() - (rejected == null ? 0 : rejected.getCount());
+                    } else {
+                        // Insertion standard via IItemHandler (hoppers, Thermal Ducts,
+                        // EnderIO Conduits, Drawers, etc.)
+                        ItemStack remaining = ItemHandlerHelper.insertItemStacked(neighborHandler, out.copy(), false);
+                        inserted = out.getCount() - remaining.getCount();
+                    }
+
                     if (inserted > 0) {
                         out.shrink(inserted);
                         if (out.getCount() <= 0) inventory.set(slotIdx, ItemStack.EMPTY);
@@ -607,12 +630,14 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
 
             // ITEM_IN : pull vers le 1er slot input qui peut accepter (stackable ou vide)
             // v1.0.298 : gate par master switch pullEnabled
-            if (inActive && pullEnabled) {
+            // Note v1.0.300 : pull IN ne supporte pas Logistical Transporter (voir
+            // commentaire plus haut). Si neighborHandler null mais transporter, skip.
+            if (inActive && pullEnabled && neighborHandler != null) {
                 pullFromNeighborToAnyInput(neighborHandler, slotCount);
             }
 
             // FUEL_IN : pull fuels vers SLOT_FUEL (toujours unique)
-            if (fuelActive) {
+            if (fuelActive && neighborHandler != null) {
                 pullFromNeighborToSlot(neighborHandler, SLOT_FUEL, false, true);
             }
         }
