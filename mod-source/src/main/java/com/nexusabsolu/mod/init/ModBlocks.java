@@ -71,6 +71,17 @@ public class ModBlocks {
     public static final BlockNexusWallT2 NEXUS_WALL_T2 = new BlockNexusWallT2();
     public static final BlockEcranControle ECRAN_CONTROLE = new BlockEcranControle();
 
+    // === ARCHIVES VOSS (Sprint 1 : multiblock + compresseur eau) ===
+    // v1.0.302
+    public static final com.nexusabsolu.mod.archives.blocks.BlockArchiveFrame ARCHIVE_FRAME =
+        new com.nexusabsolu.mod.archives.blocks.BlockArchiveFrame();
+    public static final com.nexusabsolu.mod.archives.blocks.BlockArchiveThermalCore ARCHIVE_THERMAL_CORE =
+        new com.nexusabsolu.mod.archives.blocks.BlockArchiveThermalCore();
+    public static final com.nexusabsolu.mod.archives.blocks.BlockArchiveController ARCHIVE_CONTROLLER =
+        new com.nexusabsolu.mod.archives.blocks.BlockArchiveController();
+    public static final com.nexusabsolu.mod.archives.blocks.BlockCompresseurEau COMPRESSEUR_EAU =
+        new com.nexusabsolu.mod.archives.blocks.BlockCompresseurEau();
+
     // === FURNACES NEXUS (T1-T8 implementes ; T9 Infinite reste multiblock a faire) ===
     public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_IRON =
         new com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus(

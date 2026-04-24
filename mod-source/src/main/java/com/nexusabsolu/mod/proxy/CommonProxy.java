@@ -34,6 +34,13 @@ public class CommonProxy {
 
     public static Fluid DIARRHEE_FLUID;
 
+    // v1.0.302 (Archives Voss Sprint 1) : 2 fluides pour le cycle de refroidissement.
+    //   EAU_VOSS_FROIDE : sortie du Compresseur, alimente les Archives
+    //   EAU_VOSS_CHAUDE : sortie des Archives (a recycler via Compresseur)
+    // Cycle ferme avec 50 mB de perte par cycle (force appoint d'eau vanilla).
+    public static Fluid EAU_VOSS_FROIDE;
+    public static Fluid EAU_VOSS_CHAUDE;
+
     public void preInit(FMLPreInitializationEvent event) {
         // Fluid registration
         FluidRegistry.enableUniversalBucket();
@@ -44,6 +51,24 @@ public class CommonProxy {
             .setColor(0xFF8B4513); // marron - teinte JEI + in-world + bucket universel
         FluidRegistry.registerFluid(DIARRHEE_FLUID);
         FluidRegistry.addBucketForFluid(DIARRHEE_FLUID);
+
+        // v1.0.302 : Eau Voss Froide (bleu clair vif, utile)
+        EAU_VOSS_FROIDE = new Fluid("eau_voss_froide",
+            new ResourceLocation(Reference.MOD_ID, "blocks/eau_voss_froide_still"),
+            new ResourceLocation(Reference.MOD_ID, "blocks/eau_voss_froide_flow"))
+            .setDensity(1000).setViscosity(900)
+            .setColor(0xFF64C8FF); // RGB 100, 200, 255 = bleu clair vif
+        FluidRegistry.registerFluid(EAU_VOSS_FROIDE);
+        FluidRegistry.addBucketForFluid(EAU_VOSS_FROIDE);
+
+        // v1.0.302 : Eau Voss Chaude (bleu grise/ternie, a recycler)
+        EAU_VOSS_CHAUDE = new Fluid("eau_voss_chaude",
+            new ResourceLocation(Reference.MOD_ID, "blocks/eau_voss_chaude_still"),
+            new ResourceLocation(Reference.MOD_ID, "blocks/eau_voss_chaude_flow"))
+            .setDensity(1100).setViscosity(1200).setTemperature(373)
+            .setColor(0xFF3C6482); // RGB 60, 100, 130 = bleu grise/ternie (eau chaude)
+        FluidRegistry.registerFluid(EAU_VOSS_CHAUDE);
+        FluidRegistry.addBucketForFluid(EAU_VOSS_CHAUDE);
 
         NexusPacketHandler.init();
         MinecraftForge.EVENT_BUS.register(new ScavengeEventHandler());
@@ -67,6 +92,13 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "condenseur_t2"));
         GameRegistry.registerTileEntity(TileItemInput.class,
             new ResourceLocation(Reference.MOD_ID, "item_input"));
+        // v1.0.302 (Archives Voss Sprint 1) : new TileEntities
+        GameRegistry.registerTileEntity(
+            com.nexusabsolu.mod.archives.tiles.TileArchiveController.class,
+            new ResourceLocation(Reference.MOD_ID, "archive_controller"));
+        GameRegistry.registerTileEntity(
+            com.nexusabsolu.mod.archives.tiles.TileCompresseurEau.class,
+            new ResourceLocation(Reference.MOD_ID, "compresseur_eau"));
         GameRegistry.registerTileEntity(TileItemOutput.class,
             new ResourceLocation(Reference.MOD_ID, "item_output"));
         GameRegistry.registerTileEntity(TileAutoScavenger.class,

@@ -179,3 +179,13 @@ item.nexusabsolu.upgrade_io_expansion_4.name=Extension I/O IV
 item.nexusabsolu.upgrade_speed_booster.name=Accelerateur
 item.nexusabsolu.upgrade_efficiency.name=Carte d'Efficience
 item.nexusabsolu.furnace_upgrade_kit.name=Kit d'Amelioration Voss
+
+# === ARCHIVES VOSS (Sprint 1, v1.0.302) ===
+tile.nexusabsolu.archive_frame.name=Bordure d'Archives Voss
+tile.nexusabsolu.archive_thermal_core.name=Noyau Thermique Voss
+tile.nexusabsolu.archive_controller.name=Controleur d'Archives Voss
+tile.nexusabsolu.compresseur_eau.name=Compresseur d'Eau Voss
+
+# Fluids
+fluid.eau_voss_froide=Eau Voss Froide
+fluid.eau_voss_chaude=Eau Voss Chaude

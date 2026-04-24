@@ -26,6 +26,8 @@ public class GuiHandler implements IGuiHandler {
     public static final int MACHINE_KRDA_GUI = 6;
     public static final int FURNACE_NEXUS_GUI = 10;
     public static final int FURNACE_UPGRADES_GUI = 11;
+    // v1.0.302 (Archives Voss Sprint 1)
+    public static final int COMPRESSEUR_EAU_GUI = 20;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -75,6 +77,13 @@ public class GuiHandler implements IGuiHandler {
             return new com.nexusabsolu.mod.gui.furnaces.ContainerFurnaceUpgrades(
                 player.inventory,
                 (com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus) te);
+        }
+        // v1.0.302 (Archives Voss Sprint 1)
+        if (ID == COMPRESSEUR_EAU_GUI
+            && te instanceof com.nexusabsolu.mod.archives.tiles.TileCompresseurEau) {
+            return new com.nexusabsolu.mod.archives.gui.ContainerCompresseurEau(
+                player.inventory,
+                (com.nexusabsolu.mod.archives.tiles.TileCompresseurEau) te);
         }
         return null;
     }
@@ -127,6 +136,13 @@ public class GuiHandler implements IGuiHandler {
             return new com.nexusabsolu.mod.gui.furnaces.GuiFurnaceUpgrades(
                 player.inventory,
                 (com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus) te);
+        }
+        // v1.0.302 (Archives Voss Sprint 1)
+        if (ID == COMPRESSEUR_EAU_GUI
+            && te instanceof com.nexusabsolu.mod.archives.tiles.TileCompresseurEau) {
+            return new com.nexusabsolu.mod.archives.gui.GuiCompresseurEau(
+                player.inventory,
+                (com.nexusabsolu.mod.archives.tiles.TileCompresseurEau) te);
         }
         return null;
     }
