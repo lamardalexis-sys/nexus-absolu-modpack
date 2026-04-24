@@ -169,14 +169,24 @@ recipes.addShaped("nexus_upgrade_io_expansion_2", <nexusabsolu:upgrade_io_expans
      [<nexusabsolu:compose_c>,   <minecraft:hopper>,                       <nexusabsolu:compose_c>]]);
 
 // Tier III : 7 slots in + 7 slots out
-//   Requiert tier II au centre + compose B + vossium II ingots
+//   v1.0.295 (Alexis) : renforce le gate de progression.
+//     Compose B (Age 1 basic)  -> Compose E (Age 2 endgame, le plus haut tier des composes)
+//     Vossium II (Age 1 alloy) -> Vossium IV (Age 2 alloy haut tier)
+//   Le Tier III devient un vrai gate cross-Age (Age 2 materials requis).
 recipes.addShaped("nexus_upgrade_io_expansion_3", <nexusabsolu:upgrade_io_expansion_3>,
-    [[<nexusabsolu:compose_b>,        <nexusabsolu:vossium_ii_ingot>,           <nexusabsolu:compose_b>],
-     [<nexusabsolu:vossium_ii_ingot>, <nexusabsolu:upgrade_io_expansion_2>,     <nexusabsolu:vossium_ii_ingot>],
-     [<nexusabsolu:compose_b>,        <nexusabsolu:vossium_ii_ingot>,           <nexusabsolu:compose_b>]]);
+    [[<nexusabsolu:compose_e>,        <nexusabsolu:vossium_iv_ingot>,           <nexusabsolu:compose_e>],
+     [<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:upgrade_io_expansion_2>,     <nexusabsolu:vossium_iv_ingot>],
+     [<nexusabsolu:compose_e>,        <nexusabsolu:vossium_iv_ingot>,           <nexusabsolu:compose_e>]]);
 
 // Tier IV : 9 slots in + 9 slots out
 //   Requiert tier III au centre + compose C + vossium IV ingots (endgame)
+// TODO (Alexis, backlog) : actuellement tier IV MOINS restrictif que tier III
+//   depuis v1.0.295 (tier III utilise compose E + vossium IV, tier IV utilise
+//   compose C + vossium IV). Alexis va reflechir a une vraie recette endgame
+//   integrant : elements de Botania + Astral Sorcery + Tough Alloy.
+//   Candidats possibles : gaia_spirit / pixie_dust (Botania), celestialcrystal /
+//   starmetal (Astral), tough_alloy (ex mek tough alloy ou IE uranium plate ?).
+//   A rediscuter.
 recipes.addShaped("nexus_upgrade_io_expansion_4", <nexusabsolu:upgrade_io_expansion_4>,
     [[<nexusabsolu:compose_c>,        <nexusabsolu:vossium_iv_ingot>,           <nexusabsolu:compose_c>],
      [<nexusabsolu:vossium_iv_ingot>, <nexusabsolu:upgrade_io_expansion_3>,     <nexusabsolu:vossium_iv_ingot>],
