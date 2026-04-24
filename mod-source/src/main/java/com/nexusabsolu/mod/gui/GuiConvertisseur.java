@@ -154,17 +154,20 @@ public class GuiConvertisseur extends GuiContainer {
         int cx = px + (pw-(bs*3+bg*2))/2;
         int cy = py + 20;
         drawOutputBtn(cx+bs+bg, cy, bs, 1, mx, my);        // UP
-        drawOutputBtn(cx, cy+bs+bg, bs, 4, mx, my);        // WEST
-        drawOutputBtn(cx+bs+bg, cy+bs+bg, bs, 2, mx, my);  // NORTH
-        drawOutputBtn(cx+(bs+bg)*2, cy+bs+bg, bs, 5, mx, my); // EAST
-        drawOutputBtn(cx, cy+(bs+bg)*2, bs, 0, mx, my);    // DOWN
-        drawOutputBtn(cx+bs+bg, cy+(bs+bg)*2, bs, 3, mx, my); // SOUTH
+        drawOutputBtn(cx, cy+bs+bg, bs, 4, mx, my);        // WEST (Ga)
+        // v1.0.293 (Alexis) : alignement sur layout four (coherence UX multi-machines).
+        //   Avant : NORTH centre + SOUTH bas-centre + DOWN bas-gauche
+        //   Apres : SOUTH centre + NORTH bas-gauche + DOWN bas-centre
+        drawOutputBtn(cx+bs+bg, cy+bs+bg, bs, 3, mx, my);  // SOUTH (Av, centre/front)
+        drawOutputBtn(cx+(bs+bg)*2, cy+bs+bg, bs, 5, mx, my); // EAST (Dr)
+        drawOutputBtn(cx, cy+(bs+bg)*2, bs, 2, mx, my);    // NORTH (Ar, bas-gauche)
+        drawOutputBtn(cx+bs+bg, cy+(bs+bg)*2, bs, 0, mx, my); // DOWN (Ba, bas-centre)
 
-        // Tooltips
+        // Tooltips (ordre aligne sur drawOutputBtn : SOUTH centre, NORTH bas-gauche, DOWN bas-centre)
         int[][] btns = {
             {1,cx+bs+bg,cy}, {4,cx,cy+bs+bg},
-            {2,cx+bs+bg,cy+bs+bg}, {5,cx+(bs+bg)*2,cy+bs+bg},
-            {0,cx,cy+(bs+bg)*2}, {3,cx+bs+bg,cy+(bs+bg)*2}
+            {3,cx+bs+bg,cy+bs+bg}, {5,cx+(bs+bg)*2,cy+bs+bg},
+            {2,cx,cy+(bs+bg)*2}, {0,cx+bs+bg,cy+(bs+bg)*2}
         };
         for (int[] b : btns) {
             if (mx>=b[1] && mx<=b[1]+bs && my>=b[2] && my<=b[2]+bs) {
@@ -215,8 +218,8 @@ public class GuiConvertisseur extends GuiContainer {
             int cx = px+(pw-(bs*3+bg*2))/2, cy = py+20;
             int[][] btns = {
                 {1,cx+bs+bg,cy}, {4,cx,cy+bs+bg},
-                {2,cx+bs+bg,cy+bs+bg}, {5,cx+(bs+bg)*2,cy+bs+bg},
-                {0,cx,cy+(bs+bg)*2}, {3,cx+bs+bg,cy+(bs+bg)*2}
+                {3,cx+bs+bg,cy+bs+bg}, {5,cx+(bs+bg)*2,cy+bs+bg},
+                {2,cx,cy+(bs+bg)*2}, {0,cx+bs+bg,cy+(bs+bg)*2}
             };
             for (int[] b : btns) {
                 if (mx>=b[1] && mx<=b[1]+bs && my>=b[2] && my<=b[2]+bs) {

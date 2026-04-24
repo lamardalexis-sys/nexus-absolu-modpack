@@ -181,10 +181,11 @@ public class GuiMachineKRDA extends GuiContainer {
         int cx = px+(pw-(bs*3+bg*2))/2, cy = py+26;
         drawFaceBtn(cx+bs+bg, cy, bs, 1, sc, mx, my);
         drawFaceBtn(cx, cy+bs+bg, bs, 4, sc, mx, my);
-        drawFaceBtn(cx+bs+bg, cy+bs+bg, bs, 2, sc, mx, my);
+        // v1.0.293 (Alexis) : alignement sur layout four.
+        drawFaceBtn(cx+bs+bg, cy+bs+bg, bs, 3, sc, mx, my);       // SOUTH (Av, centre)
         drawFaceBtn(cx+(bs+bg)*2, cy+bs+bg, bs, 5, sc, mx, my);
-        drawFaceBtn(cx, cy+(bs+bg)*2, bs, 0, sc, mx, my);
-        drawFaceBtn(cx+bs+bg, cy+(bs+bg)*2, bs, 3, sc, mx, my);
+        drawFaceBtn(cx, cy+(bs+bg)*2, bs, 2, sc, mx, my);          // NORTH (Ar, bas-gauche)
+        drawFaceBtn(cx+bs+bg, cy+(bs+bg)*2, bs, 0, sc, mx, my);    // DOWN (Ba, bas-centre)
 
         int tbY = py+155;
         boolean ej = sc.isEject(configType);
@@ -200,8 +201,8 @@ public class GuiMachineKRDA extends GuiContainer {
 
         int[][] btns = {
             {1,cx+bs+bg,cy}, {4,cx,cy+bs+bg},
-            {2,cx+bs+bg,cy+bs+bg}, {5,cx+(bs+bg)*2,cy+bs+bg},
-            {0,cx,cy+(bs+bg)*2}, {3,cx+bs+bg,cy+(bs+bg)*2}
+            {3,cx+bs+bg,cy+bs+bg}, {5,cx+(bs+bg)*2,cy+bs+bg},
+            {2,cx,cy+(bs+bg)*2}, {0,cx+bs+bg,cy+(bs+bg)*2}
         };
         for (int[] b : btns) {
             if (mx>=b[1] && mx<=b[1]+bs && my>=b[2] && my<=b[2]+bs) {
@@ -258,8 +259,8 @@ public class GuiMachineKRDA extends GuiContainer {
             int cx=px+(pw-(bs*3+bg*2))/2, cy=py+26;
             int[][] btns = {
                 {1,cx+bs+bg,cy}, {4,cx,cy+bs+bg},
-                {2,cx+bs+bg,cy+bs+bg}, {5,cx+(bs+bg)*2,cy+bs+bg},
-                {0,cx,cy+(bs+bg)*2}, {3,cx+bs+bg,cy+(bs+bg)*2}
+                {3,cx+bs+bg,cy+bs+bg}, {5,cx+(bs+bg)*2,cy+bs+bg},
+                {2,cx,cy+(bs+bg)*2}, {0,cx+bs+bg,cy+(bs+bg)*2}
             };
             for (int[] b : btns) {
                 if (mx>=b[1] && mx<=b[1]+bs && my>=b[2] && my<=b[2]+bs) {
