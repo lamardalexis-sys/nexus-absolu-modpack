@@ -630,6 +630,50 @@ public class GuiFurnaceNexus extends GuiContainer {
         drawColorLegend(px + 4,  legY + 12, COL_BOTH, "Both",   0xFFEEAAFF);
         drawColorLegend(px + 78, legY + 12, COL_FUEL, "Fuel",   0xFFFFDD77);
 
+        // v1.0.298 (Alexis) : boutons Master Switch Eject / Pull
+        // Inspiration : pattern identique a GuiMachineHumaine lignes 199-209.
+        // Ces master switches gate doAutoIO() globalement (sans toucher aux
+        // face configs). Couleurs : vert = ON, rouge = OFF.
+        int masterY = legY + 28;
+        boolean ejectOn = sc.isEject(TileFurnaceNexus.SC_TYPE_ITEM_OUT);
+        boolean pullOn = sc.isAutoPull(TileFurnaceNexus.SC_TYPE_ITEM_IN);
+        // Bouton Eject (gauche du panneau)
+        int ejX = px + 4, ejW = 68, ejH = 16;
+        drawRect(ejX, masterY, ejX + ejW, masterY + ejH,
+            ejectOn ? 0xFF2A6A2A : 0xFF6A2A2A);
+        drawRect(ejX, masterY, ejX + ejW, masterY + 1, 0xFFBBBBBB);  // top border
+        drawRect(ejX, masterY, ejX + 1, masterY + ejH, 0xFFBBBBBB);  // left border
+        fontRenderer.drawStringWithShadow("Eject: " + (ejectOn ? "ON" : "OFF"),
+            ejX + 5, masterY + 4, 0xFFFFFFFF);
+        // Bouton Pull (droite du panneau)
+        int puX = px + CONFIG_W - 4 - ejW, puW = ejW, puH = ejH;
+        drawRect(puX, masterY, puX + puW, masterY + puH,
+            pullOn ? 0xFF2A6A2A : 0xFF6A2A2A);
+        drawRect(puX, masterY, puX + puW, masterY + 1, 0xFFBBBBBB);
+        drawRect(puX, masterY, puX + 1, masterY + puH, 0xFFBBBBBB);
+        fontRenderer.drawStringWithShadow("Pull: " + (pullOn ? "ON" : "OFF"),
+            puX + 5, masterY + 4, 0xFFFFFFFF);
+
+        // Hover tooltips master switches
+        if (mx >= ejX && mx <= ejX + ejW && my >= masterY && my <= masterY + ejH) {
+            drawHoveringText(Arrays.asList(
+                "\u00A7aEject: " + (ejectOn ? "ON" : "OFF"),
+                "\u00A77Pousse les items cuits vers",
+                "\u00A77les faces Output actives.",
+                "\u00A78(master switch, n'affecte",
+                "\u00A78pas les face configs)"
+            ), mx, my);
+        }
+        if (mx >= puX && mx <= puX + puW && my >= masterY && my <= masterY + puH) {
+            drawHoveringText(Arrays.asList(
+                "\u00A7aPull: " + (pullOn ? "ON" : "OFF"),
+                "\u00A77Tire les items depuis les",
+                "\u00A77faces Input actives.",
+                "\u00A78(master switch, n'affecte",
+                "\u00A78pas les face configs)"
+            ), mx, my);
+        }
+
         // Tooltips hover faces
         // v1.0.292 : ordre aligne sur drawFaceBtn (Ar bas-gauche, Ba bas-centre)
         int[][] btns = {
@@ -831,6 +875,33 @@ public class GuiFurnaceNexus extends GuiContainer {
                     }
                     return;
                 }
+            }
+
+            // v1.0.298 : clics sur Master Switch Eject / Pull
+            // Les positions doivent matcher celles du draw (drawConfigPanel).
+            int bs2 = 28, bg2 = 3;
+            int totalW2 = bs2 * 3 + bg2 * 2;
+            int cx2 = px + (CONFIG_W - totalW2) / 2;
+            int cy2 = py + 22;
+            int helpY2 = cy2 + (bs2 + bg2) * 3 + 6;
+            int legY2 = helpY2 + 38;
+            int masterY = legY2 + 28;
+            int ejX = px + 4, ejW = 68, ejH = 16;
+            int puX = px + CONFIG_W - 4 - ejW;
+            if (mx >= ejX && mx <= ejX + ejW && my >= masterY && my <= masterY + ejH) {
+                // Toggle Eject OUT (master switch push global).
+                // Optimistic client update (pattern identique aux clics faces L850-874) :
+                // on toggle client pour feedback immediat, packet serveur fait le vrai
+                // toggle. Les 2 sont en sync car partent du meme etat.
+                tile.getSideConfig().toggleEject(TileFurnaceNexus.SC_TYPE_ITEM_OUT);
+                mc.playerController.sendEnchantPacket(inventorySlots.windowId, 300);
+                return;
+            }
+            if (mx >= puX && mx <= puX + ejW && my >= masterY && my <= masterY + ejH) {
+                // Toggle AutoPull IN (master switch pull global). Optimistic update.
+                tile.getSideConfig().toggleAutoPull(TileFurnaceNexus.SC_TYPE_ITEM_IN);
+                mc.playerController.sendEnchantPacket(inventorySlots.windowId, 301);
+                return;
             }
         }
 

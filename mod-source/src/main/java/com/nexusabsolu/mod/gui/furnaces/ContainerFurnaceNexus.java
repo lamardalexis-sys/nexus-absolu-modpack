@@ -479,6 +479,23 @@ public class ContainerFurnaceNexus extends Container {
             }
             return true;
         }
+        // v1.0.298 : id=300 = toggle master switch Eject (OUT push global)
+        //            id=301 = toggle master switch AutoPull (IN pull global)
+        // Ces master switches gate doAutoIO() dans TileFurnaceNexus sans
+        // toucher a la config des faces. OFF = stop pull/push meme si faces
+        // configurees actives.
+        if (id == 300) {
+            tile.getSideConfig().toggleEject(
+                com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus.SC_TYPE_ITEM_OUT);
+            tile.markDirty();
+            return true;
+        }
+        if (id == 301) {
+            tile.getSideConfig().toggleAutoPull(
+                com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus.SC_TYPE_ITEM_IN);
+            tile.markDirty();
+            return true;
+        }
         return false;
     }
 

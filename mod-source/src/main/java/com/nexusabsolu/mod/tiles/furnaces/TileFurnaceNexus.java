@@ -157,6 +157,11 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
         for (int f = 0; f < 6; f++) {
             this.sideConfig.setFace(SC_TYPE_ENERGY, f, true);
         }
+        // v1.0.298 (Alexis) : Eject (OUT) et AutoPull (IN) ON par defaut.
+        // Master switches globaux qui gate le push/pull dans doAutoIO().
+        // ON = comportement historique (backwards compat avec fours existants).
+        this.sideConfig.toggleEject(SC_TYPE_ITEM_OUT);
+        this.sideConfig.toggleAutoPull(SC_TYPE_ITEM_IN);
     }
 
     public com.nexusabsolu.mod.tiles.SideConfig getSideConfig() { return sideConfig; }
@@ -561,6 +566,13 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
     private void doAutoIO() {
         int slotCount = getIOSlotCount();  // 1, 3, 5, 7 ou 9
 
+        // v1.0.298 : master switches globaux par tile (non par face).
+        // Eject OUT ON -> push les outputs via faces OUT. Eject OFF -> bloque push.
+        // AutoPull IN ON -> pull items via faces IN. AutoPull OFF -> bloque pull.
+        // Le fuel pull n'a pas de master switch (toujours actif si face configuree).
+        boolean ejectEnabled = sideConfig.isEject(SC_TYPE_ITEM_OUT);
+        boolean pullEnabled = sideConfig.isAutoPull(SC_TYPE_ITEM_IN);
+
         for (int faceIdx = 0; faceIdx < 6; faceIdx++) {
             boolean outActive = sideConfig.isFaceActive(SC_TYPE_ITEM_OUT, faceIdx);
             boolean inActive = sideConfig.isFaceActive(SC_TYPE_ITEM_IN, faceIdx);
@@ -578,7 +590,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             if (neighborHandler == null) continue;
 
             // ITEM_OUT : push depuis tous les slots output actifs
-            if (outActive) {
+            // v1.0.298 : gate par master switch ejectEnabled
+            if (outActive && ejectEnabled) {
                 for (int i = 0; i < slotCount; i++) {
                     int slotIdx = SLOT_OUTPUT_BASE + i;
                     ItemStack out = inventory.get(slotIdx);
@@ -594,7 +607,8 @@ public class TileFurnaceNexus extends TileEntity implements ITickable,
             }
 
             // ITEM_IN : pull vers le 1er slot input qui peut accepter (stackable ou vide)
-            if (inActive) {
+            // v1.0.298 : gate par master switch pullEnabled
+            if (inActive && pullEnabled) {
                 pullFromNeighborToAnyInput(neighborHandler, slotCount);
             }
 
