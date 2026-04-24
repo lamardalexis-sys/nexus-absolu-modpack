@@ -154,23 +154,46 @@ mais pas trop dans l'abu".
 automatique**. Si un ingrédient manque et qu'il a lui-même un pattern,
 le joueur doit le crafter manuellement avant.
 
-### 4 composants auto-craft
+### Principe de fonctionnement (IMPORTANT — clarifié par Alexis v1.0.299+)
+
+**Le multiblock ne reçoit PAS d'items manuellement.** Il se sert automatiquement
+dans le stockage via le réseau. Workflow :
+
+1. Joueur connecte **câble Voss** sur le port IN du multiblock (→ le réseau)
+2. Joueur connecte **câble Voss** sur le port OUT (→ le réseau)
+3. Joueur encode un pattern dans l'Encodeur + l'insère dans le Controller
+4. Joueur demande un craft via Terminal de Craft : "64 Iron Pickaxes"
+5. Le multiblock :
+   - **Pull automatiquement** les ingrédients (192 iron + 128 sticks) depuis le
+     stockage via le port IN
+   - Crafte en interne (grid virtuel 3×3)
+   - **Push automatiquement** le résultat (64 pickaxes) vers le stockage via OUT
+6. Joueur récupère les pickaxes via le Terminal de Stockage
+
+Pattern identique à **AE2 ME Crafter** et **RS Crafter**. Très propre, pas
+besoin de logistique manuelle. Le multiblock a juste besoin d'être connecté
+au réseau via câbles.
+
+### 5 composants auto-craft
 
 **1. Encodeur de Pattern** (`voss_pattern_encoder`) — single block
 - GUI à 2 grilles : input 3x3 + output 1 slot
 - Le joueur dépose ingrédients + résultat voulu → produit un **Item Pattern**
 - L'item Pattern encode la recette en NBT
+- Le Pattern Encoder est utilisé pour TOUS les types de patterns
+  (grid 3×3 vanilla OU machines externes, voir composant 5)
 
 **2. Slots Pattern dans le Controller**
 - Le Controller Archives a **9 slots Pattern** insérés dans son GUI
-- Chaque pattern slot = 1 recette autocraftable
+- Chaque pattern slot = 1 recette autocraftable via grid 3×3 interne
 - Le joueur voit "Quels items sont craftables" dans son terminal
 
 **3. Exécution du craft (dans le multiblock)**
 - Terminal de Craft → joueur clique "Crafter 64 Iron Pickaxes"
 - Système vérifie pattern : "j'ai besoin de 3 iron + 2 stick par pickaxe"
-- Pull des ingrédients depuis le stockage
-- Progress bar + production + delivery
+- **Pull automatique depuis stockage** via port IN (réseau)
+- Progress bar + production en grid virtuel
+- **Push automatique vers stockage** via port OUT (réseau)
 - Si ingrédient manquant → erreur "il faut plus de X"
 
 **4. Accélérateur de Craft** (`voss_craft_accelerator`) — single block
@@ -179,13 +202,56 @@ le joueur doit le crafter manuellement avant.
 - Consomme RF proportionnellement à la vitesse
 - Max 8 = craft ×3.0 plus rapide
 
+**5. Interface de Craft Voss** (`voss_craft_interface`) — single block — NOUVEAU
+
+**Rôle** : automatiser les crafts qui utilisent une **machine externe**
+(Fourneau Voss, Mekanism, Thermal Expansion, etc.) au lieu du grid 3×3.
+
+**Fonctionnement** :
+- Le joueur pose l'Interface **contre** une machine externe (ex. Fourneau Voss)
+- L'Interface a **N slots Pattern** (ex. 6 slots) + un slot direction (quelle face
+  pointe vers la machine)
+- L'Interface est connectée au réseau Voss via câble
+- Pattern encodé type "1 Iron Ore → 1 Iron Ingot (via Fourneau Voss)" est posé
+  dans l'Interface
+
+**Workflow d'un craft via Interface** :
+1. Terminal de Craft : joueur demande "64 Iron Ingots"
+2. Système cherche un pattern matching → trouve celui dans l'Interface
+3. Interface **pull 64 Iron Ore** depuis stockage (via son câble réseau)
+4. Interface **push 64 Iron Ore** dans l'inventaire de la machine externe
+   (via la face "direction")
+5. La machine externe (Fourneau) cuit normalement selon sa logique propre
+6. Interface **pull périodiquement** les résultats cuits depuis l'output
+   de la machine externe
+7. Interface **push les 64 Iron Ingots** dans le stockage via le réseau
+
+**Comparaison avec AE2/RS** :
+- **AE2 "ME Interface"** : concept identique, pattern "utilise la machine de ce côté"
+- **RS "Crafter"** : idem, pattern avec direction face
+
+**Usage type dans Nexus Absolu** :
+- 1 Interface à côté de chaque Fourneau Voss → tous les smelts automatisables
+- 1 Interface à côté de chaque machine Mekanism (Enrichment, Purification, etc.)
+- 1 Interface par machine de chimie (Alloy Smelter, etc.)
+
+**Compatibilité** : marche avec n'importe quelle machine qui expose `IItemHandler`
+Forge capability (99% des mods du pack). Via le système `face_in` / `face_out`
+Minecraft standard.
+
+**Variantes de l'Interface** (à décider plus tard) :
+- 1 Interface **simple** : 1 pattern, 1 direction (MVP)
+- 1 Interface **avancée** : plusieurs patterns, supporte plusieurs machines
+  voisines (phase 2)
+
 ### Terminal de Craft (bloc séparé)
 
 - `voss_crafting_terminal` — single block posable partout sur le réseau
-- GUI avec liste des patterns encodés
+- GUI avec liste des patterns encodés (grid ET interface)
 - Clic sur un item → popup quantité → launch
 - Progress bar pendant le craft
-- Items livrés dans l'inventaire joueur quand prêts
+- Items livrés dans le stockage quand prêts (puis accessibles via Terminal
+  de Stockage OU Télécommande)
 
 ---
 
@@ -313,7 +379,7 @@ Ils ont déjà la gestion de faces (SideConfig standardisé).
 
 - **Quête "Stockage Stable"** → Disque T2 (gate Composé A)
 - **Quête "Drive Industriel"** → Drive Voss 10 slots
-- **Quête "Automatisation Voss"** → Encodeur de Pattern + 1er autocraft
+- **Quête "Automatisation Voss"** → Encodeur de Pattern + 1er autocraft (grid 3×3)
 
 ### Age 2
 
@@ -321,6 +387,7 @@ Ils ont déjà la gestion de faces (SideConfig standardisé).
 - **Quête "Terminal Portable"** → Télécommande Voss
 - **Quête "Accélération"** → Accélérateur de Craft
 - **Quête "Craft Distribué"** → Terminal de Craft séparé
+- **Quête "Interface Machines"** → Interface de Craft Voss (NOUVEAU, autocraft via machines externes)
 
 ### Age 3+
 
@@ -372,15 +439,21 @@ convertit les fluides, 2 fluides visibles en jeu.
 - `ContainerTerminalStockage` + delta sync packets
 - ContainerListener pattern pour efficient refresh
 
-### Sprint 5 — Auto-Craft (~900 lignes)
+### Sprint 5 — Auto-Craft (~1200 lignes)
 
-**Livrable** : encoder pattern + lancer craft via terminal dédié.
+**Livrable** : encoder pattern + lancer craft via terminal dédié + crafter
+via machines externes.
 
-- `ItemPattern` NBT-encoded
-- `BlockPatternEncoder` + GUI 2 grilles
+- `ItemPattern` NBT-encoded (type grid 3×3 OU type machine externe)
+- `BlockPatternEncoder` + GUI 2 grilles (avec toggle "grid" vs "machine")
 - `BlockCraftAccelerator` (stackable ×8)
 - `BlockTerminalCraft` + GUI liste patterns
-- Engine d'exécution (pull ingredients + progress + delivery)
+- `BlockCraftInterface` (NOUVEAU) — interface pour crafts via machines externes
+  - 6 slots pattern
+  - 1 face config "direction" (quelle face pointe vers la machine cible)
+  - Pull/push items automatique entre réseau et machine externe
+  - Capability Forge `IItemHandler` pour compat multi-mods
+- Engine d'exécution unifiée (grid interne + via interface externe)
 
 ### Sprint 6 — Télécommande + Inter-CM (~700 lignes)
 
@@ -405,8 +478,8 @@ fonctionnel.
 
 ### Total estimé
 
-- **~5000 lignes Java** + ressources + docs
-- **7 sprints** = 25-30 sessions de dev focus
+- **~5300 lignes Java** + ressources + docs
+- **7 sprints** = 27-32 sessions de dev focus
 - **Temps calendaire** : 2-3 mois à rythme normal
 
 ---
