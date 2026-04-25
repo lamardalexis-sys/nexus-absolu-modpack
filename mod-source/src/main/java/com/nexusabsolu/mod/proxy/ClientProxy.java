@@ -18,10 +18,6 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileCondenseur.class, new TESRCondenseur());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCondenseurT2.class, new TESRCondenseurT2());
         ClientRegistry.bindTileEntitySpecialRenderer(TileAutoScavenger.class, new TESRAutoScavenger());
-        // v1.0.306 Archives Voss Sprint 1 polish : shell 3D du multiblock
-        ClientRegistry.bindTileEntitySpecialRenderer(
-            com.nexusabsolu.mod.archives.tiles.TileArchiveController.class,
-            new com.nexusabsolu.mod.archives.render.TESRArchiveController());
         MinecraftForge.EVENT_BUS.register(new ClientMiningHandler());
     }
 }

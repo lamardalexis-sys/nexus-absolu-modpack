@@ -1,9 +1,0 @@
-{
-  "name": "Carnet du Dr. Voss - Vol. III",
-  "landing_text": "Troisieme partie. Le Nether de Voss.$(br2)Ce volume contient mes coordonnees Nether, l'origine du $(thing)Netherite$(), et les derniers elements de la trace que je te laisse.$(br2)$(italics)Ne reviens pas en arriere.$()$(br2)- Dr. E. V.",
-  "book_texture": "patchouli:textures/gui/book_brown.png",
-  "model": "patchouli:book_brown",
-  "creative_tab": "nexusabsolu",
-  "show_progress": false,
-  "version": 1
-}

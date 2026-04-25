@@ -1,9 +1,0 @@
-{
-  "name": "Carnet du Dr. Voss",
-  "landing_text": "Si vous lisez ceci, l'experience a reussi.$(br2)Felicitations. Ou condoleances. Tout depend de votre point de vue.$(br2)$(italics)- Dr. Elias Nathaniel Voss$()",
-  "book_texture": "patchouli:textures/gui/book_brown.png",
-  "model": "patchouli:book_brown",
-  "creative_tab": "nexusabsolu",
-  "show_progress": false,
-  "version": 1
-}
