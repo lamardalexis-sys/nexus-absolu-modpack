@@ -31,6 +31,11 @@ git pull
 
 # Step 2: Copy sources
 echo "[2/6] Copying sources..."
+# IMPORTANT : nettoyer d'abord le dossier de build pour eviter les fichiers
+# fantomes (fichiers supprimes dans le repo qui resteraient dans /c/Dev et
+# seraient quand meme compiles). Cf. v1.0.308 qui suppression Archives Voss.
+rm -rf /c/Dev/NexusAbsoluMod/src
+mkdir -p /c/Dev/NexusAbsoluMod/src
 cp -r mod-source/src/* /c/Dev/NexusAbsoluMod/src/
 cp mod-source/build.gradle /c/Dev/NexusAbsoluMod/build.gradle
 rm -rf /c/Dev/NexusAbsoluMod/src/main/java/com/example
