@@ -25,21 +25,23 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new ClientMiningHandler());
 
         // StateMapper custom pour le bloc fluide Diarrhee (toutes les variantes "level=X"
-        // pointent vers le meme model, qui est genere via le blockstate forge_marker).
+        // pointent vers la variante "normal" du blockstate, qui utilise forge:fluid).
         if (CommonProxy.DIARRHEE_FLUID_BLOCK != null) {
             net.minecraft.client.renderer.block.statemap.StateMap mapper =
                 new net.minecraft.client.renderer.block.statemap.StateMap.Builder()
                     .ignore(net.minecraftforge.fluids.BlockFluidBase.LEVEL).build();
             net.minecraftforge.client.model.ModelLoader.setCustomStateMapper(
                 CommonProxy.DIARRHEE_FLUID_BLOCK, mapper);
-            // Item model (pour le creative inventory s'il y est) -> meme model
+            // Item model: pointe vers la variante "normal" du blockstate (= forge:fluid)
             net.minecraft.item.Item item = net.minecraft.item.Item.getItemFromBlock(
                 CommonProxy.DIARRHEE_FLUID_BLOCK);
             if (item != null) {
-                net.minecraftforge.client.model.ModelLoader.setCustomModelResourceLocation(
-                    item, 0,
+                net.minecraft.client.renderer.block.model.ModelResourceLocation mrl =
                     new net.minecraft.client.renderer.block.model.ModelResourceLocation(
-                        CommonProxy.DIARRHEE_FLUID_BLOCK.getRegistryName(), "fluid"));
+                        CommonProxy.DIARRHEE_FLUID_BLOCK.getRegistryName(), "normal");
+                net.minecraft.client.renderer.ItemMeshDefinition meshDef = stack -> mrl;
+                net.minecraftforge.client.model.ModelLoader.setCustomMeshDefinition(item, meshDef);
+                net.minecraft.client.renderer.block.model.ModelBakery.registerItemVariants(item, mrl);
             }
         }
     }
