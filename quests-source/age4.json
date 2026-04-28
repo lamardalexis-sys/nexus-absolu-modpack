@@ -1,0 +1,1179 @@
+{
+  "quests": {
+    "400:10": {
+      "questID:3": 4000,
+      "preRequisites:11": [],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "patchouli:guide_book",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss_v4"
+            }
+          },
+          "name:8": "§l§5Le Grand Œuvre",
+          "desc:8": "§7§oTu sens un truc bizarre. L'air a une odeur que t'avais jamais remarquee.§r\n\n§7Tu viens de finir l'Age 3. Tu crois que c'est fini. Tu as tort.\n§7Quelque chose t'attendait. Un livre. §dCarnet Voss Vol. IV.§r\n§7Il etait pas la y'a 5 minutes.\n\n§8§o\"Si tu lis ceci, c'est que tu es alle plus loin que les autres.\n§8Felicitations. Maintenant le vrai travail commence.\"\n§8— Note manuscrite, premiere page§r\n\n§e§lObjectif : §7Recupere le §dCarnet Voss Vol. IV§r\n§e§lRecompense : §7Le carnet + 8 pains + bouteille XP"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "patchouli:guide_book",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:bread",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "2:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 3,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7L'Age 4 commence. Le Grand Oeuvre s'eveille.§r"
+        }
+      }
+    },
+    "401:10": {
+      "questID:3": 4001,
+      "preRequisites:11": [
+        4000
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "patchouli:guide_book",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss_v4"
+            }
+          },
+          "name:8": "§l§5La Preface",
+          "desc:8": "§7Ouvre le §dCarnet Voss Vol. IV§r§7.\n§7Lis la §oPreface§r§7. Voss y explique ce que c'est qu'une\n§7§lCartouche Manifold§r§7.\n\n§7§oSpoiler : c'est un serum injectable qui fusionne 5 theoremes\n§7§oet qui fait sortir de la simulation. Bah voila.§r\n\n§8§o\"Une cartouche. Pas une potion. Pas une pilule. Une cartouche.\n§8Parce qu'on n'avale pas le reel. On l'injecte.\"\n§8— Carnet Voss Vol. IV, Preface§r\n\n§e§lObjectif : §7Lis la §oPreface§r §7du Carnet Vol. IV\n§e§lRecompense : §710 XP + 1 emerald"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "402:10": {
+      "questID:3": 4002,
+      "preRequisites:11": [
+        4001
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "patchouli:guide_book",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss_v4"
+            }
+          },
+          "name:8": "§l§5Huit lignes en parallele",
+          "desc:8": "§7Voss decrit le pipeline : §l8 lignes industrielles§r§7 qui\n§7convergent vers un seul produit final.\n\n§7§oOui, 8. Tu as bien lu. Si t'as cru que cet age allait etre\n§7§ofacile, c'est rate. Mais bon, t'es la pour ca.§r\n\n§7Liste :\n§7• L1 §8Petrochimie §7• L2 §8Hydro-Eau\n§7• L3 §8Electrolyse + Cryo §7• L4 §8Pyrometallurgie\n§7• L5 §8Nucleaire §7• L6 §8Acides + NH3 (hub)\n§7• L7 §8Organique §7• L8 §8Botanique + Manifoldine\n\n§8§o\"Si tu te demandes par ou commencer : par l'eau.\n§8L'eau alimente tout le reste.\"§r\n\n§e§lObjectif : §7Lis le chapitre §o'Vue d'ensemble'§r\n§e§lRecompense : §7Patchouli book Vol. IV + 5 emeralds"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 5,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:experience_bottle",
+                "Count:3": 5,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "403:10": {
+      "questID:3": 4003,
+      "preRequisites:11": [
+        4002
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:machineblock2",
+            "Count:3": 1,
+            "Damage:2": 2,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6L'eau, par ou tout commence",
+          "desc:8": "§7Voss te dit de commencer par l'eau. Soit.\n§7Pose un §eMekanism Electric Pump§r§7 a cote d'un lac.\n\n§7§oPas un seau a la main. Un pump. On industrialise.§r\n\n§e§lObjectif : §71x Mekanism Electric Pump\n§e§lRecompense : §72x Mechanical Pipe + 16 Universal Cable"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:machineblock2",
+              "Count:3": 1,
+              "Damage:2": 2,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "mekanism:transmitter",
+                "Count:3": 2,
+                "Damage:2": 4,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:transmitter",
+                "Count:3": 16,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "404:10": {
+      "questID:3": 4004,
+      "preRequisites:11": [
+        4003
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "thermalexpansion:device",
+            "Count:3": 1,
+            "Damage:2": 3,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Distiller, c'est purifier",
+          "desc:8": "§7Construis une §eThermal Evaporation Plant§r§7 (Thermal Foundation).\n§7Au lieu de Brine, on veut juste de §lleau distillee§r§7.\n\n§7§oC'est l'etape 1 sur 3. Y'a encore deux distillations apres ca.\n§7§oLe truc c'est que une eau pas pure casse 80% des reactions plus tard.§r\n\n§e§lObjectif : §7Construis la TEP (Evaporation Controller au centre)\n§e§lRecompense : §74 buckets de Distilled Water + 8 Glass"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalexpansion:device",
+              "Count:3": 1,
+              "Damage:2": 3,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:bucket",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:glass",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "405:10": {
+      "questID:3": 4005,
+      "preRequisites:11": [
+        4004
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:resin_charge",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Filtration ionique",
+          "desc:8": "§7Crafte une §eResine Echangeuse§r§7 (resin_charge) et fais passer\n§7ton eau distillee a travers le filtre ionique.\n\n§7§oTu retires les ions metalliques. Bah ca a l'air technique\n§7§omais en pratique c'est juste : eau dans le filtre, eau bidistillee dehors.§r\n\n§8§o\"Une eau ionisee est une eau menteuse.\" — Voss§r\n\n§e§lObjectif : §72x Resin Charge + 1000mB Bidistilled Water\n§e§lRecompense : §74 Resin Charges + 1 emerald"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:resin_charge",
+              "Count:3": 2,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "nexusabsolu:resin_charge",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "406:10": {
+      "questID:3": 4006,
+      "preRequisites:11": [
+        4005
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:tridistilled_water_bucket",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Osmose inverse : la 3eme passe",
+          "desc:8": "§7Construis le §eMB-OSMOSE§r§7 (3x3x3, voir §dCarnet Vol. IV §7p.12).\n§7Membrane silicium dope au centre.\n\n§7§oTu pousses l'eau a travers une membrane qui laisse passer\n§7§oque les molecules H2O. Tout le reste reste de l'autre cote.§r\n\n§7Output : §3Eau Tridistillee§r §7- l'eau qui alimente TOUT le pipeline.\n\n§e§lObjectif : §71000mB Tridistilled Water\n§e§lRecompense : §74 buckets Tridistilled + 2 emeralds"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "minecraft:bucket",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:bucket",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "407:10": {
+      "questID:3": 4007,
+      "preRequisites:11": [
+        4002
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:air_intake_block",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Aspirer l'air ambiant",
+          "desc:8": "§7L3 commence par un §eAir Intake Block§r§7 pose a l'air libre.\n§7Il transforme l'air en §eAir Canisters§r §7(item).\n\n§7§oOui, l'air c'est un truc qu'on industrialise. Bienvenue dans l'Age 4.§r\n\n§e§lObjectif : §71x Air Intake Block + 16 Air Canisters\n§e§lRecompense : §72 Air Intake Blocks + 1 Iron Block"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:air_intake_block",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "nexusabsolu:air_canister",
+              "Count:3": 16,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "nexusabsolu:air_intake_block",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:iron_block",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "408:10": {
+      "questID:3": 4008,
+      "preRequisites:11": [
+        4007
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "thermalfoundation:fluid_cryotheum",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Le Cryotheum, ton nouveau pote",
+          "desc:8": "§7Pour la cryo-distillation, t'as besoin de §bGelid Cryotheum§r§7.\n§7Recette Thermal Foundation classique : Blizz Powder + Snowballs\n§7+ Niter + Redstone Dust dans la Magma Crucible.\n\n§7§oBah voila, t'auras besoin de plein de Blizz. Genre §lvraiment plein§r§o.\n§7§oFais-toi une ferme a Blizz, tu vas me remercier.§r\n\n§e§lObjectif : §71000mB Gelid Cryotheum\n§e§lRecompense : §74 Blizz Rod + 8 Snowballs"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "thermalfoundation:material",
+              "Count:3": 1,
+              "Damage:2": 1024,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "thermalfoundation:material",
+                "Count:3": 4,
+                "Damage:2": 2049,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:snowball",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "409:10": {
+      "questID:3": 4009,
+      "preRequisites:11": [
+        4008
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "modularmachinery:blockcasing",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Construire la Cryo-Distillation Atmospherique",
+          "desc:8": "§7C'est ton §lpremier gros multibloc Age 4§r§7.\n§7Layout 3x6x3 vertical (cf §dCarnet Vol. IV §7p.18).\n\n§7Couche 0 : Reinforced Iridium + Air Intake centre\n§7Couches 1-6 : Casing + Quantum Glass\n§7Top : 3 Output Hatch (N2/Ar/O2)\n\n§7§oC'est un mastodonte energivore (2M RF/t). Si t'as pas un\n§7§ocluster Big Reactors ou un Mekanism Fusion deja, c'est mort.\n§7§oMais bon, t'as commence l'Age 4 donc c'est suppose etre dur.§r\n\n§e§lObjectif : §7Multibloc MB-CRYO-ATM forme et detecte\n§e§lRecompense : §74 Reinforced Iridium + 1 Quantum Glass + 8 emeralds"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "modularmachinery:blockcasing",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 8,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/gamestage add @p age4_cryo_atm_built"
+        }
+      }
+    },
+    "410:10": {
+      "questID:3": 4010,
+      "preRequisites:11": [
+        4009,
+        4006
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:fluorine_capsule",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Premiere extraction Argon",
+          "desc:8": "§7Lance ton MB-CRYO-ATM. Premier cycle = 60s en jeu.\n§7Output : §57800mB N2§r§7 + §62100mB O2§r§7 + §d100mB Argon§r§7.\n\n§7§oL'Argon represente 1% de l'air. Pour la premiere fois,\n§7§ot'en as une bouteille. Bienvenue dans la chimie noble.§r\n\n§8§o\"L'Argon ne reagit avec rien. C'est pourquoi il scelle tout.\"\n§8— Voss, Carnet Vol. IV§r\n\n§e§lObjectif : §7100mB Argon (1 bucket Argon Liquid)\n§e§lRecompense : §74 emeralds + 1 diamond + 1 capsule UC argon"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:diamond",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7Premier Argon extrait. Le pipeline s'eveille.§r"
+        }
+      }
+    },
+    "411:10": {
+      "questID:3": 4011,
+      "preRequisites:11": [
+        4006
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:graphite_block",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6La cellule au mercure",
+          "desc:8": "§7Construis le §eMB-CK§r§7 (Cellule Castner-Kellner, 5x3x3 horizontal).\n§7Cathode : Mercury Pool. Anode : 4 Graphite Blocks.\n\n§7§oC'est de l'electrolyse fondue. T'envoies de la saumure dedans,\n§7§oca te sort du sodium liquide, du chlore gazeux, du NaOH et du H2.§r\n\n§8§o\"Avec le mercure, on triche un peu sur la thermodynamique.\n§8Mais on triche bien.\" — Voss§r\n\n§e§lObjectif : §7Multibloc MB-CK + 1 cycle complet\n§e§lRecompense : §72 Graphite Blocks + 4 emeralds"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:graphite_block",
+              "Count:3": 4,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            },
+            "1:10": {
+              "id:8": "nexusabsolu:mercury_pool",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "nexusabsolu:graphite_block",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "412:10": {
+      "questID:3": 4012,
+      "preRequisites:11": [
+        4011
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:sodium_ingot",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6Sodium liquide (jaune feu)",
+          "desc:8": "§7Lance Castner-Kellner. Recupere du §eSodium liquide§r§7.\n§7Tu vas en avoir besoin pour le Procede Bayer (Aluminium L4).\n\n§7§oNote : le sodium liquide brule au contact de l'eau. Genre,\n§7§oREELLEMENT brule. Stocke-le bien dans des tanks Mekanism.§r\n\n§e§lObjectif : §7100mB Sodium Liquide\n§e§lRecompense : §72 Sodium Ingots + 4 emeralds"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "nexusabsolu:sodium_ingot",
+              "Count:3": 1,
+              "Damage:2": 0,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "nexusabsolu:sodium_ingot",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "413:10": {
+      "questID:3": 4013,
+      "preRequisites:11": [
+        4011
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "nexusabsolu:graphite_block",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6NaOH : la base forte",
+          "desc:8": "§7Sous-produit du Castner-Kellner. Concentre-le dans le\n§eMB-EVAPORATOR§r§7 (3x3x3 simple).\n\n§7§oTu vas en avoir besoin a 3 endroits :\n§7§o• L4 (Procede Bayer pour l'aluminium)\n§7§o• L8 (extraction pigments doux/sombres)\n§7§o• Tampon de pH dans plein de reactions§r\n\n§e§lObjectif : §7500mB NaOH Concentrated\n§e§lRecompense : §72 emeralds + 1 Lapis Block"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 2,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:lapis_block",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "414:10": {
+      "questID:3": 4014,
+      "preRequisites:11": [
+        4006
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "mekanism:machineblock",
+            "Count:3": 1,
+            "Damage:2": 4,
+            "OreDict:8": ""
+          },
+          "name:8": "§l§6H2 et O2 : les classiques",
+          "desc:8": "§7Setup Mekanism §eElectrolytic Separator§r§7 sur de l'eau tridistillee.\n§7Output : §dHydrogene§r §7+ §6Oxygene§r §7gazeux.\n\n§7§oTu vas en cramer des tonnes. H2 pour HDS (L1) + Haber (L6).\n§7§oO2 pour Cumene (L7), Claus (L6), Bessemer (L4)... le truc c'est\n§7§oque tu peux JAMAIS en avoir trop. Stocke en Pressurized Tubes.§r\n\n§e§lObjectif : §71x Electrolytic Separator + 1000mB H2\n§e§lRecompense : §74 Pressurized Tubes + 4 Gas Tank"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "partialMatch:1": 1,
+          "autoConsume:1": 0,
+          "groupDetect:1": 0,
+          "ignoreNBT:1": 1,
+          "index:3": 0,
+          "consume:1": 0,
+          "ignoreDamage:1": 0,
+          "taskID:8": "bq_standard:retrieval",
+          "requiredItems:9": {
+            "0:10": {
+              "id:8": "mekanism:machineblock",
+              "Count:3": 1,
+              "Damage:2": 4,
+              "OreDict:8": ""
+            }
+          }
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "mekanism:transmitter",
+                "Count:3": 4,
+                "Damage:2": 1,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "mekanism:gastank",
+                "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        }
+      }
+    },
+    "415:10": {
+      "questID:3": 4015,
+      "preRequisites:11": [
+        4006,
+        4010,
+        4012,
+        4013,
+        4014
+      ],
+      "properties:10": {
+        "betterquesting:10": {
+          "issilent:1": 0,
+          "snd_complete:8": "minecraft:entity.player.levelup",
+          "lockedprogress:1": 1,
+          "partySingleReward:8": "false",
+          "tasklogic:8": "AND",
+          "repeattime:3": -1,
+          "visibility:8": "ALWAYS",
+          "simultaneous:1": 0,
+          "globalshare:1": 0,
+          "questlogic:8": "AND",
+          "partysinglereward:1": 0,
+          "snd_update:8": "minecraft:entity.player.levelup",
+          "autoclaim:1": 0,
+          "ismain:1": 1,
+          "repeat_relative:1": 1,
+          "icon:10": {
+            "id:8": "patchouli:guide_book",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": "",
+            "tag:10": {
+              "patchouli:book:8": "nexusabsolu:carnet_voss_v4"
+            }
+          },
+          "name:8": "§l§5Fondations posees",
+          "desc:8": "§7T'as l'eau, l'air, l'azote, l'oxygene, l'argon, l'hydrogene,\n§7le sodium, le chlore, le NaOH.\n\n§7§oC'est la base. Sans ca rien ne tourne. Avec ca tu peux tout faire.\n§7§oEt maintenant la vraie chimie commence : les metaux.§r\n\n§8§o\"Quand tu maitrises les gaz industriels, tu maitrises le 21eme siecle.\n§8La suite, c'est le 19eme : les metaux et le feu.\"\n§8— Voss, Carnet Vol. IV§r\n\n§e§lObjectif : §7Phase 1 complete\n§e§lRecompense : §710 emeralds + 1 diamond block + Carnet Vol. IV chap.2 unlock"
+        }
+      },
+      "tasks:9": {
+        "0:10": {
+          "index:3": 0,
+          "taskID:8": "bq_standard:checkbox"
+        }
+      },
+      "rewards:9": {
+        "0:10": {
+          "rewardID:8": "bq_standard:item",
+          "index:3": 0,
+          "rewards:9": [
+            {
+              "0:10": {
+                "id:8": "minecraft:emerald",
+                "Count:3": 10,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "1:10": {
+                "id:8": "minecraft:diamond_block",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              }
+            }
+          ]
+        },
+        "1:10": {
+          "hideBlockIcon:1": 1,
+          "rewardID:8": "bq_standard:command",
+          "asScript:1": 1,
+          "description:8": "",
+          "viaPlayer:1": 0,
+          "index:3": 1,
+          "title:8": "bq_standard.reward.command",
+          "command:8": "/say §5[Nexus Absolu]§r §7VAR_NAME a complete la Phase 1. La metallurgie commence.§r"
+        }
+      }
+    }
+  }
+}
