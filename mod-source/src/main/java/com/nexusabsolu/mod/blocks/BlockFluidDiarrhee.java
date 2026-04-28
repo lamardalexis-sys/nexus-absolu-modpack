@@ -33,9 +33,10 @@ public class BlockFluidDiarrhee extends BlockFluidClassic {
         setCreativeTab(CreativeTabs.MISC);
         // tickRate eleve pour limiter les recalculs (au cas ou)
         setTickRate(20);
-        // Quantization 1: pas de niveau intermediaire, juste source ou rien
-        this.quantaPerBlock = 1;
-        this.quantaPerBlockFloat = 1.0F;
+        // NOTE: on NE TOUCHE PAS a quantaPerBlock (rester a 8 par defaut).
+        // quantaPerBlock=1 cause NaN dans BlockFluidBase.getExtendedState()
+        // car il fait des divisions par (quantaPerBlock - 1) -> 0 -> NaN -> crash.
+        // La non-propagation est garantie par canDisplace=false + updateTick vide.
     }
 
     @Override
