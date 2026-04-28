@@ -44,15 +44,15 @@ public class GuiCondenseurT2 extends GuiContainer {
         // === SLOT GLOW when processing (new 220x220 coords) ===
         if (proc) {
             int glowColor = 0xFF6B3FA0;
-            // Input slots 2x2 at (36,30) (56,30) (36,50) (56,50)
+            // Input slots 2x2 at (36,30) (56,30) (36,59) (56,59)
             drawRect(gx+36, gy+30, gx+54, gy+48, glowColor);
             drawRect(gx+37, gy+31, gx+53, gy+47, 0xFF080310);
             drawRect(gx+56, gy+30, gx+74, gy+48, glowColor);
             drawRect(gx+57, gy+31, gx+73, gy+47, 0xFF080310);
-            drawRect(gx+36, gy+50, gx+54, gy+68, glowColor);
-            drawRect(gx+37, gy+51, gx+53, gy+67, 0xFF080310);
-            drawRect(gx+56, gy+50, gx+74, gy+68, glowColor);
-            drawRect(gx+57, gy+51, gx+73, gy+67, 0xFF080310);
+            drawRect(gx+36, gy+59, gx+54, gy+77, glowColor);
+            drawRect(gx+37, gy+60, gx+53, gy+76, 0xFF080310);
+            drawRect(gx+56, gy+59, gx+74, gy+77, glowColor);
+            drawRect(gx+57, gy+60, gx+73, gy+76, 0xFF080310);
             // Output slot glow at (150, 42)
             drawRect(gx+150, gy+42, gx+168, gy+60, glowColor);
             drawRect(gx+151, gy+43, gx+167, gy+59, 0xFF080310);
@@ -148,12 +148,14 @@ public class GuiCondenseurT2 extends GuiContainer {
         fontRenderer.drawString(title,
             (GUI_W - fontRenderer.getStringWidth(title)) / 2, 8, 0xFFBB88FF);
 
-        // Input slot labels (above each 2x2 input slot)
-        // Slots at (37,31) (57,31) (37,51) (57,51)
+        // Input slot labels
+        // Slots at (37,31) (57,31) (37,60) (57,60)
+        // Row 1 labels above slots (y=23, slots start y=31)
         fontRenderer.drawString("CM", 40, 23, 0xFF7755AA);
         fontRenderer.drawString("CM", 60, 23, 0xFF7755AA);
-        fontRenderer.drawString("Cl", 41, 43, 0xFF554477);
-        fontRenderer.drawString("Ca", 60, 43, 0xFF554477);
+        // Row 2 labels between rows (y=51, slots end y=47, slot 2 starts y=60)
+        fontRenderer.drawString("Cle", 39, 51, 0xFF7755AA);
+        fontRenderer.drawString("Cat", 59, 51, 0xFF7755AA);
 
         // Progress % (below progress bar at x=95..111, y=29..83)
         if (proc && container.getMaxProcessTime() > 0) {

@@ -49,15 +49,15 @@ public class ContainerCondenseurT2 extends Container {
         this.inputTile = inputTile;
         this.outputTile = outputTile;
 
-        // 4 input slots (from INPUT hatch) -- 2x2 grid at (37,31) / (57,31) / (37,51) / (57,51)
+        // 4 input slots (from INPUT hatch) -- 2x2 grid at (37,31) / (57,31) / (37,60) / (57,60)
         // SlotInput limits each slot to 1 item to ensure ItemDuct/Servo
         // automation distributes items across the 4 slots instead of
         // stacking them all in slot 0 (which would break recipe matching).
         if (inputTile != null) {
             addSlotToContainer(new SlotInput(inputTile, 0, 37, 31));  // CM 1
             addSlotToContainer(new SlotInput(inputTile, 1, 57, 31));  // CM 2
-            addSlotToContainer(new SlotInput(inputTile, 2, 37, 51));  // Key
-            addSlotToContainer(new SlotInput(inputTile, 3, 57, 51));  // Catalyst
+            addSlotToContainer(new SlotInput(inputTile, 2, 37, 60));  // Key
+            addSlotToContainer(new SlotInput(inputTile, 3, 57, 60));  // Catalyst
         } else {
             for (int i = 0; i < 4; i++) {
                 addSlotToContainer(new Slot(new DummyInventory(), i, -999, -999));
