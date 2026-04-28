@@ -11586,6 +11586,30 @@
               "Damage:2": 0,
               "OreDict:8": ""
             }
+          ,
+            "1:10": {
+                "id:8": "minecraft:written_book",
+                "Count:3": 1,
+                "Damage:2": 0,
+                "OreDict:8": "",
+                "tag:10": {
+                  "title:8": "Plans du Portail Voss",
+                  "author:8": "Dr. E. Voss",
+                  "pages:9": [
+                    "{\"text\": \"§l§5Plans du Portail§r\\n    \\nTraces par le\\nDr. Elias Voss\\n\\nCes plans decrivent\\nles 9 couches du\\nPortail dimensionnel.\\n\\nConstruis-les dans\\nta Compact Machine\\n9x9.\"}",
+                    "{\"text\": \"§lLegende :§r\\n\\nw = Nexus Wall\\nW = Nexus Wall T2\\n3 = Vossium III\\n4 = Vossium IV\\nE = Energy Input\\nF = Fluid Input\\nD = Compose D\\n~ = Lave\\nX = Ecran Controle\"}",
+                    "{\"text\": \"§lCouche -5§r\\n(la base, 7x7)\\n\\nW W W E W W W\\nW W 3 3 3 W W\\nW 3 W 3 W 3 W\\nW 3 3 4 3 3 F\\nW 3 W 3 W 3 W\\nW W 3 3 3 W W\\nW W W W W W W\\n\\nE et F opposes.\"}",
+                    "{\"text\": \"§lCouche -4§r\\n(le bassin)\\n\\nD w w w D\\nw ~ ~ ~ w\\nw ~ 4 ~ w\\nw ~ ~ ~ w\\nD w w w D\\n\\n8 lave autour du\\n2eme bloc Vossium IV\\nau centre.\"}",
+                    "{\"text\": \"§lCouche -3§r\\n(plateforme)\\n\\nw w w\\nw W w\\nw w w\\n\\n3x3 de murs avec\\nun Wall T2 au centre\\njuste au-dessus du\\nVossium IV.\"}",
+                    "{\"text\": \"§lCouches -2 a 0§r\\n(les piliers)\\n\\nA chaque niveau,\\n2 piliers Wall T2.\\n\\nPosition : a gauche\\net a droite du\\ncentre, de chaque\\ncote du futur\\nportail.\\n\\nL'§lECRAN§r est place\\nau centre, niveau 0.\"}",
+                    "{\"text\": \"§lCouche +1§r\\n(le pont)\\n\\nW w w w W\\n\\n§lCouches +2 et +3§r\\n(les cornes)\\n\\nw w . . . w w\\n. . . . . . .\\nw . . . . . w\\n\\nBranches externes\\nau-dessus du pont.\"}",
+                    "{\"text\": \"§l§6Activation§r\\n\\n§e1.§r Branche un\\nEnergy Input au F\\narriere et charge\\n§61,000,000 RF§r.\\n\\n§e2.§r Branche un\\nFluid Input et\\nremplis-le avec\\n§d10 buckets§r de\\nDiarrhee Liquide.\"}",
+                    "{\"text\": \"§e3.§r Tiens la\\n§dCle de Liberte§r\\nen main.\\n\\n§e4.§r Clique droit\\nsur l'§lECRAN§r.\\n\\n§r§o\\nSi tu lis ceci,\\nc'est que tu as\\nreussi la ou j'ai\\nechoue.\\n\\n— E. Voss§r\"}"
+                  ],
+                  "resolved:1": 1,
+                  "generation:3": 0
+                }
+              }
           }
         }
       }
@@ -11619,7 +11643,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§5§n═ Le Portail Voss ═",
-          "desc:8": "§7Assemble la Structure.\n§7Place l'§bÉcran de Contrôle§r§7 au sommet.\n§7Il détectera le reste.\n\n§8§o\"Ce n'est pas une porte. C'est une autorisation.\nLa matière, l'énergie et la volonté\ns'alignent un instant — et le passage s'ouvre.\"\n— Dr. E. Voss, testament§r\n\n§eRassemble §btous les blocs§r§e nécessaires :\n§729x Nexus Wall\n§739x Nexus Wall T2\n§716x Bloc de Vossium III\n§72x Bloc de Vossium IV\n§71x Energy Input\n§71x Fluid Input\n§74x Bloc de Composé D\n§78x Seau de Lave\n§71x Écran de Contrôle §8(maître)§r\n\n§d§oRécompense : Clé de Liberté."
+          "desc:8": "§7Assemble la Structure.\n§7Place l'§bÉcran de Contrôle§r§7 au sommet.\n§7Il détectera le reste.\n\n§e§l► Consulte le livre §6\"Plans du Portail Voss\"§e§l ◄§r\n§7(reçu en récompense Q précédente)\n§7Il contient le plan exact des 9 couches.\n\n§8§o\"Ce n'est pas une porte. C'est une autorisation.\nLa matière, l'énergie et la volonté\ns'alignent un instant — et le passage s'ouvre.\"\n— Dr. E. Voss, testament§r\n\n§eRassemble §btous les blocs§r§e nécessaires :\n§729x Nexus Wall\n§739x Nexus Wall T2\n§716x Bloc de Vossium III\n§72x Bloc de Vossium IV\n§71x Energy Input\n§71x Fluid Input\n§74x Bloc de Composé D\n§78x Seau de Lave\n§71x Écran de Contrôle §8(maître)§r\n\n§d§oRécompense : Clé de Liberté."
         }
       },
       "tasks:9": {
