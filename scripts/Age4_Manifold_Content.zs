@@ -297,20 +297,16 @@ val epsilon_manifoldine_active = VanillaFactory.createItem("epsilon_manifoldine_
 // =============================================================================
 // ITEMS — CARTOUCHE FINALE
 // =============================================================================
+// NB: cartouche_manifold et cartouche_used sont desormais dans le MOD SOURCE
+// (com.nexusabsolu.mod.items.ItemCartoucheManifold / ItemCartoucheUsed)
+// pour avoir un comportement Java natif (right-click, NBT cooldown, glint).
+// IDs : nexusabsolu:cartouche_manifold et nexusabsolu:cartouche_used.
 
 val casing_cartouche_empty = VanillaFactory.createItem("casing_cartouche_empty");
 casing_cartouche_empty.maxStackSize = 16; casing_cartouche_empty.register();
 
 val casing_cartouche_sterile = VanillaFactory.createItem("casing_cartouche_sterile");
 casing_cartouche_sterile.maxStackSize = 16; casing_cartouche_sterile.register();
-
-val cartouche_manifold = VanillaFactory.createItem("cartouche_manifold");
-cartouche_manifold.maxStackSize = 1;
-cartouche_manifold.maxDamage = 1; // une seule utilisation
-cartouche_manifold.register(); // ⭐⭐⭐⭐⭐ ITEM FINAL DE L'ÂGE 4
-
-val cartouche_used = VanillaFactory.createItem("cartouche_used");
-cartouche_used.maxStackSize = 16; cartouche_used.register(); // recyclable casing
 
 // =============================================================================
 // FIN DU FICHIER

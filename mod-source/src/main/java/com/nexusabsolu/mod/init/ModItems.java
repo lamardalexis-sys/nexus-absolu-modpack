@@ -1,6 +1,8 @@
 package com.nexusabsolu.mod.init;
 
 import com.nexusabsolu.mod.items.ItemBase;
+import com.nexusabsolu.mod.items.ItemCartoucheManifold;
+import com.nexusabsolu.mod.items.ItemCartoucheUsed;
 import com.nexusabsolu.mod.items.ItemCleLiberte;
 import com.nexusabsolu.mod.items.ItemCleLiberteActivee;
 import com.nexusabsolu.mod.items.ItemCompose;
@@ -223,4 +225,11 @@ public class ModItems {
     // v1.0.212 : Kit d'Amelioration pour debloquer RF + upgrades sur un furnace
     public static final Item FURNACE_UPGRADE_KIT =
         new com.nexusabsolu.mod.items.ItemFurnaceUpgradeKit();
+
+    // === AGE 4 - CARTOUCHE MANIFOLD ===
+    // L'item phare de l'Age 4. Right-click → injection serum (3 min potions
+    // vanilla cranked). Cooldown 5 min. Apres usage : transformee en
+    // CARTOUCHE_USED (casing recyclable).
+    public static final Item CARTOUCHE_MANIFOLD = new ItemCartoucheManifold();
+    public static final Item CARTOUCHE_USED = new ItemCartoucheUsed();
 }

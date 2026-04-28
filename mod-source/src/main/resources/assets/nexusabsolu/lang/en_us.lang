@@ -168,3 +168,7 @@ tile.nexusabsolu.furnace_vossium_iv.name=Vossium IV Furnace
 tile.nexusabsolu.furnace_dark_astral.name=Dark Astral Furnace
 tile.nexusabsolu.furnace_gaia_ludicrite.name=Ludicrite Furnace
 tile.nexusabsolu.furnace_pallanutro.name=Pallanutro Furnace
+
+# === Age 4 - Manifold Cartridge ===
+item.nexusabsolu.cartouche_manifold.name=Manifold Cartridge
+item.nexusabsolu.cartouche_used.name=Used Cartridge
