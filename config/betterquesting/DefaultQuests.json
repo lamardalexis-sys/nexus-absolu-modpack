@@ -6174,7 +6174,7 @@
             }
           ,
             "2:10": {
-              "id:8": "soulshardsrespawn:soul_shard",
+              "id:8": "bloodmagic:monster_soul",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
