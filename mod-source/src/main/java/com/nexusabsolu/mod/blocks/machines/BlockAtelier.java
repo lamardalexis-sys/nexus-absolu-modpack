@@ -8,10 +8,14 @@ import com.nexusabsolu.mod.init.ModItems;
 import com.nexusabsolu.mod.tiles.TileAtelier;
 import com.nexusabsolu.mod.util.IHasModel;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
@@ -27,6 +31,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockAtelier extends Block implements IHasModel {
 
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
+
     public BlockAtelier() {
         super(Material.IRON);
         setUnlocalizedName(Reference.MOD_ID + ".atelier_voss");
@@ -35,8 +41,34 @@ public class BlockAtelier extends Block implements IHasModel {
         setHardness(3.0F);
         setResistance(10.0F);
         setSoundType(SoundType.ANVIL);
+        setDefaultState(blockState.getBaseState()
+            .withProperty(FACING, EnumFacing.NORTH));
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, FACING);
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World w, BlockPos p,
+            EnumFacing f, float hx, float hy, float hz,
+            int meta, EntityLivingBase placer) {
+        return getDefaultState()
+            .withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState s) {
+        return s.getValue(FACING).getHorizontalIndex();
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int m) {
+        return getDefaultState()
+            .withProperty(FACING, EnumFacing.getHorizontal(m));
     }
 
     @Override

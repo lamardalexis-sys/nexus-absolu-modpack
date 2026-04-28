@@ -1,0 +1,170 @@
+itemGroup.nexusabsolu=Nexus Absolu
+
+# === Grits ===
+item.nexusabsolu.wall_dust.name=Poussiere de Mur
+item.nexusabsolu.iron_grit.name=Grit de Fer
+item.nexusabsolu.copper_grit.name=Grit de Cuivre
+item.nexusabsolu.tin_grit.name=Grit d'Etain
+item.nexusabsolu.silver_grit.name=Grit d'Argent
+item.nexusabsolu.nickel_grit.name=Grit de Nickel
+item.nexusabsolu.lead_grit.name=Grit de Plomb
+item.nexusabsolu.gold_grit.name=Grit d'Or
+item.nexusabsolu.osmium_grit.name=Grit d'Osmium
+
+# === Raw Grits ===
+item.nexusabsolu.raw_iron_grit.name=Grit Brut de Fer
+item.nexusabsolu.raw_copper_grit.name=Grit Brut de Cuivre
+item.nexusabsolu.raw_tin_grit.name=Grit Brut d'Etain
+item.nexusabsolu.raw_silver_grit.name=Grit Brut d'Argent
+item.nexusabsolu.raw_nickel_grit.name=Grit Brut de Nickel
+item.nexusabsolu.raw_lead_grit.name=Grit Brut de Plomb
+item.nexusabsolu.raw_gold_grit.name=Grit Brut d'Or
+item.nexusabsolu.raw_osmium_grit.name=Grit Brut d'Osmium
+
+# === Fragments scavenging ===
+item.nexusabsolu.cobblestone_fragment.name=Fragment de Pierre
+item.nexusabsolu.obsidian_fragment.name=Fragment d'Obsidienne
+
+# === Cles d'expansion CM ===
+item.nexusabsolu.compact_key_5x5.name=Cle 5x5
+item.nexusabsolu.compact_key_7x7.name=Cle 7x7
+item.nexusabsolu.compact_key_9x9.name=Cle 9x9
+item.nexusabsolu.compact_key_11x11.name=Cle 11x11
+item.nexusabsolu.compact_key_13x13.name=Cle 13x13
+item.nexusabsolu.lab_key.name=Cle du Laboratoire
+
+# === Composants ===
+item.nexusabsolu.infused_circuit.name=Circuit Infuse
+item.nexusabsolu.resonant_coil.name=Bobine Resonante
+item.nexusabsolu.organic_catalyst.name=Catalyseur Organique
+
+# === Lingots ===
+item.nexusabsolu.invarium_ingot.name=Lingot d'Invarium
+item.nexusabsolu.vossium_ingot.name=Lingot de Vossium
+item.nexusabsolu.vossium_ii_ingot.name=Lingot de Vossium II
+item.nexusabsolu.vossium_iii_ingot.name=Lingot de Vossium III
+item.nexusabsolu.vossium_iv_ingot.name=Lingot de Vossium IV
+item.nexusabsolu.signalhee_ingot.name=Lingot de Signalhee
+item.nexusabsolu.iron_insule.name=Lingot Iron Insule
+
+# === Composes ===
+item.nexusabsolu.compose_a.name=Compose A
+item.nexusabsolu.compose_b.name=Compose B
+item.nexusabsolu.compose_c.name=Compose C
+item.nexusabsolu.compose_d_raw.name=Compose D Brut
+item.nexusabsolu.compose_d.name=Compose D
+item.nexusabsolu.compose_e.name=Compose E
+
+# === Engrenages Composes ===
+item.nexusabsolu.compose_gear_a.name=Engrenage Compose A
+item.nexusabsolu.compose_gear_b.name=Engrenage Compose B
+item.nexusabsolu.compose_gear_c.name=Engrenage Compose C
+item.nexusabsolu.compose_gear_d.name=Engrenage Compose D
+
+# === Catalyseurs de Phase ===
+item.nexusabsolu.catalyseur_instable.name=Cat. Instable
+item.nexusabsolu.catalyseur_volatile.name=Cat. Volatile
+item.nexusabsolu.catalyseur_critique.name=Cat. Critique
+item.nexusabsolu.catalyseur_resonant.name=Cat. Resonant
+item.nexusabsolu.catalyseur_absolu.name=Cat. Absolu
+
+# === Fragments de Progression ===
+item.nexusabsolu.fragment_mecanique.name=Fragment Mecanique
+item.nexusabsolu.fragment_organique.name=Fragment Organique
+item.nexusabsolu.fragment_stellaire.name=Fragment Stellaire
+
+# === Endgame ===
+item.nexusabsolu.compose_x77.name=Compose X-77
+item.nexusabsolu.coeur_de_donnees.name=Coeur de Donnees
+item.nexusabsolu.noyau_fissile.name=Noyau Stabilise
+item.nexusabsolu.fragment_espace_temps.name=Fragment Espace-Temps
+item.nexusabsolu.codex_transcendant.name=Codex Transcendant
+item.nexusabsolu.prisme_transcendance.name=Prisme Transcendant
+item.nexusabsolu.nexus_absolu.name=Nexus Absolu
+
+# === Pioches ===
+item.nexusabsolu.pioche_fragmentee.name=Pioche Fragmentee
+item.nexusabsolu.pioche_renforcee.name=Pioche Renforcee
+item.nexusabsolu.pioche_cuivree.name=Pioche Cuivree
+item.nexusabsolu.pioche_ferree.name=Pioche Ferree
+item.nexusabsolu.pioche_precieuse.name=Pioche Precieuse
+item.nexusabsolu.pioche_vossium.name=Pioche Vossium
+item.nexusabsolu.pioche_steelium.name=Pioche Steelium
+
+# === Portail Voss (Age 1 -> Age 2) ===
+item.nexusabsolu.cle_liberte.name=Cle de Liberte
+item.nexusabsolu.cle_liberte_activee.name=Cle de Liberte Activee
+
+# === Age 2 intro ===
+item.nexusabsolu.grabber_voss.name=Sac du Sujet 46
+item.nexusabsolu.badge_voss.name=Badge Voss
+item.nexusabsolu.lanterne_voss.name=Lanterne Voss
+item.nexusabsolu.fragment_memoire_1.name=Fragment de Memoire I
+
+# === TUTUOSSS (Age 2+) ===
+item.nexusabsolu.tuosss_row.name=Tuosss Brut
+item.nexusabsolu.tuosss_ingot.name=Lingot de Tuosss
+
+# === Furnace Upgrades ===
+item.nexusabsolu.upgrade_rf_converter.name=Convertisseur RF
+item.nexusabsolu.upgrade_io_expansion.name=Extension I/O
+item.nexusabsolu.upgrade_io_expansion_1.name=Extension I/O I
+item.nexusabsolu.upgrade_io_expansion_2.name=Extension I/O II
+item.nexusabsolu.upgrade_io_expansion_3.name=Extension I/O III
+item.nexusabsolu.upgrade_io_expansion_4.name=Extension I/O IV
+item.nexusabsolu.upgrade_speed_booster.name=Accelerateur
+item.nexusabsolu.upgrade_efficiency.name=Carte Efficience
+item.nexusabsolu.furnace_upgrade_kit.name=Kit Voss
+
+# === BLOCS ===
+
+# === Murs / Minerais ===
+tile.nexusabsolu.nexus_wall.name=Mur du Nexus
+tile.nexusabsolu.vossium_ore.name=Minerai de Vossium
+tile.nexusabsolu.nexium_ore.name=Minerai de Nexium
+tile.nexusabsolu.claustrite_ore.name=Minerai de Claustrite
+tile.nexusabsolu.tutuosss_ore.name=Minerai de Tutuosss
+
+# === Condenseur Dimensionnel ===
+tile.nexusabsolu.condenseur.name=Condenseur
+tile.nexusabsolu.condenseur_formed.name=Condenseur Actif
+
+# === Atelier & Convertisseur ===
+tile.nexusabsolu.atelier_voss.name=Atelier Voss
+tile.nexusabsolu.convertisseur_voss.name=Convertisseur Voss
+
+# === Blocs de Compose ===
+tile.nexusabsolu.compose_block_a.name=Bloc Compose A
+tile.nexusabsolu.compose_block_b.name=Bloc Compose B
+tile.nexusabsolu.compose_block_c.name=Bloc Compose C
+tile.nexusabsolu.compose_block_d.name=Bloc Compose D
+tile.nexusabsolu.compose_block_e.name=Bloc Compose E
+
+# === Condenseur T2 (3x3x3) ===
+tile.condenseur_t2.name=Condenseur T2
+tile.condenseur_t2_wall.name=Mur Condenseur T2
+tile.nexus_wall_t2.name=Mur Nexus T2
+tile.item_input.name=Hatch d'Entree
+tile.item_output.name=Hatch de Sortie
+tile.energy_input.name=Hatch d'Energie
+tile.fluid_input.name=Hatch de Fluide
+tile.ecran_controle.name=Ecran de Controle
+tile.vossium_ii_block.name=Bloc de Vossium II
+tile.vossium_iii_block.name=Bloc de Vossium III
+tile.vossium_iv_block.name=Bloc de Vossium IV
+tile.auto_scavenger.name=Auto-Scavenger
+
+# === Machines Voss nommees ===
+tile.nexusabsolu.machine_humaine.name=Machine Voss Diarh33
+tile.nexusabsolu.machine_krda.name=Machine Voss KRDA125
+fluid.diarrhee_liquide=Diarrhee Liquide
+
+# === Fourneaux Nexus ===
+tile.nexusabsolu.furnace_iron.name=Fourneau Fer
+tile.nexusabsolu.furnace_gold.name=Fourneau Or
+tile.nexusabsolu.furnace_invarium.name=Fourneau Invarium
+tile.nexusabsolu.furnace_emeradic.name=Fourneau Emeradic
+tile.nexusabsolu.furnace_vossium_iv.name=Fourneau Vossium IV
+tile.nexusabsolu.furnace_dark_astral.name=Fourneau Dark Astral
+tile.nexusabsolu.furnace_gaia_ludicrite.name=Fourneau Ludicrite
+tile.nexusabsolu.furnace_pallanutro.name=Fourneau Pallanutro

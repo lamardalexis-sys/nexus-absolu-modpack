@@ -1,6 +1,12 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "nexusabsolu:blocks/atelier_voss"
-    }
+  "parent": "block/cube",
+  "textures": {
+    "particle": "nexusabsolu:blocks/atelier_voss_front",
+    "down":     "nexusabsolu:blocks/atelier_voss_bottom",
+    "up":       "nexusabsolu:blocks/atelier_voss_top",
+    "north":    "nexusabsolu:blocks/atelier_voss_front",
+    "south":    "nexusabsolu:blocks/atelier_voss_back",
+    "west":     "nexusabsolu:blocks/atelier_voss_left",
+    "east":     "nexusabsolu:blocks/atelier_voss_right"
+  }
 }

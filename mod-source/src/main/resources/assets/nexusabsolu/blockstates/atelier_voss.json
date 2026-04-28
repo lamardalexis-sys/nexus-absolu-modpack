@@ -1,5 +1,8 @@
 {
-    "variants": {
-        "normal": { "model": "nexusabsolu:atelier_voss" }
-    }
+  "variants": {
+    "facing=north": { "model": "nexusabsolu:atelier_voss" },
+    "facing=south": { "model": "nexusabsolu:atelier_voss", "y": 180 },
+    "facing=west":  { "model": "nexusabsolu:atelier_voss", "y": 270 },
+    "facing=east":  { "model": "nexusabsolu:atelier_voss", "y": 90  }
+  }
 }
