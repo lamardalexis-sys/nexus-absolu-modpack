@@ -64,6 +64,10 @@ public class CommonProxy {
         // mais le right-click pour ouvrir GUI est cancel).
         MinecraftForge.EVENT_BUS.register(
             new com.nexusabsolu.mod.events.MAFurnaceBlockerHandler());
+        // v1.0.316 : effet "vomi" + nausee + faim quand le joueur est dans
+        // le fluide Diarrhee Liquide
+        MinecraftForge.EVENT_BUS.register(
+            new com.nexusabsolu.mod.events.DiarrheeImmersionHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
         GameRegistry.registerTileEntity(TileCondenseurEnergy.class,
