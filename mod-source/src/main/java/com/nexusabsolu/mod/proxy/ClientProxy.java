@@ -23,6 +23,25 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileCondenseurT2.class, new TESRCondenseurT2());
         ClientRegistry.bindTileEntitySpecialRenderer(TileAutoScavenger.class, new TESRAutoScavenger());
         MinecraftForge.EVENT_BUS.register(new ClientMiningHandler());
+
+        // StateMapper custom pour le bloc fluide Diarrhee (toutes les variantes "level=X"
+        // pointent vers le meme model, qui est genere via le blockstate forge_marker).
+        if (CommonProxy.DIARRHEE_FLUID_BLOCK != null) {
+            net.minecraft.client.renderer.block.statemap.StateMap mapper =
+                new net.minecraft.client.renderer.block.statemap.StateMap.Builder()
+                    .ignore(net.minecraftforge.fluids.BlockFluidBase.LEVEL).build();
+            net.minecraft.client.renderer.block.model.ModelLoader.setCustomStateMapper(
+                CommonProxy.DIARRHEE_FLUID_BLOCK, mapper);
+            // Item model (pour le creative inventory s'il y est) -> meme model
+            net.minecraft.item.Item item = net.minecraft.item.Item.getItemFromBlock(
+                CommonProxy.DIARRHEE_FLUID_BLOCK);
+            if (item != null) {
+                net.minecraft.client.renderer.block.model.ModelLoader.setCustomModelResourceLocation(
+                    item, 0,
+                    new net.minecraft.client.renderer.block.model.ModelResourceLocation(
+                        CommonProxy.DIARRHEE_FLUID_BLOCK.getRegistryName(), "fluid"));
+            }
+        }
     }
 
     @Override

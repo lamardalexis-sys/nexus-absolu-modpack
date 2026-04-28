@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class CommonProxy {
 
     public static Fluid DIARRHEE_FLUID;
+    public static net.minecraft.block.Block DIARRHEE_FLUID_BLOCK;
 
     public void preInit(FMLPreInitializationEvent event) {
         // Fluid registration
@@ -41,9 +42,17 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "blocks/diarrhee_still"),
             new ResourceLocation(Reference.MOD_ID, "blocks/diarrhee_flow"))
             .setDensity(1200).setViscosity(3000)
-            .setColor(0xFF8B4513); // marron - teinte JEI + in-world + bucket universel
+            .setColor(0xFFB8843E); // marron clair-fonce (cafe au lait sale)
         FluidRegistry.registerFluid(DIARRHEE_FLUID);
         FluidRegistry.addBucketForFluid(DIARRHEE_FLUID);
+
+        // Bloc fluide placeable (le seau de Diarrhee place le bloc au sol)
+        DIARRHEE_FLUID_BLOCK = new com.nexusabsolu.mod.blocks.BlockFluidDiarrhee(DIARRHEE_FLUID);
+        net.minecraftforge.fml.common.registry.ForgeRegistries.BLOCKS
+            .register(DIARRHEE_FLUID_BLOCK);
+        net.minecraftforge.fml.common.registry.ForgeRegistries.ITEMS
+            .register(new net.minecraft.item.ItemBlock(DIARRHEE_FLUID_BLOCK)
+                .setRegistryName(DIARRHEE_FLUID_BLOCK.getRegistryName()));
 
         NexusPacketHandler.init();
         MinecraftForge.EVENT_BUS.register(new ScavengeEventHandler());
