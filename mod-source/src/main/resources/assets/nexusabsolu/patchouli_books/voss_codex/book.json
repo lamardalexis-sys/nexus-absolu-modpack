@@ -1,0 +1,13 @@
+{
+  "name": "Codex Voss",
+  "landing_text": "$(l)Notes recuperees des archives Voss.$(/l)$(br2)Ouvre une categorie pour commencer.",
+  "book_texture": "patchouli:textures/gui/book_brown.png",
+  "model": "patchouli:book_brown",
+  "creative_tab": "nexusabsolu",
+  "version": 1,
+  "subtitle": "Plans et notes du Dr. Elias Voss",
+  "use_resource_pack": true,
+  "i18n": true,
+  "show_progress": false,
+  "namespaced_signatures": true
+}

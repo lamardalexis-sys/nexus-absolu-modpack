@@ -1,0 +1,28 @@
+{
+  "name": "Portail Voss",
+  "icon": "nexusabsolu:ecran_controle",
+  "category": "nexusabsolu:portail",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Plans du Portail",
+      "text": "$(l)Notes du Dr. Elias Voss$(/l)$(br)$(o)Si tu lis ceci, c'est que tu as franchi le Condenseur Tier 2. Bravo. Le reste sera plus difficile.$(/o)$(br2)Le Portail n'est pas une porte. C'est une autorisation. Une convergence de matiere, d'energie et de volonte. Il s'ouvre — ou il ne s'ouvre pas.$(br2)Tourne la page pour voir la structure complete."
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "Portail Voss",
+      "multiblock_id": "nexusabsolu:portail_voss",
+      "text": "$(l)Tourne la souris$(/l) pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(b)9 couches$(/b) du bas vers le haut. Le bloc clignotant = $(b)Ecran de Controle$(/b) (le poser en dernier)."
+    },
+    {
+      "type": "text",
+      "title": "Liste de courses",
+      "text": "$(li)29x Nexus Wall$(/li)$(li)39x Nexus Wall T2$(/li)$(li)16x Bloc de Vossium III$(/li)$(li)2x Bloc de Vossium IV$(/li)$(li)1x Energy Input$(/li)$(li)1x Fluid Input$(/li)$(li)4x Bloc de Compose D$(/li)$(li)8x Seau de Lave$(/li)$(li)1x Ecran de Controle (le maitre)$(/li)$(br)$(o)101 blocs au total. La precision est obligatoire.$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "Activation",
+      "text": "Une fois la structure assemblee :$(br2)$(b)1.$(/b) Branche un cable RF a l'$(b)Energy Input$(/b) et charge $(6)1 000 000 RF$(/6).$(br)$(b)2.$(/b) Branche une pompe a fluide au $(b)Fluid Input$(/b) et remplis-le avec $(d)10 buckets de Diarrhee Liquide$(/d).$(br)$(b)3.$(/b) Tiens la $(d)Cle de Liberte$(/d) en main.$(br)$(b)4.$(/b) Clic-droit sur l'$(b)Ecran$(/b).$(br2)$(o)Si tu lis ceci, c'est que tu as reussi la ou j'ai echoue. — E. Voss$(/o)"
+    }
+  ]
+}
