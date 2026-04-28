@@ -30,13 +30,13 @@ public class ClientProxy extends CommonProxy {
             net.minecraft.client.renderer.block.statemap.StateMap mapper =
                 new net.minecraft.client.renderer.block.statemap.StateMap.Builder()
                     .ignore(net.minecraftforge.fluids.BlockFluidBase.LEVEL).build();
-            net.minecraft.client.renderer.block.model.ModelLoader.setCustomStateMapper(
+            net.minecraftforge.client.model.ModelLoader.setCustomStateMapper(
                 CommonProxy.DIARRHEE_FLUID_BLOCK, mapper);
             // Item model (pour le creative inventory s'il y est) -> meme model
             net.minecraft.item.Item item = net.minecraft.item.Item.getItemFromBlock(
                 CommonProxy.DIARRHEE_FLUID_BLOCK);
             if (item != null) {
-                net.minecraft.client.renderer.block.model.ModelLoader.setCustomModelResourceLocation(
+                net.minecraftforge.client.model.ModelLoader.setCustomModelResourceLocation(
                     item, 0,
                     new net.minecraft.client.renderer.block.model.ModelResourceLocation(
                         CommonProxy.DIARRHEE_FLUID_BLOCK.getRegistryName(), "fluid"));
