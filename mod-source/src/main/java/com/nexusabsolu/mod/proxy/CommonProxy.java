@@ -68,6 +68,10 @@ public class CommonProxy {
         // le fluide Diarrhee Liquide
         MinecraftForge.EVENT_BUS.register(
             new com.nexusabsolu.mod.events.DiarrheeImmersionHandler());
+        // v1.0.324 : permet la descente matryoshka via PSD (clic-droit sur
+        // bloc CM dans DIM 144 = entrer dans la sous-CM au lieu de sortir)
+        MinecraftForge.EVENT_BUS.register(
+            new com.nexusabsolu.mod.events.PSDDescentHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
         GameRegistry.registerTileEntity(TileCondenseurEnergy.class,

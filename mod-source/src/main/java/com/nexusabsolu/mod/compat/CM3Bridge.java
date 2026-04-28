@@ -472,4 +472,24 @@ public class CM3Bridge {
     public static final int SIZE_LARGE   = 3;  // 9x9
     public static final int SIZE_GIANT   = 4;  // 11x11
     public static final int SIZE_MAXIMUM = 5;  // 13x13
+
+    /**
+     * Read the room id (legacy 'coords' field) of a TileEntityMachine.
+     * Returns -1 if the TE is not a CM machine, or if reading fails.
+     *
+     * Used by the PSD descent handler to identify which child room a
+     * player is trying to enter when right-clicking a CM block from
+     * inside another CM (matryoshka descent).
+     */
+    public static int getRoomIdFromTE(TileEntity te) {
+        if (!isAvailable() || te == null) return -1;
+        if (!classTEMachine.isInstance(te)) return -1;
+        if (fieldCoords == null) return -1;
+        try {
+            return fieldCoords.getInt(te);
+        } catch (IllegalAccessException e) {
+            FMLLog.log.warn("[CM3Bridge] getRoomIdFromTE failed: " + e.getMessage());
+            return -1;
+        }
+    }
 }
