@@ -797,23 +797,22 @@ public class ManifoldOverlayHandler {
      * Selection de la frame d'entite (en float pour crossfade) selon le
      * peakProgress.
      *
-     * v1.0.339 : passe a 28 frames (24 morphing + 4 loop). Le morphing
-     * occupe 1/2 du PEAK (45s sur 90s) au lieu de 1/3, pour donner le
-     * temps de voir chaque phase de morphing dans le detail.
+     * v1.0.343 : morphing raccourci 45s -> 30s pour densifier l'animation
+     * (1.4 keyframes/s au lieu de 0.93). L'entite finale a maintenant 60s
+     * de temps de scene au lieu de 45s.
      *
      * Logique :
-     *   - PEAK = [0.5, 0.6875] du trip (~1.5 min)
-     *   - 1ere moitie (0.5..0.59375, ~45s) -> 24 frames de morphing
-     *     iris -> crack -> faces -> transition (one-shot, mapping lineaire)
-     *   - 2eme moitie (0.59375..0.6875, ~45s) -> loop des 4 frames
-     *     Salviadroid (24..27) BPM-sync
+     *   - PEAK = [0.5, 0.6875] du trip (~90s)
+     *   - 1ere tranche (0.5..0.5625, ~30s) -> 42 frames de morphing one-shot
+     *   - 2eme tranche (0.5625..0.6875, ~60s) -> 8 frames loop entity
      *   - Hors PEAK -> N_ENTITY_MORPH_FRAMES (defaut entite statique)
      */
     private float computeEntityFrameFloat(long t) {
         float progress = ManifoldClientState.getTripProgress(t);
         final float PEAK_START = ManifoldEffectHandler.STAGE_4_HYPERSPACE_END; // 0.5
         final float PEAK_END = ManifoldEffectHandler.STAGE_5_PEAK_END;         // 0.6875
-        final float MORPH_END = PEAK_START + (PEAK_END - PEAK_START) / 2.0f;   // ~0.59375
+        // 30s morphing = 1/3 du PEAK (90s total)
+        final float MORPH_END = PEAK_START + (PEAK_END - PEAK_START) / 3.0f;   // ~0.5625
 
         if (progress < PEAK_START || progress >= PEAK_END) {
             return (float) N_ENTITY_MORPH_FRAMES;  // 1ere frame du loop entity = defaut
