@@ -47,7 +47,6 @@ public class NexusAbsoluMod {
     public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new com.nexusabsolu.mod.commands.CommandNexusMsg());
         event.registerServerCommand(new com.nexusabsolu.mod.commands.CommandRepairPSD());
-        event.registerServerCommand(new com.nexusabsolu.mod.commands.CommandVossGoto());
-        LOGGER.info("Nexus Absolu -- Commands /nexusmsg /nexus_psd /voss_goto registered");
+        LOGGER.info("Nexus Absolu -- Commands /nexusmsg /nexus_psd registered");
     }
 }

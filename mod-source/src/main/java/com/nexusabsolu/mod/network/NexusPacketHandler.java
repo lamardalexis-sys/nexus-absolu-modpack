@@ -19,5 +19,10 @@ public class NexusPacketHandler {
         // v1.0.325 (Age 4) — sync phases Manifoldine server → client
         INSTANCE.registerMessage(PacketManifoldPhase.Handler.class,
             PacketManifoldPhase.class, packetId++, Side.CLIENT);
+        // v1.0.329 — Localisateur Dimensionnel (S->C: ouvre GUI, C->S: TP request)
+        INSTANCE.registerMessage(PacketOpenLocalisateur.Handler.class,
+            PacketOpenLocalisateur.class, packetId++, Side.CLIENT);
+        INSTANCE.registerMessage(PacketTeleportToMachine.Handler.class,
+            PacketTeleportToMachine.class, packetId++, Side.SERVER);
     }
 }

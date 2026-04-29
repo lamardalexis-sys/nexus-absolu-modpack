@@ -241,6 +241,21 @@ public class ItemCleLiberteActivee extends ItemBase {
         playerMP.sendMessage(new TextComponentString(
             TextFormatting.GREEN + "Age 1 termine. Age 2 : La Surface."));
 
+        // v1.0.329 : donne le Localisateur Dimensionnel pour permettre au
+        // joueur de revenir dans toutes les CMs qu'il a visitees (5x5,
+        // 7x7...) — sinon une fois sorti, il ne peut plus acceder qu'a la
+        // 9x9 via le bloc CM pose dans l'overworld.
+        net.minecraft.item.ItemStack localisateur =
+            new net.minecraft.item.ItemStack(
+                com.nexusabsolu.mod.init.ModItems.LOCALISATEUR_DIMENSIONNEL, 1);
+        if (!playerMP.inventory.addItemStackToInventory(localisateur)) {
+            // Inventaire plein : drop au sol pour eviter la perte
+            playerMP.dropItem(localisateur, false);
+        }
+        playerMP.sendMessage(new TextComponentString(
+            TextFormatting.AQUA
+            + "+ Localisateur Dimensionnel : retrouve toutes tes salles."));
+
         return true;
     }
 }

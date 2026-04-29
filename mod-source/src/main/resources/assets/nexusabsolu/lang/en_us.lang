@@ -177,4 +177,4 @@ item.nexusabsolu.cartouche_used.name=Used Cartridge
 item.nexusabsolu.plongeur_voss.name=Voss Diver
 
 # === Voss Locator (op-only matryoshka navigation) ===
-item.nexusabsolu.localisateur_voss.name=Voss Locator
+item.nexusabsolu.localisateur_dimensionnel.name=Dimensional Locator

@@ -177,4 +177,4 @@ item.nexusabsolu.cartouche_used.name=Cartouche Usee
 item.nexusabsolu.plongeur_voss.name=Plongeur Voss
 
 # === Localisateur Voss (op-only navigation matryoshka) ===
-item.nexusabsolu.localisateur_voss.name=Localisateur Voss
+item.nexusabsolu.localisateur_dimensionnel.name=Localisateur Dimensionnel
