@@ -81,7 +81,7 @@ public class ItemLocalisateurVoss extends Item implements IHasModel {
         NBTTagCompound nbt = te.getTileData();
 
         // Affiche les infos
-        sendMsg(playerMP, TextFormatting.GOLD, "═══ Localisateur Voss ═══");
+        sendMsg(playerMP, TextFormatting.GOLD, "=== Localisateur Voss ===");
         sendMsg(playerMP, TextFormatting.GRAY, "Bloc: " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ());
         sendMsg(playerMP, TextFormatting.GRAY, "Dim courante: " + world.provider.getDimension());
 
@@ -144,7 +144,7 @@ public class ItemLocalisateurVoss extends Item implements IHasModel {
         }
 
         // Affiche infos sur la position courante
-        sendMsg(playerMP, TextFormatting.GOLD, "═══ Localisateur Voss ═══");
+        sendMsg(playerMP, TextFormatting.GOLD, "=== Localisateur Voss ===");
         sendMsg(playerMP, TextFormatting.GRAY,
             "Position: " + (int) playerMP.posX + ", " + (int) playerMP.posY + ", " + (int) playerMP.posZ);
         sendMsg(playerMP, TextFormatting.GRAY, "Dim: " + playerMP.dimension);
