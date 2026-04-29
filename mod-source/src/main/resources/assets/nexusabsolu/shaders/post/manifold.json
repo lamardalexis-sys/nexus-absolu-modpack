@@ -1,0 +1,17 @@
+{
+    "targets": [ "swap" ],
+    "passes": [
+        {
+            "name": "manifold",
+            "intarget": "minecraft:main",
+            "outtarget": "swap",
+            "auxtargets": []
+        },
+        {
+            "name": "manifold",
+            "intarget": "swap",
+            "outtarget": "minecraft:main",
+            "auxtargets": []
+        }
+    ]
+}
