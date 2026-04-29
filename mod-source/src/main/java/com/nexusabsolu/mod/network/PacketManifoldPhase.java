@@ -60,18 +60,17 @@ public class PacketManifoldPhase implements IMessage {
                 // (pas annulation) + ModSounds initialise.
                 // v1.0.335 : log de debug pour confirmer qu'on arrive bien ici
                 // cote client (utile si la musique ne demarre pas).
-                if (msg.startTick != 0L && msg.totalTicks > 0
-                        && com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA != null) {
-                    System.out.println("[Manifold] Demarrage musique Centinela (startTick="
-                        + msg.startTick + ", totalTicks=" + msg.totalTicks + ")");
-                    net.minecraft.client.Minecraft.getMinecraft().getSoundHandler().playSound(
-                        new com.nexusabsolu.mod.client.ManifoldMusicTickableSound(
-                            com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA));
-                } else {
-                    System.out.println("[Manifold] Pas de musique demarree : startTick="
-                        + msg.startTick + " totalTicks=" + msg.totalTicks
-                        + " sound=" + (com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA != null));
-                }
+                //
+                // v1.0.345 BUGFIX : ITickableSound DESACTIVE pour eviter les
+                // doublons. La musique est maintenant jouee par
+                // ManifoldEffectHandler.startInjection() via world.playSound()
+                // qui passe par le mecanisme vanilla SPacketSoundEffect (fiable).
+                // On perd le fade in/out de volume sur 8 min mais au moins la
+                // musique se joue. A reactiver une fois qu'on aura compris
+                // pourquoi le ITickableSound de la cartouche ne joue pas.
+                System.out.println("[Manifold] Packet phase recu : startTick="
+                    + msg.startTick + " totalTicks=" + msg.totalTicks
+                    + " (musique deja lancee par world.playSound cote serveur)");
             });
             return null;
         }

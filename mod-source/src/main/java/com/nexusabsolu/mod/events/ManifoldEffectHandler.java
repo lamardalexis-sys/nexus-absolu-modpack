@@ -108,11 +108,26 @@ public class ManifoldEffectHandler {
         // Apply potions cranked (durent jusqu'a la fin de TRIP_DURATION)
         applyEpicPotions(player, TRIP_DURATION);
 
-        // Sync au client
+        // Sync au client (pour le rendering + ITickableSound musique fade)
         com.nexusabsolu.mod.network.NexusPacketHandler.INSTANCE.sendTo(
             new com.nexusabsolu.mod.network.PacketManifoldPhase(
                 now, now, TOTAL_DURATION),
             player);
+
+        // v1.0.345 -- FALLBACK MUSIQUE FIABLE :
+        // En plus du ITickableSound (qui peut etre tue par le SoundManager
+        // ou avoir des problemes de timing), on lance aussi la musique via
+        // world.playSound() qui passe par le mecanisme vanilla
+        // SPacketSoundEffect -> 100% fiable cote client.
+        // C'est exactement la methode du Test 2 dans /nexus_test_sound.
+        // Volume 1.0, pitch 1.0, RECORDS category.
+        if (com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA != null) {
+            player.world.playSound(null,
+                player.posX, player.posY, player.posZ,
+                com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA,
+                net.minecraft.util.SoundCategory.RECORDS,
+                1.0F, 1.0F);
+        }
     }
 
     private static void applyEpicPotions(EntityPlayer player, int duration) {
