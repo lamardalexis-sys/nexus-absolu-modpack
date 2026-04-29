@@ -463,9 +463,34 @@ cartouche_vide.glowing = true;
 cartouche_vide.register();
 
 // =============================================================================
+// PHASE 6 -- ITEMS POUR LES QUETES Q71-Q280 (La Convergence FINALE)
+// =============================================================================
+// cartouche_manifold + cartouche_used existent dans le MOD SOURCE (Java).
+// cartouche_vide cree Phase 5.
+// solution_epsilon cree Phase 5.
+
+// Bio-Reacteur Controller (Q71) -- coeur du multibloc 7x7x7 final
+val bioreacteur_controller = VanillaFactory.createBlock("bioreacteur_controller",
+    <blockmaterial:iron>);
+bioreacteur_controller.setBlockHardness(8.0);
+bioreacteur_controller.setBlockResistance(20.0);
+bioreacteur_controller.toolClass = "pickaxe";
+bioreacteur_controller.toolLevel = 3;
+bioreacteur_controller.lightValue = 8;
+bioreacteur_controller.register();
+
+// Cartouche chargee (Q74) -- etat intermediaire entre cartouche_vide et
+// cartouche_manifold. Le joueur fabrique cartouche_chargee, puis la quete
+// suivante (Q75 test pression) la transforme en cartouche_manifold injectable.
+val cartouche_chargee = VanillaFactory.createItem("cartouche_chargee");
+cartouche_chargee.maxStackSize = 1;
+cartouche_chargee.glowing = true;
+cartouche_chargee.register();
+
+// =============================================================================
 // FIN DU FICHIER
 // =============================================================================
 // Nombre total de fluides : ~53
-// Nombre total d'items : ~90
-// Lignes : ~410
+// Nombre total d'items : ~92
+// Lignes : ~430
 // =============================================================================
