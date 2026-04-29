@@ -426,9 +426,46 @@ compose_gamma3.glowing = true;
 compose_gamma3.register();
 
 // =============================================================================
+// PHASE 5 -- ITEMS POUR LES QUETES Q56-Q70 (Vivant et Etoile)
+// =============================================================================
+// Pigments (16) + extracts (16) deja registered ci-dessus.
+// cristal_manifoldine, tryptamide_m_capsule deja registered.
+// Manquants : tryptamide_m brut, compose_delta, solution_epsilon,
+// essence_chromatique, cartouche_vide.
+
+// Tryptamide-M (Q65) -- amine cle precurseur (pas la capsule finie)
+val tryptamide_m = VanillaFactory.createItem("tryptamide_m");
+tryptamide_m.maxStackSize = 16;
+tryptamide_m.register();
+
+// Compose delta (Q67) -- bio-actif via Mycelium Active
+val compose_delta = VanillaFactory.createItem("compose_delta");
+compose_delta.maxStackSize = 16;
+compose_delta.glowing = true;
+compose_delta.register();
+
+// Solution epsilon (Q68) -- LA Manifoldine active, fluide pourpre/cyan
+val solution_epsilon = VanillaFactory.createFluid("solution_epsilon", 0xAB47BC);
+solution_epsilon.luminosity = 12;
+solution_epsilon.viscosity = 800;
+solution_epsilon.register();
+
+// Essence Chromatique (Q63) -- 16 extracts fusionnes, fluide arc-en-ciel
+val essence_chromatique = VanillaFactory.createFluid("essence_chromatique", 0xFFFFFF);
+essence_chromatique.luminosity = 15;
+essence_chromatique.viscosity = 500;
+essence_chromatique.register();
+
+// Cartouche vide (Q69) -- ampoule iridium prete a remplir
+val cartouche_vide = VanillaFactory.createItem("cartouche_vide");
+cartouche_vide.maxStackSize = 4;
+cartouche_vide.glowing = true;
+cartouche_vide.register();
+
+// =============================================================================
 // FIN DU FICHIER
 // =============================================================================
-// Nombre total de fluides : ~51
-// Nombre total d'items : ~85
-// Lignes : ~370
+// Nombre total de fluides : ~53
+// Nombre total d'items : ~90
+// Lignes : ~410
 // =============================================================================
