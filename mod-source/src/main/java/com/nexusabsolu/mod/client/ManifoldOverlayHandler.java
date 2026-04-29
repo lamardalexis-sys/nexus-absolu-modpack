@@ -186,8 +186,16 @@ public class ManifoldOverlayHandler {
             renderCenterPulse(w, h, now, intensities[3], beatKick);
         }
 
-        // === COUCHE 5 — PEAK : entite animee + bande sombre top/bottom ===
+        // === COUCHE 5 -- PEAK : LE TRIP BOUFFE TOUT L'ECRAN ===
+        // v1.0.346 : Au PEAK on met le paquet pour que le joueur ne voie plus
+        // le jeu du tout (sauf vignette de bordure). Sequence :
+        //   1. Fond opaque psychedelique qui recouvre l'ecran
+        //   2. Mandala geant rotation rapide derriere l'entite
+        //   3. Entite humanoide enorme (1.0x au lieu de 0.6x screen)
+        //   4. Letterbox renforce (bandes noires plus grosses)
         if (intensities[4] > 0.01f) {
+            renderPeakOccluder(w, h, now, intensities[4], beatKick);
+            renderPeakBigMandala(mc, w, h, now, intensities[4], beatKick);
             renderEntity(mc, w, h, now, intensities[4], beatKick);
             renderPeakLetterbox(w, h, intensities[4]);
         }
@@ -340,6 +348,22 @@ public class ManifoldOverlayHandler {
     private void drawRotatedTexture(Minecraft mc, ResourceLocation tex,
                                      float cx, float cy, float size,
                                      float rotation, float alpha) {
+        // v1.0.346 BUGFIX : force le bon blend mode CHAQUE FOIS qu'on dessine
+        // une texture. Avant : si la couche precedente (ex: tunnel 3D additive)
+        // avait un blend func different, le PNG s'affichait avec un carre opaque
+        // autour des zones transparentes. Force GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA
+        // = blend alpha standard qui respecte la transparence du PNG.
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.enableTexture2D();
+        GlStateManager.enableAlpha();
+        GlStateManager.disableLighting();
+        GlStateManager.disableDepth();
+
         mc.getTextureManager().bindTexture(tex);
         GlStateManager.color(1f, 1f, 1f, alpha);
 
@@ -360,6 +384,7 @@ public class ManifoldOverlayHandler {
 
         GlStateManager.popMatrix();
         GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.enableDepth();
     }
 
     /**
@@ -753,44 +778,118 @@ public class ManifoldOverlayHandler {
         float frameFloat = computeEntityFrameFloat(t);
         int frameA = (int) Math.floor(frameFloat);
         int frameB = (frameA + 1) % ENTITY_FRAMES.length;
-        float fade = frameFloat - frameA;     // 0..1 fraction crossfade
+        float fade = frameFloat - frameA;
         if (frameA < 0) frameA = 0;
         if (frameA >= ENTITY_FRAMES.length) frameA = ENTITY_FRAMES.length - 1;
 
-        // Pulse scale beat-sync : grandit sur kick
-        float scale = 1.0f + beat * 0.12f;
+        // v1.0.346 : pulse scale beat-sync PLUS FORT (0.12 -> 0.20)
+        float scale = 1.0f + beat * 0.20f;
 
-        // Rotation tres lente (1 tour / 90s)
         float rotation = (t % 1800) / 1800.0f * 360.0f;
 
-        float baseSize = Math.min(w, h) * 0.6f;
+        // v1.0.346 : entite ENORME au PEAK (etait 0.6x, maintenant 1.0x ecran)
+        // -> couvre quasi tout l'ecran, on voit plus le jeu.
+        float baseSize = Math.min(w, h) * 1.0f;
         float size = baseSize * scale;
-
-        GlStateManager.enableBlend();
-        GlStateManager.tryBlendFuncSeparate(
-            GlStateManager.SourceFactor.SRC_ALPHA,
-            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-            GlStateManager.SourceFactor.ONE,
-            GlStateManager.DestFactor.ZERO);
-        GlStateManager.enableTexture2D();
-        GlStateManager.enableAlpha();  // v1.0.336 : zones transparentes PNG
 
         float baseAlpha = intensity * 0.95f;
         float alphaA = (1.0f - fade) * baseAlpha;
         float alphaB = fade * baseAlpha;
 
-        // Frame courante (alpha decroit du fait du crossfade)
         if (alphaA > 0.01f) {
             drawRotatedTexture(mc, ENTITY_FRAMES[frameA], w / 2.0f, h / 2.0f,
                                size, rotation, alphaA);
         }
-        // Frame suivante (alpha croit)
         if (alphaB > 0.01f) {
             drawRotatedTexture(mc, ENTITY_FRAMES[frameB], w / 2.0f, h / 2.0f,
                                size, rotation, alphaB);
         }
 
         GlStateManager.color(1f, 1f, 1f, 1f);
+    }
+
+    /**
+     * v1.0.346 -- Couche occludante au PEAK qui recouvre 100% de l'ecran
+     * avec un fond psychedelique anime. But : pendant le PEAK le joueur
+     * ne voit plus le jeu, juste le trip a fond.
+     *
+     * Effet : grille de quads colores qui changent de teinte avec le temps
+     * et qui pulsent au beat. Alpha varie de 0 (debut/fin du PEAK) a ~0.85
+     * (milieu du PEAK).
+     */
+    private void renderPeakOccluder(int w, int h, long t, float intensity, float beat) {
+        // Alpha module par intensity et un peu par le beat
+        float alpha = intensity * 0.85f + beat * 0.10f;
+        if (alpha < 0.05f) return;
+        if (alpha > 0.95f) alpha = 0.95f;
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+
+        // Grille 16x9 de quads colores qui changent de teinte avec t
+        int cols = 16;
+        int rows = 9;
+        float cellW = (float) w / cols;
+        float cellH = (float) h / rows;
+        for (int gy = 0; gy < rows; gy++) {
+            for (int gx = 0; gx < cols; gx++) {
+                // Choix de couleur : fonction de la position et du temps
+                int colorIdx = (gx + gy + (int)(t / 8)) % DMT_PALETTE.length;
+                float[] c = DMT_PALETTE[colorIdx];
+
+                // Pulsation legere d'alpha par cellule, dephasee
+                float cellPhase = ((gx * 7 + gy * 13) % 16) / 16.0f;
+                float cellPulse = (float) Math.sin((t + cellPhase * 100) * 0.05);
+                float cellAlpha = alpha * (0.7f + 0.3f * cellPulse);
+
+                float x0 = gx * cellW;
+                float y0 = gy * cellH;
+                float x1 = x0 + cellW;
+                float y1 = y0 + cellH;
+
+                buf.pos(x0, y1, 0).color(c[0], c[1], c[2], cellAlpha).endVertex();
+                buf.pos(x1, y1, 0).color(c[0], c[1], c[2], cellAlpha).endVertex();
+                buf.pos(x1, y0, 0).color(c[0], c[1], c[2], cellAlpha).endVertex();
+                buf.pos(x0, y0, 0).color(c[0], c[1], c[2], cellAlpha).endVertex();
+            }
+        }
+        tess.draw();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.color(1f, 1f, 1f, 1f);
+    }
+
+    /**
+     * v1.0.346 -- Mandala geant rotation rapide derriere l'entite au PEAK.
+     * Taille = 1.4x l'ecran (deborde des bords) -> aucune zone vide visible.
+     */
+    private void renderPeakBigMandala(Minecraft mc, int w, int h, long t,
+                                       float intensity, float beat) {
+        // Selection mandala : un different par beat fort
+        int mandalaIdx = (int)((t / 40) % MANDALA_TEX.length);
+        float rotation = (t % 600) / 600.0f * 360.0f;  // 1 tour / 30s
+        // Pulse zoom synchro beat (taille pulse 1.4x -> 1.55x sur le kick)
+        float scale = 1.4f + beat * 0.15f;
+        float size = Math.max(w, h) * scale;
+
+        // Alpha : se voit derriere l'occluder mais reste vivant
+        float alpha = intensity * 0.55f + beat * 0.15f;
+        if (alpha > 0.85f) alpha = 0.85f;
+
+        if (alpha > 0.02f) {
+            drawRotatedTexture(mc, MANDALA_TEX[mandalaIdx],
+                               w / 2.0f, h / 2.0f,
+                               size, rotation, alpha);
+        }
     }
 
     /**
