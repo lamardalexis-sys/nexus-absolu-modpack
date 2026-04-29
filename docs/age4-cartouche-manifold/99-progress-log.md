@@ -18,7 +18,18 @@
 
 ## ✅ COMPLETED
 
-### Session "Visuel Ultime" 2026-04-29 — Etape 1 (Musique fade in/out)
+### Session "Visuel Ultime" 2026-04-29 -- Etape 2 (16 mandalas haute resolution)
+- ✅ `scripts-tools/generate_mandala_textures.py` (REWRITE) -- v2 :
+  - 1024x1024 (vs 512) avec supersampling 2x puis downscale Lanczos (sub-pixel anti-aliasing)
+  - 16 frames (vs 4) -- 4 groupes de 4 (petales fines/moyennes/denses/hybride lotus profond)
+  - Couches additionnelles : sub-mandalas niveau 3 RECURSIF, geometric arcs partiels (effet brise), lotus deep multi-couches superposees
+  - Geometrie sacree multi-densite (hexagones, octogones, dodecagones a 16 cotes imbriques)
+- ✅ 16 PNG generes dans `assets/nexusabsolu/textures/gui/manifold/mandala_1..16.png` (~15 MB total)
+- ✅ `client/ManifoldOverlayHandler.java` (MODIFY) -- `MANDALA_TEX[]` etendu de 4 a 16 entrees. Logique de rendu inchangee (utilise `% MANDALA_TEX.length` partout, donc transparent au changement). Cycle complet 16 frames * 100 ticks = 80s, ~6 cycles sur le trip de 8 min.
+- ✅ Bump version 1.0.329 -> 1.0.330.
+- ⏳ A tester en jeu : verifier que les 16 frames se chargent correctement et que le crossfade entre frames est lisse.
+
+### Session "Visuel Ultime" 2026-04-29 -- Etape 1 (Musique fade in/out)
 - ✅ `client/ManifoldMusicTickableSound.java` (NEW) — `MovingSound` qui implemente `ITickableSound` (via heritage). `update()` recalcule le volume chaque tick selon `ManifoldClientState.getTripProgress()`. Attenuation NONE (musique "dans la tete").
 - ✅ Courbe de volume conforme au brief :
   - Stage 1 (0:00 → 0:30) : 0.0 → 0.4 (fade-in lineaire)

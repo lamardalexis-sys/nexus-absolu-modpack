@@ -6,3 +6,4 @@ crash-reports/
 resourcepacks/
 shaderpacks/
 config/betterquesting/DefaultQuests.json.bak
+__pycache__/

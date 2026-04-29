@@ -50,11 +50,26 @@ public class ManifoldOverlayHandler {
 
     private static final ResourceLocation TUNNEL_TILE =
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/tunnel_tile.png");
+    // v1.0.330 (Etape 2 visuel ultime) -- 16 mandalas 1024x1024 supersampled
+    // (vs 4 mandalas 512x512 avant). Le cycle complet dure 16 * MANDALA_FRAME_DURATION
+    // = 80s a 100 ticks/frame, soit ~6 cycles sur le trip de 8 min.
     private static final ResourceLocation[] MANDALA_TEX = {
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_1.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_2.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_3.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_4.png")
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_4.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_5.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_6.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_7.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_8.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_9.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_10.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_11.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_12.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_13.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_14.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_15.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_16.png")
     };
     // Entite avec 4 frames d'animation
     private static final ResourceLocation[] ENTITY_FRAMES = {
