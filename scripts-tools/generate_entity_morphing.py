@@ -297,149 +297,246 @@ def make_faces_frame(local_idx, n_local):
 # ============================================================
 
 def draw_humanoid(draw, progress_full, breathe=0.0):
-    """Dessine l'entite humanoide verte selon progress 0..1 de formation.
+    """Dessine l'entite Salviadroid : humanoide reptilien vert a tete conique
+    pointue et UN SEUL OEIL CYCLOPE au centre du visage. Inspire du tableau
+    classique DMT/Salviadroid fourni par Alexis.
 
     progress_full=0 -> rien
-    progress_full=1 -> entite complete avec etoile
-
-    breathe=0..1 : facteur de respiration pour subtle pulse.
+    progress_full=1 -> entite complete avec etoile doree dans la main droite
+    breathe=0..1 : pulse de respiration de l'oeil + halo
     """
-    # === TETE ===
-    # Position tete : breath ne decale plus la tete (ca creait un decalage
-    # entre le cou et le corps). Au lieu : on fera un subtle scale global.
+    # === TETE CONIQUE POINTUE (pas hexagonale) ===
+    # Forme : pentagone allonge vers le haut comme un capuchon de cardinal
+    # ou la tete de Cthulhu / extraterrestre classique.
     head_cy = int(DC - 280 * SS)
-    head_size = int(120 * SS)
+    head_w = int(110 * SS)            # largeur tete
+    head_h_top = int(180 * SS)        # hauteur sommet pointu
+    head_h_bot = int(70 * SS)         # hauteur base (menton)
 
-    # Forme : interpole entre cercle (round) et triangle (angular)
-    angularity = min(1.0, progress_full * 2.5)  # devient triangle des 0.4
+    # Pentagone : pointe haut, 2 cotes lateraux, 2 angles bas
+    head_pts = [
+        (DC, head_cy - head_h_top),                       # pointe haut
+        (DC + head_w, head_cy - int(head_h_top * 0.3)),   # epaule droite
+        (DC + int(head_w * 0.7), head_cy + head_h_bot),   # menton droit
+        (DC - int(head_w * 0.7), head_cy + head_h_bot),   # menton gauche
+        (DC - head_w, head_cy - int(head_h_top * 0.3)),   # epaule gauche
+    ]
 
-    if angularity < 0.15:
-        # Cercle (visage classique des frames precedentes)
+    # Fill avec gradient simule (3 layers : sombre exterieur -> clair centre)
+    # Layer 1 : ombre exterieure
+    shadow_pts = [(p[0], p[1]) for p in head_pts]
+    draw.polygon(shadow_pts, fill=PAL["vert_corps_sombre"] + (255,))
+
+    # Layer 2 : couleur principale legerement reduite
+    inset = 0.92
+    main_pts = [
+        (DC + (p[0] - DC) * inset, head_cy + (p[1] - head_cy) * inset)
+        for p in head_pts
+    ]
+    draw.polygon(main_pts, fill=PAL["vert_tete"] + (255,))
+
+    # Layer 3 : highlight bord superieur gauche (lumiere)
+    hi_pts = [
+        head_pts[0],
+        (DC - int(head_w * 0.3), head_cy - int(head_h_top * 0.5)),
+        (DC - head_w, head_cy - int(head_h_top * 0.3)),
+    ]
+    draw.polygon(hi_pts, fill=PAL["vert_corps_clair"] + (220,))
+
+    # Outline noir epais
+    head_loop = head_pts + [head_pts[0]]
+    for k in range(len(head_loop) - 1):
+        draw.line([head_loop[k], head_loop[k + 1]],
+                  fill=PAL["noir"] + (255,), width=int(4 * SS))
+
+    # === UN SEUL OEIL CYCLOPE AU CENTRE ===
+    # Position : centre du visage, un peu sous la pointe haute
+    eye_cy = head_cy - int(head_h_top * 0.05)
+    # Pulse de l'oeil avec breathe
+    eye_pulse = 1.0 + breathe * 0.10
+    eye_w = int(75 * SS * eye_pulse)
+    eye_h = int(45 * SS * eye_pulse)
+
+    # Ovale blanc creme (sclera)
+    draw.ellipse(
+        [(DC - eye_w, eye_cy - eye_h), (DC + eye_w, eye_cy + eye_h)],
+        fill=PAL["blanc"] + (255,)
+    )
+    draw.ellipse(
+        [(DC - eye_w, eye_cy - eye_h), (DC + eye_w, eye_cy + eye_h)],
+        outline=PAL["noir"] + (255,), width=int(4 * SS)
+    )
+
+    # Iris gradient cyan (style oeil reptilien) avec degrade radial
+    iris_r_x = int(eye_w * 0.55)
+    iris_r_y = int(eye_h * 0.85)
+    n_layers = 12
+    for i in range(n_layers):
+        f = i / n_layers
+        rx = int(iris_r_x * (1 - f * 0.7))
+        ry = int(iris_r_y * (1 - f * 0.7))
+        # Cyan vers vert au centre
+        col = lerp_color(PAL["cyan"], PAL["vert_corps_sombre"], f)
         draw.ellipse(
-            [(DC - head_size, head_cy - head_size),
-             (DC + head_size, head_cy + head_size)],
-            fill=PAL["vert_tete"] + (255,)
-        )
-        draw.ellipse(
-            [(DC - head_size, head_cy - head_size),
-             (DC + head_size, head_cy + head_size)],
-            outline=PAL["noir"] + (255,), width=int(3 * SS)
-        )
-    else:
-        # Forme triangulaire/cube qui s'angularise
-        # On dessine un polygone a 6 cotes qui devient progressivement plus
-        # carre/triangulaire (avec coins plus marques)
-        n_pts = 6
-        pts = []
-        for k in range(n_pts):
-            a = -math.pi / 2 + (k / n_pts) * 2 * math.pi
-            # Plus angularity est elevee, plus le rayon varie selon angle
-            # (cree des coins droits)
-            r_mod = 1.0 + angularity * 0.3 * math.cos(2 * a)
-            r = head_size * r_mod
-            pts.append((DC + math.cos(a) * r, head_cy + math.sin(a) * r))
-        draw.polygon(pts, fill=PAL["vert_tete"] + (255,))
-        # Outline
-        pts_loop = pts + [pts[0]]
-        for k in range(len(pts_loop) - 1):
-            draw.line([pts_loop[k], pts_loop[k + 1]],
-                      fill=PAL["noir"] + (255,), width=int(3 * SS))
-
-    # YEUX (toujours noirs comme frames precedentes mais plus grands au fur et a mesure)
-    eye_off_x = int(head_size * 0.4)
-    eye_off_y = int(head_size * 0.05)
-    eye_r = int(head_size * 0.18)
-    for sign in [-1, 1]:
-        ex = DC + sign * eye_off_x
-        ey = head_cy - eye_off_y
-        # Yeux vides noirs (look alien)
-        draw.ellipse(
-            [(ex - eye_r, ey - eye_r * 0.85),
-             (ex + eye_r, ey + eye_r * 0.85)],
-            fill=PAL["noir"] + (255,)
+            [(DC - rx, eye_cy - ry), (DC + rx, eye_cy + ry)],
+            fill=col + (255,)
         )
 
-    # Bouche ferme (ligne droite, look serieux)
-    mouth_w = int(head_size * 0.3)
-    mouth_y = head_cy + int(head_size * 0.45)
-    draw.line(
-        [(DC - mouth_w, mouth_y), (DC + mouth_w, mouth_y)],
+    # Pupille verticale style reptilien (ovale tres allonge)
+    pup_w = int(iris_r_x * 0.18)
+    pup_h = int(iris_r_y * 0.85)
+    draw.ellipse(
+        [(DC - pup_w, eye_cy - pup_h), (DC + pup_w, eye_cy + pup_h)],
+        fill=PAL["noir"] + (255,)
+    )
+
+    # Glint blanc en haut a gauche de la pupille (vie de l'oeil)
+    glint_r = int(pup_w * 0.6)
+    glint_off_x = int(pup_w * 0.4)
+    glint_off_y = int(pup_h * 0.4)
+    draw.ellipse(
+        [(DC - glint_off_x - glint_r, eye_cy - glint_off_y - glint_r),
+         (DC - glint_off_x + glint_r, eye_cy - glint_off_y + glint_r)],
+        fill=(255, 255, 255, 255)
+    )
+
+    # Halo magique cyan autour de l'oeil (pulse avec breathe)
+    if breathe > 0.05:
+        halo_alpha = int(breathe * 80)
+        for r_off in range(int(20 * SS), int(60 * SS), int(8 * SS)):
+            r = max(eye_w, eye_h) + r_off
+            draw.ellipse(
+                [(DC - r, eye_cy - r), (DC + r, eye_cy + r)],
+                outline=PAL["cyan"] + (halo_alpha // 3,), width=1
+            )
+
+    # === BOUCHE FERMEE (creepy, ligne courbe legere) ===
+    mouth_y = head_cy + int(head_h_bot * 0.5)
+    mouth_w = int(40 * SS)
+    draw.arc(
+        [(DC - mouth_w, mouth_y - int(8 * SS)),
+         (DC + mouth_w, mouth_y + int(8 * SS))],
+        start=0, end=180,
         fill=PAL["noir"] + (255,), width=int(3 * SS)
     )
 
-    # === COU + COL ===
+    # === COU SCULPTE ===
     if progress_full > 0.20:
         neck_alpha = int(min(255, (progress_full - 0.20) / 0.10 * 255))
-        neck_w = int(60 * SS)
-        neck_h = int(60 * SS)
-        neck_y_top = head_cy + head_size - int(20 * SS)
-        draw.rectangle(
-            [(DC - neck_w, neck_y_top),
-             (DC + neck_w, neck_y_top + neck_h)],
-            fill=PAL["vert_corps"] + (neck_alpha,)
-        )
+        neck_w = int(50 * SS)
+        neck_h = int(50 * SS)
+        neck_y_top = head_cy + head_h_bot - int(10 * SS)
+        # Trapeze : plus large en bas
+        neck_pts = [
+            (DC - neck_w, neck_y_top),
+            (DC + neck_w, neck_y_top),
+            (DC + int(neck_w * 1.3), neck_y_top + neck_h),
+            (DC - int(neck_w * 1.3), neck_y_top + neck_h),
+        ]
+        draw.polygon(neck_pts, fill=PAL["vert_corps"] + (neck_alpha,))
+        # Outline
+        loop = neck_pts + [neck_pts[0]]
+        for k in range(len(loop) - 1):
+            draw.line([loop[k], loop[k + 1]],
+                      fill=PAL["noir"] + (neck_alpha,), width=int(3 * SS))
 
-    # === TORSE ===
+    # === TORSE MUSCLE (V-shape) ===
     if progress_full > 0.30:
         body_progress = min(1.0, (progress_full - 0.30) / 0.30)
         body_alpha = int(body_progress * 255)
-        body_top_y = head_cy + head_size + int(40 * SS)
+        body_top_y = head_cy + head_h_bot + int(50 * SS)
         body_bottom_y = body_top_y + int(280 * SS * body_progress)
-        body_w = int(140 * SS)
-        # Torse trapezoidal (plus large en haut, plus etroit en bas)
+        body_w_top = int(170 * SS)    # epaules larges
+        body_w_bot = int(110 * SS)    # taille fine
+
+        # Layer 1 : ombre du corps (decale en bas a droite)
+        shadow_offset = int(8 * SS)
+        torso_shadow = [
+            (DC - body_w_top + shadow_offset, body_top_y + shadow_offset),
+            (DC + body_w_top + shadow_offset, body_top_y + shadow_offset),
+            (DC + body_w_bot + shadow_offset, body_bottom_y + shadow_offset),
+            (DC - body_w_bot + shadow_offset, body_bottom_y + shadow_offset)
+        ]
+        draw.polygon(torso_shadow, fill=PAL["vert_corps_sombre"] + (body_alpha,))
+
+        # Layer 2 : corps principal
         torso_pts = [
-            (DC - body_w, body_top_y),
-            (DC + body_w, body_top_y),
-            (DC + int(body_w * 0.85), body_bottom_y),
-            (DC - int(body_w * 0.85), body_bottom_y)
+            (DC - body_w_top, body_top_y),
+            (DC + body_w_top, body_top_y),
+            (DC + body_w_bot, body_bottom_y),
+            (DC - body_w_bot, body_bottom_y)
         ]
         draw.polygon(torso_pts, fill=PAL["vert_corps"] + (body_alpha,))
-        # Highlight bord gauche (lumiere venant de gauche)
+
+        # Highlight cote gauche (lumiere)
+        hi_torso = [
+            (DC - body_w_top, body_top_y),
+            (DC - int(body_w_top * 0.6), body_top_y + int(20 * SS)),
+            (DC - int(body_w_bot * 0.6), body_bottom_y - int(20 * SS)),
+            (DC - body_w_bot, body_bottom_y),
+        ]
+        draw.polygon(hi_torso, fill=PAL["vert_corps_clair"] + (body_alpha,))
+
+        # Outline
+        loop = torso_pts + [torso_pts[0]]
+        for k in range(len(loop) - 1):
+            draw.line([loop[k], loop[k + 1]],
+                      fill=PAL["noir"] + (body_alpha,), width=int(4 * SS))
+
+        # Pectoraux (2 ovales sombres en haut du torse)
+        pec_y = body_top_y + int(50 * SS)
+        pec_w = int(50 * SS)
+        pec_h = int(35 * SS)
+        for sign in [-1, 1]:
+            pec_x = DC + sign * int(60 * SS)
+            draw.ellipse(
+                [(pec_x - pec_w, pec_y - pec_h),
+                 (pec_x + pec_w, pec_y + pec_h)],
+                fill=PAL["vert_corps_sombre"] + (body_alpha,)
+            )
+
+        # Ligne centrale (sternum)
         draw.line(
-            [(DC - body_w, body_top_y),
-             (DC - int(body_w * 0.85), body_bottom_y)],
-            fill=PAL["vert_corps_clair"] + (body_alpha,),
-            width=int(8 * SS)
-        )
-        # Outline general
-        torso_loop = torso_pts + [torso_pts[0]]
-        for k in range(len(torso_loop) - 1):
-            draw.line([torso_loop[k], torso_loop[k + 1]],
-                      fill=PAL["noir"] + (body_alpha,), width=int(3 * SS))
-        # Ligne centrale verticale (musculature stylisee)
-        draw.line(
-            [(DC, body_top_y + int(20 * SS)),
+            [(DC, body_top_y + int(50 * SS)),
              (DC, body_bottom_y - int(20 * SS))],
             fill=PAL["vert_corps_sombre"] + (body_alpha,),
-            width=int(2 * SS)
+            width=int(3 * SS)
         )
+        # Ligne abdo horizontale
+        for ay_off in [120, 170, 220]:
+            ay = body_top_y + int(ay_off * SS)
+            if ay < body_bottom_y - int(10 * SS):
+                line_w = int((body_w_top - (ay - body_top_y) * 0.2) * 0.4)
+                draw.line(
+                    [(DC - line_w, ay), (DC + line_w, ay)],
+                    fill=PAL["vert_corps_sombre"] + (body_alpha,),
+                    width=int(2 * SS)
+                )
 
-        # === BRAS ===
+        # === BRAS MUSCLES ===
         if progress_full > 0.45:
             arm_progress = min(1.0, (progress_full - 0.45) / 0.30)
             arm_alpha = int(arm_progress * 255)
-            arm_len = int(220 * SS * arm_progress)
-            arm_w = int(40 * SS)
+            arm_len = int(240 * SS * arm_progress)
+            arm_w = int(45 * SS)
             shoulder_y = body_top_y + int(20 * SS)
             for sign in [-1, 1]:
-                shoulder_x = DC + sign * body_w
-                elbow_x = shoulder_x + sign * int(arm_len * 0.4)
-                elbow_y = shoulder_y + int(arm_len * 0.5)
-                hand_x = elbow_x + sign * int(arm_len * 0.2)
-                hand_y = elbow_y + int(arm_len * 0.4)
+                shoulder_x = DC + sign * body_w_top
+                # Bras tombe le long du corps + un peu vers l'avant
+                elbow_x = shoulder_x + sign * int(arm_len * 0.25)
+                elbow_y = shoulder_y + int(arm_len * 0.55)
+                hand_x = elbow_x + sign * int(arm_len * 0.15)
+                hand_y = elbow_y + int(arm_len * 0.45)
 
-                arm_draw_polygon_segment(
-                    draw,
-                    shoulder_x, shoulder_y, elbow_x, elbow_y,
-                    arm_w, arm_alpha
-                )
-                arm_draw_polygon_segment(
-                    draw,
-                    elbow_x, elbow_y, hand_x, hand_y,
-                    int(arm_w * 0.85), arm_alpha
-                )
-                # Main (cercle)
-                hr = int(arm_w * 0.7)
+                # Bras superieur (epaule -> coude)
+                arm_draw_polygon_segment(draw, shoulder_x, shoulder_y,
+                                          elbow_x, elbow_y, arm_w, arm_alpha)
+                # Avant-bras (plus fin)
+                arm_draw_polygon_segment(draw, elbow_x, elbow_y,
+                                          hand_x, hand_y, int(arm_w * 0.85),
+                                          arm_alpha)
+                # Main
+                hr = int(arm_w * 0.75)
                 draw.ellipse(
                     [(hand_x - hr, hand_y - hr),
                      (hand_x + hr, hand_y + hr)],
@@ -447,38 +544,43 @@ def draw_humanoid(draw, progress_full, breathe=0.0):
                     outline=PAL["noir"] + (arm_alpha,)
                 )
 
-                # ETOILE DOREE main droite
+                # ETOILE DOREE main droite (sign==1)
                 if sign == 1 and progress_full > 0.65:
                     star_progress = min(1.0, (progress_full - 0.65) / 0.30)
-                    star_size = int(110 * SS * star_progress)  # 60 -> 110 (plus gros)
+                    star_size = int(120 * SS * star_progress)
                     star_alpha = int(star_progress * 255)
                     if star_size > 4:
-                        # Position : un peu au-dessus et a droite de la main
-                        sx = hand_x + int(50 * SS)
-                        sy = hand_y - int(20 * SS)
+                        # Position : un peu a cote de la main, leve vers l'avant
+                        sx = hand_x + int(60 * SS)
+                        sy = hand_y - int(30 * SS)
                         draw_star(draw, sx, sy, star_size, star_alpha)
 
-        # === JAMBES ===
+        # === JAMBES MUSCLES ===
         if progress_full > 0.55:
             leg_progress = min(1.0, (progress_full - 0.55) / 0.25)
             leg_alpha = int(leg_progress * 255)
-            leg_len = int(180 * SS * leg_progress)
-            leg_w = int(45 * SS)
+            leg_len = int(220 * SS * leg_progress)
+            leg_w = int(50 * SS)
             for sign in [-1, 1]:
-                hip_x = DC + sign * int(50 * SS)
+                hip_x = DC + sign * int(60 * SS)
                 hip_y = body_bottom_y
-                foot_x = hip_x + sign * int(15 * SS)
+                knee_x = hip_x + sign * int(8 * SS)
+                knee_y = hip_y + int(leg_len * 0.5)
+                foot_x = hip_x + sign * int(20 * SS)
                 foot_y = hip_y + leg_len
-                arm_draw_polygon_segment(
-                    draw,
-                    hip_x, hip_y, foot_x, foot_y,
-                    leg_w, leg_alpha
-                )
-                fw = int(leg_w * 1.2)
+
+                # Cuisse
+                arm_draw_polygon_segment(draw, hip_x, hip_y, knee_x, knee_y,
+                                          leg_w, leg_alpha)
+                # Mollet (legerement plus fin)
+                arm_draw_polygon_segment(draw, knee_x, knee_y, foot_x, foot_y,
+                                          int(leg_w * 0.9), leg_alpha)
+                # Pied (ovale plat)
+                fw = int(leg_w * 1.4)
                 fh = int(leg_w * 0.5)
                 draw.ellipse(
                     [(foot_x - fw, foot_y - fh),
-                     (foot_x + fw + sign * int(20 * SS), foot_y + fh)],
+                     (foot_x + fw + sign * int(25 * SS), foot_y + fh)],
                     fill=PAL["vert_corps_sombre"] + (leg_alpha,),
                     outline=PAL["noir"] + (leg_alpha,)
                 )
