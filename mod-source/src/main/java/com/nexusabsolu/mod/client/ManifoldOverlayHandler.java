@@ -89,44 +89,21 @@ public class ManifoldOverlayHandler {
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_15.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_16.png")
     };
-    // v1.0.339 (Etape 8) -- 28 frames de morphing pour video FLUIDE :
-    //   0-3   : IRIS qui grossit
-    //   4-11  : CRACK fissures de 0% a 100% (8 frames de progression)
-    //   12-19 : FACES 3 visages apparaissent puis fusionnent (8 frames)
-    //   20-23 : TRANSITION fusion 3-visages -> Salviadroid (4 frames)
-    //   24-27 : SALVIADROID respire (4 frames loop BPM-sync)
-    private static final ResourceLocation[] ENTITY_FRAMES = {
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_0.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_1.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_2.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_3.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_4.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_5.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_6.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_7.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_8.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_9.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_10.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_11.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_12.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_13.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_14.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_15.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_16.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_17.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_18.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_19.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_20.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_21.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_22.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_23.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_24.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_25.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_26.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_27.png")
-    };
-    private static final int N_ENTITY_MORPH_FRAMES = 24; // frames 0..23 (les 24 premieres = morphing one-shot)
-    private static final int N_ENTITY_LOOP_FRAMES = 4;   // frames 24..27 (loop Salviadroid)
+    // v1.0.342 (Etape 9) -- 50 frames de morphing pour vraie video :
+    //   0-5   (6)  : IRIS qui grossit
+    //   6-17  (12) : CRACK fissures de 0% a 100%
+    //   18-29 (12) : FACES 3 visages superposes puis fusion
+    //   30-41 (12) : METAMORPHOSE visage or -> entite humanoide verte
+    //   42-49 (8)  : ENTITY_LOOP entite finale + etoile pulse
+    private static final ResourceLocation[] ENTITY_FRAMES = new ResourceLocation[50];
+    static {
+        for (int i = 0; i < 50; i++) {
+            ENTITY_FRAMES[i] = new ResourceLocation(
+                "nexusabsolu", "textures/gui/manifold/entity_" + i + ".png");
+        }
+    }
+    private static final int N_ENTITY_MORPH_FRAMES = 42; // frames 0..41 = morphing one-shot
+    private static final int N_ENTITY_LOOP_FRAMES = 8;   // frames 42..49 = loop entity
 
     private static final int MANDALA_FRAME_DURATION = 100;  // 5s per mandala frame
     private static final int ENTITY_FRAME_DURATION = 14;    // ~1 frame per beat (84 BPM)
@@ -830,7 +807,7 @@ public class ManifoldOverlayHandler {
      *     iris -> crack -> faces -> transition (one-shot, mapping lineaire)
      *   - 2eme moitie (0.59375..0.6875, ~45s) -> loop des 4 frames
      *     Salviadroid (24..27) BPM-sync
-     *   - Hors PEAK -> 27 (defaut Salviadroid statique)
+     *   - Hors PEAK -> N_ENTITY_MORPH_FRAMES (defaut entite statique)
      */
     private float computeEntityFrameFloat(long t) {
         float progress = ManifoldClientState.getTripProgress(t);
@@ -839,7 +816,7 @@ public class ManifoldOverlayHandler {
         final float MORPH_END = PEAK_START + (PEAK_END - PEAK_START) / 2.0f;   // ~0.59375
 
         if (progress < PEAK_START || progress >= PEAK_END) {
-            return 27.0f;
+            return (float) N_ENTITY_MORPH_FRAMES;  // 1ere frame du loop entity = defaut
         }
 
         if (progress < MORPH_END) {
@@ -848,7 +825,7 @@ public class ManifoldOverlayHandler {
             return morphFrac * N_ENTITY_MORPH_FRAMES;
         }
 
-        // Phase loop : frames 24..27 BPM-sync, en float pour crossfade
+        // Phase loop : frames N_ENTITY_MORPH_FRAMES..end BPM-sync, en float pour crossfade
         long ticksSinceMorphEnd = t - (long) (PEAK_START * ManifoldEffectHandler.TRIP_DURATION);
         float subTicks = (float) (ticksSinceMorphEnd % ENTITY_FRAME_DURATION) / ENTITY_FRAME_DURATION;
         int loopFrame = (int) ((t / ENTITY_FRAME_DURATION) % N_ENTITY_LOOP_FRAMES);
