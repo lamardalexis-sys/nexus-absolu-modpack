@@ -47,6 +47,8 @@ public class NexusAbsoluMod {
     public void serverStarting(FMLServerStartingEvent event) {
         event.registerServerCommand(new com.nexusabsolu.mod.commands.CommandNexusMsg());
         event.registerServerCommand(new com.nexusabsolu.mod.commands.CommandRepairPSD());
+        // v1.0.341 -- Debug audio Manifold
+        event.registerServerCommand(new com.nexusabsolu.mod.commands.CommandNexusTestSound());
         LOGGER.info("Nexus Absolu -- Commands /nexusmsg /nexus_psd registered");
     }
 }

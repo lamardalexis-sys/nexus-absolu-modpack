@@ -24,5 +24,10 @@ public class NexusPacketHandler {
             PacketOpenLocalisateur.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(PacketTeleportToMachine.Handler.class,
             PacketTeleportToMachine.class, packetId++, Side.SERVER);
+        // v1.0.341 -- Debug commande /nexus_test_sound
+        INSTANCE.registerMessage(
+            com.nexusabsolu.mod.commands.CommandNexusTestSound.TestSoundPacket.Handler.class,
+            com.nexusabsolu.mod.commands.CommandNexusTestSound.TestSoundPacket.class,
+            packetId++, Side.CLIENT);
     }
 }
