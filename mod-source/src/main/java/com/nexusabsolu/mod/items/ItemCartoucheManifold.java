@@ -1,15 +1,12 @@
 package com.nexusabsolu.mod.items;
 
+import com.nexusabsolu.mod.events.ManifoldEffectHandler;
 import com.nexusabsolu.mod.init.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -26,23 +23,19 @@ import java.util.List;
 /**
  * Cartouche Manifold — l'item phare de l'Age 4.
  *
- * Serum neurochimique injectable qui fusionne les 5 theoremes de Voss
- * et fait sortir le joueur de la simulation.
+ * Right-click → declenche la sequence d'injection complete via
+ * ManifoldEffectHandler.startInjection() :
  *
- * V1 : right-click → applique les potions vanilla cranked (3 minutes).
- *      Apres usage : transformee en CartoucheUsed (casing recyclable),
- *      cooldown 5 minutes pour eviter overdose.
+ *   PHASE 1 (0-4 min)  : potions cranked + overlay violet/cyan + particules chaos
+ *   PHASE 2 (4-5 min)  : overlay NEGATIF (le trip vrille) + particules vrillees
+ *   CRASH (5 min)      : potions retirees, fatigue 1 min appliquee
+ *   PHASE 3 (5-6 min)  : Slowness II + Mining Fatigue II + Weakness
  *
- * V2 (TODO) : Lifesteal absolu, aura toxique, particules custom.
- * V3 (TODO) : Lightning Chain, Bullet Time, Hard Reset.
+ * Cooldown total : 5 minutes (anti-overdose).
  *
- * Stack size = 1, pas de glint (le glint vient des effets actifs).
+ * Apres usage : transformee en CartoucheUsed (casing recyclable).
  */
 public class ItemCartoucheManifold extends ItemBase {
-
-    private static final int DURATION_TICKS = 3600;   // 3 minutes
-    private static final int COOLDOWN_TICKS = 6000;   // 5 minutes
-    private static final String NBT_COOLDOWN = "manifold_cooldown_until";
 
     public ItemCartoucheManifold() {
         super("cartouche_manifold");
@@ -51,7 +44,7 @@ public class ItemCartoucheManifold extends ItemBase {
 
     @Override
     public boolean hasEffect(ItemStack stack) {
-        return true;  // glint permanent — c'est une cartouche speciale
+        return true;  // glint permanent
     }
 
     @Override
@@ -63,9 +56,17 @@ public class ItemCartoucheManifold extends ItemBase {
         tooltip.add(TextFormatting.DARK_GRAY + "\"Cinq theoremes. Une seule injection.\"");
         tooltip.add("");
         tooltip.add(TextFormatting.YELLOW + "Clic droit pour t'injecter.");
-        tooltip.add(TextFormatting.GRAY + "Duree : " + TextFormatting.WHITE + "3 minutes");
-        tooltip.add(TextFormatting.GRAY + "Cooldown : " + TextFormatting.WHITE + "5 minutes");
-        tooltip.add(TextFormatting.DARK_RED + "Overdose = mort instantanee.");
+        tooltip.add(TextFormatting.GRAY + "Phase 1 : "
+            + TextFormatting.LIGHT_PURPLE + "4 minutes "
+            + TextFormatting.GRAY + "(puissance absolue)");
+        tooltip.add(TextFormatting.GRAY + "Phase 2 : "
+            + TextFormatting.DARK_PURPLE + "1 minute "
+            + TextFormatting.GRAY + "(le trip vrille)");
+        tooltip.add(TextFormatting.GRAY + "Crash : "
+            + TextFormatting.RED + "1 minute "
+            + TextFormatting.GRAY + "(fatigue forcee)");
+        tooltip.add("");
+        tooltip.add(TextFormatting.DARK_RED + "Cooldown : 5 minutes. Pas de re-injection.");
     }
 
     @Override
@@ -73,31 +74,34 @@ public class ItemCartoucheManifold extends ItemBase {
                                                      EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
 
-        // Client side : succes pour synchroniser
         if (world.isRemote) {
             return new ActionResult<>(EnumActionResult.SUCCESS, stack);
         }
-
         if (!(player instanceof EntityPlayerMP)) {
             return new ActionResult<>(EnumActionResult.FAIL, stack);
         }
+        EntityPlayerMP mp = (EntityPlayerMP) player;
 
-        // Cooldown check
+        // Cooldown check (covers la fatigue ET l'anti-overdose, le cooldown
+        // est plus long que la duree totale donc on bloque pendant tout le cycle)
         long now = world.getTotalWorldTime();
-        long cooldownUntil = getCooldownUntil(player);
+        long cooldownUntil = ManifoldEffectHandler.getCooldownUntil(player);
         if (now < cooldownUntil) {
-            long remaining = (cooldownUntil - now) / 20;  // en secondes
+            long remaining = (cooldownUntil - now) / 20;
+            int phase = ManifoldEffectHandler.getCurrentPhase(player);
+            String reason = phase == ManifoldEffectHandler.PHASE_FATIGUE
+                ? "Tu te remets a peine de la derniere injection."
+                : "Le serum coule deja dans tes veines. Pas deux fois.";
             player.sendMessage(new TextComponentString(
-                TextFormatting.DARK_RED + "Ton corps n'a pas encore metabolise la derniere injection. "
-                + TextFormatting.GRAY + "(" + remaining + "s restantes)"));
+                TextFormatting.DARK_RED + reason + " "
+                + TextFormatting.GRAY + "(" + formatTime(remaining) + ")"));
             return new ActionResult<>(EnumActionResult.FAIL, stack);
         }
 
-        // INJECTION
-        injectCartouche((EntityPlayerMP) player, world);
-
-        // Set cooldown
-        setCooldownUntil(player, now + COOLDOWN_TICKS);
+        // === INJECTION ===
+        playInjectionSounds(world, player);
+        sendInjectionMessages(player);
+        ManifoldEffectHandler.startInjection(mp);
 
         // Consomme la cartouche, donne la cartouche usee
         stack.shrink(1);
@@ -109,28 +113,14 @@ public class ItemCartoucheManifold extends ItemBase {
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 
-    private void injectCartouche(EntityPlayerMP player, World world) {
-        // ---- SONS ----
-        // ENDERMEN_TELEPORT colle au lore : warp dimensionnel = sortie simulation
+    private void playInjectionSounds(World world, EntityPlayer player) {
         world.playSound(null, player.posX, player.posY, player.posZ,
             SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1.5F, 0.5F);
         world.playSound(null, player.posX, player.posY, player.posZ,
             SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 1.0F, 2.0F);
+    }
 
-        // ---- POTIONS VANILLA CRANKED ----
-        // duration en ticks, amplifier 0=I, 1=II, 2=III, 3=IV, 4=V
-        addEffect(player, MobEffects.STRENGTH, 4);          // X — vanilla cap is 5 (V), but we go epic
-        addEffect(player, MobEffects.SPEED, 2);             // III
-        addEffect(player, MobEffects.REGENERATION, 3);      // IV
-        addEffect(player, MobEffects.RESISTANCE, 3);        // IV
-        addEffect(player, MobEffects.HASTE, 4);             // V
-        addEffect(player, MobEffects.JUMP_BOOST, 2);        // III
-        addEffect(player, MobEffects.NIGHT_VISION, 0);
-        addEffect(player, MobEffects.WATER_BREATHING, 0);
-        addEffect(player, MobEffects.FIRE_RESISTANCE, 0);
-        addEffect(player, MobEffects.ABSORPTION, 4);        // V (bonus 10 hearts)
-
-        // ---- MESSAGES ----
+    private void sendInjectionMessages(EntityPlayer player) {
         player.sendMessage(new TextComponentString(
             TextFormatting.LIGHT_PURPLE + "" + TextFormatting.BOLD
             + "============================================"));
@@ -153,32 +143,13 @@ public class ItemCartoucheManifold extends ItemBase {
         player.sendMessage(new TextComponentString(
             TextFormatting.GREEN + "Cinq theoremes fusionnent dans ton sang."));
         player.sendMessage(new TextComponentString(
-            TextFormatting.GRAY + "Duree : "
-            + TextFormatting.WHITE + "3 minutes."));
+            TextFormatting.GRAY + "Sois prudent. Le retour sera dur."));
     }
 
-    private static void addEffect(EntityLivingBase entity, net.minecraft.potion.Potion potion, int amplifier) {
-        // showParticles=false pour pas spammer l'ecran
-        // showIcon=true pour que l'effet apparaisse dans l'inventaire
-        entity.addPotionEffect(new PotionEffect(potion, DURATION_TICKS, amplifier, false, true));
-    }
-
-    // ---- NBT helpers : cooldown stocke sur le joueur via tag global ----
-    private static long getCooldownUntil(EntityPlayer player) {
-        NBTTagCompound data = player.getEntityData();
-        NBTTagCompound persisted = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        return persisted.getLong(NBT_COOLDOWN);
-    }
-
-    private static void setCooldownUntil(EntityPlayer player, long until) {
-        NBTTagCompound data = player.getEntityData();
-        NBTTagCompound persisted;
-        if (data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-            persisted = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        } else {
-            persisted = new NBTTagCompound();
-            data.setTag(EntityPlayer.PERSISTED_NBT_TAG, persisted);
-        }
-        persisted.setLong(NBT_COOLDOWN, until);
+    private static String formatTime(long seconds) {
+        long m = seconds / 60;
+        long s = seconds % 60;
+        if (m > 0) return m + "m " + s + "s restantes";
+        return s + "s restantes";
     }
 }

@@ -16,5 +16,8 @@ public class NexusPacketHandler {
             PacketMiningHeartbeat.class, packetId++, Side.SERVER);
         INSTANCE.registerMessage(PacketScavengerSpeed.Handler.class,
             PacketScavengerSpeed.class, packetId++, Side.SERVER);
+        // v1.0.325 (Age 4) — sync phases Manifoldine server → client
+        INSTANCE.registerMessage(PacketManifoldPhase.Handler.class,
+            PacketManifoldPhase.class, packetId++, Side.CLIENT);
     }
 }

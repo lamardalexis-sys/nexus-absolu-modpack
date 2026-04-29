@@ -23,6 +23,9 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileCondenseurT2.class, new TESRCondenseurT2());
         ClientRegistry.bindTileEntitySpecialRenderer(TileAutoScavenger.class, new TESRAutoScavenger());
         MinecraftForge.EVENT_BUS.register(new ClientMiningHandler());
+        // v1.0.325 (Age 4) : overlay teinte ecran pendant injection Manifold
+        MinecraftForge.EVENT_BUS.register(
+            new com.nexusabsolu.mod.client.ManifoldOverlayHandler());
 
         // StateMapper custom pour le bloc fluide Diarrhee (toutes les variantes "level=X"
         // pointent vers la variante "normal" du blockstate, qui utilise forge:fluid).

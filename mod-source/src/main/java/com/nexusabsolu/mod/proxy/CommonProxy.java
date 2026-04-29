@@ -73,6 +73,9 @@ public class CommonProxy {
         // dedie ItemPlongeurVoss en v1.0.325.
         // MinecraftForge.EVENT_BUS.register(
         //     new com.nexusabsolu.mod.events.PSDDescentHandler());
+        // v1.0.325 (Age 4) : Cartouche Manifold — gestion phases + particules
+        MinecraftForge.EVENT_BUS.register(
+            new com.nexusabsolu.mod.events.ManifoldEffectHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
             new ResourceLocation(Reference.MOD_ID, "condenseur"));
         GameRegistry.registerTileEntity(TileCondenseurEnergy.class,
