@@ -38,3 +38,24 @@ item.contenttweaker.nexus_absolu.name=Le Nexus Absolu
 item.contenttweaker.vossium_ii_ingot.name=Lingot de Vossium II
 item.contenttweaker.vossium_iii_ingot.name=Lingot de Vossium III
 item.contenttweaker.vossium_iv_ingot.name=Lingot de Vossium IV
+
+# === Age 4 -- Phase 1-6 (auto-generated) ===
+item.contenttweaker.cryolite_dust.name=Cryolite Dust
+item.contenttweaker.catalyseur_como.name=CoMo Catalyst
+item.contenttweaker.yellowcake_dust.name=Yellowcake Dust
+item.contenttweaker.compose_alpha.name=Compound Alpha
+item.contenttweaker.compose_beta.name=Compound Beta
+item.contenttweaker.phenol_substitue.name=Substituted Phenol
+item.contenttweaker.carbone_actif_au.name=Au-loaded Activated Carbon
+item.contenttweaker.capsule_pube.name=Pu-Be Source Capsule
+item.contenttweaker.mycelium_active.name=Activated Mycelium
+item.contenttweaker.compose_gamma1.name=Compound Gamma-1
+item.contenttweaker.compose_gamma2.name=Compound Gamma-2
+item.contenttweaker.compose_gamma3.name=Compound Gamma-3 (6LiT)
+item.contenttweaker.tryptamide_m.name=Tryptamide-M
+item.contenttweaker.compose_delta.name=Compound Delta
+item.contenttweaker.cartouche_vide.name=Empty Cartridge
+item.contenttweaker.cartouche_chargee.name=Charged Cartridge
+tile.contenttweaker.resine_echangeuse_block.name=Ion Exchange Resin
+tile.contenttweaker.cryo_distillateur_controller.name=Cryo Distillation Controller
+tile.contenttweaker.bioreacteur_controller.name=Bio-Reactor Controller

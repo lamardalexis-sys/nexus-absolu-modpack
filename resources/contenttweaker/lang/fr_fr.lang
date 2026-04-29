@@ -1,0 +1,21 @@
+
+# === Age 4 -- Phase 1-6 (auto-generated) ===
+item.contenttweaker.cryolite_dust.name=Poudre de Cryolite
+item.contenttweaker.catalyseur_como.name=Catalyseur CoMo
+item.contenttweaker.yellowcake_dust.name=Poudre de Yellowcake
+item.contenttweaker.compose_alpha.name=Compose Alpha
+item.contenttweaker.compose_beta.name=Compose Beta
+item.contenttweaker.phenol_substitue.name=Phenol Substitue
+item.contenttweaker.carbone_actif_au.name=Carbone Actif Or
+item.contenttweaker.capsule_pube.name=Capsule Pu-Be
+item.contenttweaker.mycelium_active.name=Mycelium Active
+item.contenttweaker.compose_gamma1.name=Compose Gamma-1
+item.contenttweaker.compose_gamma2.name=Compose Gamma-2
+item.contenttweaker.compose_gamma3.name=Compose Gamma-3 (6LiT)
+item.contenttweaker.tryptamide_m.name=Tryptamide-M
+item.contenttweaker.compose_delta.name=Compose Delta
+item.contenttweaker.cartouche_vide.name=Cartouche Vide
+item.contenttweaker.cartouche_chargee.name=Cartouche Chargee
+tile.contenttweaker.resine_echangeuse_block.name=Resine Echangeuse
+tile.contenttweaker.cryo_distillateur_controller.name=Cryo-Distillateur (Controleur)
+tile.contenttweaker.bioreacteur_controller.name=Bio-Reacteur (Controleur)

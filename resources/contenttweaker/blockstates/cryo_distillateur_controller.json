@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "contenttweaker:cryo_distillateur_controller"
+    }
+  }
+}
