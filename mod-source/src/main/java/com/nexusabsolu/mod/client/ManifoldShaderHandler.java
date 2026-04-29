@@ -2,6 +2,7 @@ package com.nexusabsolu.mod.client;
 
 import com.nexusabsolu.mod.events.ManifoldEffectHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.shader.Shader;
 import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.client.shader.ShaderUniform;
@@ -183,9 +184,7 @@ public class ManifoldShaderHandler {
     private ShaderGroup getShaderGroup(Minecraft mc) {
         try {
             return ObfuscationReflectionHelper.getPrivateValue(
-                mc.entityRenderer.getClass().getSuperclass() == Object.class
-                    ? mc.entityRenderer.getClass()
-                    : mc.entityRenderer.getClass(),
+                EntityRenderer.class,
                 mc.entityRenderer,
                 SRG_SHADER_GROUP, "shaderGroup");
         } catch (Throwable t) {
@@ -193,9 +192,9 @@ public class ManifoldShaderHandler {
             try {
                 Field f;
                 try {
-                    f = mc.entityRenderer.getClass().getDeclaredField("shaderGroup");
+                    f = EntityRenderer.class.getDeclaredField("shaderGroup");
                 } catch (NoSuchFieldException e) {
-                    f = mc.entityRenderer.getClass().getDeclaredField(SRG_SHADER_GROUP);
+                    f = EntityRenderer.class.getDeclaredField(SRG_SHADER_GROUP);
                 }
                 f.setAccessible(true);
                 return (ShaderGroup) f.get(mc.entityRenderer);
