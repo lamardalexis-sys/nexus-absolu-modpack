@@ -18,6 +18,20 @@
 
 ## ✅ COMPLETED
 
+### Session "Visuel Ultime" 2026-04-29 -- Etape 5 (Shader wobble + chromatic aberration)
+- ✅ `shaders/program/manifold.fsh` -- ajout au debut de `main()` :
+  - **Wobble** : distorsion sinusoidale des UV de sampling de l'image du jeu :
+    `wobble_uv = texCoord + vec2(sin(Time*2.0+texCoord.y*8.0), cos(Time*1.7+texCoord.x*8.0)) * 0.02 * Intensity`
+    -> effet "vu a travers une vague" qui ondule organiquement
+  - **Chromatic aberration** : sample R/G/B avec offsets radiaux depuis le centre :
+    `caDir = (texCoord - 0.5) * 2.0` (direction depuis centre, plus grande vers les bords)
+    `gameColor.r = sample(uv + caDir * 0.005 * Intensity)`, idem pour B avec offset oppose
+    -> effet "lentille" classique : aberration plus marquee aux bords, zero au centre
+- ✅ Les deux effets sont moduls par `Intensity` (deja gere par ManifoldShaderHandler qui n'active le shader qu'en Stages 4-5). Donc effets actifs uniquement aux moments voulus, et fade-in/out automatique.
+- ✅ Bump version 1.0.332 -> 1.0.333.
+- ⚠️ A tester en jeu : l'image du jeu doit ondulee + se separer en RGB pendant Stages 4-5. **Tester sans OptiFine d'abord** -- OptiFine peut bloquer le shader Forge (piege documente).
+- ⏳ Si l'effet est trop subtil ou trop fort, ajuster les constantes 0.02 (wobble) et 0.005 (chromatic aberration).
+
 ### Session "Visuel Ultime" 2026-04-29 -- Etape 4 (3 tunnels parallax + acceleration)
 - ✅ `ManifoldOverlayHandler.java` -- refactor `renderZoomTunnel()` :
   - Orchestre 3 appels a un nouveau helper `renderTunnelLayer(mc, w, h, t, alpha, scaleMul, rotSpeed, zoomSpeed)`

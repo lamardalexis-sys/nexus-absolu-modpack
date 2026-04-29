@@ -84,8 +84,27 @@ vec3 calcNormal(vec3 p){
 }
 
 void main(){
-    // image du jeu en arriere-plan
-    vec4 gameColor = texture2D(DiffuseSampler, texCoord);
+    // v1.0.333 (Etape 5 visuel ultime) : wobble + chromatic aberration.
+    // Ces effets s'appliquent aux UV de sampling de l'image du jeu et
+    // sont module par Intensity (donc actifs en Stages 4-5 uniquement).
+
+    // Wobble : distorsion sinusoidale des UV (effet "vu a travers une vague")
+    // Frequence asymetrique X/Y pour un mouvement organique.
+    vec2 wobble_uv = texCoord + vec2(
+        sin(Time * 2.0 + texCoord.y * 8.0),
+        cos(Time * 1.7 + texCoord.x * 8.0)
+    ) * 0.02 * Intensity;
+
+    // Chromatic aberration : sample R/G/B avec offsets radiaux depuis le centre
+    // (effet plus marque vers les bords, zero au centre = effet lentille).
+    float ca = 0.005 * Intensity;
+    vec2 caDir = (texCoord - 0.5) * 2.0;
+    vec4 gameColor = vec4(
+        texture2D(DiffuseSampler, wobble_uv + caDir * ca).r,
+        texture2D(DiffuseSampler, wobble_uv).g,
+        texture2D(DiffuseSampler, wobble_uv - caDir * ca).b,
+        1.0
+    );
 
     // Si Intensity = 0, on retourne juste le jeu (skip raymarching)
     if(Intensity < 0.01){
