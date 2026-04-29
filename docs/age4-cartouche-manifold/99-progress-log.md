@@ -18,6 +18,23 @@
 
 ## ✅ COMPLETED
 
+### Session "Visuel Ultime" 2026-04-29 -- Etape 4 (3 tunnels parallax + acceleration)
+- ✅ `ManifoldOverlayHandler.java` -- refactor `renderZoomTunnel()` :
+  - Orchestre 3 appels a un nouveau helper `renderTunnelLayer(mc, w, h, t, alpha, scaleMul, rotSpeed, zoomSpeed)`
+  - Couche fond  : alpha 0.10x intensity, scaleMul 0.30, rotSpeed 0.5, zoomSpeed 0.5*accel (parallax background)
+  - Couche moyen : alpha 0.15x intensity, scaleMul 0.60, rotSpeed 1.0, zoomSpeed 1.0*accel
+  - Couche avant : alpha 0.22x intensity, scaleMul 1.20, rotSpeed 1.8, zoomSpeed 1.8*accel (parallax foreground)
+  - Alpha cumulee ~0.47 (proche de l'original 0.45) en blend additif SRC_ALPHA+ONE
+- ✅ NEW helper `getTunnelAcceleration(progress)` :
+  - Stage 4 aller [0.3125, 0.5]    -> accel monte 1.0 -> 4.0 (lineaire)
+  - Stage 5 PEAK  [0.5, 0.6875]    -> accel max 4.0
+  - Stage 4 retour [0.6875, 0.8125]-> accel descend 4.0 -> 1.0
+  - Hors plage -> 1.0 (defaut)
+- ✅ Securite : tileSize plancher 8.0f pour eviter rendering pathologique en cas de scale ultra-bas
+- ✅ Phase calculee en double `((double)t * speed) % period` pour tenir avec longues sessions de jeu
+- ✅ Bump version 1.0.331 -> 1.0.332.
+- ⏳ A tester en jeu : Stage 4 doit donner sensation de "vitesse qui augmente", PEAK doit etre visuellement le plus intense (3 couches a fond), Stage 4' decelere vers le calme.
+
 ### Session "Visuel Ultime" 2026-04-29 -- Etape 3 (Morphing entite 16 frames)
 - ✅ NEW `scripts-tools/generate_entity_morphing.py` -- 4 phases :
   - Frames 0-3 : iris cyan/magenta qui grossit (zoom progressif depuis pupille avec gradient radial)

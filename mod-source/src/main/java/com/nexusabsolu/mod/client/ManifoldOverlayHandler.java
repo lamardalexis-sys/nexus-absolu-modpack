@@ -317,17 +317,19 @@ public class ManifoldOverlayHandler {
     }
 
     /**
-     * Tunnel zoom in/out — texture seamless en grille avec scale animee.
+     * Tunnel zoom in/out -- 3 couches parallax avec scales/rotations/vitesses
+     * differentes et acceleration progressive (effet "on accelere dans le temps").
+     *
+     * v1.0.332 (Etape 4 visuel ultime) :
+     *   - Couche fond  : scale 0.30x, rot lente, zoom lent (parallax background)
+     *   - Couche moyen : scale 0.60x, rot moyenne, zoom moyen
+     *   - Couche avant : scale 1.20x, rot rapide, zoom rapide (parallax foreground)
+     *   - Acceleration : monte 1->4 sur Stage 4, max 4 sur Stage 5 PEAK,
+     *     redescend 4->1 sur Stage 4'.
      */
     private void renderZoomTunnel(Minecraft mc, int w, int h, long t, float intensity) {
-        // Zoom cycle 6s
-        double zoomCycle = (t % 120) / 120.0;
-        float scale = 0.6f + (float)(Math.sin(zoomCycle * 2 * Math.PI) * 0.5 + 0.5) * 1.4f;
-        float rotation = (t % 800) / 800.0f * 360.0f;
-        float tileSize = 256.0f * scale * 0.5f;
-        int tilesX = (int)(w / tileSize) + 4;
-        int tilesY = (int)(h / tileSize) + 4;
-        float scrollOffset = (t % 240) / 240.0f * tileSize;
+        float progress = ManifoldClientState.getTripProgress(t);
+        float accel = getTunnelAcceleration(progress);
 
         mc.getTextureManager().bindTexture(TUNNEL_TILE);
 
@@ -338,7 +340,41 @@ public class ManifoldOverlayHandler {
             GlStateManager.SourceFactor.ONE,
             GlStateManager.DestFactor.ZERO);
         GlStateManager.enableTexture2D();
-        GlStateManager.color(1f, 1f, 1f, intensity * 0.45f);
+
+        // 3 couches, du fond vers l'avant. Alpha cumulee ~= 0.47 (proche
+        // de l'intensite originale 0.45) en blend additif.
+        renderTunnelLayer(mc, w, h, t, intensity * 0.10f, 0.30f, 0.5f, 0.5f * accel);
+        renderTunnelLayer(mc, w, h, t, intensity * 0.15f, 0.60f, 1.0f, 1.0f * accel);
+        renderTunnelLayer(mc, w, h, t, intensity * 0.22f, 1.20f, 1.8f, 1.8f * accel);
+
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(1f, 1f, 1f, 1f);
+    }
+
+    /**
+     * Rend une seule couche du tunnel a alpha/scale/rotation/vitesse donnes.
+     * Le caller doit avoir setup le blend, bind la texture et reset le state.
+     */
+    private void renderTunnelLayer(Minecraft mc, int w, int h, long t,
+                                    float alpha, float scaleMul,
+                                    float rotSpeed, float zoomSpeed) {
+        // Zoom cycle 6s a vitesse normale, accelere par zoomSpeed
+        double zoomPhase = (((double) t) * zoomSpeed) % 120.0;
+        double zoomCycle = zoomPhase / 120.0;
+        float scale = (0.6f + (float)(Math.sin(zoomCycle * 2 * Math.PI) * 0.5 + 0.5) * 1.4f) * scaleMul;
+        float rotation = (float)((((double) t) * rotSpeed) % 800.0 / 800.0 * 360.0);
+
+        float tileSize = 256.0f * scale * 0.5f;
+        if (tileSize < 8.0f) tileSize = 8.0f; // securite : pas de tiles micro
+        int tilesX = (int)(w / tileSize) + 4;
+        int tilesY = (int)(h / tileSize) + 4;
+        float scrollOffset = (float)((((double) t) * zoomSpeed) % 240.0 / 240.0 * tileSize);
+
+        GlStateManager.color(1f, 1f, 1f, alpha);
 
         GlStateManager.pushMatrix();
         GlStateManager.translate(w / 2.0f, h / 2.0f, 0);
@@ -367,12 +403,32 @@ public class ManifoldOverlayHandler {
         tess.draw();
 
         GlStateManager.popMatrix();
-        GlStateManager.tryBlendFuncSeparate(
-            GlStateManager.SourceFactor.SRC_ALPHA,
-            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-            GlStateManager.SourceFactor.ONE,
-            GlStateManager.DestFactor.ZERO);
-        GlStateManager.color(1f, 1f, 1f, 1f);
+    }
+
+    /**
+     * Acceleration du tunnel selon la phase du trip.
+     *   Stage 4 aller [0.3125, 0.5]    : accel monte 1.0 -> 4.0
+     *   Stage 5 PEAK  [0.5, 0.6875]    : accel max = 4.0
+     *   Stage 4 retour [0.6875, 0.8125]: accel descend 4.0 -> 1.0
+     *   Hors de cette plage : 1.0 (defaut, pas d'acceleration)
+     */
+    private float getTunnelAcceleration(float progress) {
+        final float S4_START = ManifoldEffectHandler.STAGE_3_GEOMETRIC_END;     // 0.3125
+        final float S5_START = ManifoldEffectHandler.STAGE_4_HYPERSPACE_END;    // 0.5
+        final float S5_END   = ManifoldEffectHandler.STAGE_5_PEAK_END;          // 0.6875
+        final float S4R_END  = ManifoldEffectHandler.STAGE_4R_HYPERSPACE_END;   // 0.8125
+
+        if (progress < S4_START || progress >= S4R_END) return 1.0f;
+
+        if (progress < S5_START) {
+            float t = (progress - S4_START) / (S5_START - S4_START);
+            return 1.0f + 3.0f * t;
+        }
+        if (progress < S5_END) {
+            return 4.0f;
+        }
+        float t = (progress - S5_END) / (S4R_END - S5_END);
+        return 4.0f - 3.0f * t;
     }
 
     /**
