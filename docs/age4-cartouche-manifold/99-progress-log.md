@@ -18,6 +18,28 @@
 
 ## ✅ COMPLETED
 
+### Session "Visuel Ultime" 2026-04-29 -- Etape 6 (Couches additionnelles overlay)
+- ✅ NEW `renderCosmicDust()` -- 80 etoiles scintillantes en fond :
+  - Positions precomputees via static initializer Random(42L) -> deterministe, memes positions a chaque demarrage
+  - Twinkle independant par etoile : `alpha = sin(t/20 * twinkleFreq + phase)`, frequence 0.5..2.5 Hz
+  - Tailles variees 1.0 a 3.0 px
+  - Couleurs DMT palette (8 couleurs neon)
+  - Active des Stage 2 (intensite combinee Stages 2-5)
+  - GL direct (pas de texture) -> zero overhead chargement
+- ✅ NEW `renderWaveformBars()` + helper `drawBarVertex()` -- 3 barres BPM-sync en bas de l'ecran :
+  - Bass (magenta) : pulse fort sur kick `(1 - beatPhase)` -> decroit
+  - Mid (or) : peak au milieu du beat `sin(beatPhase * PI)`
+  - High (cyan) : 2 oscillations par beat `sin(beatPhase * 4*PI)`
+  - Hauteur max 8% de l'ecran, gradient alpha (haut plus transparent)
+  - Pas de FFT temps reel disponible -> beat phase comme proxy plausible
+  - Visible des Stage 2 jusqu'au PEAK
+- ✅ Integration dans `onRenderOverlay` :
+  - COUCHE 0 (NEW) : cosmic dust en TOUT premier (fond ambiance)
+  - COUCHE 6 (NEW) : waveform bars en TOUT dernier avant le debug
+- ❌ SKIP cette session : runes scrolling (couches lat-3 Voss). Demanderait un atlas de glyphes via Python -> a faire en next session de polish post-playtest si Alexis valide.
+- ✅ Bump version 1.0.333 -> 1.0.334.
+- ⏳ A tester en jeu : valider que le cosmic dust est subtil mais visible, que les waveform bars en bas sont distinctives sans gener le HUD.
+
 ### Session "Visuel Ultime" 2026-04-29 -- Etape 5 (Shader wobble + chromatic aberration)
 - ✅ `shaders/program/manifold.fsh` -- ajout au debut de `main()` :
   - **Wobble** : distorsion sinusoidale des UV de sampling de l'image du jeu :

@@ -98,6 +98,25 @@ public class ManifoldOverlayHandler {
     private static final int MANDALA_FRAME_DURATION = 100;  // 5s per mandala frame
     private static final int ENTITY_FRAME_DURATION = 14;    // ~1 frame per beat (84 BPM)
 
+    // v1.0.334 (Etape 6 visuel ultime) : cosmic dust precompute.
+    // 80 etoiles fixes en coordonnees normalisees [0,1] avec couleur DMT.
+    // Init seede dans static block pour reproductibilite (meme positions a
+    // chaque demarrage du jeu).
+    private static final int N_STARS = 80;
+    private static final float[] STAR_X = new float[N_STARS];
+    private static final float[] STAR_Y = new float[N_STARS];
+    private static final int[] STAR_COLOR = new int[N_STARS];
+    private static final float[] STAR_SIZE = new float[N_STARS];
+    static {
+        java.util.Random rng = new java.util.Random(42L);
+        for (int i = 0; i < N_STARS; i++) {
+            STAR_X[i] = rng.nextFloat();
+            STAR_Y[i] = rng.nextFloat();
+            STAR_COLOR[i] = rng.nextInt(8);
+            STAR_SIZE[i] = 1.0f + rng.nextFloat() * 2.0f;  // 1.0 - 3.0 px
+        }
+    }
+
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) return;
@@ -127,6 +146,15 @@ public class ManifoldOverlayHandler {
         // Pulsation BPM-sync
         float beatKick = ManifoldClientState.getBeatKick(now);
 
+        // === COUCHE 0 -- NEW Etape 6 : cosmic dust en fond, des Stage 2 ===
+        // Intensite combinee Stages 2-5 (max des 4) -> apparait avec couleurs,
+        // disparait apres le PEAK comme les autres effets.
+        float dustIntensity = Math.max(Math.max(intensities[1], intensities[2]),
+                                       Math.max(intensities[3], intensities[4]));
+        if (dustIntensity > 0.01f) {
+            renderCosmicDust(w, h, now, dustIntensity);
+        }
+
         // === COUCHE 1 — Onset : subtle white tint (luminosity boost) ===
         if (intensities[0] > 0.01f) {
             renderOnsetTint(w, h, intensities[0], beatKick);
@@ -152,6 +180,14 @@ public class ManifoldOverlayHandler {
         if (intensities[4] > 0.01f) {
             renderEntity(mc, w, h, now, intensities[4], beatKick);
             renderPeakLetterbox(w, h, intensities[4]);
+        }
+
+        // === COUCHE 6 -- NEW Etape 6 : waveform bars BPM-sync en bas ===
+        // Visible des Stage 2 jusqu'au PEAK (intensite combinee).
+        float wavIntensity = Math.max(Math.max(intensities[1], intensities[2]),
+                                      Math.max(intensities[3], intensities[4]));
+        if (wavIntensity > 0.01f) {
+            renderWaveformBars(w, h, now, wavIntensity);
         }
 
         // Debug
@@ -619,6 +655,142 @@ public class ManifoldOverlayHandler {
         GlStateManager.color(1f, 1f, 1f, 1f);
         GlStateManager.disableBlend();
         GlStateManager.enableTexture2D();
+    }
+
+    /**
+     * Cosmic dust : 80 etoiles fixes (positions seedees) qui scintillent
+     * independamment. Apparait en fond a partir du Stage 2 et reste visible
+     * jusqu'au PEAK pour donner une ambiance "espace cosmique".
+     *
+     * v1.0.334 (Etape 6 visuel ultime).
+     */
+    private void renderCosmicDust(int w, int h, long t, float intensity) {
+        if (intensity < 0.01f) return;
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+
+        for (int i = 0; i < N_STARS; i++) {
+            float sx = STAR_X[i] * w;
+            float sy = STAR_Y[i] * h;
+            float[] c = DMT_PALETTE[STAR_COLOR[i]];
+
+            // Twinkle : alpha pulse avec frequence variable par etoile (0.5..2.5 Hz)
+            float twinkleFreq = 0.5f + (i % 5) * 0.4f;
+            float twinklePhase = i * 0.7f;
+            float twinkle = 0.5f + 0.5f * (float) Math.sin(t / 20.0 * twinkleFreq + twinklePhase);
+            float alpha = intensity * 0.7f * twinkle;
+            if (alpha < 0.02f) continue;
+
+            float size = STAR_SIZE[i];
+            buf.pos(sx - size, sy - size, 0).color(c[0], c[1], c[2], alpha).endVertex();
+            buf.pos(sx + size, sy - size, 0).color(c[0], c[1], c[2], alpha).endVertex();
+            buf.pos(sx + size, sy + size, 0).color(c[0], c[1], c[2], alpha).endVertex();
+            buf.pos(sx - size, sy + size, 0).color(c[0], c[1], c[2], alpha).endVertex();
+        }
+        tess.draw();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(1f, 1f, 1f, 1f);
+    }
+
+    /**
+     * Waveform reactive : 3 barres BPM-sync en bas de l'ecran (bass, mid, high).
+     * Pas de FFT temps reel disponible -- utilise le beat phase pour simuler
+     * une reaction musicale plausible.
+     *
+     * v1.0.334 (Etape 6 visuel ultime).
+     */
+    private void renderWaveformBars(int w, int h, long t, float intensity) {
+        if (intensity < 0.01f) return;
+
+        float beatPhase = ManifoldClientState.getBeatPhase(t);
+
+        // 3 barres : bass (kick) / mid (envelope) / high (haute frequence simulee)
+        float bassEnv = (1.0f - beatPhase);                                            // fort sur kick, decroit
+        float midEnv  = (float) Math.sin(beatPhase * Math.PI);                          // peak au milieu du beat
+        float highEnv = 0.5f + 0.5f * (float) Math.sin(beatPhase * 4.0 * Math.PI);     // 2 oscillations par beat
+
+        // Petite normalisation pour eviter d'avoir des barres a zero
+        bassEnv = 0.2f + 0.8f * bassEnv;
+        midEnv  = 0.2f + 0.8f * midEnv;
+        highEnv = 0.2f + 0.8f * highEnv;
+
+        // 3 couleurs DMT : magenta (bass), or (mid), cyan (high)
+        float[] cBass = DMT_PALETTE[0];   // magenta
+        float[] cMid  = DMT_PALETTE[2];   // or
+        float[] cHigh = DMT_PALETTE[5];   // cyan
+
+        // Geometrie : 3 barres centrees, espacees en bas
+        float barWidth = w * 0.10f;
+        float barSpacing = w * 0.06f;
+        float totalWidth = barWidth * 3 + barSpacing * 2;
+        float startX = (w - totalWidth) / 2.0f;
+        float baseY = h - 12;        // y du sol des barres
+        float maxBarH = h * 0.08f;   // hauteur max d'une barre
+
+        float bassH = maxBarH * bassEnv;
+        float midH  = maxBarH * midEnv;
+        float highH = maxBarH * highEnv;
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+
+        float alpha = intensity * 0.55f;
+
+        drawBarVertex(buf, startX,                                  baseY, barWidth, bassH, cBass, alpha);
+        drawBarVertex(buf, startX + barWidth + barSpacing,          baseY, barWidth, midH,  cMid,  alpha);
+        drawBarVertex(buf, startX + (barWidth + barSpacing) * 2,    baseY, barWidth, highH, cHigh, alpha);
+
+        tess.draw();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(1f, 1f, 1f, 1f);
+    }
+
+    /**
+     * Helper : ajoute les 4 vertices d'une barre verticale dans le buffer.
+     * baseY est le bas, hauteur monte vers le haut.
+     */
+    private void drawBarVertex(BufferBuilder buf, float x, float baseY,
+                                float width, float height,
+                                float[] color, float alpha) {
+        float top = baseY - height;
+        // Gradient subtle : alpha plus fort en bas, plus faible en haut
+        float aBottom = alpha;
+        float aTop = alpha * 0.4f;
+        buf.pos(x,         baseY, 0).color(color[0], color[1], color[2], aBottom).endVertex();
+        buf.pos(x + width, baseY, 0).color(color[0], color[1], color[2], aBottom).endVertex();
+        buf.pos(x + width, top,   0).color(color[0], color[1], color[2], aTop).endVertex();
+        buf.pos(x,         top,   0).color(color[0], color[1], color[2], aTop).endVertex();
     }
 
     private void renderDebugIndicator(FontRenderer font, int stage, float progress) {
