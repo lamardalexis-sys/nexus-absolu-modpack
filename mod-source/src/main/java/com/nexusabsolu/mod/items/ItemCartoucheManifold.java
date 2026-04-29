@@ -111,8 +111,9 @@ public class ItemCartoucheManifold extends ItemBase {
 
     private void injectCartouche(EntityPlayerMP player, World world) {
         // ---- SONS ----
+        // ENDERMEN_TELEPORT colle au lore : warp dimensionnel = sortie simulation
         world.playSound(null, player.posX, player.posY, player.posZ,
-            SoundEvents.ENTITY_EVOCATION_ILLAGER_CAST_SPELL, SoundCategory.PLAYERS, 1.5F, 0.5F);
+            SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1.5F, 0.5F);
         world.playSound(null, player.posX, player.posY, player.posZ,
             SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 1.0F, 2.0F);
 
