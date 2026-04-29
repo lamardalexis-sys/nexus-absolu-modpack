@@ -85,14 +85,27 @@ vec3 calcNormal(vec3 p){
 
 void main(){
     // v1.0.333 (Etape 5 visuel ultime) : wobble + chromatic aberration.
+    // v1.0.338 (Etape 7 phase D) : + vortex twist au PEAK.
     // Ces effets s'appliquent aux UV de sampling de l'image du jeu et
     // sont module par Intensity (donc actifs en Stages 4-5 uniquement).
 
+    // VORTEX TWIST : rotation des UV autour du centre, plus forte aux bords.
+    // Donne l'impression que tout l'ecran se tord en spirale (effet PEAK).
+    vec2 centered = texCoord - 0.5;
+    float twistRadius = length(centered);
+    float twistAngle = twistRadius * 3.0 * Intensity * sin(Time * 0.3);
+    float twistC = cos(twistAngle);
+    float twistS = sin(twistAngle);
+    vec2 twisted = vec2(
+        centered.x * twistC - centered.y * twistS,
+        centered.x * twistS + centered.y * twistC
+    ) + 0.5;
+
     // Wobble : distorsion sinusoidale des UV (effet "vu a travers une vague")
     // Frequence asymetrique X/Y pour un mouvement organique.
-    vec2 wobble_uv = texCoord + vec2(
-        sin(Time * 2.0 + texCoord.y * 8.0),
-        cos(Time * 1.7 + texCoord.x * 8.0)
+    vec2 wobble_uv = twisted + vec2(
+        sin(Time * 2.0 + twisted.y * 8.0),
+        cos(Time * 1.7 + twisted.x * 8.0)
     ) * 0.02 * Intensity;
 
     // Chromatic aberration : sample R/G/B avec offsets radiaux depuis le centre
@@ -166,10 +179,35 @@ void main(){
         fractalCol += pal(Time * 0.15) * (steps / float(RAYMARCH_STEPS)) * 0.25;
         fractalCol *= mix(1.0, 0.4, clamp(t / maxT, 0.0, 1.0));
     } else {
-        // Background : tunnel colore
+        // v1.0.338 (Etape 7 phase D) : VORTEX TUNNEL raymarche en background.
+        // Au lieu d'un degrade plat, on calcule un tunnel infini en
+        // coordonnees polaires : la profondeur Z avance avec Time, l'angle
+        // theta tourne lentement. Effet : on voit clairement un tunnel qui
+        // s'enfonce derriere les fractales.
         float r = length(uv);
         float a = atan(uv.y, uv.x);
-        fractalCol  = pal(r * 1.2 + Time * 0.2 + a * 0.05) * 0.3;
+
+        // Coords polaires "tunnel" : 1/r donne la profondeur (loin = grand,
+        // proche = petit), avec un offset Time pour avancer.
+        float depth = 1.0 / max(r, 0.001);
+        float tunnelZ = depth - Time * 1.2;          // avance dans le tunnel
+
+        // Stripes radiales (anneaux du tunnel) qui defilent
+        float ringPattern = sin(tunnelZ * 4.0) * 0.5 + 0.5;
+        // Stripes angulaires (parois du tunnel)
+        float wedgePattern = sin(a * 12.0 + Time * 0.4) * 0.5 + 0.5;
+
+        // Couleur du tunnel : palette qui shifte avec depth + angle
+        vec3 tunnelCol = pal(tunnelZ * 0.15 + a * 0.1 + Time * 0.08);
+        // Modulation par les stripes
+        tunnelCol *= mix(0.4, 1.0, ringPattern);
+        tunnelCol *= mix(0.6, 1.0, wedgePattern);
+        // Fade au centre (point de fuite noir profond)
+        tunnelCol *= smoothstep(0.0, 0.15, r);
+        // Boost luminosite sur les bords (effet "lumiere a l'entree")
+        tunnelCol += pal(a * 0.5 + Time * 0.1) * smoothstep(0.6, 1.2, r) * 0.4;
+
+        fractalCol = tunnelCol * 0.7;
     }
 
     // Saturation boost
