@@ -18,6 +18,23 @@
 
 ## ✅ COMPLETED
 
+### Session "Visuel Ultime" 2026-04-29 -- Etape 3 (Morphing entite 16 frames)
+- ✅ NEW `scripts-tools/generate_entity_morphing.py` -- 4 phases :
+  - Frames 0-3 : iris cyan/magenta qui grossit (zoom progressif depuis pupille avec gradient radial)
+  - Frames 4-7 : crack effect (lignes blanches rayonnantes + sub-cracks + contour visage qui apparait progressivement)
+  - Frames 8-11 : 3 visages superposes (separation chromatique cyan/or/magenta avec offset lateral pulsant)
+  - Frames 12-15 : entite Salviadroid finale qui respire (cycle sin sur 4 frames)
+  - 1024x1024 supersampling 2x Lanczos
+- ✅ Suppression `scripts-tools/generate_entity_textures.py` (legacy, remplace)
+- ✅ 16 PNG generes dans `assets/.../entity_0..15.png` (~entity_2.png, entity_6.png, entity_9.png, entity_13.png verifies visuellement OK)
+- ✅ `ManifoldOverlayHandler.java` -- `ENTITY_FRAMES[]` etendu de 4 a 16 entrees + `renderEntity()` refactore avec nouvelle logique :
+  - `computeEntityFrame(t)` : helper qui selectionne la frame selon le peakProgress
+  - 1ere tranche du PEAK (30s = 1/3) -> mapping lineaire des 16 frames de morphing
+  - 2eme tranche (60s = 2/3) -> loop BPM-sync sur frames 12-15
+  - Hors PEAK -> return 12 (defaut securite)
+- ✅ Bump version 1.0.330 -> 1.0.331.
+- ⏳ A tester en jeu : valider le morphing sur Stage 5, particulierement la transition iris -> crack -> visages -> Salviadroid sur les 30 premieres secondes du PEAK.
+
 ### Session "Visuel Ultime" 2026-04-29 -- Etape 2 (16 mandalas haute resolution)
 - ✅ `scripts-tools/generate_mandala_textures.py` (REWRITE) -- v2 :
   - 1024x1024 (vs 512) avec supersampling 2x puis downscale Lanczos (sub-pixel anti-aliasing)

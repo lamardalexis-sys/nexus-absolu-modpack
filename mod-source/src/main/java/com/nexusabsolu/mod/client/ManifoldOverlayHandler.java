@@ -71,12 +71,28 @@ public class ManifoldOverlayHandler {
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_15.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_16.png")
     };
-    // Entite avec 4 frames d'animation
+    // v1.0.331 (Etape 3 visuel ultime) -- 16 frames de morphing :
+    //   0-3  : iris cyan/magenta qui grossit
+    //   4-7  : crack effect (lignes blanches + contour visage qui apparait)
+    //   8-11 : 3 visages superposes (separation chromatique cyan/or/magenta)
+    //   12-15: entite Salviadroid finale qui respire
     private static final ResourceLocation[] ENTITY_FRAMES = {
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_0.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_1.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_2.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_3.png")
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_3.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_4.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_5.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_6.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_7.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_8.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_9.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_10.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_11.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_12.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_13.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_14.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_15.png")
     };
 
     private static final int MANDALA_FRAME_DURATION = 100;  // 5s per mandala frame
@@ -411,12 +427,17 @@ public class ManifoldOverlayHandler {
 
     /**
      * Entite animee Salviadroid au PEAK (stage 5).
-     * 4 frames qui cyclent au BPM (1 frame par beat).
-     * Pulse de scale (respiration) + rotation tres lente.
+     *
+     * v1.0.331 (Etape 3 visuel ultime) : MORPHING progressif.
+     *   - Premieres 30s du PEAK (progress 0.5..0.5625) : joue les 16 frames
+     *     de morphing une fois en sequence (iris -> crack -> 3 visages -> Salviadroid)
+     *   - 60s suivantes (progress 0.5625..0.6875) : boucle BPM-sync sur les
+     *     frames 12-15 (Salviadroid qui respire)
+     *
+     * Pulse de scale (respiration) + rotation tres lente, conserves.
      */
     private void renderEntity(Minecraft mc, int w, int h, long t, float intensity, float beat) {
-        // Frame index sync au beat
-        int frame = (int)((t / ENTITY_FRAME_DURATION) % ENTITY_FRAMES.length);
+        int frame = computeEntityFrame(t);
 
         // Pulse scale beat-sync : grandit sur kick
         float scale = 1.0f + beat * 0.12f;
@@ -439,6 +460,41 @@ public class ManifoldOverlayHandler {
                            size, rotation, intensity * 0.95f);
 
         GlStateManager.color(1f, 1f, 1f, 1f);
+    }
+
+    /**
+     * Selection de la frame d'entite selon le peakProgress.
+     *
+     * Logique :
+     *   - PEAK = [0.5, 0.6875] du trip (1.5 min sur 8 min)
+     *   - 1ere tranche (0.5..0.5625, soit 30s) -> morphing : 16 frames lues
+     *     une fois en sequence (mapping lineaire)
+     *   - 2eme tranche (0.5625..0.6875, soit 60s) -> loop des frames 12-15
+     *     (Salviadroid qui respire) au BPM (1 frame / beat = 14 ticks)
+     *   - Hors PEAK -> frame 12 (defaut Salviadroid statique, securite)
+     */
+    private int computeEntityFrame(long t) {
+        float progress = ManifoldClientState.getTripProgress(t);
+        final float PEAK_START = ManifoldEffectHandler.STAGE_4_HYPERSPACE_END; // 0.5
+        final float PEAK_END = ManifoldEffectHandler.STAGE_5_PEAK_END;         // 0.6875
+        // 30s morphing = 1/3 du PEAK (90s total)
+        final float MORPH_END = PEAK_START + (PEAK_END - PEAK_START) / 3.0f;   // ~0.5625
+
+        if (progress < PEAK_START || progress >= PEAK_END) {
+            return 12; // securite : entite finale
+        }
+
+        if (progress < MORPH_END) {
+            // Phase morphing : map progress lineairement sur les 16 frames
+            float morphFrac = (progress - PEAK_START) / (MORPH_END - PEAK_START);
+            int frame = (int) (morphFrac * ENTITY_FRAMES.length);
+            if (frame < 0) frame = 0;
+            if (frame >= ENTITY_FRAMES.length) frame = ENTITY_FRAMES.length - 1;
+            return frame;
+        }
+
+        // Phase loop : frames 12-15 (Salviadroid respire), BPM-sync
+        return 12 + (int) ((t / ENTITY_FRAME_DURATION) % 4);
     }
 
     /**
