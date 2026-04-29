@@ -48,8 +48,26 @@ public class ManifoldOverlayHandler {
         {0.71f, 0.20f, 1.00f}, {1.00f, 0.00f, 0.39f}
     };
 
-    private static final ResourceLocation TUNNEL_TILE =
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/tunnel_tile.png");
+    // v1.0.337 (Etape 7) -- 4 variantes hyperspace qui se succedent au Stage 4.
+    // tile_a : grille hexagonale neon DMT (auto)
+    // tile_b : eclats cristallins prismatiques (auto)
+    // tile_c : runes Voss + circuits (Voss lore)
+    // tile_d : blueprint fractal Voss (Voss lore)
+    // tunnel_tile.png (legacy) reste sur le disque, copie de tile_a, mais
+    // n'est plus reference dans le code Java.
+    private static final ResourceLocation[] TUNNEL_TILES = {
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/tunnel_tile_a.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/tunnel_tile_b.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/tunnel_tile_c.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/tunnel_tile_d.png")
+    };
+    // Couleur de teinte par variante (multipliee sur le RGB de la texture)
+    private static final float[][] TUNNEL_TINTS = {
+        {1.00f, 1.00f, 1.00f},   // A : neutre
+        {1.00f, 0.85f, 1.00f},   // B : leger violet
+        {1.00f, 0.95f, 0.70f},   // C : dore (lore Voss)
+        {0.70f, 0.95f, 1.00f}    // D : cyan dimensionnel
+    };
     // v1.0.330 (Etape 2 visuel ultime) -- 16 mandalas 1024x1024 supersampled
     // (vs 4 mandalas 512x512 avant). Le cycle complet dure 16 * MANDALA_FRAME_DURATION
     // = 80s a 100 ticks/frame, soit ~6 cycles sur le trip de 8 min.
@@ -356,18 +374,28 @@ public class ManifoldOverlayHandler {
      * Tunnel zoom in/out -- 3 couches parallax avec scales/rotations/vitesses
      * differentes et acceleration progressive (effet "on accelere dans le temps").
      *
-     * v1.0.332 (Etape 4 visuel ultime) :
-     *   - Couche fond  : scale 0.30x, rot lente, zoom lent (parallax background)
-     *   - Couche moyen : scale 0.60x, rot moyenne, zoom moyen
-     *   - Couche avant : scale 1.20x, rot rapide, zoom rapide (parallax foreground)
-     *   - Acceleration : monte 1->4 sur Stage 4, max 4 sur Stage 5 PEAK,
-     *     redescend 4->1 sur Stage 4'.
+     * v1.0.337 (Etape 7 visuel ultime) :
+     *   - 4 VARIANTES de tile qui se succedent pendant Stage 4 (1:30) :
+     *     A (hex DMT) -> B (cristaux) -> C (runes Voss) -> D (blueprint Voss)
+     *     Crossfade entre variantes successives sur ~3s.
+     *   - NOUVELLE COUCHE 3D QUADS (faux 3D) en plus des 3 couches parallax :
+     *     ~32 quads disperses en profondeur Z [0.5..50], scale = K/Z donc
+     *     les quads loin sont petits, ceux proches sont enormes. Z avance
+     *     vers la camera a chaque tick -> effet hyperspace Star Wars.
+     *
+     * v1.0.332 (Etape 4) :
+     *   - 3 couches parallax (fond/moyen/avant) avec scales/rotations/vitesses
+     *     differentes + acceleration progressive sur le PEAK.
      */
     private void renderZoomTunnel(Minecraft mc, int w, int h, long t, float intensity) {
         float progress = ManifoldClientState.getTripProgress(t);
         float accel = getTunnelAcceleration(progress);
 
-        mc.getTextureManager().bindTexture(TUNNEL_TILE);
+        // Selection des 2 variantes a blend (A-B-C-D) selon le progress
+        int[] variantPair = computeVariantPair(progress);
+        int vA = variantPair[0];
+        int vB = variantPair[1];
+        float vFade = Float.intBitsToFloat(variantPair[2]);  // hack pour passer un float
 
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(
@@ -377,11 +405,26 @@ public class ManifoldOverlayHandler {
             GlStateManager.DestFactor.ZERO);
         GlStateManager.enableTexture2D();
 
-        // 3 couches, du fond vers l'avant. Alpha cumulee ~= 0.47 (proche
-        // de l'intensite originale 0.45) en blend additif.
-        renderTunnelLayer(mc, w, h, t, intensity * 0.10f, 0.30f, 0.5f, 0.5f * accel);
-        renderTunnelLayer(mc, w, h, t, intensity * 0.15f, 0.60f, 1.0f, 1.0f * accel);
-        renderTunnelLayer(mc, w, h, t, intensity * 0.22f, 1.20f, 1.8f, 1.8f * accel);
+        // === 3 couches parallax 2D (background, comme avant) ===
+        // Variante A avec alpha (1 - vFade) + variante B avec alpha vFade
+        // Couche fond
+        renderTunnelLayer(mc, w, h, t, intensity * 0.10f * (1f - vFade), 0.30f, 0.5f, 0.5f * accel, vA);
+        if (vFade > 0.01f) {
+            renderTunnelLayer(mc, w, h, t, intensity * 0.10f * vFade, 0.30f, 0.5f, 0.5f * accel, vB);
+        }
+        // Couche moyenne
+        renderTunnelLayer(mc, w, h, t, intensity * 0.15f * (1f - vFade), 0.60f, 1.0f, 1.0f * accel, vA);
+        if (vFade > 0.01f) {
+            renderTunnelLayer(mc, w, h, t, intensity * 0.15f * vFade, 0.60f, 1.0f, 1.0f * accel, vB);
+        }
+        // Couche avant
+        renderTunnelLayer(mc, w, h, t, intensity * 0.22f * (1f - vFade), 1.20f, 1.8f, 1.8f * accel, vA);
+        if (vFade > 0.01f) {
+            renderTunnelLayer(mc, w, h, t, intensity * 0.22f * vFade, 1.20f, 1.8f, 1.8f * accel, vB);
+        }
+
+        // === NOUVEAU : couche 3D quads en perspective ===
+        renderHyperspace3D(mc, w, h, t, intensity, accel, vA, vB, vFade);
 
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
@@ -392,12 +435,63 @@ public class ManifoldOverlayHandler {
     }
 
     /**
-     * Rend une seule couche du tunnel a alpha/scale/rotation/vitesse donnes.
-     * Le caller doit avoir setup le blend, bind la texture et reset le state.
+     * Selection des variantes A/B/C/D selon le progress du trip.
+     * Stage 4 aller : 0.3125 -> 0.5 (1:30 = 4 segments de 22.5s)
+     * Stage 4 retour : 0.6875 -> 0.8125 (mirror, 4 segments)
+     * Hors Stage 4 : variante A par defaut (couches parallax restent
+     * subtiles en Stages 2-3 et 5).
+     *
+     * Returns {indexA, indexB, fadeAB_as_floatBits}
+     */
+    private int[] computeVariantPair(float progress) {
+        final float S4_START = ManifoldEffectHandler.STAGE_3_GEOMETRIC_END;     // 0.3125
+        final float S5_START = ManifoldEffectHandler.STAGE_4_HYPERSPACE_END;    // 0.5
+        final float S5_END   = ManifoldEffectHandler.STAGE_5_PEAK_END;          // 0.6875
+        final float S4R_END  = ManifoldEffectHandler.STAGE_4R_HYPERSPACE_END;   // 0.8125
+        final float CROSSFADE_FRAC = 0.15f; // 15% de chaque segment = crossfade
+
+        // Hors Stage 4 : variante A pure
+        if (progress < S4_START || (progress >= S5_START && progress < S5_END) || progress >= S4R_END) {
+            return new int[]{0, 0, Float.floatToIntBits(0f)};
+        }
+
+        // Determination de la "phase" dans Stage 4 (aller ou retour)
+        float localProg;
+        if (progress < S5_START) {
+            // Aller : 0.3125..0.5 -> 0..1
+            localProg = (progress - S4_START) / (S5_START - S4_START);
+        } else {
+            // Retour : 0.6875..0.8125 -> 0..1 mais en MIRROR (D->A au lieu de A->D)
+            localProg = 1f - (progress - S5_END) / (S4R_END - S5_END);
+        }
+
+        // 4 segments de longueur 0.25 chacun
+        float segIdx = localProg * 4f;        // 0..4
+        int seg = (int) Math.floor(segIdx);   // 0..3
+        if (seg > 3) seg = 3;
+        float fracInSeg = segIdx - seg;       // 0..1 dans le segment
+
+        // Crossfade dans les derniers CROSSFADE_FRAC du segment vers le suivant
+        if (fracInSeg < (1f - CROSSFADE_FRAC) || seg == 3) {
+            return new int[]{seg, seg, Float.floatToIntBits(0f)};
+        }
+        float fade = (fracInSeg - (1f - CROSSFADE_FRAC)) / CROSSFADE_FRAC;
+        return new int[]{seg, seg + 1, Float.floatToIntBits(fade)};
+    }
+
+    /**
+     * Rend une seule couche 2D du tunnel.
+     * v1.0.337 : accepte variantIdx pour bind la bonne texture + tinte.
      */
     private void renderTunnelLayer(Minecraft mc, int w, int h, long t,
                                     float alpha, float scaleMul,
-                                    float rotSpeed, float zoomSpeed) {
+                                    float rotSpeed, float zoomSpeed,
+                                    int variantIdx) {
+        if (alpha < 0.005f) return;
+
+        mc.getTextureManager().bindTexture(TUNNEL_TILES[variantIdx]);
+        float[] tint = TUNNEL_TINTS[variantIdx];
+
         // Zoom cycle 6s a vitesse normale, accelere par zoomSpeed
         double zoomPhase = (((double) t) * zoomSpeed) % 120.0;
         double zoomCycle = zoomPhase / 120.0;
@@ -405,12 +499,12 @@ public class ManifoldOverlayHandler {
         float rotation = (float)((((double) t) * rotSpeed) % 800.0 / 800.0 * 360.0);
 
         float tileSize = 256.0f * scale * 0.5f;
-        if (tileSize < 8.0f) tileSize = 8.0f; // securite : pas de tiles micro
+        if (tileSize < 8.0f) tileSize = 8.0f;
         int tilesX = (int)(w / tileSize) + 4;
         int tilesY = (int)(h / tileSize) + 4;
         float scrollOffset = (float)((((double) t) * zoomSpeed) % 240.0 / 240.0 * tileSize);
 
-        GlStateManager.color(1f, 1f, 1f, alpha);
+        GlStateManager.color(tint[0], tint[1], tint[2], alpha);
 
         GlStateManager.pushMatrix();
         GlStateManager.translate(w / 2.0f, h / 2.0f, 0);
@@ -439,6 +533,135 @@ public class ManifoldOverlayHandler {
         tess.draw();
 
         GlStateManager.popMatrix();
+    }
+
+    // === FAUX 3D : ~32 quads precomputes en perspective ===
+    // Init seede dans static block pour reproductibilite.
+    private static final int N_HYPER_QUADS = 32;
+    private static final float[] HYPER_X = new float[N_HYPER_QUADS];   // [-1..1]
+    private static final float[] HYPER_Y = new float[N_HYPER_QUADS];   // [-1..1]
+    private static final float[] HYPER_Z = new float[N_HYPER_QUADS];   // [HYPER_Z_NEAR..HYPER_Z_FAR]
+    private static final float[] HYPER_ROT = new float[N_HYPER_QUADS]; // rotation initiale
+    private static final float HYPER_Z_NEAR = 0.5f;
+    private static final float HYPER_Z_FAR = 50.0f;
+    private static final float HYPER_FOCAL = 250.0f; // distance focale (pixels) -- joue sur la taille
+    static {
+        java.util.Random rng = new java.util.Random(2026L);
+        for (int i = 0; i < N_HYPER_QUADS; i++) {
+            HYPER_X[i] = rng.nextFloat() * 2.0f - 1.0f;
+            HYPER_Y[i] = rng.nextFloat() * 2.0f - 1.0f;
+            HYPER_Z[i] = HYPER_Z_NEAR + rng.nextFloat() * (HYPER_Z_FAR - HYPER_Z_NEAR);
+            HYPER_ROT[i] = rng.nextFloat() * 360.0f;
+        }
+    }
+
+    /**
+     * Rend la couche 3D faux-perspective : N quads disperses en profondeur,
+     * Z avance vers la camera -> effet hyperspace Star Wars.
+     *
+     * v1.0.337 (Etape 7).
+     *
+     * Algo :
+     *   - chaque quad a ses coords (xN, yN, z) ou xN/yN sont en [-1,1]
+     *   - le Z courant = (HYPER_Z[i] - speed * t) wrapped dans [Z_NEAR, Z_FAR]
+     *   - position 2D = (cx + xN * focal/z, cy + yN * focal/z)
+     *   - taille 2D = baseSize * focal/z  -> tiles loin petits, pres enormes
+     *   - alpha fade aux 2 extremites (apparait en Z_FAR, disparait en Z_NEAR)
+     *   - rotation propre par quad + drift global (effet vortex)
+     */
+    private void renderHyperspace3D(Minecraft mc, int w, int h, long t,
+                                     float intensity, float accel,
+                                     int vA, int vB, float vFade) {
+        // Vitesse de defilement Z par tick (1.0 = avance moyenne)
+        float zSpeed = 0.20f * accel;
+        float zRange = HYPER_Z_FAR - HYPER_Z_NEAR;
+
+        // Drift de rotation global (effet vortex)
+        float globalRot = (float)(((double) t * 0.5) % 360.0);
+
+        float baseAlpha = intensity * 0.55f;
+        if (baseAlpha < 0.01f) return;
+
+        float cx = w / 2.0f;
+        float cy = h / 2.0f;
+
+        // Pour eviter trop de bind texture changes, on fait 2 passes :
+        // une avec variant A, une avec variant B (si crossfade actif).
+        renderHyperspace3DPass(mc, w, h, t, cx, cy, zSpeed, zRange, globalRot,
+                                baseAlpha * (1f - vFade), vA);
+        if (vFade > 0.01f) {
+            renderHyperspace3DPass(mc, w, h, t, cx, cy, zSpeed, zRange, globalRot,
+                                    baseAlpha * vFade, vB);
+        }
+    }
+
+    private void renderHyperspace3DPass(Minecraft mc, int w, int h, long t,
+                                         float cx, float cy,
+                                         float zSpeed, float zRange,
+                                         float globalRot, float passAlpha,
+                                         int variantIdx) {
+        if (passAlpha < 0.01f) return;
+
+        mc.getTextureManager().bindTexture(TUNNEL_TILES[variantIdx]);
+        float[] tint = TUNNEL_TINTS[variantIdx];
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+
+        for (int i = 0; i < N_HYPER_QUADS; i++) {
+            // Z courant : Z_initial - speed*t, wrapped
+            float zRaw = HYPER_Z[i] - (float)((zSpeed * t) % zRange);
+            // Wrap dans [Z_NEAR, Z_FAR]
+            while (zRaw < HYPER_Z_NEAR) zRaw += zRange;
+            while (zRaw > HYPER_Z_FAR) zRaw -= zRange;
+
+            // Skip si trop pres (eviter division par 0 et tile gigantesque)
+            if (zRaw < HYPER_Z_NEAR + 0.05f) continue;
+
+            // Projection : focal / z
+            float persp = HYPER_FOCAL / zRaw;
+            float px = cx + HYPER_X[i] * w * 0.5f * persp / 4.0f;
+            float py = cy + HYPER_Y[i] * h * 0.5f * persp / 4.0f;
+            // Taille du quad : 64px * persp / 4 (pour avoir des tiles raisonnables)
+            float halfSize = 32.0f * persp / 4.0f;
+            if (halfSize > 800f) halfSize = 800f; // clamp anti-explosion
+
+            // Alpha fade aux extremites de Z
+            float zAlpha = 1.0f;
+            if (zRaw < HYPER_Z_NEAR + 2.0f) {
+                zAlpha = (zRaw - HYPER_Z_NEAR) / 2.0f;
+            } else if (zRaw > HYPER_Z_FAR - 5.0f) {
+                zAlpha = (HYPER_Z_FAR - zRaw) / 5.0f;
+            }
+            float a = passAlpha * Math.max(0f, Math.min(1f, zAlpha));
+            if (a < 0.005f) continue;
+
+            // Rotation propre + globale
+            float rot = (HYPER_ROT[i] + globalRot) * (float) Math.PI / 180.0f;
+            float c = (float) Math.cos(rot);
+            float s = (float) Math.sin(rot);
+
+            // 4 coins du quad apres rotation 2D
+            float[][] corners = {
+                {-halfSize, -halfSize}, { halfSize, -halfSize},
+                { halfSize,  halfSize}, {-halfSize,  halfSize}
+            };
+            float[][] uvs = {{0, 0}, {1, 0}, {1, 1}, {0, 1}};
+
+            // R/G/B selon tint, alpha selon a
+            int rByte = (int)(tint[0] * 255f);
+            int gByte = (int)(tint[1] * 255f);
+            int bByte = (int)(tint[2] * 255f);
+            int aByte = (int)(a * 255f);
+
+            for (int k = 0; k < 4; k++) {
+                float vx = corners[k][0] * c - corners[k][1] * s + px;
+                float vy = corners[k][0] * s + corners[k][1] * c + py;
+                buf.pos(vx, vy, 0).tex(uvs[k][0], uvs[k][1]).color(rByte, gByte, bByte, aByte).endVertex();
+            }
+        }
+        tess.draw();
     }
 
     /**
