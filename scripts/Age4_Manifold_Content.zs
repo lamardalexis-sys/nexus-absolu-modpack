@@ -335,9 +335,31 @@ cryo_distillateur_controller.toolLevel = 2;
 cryo_distillateur_controller.register();
 
 // =============================================================================
+// PHASE 2 -- ITEMS POUR LES QUETES Q16-Q30 (Age 4)
+// =============================================================================
+// Items custom requis par les quetes BetterQuesting Phase 2.
+// Voir : docs/age4-cartouche-manifold/quetes-phase2.md
+
+// Cryolite dust (Q19) -- pour Hall-Heroult electrolyse Al
+val cryolite_dust = VanillaFactory.createItem("cryolite_dust");
+cryolite_dust.maxStackSize = 64;
+cryolite_dust.register();
+
+// Catalyseur CoMo (Q22) -- cobalt-molybdene sulfure pour HDS petrochimie
+val catalyseur_como = VanillaFactory.createItem("catalyseur_como");
+catalyseur_como.maxStackSize = 16;
+catalyseur_como.register();
+
+// Yellowcake dust (Q27) -- minerai uranium U3O8 pre-enrichissement
+val yellowcake_dust = VanillaFactory.createItem("yellowcake_dust");
+yellowcake_dust.maxStackSize = 16;
+yellowcake_dust.glowing = true;
+yellowcake_dust.register();
+
+// =============================================================================
 // FIN DU FICHIER
 // =============================================================================
 // Nombre total de fluides : ~50
-// Nombre total d'items : ~72
-// Lignes : ~280
+// Nombre total d'items : ~75
+// Lignes : ~310
 // =============================================================================
