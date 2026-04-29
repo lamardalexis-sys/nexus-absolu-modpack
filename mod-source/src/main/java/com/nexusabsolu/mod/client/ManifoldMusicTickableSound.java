@@ -36,7 +36,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ManifoldMusicTickableSound extends MovingSound {
 
     public ManifoldMusicTickableSound(SoundEvent sound) {
-        super(sound, SoundCategory.MUSIC);
+        // v1.0.344 BUGFIX : MUSIC est tres souvent coupee par les utilisateurs
+        // (cas hyper frequent en modpack). On passe en RECORDS qui est moins
+        // souvent baisse a 0 et qui represente bien notre cas d'usage
+        // (musique declenchee par un objet specifique = jukebox-like).
+        super(sound, SoundCategory.RECORDS);
         this.repeat = false;
         this.repeatDelay = 0;
         // v1.0.341 BUGFIX : 0.01 etait peut-etre encore sous le seuil du
