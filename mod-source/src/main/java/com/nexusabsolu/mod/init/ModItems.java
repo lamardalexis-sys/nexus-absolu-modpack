@@ -196,6 +196,7 @@ public class ModItems {
     public static final Item LANTERNE_VOSS = new ItemBase("lanterne_voss");
     public static final Item FRAGMENT_MEMOIRE_1 = new ItemBase("fragment_memoire_1");
     public static final Item PLONGEUR_VOSS = new com.nexusabsolu.mod.items.ItemPlongeurVoss();
+    public static final Item LOCALISATEUR_VOSS = new com.nexusabsolu.mod.items.ItemLocalisateurVoss();
 
     // === THE NEXUS ABSOLU ===
     public static final Item NEXUS_ABSOLU = new ItemNexusAbsolu();

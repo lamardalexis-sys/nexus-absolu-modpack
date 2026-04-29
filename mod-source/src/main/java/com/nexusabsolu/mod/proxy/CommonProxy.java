@@ -73,6 +73,10 @@ public class CommonProxy {
         // dedie ItemPlongeurVoss en v1.0.325.
         // MinecraftForge.EVENT_BUS.register(
         //     new com.nexusabsolu.mod.events.PSDDescentHandler());
+        // v1.0.327 : ecrit le NBT parent_room_id sur les blocs CM places
+        // en DIM 144 (pour navigation matryoshka via Localisateur Voss)
+        MinecraftForge.EVENT_BUS.register(
+            new com.nexusabsolu.mod.events.CMPlacementHandler());
         // v1.0.325 (Age 4) : Cartouche Manifold — gestion phases + particules
         MinecraftForge.EVENT_BUS.register(
             new com.nexusabsolu.mod.events.ManifoldEffectHandler());
