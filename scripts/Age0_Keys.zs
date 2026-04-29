@@ -125,3 +125,12 @@ recipes.addShaped("fragment_stellaire", <nexusabsolu:fragment_stellaire>,
      [<astralsorcery:itemcraftingcomponent:0>, <astralsorcery:itemcraftingcomponent:1>, <astralsorcery:itemcraftingcomponent:0>]]);
 
 print("[Nexus Absolu] Age0_Keys.zs loaded");
+
+// === PLONGEUR VOSS (v1.0.325) ===
+// Outil custom permettant de descendre dans une Compact Machine en cliquant
+// dessus, sans etre ejecte vers la sortie comme le PSD vanilla.
+// Recette: composes Voss + oeil ender (composant dimensionnel) + lingot Vossium
+recipes.addShaped("plongeur_voss", <nexusabsolu:plongeur_voss>,
+    [[<nexusabsolu:compose_a>, <minecraft:ender_eye>, <nexusabsolu:compose_a>],
+     [<ore:ingotInvar>, <nexusabsolu:vossium_ingot>, <ore:ingotInvar>],
+     [null, <ore:ingotIron>, null]]);

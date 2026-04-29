@@ -172,3 +172,6 @@ tile.nexusabsolu.furnace_pallanutro.name=Fourneau Pallanutro
 # === Age 4 - Cartouche Manifold ===
 item.nexusabsolu.cartouche_manifold.name=Cartouche Manifold
 item.nexusabsolu.cartouche_used.name=Cartouche Usee
+
+# === Plongeur Voss (descente CM) ===
+item.nexusabsolu.plongeur_voss.name=Plongeur Voss
