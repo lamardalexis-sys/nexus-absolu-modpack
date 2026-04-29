@@ -391,9 +391,44 @@ carbone_actif_au.maxStackSize = 32;
 carbone_actif_au.register();
 
 // =============================================================================
+// PHASE 4 -- ITEMS POUR LES QUETES Q46-Q55 (Age 4 nucleaire)
+// =============================================================================
+// uf6_gas est deja registered comme fluide ligne 94.
+
+// Capsule Pu-Be (Q49) -- source neutronique scellee, glow gamma
+val capsule_pube = VanillaFactory.createItem("capsule_pube");
+capsule_pube.maxStackSize = 4;
+capsule_pube.glowing = true;
+capsule_pube.register();
+
+// Mycelium Active (Q51) -- mycelium irradie pour activer la magie Phase 5
+val mycelium_active = VanillaFactory.createItem("mycelium_active");
+mycelium_active.maxStackSize = 64;
+mycelium_active.glowing = true;
+mycelium_active.register();
+
+// Compose gamma1 (Q52) -- borate de sodium dope au lithium
+val compose_gamma1 = VanillaFactory.createItem("compose_gamma1");
+compose_gamma1.maxStackSize = 16;
+compose_gamma1.glowing = true;
+compose_gamma1.register();
+
+// Compose gamma2 (Q53) -- iridium-192 active (source rayons gamma)
+val compose_gamma2 = VanillaFactory.createItem("compose_gamma2");
+compose_gamma2.maxStackSize = 8;
+compose_gamma2.glowing = true;
+compose_gamma2.register();
+
+// Compose gamma3 (Q54) -- 6LiT lithium tritide (densite energetique max)
+val compose_gamma3 = VanillaFactory.createItem("compose_gamma3");
+compose_gamma3.maxStackSize = 4;
+compose_gamma3.glowing = true;
+compose_gamma3.register();
+
+// =============================================================================
 // FIN DU FICHIER
 // =============================================================================
 // Nombre total de fluides : ~51
-// Nombre total d'items : ~80
-// Lignes : ~340
+// Nombre total d'items : ~85
+// Lignes : ~370
 // =============================================================================
