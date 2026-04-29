@@ -48,39 +48,60 @@
 
 ---
 
-## ⏳ PENDING (sessions futures)
+### Mod source Java (avancée massive sessions Avril 2026)
+- ✅ `ItemCartoucheManifold` + `ItemCartoucheUsed` (mod source, pas CT)
+- ✅ Right-click → trip 8 min en **9 stages progressifs** :
+   1. Onset (0:30) → 2. Saturation (1:30) → 3. Geometric (2:30) → 4. Hyperspace (4:00)
+   → 5. **PEAK** (5:30) → 4'/3'/2'/1' (retour mirror) → Crash + Fatigue 1 min
+- ✅ Architecture stages avec smoothstep (intensités lerp continues, pas de coupures)
+- ✅ **BPM sync à 84 BPM** (Centinela G minor) — toutes pulsations basées sur `BEAT_TICKS = 14.29 ticks`
+- ✅ Musique custom **Centinela** intégrée (assets/sounds/manifold/centinela.ogg, joue au PEAK)
+- ✅ **Whispers villageois** lointains au PEAK (entity.villager.ambient pitch 0.4-0.7, dist 10-15)
+- ✅ **Entité Salviadroid-style** animée (4 frames, visage divin + ailes + namaste + œil cyclope)
+- ✅ Shader Mandelbulb raymarching (post-process, désactivé sans OptiFine, à tester)
+- ✅ Hallucinations entités (mobs deviennent blocs aléatoires stages 3-5)
+- ✅ Overlay 5 layers progressifs (onset tint / plasma / mandala / tunnel / entité + letterbox PEAK)
+- ✅ Indicator debug haut-gauche (nom du stage + % progression)
+- ✅ Cooldown 10 min anti-overdose
 
-### Quêtes BQ — Phases 2-6 (~64 quêtes restantes)
-- Phase 2 Métaux (15q) : L4 Hall-Héroult, Kroll, Aqua Regia, H₃PO₄
-- Phase 3 Chimie Sèche (15q) : L6 Haber-Bosch, Ostwald, Contact, HCl
-- Phase 4 Feu Nucléaire (10q) : L5 UF₆, breeder, γ2, γ3, Mycélium
-- Phase 5 Vivant et Étoile (15q) : L8 16 champis, Alambic, Cyclisateur
-- Phase 6 Convergence (10q) : composés finaux + Q-FINAL Injection
-- → étendre `scripts-tools/generate_age4_quests.py` en suivant le pattern
+### Scripts code prêts à coller
+- `scripts/Age4_Manifold_Content.zs` — ContentTweaker, ~50 fluides + ~70 items custom
+- `scripts-tools/generate_age4_quests.py` — générateur Python BQ JSON
+- `scripts-tools/generate_mandala_textures.py` — 4 mandalas 512×512
+- `scripts-tools/generate_tunnel_textures.py` — tunnel seamless tile + entity v1
+- `scripts-tools/generate_entity_textures.py` — 4 frames entity Salviadroid animée
+- `quests-source/age4.json` — 16 quêtes Phase 0+1, IDs 4000-4015
 
-### JSON Modular Machinery (9 multiblocs)
-À créer dans `config/modularmachinery/machinery/` :
-- MB-CRYO-ATM, MB-CK, MB-HALL, MB-KROLL, MB-HDS
-- MB-ALAMBIC, MB-CYCLO, MB-BIOREACTOR, MB-MIXER-CRYO
+### Mémoire & Skills
+- `memory_user_edits #13` — entry à jour
+- `superpowers` cloné dans `/home/claude/superpowers/` (best practices)
 
-### Mod source Java
-À créer dans `mod-source/src/main/java/com/nexusabsolu/mod/` :
-- `items/ItemCartoucheManifold.java` — injection custom si KubeJS limite
-- `particles/ManifoldineParticleFactory.java` — particules glow custom
-- `events/ManifoldDeathHandler.java` — Hard Reset si KubeJS échoue
-- `cinematics/Age4ExitCinematic.java` — sortie simulation Phase 6 finale
+---
 
-### Patchouli Book — Carnet Voss Vol IV
-- `assets/nexusabsolu/patchouli_books/carnet_voss_v4/` : book.json + 5 chapitres
-- Préface déjà rédigée dans `01-lore-integration.md`
+## ⏳ PENDING — fin Age 4 + transition Age 5
 
-### Cleanup
-- SKILL.md principal du repo : corriger numérotation des âges (oublie Âge 0)
+> **Ordre de priorité** (le joueur ne peut pas finir l'Age 4 sans le 🟢)
 
-### Tests en jeu
-- KubeJS 1.12.2 events compatibility — valider Lifesteal/Lightning/Bullet Time/Hard Reset
-- BQ JSON age4.json — charger et vérifier affichage + validation
-- ContentTweaker `nexusabsolu:` namespace — vérifier cohérence avec autres âges
+### 🟢 CRITIQUE — sans ça la Cartouche n'existe pas
+1. **Recettes ZenScript Modular Machinery** pour les 9 multiblocs (HDS, Cryo-Atm, Castner-Kellner, Hall, Kroll, Haber, Cumène, Alambic, Cyclisateur) — fichier `Age4_Recipes.zs` à créer
+2. **JSON Modular Machinery** pour les 9 multiblocs custom dans `config/modularmachinery/machinery/`
+3. **Craft final de la Cartouche** : pipeline M1 (Mélangeur Cryogénique) → M2 (Bio-Réacteur) → encartouchage Ti+Argon
+4. **Cinématique fin Âge 4** : à la fin du trip 8 min, téléporter joueur vers dimension Age 5 ("vrai monde")
+
+### 🟣 CRITIQUE — transition vers Age 5
+11. **Créer dimension Age 5** (registry + dimension type + spawn rules — c'est le "vrai monde" hors simulation)
+12. **Mécanique téléportation** depuis fin du trip Cartouche vers Age 5
+13. **Lore transition** : effet de "réveil" — le joueur réalise qu'il était en simulation
+
+### 🟡 IMPORTANT — sans ça le joueur galère
+5. **Quêtes BQ Phases 2-6** (~64 quêtes restantes pour age4.json)
+6. **Carnet Voss Vol IV Patchouli book** (préface OK, 5 chapitres à écrire)
+7. **Textures pour les ~70 items custom** ContentTweaker (placeholder violet/noir actuellement)
+
+### 🔵 POLISH
+8. Test in-game shader Mandelbulb (savoir si OptiFine bloque)
+9. Améliorer textures mandala (densité/saturation)
+10. Sons ambient supplémentaires pour stages 1-4
 
 ---
 
