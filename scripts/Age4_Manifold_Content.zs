@@ -309,9 +309,35 @@ val casing_cartouche_sterile = VanillaFactory.createItem("casing_cartouche_steri
 casing_cartouche_sterile.maxStackSize = 16; casing_cartouche_sterile.register();
 
 // =============================================================================
+// PHASE 1 -- ITEMS POUR LES QUETES Q1-Q15 (Age 4)
+// =============================================================================
+// Items requis par les quetes BetterQuesting Phase 1.
+// Voir : docs/age4-cartouche-manifold/quetes-phase1.md
+
+// Resine Echangeuse d'ions (Q2) -- block utilise pour purifier l'eau
+// Recette : silice + acide sulfonique (a definir dans Age4_Recipes.zs)
+val resine_echangeuse_block = VanillaFactory.createBlock("resine_echangeuse_block",
+    <blockmaterial:iron>);
+resine_echangeuse_block.setBlockHardness(2.5);
+resine_echangeuse_block.setBlockResistance(5.0);
+resine_echangeuse_block.toolClass = "pickaxe";
+resine_echangeuse_block.toolLevel = 1;
+resine_echangeuse_block.register();
+
+// Cryo Distillateur Controller (Q4) -- bloc multibloc 3x6x3
+// Multibloc en game : controller + 11 cryo plates + 8 glass + 4 cryotheum tanks
+val cryo_distillateur_controller = VanillaFactory.createBlock("cryo_distillateur_controller",
+    <blockmaterial:iron>);
+cryo_distillateur_controller.setBlockHardness(4.0);
+cryo_distillateur_controller.setBlockResistance(8.0);
+cryo_distillateur_controller.toolClass = "pickaxe";
+cryo_distillateur_controller.toolLevel = 2;
+cryo_distillateur_controller.register();
+
+// =============================================================================
 // FIN DU FICHIER
 // =============================================================================
 // Nombre total de fluides : ~50
-// Nombre total d'items : ~70
-// Lignes : ~250
+// Nombre total d'items : ~72
+// Lignes : ~280
 // =============================================================================

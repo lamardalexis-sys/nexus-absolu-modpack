@@ -14,7 +14,7 @@ Convention :
   - Layout : x=80px par quete, y=90px par rangee, serpentin
 
 Items custom utilises (existent ou seront crees) :
-  - patchouli:guide_book taggue 'nexusabsolu:carnet_voss_v4' (a creer)
+  - patchouli:guide_book taggue 'nexusabsolu:voss_codex' (a creer)
   - mekanism:bucket distilled_water
   - nexusabsolu:resine_echangeuse_block (a creer)
   - nexusabsolu:cryo_distillateur_controller (a creer)
@@ -146,7 +146,7 @@ def reward_command(index, command, hide_icon=True):
 
 # Carnet Voss V4 = patchouli book taggue
 ICON_CARNET_V4 = make_item("patchouli:guide_book", nbt={
-    "patchouli:book:8": "nexusabsolu:carnet_voss_v4"
+    "patchouli:book:8": "nexusabsolu:voss_codex"
 })
 
 # Bucket distilled water (Mekanism)
@@ -753,7 +753,7 @@ def main():
                 "bg_image:8": "",
                 "bg_size:3": 256,
                 "icon:10": make_item("patchouli:guide_book", nbt={
-                    "patchouli:book:8": "nexusabsolu:carnet_voss_v4"
+                    "patchouli:book:8": "nexusabsolu:voss_codex"
                 })
             }
         },

@@ -20,7 +20,7 @@
 
 - **ID** 158 | **Pos** (0, 0) | **Pré-requis** : Q-fin-Age-3 (ou Q-fin-Age-2 si on saute Age 3)
 - **Type** : checkbox (lit le carnet, valide manuellement)
-- **Icon** : `nexusabsolu:carnet_voss_v4` ou `patchouli:guide_book` taggué
+- **Icon** : `nexusabsolu:voss_codex` ou `patchouli:guide_book` taggué
 - **Récompense** : Carnet Voss Vol IV (Patchouli) + 4 pain + 1 bouteille XP
 - **Description** :
 
@@ -467,6 +467,6 @@ Pour que ces 16 quêtes marchent, il faut ces items/fluides custom registered (c
 - ✅ `nexusabsolu:n2` (fluide) — Q7
 - ✅ `nexusabsolu:o2` (fluide) — Q8
 - ❌ `nexusabsolu:tritium` (fluide) — Q14 — **TODO**
-- ❌ `nexusabsolu:carnet_voss_v4` (Patchouli book) — Q-INTRO, Q15 — **TODO**
+- ❌ `nexusabsolu:voss_codex` (Patchouli book) — Q-INTRO, Q15 — **TODO**
 
 Les **TODO** seront créés dans `Age4_Manifold_Content.zs` et `Age4_Items.zs` en parallèle.
