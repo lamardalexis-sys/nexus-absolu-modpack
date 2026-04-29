@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.SPacketParticles;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.TextComponentString;
@@ -62,7 +61,7 @@ public class ManifoldEffectHandler {
     public static final int PHASE_FATIGUE  = 3;  // 5-6min, fatigue
 
     // === Particule chaos config ===
-    private static final int PARTICLE_INTERVAL_TICKS = 5;  // spawn toutes les 0.25s
+    private static final int PARTICLE_INTERVAL_TICKS = 8;  // spawn toutes les 0.4s (moins spam)
 
     /**
      * Demarre l'injection. Appele depuis ItemCartoucheManifold.onItemRightClick().
@@ -160,10 +159,12 @@ public class ManifoldEffectHandler {
     }
 
     /**
-     * Spawn des particules chaos autour du joueur :
-     *  - Tesseract 4D projete en 3D (8 sommets qui tournent)
-     *  - Glyphes Voss (cercles de particules portales avec lightning entre)
-     *  - Aura magique (END_ROD + ENCHANTMENT_TABLE)
+     * Spawn des particules chaos autour du joueur — pattern phenomenologique DMT :
+     *  - Mandala "Chrysanthemum veil" (8 petales, 4 couleurs alternees, theoreme 4-couleurs)
+     *  - Sierpinski tetraedre 3D (fractale recursive niveau 3)
+     *  - Tesseract 4D reduit (50% de la fréquence d'avant)
+     *
+     * Spawn frequency : toutes les 8 ticks (vs 5 avant) pour pas spammer.
      */
     private static void spawnChaosParticles(EntityPlayerMP player, int phase) {
         WorldServer world = (WorldServer) player.world;
@@ -172,95 +173,156 @@ public class ManifoldEffectHandler {
         double py = player.posY + 1.0;
         double pz = player.posZ;
 
-        // === LAYER 1 : Tesseract 4D ===
-        // Un tesseract a 16 sommets en 4D, projetes en 3D ils donnent 16 points
-        // qui dansent de facon impossible. Rotation continue dans le plan w-x.
-        double angleW = (t * 0.04) % (2.0 * Math.PI);
-        double cosW = Math.cos(angleW);
-        double sinW = Math.sin(angleW);
-        double scale = 1.5;
+        boolean negative = (phase == PHASE_NEGATIVE);
 
-        for (int i = 0; i < 16; i++) {
-            // 16 sommets du tesseract : (x,y,z,w) chacun ±0.5
-            double x4 = ((i & 1) != 0 ? 0.5 : -0.5);
-            double y4 = ((i & 2) != 0 ? 0.5 : -0.5);
-            double z4 = ((i & 4) != 0 ? 0.5 : -0.5);
-            double w4 = ((i & 8) != 0 ? 0.5 : -0.5);
+        // === LAYER 1 : MANDALA "Chrysanthemum veil" (8 petales, 4 couleurs) ===
+        // Pattern phenomenologique DMT documente : mandala radial avec 4 couleurs
+        // distinctes suivant le theoreme des 4 couleurs (aucune couleur adjacente
+        // n'est la meme). On utilise 4 types de particules differentes pour les
+        // 4 couleurs (en l'absence de coloration custom : magenta, cyan, lime, or).
+        EnumParticleTypes[] mandalaPalette = negative ?
+            new EnumParticleTypes[] {
+                EnumParticleTypes.SPELL_MOB,         // sombre
+                EnumParticleTypes.SPELL_WITCH,       // violet
+                EnumParticleTypes.DRAGON_BREATH,     // gris-violet
+                EnumParticleTypes.SMOKE_NORMAL       // sombre
+            } :
+            new EnumParticleTypes[] {
+                EnumParticleTypes.HEART,             // proche du magenta vif
+                EnumParticleTypes.END_ROD,           // cyan/blanc
+                EnumParticleTypes.HAPPY_VILLAGER,    // vert lime
+                EnumParticleTypes.FLAME              // or/orange
+            };
 
-            // Rotation 4D dans le plan w-x
-            double xRot = x4 * cosW - w4 * sinW;
-            double wRot = x4 * sinW + w4 * cosW;
-
-            // Projection perspective 4D -> 3D (plus le w est grand, plus c'est loin)
-            double persp = 2.0 / (2.0 - wRot);
-            double finalX = xRot * persp * scale;
-            double finalY = y4 * persp * scale;
-            double finalZ = z4 * persp * scale;
-
-            EnumParticleTypes ptype = (phase == PHASE_NEGATIVE)
-                ? EnumParticleTypes.DRAGON_BREATH
-                : EnumParticleTypes.END_ROD;
-
-            world.spawnParticle(ptype,
-                px + finalX, py + finalY, pz + finalZ,
-                1, 0.0, 0.0, 0.0, 0.0);
-        }
-
-        // === LAYER 2 : Glyphes Voss (cercles concentriques avec rotation) ===
-        // 3 cercles a hauteurs differentes, rotations differentes
-        double[] yOffsets = { -0.5, 0.0, 0.5 };
-        double[] radii = { 1.8, 2.2, 1.8 };
-        double[] speeds = { 0.08, -0.06, 0.10 };
-
-        for (int ring = 0; ring < 3; ring++) {
-            double angleBase = (t * speeds[ring]) % (2.0 * Math.PI);
-            int count = 8;
-            for (int i = 0; i < count; i++) {
-                double a = angleBase + (i * 2.0 * Math.PI / count);
-                double rx = Math.cos(a) * radii[ring];
-                double rz = Math.sin(a) * radii[ring];
-
-                EnumParticleTypes ptype = (phase == PHASE_NEGATIVE)
-                    ? EnumParticleTypes.SPELL_WITCH
-                    : EnumParticleTypes.PORTAL;
-
+        double mandalaRadius = 2.5;
+        double mandalaAngle = (t * 0.05) % (2.0 * Math.PI);
+        // 8 petales — alternance des 4 couleurs (theoreme 4 couleurs)
+        for (int i = 0; i < 8; i++) {
+            double a = mandalaAngle + (i * Math.PI / 4.0);
+            double rx = Math.cos(a) * mandalaRadius;
+            double rz = Math.sin(a) * mandalaRadius;
+            // chaque petale a 3 particules en ligne radiale (effet chrysantheme)
+            for (int p = 0; p < 3; p++) {
+                double f = 0.6 + p * 0.2;
+                EnumParticleTypes ptype = mandalaPalette[(i + p) % 4];
                 world.spawnParticle(ptype,
-                    px + rx, py + yOffsets[ring], pz + rz,
+                    px + rx * f, py, pz + rz * f,
                     1, 0.0, 0.0, 0.0, 0.0);
             }
         }
 
-        // === LAYER 3 : Lightning chain entre les sommets du tesseract ===
-        // (en realite : lignes de particules CRIT_MAGIC entre 2 sommets aleatoires)
-        if (t % 10 == 0) {
-            double a1 = (t * 0.13) % (2.0 * Math.PI);
-            double a2 = a1 + Math.PI * 0.7;
-            double r = 1.5;
-            double x1 = px + Math.cos(a1) * r;
-            double z1 = pz + Math.sin(a1) * r;
-            double x2 = px + Math.cos(a2) * r;
-            double z2 = pz + Math.sin(a2) * r;
-            int steps = 12;
-            for (int s = 0; s <= steps; s++) {
-                double f = s / (double) steps;
-                double lx = x1 + (x2 - x1) * f;
-                double ly = py + Math.sin(f * Math.PI) * 0.3;
-                double lz = z1 + (z2 - z1) * f;
-                world.spawnParticle(EnumParticleTypes.CRIT_MAGIC,
-                    lx, ly, lz, 1, 0.0, 0.0, 0.0, 0.0);
+        // === LAYER 2 : SIERPINSKI TETRAEDRE 3D (fractale recursive) ===
+        // 4 sommets initiaux d'un tetraedre, on subdivise recursivement niveau 3.
+        // Chaque iteration : on prend les milieux des 4 cotes et on garde 4 sous-tetraedres.
+        // Niveau 3 = 4^3 = 64 points (mais on les anime pour pas trop charger).
+        double scale = 2.0;
+        double sierAngle = (t * 0.03) % (2.0 * Math.PI);
+        double cosA = Math.cos(sierAngle);
+        double sinA = Math.sin(sierAngle);
+
+        // 4 sommets du tetraedre regulier (centre origine)
+        double[][] vertices = {
+            { 1.0,  1.0,  1.0},
+            { 1.0, -1.0, -1.0},
+            {-1.0,  1.0, -1.0},
+            {-1.0, -1.0,  1.0}
+        };
+        spawnSierpinskiPoints(world, px, py, pz, vertices, scale, 3,
+            cosA, sinA, t, negative);
+
+        // === LAYER 3 : TESSERACT 4D (reduit, 1 frame sur 2) ===
+        if ((t / 8) % 2 == 0) {
+            double angleW = (t * 0.04) % (2.0 * Math.PI);
+            double cosW = Math.cos(angleW);
+            double sinW = Math.sin(angleW);
+            double tessScale = 1.5;
+
+            for (int i = 0; i < 16; i++) {
+                double x4 = ((i & 1) != 0 ? 0.5 : -0.5);
+                double y4 = ((i & 2) != 0 ? 0.5 : -0.5);
+                double z4 = ((i & 4) != 0 ? 0.5 : -0.5);
+                double w4 = ((i & 8) != 0 ? 0.5 : -0.5);
+
+                double xRot = x4 * cosW - w4 * sinW;
+                double wRot = x4 * sinW + w4 * cosW;
+                double persp = 2.0 / (2.0 - wRot);
+                double finalX = xRot * persp * tessScale;
+                double finalY = y4 * persp * tessScale;
+                double finalZ = z4 * persp * tessScale;
+
+                EnumParticleTypes ptype = negative
+                    ? EnumParticleTypes.DRAGON_BREATH
+                    : EnumParticleTypes.END_ROD;
+
+                world.spawnParticle(ptype,
+                    px + finalX, py + finalY, pz + finalZ,
+                    1, 0.0, 0.0, 0.0, 0.0);
             }
         }
 
-        // === LAYER 4 : Aura ENCHANTMENT_TABLE qui converge vers le joueur ===
-        if (t % 4 == 0) {
+        // === LAYER 4 : Aura discrete qui converge vers le joueur (reduite) ===
+        if (t % 8 == 0) {
             double rx = (Math.random() - 0.5) * 4.0;
             double ry = (Math.random() - 0.5) * 2.0;
             double rz = (Math.random() - 0.5) * 4.0;
             world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE,
                 px + rx, py + ry, pz + rz,
                 1,
-                -rx * 0.1, -ry * 0.1, -rz * 0.1,  // motion vers le joueur
+                -rx * 0.1, -ry * 0.1, -rz * 0.1,
                 0.0);
+        }
+    }
+
+    /**
+     * Recursion Sierpinski 3D : prend 4 sommets, si depth=0 spawn une particule
+     * au centroid, sinon subdivise en 4 sous-tetraedres (un par sommet, base
+     * milieux). Niveau 3 = 64 particules theoriques mais on stagger dans le temps.
+     */
+    private static void spawnSierpinskiPoints(WorldServer world,
+                                                double cx, double cy, double cz,
+                                                double[][] verts, double scale,
+                                                int depth,
+                                                double cosA, double sinA,
+                                                long t, boolean negative) {
+        if (depth == 0) {
+            // Centroid du tetraedre actuel
+            double sx = 0, sy = 0, sz = 0;
+            for (double[] v : verts) {
+                sx += v[0]; sy += v[1]; sz += v[2];
+            }
+            sx /= 4.0; sy /= 4.0; sz /= 4.0;
+            // Rotation Y axis
+            double rotX = sx * cosA - sz * sinA;
+            double rotZ = sx * sinA + sz * cosA;
+            // Stagger dans le temps : skip 50% des points par frame (look organique)
+            int hash = (int)((rotX * 100 + rotZ * 100 + sy * 100));
+            if ((hash + (int)(t / 4)) % 2 != 0) return;
+
+            EnumParticleTypes ptype = negative
+                ? EnumParticleTypes.SPELL_WITCH
+                : EnumParticleTypes.PORTAL;
+            world.spawnParticle(ptype,
+                cx + rotX * scale, cy + sy * scale, cz + rotZ * scale,
+                1, 0.0, 0.0, 0.0, 0.0);
+            return;
+        }
+        // Subdivise : pour chaque sommet, cree un sous-tetraedre avec
+        // les milieux entre ce sommet et les 3 autres
+        for (int i = 0; i < 4; i++) {
+            double[][] subVerts = new double[4][3];
+            for (int j = 0; j < 4; j++) {
+                if (i == j) {
+                    subVerts[j] = verts[i].clone();
+                } else {
+                    subVerts[j] = new double[] {
+                        (verts[i][0] + verts[j][0]) * 0.5,
+                        (verts[i][1] + verts[j][1]) * 0.5,
+                        (verts[i][2] + verts[j][2]) * 0.5
+                    };
+                }
+            }
+            spawnSierpinskiPoints(world, cx, cy, cz, subVerts, scale,
+                depth - 1, cosA, sinA, t, negative);
         }
     }
 

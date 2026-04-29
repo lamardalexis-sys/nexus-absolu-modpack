@@ -26,6 +26,9 @@ public class ClientProxy extends CommonProxy {
         // v1.0.325 (Age 4) : overlay teinte ecran pendant injection Manifold
         MinecraftForge.EVENT_BUS.register(
             new com.nexusabsolu.mod.client.ManifoldOverlayHandler());
+        // v1.0.326 (Age 4) : hallucinations entites — mobs en blocs aleatoires
+        MinecraftForge.EVENT_BUS.register(
+            new com.nexusabsolu.mod.client.ManifoldHallucinationHandler());
 
         // StateMapper custom pour le bloc fluide Diarrhee (toutes les variantes "level=X"
         // pointent vers la variante "normal" du blockstate, qui utilise forge:fluid).
