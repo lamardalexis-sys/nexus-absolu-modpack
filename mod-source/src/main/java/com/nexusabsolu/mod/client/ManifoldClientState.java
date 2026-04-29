@@ -117,10 +117,15 @@ public class ManifoldClientState {
         );
         r[3] = Math.max(0f, r[3]);
 
-        // Stage 5 (peak) : 0.5..0.59 monte, 0.59..0.6875 descend (court !)
+        // Stage 5 (peak) : 0.5..0.51 monte (rapide, 1% du trip = ~5s pour
+        // que l'entite soit visible quasi instantanement et qu'on voie bien
+        // le morphing iris->crack->3faces->Salviadroid qui se passe sur
+        // 0.5..0.5625), reste a fond, descend 0.65..0.6875.
+        // v1.0.336 BUGFIX : avant le fade-in s'etalait sur 0.5..0.59 (43s),
+        // ce qui rendait toute la phase morphing quasi invisible.
         r[4] = Math.min(
-            smoothstep(0.5f, 0.59f, progress),
-            1f - smoothstep(0.59f, 0.6875f, progress)
+            smoothstep(0.5f, 0.51f, progress),
+            1f - smoothstep(0.65f, 0.6875f, progress)
         );
         r[4] = Math.max(0f, r[4]);
 

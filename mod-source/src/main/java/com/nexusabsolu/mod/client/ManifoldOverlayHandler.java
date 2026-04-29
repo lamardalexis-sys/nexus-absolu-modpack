@@ -520,16 +520,27 @@ public class ManifoldOverlayHandler {
     /**
      * Entite animee Salviadroid au PEAK (stage 5).
      *
+     * v1.0.336 BUGFIX :
+     *   - CROSSFADE entre frames adjacentes (avant : changement sec, ressemblait
+     *     a un diaporama). Maintenant frame N et N+1 sont blendees selon la
+     *     fraction temporelle, comme les mandalas.
+     *   - Force `enableAlpha()` pour garantir le rendu correct des zones
+     *     transparentes des PNG.
+     *
      * v1.0.331 (Etape 3 visuel ultime) : MORPHING progressif.
-     *   - Premieres 30s du PEAK (progress 0.5..0.5625) : joue les 16 frames
-     *     de morphing une fois en sequence (iris -> crack -> 3 visages -> Salviadroid)
-     *   - 60s suivantes (progress 0.5625..0.6875) : boucle BPM-sync sur les
-     *     frames 12-15 (Salviadroid qui respire)
+     *   - Premieres 30s du PEAK -> 16 frames de morphing en sequence
+     *     (iris -> crack -> 3 visages -> Salviadroid)
+     *   - 60s suivantes -> boucle BPM-sync sur frames 12-15 (Salviadroid)
      *
      * Pulse de scale (respiration) + rotation tres lente, conserves.
      */
     private void renderEntity(Minecraft mc, int w, int h, long t, float intensity, float beat) {
-        int frame = computeEntityFrame(t);
+        float frameFloat = computeEntityFrameFloat(t);
+        int frameA = (int) Math.floor(frameFloat);
+        int frameB = (frameA + 1) % ENTITY_FRAMES.length;
+        float fade = frameFloat - frameA;     // 0..1 fraction crossfade
+        if (frameA < 0) frameA = 0;
+        if (frameA >= ENTITY_FRAMES.length) frameA = ENTITY_FRAMES.length - 1;
 
         // Pulse scale beat-sync : grandit sur kick
         float scale = 1.0f + beat * 0.12f;
@@ -547,46 +558,64 @@ public class ManifoldOverlayHandler {
             GlStateManager.SourceFactor.ONE,
             GlStateManager.DestFactor.ZERO);
         GlStateManager.enableTexture2D();
+        GlStateManager.enableAlpha();  // v1.0.336 : zones transparentes PNG
 
-        drawRotatedTexture(mc, ENTITY_FRAMES[frame], w / 2.0f, h / 2.0f,
-                           size, rotation, intensity * 0.95f);
+        float baseAlpha = intensity * 0.95f;
+        float alphaA = (1.0f - fade) * baseAlpha;
+        float alphaB = fade * baseAlpha;
+
+        // Frame courante (alpha decroit du fait du crossfade)
+        if (alphaA > 0.01f) {
+            drawRotatedTexture(mc, ENTITY_FRAMES[frameA], w / 2.0f, h / 2.0f,
+                               size, rotation, alphaA);
+        }
+        // Frame suivante (alpha croit)
+        if (alphaB > 0.01f) {
+            drawRotatedTexture(mc, ENTITY_FRAMES[frameB], w / 2.0f, h / 2.0f,
+                               size, rotation, alphaB);
+        }
 
         GlStateManager.color(1f, 1f, 1f, 1f);
     }
 
     /**
-     * Selection de la frame d'entite selon le peakProgress.
+     * Selection de la frame d'entite (en float pour crossfade) selon le
+     * peakProgress.
+     *
+     * v1.0.336 : retourne un FLOAT au lieu d'un int -> permet le crossfade
+     * fluide entre frame N et N+1 dans renderEntity.
      *
      * Logique :
-     *   - PEAK = [0.5, 0.6875] du trip (1.5 min sur 8 min)
-     *   - 1ere tranche (0.5..0.5625, soit 30s) -> morphing : 16 frames lues
-     *     une fois en sequence (mapping lineaire)
+     *   - PEAK = [0.5, 0.6875] du trip (~1.5 min sur 8 min)
+     *   - 1ere tranche (0.5..0.5625, soit 30s) -> morphing : valeur retournee
+     *     varie lineairement de 0.0 a 16.0 (les 16 frames defilent en
+     *     sequence avec crossfade)
      *   - 2eme tranche (0.5625..0.6875, soit 60s) -> loop des frames 12-15
-     *     (Salviadroid qui respire) au BPM (1 frame / beat = 14 ticks)
-     *   - Hors PEAK -> frame 12 (defaut Salviadroid statique, securite)
+     *     (Salviadroid qui respire) BPM-sync, valeur 12.0..16.0 cyclique
+     *   - Hors PEAK -> 12.0 (defaut Salviadroid statique)
      */
-    private int computeEntityFrame(long t) {
+    private float computeEntityFrameFloat(long t) {
         float progress = ManifoldClientState.getTripProgress(t);
         final float PEAK_START = ManifoldEffectHandler.STAGE_4_HYPERSPACE_END; // 0.5
         final float PEAK_END = ManifoldEffectHandler.STAGE_5_PEAK_END;         // 0.6875
-        // 30s morphing = 1/3 du PEAK (90s total)
         final float MORPH_END = PEAK_START + (PEAK_END - PEAK_START) / 3.0f;   // ~0.5625
 
         if (progress < PEAK_START || progress >= PEAK_END) {
-            return 12; // securite : entite finale
+            return 12.0f;
         }
 
         if (progress < MORPH_END) {
-            // Phase morphing : map progress lineairement sur les 16 frames
+            // Phase morphing : map progress lineairement sur 0..16 frames
             float morphFrac = (progress - PEAK_START) / (MORPH_END - PEAK_START);
-            int frame = (int) (morphFrac * ENTITY_FRAMES.length);
-            if (frame < 0) frame = 0;
-            if (frame >= ENTITY_FRAMES.length) frame = ENTITY_FRAMES.length - 1;
-            return frame;
+            return morphFrac * ENTITY_FRAMES.length;
         }
 
-        // Phase loop : frames 12-15 (Salviadroid respire), BPM-sync
-        return 12 + (int) ((t / ENTITY_FRAME_DURATION) % 4);
+        // Phase loop : frames 12..16 BPM-sync, en float pour crossfade
+        // Une frame complete = ENTITY_FRAME_DURATION ticks
+        long ticksSinceMorphEnd = t - (long) (PEAK_START * ManifoldEffectHandler.TRIP_DURATION);
+        float subTicks = (float) (ticksSinceMorphEnd % ENTITY_FRAME_DURATION) / ENTITY_FRAME_DURATION;
+        int loopFrame = (int) ((t / ENTITY_FRAME_DURATION) % 4);
+        return 12.0f + loopFrame + subTicks;
     }
 
     /**
