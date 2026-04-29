@@ -357,9 +357,43 @@ yellowcake_dust.glowing = true;
 yellowcake_dust.register();
 
 // =============================================================================
+// PHASE 3 -- ITEMS POUR LES QUETES Q31-Q45 (Age 4)
+// =============================================================================
+// Items custom requis par les quetes BetterQuesting Phase 3.
+// Voir : docs/age4-cartouche-manifold/quetes-phase3.md
+
+// Compose alpha (Q35) -- super-acide stabilise (Solvant alpha + H2SO4 + HNO3)
+val compose_alpha = VanillaFactory.createItem("compose_alpha");
+compose_alpha.maxStackSize = 16;
+compose_alpha.glowing = true;
+compose_alpha.register();
+
+// Compose beta (Q40) -- organometallique Au-PR3 (AuCl3 + benzene + tributylphosphine)
+val compose_beta = VanillaFactory.createItem("compose_beta");
+compose_beta.maxStackSize = 16;
+compose_beta.glowing = true;
+compose_beta.register();
+
+// Ether Etoile (Q42) -- fluide stabilise par Liquid Starlight
+val ether_etoile = VanillaFactory.createFluid("ether_etoile", 0xCFD8DC);
+ether_etoile.luminosity = 7;
+ether_etoile.viscosity = 400;
+ether_etoile.register();
+
+// Phenol Substitue (Q43) -- coeur aromatique de la Manifoldine, methoxy en para
+val phenol_substitue = VanillaFactory.createItem("phenol_substitue");
+phenol_substitue.maxStackSize = 64;
+phenol_substitue.register();
+
+// Carbone Actif Au (Q44) -- charbon active impregne d'AuCl3 (catalyseur cyclisation)
+val carbone_actif_au = VanillaFactory.createItem("carbone_actif_au");
+carbone_actif_au.maxStackSize = 32;
+carbone_actif_au.register();
+
+// =============================================================================
 // FIN DU FICHIER
 // =============================================================================
-// Nombre total de fluides : ~50
-// Nombre total d'items : ~75
-// Lignes : ~310
+// Nombre total de fluides : ~51
+// Nombre total d'items : ~80
+// Lignes : ~340
 // =============================================================================
