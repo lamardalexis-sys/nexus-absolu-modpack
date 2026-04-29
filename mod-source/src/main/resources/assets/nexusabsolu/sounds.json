@@ -18,5 +18,15 @@
         "stream": false
       }
     ]
+  },
+  "manifold.centinela": {
+    "category": "music",
+    "subtitle": "Centinela",
+    "sounds": [
+      {
+        "name": "nexusabsolu:manifold/centinela",
+        "stream": true
+      }
+    ]
   }
 }

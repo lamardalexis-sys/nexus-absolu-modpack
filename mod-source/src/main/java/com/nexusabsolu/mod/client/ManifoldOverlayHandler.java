@@ -18,28 +18,23 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 /**
- * Overlay client-side : composite multi-couches pour effet DMT.
+ * Overlay client multi-couches, BPM-sync (84 BPM), 9 stages progressifs.
  *
- * COUCHE 1 — Tunnel kaleidoscopique (zoom in/out) :
- *   Texture seamless 256x256 affichee en grille 3x3 avec scale qui pulse
- *   selon une courbe sinusoidale → effet "tunnel infini ou la camera
- *   avance/recule dans le motif". Mode blend additif pour faire briller
- *   les couleurs neon par dessus le monde.
+ * Chaque LAYER a son intensite independante calculee depuis le trip progress :
  *
- * COUCHE 2 — Mandala fractal (background hero) :
- *   4 frames qui crossfade tous les 5s, rotation continue, mode lighten.
+ *   Stage 1 ONSET       Tint subtil (luminosity boost via overlay blanc transparent)
+ *   Stage 2 SATURATION  Plasma + Mandala 50%
+ *   Stage 3 GEOMETRIC   Mandala 100% + Plasma 100% + Tunnel 50%
+ *   Stage 4 HYPERSPACE  + Tunnel 100% + Pulse central 100%
+ *   Stage 5 PEAK        + Entite centrale animee + intensite max partout
  *
- * COUCHE 3 — Plasma fractal (movement) :
- *   Grille 24x16 algorithmique, palette 8 couleurs DMT, alpha 0.4.
+ * Pendant le retour (5→1') chaque layer descend dans l'ordre inverse →
+ * effet de "calmer" graduellement.
  *
- * COUCHE 4 — Entite centrale :
- *   Silhouette doree avec 2 yeux roses au centre de l'ecran. Pulse
- *   de scale et tourne lentement. Reference image 1.
- *
- * COUCHE 5 — Pulse central :
- *   Anneau expansif depuis le centre toutes les 2s.
- *
- * En PHASE 2 (negatif) : couleurs inversees, plus oppressant.
+ * BPM SYNC :
+ *   - alpha mandala/tunnel pulse sur le beat (BeatKick)
+ *   - rotation des layers acceleree sur les downbeats (toutes les 4 beats)
+ *   - pulse central battement = 1 par beat
  *
  * Bug fix maintenu : ElementType.HOTBAR (pas ALL).
  */
@@ -47,28 +42,30 @@ import org.lwjgl.opengl.GL11;
 public class ManifoldOverlayHandler {
 
     private static final float[][] DMT_PALETTE = {
-        {1.00f, 0.00f, 0.78f},  // magenta
-        {1.00f, 0.39f, 0.00f},  // orange
-        {1.00f, 0.86f, 0.00f},  // or
-        {0.55f, 1.00f, 0.00f},  // lime
-        {0.00f, 1.00f, 0.78f},  // turquoise
-        {0.00f, 0.86f, 1.00f},  // cyan
-        {0.71f, 0.20f, 1.00f},  // violet
-        {1.00f, 0.00f, 0.39f}   // rose
+        {1.00f, 0.00f, 0.78f}, {1.00f, 0.39f, 0.00f},
+        {1.00f, 0.86f, 0.00f}, {0.55f, 1.00f, 0.00f},
+        {0.00f, 1.00f, 0.78f}, {0.00f, 0.86f, 1.00f},
+        {0.71f, 0.20f, 1.00f}, {1.00f, 0.00f, 0.39f}
     };
 
     private static final ResourceLocation TUNNEL_TILE =
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/tunnel_tile.png");
-    private static final ResourceLocation ENTITY_TEX =
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity.png");
-    private static final ResourceLocation[] MANDALA_TEXTURES = {
+    private static final ResourceLocation[] MANDALA_TEX = {
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_1.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_2.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_3.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_4.png")
     };
+    // Entite avec 4 frames d'animation
+    private static final ResourceLocation[] ENTITY_FRAMES = {
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_0.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_1.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_2.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_3.png")
+    };
 
-    private static final int FRAME_DURATION = 100;  // 5s per mandala frame
+    private static final int MANDALA_FRAME_DURATION = 100;  // 5s per mandala frame
+    private static final int ENTITY_FRAME_DURATION = 14;    // ~1 frame per beat (84 BPM)
 
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
@@ -79,130 +76,163 @@ public class ManifoldOverlayHandler {
         if (player == null) return;
 
         long now = player.world.getTotalWorldTime();
-        int phase = ManifoldClientState.getCurrentPhase(now);
-        if (phase == ManifoldEffectHandler.PHASE_NONE) return;
-        if (phase == ManifoldEffectHandler.PHASE_FATIGUE) return;
+        float progress = ManifoldClientState.getTripProgress(now);
+        if (progress < 0) {
+            // Stage fatigue ou inactif
+            int stage = ManifoldClientState.getCurrentStage(now);
+            if (stage == ManifoldEffectHandler.STAGE_FATIGUE) {
+                renderFatigueOverlay(mc);
+            }
+            return;
+        }
 
         ScaledResolution res = new ScaledResolution(mc);
         int w = res.getScaledWidth();
         int h = res.getScaledHeight();
 
-        boolean negative = (phase == ManifoldEffectHandler.PHASE_NEGATIVE);
+        // Calcul des intensites par stage [s1, s2, s3, s4, s5]
+        float[] intensities = ManifoldClientState.getLayerIntensities(progress);
 
-        // === COUCHE 1 : Tunnel zoom in/out ===
-        renderZoomTunnel(mc, w, h, now, negative);
+        // Pulsation BPM-sync
+        float beatKick = ManifoldClientState.getBeatKick(now);
 
-        // === COUCHE 2 : Mandala texture rotative ===
-        renderMandala(mc, w, h, now, negative);
+        // === COUCHE 1 — Onset : subtle white tint (luminosity boost) ===
+        if (intensities[0] > 0.01f) {
+            renderOnsetTint(w, h, intensities[0], beatKick);
+        }
 
-        // === COUCHE 3 : Plasma fractal ===
-        renderPlasma(w, h, now, negative);
+        // === COUCHE 2 — Saturation : plasma fractal couleurs vives ===
+        if (intensities[1] > 0.01f) {
+            renderPlasma(w, h, now, intensities[1] * (0.7f + 0.3f * beatKick));
+        }
 
-        // === COUCHE 4 : Entite centrale ===
-        renderEntity(mc, w, h, now, negative);
+        // === COUCHE 3 — Geometric : mandala fractal rotatif ===
+        if (intensities[2] > 0.01f) {
+            renderMandala(mc, w, h, now, intensities[2] * (0.8f + 0.2f * beatKick));
+        }
 
-        // === COUCHE 5 : Pulse central ===
-        renderCenterPulse(w, h, now, negative);
+        // === COUCHE 4 — Hyperspace : tunnel zoom + pulse central ===
+        if (intensities[3] > 0.01f) {
+            renderZoomTunnel(mc, w, h, now, intensities[3]);
+            renderCenterPulse(w, h, now, intensities[3], beatKick);
+        }
+
+        // === COUCHE 5 — PEAK : entite animee + bande sombre top/bottom ===
+        if (intensities[4] > 0.01f) {
+            renderEntity(mc, w, h, now, intensities[4], beatKick);
+            renderPeakLetterbox(w, h, intensities[4]);
+        }
 
         // Debug
-        renderDebugIndicator(mc.fontRenderer, phase);
+        renderDebugIndicator(mc.fontRenderer, ManifoldClientState.getCurrentStage(now), progress);
     }
 
     /**
-     * TUNNEL ZOOM IN/OUT — la camera avance/recule dans le motif.
-     *
-     * On affiche la texture seamless en grille 5x5 (assez pour couvrir
-     * meme avec scale variable). La taille de chaque tile change selon
-     * une courbe sinusoidale → ressenti "zoom".
-     *
-     * Astuce : on offset l'origine du grid avec scrollX/scrollY pour
-     * suggerer un mouvement de camera. Et on rotate l'ensemble
-     * legerement pour amplifier l'effet hallucinatoire.
+     * Stage 1 : tint subtil blanc + leger boost luminosite.
+     * Le monde "s'allege" — vignette interne brillante.
      */
-    private void renderZoomTunnel(Minecraft mc, int w, int h, long t, boolean negative) {
-        // Cycle zoom : 6 secondes (120 ticks), va de 0.5x a 2.0x
-        double zoomCycle = (t % 120) / 120.0;
-        // Sin pour smooth in/out
-        float scale = 0.6f + (float)(Math.sin(zoomCycle * 2 * Math.PI) * 0.5 + 0.5) * 1.4f;
-
-        // Rotation lente
-        float rotation = (t % 800) / 800.0f * 360.0f;
-
-        // Taille de chaque tile (256 = base)
-        float tileSize = 256.0f * scale * 0.5f;  // /2 pour avoir plus de tiles visibles
-
-        // Combien de tiles sur l'ecran (avec marge pour rotation)
-        int tilesX = (int)(w / tileSize) + 4;
-        int tilesY = (int)(h / tileSize) + 4;
-
-        // Offset scroll : suggere mouvement camera
-        // On scroll inversement au zoom : quand on zoom in (scale grande),
-        // on continue a "avancer" en scrollant
-        float scrollOffset = (t % 240) / 240.0f * tileSize;
-
-        mc.getTextureManager().bindTexture(TUNNEL_TILE);
-
+    private void renderOnsetTint(int w, int h, float intensity, float beat) {
+        GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
-        // Blend additif : neon brillant par dessus le monde
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
             GlStateManager.DestFactor.ONE,
             GlStateManager.SourceFactor.ONE,
             GlStateManager.DestFactor.ZERO);
-        GlStateManager.enableTexture2D();
 
-        if (negative) {
-            GlStateManager.color(0.5f, 0.2f, 0.6f, 0.55f);
-        } else {
-            GlStateManager.color(1f, 1f, 1f, 0.45f);
-        }
-
-        // Centre rotation au milieu de l'ecran
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(w / 2.0f, h / 2.0f, 0);
-        GlStateManager.rotate(rotation, 0, 0, 1);
-        GlStateManager.translate(-w / 2.0f, -h / 2.0f, 0);
+        // Vignette inverse : blanc au centre fade vers bord
+        float alpha = intensity * 0.10f * (0.7f + 0.3f * beat);
+        float cx = w / 2.0f;
+        float cy = h / 2.0f;
+        float radius = Math.max(w, h) * 0.6f;
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
-        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-
-        // Origine grille : decalee pour scroll + centrage
-        float gridOriginX = -tileSize * 2 - scrollOffset;
-        float gridOriginY = -tileSize * 2 - scrollOffset;
-
-        for (int gy = 0; gy < tilesY; gy++) {
-            for (int gx = 0; gx < tilesX; gx++) {
-                float x0 = gridOriginX + gx * tileSize;
-                float y0 = gridOriginY + gy * tileSize;
-                float x1 = x0 + tileSize;
-                float y1 = y0 + tileSize;
-                buf.pos(x0, y1, 0).tex(0, 1).endVertex();
-                buf.pos(x1, y1, 0).tex(1, 1).endVertex();
-                buf.pos(x1, y0, 0).tex(1, 0).endVertex();
-                buf.pos(x0, y0, 0).tex(0, 0).endVertex();
-            }
+        buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+        // Centre brillant
+        buf.pos(cx, cy, 0).color(1f, 1f, 1f, alpha).endVertex();
+        // Bord transparent
+        int segments = 32;
+        for (int i = 0; i <= segments; i++) {
+            float angle = (i / (float) segments) * 2.0f * (float) Math.PI;
+            float ex = cx + (float) Math.cos(angle) * radius;
+            float ey = cy + (float) Math.sin(angle) * radius;
+            buf.pos(ex, ey, 0).color(1f, 1f, 1f, 0f).endVertex();
         }
         tess.draw();
 
-        GlStateManager.popMatrix();
-
-        // Reset
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
             GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
             GlStateManager.SourceFactor.ONE,
             GlStateManager.DestFactor.ZERO);
         GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
     }
 
     /**
-     * Mandala fractal : 2 textures crossfade + rotation lente.
+     * Plasma fractal 8 couleurs DMT.
      */
-    private void renderMandala(Minecraft mc, int w, int h, long t, boolean negative) {
-        int frame = (int)((t / FRAME_DURATION) % MANDALA_TEXTURES.length);
-        int nextFrame = (frame + 1) % MANDALA_TEXTURES.length;
-        float fadeFrac = (t % FRAME_DURATION) / (float) FRAME_DURATION;
+    private void renderPlasma(int w, int h, long t, float intensity) {
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+
+        int cols = 24;
+        int rows = 16;
+        float cellW = w / (float) cols;
+        float cellH = h / (float) rows;
+        float alpha = intensity * 0.4f;
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+
+        double tt = t * 0.05;
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                double v = Math.sin(col * 0.45 + tt * 1.2)
+                         + Math.sin(row * 0.55 + tt * 0.9)
+                         + Math.sin((col + row) * 0.3 + tt * 1.5);
+                double norm = (v + 3.0) * (8.0 / 6.0);
+                int idxA = ((int) norm) % 8;
+                int idxB = (idxA + 1) % 8;
+                double frac = norm - Math.floor(norm);
+
+                float[] cA = DMT_PALETTE[idxA];
+                float[] cB = DMT_PALETTE[idxB];
+                float r = (float) (cA[0] * (1.0 - frac) + cB[0] * frac);
+                float g = (float) (cA[1] * (1.0 - frac) + cB[1] * frac);
+                float b = (float) (cA[2] * (1.0 - frac) + cB[2] * frac);
+
+                float x0 = col * cellW;
+                float y0 = row * cellH;
+                buf.pos(x0, y0 + cellH, 0).color(r, g, b, alpha).endVertex();
+                buf.pos(x0 + cellW, y0 + cellH, 0).color(r, g, b, alpha).endVertex();
+                buf.pos(x0 + cellW, y0, 0).color(r, g, b, alpha).endVertex();
+                buf.pos(x0, y0, 0).color(r, g, b, alpha).endVertex();
+            }
+        }
+        tess.draw();
+
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
+    }
+
+    /**
+     * Mandala fractal rotatif avec crossfade entre 4 frames.
+     */
+    private void renderMandala(Minecraft mc, int w, int h, long t, float intensity) {
+        int frame = (int)((t / MANDALA_FRAME_DURATION) % MANDALA_TEX.length);
+        int nextFrame = (frame + 1) % MANDALA_TEX.length;
+        float fadeFrac = (t % MANDALA_FRAME_DURATION) / (float) MANDALA_FRAME_DURATION;
         float rotation = (t % 600) / 600.0f * 360.0f;
 
         float mandalaSize = (float) Math.max(w, h) * 1.5f;
@@ -217,13 +247,11 @@ public class ManifoldOverlayHandler {
             GlStateManager.DestFactor.ZERO);
         GlStateManager.enableTexture2D();
 
-        float alpha1 = (1.0f - fadeFrac) * (negative ? 0.45f : 0.55f);
-        float alpha2 = fadeFrac * (negative ? 0.45f : 0.55f);
+        float a1 = (1.0f - fadeFrac) * intensity * 0.55f;
+        float a2 = fadeFrac * intensity * 0.55f;
 
-        drawRotatedTexture(mc, MANDALA_TEXTURES[frame], cx, cy, mandalaSize,
-                           rotation, alpha1, negative);
-        drawRotatedTexture(mc, MANDALA_TEXTURES[nextFrame], cx, cy, mandalaSize,
-                           rotation + 12.0f, alpha2, negative);
+        drawRotatedTexture(mc, MANDALA_TEX[frame], cx, cy, mandalaSize, rotation, a1);
+        drawRotatedTexture(mc, MANDALA_TEX[nextFrame], cx, cy, mandalaSize, rotation + 12.0f, a2);
 
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
@@ -234,14 +262,9 @@ public class ManifoldOverlayHandler {
 
     private void drawRotatedTexture(Minecraft mc, ResourceLocation tex,
                                      float cx, float cy, float size,
-                                     float rotation, float alpha, boolean negative) {
+                                     float rotation, float alpha) {
         mc.getTextureManager().bindTexture(tex);
-
-        if (negative) {
-            GlStateManager.color(0.4f, 0.15f, 0.55f, alpha);
-        } else {
-            GlStateManager.color(1f, 1f, 1f, alpha);
-        }
+        GlStateManager.color(1f, 1f, 1f, alpha);
 
         GlStateManager.pushMatrix();
         GlStateManager.translate(cx, cy, 0);
@@ -263,111 +286,72 @@ public class ManifoldOverlayHandler {
     }
 
     /**
-     * Plasma fractal en grille 24x16, palette 8 couleurs.
+     * Tunnel zoom in/out — texture seamless en grille avec scale animee.
      */
-    private void renderPlasma(int w, int h, long t, boolean negative) {
-        GlStateManager.disableTexture2D();
+    private void renderZoomTunnel(Minecraft mc, int w, int h, long t, float intensity) {
+        // Zoom cycle 6s
+        double zoomCycle = (t % 120) / 120.0;
+        float scale = 0.6f + (float)(Math.sin(zoomCycle * 2 * Math.PI) * 0.5 + 0.5) * 1.4f;
+        float rotation = (t % 800) / 800.0f * 360.0f;
+        float tileSize = 256.0f * scale * 0.5f;
+        int tilesX = (int)(w / tileSize) + 4;
+        int tilesY = (int)(h / tileSize) + 4;
+        float scrollOffset = (t % 240) / 240.0f * tileSize;
+
+        mc.getTextureManager().bindTexture(TUNNEL_TILE);
+
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
-            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.DestFactor.ONE,
             GlStateManager.SourceFactor.ONE,
             GlStateManager.DestFactor.ZERO);
+        GlStateManager.enableTexture2D();
+        GlStateManager.color(1f, 1f, 1f, intensity * 0.45f);
 
-        int cols = 24;
-        int rows = 16;
-        float cellW = w / (float) cols;
-        float cellH = h / (float) rows;
-        float alpha = negative ? 0.4f : 0.3f;
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(w / 2.0f, h / 2.0f, 0);
+        GlStateManager.rotate(rotation, 0, 0, 1);
+        GlStateManager.translate(-w / 2.0f, -h / 2.0f, 0);
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
-        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
-        double tt = t * 0.05;
+        float gridOriginX = -tileSize * 2 - scrollOffset;
+        float gridOriginY = -tileSize * 2 - scrollOffset;
 
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                double v =
-                    Math.sin(col * 0.45 + tt * 1.2) +
-                    Math.sin(row * 0.55 + tt * 0.9) +
-                    Math.sin((col + row) * 0.3 + tt * 1.5);
-                double norm = (v + 3.0) * (8.0 / 6.0);
-                int idxA = ((int) norm) % 8;
-                int idxB = (idxA + 1) % 8;
-                double frac = norm - Math.floor(norm);
-
-                float[] cA = DMT_PALETTE[idxA];
-                float[] cB = DMT_PALETTE[idxB];
-                float r = (float) (cA[0] * (1.0 - frac) + cB[0] * frac);
-                float g = (float) (cA[1] * (1.0 - frac) + cB[1] * frac);
-                float b = (float) (cA[2] * (1.0 - frac) + cB[2] * frac);
-
-                if (negative) {
-                    r = 1.0f - r; g = 1.0f - g; b = 1.0f - b;
-                }
-
-                float x0 = col * cellW;
-                float y0 = row * cellH;
-                float x1 = x0 + cellW;
-                float y1 = y0 + cellH;
-
-                buf.pos(x0, y1, 0).color(r, g, b, alpha).endVertex();
-                buf.pos(x1, y1, 0).color(r, g, b, alpha).endVertex();
-                buf.pos(x1, y0, 0).color(r, g, b, alpha).endVertex();
-                buf.pos(x0, y0, 0).color(r, g, b, alpha).endVertex();
+        for (int gy = 0; gy < tilesY; gy++) {
+            for (int gx = 0; gx < tilesX; gx++) {
+                float x0 = gridOriginX + gx * tileSize;
+                float y0 = gridOriginY + gy * tileSize;
+                float x1 = x0 + tileSize;
+                float y1 = y0 + tileSize;
+                buf.pos(x0, y1, 0).tex(0, 1).endVertex();
+                buf.pos(x1, y1, 0).tex(1, 1).endVertex();
+                buf.pos(x1, y0, 0).tex(1, 0).endVertex();
+                buf.pos(x0, y0, 0).tex(0, 0).endVertex();
             }
         }
         tess.draw();
 
-        GlStateManager.color(1f, 1f, 1f, 1f);
-        GlStateManager.disableBlend();
-        GlStateManager.enableTexture2D();
-    }
-
-    /**
-     * Entite centrale : silhouette doree pulsante au centre de l'ecran.
-     * Pulse de scale (1.0 → 1.15 → 1.0) + rotation tres lente.
-     */
-    private void renderEntity(Minecraft mc, int w, int h, long t, boolean negative) {
-        // Pulse 0..1..0 sur 60 ticks (3s) — comme une respiration
-        double breathe = Math.sin((t % 60) / 60.0 * 2 * Math.PI);
-        float scale = 1.0f + (float) breathe * 0.08f;
-
-        // Rotation tres lente (1 tour par 60s)
-        float rotation = (t % 1200) / 1200.0f * 360.0f;
-
-        float baseSize = Math.min(w, h) * 0.5f;  // 50% de la dimension la plus petite
-        float entitySize = baseSize * scale;
-
-        GlStateManager.enableBlend();
+        GlStateManager.popMatrix();
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
             GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
             GlStateManager.SourceFactor.ONE,
             GlStateManager.DestFactor.ZERO);
-        GlStateManager.enableTexture2D();
-
-        float alpha = negative ? 0.85f : 0.95f;
-        if (negative) {
-            GlStateManager.color(0.3f, 0.7f, 1f, alpha);  // bleu fantomatique en phase 2
-        } else {
-            GlStateManager.color(1f, 1f, 1f, alpha);
-        }
-
-        drawRotatedTexture(mc, ENTITY_TEX, w / 2.0f, h / 2.0f,
-                           entitySize, rotation, alpha, negative);
-
         GlStateManager.color(1f, 1f, 1f, 1f);
     }
 
     /**
-     * Pulse central : anneau expansif depuis le centre.
+     * Pulse central : 1 anneau par BEAT (84 BPM).
      */
-    private void renderCenterPulse(int w, int h, long t, boolean negative) {
-        float cycle = (t % 40) / 40.0f;
-        float radius = cycle * Math.max(w, h) * 0.7f;
-        float pulseAlpha = (1.0f - cycle) * 0.4f;
+    private void renderCenterPulse(int w, int h, long t, float intensity, float beat) {
+        // L'anneau commence quand beat=0 et grandit jusqu'a beat=1
+        float phase = ManifoldClientState.getBeatPhase(t);
+        float radius = phase * Math.max(w, h) * 0.7f;
+        float pulseAlpha = (1.0f - phase) * 0.4f * intensity;
         if (pulseAlpha < 0.02f) return;
 
         GlStateManager.disableTexture2D();
@@ -380,13 +364,8 @@ public class ManifoldOverlayHandler {
 
         float cx = w / 2.0f;
         float cy = h / 2.0f;
-
-        int colorIdx = (int)(t / 40) % 8;
+        int colorIdx = (int)(t / 14) % 8;
         float[] c = DMT_PALETTE[colorIdx];
-        float r = c[0], g = c[1], b = c[2];
-        if (negative) {
-            r = 1.0f - r; g = 1.0f - g; b = 1.0f - b;
-        }
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
@@ -400,8 +379,8 @@ public class ManifoldOverlayHandler {
             float sa = (float) Math.sin(angle);
             float rOuter = radius + thickness;
             float rInner = radius - thickness;
-            buf.pos(cx + ca * rOuter, cy + sa * rOuter, 0).color(r, g, b, 0f).endVertex();
-            buf.pos(cx + ca * rInner, cy + sa * rInner, 0).color(r, g, b, pulseAlpha).endVertex();
+            buf.pos(cx + ca * rOuter, cy + sa * rOuter, 0).color(c[0], c[1], c[2], 0f).endVertex();
+            buf.pos(cx + ca * rInner, cy + sa * rInner, 0).color(c[0], c[1], c[2], pulseAlpha).endVertex();
         }
         tess.draw();
 
@@ -415,21 +394,139 @@ public class ManifoldOverlayHandler {
         GlStateManager.enableTexture2D();
     }
 
-    private void renderDebugIndicator(FontRenderer font, int phase) {
+    /**
+     * Entite animee Salviadroid au PEAK (stage 5).
+     * 4 frames qui cyclent au BPM (1 frame par beat).
+     * Pulse de scale (respiration) + rotation tres lente.
+     */
+    private void renderEntity(Minecraft mc, int w, int h, long t, float intensity, float beat) {
+        // Frame index sync au beat
+        int frame = (int)((t / ENTITY_FRAME_DURATION) % ENTITY_FRAMES.length);
+
+        // Pulse scale beat-sync : grandit sur kick
+        float scale = 1.0f + beat * 0.12f;
+
+        // Rotation tres lente (1 tour / 90s)
+        float rotation = (t % 1800) / 1800.0f * 360.0f;
+
+        float baseSize = Math.min(w, h) * 0.6f;
+        float size = baseSize * scale;
+
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.enableTexture2D();
+
+        drawRotatedTexture(mc, ENTITY_FRAMES[frame], w / 2.0f, h / 2.0f,
+                           size, rotation, intensity * 0.95f);
+
+        GlStateManager.color(1f, 1f, 1f, 1f);
+    }
+
+    /**
+     * Letterbox cinematique au PEAK : bandes sombres haut/bas pour effet
+     * "entree dans une autre dimension".
+     */
+    private void renderPeakLetterbox(int w, int h, float intensity) {
+        float barHeight = h * 0.12f * intensity;
+        if (barHeight < 1f) return;
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(0f, 0f, 0f, intensity * 0.85f);
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+        // Top
+        buf.pos(0, barHeight, 0).endVertex();
+        buf.pos(w, barHeight, 0).endVertex();
+        buf.pos(w, 0, 0).endVertex();
+        buf.pos(0, 0, 0).endVertex();
+        // Bottom
+        buf.pos(0, h, 0).endVertex();
+        buf.pos(w, h, 0).endVertex();
+        buf.pos(w, h - barHeight, 0).endVertex();
+        buf.pos(0, h - barHeight, 0).endVertex();
+        tess.draw();
+
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
+    }
+
+    /**
+     * Overlay subtil pendant la fatigue : gris desature.
+     */
+    private void renderFatigueOverlay(Minecraft mc) {
+        ScaledResolution res = new ScaledResolution(mc);
+        int w = res.getScaledWidth();
+        int h = res.getScaledHeight();
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(0.2f, 0.2f, 0.25f, 0.25f);
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+        buf.pos(0, h, 0).endVertex();
+        buf.pos(w, h, 0).endVertex();
+        buf.pos(w, 0, 0).endVertex();
+        buf.pos(0, 0, 0).endVertex();
+        tess.draw();
+
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
+    }
+
+    private void renderDebugIndicator(FontRenderer font, int stage, float progress) {
         String label;
         int color;
-        switch (phase) {
-            case ManifoldEffectHandler.PHASE_ACTIVE:
-                label = "MANIFOLDINE ACTIVE";
+        switch (stage) {
+            case ManifoldEffectHandler.STAGE_1_ONSET:
+                label = "1. ONSET — le monde s'allege";
+                color = 0xCCCCCC;
+                break;
+            case ManifoldEffectHandler.STAGE_2_SATURATION:
+                label = "2. SATURATION — couleurs vives";
                 color = 0xFF1493;
                 break;
-            case ManifoldEffectHandler.PHASE_NEGATIVE:
-                label = "MANIFOLDINE — VRILLE";
+            case ManifoldEffectHandler.STAGE_3_GEOMETRIC:
+                label = "3. GEOMETRIC — fractales";
                 color = 0x00FFFF;
+                break;
+            case ManifoldEffectHandler.STAGE_4_HYPERSPACE:
+                label = "4. HYPERSPACE — tunnel";
+                color = 0xFFD700;
+                break;
+            case ManifoldEffectHandler.STAGE_5_PEAK:
+                label = "5. PEAK — entity contact";
+                color = 0xFF00FF;
+                break;
+            case ManifoldEffectHandler.STAGE_FATIGUE:
+                label = "CRASH — fatigue";
+                color = 0x808080;
                 break;
             default:
                 return;
         }
-        font.drawStringWithShadow(label, 8, 8, color);
+        // Affichage en haut a gauche : nom du stage + progress
+        int pct = Math.max(0, Math.min(100, (int)(progress * 100)));
+        font.drawStringWithShadow(label + " (" + pct + "%)", 8, 8, color);
     }
 }

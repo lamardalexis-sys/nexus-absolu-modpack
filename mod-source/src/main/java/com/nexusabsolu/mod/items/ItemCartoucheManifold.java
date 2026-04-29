@@ -23,17 +23,20 @@ import java.util.List;
 /**
  * Cartouche Manifold — l'item phare de l'Age 4.
  *
- * Right-click → declenche la sequence d'injection complete via
- * ManifoldEffectHandler.startInjection() :
+ * Right-click → declenche un trip de 8 minutes en 9 stages :
  *
- *   PHASE 1 (0-4 min)  : potions cranked + overlay violet/cyan + particules chaos
- *   PHASE 2 (4-5 min)  : overlay NEGATIF (le trip vrille) + particules vrillees
- *   CRASH (5 min)      : potions retirees, fatigue 1 min appliquee
- *   PHASE 3 (5-6 min)  : Slowness II + Mining Fatigue II + Weakness
+ *   Stage 1 (Onset)      0:00 → 0:30  Le monde s'allege
+ *   Stage 2 (Saturation) 0:30 → 1:30  Couleurs deviennent vives
+ *   Stage 3 (Geometric)  1:30 → 2:30  Fractales 2D apparaissent
+ *   Stage 4 (Hyperspace) 2:30 → 4:00  3D, espaces enormes
+ *   Stage 5 (PEAK)       4:00 → 5:30  Entite + musique + voix
+ *   Stage 4'             5:30 → 6:30  Retour Hyperspace
+ *   Stage 3'             6:30 → 7:00  Retour Geometric
+ *   Stage 2'             7:00 → 7:30  Retour Saturation
+ *   Stage 1'             7:30 → 8:00  Retour Onset
+ *   Crash + Fatigue      8:00 → 9:00  Slowness + Mining Fatigue
  *
- * Cooldown total : 5 minutes (anti-overdose).
- *
- * Apres usage : transformee en CartoucheUsed (casing recyclable).
+ * Cooldown 10 min anti-overdose.
  */
 public class ItemCartoucheManifold extends ItemBase {
 
@@ -44,7 +47,7 @@ public class ItemCartoucheManifold extends ItemBase {
 
     @Override
     public boolean hasEffect(ItemStack stack) {
-        return true;  // glint permanent
+        return true;
     }
 
     @Override
@@ -56,17 +59,14 @@ public class ItemCartoucheManifold extends ItemBase {
         tooltip.add(TextFormatting.DARK_GRAY + "\"Cinq theoremes. Une seule injection.\"");
         tooltip.add("");
         tooltip.add(TextFormatting.YELLOW + "Clic droit pour t'injecter.");
-        tooltip.add(TextFormatting.GRAY + "Phase 1 : "
-            + TextFormatting.LIGHT_PURPLE + "4 minutes "
-            + TextFormatting.GRAY + "(puissance absolue)");
-        tooltip.add(TextFormatting.GRAY + "Phase 2 : "
-            + TextFormatting.DARK_PURPLE + "1 minute "
-            + TextFormatting.GRAY + "(le trip vrille)");
+        tooltip.add(TextFormatting.GRAY + "Trip : "
+            + TextFormatting.LIGHT_PURPLE + "8 minutes "
+            + TextFormatting.GRAY + "(en 9 stages)");
         tooltip.add(TextFormatting.GRAY + "Crash : "
             + TextFormatting.RED + "1 minute "
             + TextFormatting.GRAY + "(fatigue forcee)");
         tooltip.add("");
-        tooltip.add(TextFormatting.DARK_RED + "Cooldown : 5 minutes. Pas de re-injection.");
+        tooltip.add(TextFormatting.DARK_RED + "Cooldown : 10 minutes. Pas de re-injection.");
     }
 
     @Override
@@ -82,14 +82,13 @@ public class ItemCartoucheManifold extends ItemBase {
         }
         EntityPlayerMP mp = (EntityPlayerMP) player;
 
-        // Cooldown check (covers la fatigue ET l'anti-overdose, le cooldown
-        // est plus long que la duree totale donc on bloque pendant tout le cycle)
+        // Cooldown check
         long now = world.getTotalWorldTime();
         long cooldownUntil = ManifoldEffectHandler.getCooldownUntil(player);
         if (now < cooldownUntil) {
             long remaining = (cooldownUntil - now) / 20;
-            int phase = ManifoldEffectHandler.getCurrentPhase(player);
-            String reason = phase == ManifoldEffectHandler.PHASE_FATIGUE
+            int stage = ManifoldEffectHandler.getCurrentStage(player);
+            String reason = stage == ManifoldEffectHandler.STAGE_FATIGUE
                 ? "Tu te remets a peine de la derniere injection."
                 : "Le serum coule deja dans tes veines. Pas deux fois.";
             player.sendMessage(new TextComponentString(
@@ -103,7 +102,7 @@ public class ItemCartoucheManifold extends ItemBase {
         sendInjectionMessages(player);
         ManifoldEffectHandler.startInjection(mp);
 
-        // Consomme la cartouche, donne la cartouche usee
+        // Consomme la cartouche
         stack.shrink(1);
         ItemStack used = new ItemStack(ModItems.CARTOUCHE_USED, 1);
         if (!player.inventory.addItemStackToInventory(used)) {
@@ -143,7 +142,7 @@ public class ItemCartoucheManifold extends ItemBase {
         player.sendMessage(new TextComponentString(
             TextFormatting.GREEN + "Cinq theoremes fusionnent dans ton sang."));
         player.sendMessage(new TextComponentString(
-            TextFormatting.GRAY + "Sois prudent. Le retour sera dur."));
+            TextFormatting.GRAY + "Le voyage dure 8 minutes. Sois prudent."));
     }
 
     private static String formatTime(long seconds) {

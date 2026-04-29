@@ -60,9 +60,11 @@ public class ManifoldHallucinationHandler {
 
         // Phase check : actif uniquement pendant injection
         long now = self.world.getTotalWorldTime();
-        int phase = ManifoldClientState.getCurrentPhase(now);
-        if (phase != ManifoldEffectHandler.PHASE_ACTIVE
-            && phase != ManifoldEffectHandler.PHASE_NEGATIVE) {
+        // Hallucinations actives pendant les stages 3, 4, 5 (pas l'onset/saturation)
+        int stage = ManifoldClientState.getCurrentStage(now);
+        if (stage != ManifoldEffectHandler.STAGE_3_GEOMETRIC
+            && stage != ManifoldEffectHandler.STAGE_4_HYPERSPACE
+            && stage != ManifoldEffectHandler.STAGE_5_PEAK) {
             return;
         }
 

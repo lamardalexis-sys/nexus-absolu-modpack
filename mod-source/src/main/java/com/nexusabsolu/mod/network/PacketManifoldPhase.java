@@ -8,58 +8,52 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Packet server → client : synchronise les timestamps des phases Manifoldine.
+ * Packet server → client : synchronise le start tick d'une injection Manifold.
  *
- * Le client maintient son propre etat dans ManifoldClientState (variables
- * statiques). A chaque injection le serveur envoie un packet avec les 3
- * timestamps cles (phase2_at, active_until, fatigue_until) en deltas par
- * rapport au tick world courant — comme ca le client peut calculer la phase
- * en faisant juste world.getTotalWorldTime() - sync_tick.
+ * Architecture refondue : au lieu d'envoyer 3 timestamps de phase, on envoie
+ * juste le tick world du debut + la duree totale. Le client calcule lui-meme
+ * le progress [0..1] et le stage actuel a chaque frame avec la meme logique
+ * que ManifoldEffectHandler.getCurrentStage().
  *
- * Pour annuler/reset les effets cote client (quand cooldown termine ou si
- * le serveur veut force stop), envoyer un packet avec tous les deltas a 0.
+ * Avantage : pas besoin de re-sync quand on change de stage, le client le
+ * detecte tout seul. Aussi : si le serveur change la duration des stages,
+ * le client se met a jour sans changer le packet.
  */
 public class PacketManifoldPhase implements IMessage {
 
-    private long syncTick;       // tick world au moment ou le serveur envoie
-    private int phase2Delta;     // ticks restants jusqu'a phase 2 (negatif)
-    private int activeDelta;     // ticks restants jusqu'a la fin des potions
-    private int fatigueDelta;    // ticks restants jusqu'a la fin de la fatigue
+    private long syncTick;     // tick world au moment de l'envoi
+    private long startTick;    // tick world du debut du trip
+    private int totalTicks;    // duree totale (TOTAL_DURATION) — 0 = annulation
 
     public PacketManifoldPhase() {}
 
-    public PacketManifoldPhase(long syncTick, int phase2Delta,
-                                int activeDelta, int fatigueDelta) {
+    public PacketManifoldPhase(long syncTick, long startTick, int totalTicks) {
         this.syncTick = syncTick;
-        this.phase2Delta = phase2Delta;
-        this.activeDelta = activeDelta;
-        this.fatigueDelta = fatigueDelta;
+        this.startTick = startTick;
+        this.totalTicks = totalTicks;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         syncTick = buf.readLong();
-        phase2Delta = buf.readInt();
-        activeDelta = buf.readInt();
-        fatigueDelta = buf.readInt();
+        startTick = buf.readLong();
+        totalTicks = buf.readInt();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeLong(syncTick);
-        buf.writeInt(phase2Delta);
-        buf.writeInt(activeDelta);
-        buf.writeInt(fatigueDelta);
+        buf.writeLong(startTick);
+        buf.writeInt(totalTicks);
     }
 
     public static class Handler implements IMessageHandler<PacketManifoldPhase, IMessage> {
         @Override
         @SideOnly(Side.CLIENT)
         public IMessage onMessage(PacketManifoldPhase msg, MessageContext ctx) {
-            // Run sur thread main client
             net.minecraft.client.Minecraft.getMinecraft().addScheduledTask(() -> {
                 com.nexusabsolu.mod.client.ManifoldClientState.update(
-                    msg.syncTick, msg.phase2Delta, msg.activeDelta, msg.fatigueDelta);
+                    msg.syncTick, msg.startTick, msg.totalTicks);
             });
             return null;
         }

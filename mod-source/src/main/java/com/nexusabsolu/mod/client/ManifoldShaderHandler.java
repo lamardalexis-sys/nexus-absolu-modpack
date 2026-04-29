@@ -79,10 +79,12 @@ public class ManifoldShaderHandler {
         if (shaderFailed) return;
 
         long now = player.world.getTotalWorldTime();
-        int phase = ManifoldClientState.getCurrentPhase(now);
+        int stage = ManifoldClientState.getCurrentStage(now);
 
-        boolean shouldBeActive = (phase == ManifoldEffectHandler.PHASE_ACTIVE
-                                || phase == ManifoldEffectHandler.PHASE_NEGATIVE);
+        // Shader actif uniquement pendant stages 4 (hyperspace) et 5 (peak)
+        // Le shader Mandelbulb est lourd, on l'utilise pas en stages 1-3
+        boolean shouldBeActive = (stage == ManifoldEffectHandler.STAGE_4_HYPERSPACE
+                                || stage == ManifoldEffectHandler.STAGE_5_PEAK);
 
         // Smooth fade — converge vers 1.0 ou 0.0
         float targetIntensity = shouldBeActive ? 1.0f : 0.0f;
@@ -99,7 +101,7 @@ public class ManifoldShaderHandler {
 
         // Injection des uniforms si shader actif
         if (shaderActive) {
-            injectUniforms(mc, phase);
+            injectUniforms(mc, stage);
         }
     }
 
@@ -136,7 +138,7 @@ public class ManifoldShaderHandler {
     /**
      * Injecte les uniforms Time / Intensity / Phase chaque frame.
      */
-    private void injectUniforms(Minecraft mc, int phase) {
+    private void injectUniforms(Minecraft mc, int stage) {
         ShaderGroup group = getShaderGroup(mc);
         if (group == null) return;
 
@@ -146,7 +148,8 @@ public class ManifoldShaderHandler {
         if (!reflectionInitialized) initReflection();
 
         float time = (System.currentTimeMillis() - startTime) / 1000.0f;
-        float phaseValue = (phase == ManifoldEffectHandler.PHASE_NEGATIVE) ? 1.0f : 0.0f;
+        // Phase uniform : 1.0 uniquement au PEAK pour effet plus intense
+        float phaseValue = (stage == ManifoldEffectHandler.STAGE_5_PEAK) ? 1.0f : 0.0f;
 
         for (Shader shader : shaders) {
             setUniform(shader, "Time", time);
