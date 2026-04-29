@@ -131,8 +131,17 @@ public class ManifoldShaderHandler {
 
     private void setUniform(Shader shader, String name, float value) {
         ShaderUniform u = shader.getShaderManager().getShaderUniform(name);
-        if (u != null) {
-            u.set(value);
+        if (u == null) return;
+        // On evite u.set(value) directement parce que la signature surchargée
+        // 'set(Matrix4f)' force le compilateur a charger org.lwjgl.util.vector.Matrix4f
+        // qui n'est pas toujours dans le classpath de compilation.
+        // On utilise reflection sur la methode 'set(float)' pour bypass ce probleme.
+        try {
+            java.lang.reflect.Method setMethod =
+                ShaderUniform.class.getMethod("set", float.class);
+            setMethod.invoke(u, value);
+        } catch (Exception e) {
+            // Silent fail
         }
     }
 
