@@ -135,11 +135,12 @@ recipes.addShaped("plongeur_voss", <nexusabsolu:plongeur_voss>,
      [<ore:ingotInvar>, <nexusabsolu:vossium_ingot>, <ore:ingotInvar>],
      [null, <ore:ingotIron>, null]]);
 
-// === LOCALISATEUR VOSS (v1.0.327) ===
-// Item OP-only permettant de naviguer la chaine matryoshka des CM.
-// Lit le NBT parent_room_id des blocs CM. Ne fonctionne que pour les ops.
+// === LOCALISATEUR DIMENSIONNEL (v1.0.327, renomme v1.0.329) ===
+// Item permettant de naviguer la chaine matryoshka des CM visitees.
+// v1.0.340 BUGFIX : nom registry corrige (etait localisateur_voss avant
+// v1.0.329, devenu localisateur_dimensionnel suite a la refonte d'Alexis).
 // Recette: Composes Voss + compass (composant directionnel) + circuit infuse
-recipes.addShaped("localisateur_voss", <nexusabsolu:localisateur_voss>,
+recipes.addShaped("localisateur_dimensionnel", <nexusabsolu:localisateur_dimensionnel>,
     [[<nexusabsolu:compose_b>, <minecraft:compass>, <nexusabsolu:compose_b>],
      [<nexusabsolu:vossium_ingot>, <nexusabsolu:infused_circuit>, <nexusabsolu:vossium_ingot>],
      [<nexusabsolu:compose_a>, <ore:ingotInvar>, <nexusabsolu:compose_a>]]);
