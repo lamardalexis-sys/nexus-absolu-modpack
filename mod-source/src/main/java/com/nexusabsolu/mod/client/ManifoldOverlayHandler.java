@@ -89,11 +89,12 @@ public class ManifoldOverlayHandler {
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_15.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/mandala_16.png")
     };
-    // v1.0.331 (Etape 3 visuel ultime) -- 16 frames de morphing :
-    //   0-3  : iris cyan/magenta qui grossit
-    //   4-7  : crack effect (lignes blanches + contour visage qui apparait)
-    //   8-11 : 3 visages superposes (separation chromatique cyan/or/magenta)
-    //   12-15: entite Salviadroid finale qui respire
+    // v1.0.339 (Etape 8) -- 28 frames de morphing pour video FLUIDE :
+    //   0-3   : IRIS qui grossit
+    //   4-11  : CRACK fissures de 0% a 100% (8 frames de progression)
+    //   12-19 : FACES 3 visages apparaissent puis fusionnent (8 frames)
+    //   20-23 : TRANSITION fusion 3-visages -> Salviadroid (4 frames)
+    //   24-27 : SALVIADROID respire (4 frames loop BPM-sync)
     private static final ResourceLocation[] ENTITY_FRAMES = {
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_0.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_1.png"),
@@ -110,8 +111,22 @@ public class ManifoldOverlayHandler {
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_12.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_13.png"),
         new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_14.png"),
-        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_15.png")
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_15.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_16.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_17.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_18.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_19.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_20.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_21.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_22.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_23.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_24.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_25.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_26.png"),
+        new ResourceLocation("nexusabsolu", "textures/gui/manifold/entity_27.png")
     };
+    private static final int N_ENTITY_MORPH_FRAMES = 24; // frames 0..23 (les 24 premieres = morphing one-shot)
+    private static final int N_ENTITY_LOOP_FRAMES = 4;   // frames 24..27 (loop Salviadroid)
 
     private static final int MANDALA_FRAME_DURATION = 100;  // 5s per mandala frame
     private static final int ENTITY_FRAME_DURATION = 14;    // ~1 frame per beat (84 BPM)
@@ -805,40 +820,39 @@ public class ManifoldOverlayHandler {
      * Selection de la frame d'entite (en float pour crossfade) selon le
      * peakProgress.
      *
-     * v1.0.336 : retourne un FLOAT au lieu d'un int -> permet le crossfade
-     * fluide entre frame N et N+1 dans renderEntity.
+     * v1.0.339 : passe a 28 frames (24 morphing + 4 loop). Le morphing
+     * occupe 1/2 du PEAK (45s sur 90s) au lieu de 1/3, pour donner le
+     * temps de voir chaque phase de morphing dans le detail.
      *
      * Logique :
-     *   - PEAK = [0.5, 0.6875] du trip (~1.5 min sur 8 min)
-     *   - 1ere tranche (0.5..0.5625, soit 30s) -> morphing : valeur retournee
-     *     varie lineairement de 0.0 a 16.0 (les 16 frames defilent en
-     *     sequence avec crossfade)
-     *   - 2eme tranche (0.5625..0.6875, soit 60s) -> loop des frames 12-15
-     *     (Salviadroid qui respire) BPM-sync, valeur 12.0..16.0 cyclique
-     *   - Hors PEAK -> 12.0 (defaut Salviadroid statique)
+     *   - PEAK = [0.5, 0.6875] du trip (~1.5 min)
+     *   - 1ere moitie (0.5..0.59375, ~45s) -> 24 frames de morphing
+     *     iris -> crack -> faces -> transition (one-shot, mapping lineaire)
+     *   - 2eme moitie (0.59375..0.6875, ~45s) -> loop des 4 frames
+     *     Salviadroid (24..27) BPM-sync
+     *   - Hors PEAK -> 27 (defaut Salviadroid statique)
      */
     private float computeEntityFrameFloat(long t) {
         float progress = ManifoldClientState.getTripProgress(t);
         final float PEAK_START = ManifoldEffectHandler.STAGE_4_HYPERSPACE_END; // 0.5
         final float PEAK_END = ManifoldEffectHandler.STAGE_5_PEAK_END;         // 0.6875
-        final float MORPH_END = PEAK_START + (PEAK_END - PEAK_START) / 3.0f;   // ~0.5625
+        final float MORPH_END = PEAK_START + (PEAK_END - PEAK_START) / 2.0f;   // ~0.59375
 
         if (progress < PEAK_START || progress >= PEAK_END) {
-            return 12.0f;
+            return 27.0f;
         }
 
         if (progress < MORPH_END) {
-            // Phase morphing : map progress lineairement sur 0..16 frames
+            // Phase morphing : map progress lineairement sur 0..N_ENTITY_MORPH_FRAMES
             float morphFrac = (progress - PEAK_START) / (MORPH_END - PEAK_START);
-            return morphFrac * ENTITY_FRAMES.length;
+            return morphFrac * N_ENTITY_MORPH_FRAMES;
         }
 
-        // Phase loop : frames 12..16 BPM-sync, en float pour crossfade
-        // Une frame complete = ENTITY_FRAME_DURATION ticks
+        // Phase loop : frames 24..27 BPM-sync, en float pour crossfade
         long ticksSinceMorphEnd = t - (long) (PEAK_START * ManifoldEffectHandler.TRIP_DURATION);
         float subTicks = (float) (ticksSinceMorphEnd % ENTITY_FRAME_DURATION) / ENTITY_FRAME_DURATION;
-        int loopFrame = (int) ((t / ENTITY_FRAME_DURATION) % 4);
-        return 12.0f + loopFrame + subTicks;
+        int loopFrame = (int) ((t / ENTITY_FRAME_DURATION) % N_ENTITY_LOOP_FRAMES);
+        return N_ENTITY_MORPH_FRAMES + loopFrame + subTicks;
     }
 
     /**

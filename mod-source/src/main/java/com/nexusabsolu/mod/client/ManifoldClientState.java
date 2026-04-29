@@ -72,8 +72,8 @@ public class ManifoldClientState {
     }
 
     /**
-     * smoothstep(edge0, edge1, x) — fonction d'interpolation lisse.
-     * Renvoie 0 si x<=edge0, 1 si x>=edge1, courbe S entre les deux.
+     * smoothstep(edge0, edge1, x) -- courbe d'interpolation Hermite cubique
+     * (smooth aux 2 extremites mais transition rapide au milieu).
      */
     public static float smoothstep(float edge0, float edge1, float x) {
         float t = Math.max(0f, Math.min(1f, (x - edge0) / (edge1 - edge0)));
@@ -81,8 +81,30 @@ public class ManifoldClientState {
     }
 
     /**
+     * smootherstep(edge0, edge1, x) -- courbe quintic de Ken Perlin (2002),
+     * derivee 1ere ET 2eme nulles aux extremites -> transition encore plus
+     * douce que smoothstep, particulierement perceptible quand l'oeil suit
+     * une variation continue (cas de notre fade in/out de stage).
+     *
+     * Formule : 6t^5 - 15t^4 + 10t^3
+     *
+     * v1.0.339 (Etape 8) : utilisee pour les transitions entre stages
+     * pour donner une sensation de "flow" plus organique.
+     */
+    public static float smootherstep(float edge0, float edge1, float x) {
+        float t = Math.max(0f, Math.min(1f, (x - edge0) / (edge1 - edge0)));
+        return t * t * t * (t * (t * 6f - 15f) + 10f);
+    }
+
+    /**
      * Calcule l'intensite de chaque layer visuel selon le progress du trip.
      * Chaque layer "monte" pendant son stage et "descend" pendant le mirror.
+     *
+     * v1.0.339 (Etape 8) -- TRANSITIONS ELARGIES + courbe quintic :
+     *   - Fenetres de fade-in/out elargies (chevauchement plus long entre
+     *     stages adjacents -> sensation de flow continu, pas de coupure)
+     *   - smootherstep() au lieu de smoothstep() -> derivee 2eme nulle aux
+     *     extremites, transition imperceptible visuellement
      *
      * @return tableau [stage1, stage2, stage3, stage4, stage5] intensities [0..1]
      */
@@ -90,42 +112,47 @@ public class ManifoldClientState {
         float[] r = new float[5];
         if (progress < 0) return r;
 
-        // Stage 1 (onset) : 0..0.06 monte, 0.94..1.0 descend, 1.0 entre les deux
+        // Stage 1 (onset) : transitions elargies a 8% du trip
+        // Aller : 0..0.10 monte (au lieu de 0..0.0625) ; Retour : 0.90..1.0 descend
         r[0] = Math.max(
-            smoothstep(0f, 0.0625f, progress),
-            1f - smoothstep(0.9375f, 1.0f, progress)
+            smootherstep(0f, 0.10f, progress),
+            1f - smootherstep(0.90f, 1.0f, progress)
         );
 
-        // Stage 2 (saturation) : 0.06..0.19 monte, 0.875..0.9375 descend
+        // Stage 2 (saturation) : chevauche 5% avec stage 1 et stage 3
+        // Aller : 0.04..0.22 monte ; Retour : 0.84..0.96 descend
         r[1] = Math.min(
-            smoothstep(0.0625f, 0.1875f, progress),
-            1f - smoothstep(0.875f, 0.9375f, progress)
+            smootherstep(0.04f, 0.22f, progress),
+            1f - smootherstep(0.84f, 0.96f, progress)
         );
         r[1] = Math.max(0f, r[1]);
 
-        // Stage 3 (geometric) : 0.19..0.31 monte, 0.8125..0.875 descend
+        // Stage 3 (geometric) : chevauche 5% avec stages adjacents
+        // Aller : 0.16..0.36 monte ; Retour : 0.78..0.88 descend
         r[2] = Math.min(
-            smoothstep(0.1875f, 0.3125f, progress),
-            1f - smoothstep(0.8125f, 0.875f, progress)
+            smootherstep(0.16f, 0.36f, progress),
+            1f - smootherstep(0.78f, 0.88f, progress)
         );
         r[2] = Math.max(0f, r[2]);
 
-        // Stage 4 (hyperspace) : 0.31..0.5 monte, 0.6875..0.8125 descend
+        // Stage 4 (hyperspace) : chevauche 5% avec stage 3 et stage 5 PEAK
+        // Aller : 0.28..0.52 monte ; Retour : 0.66..0.84 descend
         r[3] = Math.min(
-            smoothstep(0.3125f, 0.5f, progress),
-            1f - smoothstep(0.6875f, 0.8125f, progress)
+            smootherstep(0.28f, 0.52f, progress),
+            1f - smootherstep(0.66f, 0.84f, progress)
         );
         r[3] = Math.max(0f, r[3]);
 
-        // Stage 5 (peak) : 0.5..0.51 monte (rapide, 1% du trip = ~5s pour
-        // que l'entite soit visible quasi instantanement et qu'on voie bien
-        // le morphing iris->crack->3faces->Salviadroid qui se passe sur
-        // 0.5..0.5625), reste a fond, descend 0.65..0.6875.
-        // v1.0.336 BUGFIX : avant le fade-in s'etalait sur 0.5..0.59 (43s),
-        // ce qui rendait toute la phase morphing quasi invisible.
+        // Stage 5 (peak) : fade-in moyen (pas instantane mais pas etale a
+        // l'absurde non plus) -> 0.48..0.53 (~5s pour atteindre max).
+        // C'est important pour 2 raisons :
+        //   1. L'entite doit etre visible des le debut du PEAK pour qu'on voie
+        //      le morphing iris->crack->faces->Salviadroid qui se passe sur 45s.
+        //   2. Trop rapide = saut visuel, trop lent = on rate le morphing.
+        // Fade-out : 0.65..0.6875 inchange (assez vif pour finir le PEAK net).
         r[4] = Math.min(
-            smoothstep(0.5f, 0.51f, progress),
-            1f - smoothstep(0.65f, 0.6875f, progress)
+            smootherstep(0.48f, 0.53f, progress),
+            1f - smootherstep(0.65f, 0.6875f, progress)
         );
         r[4] = Math.max(0f, r[4]);
 
