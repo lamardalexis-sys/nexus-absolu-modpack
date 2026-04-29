@@ -8,7 +8,7 @@
             "auxtargets": []
         },
         {
-            "name": "manifold",
+            "name": "blit",
             "intarget": "swap",
             "outtarget": "minecraft:main",
             "auxtargets": []

@@ -7,50 +7,75 @@ import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.client.shader.ShaderUniform;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
  * Charge et applique le shader post-process Mandelbulb pendant l'injection.
  *
- * Architecture MC 1.12.2 :
- * - EntityRenderer a un champ 'shaderGroup' qui peut etre configure pour
- *   appliquer un effet post-process plein ecran.
- * - On utilise reflection pour le set/unset (le champ est private/protected).
- * - On injecte les uniforms Time/Intensity/Phase chaque frame via
- *   ShaderUniform.set().
+ * Architecture (apres code review v2) :
  *
- * Attention :
- *   - OptiFine peut intercepter le rendu et empecher le shader Forge native
- *     de s'appliquer. Si OptiFine est present, le shader peut ne rien faire.
- *   - Performance : Mandelbulb est lourd. Si lag → reduire RAYMARCH_STEPS
- *     dans manifold.fsh ou desactiver le shader.
- *   - Le shader fait du raymarching FULL SCREEN, donc charge GPU significative.
+ *   - Hook sur ClientTickEvent.Phase.END (1 fois par tick, propre,
+ *     pas RenderGameOverlayEvent qui peut etre appele plusieurs fois)
+ *   - Field shaderGroup recupere UNE FOIS au premier appel (cache),
+ *     pas a chaque frame
+ *   - ObfuscationReflectionHelper plutot que reflection raw → resolution
+ *     auto deobf/srg, code plus robuste
+ *   - Garde-fou : si le shader echoue a charger, on n'essaie pas en boucle
+ *   - Cleanup : si player passe a null (deconnexion), on desactive le shader
+ *
+ * Pieges connus MC 1.12.2 :
+ *   - OptiFine remplace EntityRenderer → loadShader() peut etre no-op.
+ *     Workaround : tester sans OptiFine, ou desactiver "Fast Render".
+ *   - Pas d'ApiPublique pour set des uniforms custom — on passe par
+ *     ShaderUniform.set(float) via reflection (3 invocations/frame, OK perf).
+ *   - field_148031_d / field_147707_d sont les noms SRG en MCP mappings.
  */
 @SideOnly(Side.CLIENT)
 public class ManifoldShaderHandler {
 
+    // === SRG field names pour reflection robuste ===
+    // EntityRenderer.shaderGroup
+    private static final String SRG_SHADER_GROUP = "field_147707_d";
+    // ShaderGroup.listShaders
+    private static final String SRG_SHADER_LIST = "field_148031_d";
+
     private static final ResourceLocation SHADER_PATH =
         new ResourceLocation("nexusabsolu", "shaders/post/manifold.json");
 
+    // === State ===
     private boolean shaderActive = false;
-    private float intensityCurrent = 0.0f;  // pour fade in/out smooth
-    private long startTime = 0;
+    private boolean shaderFailed = false;        // si echec, on retry pas
+    private float intensityCurrent = 0.0f;       // fade in/out smooth
+    private long startTime = 0L;
+
+    // === Method cache pour reflection (compute UNE fois, reutilise) ===
+    private Method shaderUniformSetFloat = null;
+    private boolean reflectionInitialized = false;
 
     @SubscribeEvent
-    public void onRenderTick(RenderGameOverlayEvent.Pre event) {
-        // Run only once per frame
-        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) return;
+    public void onClientTick(TickEvent.ClientTickEvent event) {
+        // 1 fois par tick (END phase), pas plusieurs comme RenderGameOverlayEvent
+        if (event.phase != TickEvent.Phase.END) return;
 
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayer player = mc.player;
-        if (player == null) return;
+
+        // Cleanup si plus de player (deconnexion / quit world)
+        if (player == null || player.world == null) {
+            if (shaderActive) deactivateShader(mc);
+            return;
+        }
+
+        // On a deja essaye et ca a casse → on n'essaie plus
+        if (shaderFailed) return;
 
         long now = player.world.getTotalWorldTime();
         int phase = ManifoldClientState.getCurrentPhase(now);
@@ -58,19 +83,21 @@ public class ManifoldShaderHandler {
         boolean shouldBeActive = (phase == ManifoldEffectHandler.PHASE_ACTIVE
                                 || phase == ManifoldEffectHandler.PHASE_NEGATIVE);
 
-        // Fade in/out smooth (pas de coupure brutale)
+        // Smooth fade — converge vers 1.0 ou 0.0
         float targetIntensity = shouldBeActive ? 1.0f : 0.0f;
         intensityCurrent += (targetIntensity - intensityCurrent) * 0.05f;
 
-        // Activation / desactivation du shader
+        // Activation : seulement si on n'est PAS deja actif (evite reload spam)
         if (shouldBeActive && !shaderActive) {
             activateShader(mc);
-        } else if (!shouldBeActive && shaderActive && intensityCurrent < 0.01f) {
+        }
+        // Desactivation : quand fade complet (intensity ~ 0)
+        else if (!shouldBeActive && shaderActive && intensityCurrent < 0.01f) {
             deactivateShader(mc);
         }
 
         // Injection des uniforms si shader actif
-        if (shaderActive && mc.entityRenderer != null) {
+        if (shaderActive) {
             injectUniforms(mc, phase);
         }
     }
@@ -78,15 +105,17 @@ public class ManifoldShaderHandler {
     private void activateShader(Minecraft mc) {
         if (mc.entityRenderer == null) return;
         try {
-            // loadShader(ResourceLocation) est public en MC 1.12.2
             mc.entityRenderer.loadShader(SHADER_PATH);
             shaderActive = true;
             startTime = System.currentTimeMillis();
             System.out.println("[Manifold] Shader active");
-        } catch (Exception e) {
-            System.err.println("[Manifold] Echec chargement shader : " + e.getMessage());
-            e.printStackTrace();
+        } catch (Throwable t) {
+            // Throwable, pas Exception, parce que les erreurs GLSL peuvent
+            // remonter en Error (pas Exception)
+            System.err.println("[Manifold] Echec chargement shader: " + t.getMessage());
+            t.printStackTrace();
             shaderActive = false;
+            shaderFailed = true;  // on n'essaie plus
         }
     }
 
@@ -96,88 +125,107 @@ public class ManifoldShaderHandler {
             mc.entityRenderer.stopUseShader();
             shaderActive = false;
             System.out.println("[Manifold] Shader desactive");
-        } catch (Exception e) {
-            System.err.println("[Manifold] Erreur desactivation : " + e.getMessage());
+        } catch (Throwable t) {
+            System.err.println("[Manifold] Erreur desactivation: " + t.getMessage());
+            // On force shaderActive=false meme si erreur sinon on reste bloque
+            shaderActive = false;
         }
     }
 
     /**
-     * Injecte les uniforms Time / Intensity / Phase dans le shader.
-     *
-     * MC 1.12.2 ShaderGroup ne fournit pas d'API publique pour setter les
-     * uniforms custom. On passe par reflection sur la liste des Shaders
-     * du group, puis on chope leurs ShaderUniform par nom.
+     * Injecte les uniforms Time / Intensity / Phase chaque frame.
      */
     private void injectUniforms(Minecraft mc, int phase) {
+        ShaderGroup group = getShaderGroup(mc);
+        if (group == null) return;
+
+        List<Shader> shaders = getShaderList(group);
+        if (shaders == null) return;
+
+        if (!reflectionInitialized) initReflection();
+
+        float time = (System.currentTimeMillis() - startTime) / 1000.0f;
+        float phaseValue = (phase == ManifoldEffectHandler.PHASE_NEGATIVE) ? 1.0f : 0.0f;
+
+        for (Shader shader : shaders) {
+            setUniform(shader, "Time", time);
+            setUniform(shader, "Intensity", intensityCurrent);
+            setUniform(shader, "Phase", phaseValue);
+        }
+    }
+
+    private void initReflection() {
         try {
-            ShaderGroup group = getShaderGroup(mc);
-            if (group == null) return;
-
-            List<Shader> shaders = getShaderList(group);
-            if (shaders == null) return;
-
-            float time = (System.currentTimeMillis() - startTime) / 1000.0f;
-            float phaseValue = (phase == ManifoldEffectHandler.PHASE_NEGATIVE) ? 1.0f : 0.0f;
-
-            for (Shader shader : shaders) {
-                setUniform(shader, "Time", time);
-                setUniform(shader, "Intensity", intensityCurrent);
-                setUniform(shader, "Phase", phaseValue);
-            }
-        } catch (Exception e) {
-            // Silent fail — sinon on spam la console chaque frame
+            shaderUniformSetFloat = ShaderUniform.class.getMethod("set", float.class);
+            reflectionInitialized = true;
+        } catch (NoSuchMethodException e) {
+            System.err.println("[Manifold] ShaderUniform.set(float) introuvable");
+            shaderFailed = true;
         }
     }
 
     private void setUniform(Shader shader, String name, float value) {
-        ShaderUniform u = shader.getShaderManager().getShaderUniform(name);
-        if (u == null) return;
-        // On evite u.set(value) directement parce que la signature surchargée
-        // 'set(Matrix4f)' force le compilateur a charger org.lwjgl.util.vector.Matrix4f
-        // qui n'est pas toujours dans le classpath de compilation.
-        // On utilise reflection sur la methode 'set(float)' pour bypass ce probleme.
+        if (shaderUniformSetFloat == null) return;
         try {
-            java.lang.reflect.Method setMethod =
-                ShaderUniform.class.getMethod("set", float.class);
-            setMethod.invoke(u, value);
-        } catch (Exception e) {
-            // Silent fail
+            ShaderUniform u = shader.getShaderManager().getShaderUniform(name);
+            if (u != null) {
+                shaderUniformSetFloat.invoke(u, value);
+            }
+        } catch (Throwable t) {
+            // Silent fail — sinon spam console chaque frame
         }
     }
 
-    /** Reflection : recupere shaderGroup depuis EntityRenderer. */
-    private ShaderGroup getShaderGroup(Minecraft mc) throws Exception {
-        // En 1.12.2 deobf : champ "shaderGroup", obf : "field_147707_d" ou similaire
-        Field field;
+    /**
+     * Recupere le champ shaderGroup d'EntityRenderer via ObfuscationReflectionHelper
+     * (gere auto deobf/srg). Renvoie null si echec.
+     */
+    private ShaderGroup getShaderGroup(Minecraft mc) {
         try {
-            field = mc.entityRenderer.getClass().getDeclaredField("shaderGroup");
-        } catch (NoSuchFieldException e) {
-            // Tente le nom obfusque (Forge SRG : field_147707_d)
+            return ObfuscationReflectionHelper.getPrivateValue(
+                mc.entityRenderer.getClass().getSuperclass() == Object.class
+                    ? mc.entityRenderer.getClass()
+                    : mc.entityRenderer.getClass(),
+                mc.entityRenderer,
+                SRG_SHADER_GROUP, "shaderGroup");
+        } catch (Throwable t) {
+            // Fallback : reflection raw
             try {
-                field = mc.entityRenderer.getClass().getDeclaredField("field_147707_d");
-            } catch (NoSuchFieldException e2) {
+                Field f;
+                try {
+                    f = mc.entityRenderer.getClass().getDeclaredField("shaderGroup");
+                } catch (NoSuchFieldException e) {
+                    f = mc.entityRenderer.getClass().getDeclaredField(SRG_SHADER_GROUP);
+                }
+                f.setAccessible(true);
+                return (ShaderGroup) f.get(mc.entityRenderer);
+            } catch (Throwable t2) {
                 return null;
             }
         }
-        field.setAccessible(true);
-        return (ShaderGroup) field.get(mc.entityRenderer);
     }
 
-    /** Reflection : recupere la liste interne de Shaders du group. */
+    /**
+     * Recupere la liste des Shaders du ShaderGroup.
+     */
     @SuppressWarnings("unchecked")
-    private List<Shader> getShaderList(ShaderGroup group) throws Exception {
-        Field field;
+    private List<Shader> getShaderList(ShaderGroup group) {
         try {
-            field = ShaderGroup.class.getDeclaredField("listShaders");
-        } catch (NoSuchFieldException e) {
+            return ObfuscationReflectionHelper.getPrivateValue(
+                ShaderGroup.class, group, SRG_SHADER_LIST, "listShaders");
+        } catch (Throwable t) {
             try {
-                // SRG name pour 1.12.2
-                field = ShaderGroup.class.getDeclaredField("field_148031_d");
-            } catch (NoSuchFieldException e2) {
+                Field f;
+                try {
+                    f = ShaderGroup.class.getDeclaredField("listShaders");
+                } catch (NoSuchFieldException e) {
+                    f = ShaderGroup.class.getDeclaredField(SRG_SHADER_LIST);
+                }
+                f.setAccessible(true);
+                return (List<Shader>) f.get(group);
+            } catch (Throwable t2) {
                 return null;
             }
         }
-        field.setAccessible(true);
-        return (List<Shader>) field.get(group);
     }
 }
