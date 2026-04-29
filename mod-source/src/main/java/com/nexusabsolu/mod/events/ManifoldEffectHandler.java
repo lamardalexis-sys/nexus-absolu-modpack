@@ -190,7 +190,7 @@ public class ManifoldEffectHandler {
             new EnumParticleTypes[] {
                 EnumParticleTypes.HEART,             // proche du magenta vif
                 EnumParticleTypes.END_ROD,           // cyan/blanc
-                EnumParticleTypes.HAPPY_VILLAGER,    // vert lime
+                EnumParticleTypes.VILLAGER_HAPPY,    // vert lime
                 EnumParticleTypes.FLAME              // or/orange
             };
 
