@@ -203,7 +203,7 @@ public class ManifoldEffectHandler {
 
             world.spawnParticle(ptype,
                 px + finalX, py + finalY, pz + finalZ,
-                1, 0, 0, 0, 0);
+                1, 0.0, 0.0, 0.0, 0.0);
         }
 
         // === LAYER 2 : Glyphes Voss (cercles concentriques avec rotation) ===
@@ -226,7 +226,7 @@ public class ManifoldEffectHandler {
 
                 world.spawnParticle(ptype,
                     px + rx, py + yOffsets[ring], pz + rz,
-                    1, 0, 0, 0, 0);
+                    1, 0.0, 0.0, 0.0, 0.0);
             }
         }
 
@@ -247,7 +247,7 @@ public class ManifoldEffectHandler {
                 double ly = py + Math.sin(f * Math.PI) * 0.3;
                 double lz = z1 + (z2 - z1) * f;
                 world.spawnParticle(EnumParticleTypes.CRIT_MAGIC,
-                    lx, ly, lz, 1, 0, 0, 0, 0);
+                    lx, ly, lz, 1, 0.0, 0.0, 0.0, 0.0);
             }
         }
 
@@ -260,7 +260,7 @@ public class ManifoldEffectHandler {
                 px + rx, py + ry, pz + rz,
                 1,
                 -rx * 0.1, -ry * 0.1, -rz * 0.1,  // motion vers le joueur
-                0);
+                0.0);
         }
     }
 
