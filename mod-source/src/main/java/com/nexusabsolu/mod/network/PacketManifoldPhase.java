@@ -54,6 +54,16 @@ public class PacketManifoldPhase implements IMessage {
             net.minecraft.client.Minecraft.getMinecraft().addScheduledTask(() -> {
                 com.nexusabsolu.mod.client.ManifoldClientState.update(
                     msg.syncTick, msg.startTick, msg.totalTicks);
+
+                // v1.0.329 (Etape 1 visuel ultime) -- demarrer la musique avec
+                // ITickableSound pour fade in/out. Conditions : start reel
+                // (pas annulation) + ModSounds initialise.
+                if (msg.startTick != 0L && msg.totalTicks > 0
+                        && com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA != null) {
+                    net.minecraft.client.Minecraft.getMinecraft().getSoundHandler().playSound(
+                        new com.nexusabsolu.mod.client.ManifoldMusicTickableSound(
+                            com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA));
+                }
             });
             return null;
         }

@@ -1,6 +1,5 @@
 package com.nexusabsolu.mod.events;
 
-import com.nexusabsolu.mod.init.ModSounds;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
@@ -86,7 +85,10 @@ public class ManifoldEffectHandler {
     public static final String NBT_START_TICK      = "manifold_start_tick";
     public static final String NBT_COOLDOWN_UNTIL  = "manifold_cooldown_until";
     public static final String NBT_FATIGUE_DONE    = "manifold_fatigue_done";
-    public static final String NBT_MUSIC_PLAYED    = "manifold_music_played";
+    // v1.0.329 -- Etape 1 visuel ultime : la musique demarre au Stage 1 via
+    // PacketManifoldPhase (ITickableSound). Au PEAK on n'envoie plus qu'un
+    // message narratif, d'ou le rename de NBT_MUSIC_PLAYED.
+    public static final String NBT_PEAK_ANNOUNCED  = "manifold_peak_announced";
 
     // === Whisper config ===
     private static final int WHISPER_INTERVAL_TICKS = 60;  // toutes les 3s en stage 5
@@ -101,7 +103,7 @@ public class ManifoldEffectHandler {
         nbt.setLong(NBT_START_TICK, now);
         nbt.setLong(NBT_COOLDOWN_UNTIL, now + COOLDOWN_DURATION);
         nbt.setBoolean(NBT_FATIGUE_DONE, false);
-        nbt.setBoolean(NBT_MUSIC_PLAYED, false);
+        nbt.setBoolean(NBT_PEAK_ANNOUNCED, false);
 
         // Apply potions cranked (durent jusqu'a la fin de TRIP_DURATION)
         applyEpicPotions(player, TRIP_DURATION);
@@ -158,11 +160,13 @@ public class ManifoldEffectHandler {
             return;
         }
 
-        // Stage 5 PEAK : declencher la musique au debut + spawner whispers
+        // Stage 5 PEAK : annoncer l'arrivee du PEAK + spawner whispers.
+        // (La musique Centinela demarre des le Stage 1 via ITickableSound,
+        // voir ManifoldMusicTickableSound + PacketManifoldPhase.Handler.)
         if (stage == STAGE_5_PEAK) {
-            if (!nbt.getBoolean(NBT_MUSIC_PLAYED)) {
-                playPeakMusic(player);
-                nbt.setBoolean(NBT_MUSIC_PLAYED, true);
+            if (!nbt.getBoolean(NBT_PEAK_ANNOUNCED)) {
+                announcePeakArrival(player);
+                nbt.setBoolean(NBT_PEAK_ANNOUNCED, true);
             }
             // Whispers pendant le PEAK seulement
             if (player.ticksExisted % WHISPER_INTERVAL_TICKS == 0) {
@@ -171,15 +175,7 @@ public class ManifoldEffectHandler {
         }
     }
 
-    private static void playPeakMusic(EntityPlayerMP player) {
-        // Musique Centinela en mode "stream" (le fichier est gros)
-        // Volume 0.6 (pas trop fort), pitch 1.0 (BPM original 84)
-        // Categorie MUSIC pour qu'elle suive le slider musique du joueur
-        if (ModSounds.MANIFOLD_CENTINELA != null) {
-            player.world.playSound(null, player.posX, player.posY, player.posZ,
-                ModSounds.MANIFOLD_CENTINELA, SoundCategory.MUSIC, 0.6F, 1.0F);
-        }
-
+    private static void announcePeakArrival(EntityPlayerMP player) {
         player.sendMessage(new TextComponentString(
             TextFormatting.LIGHT_PURPLE + "" + TextFormatting.ITALIC
             + "Quelque chose s'approche..."));

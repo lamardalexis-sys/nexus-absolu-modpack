@@ -18,6 +18,18 @@
 
 ## ✅ COMPLETED
 
+### Session "Visuel Ultime" 2026-04-29 — Etape 1 (Musique fade in/out)
+- ✅ `client/ManifoldMusicTickableSound.java` (NEW) — `MovingSound` qui implemente `ITickableSound` (via heritage). `update()` recalcule le volume chaque tick selon `ManifoldClientState.getTripProgress()`. Attenuation NONE (musique "dans la tete").
+- ✅ Courbe de volume conforme au brief :
+  - Stage 1 (0:00 → 0:30) : 0.0 → 0.4 (fade-in lineaire)
+  - Stages 2-4 (0:30 → 4:00) : 0.4 (ambient constant)
+  - Stage 5 PEAK (4:00 → 5:30) : 0.4 → 0.8 (boost lineaire)
+  - Retour 4'/3'/2'/1' (5:30 → 8:00) : 0.8 → 0.0 (fade-out lineaire)
+- ✅ `network/PacketManifoldPhase.java` (MODIFY) — le `Handler.onMessage()` cote client demarre maintenant `ManifoldMusicTickableSound` apres avoir update `ManifoldClientState`. Conditions : `startTick != 0 && totalTicks > 0 && MANIFOLD_CENTINELA != null`.
+- ✅ `events/ManifoldEffectHandler.java` (MODIFY) — `playPeakMusic()` supprimee (la musique demarre maintenant au Stage 1, pas au PEAK). Remplacee par `announcePeakArrival()` qui n'envoie que le message narratif "Quelque chose s'approche...". NBT_MUSIC_PLAYED renomme en NBT_PEAK_ANNOUNCED. Whispers villageois inchanges (orthogonaux).
+- ✅ Bump version 1.0.328 → 1.0.329.
+- ⏳ A tester en jeu : verifier la courbe de volume sur 8 min (sans OptiFine d'abord).
+
 ### Vault Obsidian — `docs/age4-cartouche-manifold/`
 - `README.md` — MOC index
 - `SKILL.md` — skill projet (patterns superpowers appliqués)
