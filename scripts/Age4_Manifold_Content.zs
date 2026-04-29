@@ -469,6 +469,23 @@ cartouche_vide.register();
 // cartouche_vide cree Phase 5.
 // solution_epsilon cree Phase 5.
 
+// Air ambiant (fluide pour multibloc cryo-distillateur, Q4)
+// Pompe via Industrial Foregoing Air Collector ou recette CT
+val air = VanillaFactory.createFluid("air", 0xE3F2FD);
+air.density = 1;
+air.viscosity = 50;
+air.gaseous = true;
+air.register();
+
+// Oxygene pur (sortie cryo-distillation)
+// Different de mekanism:oxygen (gaz) -- ici c'est un fluide pour MM
+val oxygen = VanillaFactory.createFluid("oxygen", 0xB3E5FC);
+oxygen.density = 1;
+oxygen.viscosity = 50;
+oxygen.gaseous = true;
+oxygen.luminosity = 1;
+oxygen.register();
+
 // Bio-Reacteur Controller (Q71) -- coeur du multibloc 7x7x7 final
 val bioreacteur_controller = VanillaFactory.createBlock("bioreacteur_controller",
     <blockmaterial:iron>);

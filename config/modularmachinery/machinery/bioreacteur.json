@@ -1,6 +1,7 @@
 {
   "registryname": "bioreacteur",
   "localizedname": "Bio-Reacteur Manifold",
+  "requires-blueprint": false,
   "parts": [
     {
       "x": -2,
@@ -156,7 +157,7 @@
       "x": -2,
       "y": 0,
       "z": -2,
-      "elements": "casings_all"
+      "elements": "contenttweaker:bioreacteur_controller"
     },
     {
       "x": -2,
@@ -180,7 +181,7 @@
       "x": -2,
       "y": 0,
       "z": 2,
-      "elements": "casings_all"
+      "elements": "contenttweaker:bioreacteur_controller"
     },
     {
       "x": -1,
@@ -222,7 +223,7 @@
       "x": 2,
       "y": 0,
       "z": -2,
-      "elements": "casings_all"
+      "elements": "contenttweaker:bioreacteur_controller"
     },
     {
       "x": 2,
@@ -246,7 +247,7 @@
       "x": 2,
       "y": 0,
       "z": 2,
-      "elements": "casings_all"
+      "elements": "contenttweaker:bioreacteur_controller"
     },
     {
       "x": -2,

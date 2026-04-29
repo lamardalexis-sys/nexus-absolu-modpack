@@ -1,0 +1,30 @@
+{
+    "machine": "cryo_distillateur",
+    "registryName": "cryo_air_to_n2",
+    "recipeTime": 200,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 3000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "air",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "cryotheum",
+            "amount": 250
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "nitrogen_liquid",
+            "amount": 780
+        }
+    ]
+}

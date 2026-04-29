@@ -1,6 +1,7 @@
 {
   "registryname": "cryo_distillateur",
   "localizedname": "Cryo-Distillateur Atmospherique",
+  "requires-blueprint": false,
   "parts": [
     {
       "x": -3,
@@ -216,7 +217,7 @@
       "x": -3,
       "y": 0,
       "z": -2,
-      "elements": "casings_all"
+      "elements": "contenttweaker:cryo_distillateur_controller"
     },
     {
       "x": -3,
@@ -240,7 +241,7 @@
       "x": -3,
       "y": 0,
       "z": 2,
-      "elements": "casings_all"
+      "elements": "contenttweaker:cryo_distillateur_controller"
     },
     {
       "x": -2,
@@ -390,7 +391,7 @@
       "x": 3,
       "y": 0,
       "z": -2,
-      "elements": "casings_all"
+      "elements": "contenttweaker:cryo_distillateur_controller"
     },
     {
       "x": 3,
@@ -414,7 +415,7 @@
       "x": 3,
       "y": 0,
       "z": 2,
-      "elements": "casings_all"
+      "elements": "contenttweaker:cryo_distillateur_controller"
     },
     {
       "x": -1,

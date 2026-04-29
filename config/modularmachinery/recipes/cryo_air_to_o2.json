@@ -1,0 +1,30 @@
+{
+    "machine": "cryo_distillateur",
+    "registryName": "cryo_air_to_o2",
+    "recipeTime": 250,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 3000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "air",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "cryotheum",
+            "amount": 300
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "oxygen",
+            "amount": 210
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "machine": "bioreacteur",
+    "registryName": "bio_cartouche_manifold_armement",
+    "recipeTime": 600,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 100000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:cartouche_chargee",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "solution_epsilon",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "astralsorcery.liquidstarlight",
+            "amount": 4000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "argon",
+            "amount": 500
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "output",
+            "item": "nexusabsolu:cartouche_manifold",
+            "amount": 1
+        }
+    ]
+}
