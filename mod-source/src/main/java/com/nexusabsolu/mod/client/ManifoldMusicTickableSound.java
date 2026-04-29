@@ -39,9 +39,24 @@ public class ManifoldMusicTickableSound extends MovingSound {
         super(sound, SoundCategory.MUSIC);
         this.repeat = false;
         this.repeatDelay = 0;
-        this.volume = 0.0F;
+        // v1.0.335 BUGFIX : SoundManager de 1.12.2 marque un son done si
+        // volume <= 0 AVANT le premier update(). Notre courbe computeVolume(0)
+        // retourne 0.0 (debut du fade-in) ce qui tuait le son a la naissance.
+        // Solution : demarrer a un epsilon strictement positif inaudible.
+        // update() sera appele au premier tick et reprendra la vraie courbe.
+        this.volume = 0.01F;
         this.pitch = 1.0F;
         this.attenuationType = ISound.AttenuationType.NONE;
+
+        // Init position du joueur immediatement (au cas ou le SoundManager
+        // checke la position avant le 1er update). AttenuationType.NONE
+        // ignore en theorie la position mais autant la fournir.
+        net.minecraft.entity.player.EntityPlayer p = Minecraft.getMinecraft().player;
+        if (p != null) {
+            this.xPosF = (float) p.posX;
+            this.yPosF = (float) p.posY;
+            this.zPosF = (float) p.posZ;
+        }
     }
 
     @Override

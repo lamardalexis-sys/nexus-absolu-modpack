@@ -58,11 +58,19 @@ public class PacketManifoldPhase implements IMessage {
                 // v1.0.329 (Etape 1 visuel ultime) -- demarrer la musique avec
                 // ITickableSound pour fade in/out. Conditions : start reel
                 // (pas annulation) + ModSounds initialise.
+                // v1.0.335 : log de debug pour confirmer qu'on arrive bien ici
+                // cote client (utile si la musique ne demarre pas).
                 if (msg.startTick != 0L && msg.totalTicks > 0
                         && com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA != null) {
+                    System.out.println("[Manifold] Demarrage musique Centinela (startTick="
+                        + msg.startTick + ", totalTicks=" + msg.totalTicks + ")");
                     net.minecraft.client.Minecraft.getMinecraft().getSoundHandler().playSound(
                         new com.nexusabsolu.mod.client.ManifoldMusicTickableSound(
                             com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA));
+                } else {
+                    System.out.println("[Manifold] Pas de musique demarree : startTick="
+                        + msg.startTick + " totalTicks=" + msg.totalTicks
+                        + " sound=" + (com.nexusabsolu.mod.init.ModSounds.MANIFOLD_CENTINELA != null));
                 }
             });
             return null;
