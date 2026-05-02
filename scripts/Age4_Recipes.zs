@@ -41,15 +41,15 @@ recipes.addShaped("bioreacteur_controller_recipe",
 
 // Q74 -- Cartouche chargee (Pressurized Reaction Chamber)
 // 1 cartouche_vide + 1000mB solution_epsilon + 100mB argon -> 1 cartouche_chargee
-mods.mekanism.reaction.addRecipe(
-    <contenttweaker:cartouche_vide>,           // input item
-    <liquid:solution_epsilon> * 1000,          // input fluide
-    <gas:argon> * 100,                         // input gaz (Mekanism gas)
-    <contenttweaker:cartouche_chargee>,        // output item
-    <gas:hydrogen> * 0,                        // output gaz (rien)
-    100,                                       // duree (ticks)
-    400,                                       // energie (J/tick)
-    600);                                      // extra energy
+//mods.mekanism.reaction.addRecipe(
+//    <contenttweaker:cartouche_vide>,
+//    <liquid:solution_epsilon> * 1000,
+//    <gas:argon> * 100,
+//    <contenttweaker:cartouche_chargee>,
+//    <gas:hydrogen> * 0,
+//    100,
+//    400,
+//    600);
 
 // NOTE : si <gas:argon> n'existe pas en gaz Mekanism (seulement en fluide custom),
 // fallback : on utilise une autre methode comme Mekanism Chemical Infuser ou
