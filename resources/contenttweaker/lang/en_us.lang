@@ -59,3 +59,23 @@ item.contenttweaker.cartouche_chargee.name=Charged Cartridge
 tile.contenttweaker.resine_echangeuse_block.name=Ion Exchange Resin
 tile.contenttweaker.cryo_distillateur_controller.name=Cryo Distillation Controller
 tile.contenttweaker.bioreacteur_controller.name=Bio-Reactor Controller
+
+# === Pigments Botania + cristal_manifoldine ===
+item.contenttweaker.pigment_red.name=Red Pigment
+item.contenttweaker.pigment_orange.name=Orange Pigment
+item.contenttweaker.pigment_yellow.name=Yellow Pigment
+item.contenttweaker.pigment_pink.name=Pink Pigment
+item.contenttweaker.pigment_lime.name=Lime Pigment
+item.contenttweaker.pigment_cyan.name=Cyan Pigment
+item.contenttweaker.pigment_lightblue.name=Light Blue Pigment
+item.contenttweaker.pigment_magenta.name=Magenta Pigment
+item.contenttweaker.pigment_black.name=Black Pigment
+item.contenttweaker.pigment_purple.name=Purple Pigment
+item.contenttweaker.pigment_brown.name=Brown Pigment
+item.contenttweaker.pigment_gray.name=Gray Pigment
+item.contenttweaker.pigment_green.name=Green Pigment
+item.contenttweaker.pigment_blue.name=Blue Pigment
+item.contenttweaker.pigment_lightgray.name=Light Gray Pigment
+item.contenttweaker.pigment_white.name=White Pigment
+item.contenttweaker.cristal_manifoldine.name=Manifoldine Crystal
+item.contenttweaker.matrix_pigmentary.name=Pigmentary Matrix

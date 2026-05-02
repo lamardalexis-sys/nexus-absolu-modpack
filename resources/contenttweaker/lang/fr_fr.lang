@@ -19,3 +19,23 @@ item.contenttweaker.cartouche_chargee.name=Cartouche Chargee
 tile.contenttweaker.resine_echangeuse_block.name=Resine Echangeuse
 tile.contenttweaker.cryo_distillateur_controller.name=Cryo-Distillateur (Controleur)
 tile.contenttweaker.bioreacteur_controller.name=Bio-Reacteur (Controleur)
+
+# === Pigments Botania + cristal_manifoldine ===
+item.contenttweaker.pigment_red.name=Pigment Rouge
+item.contenttweaker.pigment_orange.name=Pigment Orange
+item.contenttweaker.pigment_yellow.name=Pigment Jaune
+item.contenttweaker.pigment_pink.name=Pigment Rose
+item.contenttweaker.pigment_lime.name=Pigment Lime
+item.contenttweaker.pigment_cyan.name=Pigment Cyan
+item.contenttweaker.pigment_lightblue.name=Pigment Bleu Clair
+item.contenttweaker.pigment_magenta.name=Pigment Magenta
+item.contenttweaker.pigment_black.name=Pigment Noir
+item.contenttweaker.pigment_purple.name=Pigment Violet
+item.contenttweaker.pigment_brown.name=Pigment Brun
+item.contenttweaker.pigment_gray.name=Pigment Gris
+item.contenttweaker.pigment_green.name=Pigment Vert
+item.contenttweaker.pigment_blue.name=Pigment Bleu
+item.contenttweaker.pigment_lightgray.name=Pigment Gris Clair
+item.contenttweaker.pigment_white.name=Pigment Blanc
+item.contenttweaker.cristal_manifoldine.name=Cristal de Manifoldine
+item.contenttweaker.matrix_pigmentary.name=Matrice Pigmentaire
