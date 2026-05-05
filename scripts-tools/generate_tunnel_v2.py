@@ -2,35 +2,35 @@
 # -*- coding: utf-8 -*-
 """
 Genere les 4 variantes de textures tunnel pour le Cartouche Manifold
-(Stage 4 Hyperspace) - VERSION MEGASTRUCTURES COSMIQUES.
+(Stage 4 Hyperspace) - VERSION DMT VISUAL ULTIME.
 
-Concept : galaxie civilisee pleine de structures architecturales geantes
-(Dyson sphere, Halo Ringworld, Death Star, pyramides, citadelles gothiques,
-stations orbitales, cubes Borg, cylindres Rama). Wireframe blueprint style.
+Concept : trip DMT geometrico-organique avec OEIL/IRIS COSMIQUE central,
+mandala perspective qui aspire, tendrils psychic vivants, palette DMT
+ultra-saturee (Alex Grey / Android Jones aesthetic).
 
 Architecture :
-  - 4 variantes : structure dominante differente par variante
-  - 15+ structures background dispersees (densite ULTRA)
-  - 1024x1024, fond transparent, palette VOSS SATURATED
+  - 4 variantes : forme dominante differente (PAS QUE DES RONDS)
+  - Style identique : iris central + petales radiaux + tendrils + glow
+  - 1024x1024, fond transparent
 
-4 variantes (theme dominant) :
-  A : DYSON SPHERE        - Dyson sphere centrale geante + ringworld au-dessus
-  B : HALO RINGWORLD      - 2 anneaux geants + cylindres orbitaux
-  C : CITADELLES GOTHIQUES - cluster de tours + pyramides
-  D : DEATH STAR FLEET    - cluster de Death Stars + cubes Borg
+4 variantes (formes geometriques de base) :
+  A : ROND (cercles)          - mandala circulaire classique DMT
+  B : HEXAGONAL               - iris hexagonal, petales hex, palette cyan/vert
+  C : TRIANGULAIRE/ETOILE     - etoile de David + triangles aigus, palette violet/rose
+  D : MIXED EXPLOSION         - mix ronds + hex + triangles + carres (PEAK)
 
-Chaque variante : 15 structures background aleatoires + 3-4 grosses foreground
-+ coeur lumineux blanc central (point de fuite).
+Couleurs DMT iconiques :
+  - Magenta saturé, Cyan electrique, Or pur
+  - Vert acide, Violet, Rose neon, Blanc highlight
 
-Le shader Java existant (renderHyperspace3D + 3 couches parallax 2D + crossfade
-A-B-C-D 50% + acceleration progressive) anime ces textures.
+Le shader Java existant (renderHyperspace3D + 3 couches parallax 2D
++ crossfade 50% + acceleration progressive) anime ces textures.
 
 Pour regenerer : python3 scripts-tools/generate_tunnel_v2.py
 """
 import os
 import math
-import random
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 SIZE = 1024
 SS = 2
@@ -38,327 +38,392 @@ DRAW = SIZE * SS
 CX = CY = DRAW // 2
 OUT_DIR = "mod-source/src/main/resources/assets/nexusabsolu/textures/gui/manifold"
 
-VOSS = [
-    (80, 0, 180), (160, 30, 255), (220, 80, 255), (0, 200, 255),
-    (50, 255, 255), (255, 220, 0), (255, 80, 200), (255, 255, 255),
-]
+# === PALETTE DMT ULTIME ===
+DMT = {
+    'magenta':    (255, 0, 200),
+    'magenta_d':  (180, 0, 140),
+    'cyan':       (0, 240, 255),
+    'cyan_d':     (0, 160, 200),
+    'or':         (255, 200, 0),
+    'or_d':       (200, 140, 0),
+    'vert':       (100, 255, 80),
+    'vert_d':     (60, 180, 50),
+    'violet':     (160, 30, 255),
+    'violet_d':   (100, 20, 180),
+    'rose':       (255, 100, 200),
+    'blanc':      (255, 255, 255),
+    'noir':       (10, 0, 20),
+}
 
 
 # ============================================================
-# Megastructures
+# Helpers geometriques
 # ============================================================
 
-def draw_dyson_sphere(draw, cx, cy, radius, color_idx=3, alpha=180):
-    """Sphere Dyson : cercle + grille latitudes/longitudes."""
-    color = VOSS[color_idx % 8]
+def regular_polygon(cx, cy, radius, n, rotation=0):
+    return [(cx + math.cos(rotation + 2*math.pi*i/n) * radius,
+             cy + math.sin(rotation + 2*math.pi*i/n) * radius)
+            for i in range(n)]
+
+
+def draw_polygon_layer(draw, cx, cy, radius, n_sides, rotation,
+                       color, alpha=255, fill=True, width=4):
+    """Dessine un polygone regulier (filled ou outline)."""
+    pts = regular_polygon(cx, cy, radius, n_sides, rotation)
     rgba = color + (alpha,)
-    draw.ellipse([cx-radius, cy-radius, cx+radius, cy+radius],
-                 outline=rgba, width=3*SS)
-    # Latitudes
-    for i in range(-3, 4):
-        lat_y = cy + i * radius * 0.22
-        h_factor = math.cos(i * math.pi / 8)
-        lat_w = radius * abs(h_factor)
-        if lat_w > 4:
-            draw.ellipse([cx-lat_w, lat_y-radius*0.02,
-                          cx+lat_w, lat_y+radius*0.02],
-                         outline=rgba, width=2*SS)
-    # Longitudes
-    for n in range(6):
-        a = n * math.pi / 6
-        long_w = radius * abs(math.cos(a))
-        if long_w > 4:
-            draw.ellipse([cx-long_w, cy-radius, cx+long_w, cy+radius],
-                         outline=color + (alpha//2,), width=SS)
+    if fill:
+        draw.polygon(pts, fill=rgba)
+    else:
+        draw.polygon(pts, outline=rgba, width=width*SS)
 
 
-def draw_ringworld(draw, cx, cy, radius, color_idx=5, alpha=200):
-    """Halo / Ringworld : grand anneau avec subdivisions internes."""
-    color = VOSS[color_idx % 8]
-    rgba = color + (alpha,)
-    ring_h = radius * 0.25
-    draw.ellipse([cx-radius, cy-ring_h, cx+radius, cy+ring_h],
-                 outline=rgba, width=4*SS)
-    draw.ellipse([cx-radius*0.92, cy-ring_h*0.92,
-                  cx+radius*0.92, cy+ring_h*0.92],
-                 outline=rgba, width=3*SS)
-    # Segments
-    n_seg = 36
-    for i in range(n_seg):
-        a = i * 2 * math.pi / n_seg
-        x_out = cx + math.cos(a) * radius
-        y_out = cy + math.sin(a) * ring_h
-        x_in = cx + math.cos(a) * radius * 0.92
-        y_in = cy + math.sin(a) * ring_h * 0.92
-        draw.line([x_in, y_in, x_out, y_out], fill=rgba, width=SS)
+# ============================================================
+# Iris cosmique (central) - parametrable par n_sides
+# ============================================================
 
+def draw_psychic_iris(draw, cx, cy, max_r, n_sides=0, rotation=0):
+    """
+    Iris cosmique central : 13 couches concentriques avec gradient + motifs.
 
-def draw_cube_borg(draw, cx, cy, size, color_idx=1, alpha=180):
-    """Cube 3D wireframe avec subdivisions internes."""
-    color = VOSS[color_idx % 8]
-    rgba = color + (alpha,)
-    s = size / 2
-    offset = s * 0.4
-    front = [(cx-s, cy-s), (cx+s, cy-s), (cx+s, cy+s), (cx-s, cy+s)]
-    back = [(p[0]+offset, p[1]-offset) for p in front]
-    for i in range(4):
-        draw.line([front[i], front[(i+1) % 4]], fill=rgba, width=2*SS)
-        draw.line([back[i], back[(i+1) % 4]], fill=rgba, width=2*SS)
-        draw.line([front[i], back[i]], fill=rgba, width=2*SS)
-    # Grid interne face avant
-    for i in range(1, 4):
-        f = i / 4
-        x1 = cx-s + f*2*s
-        draw.line([(x1, cy-s), (x1, cy+s)], fill=color + (alpha//3,), width=SS)
-        y1 = cy-s + f*2*s
-        draw.line([(cx-s, y1), (cx+s, y1)], fill=color + (alpha//3,), width=SS)
-
-
-def draw_citadel_tower(draw, cx, cy_base, height, width, color_idx=6, alpha=180):
-    """Tour citadelle gothique avec spire."""
-    color = VOSS[color_idx % 8]
-    rgba = color + (alpha,)
-    half_w = width / 2
-    cy_top = cy_base - height
-    draw.rectangle([cx-half_w, cy_top + height*0.2,
-                    cx+half_w, cy_base], outline=rgba, width=2*SS)
-    pts = [(cx-half_w, cy_top + height*0.25), (cx, cy_top),
-           (cx+half_w, cy_top + height*0.25)]
-    draw.polygon(pts, outline=rgba, width=2*SS)
-    for i in range(1, 6):
-        y = cy_base - (height * 0.7) * i / 6
-        draw.line([(cx-half_w, y), (cx+half_w, y)],
-                  fill=color + (alpha//2,), width=SS)
-
-
-def draw_pyramid(draw, cx, cy_base, size, color_idx=2, alpha=170):
-    """Pyramide 3D wireframe."""
-    color = VOSS[color_idx % 8]
-    rgba = color + (alpha,)
-    s = size / 2
-    cy_top = cy_base - size
-    base_pts = [
-        (cx-s, cy_base + s*0.2),
-        (cx+s, cy_base + s*0.2),
-        (cx+s*1.2, cy_base - s*0.1),
-        (cx-s*1.2, cy_base - s*0.1)
+    n_sides : 0 = cercles ronds, 3 = triangles, 6 = hexagones, etc.
+    """
+    layers = [
+        (1.00, DMT['magenta'],   200, 'fill'),
+        (0.95, DMT['magenta_d'], 230, 'ring'),
+        (0.85, DMT['or'],        180, 'fill'),
+        (0.80, DMT['or_d'],      255, 'ring'),
+        (0.70, DMT['cyan'],      200, 'fill'),
+        (0.65, DMT['cyan_d'],    255, 'ring'),
+        (0.55, DMT['violet'],    220, 'fill'),
+        (0.45, DMT['rose'],      230, 'fill'),
+        (0.35, DMT['vert'],      240, 'fill'),
+        (0.25, DMT['or'],        250, 'fill'),
+        (0.15, DMT['cyan'],      255, 'fill'),
+        (0.08, DMT['blanc'],     255, 'fill'),
+        (0.04, DMT['noir'],      255, 'fill'),  # pupille
     ]
-    for p in base_pts:
-        draw.line([p, (cx, cy_top)], fill=rgba, width=2*SS)
-    for i in range(4):
-        draw.line([base_pts[i], base_pts[(i+1)%4]], fill=rgba, width=2*SS)
-    for i in range(1, 5):
-        f = i / 5
-        s_at = s * (1 - f)
-        y_at = cy_base - size * f
-        draw.line([(cx-s_at, y_at), (cx+s_at, y_at)],
-                  fill=color + (alpha//2,), width=SS)
-
-
-def draw_death_star(draw, cx, cy, radius, color_idx=0, alpha=180):
-    """Sphere segmentee Death Star avec equateur + super-rayon."""
-    color = VOSS[color_idx % 8]
-    rgba = color + (alpha,)
-    draw.ellipse([cx-radius, cy-radius, cx+radius, cy+radius],
-                 outline=rgba, width=3*SS)
-    draw.line([(cx-radius, cy), (cx+radius, cy)], fill=rgba, width=3*SS)
-    for i in range(1, 4):
-        r = radius * (1 - i*0.2)
-        draw.arc([cx-r, cy-radius, cx+r, cy+radius-r*0.3],
-                 0, 180, fill=color + (alpha//2,), width=SS)
-    # Super-rayon
-    super_r = radius * 0.18
-    super_x = cx - radius * 0.45
-    super_y = cy - radius * 0.4
-    draw.ellipse([super_x-super_r, super_y-super_r,
-                  super_x+super_r, super_y+super_r],
-                 outline=rgba, width=2*SS)
-
-
-def draw_orbital_station(draw, cx, cy, size, color_idx=4, alpha=170):
-    """Station orbitale : croix + 4 modules + anneau central."""
-    color = VOSS[color_idx % 8]
-    rgba = color + (alpha,)
-    draw.line([(cx-size, cy), (cx+size, cy)], fill=rgba, width=2*SS)
-    draw.line([(cx, cy-size), (cx, cy+size)], fill=rgba, width=2*SS)
-    mod_r = size * 0.2
-    for dx, dy in [(-size, 0), (size, 0), (0, -size), (0, size)]:
-        draw.ellipse([cx+dx-mod_r, cy+dy-mod_r, cx+dx+mod_r, cy+dy+mod_r],
-                     outline=rgba, width=2*SS)
-    draw.ellipse([cx-size*0.4, cy-size*0.4, cx+size*0.4, cy+size*0.4],
-                 outline=rgba, width=2*SS)
-
-
-def draw_orbital_cylinder(draw, cx, cy, length, radius, angle=0,
-                           color_idx=2, alpha=160):
-    """Cylindre orbital style Rama (cylindre 3D wireframe)."""
-    color = VOSS[color_idx % 8]
-    rgba = color + (alpha,)
-    cos_a, sin_a = math.cos(angle), math.sin(angle)
-    x1 = cx - cos_a * length / 2
-    y1 = cy - sin_a * length / 2
-    x2 = cx + cos_a * length / 2
-    y2 = cy + sin_a * length / 2
-    perp_x, perp_y = -sin_a, cos_a
-    for offset_f in [-0.8, -0.4, 0, 0.4, 0.8]:
-        offset = radius * offset_f
-        x_a = x1 + perp_x * offset
-        y_a = y1 + perp_y * offset
-        x_b = x2 + perp_x * offset
-        y_b = y2 + perp_y * offset
-        draw.line([(x_a, y_a), (x_b, y_b)], fill=rgba, width=SS)
-    for ex, ey in [(x1, y1), (x2, y2)]:
-        draw.ellipse([ex-radius*0.3, ey-radius, ex+radius*0.3, ey+radius],
-                     outline=rgba, width=SS)
+    for i, (r_f, color, alpha, t) in enumerate(layers):
+        r = int(max_r * r_f)
+        # Rotation alternée par couche pour effet de "swirl"
+        rot = rotation + i * math.pi / 24
+        if n_sides == 0:
+            # Cercle classique
+            if t == 'fill':
+                draw.ellipse([cx-r, cy-r, cx+r, cy+r], fill=color + (alpha,))
+            else:
+                draw.ellipse([cx-r, cy-r, cx+r, cy+r],
+                             outline=color + (alpha,), width=4*SS)
+        else:
+            # Polygone
+            draw_polygon_layer(draw, cx, cy, r, n_sides, rot, color, alpha,
+                               fill=(t == 'fill'), width=4)
 
 
 # ============================================================
-# Dispatcher + populate background
+# Petales radiaux (geometrie + organique)
 # ============================================================
 
-TYPES = ['cube', 'tower', 'cylinder', 'pyramid', 'death_star', 'station', 'small_dyson']
+def draw_radial_petals(draw, cx, cy, r_in, r_out, n_petals, color,
+                        alpha=200, rotation=0, shape='petal'):
+    """
+    Petales radials qui pulsent vers l'exterieur.
+
+    shape : 'petal' (forme petale courbe), 'triangle' (aigu pointu),
+            'rectangle' (rayons droits), 'diamond' (losange)
+    """
+    rgba = color + (alpha,)
+    for i in range(n_petals):
+        a = rotation + i * 2 * math.pi / n_petals
+        a_next = rotation + (i + 1) * 2 * math.pi / n_petals
+        if shape == 'petal':
+            # Forme petale courbe (mid-point bombe)
+            pts = []
+            for t in [0, 0.5, 1]:
+                r_at = r_in + (r_out - r_in) * (1 - abs(t - 0.5) * 2)
+                offset_a = (t - 0.5) * (a_next - a) * 0.7
+                pts.append((cx + math.cos(a + offset_a) * r_at,
+                            cy + math.sin(a + offset_a) * r_at))
+            pts.append((cx + math.cos(a) * r_in, cy + math.sin(a) * r_in))
+            draw.polygon(pts, fill=rgba)
+        elif shape == 'triangle':
+            # Triangle aigu pointant vers l'exterieur
+            mid = (a + a_next) / 2
+            tip = (cx + math.cos(mid) * r_out, cy + math.sin(mid) * r_out)
+            base1 = (cx + math.cos(a) * r_in, cy + math.sin(a) * r_in)
+            base2 = (cx + math.cos(a_next) * r_in, cy + math.sin(a_next) * r_in)
+            draw.polygon([base1, tip, base2], fill=rgba)
+        elif shape == 'rectangle':
+            # Rayon rectangulaire droit (baton de lumiere)
+            mid = (a + a_next) / 2
+            half_width = (a_next - a) * 0.3
+            pts = [
+                (cx + math.cos(mid - half_width) * r_in,
+                 cy + math.sin(mid - half_width) * r_in),
+                (cx + math.cos(mid - half_width) * r_out,
+                 cy + math.sin(mid - half_width) * r_out),
+                (cx + math.cos(mid + half_width) * r_out,
+                 cy + math.sin(mid + half_width) * r_out),
+                (cx + math.cos(mid + half_width) * r_in,
+                 cy + math.sin(mid + half_width) * r_in),
+            ]
+            draw.polygon(pts, fill=rgba)
+        elif shape == 'diamond':
+            # Losange aux pointes interieur/exterieur
+            mid = (a + a_next) / 2
+            r_mid = (r_in + r_out) / 2
+            tip_in = (cx + math.cos(mid) * r_in, cy + math.sin(mid) * r_in)
+            tip_out = (cx + math.cos(mid) * r_out, cy + math.sin(mid) * r_out)
+            side1 = (cx + math.cos(a) * r_mid, cy + math.sin(a) * r_mid)
+            side2 = (cx + math.cos(a_next) * r_mid, cy + math.sin(a_next) * r_mid)
+            draw.polygon([tip_in, side1, tip_out, side2], fill=rgba)
 
 
-def place_random_structure(draw, type_name, x, y, sz, color_idx, alpha):
-    if type_name == 'cube':
-        draw_cube_borg(draw, x, y, sz, color_idx=color_idx, alpha=alpha)
-    elif type_name == 'tower':
-        draw_citadel_tower(draw, x, y, sz*1.5, sz*0.5,
-                           color_idx=color_idx, alpha=alpha)
-    elif type_name == 'cylinder':
-        draw_orbital_cylinder(draw, x, y, sz*2.5, sz*0.4,
-                              angle=random.uniform(0, math.pi),
-                              color_idx=color_idx, alpha=alpha)
-    elif type_name == 'pyramid':
-        draw_pyramid(draw, x, y, sz, color_idx=color_idx, alpha=alpha)
-    elif type_name == 'death_star':
-        draw_death_star(draw, x, y, sz, color_idx=color_idx, alpha=alpha)
-    elif type_name == 'station':
-        draw_orbital_station(draw, x, y, sz, color_idx=color_idx, alpha=alpha)
-    elif type_name == 'small_dyson':
-        draw_dyson_sphere(draw, x, y, sz, color_idx=color_idx, alpha=alpha)
-
-
-def populate_background(draw, n=15, seed=42, exclude_center=True):
-    """Disperse n structures aleatoires dans le canvas."""
-    random.seed(seed)
-    for _ in range(n):
-        type_name = random.choice(TYPES)
-        x = random.randint(int(DRAW*0.05), int(DRAW*0.95))
-        y = random.randint(int(DRAW*0.05), int(DRAW*0.95))
-        # Optionnel : eviter le centre pour pas surcharger le focal
-        if exclude_center:
-            dist_from_center = math.hypot(x - CX, y - CY)
-            if dist_from_center < DRAW * 0.15:
-                # Repousse vers l'exterieur
-                if dist_from_center == 0:
-                    x = int(DRAW * 0.7)
-                else:
-                    factor = (DRAW * 0.15) / dist_from_center
-                    x = int(CX + (x - CX) * factor)
-                    y = int(CY + (y - CY) * factor)
-        sz = random.randint(int(DRAW*0.04), int(DRAW*0.10))
-        alpha = random.randint(60, 130)
-        color_idx = random.randint(0, 7)
-        place_random_structure(draw, type_name, x, y, sz, color_idx, alpha)
-
-
-def draw_central_core(draw, cx, cy):
-    """Coeur lumineux central (point de fuite)."""
-    r = int(DRAW * 0.025)
-    draw.ellipse([cx-r, cy-r, cx+r, cy+r], fill=VOSS[7] + (240,))
-    # Halo subtil
-    r2 = int(DRAW * 0.05)
-    draw.ellipse([cx-r2, cy-r2, cx+r2, cy+r2],
-                 outline=VOSS[7] + (80,), width=2*SS)
+def draw_concentric_mandala_rings(draw, cx, cy, max_r, palette_seq,
+                                    n_rings=6, shape='petal'):
+    """Anneaux de mandala concentriques type tunnel perspective."""
+    for i in range(n_rings):
+        f = i / n_rings
+        r_out = max_r * (1 - f * 0.85)
+        r_in = max_r * (1 - (f + 1) / (n_rings + 1) * 0.85)
+        n_petals = 24 + i * 6
+        rotation = i * math.pi / 12
+        color = palette_seq[i % len(palette_seq)]
+        alpha = int(180 - i * 15)
+        draw_radial_petals(draw, cx, cy, r_in, r_out, n_petals, color, alpha,
+                           rotation, shape=shape)
 
 
 # ============================================================
-# 4 variantes avec structures dominantes differentes
+# Tendrils organiques (psy curves)
+# ============================================================
+
+def draw_psy_tendrils(draw, cx, cy, max_r, n_tendrils=16, palette=None):
+    """Courbes organiques qui ondulent du centre vers l'exterieur."""
+    if palette is None:
+        palette = [DMT['vert'], DMT['cyan'], DMT['rose'], DMT['or']]
+    for i in range(n_tendrils):
+        base_angle = i * 2 * math.pi / n_tendrils
+        n_pts = 50
+        pts = []
+        for j in range(n_pts):
+            t = j / (n_pts - 1)
+            r = max_r * 0.15 + t * max_r * 0.85
+            wobble = math.sin(t * math.pi * 4 + i * 0.5) * 0.15
+            angle = base_angle + wobble + t * math.pi * 0.3
+            pts.append((cx + math.cos(angle) * r, cy + math.sin(angle) * r))
+        color = palette[i % len(palette)]
+        for k in range(len(pts) - 1):
+            alpha = int(80 + (k / len(pts)) * 100)
+            draw.line([pts[k], pts[k+1]], fill=color + (alpha,), width=3*SS)
+
+
+# ============================================================
+# Sacred geometry overlays (formes specifiques aux variantes)
+# ============================================================
+
+def draw_flower_of_life(draw, cx, cy, base_r, color, alpha=180):
+    """7 cercles imbriques (fleur de vie)."""
+    rgba = color + (alpha,)
+    centers = [(cx, cy)]
+    for i in range(6):
+        a = i * math.pi / 3
+        centers.append((cx + math.cos(a) * base_r, cy + math.sin(a) * base_r))
+    for ccx, ccy in centers:
+        draw.ellipse([ccx-base_r, ccy-base_r, ccx+base_r, ccy+base_r],
+                     outline=rgba, width=3*SS)
+
+
+def draw_hexagonal_lattice(draw, cx, cy, max_r, color, alpha=160):
+    """Reseau hexagonal sacre."""
+    rgba = color + (alpha,)
+    for i in range(3):
+        r = max_r * (0.30 + i * 0.20)
+        pts = regular_polygon(cx, cy, r, 6, i * math.pi/12)
+        draw.polygon(pts, outline=rgba, width=3*SS)
+
+
+def draw_star_of_david(draw, cx, cy, max_r, color, alpha=200):
+    """2 triangles superposes."""
+    rgba = color + (alpha,)
+    pts1 = regular_polygon(cx, cy, max_r, 3, 0)
+    pts2 = regular_polygon(cx, cy, max_r, 3, math.pi/3)
+    draw.polygon(pts1, outline=rgba, width=4*SS)
+    draw.polygon(pts2, outline=rgba, width=4*SS)
+
+
+def draw_octagram(draw, cx, cy, max_r, color, alpha=200):
+    """Etoile a 8 branches."""
+    rgba = color + (alpha,)
+    pts1 = regular_polygon(cx, cy, max_r, 4, 0)
+    pts2 = regular_polygon(cx, cy, max_r, 4, math.pi/4)
+    draw.polygon(pts1, outline=rgba, width=4*SS)
+    draw.polygon(pts2, outline=rgba, width=4*SS)
+
+
+# ============================================================
+# 4 variantes DMT - formes differentes
 # ============================================================
 
 def make_variant_A():
-    """DYSON SPHERE - sphere geante centrale + ringworld + 15 background."""
+    """ROND - mandala circulaire DMT classique (oeil cosmique)."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img, 'RGBA')
-    populate_background(d, n=15, seed=42)
-    # Foreground principal
-    draw_ringworld(d, CX, int(DRAW*0.25), int(DRAW*0.42), color_idx=5, alpha=220)
-    draw_dyson_sphere(d, CX, CY, int(DRAW*0.22), color_idx=3, alpha=220)
-    draw_central_core(d, CX, CY)
+
+    # COUCHE 1 : Background mandala diffus avec glow
+    bg = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    bg_d = ImageDraw.Draw(bg, 'RGBA')
+    palette = [DMT['magenta'], DMT['or'], DMT['cyan'],
+               DMT['violet'], DMT['rose'], DMT['vert']]
+    draw_concentric_mandala_rings(bg_d, CX, CY, DRAW * 0.48, palette,
+                                   n_rings=6, shape='petal')
+    bg_glow = bg.filter(ImageFilter.GaussianBlur(radius=40))
+    img = Image.alpha_composite(img, bg_glow)
+    img = Image.alpha_composite(img, bg)
+
+    # COUCHE 2 : Tendrils organiques
+    tendrils = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    t_d = ImageDraw.Draw(tendrils, 'RGBA')
+    draw_psy_tendrils(t_d, CX, CY, DRAW * 0.48)
+    img = Image.alpha_composite(img, tendrils)
+
+    # COUCHE 3 : Sacred overlay (fleur de vie)
+    sacred = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    s_d = ImageDraw.Draw(sacred, 'RGBA')
+    draw_flower_of_life(s_d, CX, CY, DRAW * 0.13, DMT['or'], 160)
+    img = Image.alpha_composite(img, sacred)
+
+    # COUCHE 4 : Iris central rond + glow
+    iris = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    iris_d = ImageDraw.Draw(iris, 'RGBA')
+    draw_psychic_iris(iris_d, CX, CY, DRAW * 0.20, n_sides=0)
+    iris_glow = iris.filter(ImageFilter.GaussianBlur(radius=25))
+    img = Image.alpha_composite(img, iris_glow)
+    img = Image.alpha_composite(img, iris)
+
     return img.resize((SIZE, SIZE), Image.LANCZOS)
 
 
 def make_variant_B():
-    """HALO RINGWORLD - 2 anneaux geants + cylindres orbitaux + 15 background."""
+    """HEXAGONAL - iris hex, petales triangulaires, palette cyan/vert."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img, 'RGBA')
-    populate_background(d, n=15, seed=84)
-    # 2 ringworlds entrelacés
-    draw_ringworld(d, CX, int(DRAW*0.30), int(DRAW*0.45), color_idx=4, alpha=220)
-    draw_ringworld(d, CX, int(DRAW*0.55), int(DRAW*0.40), color_idx=6, alpha=220)
-    # 3 cylindres orbitaux geants
-    for i, (offx, offy, ang) in enumerate([
-        (-0.2, 0.0, math.pi/4),
-        (0.25, -0.1, -math.pi/3),
-        (0.0, 0.2, math.pi/6),
-    ]):
-        draw_orbital_cylinder(d, int(CX + offx*DRAW), int(CY + offy*DRAW),
-                              int(DRAW*0.25), int(DRAW*0.04), angle=ang,
-                              color_idx=2 + i, alpha=200)
-    draw_central_core(d, CX, CY)
+
+    # COUCHE 1 : Background avec petales triangulaires
+    bg = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    bg_d = ImageDraw.Draw(bg, 'RGBA')
+    palette = [DMT['cyan'], DMT['vert'], DMT['or'],
+               DMT['cyan_d'], DMT['vert_d'], DMT['blanc']]
+    draw_concentric_mandala_rings(bg_d, CX, CY, DRAW * 0.48, palette,
+                                   n_rings=6, shape='triangle')
+    bg_glow = bg.filter(ImageFilter.GaussianBlur(radius=40))
+    img = Image.alpha_composite(img, bg_glow)
+    img = Image.alpha_composite(img, bg)
+
+    # COUCHE 2 : Tendrils
+    tendrils = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    t_d = ImageDraw.Draw(tendrils, 'RGBA')
+    draw_psy_tendrils(t_d, CX, CY, DRAW * 0.48,
+                      palette=[DMT['cyan'], DMT['vert'], DMT['or']])
+    img = Image.alpha_composite(img, tendrils)
+
+    # COUCHE 3 : Reseau hexagonal sacre
+    sacred = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    s_d = ImageDraw.Draw(sacred, 'RGBA')
+    draw_hexagonal_lattice(s_d, CX, CY, DRAW * 0.45, DMT['cyan_d'], 180)
+    img = Image.alpha_composite(img, sacred)
+
+    # COUCHE 4 : Iris HEXAGONAL central + glow
+    iris = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    iris_d = ImageDraw.Draw(iris, 'RGBA')
+    draw_psychic_iris(iris_d, CX, CY, DRAW * 0.20, n_sides=6)
+    iris_glow = iris.filter(ImageFilter.GaussianBlur(radius=25))
+    img = Image.alpha_composite(img, iris_glow)
+    img = Image.alpha_composite(img, iris)
+
     return img.resize((SIZE, SIZE), Image.LANCZOS)
 
 
 def make_variant_C():
-    """CITADELLES GOTHIQUES - cluster de tours + pyramides + 15 background."""
+    """TRIANGULAIRE - etoile David, petales diamants, palette violet/rose."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img, 'RGBA')
-    populate_background(d, n=15, seed=126)
-    # 5 grandes tours citadelles
-    tower_positions = [
-        (0.20, 0.85, 0.35, 6),
-        (0.40, 0.85, 0.30, 1),
-        (0.55, 0.80, 0.40, 2),
-        (0.70, 0.85, 0.32, 5),
-        (0.85, 0.80, 0.28, 7),
-    ]
-    for x_f, y_f, h_f, color_idx in tower_positions:
-        h = int(DRAW * h_f)
-        draw_citadel_tower(d, int(DRAW * x_f), int(DRAW * y_f),
-                           h, h*0.18, color_idx=color_idx, alpha=210)
-    # 2 grandes pyramides
-    draw_pyramid(d, int(DRAW*0.30), int(DRAW*0.45), int(DRAW*0.15),
-                 color_idx=2, alpha=200)
-    draw_pyramid(d, int(DRAW*0.75), int(DRAW*0.40), int(DRAW*0.18),
-                 color_idx=6, alpha=200)
-    draw_central_core(d, CX, CY)
+
+    # COUCHE 1 : Background avec rayons diamants
+    bg = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    bg_d = ImageDraw.Draw(bg, 'RGBA')
+    palette = [DMT['violet'], DMT['rose'], DMT['or'],
+               DMT['magenta'], DMT['violet_d'], DMT['blanc']]
+    draw_concentric_mandala_rings(bg_d, CX, CY, DRAW * 0.48, palette,
+                                   n_rings=6, shape='diamond')
+    bg_glow = bg.filter(ImageFilter.GaussianBlur(radius=40))
+    img = Image.alpha_composite(img, bg_glow)
+    img = Image.alpha_composite(img, bg)
+
+    # COUCHE 2 : Tendrils
+    tendrils = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    t_d = ImageDraw.Draw(tendrils, 'RGBA')
+    draw_psy_tendrils(t_d, CX, CY, DRAW * 0.48,
+                      palette=[DMT['violet'], DMT['rose'], DMT['or'], DMT['magenta']])
+    img = Image.alpha_composite(img, tendrils)
+
+    # COUCHE 3 : 3 etoiles de David imbriquees
+    sacred = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    s_d = ImageDraw.Draw(sacred, 'RGBA')
+    for i, scale in enumerate([0.45, 0.30, 0.18]):
+        color = [DMT['or'], DMT['rose'], DMT['blanc']][i]
+        draw_star_of_david(s_d, CX, CY, DRAW * scale, color, 200 - i*40)
+    img = Image.alpha_composite(img, sacred)
+
+    # COUCHE 4 : Iris TRIANGULAIRE central (3 cotes) + glow
+    iris = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    iris_d = ImageDraw.Draw(iris, 'RGBA')
+    draw_psychic_iris(iris_d, CX, CY, DRAW * 0.20, n_sides=3)
+    iris_glow = iris.filter(ImageFilter.GaussianBlur(radius=25))
+    img = Image.alpha_composite(img, iris_glow)
+    img = Image.alpha_composite(img, iris)
+
     return img.resize((SIZE, SIZE), Image.LANCZOS)
 
 
 def make_variant_D():
-    """DEATH STAR FLEET - cluster de Death Stars + cubes Borg + 15 background."""
+    """MIXED EXPLOSION - mix de toutes formes (PEAK)."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img, 'RGBA')
-    populate_background(d, n=15, seed=168)
-    # 4 Death Stars de tailles variees
-    death_star_positions = [
-        (CX, CY, int(DRAW*0.18), 0),
-        (int(DRAW*0.25), int(DRAW*0.30), int(DRAW*0.10), 1),
-        (int(DRAW*0.75), int(DRAW*0.70), int(DRAW*0.12), 2),
-        (int(DRAW*0.20), int(DRAW*0.75), int(DRAW*0.08), 5),
-    ]
-    for x, y, r, color_idx in death_star_positions:
-        draw_death_star(d, x, y, r, color_idx=color_idx, alpha=210)
-    # 3 cubes Borg geants
-    cube_positions = [
-        (int(DRAW*0.80), int(DRAW*0.20), int(DRAW*0.16), 4),
-        (int(DRAW*0.85), int(DRAW*0.85), int(DRAW*0.13), 6),
-        (int(DRAW*0.15), int(DRAW*0.50), int(DRAW*0.11), 3),
-    ]
-    for x, y, sz, color_idx in cube_positions:
-        draw_cube_borg(d, x, y, sz, color_idx=color_idx, alpha=210)
-    draw_central_core(d, CX, CY)
+
+    # COUCHE 1 : Background petales rectangles (rayons droits = energie)
+    bg = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    bg_d = ImageDraw.Draw(bg, 'RGBA')
+    palette = [DMT['magenta'], DMT['cyan'], DMT['or'], DMT['violet'],
+               DMT['rose'], DMT['vert'], DMT['blanc']]
+    draw_concentric_mandala_rings(bg_d, CX, CY, DRAW * 0.48, palette,
+                                   n_rings=8, shape='rectangle')
+    bg_glow = bg.filter(ImageFilter.GaussianBlur(radius=50))
+    img = Image.alpha_composite(img, bg_glow)
+    img = Image.alpha_composite(img, bg)
+
+    # COUCHE 2 : Tendrils intenses
+    tendrils = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    t_d = ImageDraw.Draw(tendrils, 'RGBA')
+    draw_psy_tendrils(t_d, CX, CY, DRAW * 0.48, n_tendrils=24,
+                      palette=[DMT['magenta'], DMT['cyan'], DMT['or'],
+                               DMT['vert'], DMT['rose']])
+    img = Image.alpha_composite(img, tendrils)
+
+    # COUCHE 3 : MULTIPLES sacred overlays
+    sacred = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    s_d = ImageDraw.Draw(sacred, 'RGBA')
+    draw_octagram(s_d, CX, CY, DRAW * 0.42, DMT['cyan'], 180)
+    draw_star_of_david(s_d, CX, CY, DRAW * 0.32, DMT['rose'], 160)
+    draw_hexagonal_lattice(s_d, CX, CY, DRAW * 0.40, DMT['or'], 160)
+    draw_flower_of_life(s_d, CX, CY, DRAW * 0.10, DMT['blanc'], 200)
+    img = Image.alpha_composite(img, sacred)
+
+    # COUCHE 4 : Iris OCTOGONAL central (8 cotes) + double glow
+    iris = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    iris_d = ImageDraw.Draw(iris, 'RGBA')
+    draw_psychic_iris(iris_d, CX, CY, DRAW * 0.22, n_sides=8)
+    iris_glow1 = iris.filter(ImageFilter.GaussianBlur(radius=15))
+    iris_glow2 = iris.filter(ImageFilter.GaussianBlur(radius=40))
+    img = Image.alpha_composite(img, iris_glow2)
+    img = Image.alpha_composite(img, iris_glow1)
+    img = Image.alpha_composite(img, iris)
+
     return img.resize((SIZE, SIZE), Image.LANCZOS)
 
 
@@ -401,13 +466,13 @@ if __name__ == "__main__":
     os.makedirs(OUT_DIR, exist_ok=True)
 
     variants = {
-        "a": ("DYSON SPHERE + RINGWORLD", make_variant_A),
-        "b": ("HALO RINGWORLDS + CYLINDRES", make_variant_B),
-        "c": ("CITADELLES GOTHIQUES + PYRAMIDES", make_variant_C),
-        "d": ("DEATH STAR FLEET + CUBES BORG", make_variant_D),
+        "a": ("ROND - mandala circulaire DMT", make_variant_A),
+        "b": ("HEXAGONAL - cyan/vert", make_variant_B),
+        "c": ("TRIANGULAIRE - violet/rose", make_variant_C),
+        "d": ("MIXED EXPLOSION - PEAK", make_variant_D),
     }
 
-    print("=== Generation 4 textures tunnel MEGASTRUCTURES ===\n")
+    print("=== Generation 4 textures tunnel DMT ULTIME ===\n")
 
     for letter, (label, fn) in variants.items():
         print(f"  Variant {letter.upper()} - {label}...")
