@@ -544,22 +544,22 @@ def generate_frame(frame_idx):
     t = frame_idx * 1.0  # phase de temps
     
     # Mouvement de l'oeil : balaye dans differentes directions au fil du temps
-    # look_a oscille entre -pi et pi en sin lent
-    eye_look_a = math.sin(t * 0.18) * math.pi  # cycle complet ~35 frames
-    eye_look_strength = 0.10 + abs(math.sin(t * 0.24)) * 0.20  # 0.10 -> 0.30
+    # Coefficients accelere x2.5 pour mouvement plus vivant in-game
+    eye_look_a = math.sin(t * 0.45) * math.pi  # cycle ~14 frames (was 35)
+    eye_look_strength = 0.10 + abs(math.sin(t * 0.60)) * 0.20  # cycle ~10 frames
     
-    # Pupille pulse organique (battement a frequence intermediaire)
-    pupil_breath = 1.0 + math.sin(t * 0.45) * 0.08
+    # Pupille pulse rapide (battement vivant)
+    pupil_breath = 1.0 + math.sin(t * 1.10) * 0.10  # cycle ~6 frames
     
-    # Clignements : tres rapides (1 frame) sur frames specifiques
-    # Eviter en phase IRIS (oeil deja en train de s'ouvrir)
-    blink_frames = {25, 38, 53}  # 3 clignements bien espaces
+    # Clignements PLUS FREQUENTS : tous les ~8 frames apres frame 10
+    # In-game (600ms/frame) ca fait 1 clin toutes les 4-5 secondes (naturel humain)
+    blink_frames = {12, 20, 28, 35, 42, 49, 55}  # 7 clins espaces
     is_blinking = frame_idx in blink_frames
     
-    # Animations entite (toutes en sin pour boucler proprement)
-    entity_breath = math.sin(t * 0.30)         # respiration -1 -> 1
-    entity_head_sway = math.sin(t * 0.22)      # oscillation tete -1 -> 1
-    entity_star_twinkle = math.sin(t * 0.55)   # scintillement etoile -1 -> 1
+    # Animations entite (acceleration x2.5 pour mouvement vivant)
+    entity_breath = math.sin(t * 0.75)         # cycle ~8 frames (respiration rapide)
+    entity_head_sway = math.sin(t * 0.55)      # cycle ~11 frames (oscillation)
+    entity_star_twinkle = math.sin(t * 1.30)   # cycle ~5 frames (scintillement rapide)
     
     # === Parametres oeil selon la phase ===
     eye_openness = 1.0
