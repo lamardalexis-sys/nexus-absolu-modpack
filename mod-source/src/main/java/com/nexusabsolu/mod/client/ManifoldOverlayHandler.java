@@ -95,22 +95,27 @@ public class ManifoldOverlayHandler {
     //   18-29 (12) : FACES 3 visages superposes puis fusion
     //   30-41 (12) : METAMORPHOSE visage or -> entite humanoide verte
     //   42-49 (8)  : ENTITY_LOOP entite finale + etoile pulse
-    //   ENTITY MORPHING - 240 frames sur 5 phases (effet quasi-video) :
+    //   ENTITY MORPHING - 300 frames sur 6 phases (effet quasi-video) :
     //   IRIS        : 0-31    (32)  - oeil semi-realiste qui s'ouvre
     //   CRACK       : 32-87   (56)  - cracks rouge sang autour de l'oeil
-    //   FACES       : 88-143  (56)  - visages organiques chair sombre apparaissent
+    //   FACES       : 88-143  (56)  - visages organiques chair sombre
     //   METAMORPHOSE: 144-199 (56)  - tentacules sortent + entite se forme
-    //   ENTITY_LOOP : 200-239 (40)  - entite finale + aureole d'yeux flottants (loop)
-    //   L'oeil au centre reste IDENTIQUE durant les 240 frames (point d'ancrage psychique).
-    private static final ResourceLocation[] ENTITY_FRAMES = new ResourceLocation[240];
+    //   ENTITY_LOOP : 200-239 (40)  - entite finale (loop ~30s du PEAK)
+    //   NDE         : 240-299 (60)  - Near-Death Experience one-shot (~30s)
+    //                                 5 sous-phases : decorporation, hyperspace,
+    //                                 crystal_palace, past_lives, blackout.
+    //                                 Effets painterly ULTRA appliques (distortion,
+    //                                 cosmic noise, chromatic aberration, grain).
+    private static final ResourceLocation[] ENTITY_FRAMES = new ResourceLocation[300];
     static {
-        for (int i = 0; i < 240; i++) {
+        for (int i = 0; i < 300; i++) {
             ENTITY_FRAMES[i] = new ResourceLocation(
                 "nexusabsolu", "textures/gui/manifold/entity_" + i + ".png");
         }
     }
-    private static final int N_ENTITY_MORPH_FRAMES = 200; // frames 0..199 = morphing one-shot
+    private static final int N_ENTITY_MORPH_FRAMES = 200; // frames 0..199 = morphing
     private static final int N_ENTITY_LOOP_FRAMES = 40;   // frames 200..239 = loop entity
+    private static final int N_NDE_FRAMES = 60;           // frames 240..299 = NDE one-shot
 
     private static final int MANDALA_FRAME_DURATION = 100;  // 5s per mandala frame
     private static final int ENTITY_FRAME_DURATION = 3;    // ~150ms par frame, 6.6 fps brut
@@ -908,14 +913,14 @@ public class ManifoldOverlayHandler {
      * Selection de la frame d'entite (en float pour crossfade) selon le
      * peakProgress.
      *
-     * v1.0.343 : morphing raccourci 45s -> 30s pour densifier l'animation
-     * (1.4 keyframes/s au lieu de 0.93). L'entite finale a maintenant 60s
-     * de temps de scene au lieu de 45s.
+     * v1.0.343 : morphing raccourci 45s -> 30s pour densifier l'animation.
+     * v1.0.350 : ajout phase NDE (60 frames one-shot) en fin de PEAK.
      *
      * Logique :
      *   - PEAK = [0.5, 0.6875] du trip (~90s)
-     *   - 1ere tranche (0.5..0.5625, ~30s) -> 200 frames de morphing one-shot
-     *   - 2eme tranche (0.5625..0.6875, ~60s) -> 40 frames loop entity (cycle 6s)
+     *   - 1ere tranche (0.5..0.5625, ~30s)    -> 200 frames de morphing one-shot
+     *   - 2eme tranche (0.5625..0.625, ~30s)  -> 40 frames loop entity (cycle 6s)
+     *   - 3eme tranche (0.625..0.6875, ~30s)  -> 60 frames NDE one-shot (240..299)
      *   - Hors PEAK -> N_ENTITY_MORPH_FRAMES (defaut entite statique)
      */
     private float computeEntityFrameFloat(long t) {
@@ -924,6 +929,8 @@ public class ManifoldOverlayHandler {
         final float PEAK_END = ManifoldEffectHandler.STAGE_5_PEAK_END;         // 0.6875
         // 30s morphing = 1/3 du PEAK (90s total)
         final float MORPH_END = PEAK_START + (PEAK_END - PEAK_START) / 3.0f;   // ~0.5625
+        // 30s entity loop = 1/3 du PEAK
+        final float LOOP_END = PEAK_START + (PEAK_END - PEAK_START) * 2.0f / 3.0f; // ~0.625
 
         if (progress < PEAK_START || progress >= PEAK_END) {
             return (float) N_ENTITY_MORPH_FRAMES;  // 1ere frame du loop entity = defaut
@@ -935,11 +942,19 @@ public class ManifoldOverlayHandler {
             return morphFrac * N_ENTITY_MORPH_FRAMES;
         }
 
-        // Phase loop : frames N_ENTITY_MORPH_FRAMES..end BPM-sync, en float pour crossfade
-        long ticksSinceMorphEnd = t - (long) (PEAK_START * ManifoldEffectHandler.TRIP_DURATION);
-        float subTicks = (float) (ticksSinceMorphEnd % ENTITY_FRAME_DURATION) / ENTITY_FRAME_DURATION;
-        int loopFrame = (int) ((t / ENTITY_FRAME_DURATION) % N_ENTITY_LOOP_FRAMES);
-        return N_ENTITY_MORPH_FRAMES + loopFrame + subTicks;
+        if (progress < LOOP_END) {
+            // Phase loop entity : frames 200..239 BPM-sync, en float pour crossfade
+            long ticksSinceMorphEnd = t - (long) (PEAK_START * ManifoldEffectHandler.TRIP_DURATION);
+            float subTicks = (float) (ticksSinceMorphEnd % ENTITY_FRAME_DURATION) / ENTITY_FRAME_DURATION;
+            int loopFrame = (int) ((t / ENTITY_FRAME_DURATION) % N_ENTITY_LOOP_FRAMES);
+            return N_ENTITY_MORPH_FRAMES + loopFrame + subTicks;
+        }
+
+        // Phase NDE : map progress lineairement sur N_ENTITY_MORPH_FRAMES + N_ENTITY_LOOP_FRAMES
+        // ..N_ENTITY_MORPH_FRAMES + N_ENTITY_LOOP_FRAMES + N_NDE_FRAMES (= 240..299)
+        // One-shot : pas de loop, defile lineairement vers le blackout final.
+        float ndeFrac = (progress - LOOP_END) / (PEAK_END - LOOP_END);
+        return (float) (N_ENTITY_MORPH_FRAMES + N_ENTITY_LOOP_FRAMES) + ndeFrac * N_NDE_FRAMES;
     }
 
     /**
