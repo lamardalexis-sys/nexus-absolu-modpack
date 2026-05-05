@@ -901,7 +901,23 @@ public class ManifoldOverlayHandler {
         // Drift de rotation global (effet vortex)
         float globalRot = (float)(((double) t * 0.5) % 360.0);
 
-        float baseAlpha = intensity * 0.55f;
+        // v1.0.353 : Detection du PEAK pour attenuer tunnel + supprimer rings/ghosts
+        // Pendant le PEAK le focus doit etre sur l'entite, pas sur les elements
+        // du tunnel qui creeraient un chaos visuel.
+        float progress = ManifoldClientState.getTripProgress(t);
+        float peakStart = ManifoldEffectHandler.STAGE_4_HYPERSPACE_END;
+        // Scale tunnel : 1.0 hors PEAK, descend smoothly a 0.4 pendant les
+        // premieres 5% du trip apres entree en PEAK
+        float peakDamp = 1.0f;
+        if (progress >= peakStart) {
+            float t01 = (progress - peakStart) / 0.05f;
+            if (t01 > 1.0f) t01 = 1.0f;
+            // Smootherstep de 1.0 vers 0.4
+            float s = t01 * t01 * (3f - 2f * t01);
+            peakDamp = 1.0f - s * 0.6f; // 1.0 -> 0.4
+        }
+
+        float baseAlpha = intensity * 0.55f * peakDamp;
         if (baseAlpha < 0.01f) return;
 
         float cx = w / 2.0f;
@@ -916,13 +932,24 @@ public class ManifoldOverlayHandler {
                                     baseAlpha * vFade, vB);
         }
 
-        // === ANNEAUX STARGATE : 12 anneaux concentriques en perspective ===
-        // Effet "Stargate" : on traverse des cercles qui s'eloignent de plus en plus.
-        renderHyperspaceRings(w, h, t, intensity, zSpeed, zRange, globalRot);
-
-        // === GHOST FIGURES : silhouettes humaines = vies infinies qui defilent ===
-        // Defilent legerement plus vite que les quads pour effet "vies qui passent".
-        renderGhostFigures(w, h, t, intensity, zSpeed * 1.3f, zRange);
+        // v1.0.353 : RINGS + GHOSTS SEULEMENT pendant HYPERSPACE PUR (pas PEAK).
+        // Ces elements creent du chaos visuel pendant le PEAK ou on veut juste
+        // l'entite + occluder. Fade smooth a 0 sur les premieres 5% du PEAK.
+        float ringsGhostScale = 1.0f;
+        if (progress >= peakStart) {
+            float t01 = (progress - peakStart) / 0.05f;
+            if (t01 > 1.0f) t01 = 1.0f;
+            float s = t01 * t01 * (3f - 2f * t01);
+            ringsGhostScale = 1.0f - s; // 1.0 -> 0.0
+        }
+        if (ringsGhostScale > 0.01f) {
+            // === ANNEAUX STARGATE : 12 anneaux concentriques en perspective ===
+            renderHyperspaceRings(w, h, t, intensity * ringsGhostScale,
+                                   zSpeed, zRange, globalRot);
+            // === GHOST FIGURES : silhouettes humaines = vies infinies ===
+            renderGhostFigures(w, h, t, intensity * ringsGhostScale,
+                                zSpeed * 1.3f, zRange);
+        }
     }
 
     private void renderHyperspace3DPass(Minecraft mc, int w, int h, long t,
