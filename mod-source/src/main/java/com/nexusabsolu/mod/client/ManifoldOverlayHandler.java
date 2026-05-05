@@ -802,15 +802,15 @@ public class ManifoldOverlayHandler {
         GlStateManager.popMatrix();
     }
 
-    // === FAUX 3D : ~32 quads precomputes en perspective ===
+    // === FAUX 3D : 80 quads precomputes en perspective (boost x2.5 vs avant) ===
     // Init seede dans static block pour reproductibilite.
-    private static final int N_HYPER_QUADS = 32;
+    private static final int N_HYPER_QUADS = 80;
     private static final float[] HYPER_X = new float[N_HYPER_QUADS];   // [-1..1]
     private static final float[] HYPER_Y = new float[N_HYPER_QUADS];   // [-1..1]
     private static final float[] HYPER_Z = new float[N_HYPER_QUADS];   // [HYPER_Z_NEAR..HYPER_Z_FAR]
     private static final float[] HYPER_ROT = new float[N_HYPER_QUADS]; // rotation initiale
     private static final float HYPER_Z_NEAR = 0.5f;
-    private static final float HYPER_Z_FAR = 50.0f;
+    private static final float HYPER_Z_FAR = 100.0f;  // 50 -> 100 : 2x plus de profondeur
     private static final float HYPER_FOCAL = 250.0f; // distance focale (pixels) -- joue sur la taille
     static {
         java.util.Random rng = new java.util.Random(2026L);
@@ -819,6 +819,49 @@ public class ManifoldOverlayHandler {
             HYPER_Y[i] = rng.nextFloat() * 2.0f - 1.0f;
             HYPER_Z[i] = HYPER_Z_NEAR + rng.nextFloat() * (HYPER_Z_FAR - HYPER_Z_NEAR);
             HYPER_ROT[i] = rng.nextFloat() * 360.0f;
+        }
+    }
+
+    // === ANNEAUX STARGATE : 12 anneaux concentriques en perspective ===
+    // Chaque anneau a une position Z et un angle de rotation initial.
+    private static final int N_HYPER_RINGS = 12;
+    private static final float[] RING_Z = new float[N_HYPER_RINGS];
+    private static final float[] RING_ROT = new float[N_HYPER_RINGS];
+    static {
+        java.util.Random ringRng = new java.util.Random(2027L);
+        // Distribution uniforme de Z pour avoir des anneaux a toutes les profondeurs
+        for (int i = 0; i < N_HYPER_RINGS; i++) {
+            RING_Z[i] = HYPER_Z_NEAR + (i + 0.5f) / N_HYPER_RINGS *
+                        (HYPER_Z_FAR - HYPER_Z_NEAR);
+            RING_ROT[i] = ringRng.nextFloat() * 360.0f;
+        }
+    }
+
+    // === GHOST FIGURES : 12 silhouettes humaines en perspective 3D ===
+    // Representent les "vies infinies" qui defilent dans le tunnel hyperspace.
+    private static final int N_GHOST_FIGURES = 12;
+    private static final float[] GHOST_X = new float[N_GHOST_FIGURES];
+    private static final float[] GHOST_Y = new float[N_GHOST_FIGURES];
+    private static final float[] GHOST_Z = new float[N_GHOST_FIGURES];
+    private static final int[] GHOST_ERA = new int[N_GHOST_FIGURES]; // 0..5 era
+    // Couleurs par era : caveman / antique / medieval / modern / future / cosmic
+    private static final float[][] GHOST_ERA_COLORS = {
+        {1.0f, 0.55f, 0.15f},  // 0 caveman orange chaud
+        {1.0f, 0.85f, 0.30f},  // 1 antique gold
+        {1.0f, 0.40f, 0.70f},  // 2 medieval rose
+        {0.20f, 0.85f, 1.0f},  // 3 modern cyan
+        {0.40f, 1.0f, 0.40f},  // 4 future green acid
+        {0.75f, 0.25f, 1.0f},  // 5 cosmic violet
+    };
+    static {
+        java.util.Random ghostRng = new java.util.Random(2028L);
+        for (int i = 0; i < N_GHOST_FIGURES; i++) {
+            // Dispersion plus large que les quads (angles plus aux bords)
+            GHOST_X[i] = (ghostRng.nextFloat() * 2.0f - 1.0f) * 1.2f;
+            GHOST_Y[i] = (ghostRng.nextFloat() * 2.0f - 1.0f) * 1.2f;
+            GHOST_Z[i] = HYPER_Z_NEAR + ghostRng.nextFloat() *
+                        (HYPER_Z_FAR - HYPER_Z_NEAR);
+            GHOST_ERA[i] = ghostRng.nextInt(6);
         }
     }
 
@@ -839,8 +882,8 @@ public class ManifoldOverlayHandler {
     private void renderHyperspace3D(Minecraft mc, int w, int h, long t,
                                      float intensity, float accel,
                                      int vA, int vB, float vFade) {
-        // Vitesse de defilement Z par tick (1.0 = avance moyenne)
-        float zSpeed = 0.20f * accel;
+        // v1.0.351 : Vitesse de defilement Z par tick BOOST (0.20 -> 0.30, +50%)
+        float zSpeed = 0.30f * accel;
         float zRange = HYPER_Z_FAR - HYPER_Z_NEAR;
 
         // Drift de rotation global (effet vortex)
@@ -860,6 +903,14 @@ public class ManifoldOverlayHandler {
             renderHyperspace3DPass(mc, w, h, t, cx, cy, zSpeed, zRange, globalRot,
                                     baseAlpha * vFade, vB);
         }
+
+        // === ANNEAUX STARGATE : 12 anneaux concentriques en perspective ===
+        // Effet "Stargate" : on traverse des cercles qui s'eloignent de plus en plus.
+        renderHyperspaceRings(w, h, t, intensity, zSpeed, zRange, globalRot);
+
+        // === GHOST FIGURES : silhouettes humaines = vies infinies qui defilent ===
+        // Defilent legerement plus vite que les quads pour effet "vies qui passent".
+        renderGhostFigures(w, h, t, intensity, zSpeed * 1.3f, zRange);
     }
 
     private void renderHyperspace3DPass(Minecraft mc, int w, int h, long t,
@@ -955,6 +1006,196 @@ public class ManifoldOverlayHandler {
         }
         float t = (progress - S5_END) / (S4R_END - S5_END);
         return 4.0f - 3.0f * t;
+    }
+
+    /**
+     * v1.0.351 : ANNEAUX STARGATE en perspective 3D pendant Stage 4 HYPERSPACE.
+     *
+     * 12 anneaux concentriques distribues en Z [Z_NEAR..Z_FAR]. Chaque anneau
+     * avance vers la camera avec zSpeed, wrap a Z_FAR quand il passe Z_NEAR.
+     * Le rayon visible = focal/Z (perspective) -> anneau loin = petit, anneau
+     * proche = enorme. Effet 'on traverse des portes Stargate sans fin'.
+     *
+     * Couleurs cyclees dans la palette DMT, rotation propre + drift global.
+     */
+    private void renderHyperspaceRings(int w, int h, long t, float intensity,
+                                        float zSpeed, float zRange, float globalRot) {
+        if (intensity < 0.01f) return;
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+
+        float cx = w / 2.0f;
+        float cy = h / 2.0f;
+        float baseSize = (float) Math.max(w, h) * 0.5f;
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+
+        for (int i = 0; i < N_HYPER_RINGS; i++) {
+            // Calc Z courant avec wrapping
+            float zRaw = RING_Z[i] - (float)((zSpeed * t) % zRange);
+            while (zRaw < HYPER_Z_NEAR) zRaw += zRange;
+            while (zRaw > HYPER_Z_FAR) zRaw -= zRange;
+            if (zRaw < HYPER_Z_NEAR + 0.05f) continue;
+
+            // Rayon visible = baseSize * focal / Z
+            float persp = HYPER_FOCAL / zRaw;
+            float radius = baseSize * persp / 4.0f;
+            if (radius < 5f || radius > 4000f) continue;
+
+            // Alpha fade aux extremites
+            float zAlpha = 1.0f;
+            if (zRaw < HYPER_Z_NEAR + 2.0f) {
+                zAlpha = (zRaw - HYPER_Z_NEAR) / 2.0f;
+            } else if (zRaw > HYPER_Z_FAR - 10.0f) {
+                zAlpha = (HYPER_Z_FAR - zRaw) / 10.0f;
+            }
+            float a = intensity * zAlpha * 0.45f;
+            if (a < 0.01f) continue;
+
+            // Couleur cyclee dans la palette DMT
+            int paletteIdx = (i + (int)((t / 30) % DMT_PALETTE.length)) % DMT_PALETTE.length;
+            float[] color = DMT_PALETTE[paletteIdx];
+
+            // Rotation propre + globale
+            float ringRot = (RING_ROT[i] + globalRot * 1.5f) * (float) Math.PI / 180.0f;
+
+            // Dessine anneau via TRIANGLE_STRIP (couronne d'anneau)
+            int segments = 36;
+            float thickness = radius * 0.08f;
+            if (thickness < 2f) thickness = 2f;
+            float rInner = radius - thickness / 2.0f;
+            float rOuter = radius + thickness / 2.0f;
+
+            buf.begin(GL11.GL_TRIANGLE_STRIP, DefaultVertexFormats.POSITION_COLOR);
+            for (int k = 0; k <= segments; k++) {
+                float angle = (k / (float) segments) * 2.0f * (float) Math.PI + ringRot;
+                float ca = (float) Math.cos(angle);
+                float sa = (float) Math.sin(angle);
+                buf.pos(cx + ca * rInner, cy + sa * rInner, 0)
+                   .color(color[0], color[1], color[2], a).endVertex();
+                buf.pos(cx + ca * rOuter, cy + sa * rOuter, 0)
+                   .color(color[0], color[1], color[2], a * 0.5f).endVertex();
+            }
+            tess.draw();
+        }
+
+        GlStateManager.enableTexture2D();
+    }
+
+    /**
+     * v1.0.351 : GHOST FIGURES = silhouettes humaines en perspective 3D dans
+     * le tunnel hyperspace. Representent les "vies infinies" qui defilent
+     * pendant que le joueur plonge dans le tunnel DMT.
+     *
+     * 12 silhouettes (1 par 'epoque humaine' avec couleurs distinctes) qui
+     * avancent vers la camera. Quand l'une atteint Z_NEAR elle wrap a Z_FAR.
+     * Defilement legerement plus rapide que les quads (zSpeed * 1.3) pour
+     * effet 'vies qui passent vite'.
+     *
+     * Chaque silhouette = tete (cercle) + corps (trapeze) + bras (lignes).
+     */
+    private void renderGhostFigures(int w, int h, long t, float intensity,
+                                     float zSpeed, float zRange) {
+        if (intensity < 0.01f) return;
+
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+
+        float cx = w / 2.0f;
+        float cy = h / 2.0f;
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+
+        for (int i = 0; i < N_GHOST_FIGURES; i++) {
+            // Calc Z courant avec wrapping
+            float zRaw = GHOST_Z[i] - (float)((zSpeed * t) % zRange);
+            while (zRaw < HYPER_Z_NEAR) zRaw += zRange;
+            while (zRaw > HYPER_Z_FAR) zRaw -= zRange;
+            if (zRaw < HYPER_Z_NEAR + 0.05f) continue;
+
+            // Projection
+            float persp = HYPER_FOCAL / zRaw;
+            float px = cx + GHOST_X[i] * w * 0.5f * persp / 4.0f;
+            float py = cy + GHOST_Y[i] * h * 0.5f * persp / 4.0f;
+            float scale = persp / 4.0f;
+            if (scale > 4.0f) scale = 4.0f;
+            if (scale < 0.05f) continue;
+
+            // Alpha fade aux extremites Z
+            float zAlpha = 1.0f;
+            if (zRaw < HYPER_Z_NEAR + 2.0f) {
+                zAlpha = (zRaw - HYPER_Z_NEAR) / 2.0f;
+            } else if (zRaw > HYPER_Z_FAR - 10.0f) {
+                zAlpha = (HYPER_Z_FAR - zRaw) / 10.0f;
+            }
+            float a = intensity * zAlpha * 0.65f;
+            if (a < 0.01f) continue;
+
+            float[] color = GHOST_ERA_COLORS[GHOST_ERA[i]];
+            float r_ = color[0], g_ = color[1], b_ = color[2];
+
+            // Tailles relatives a scale
+            float headR = 18.0f * scale;
+            float bodyW = 22.0f * scale;
+            float bodyH = 50.0f * scale;
+            float armLen = 28.0f * scale;
+            float headY = py - bodyH * 0.6f;
+
+            // === TETE : cercle plein ===
+            buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(px, headY, 0).color(r_, g_, b_, a).endVertex();
+            int hSeg = 16;
+            for (int k = 0; k <= hSeg; k++) {
+                float angle = (k / (float) hSeg) * 2.0f * (float) Math.PI;
+                buf.pos(px + (float) Math.cos(angle) * headR,
+                        headY + (float) Math.sin(angle) * headR, 0)
+                   .color(r_, g_, b_, a * 0.7f).endVertex();
+            }
+            tess.draw();
+
+            // === CORPS : trapeze ===
+            float bodyTopY = headY + headR * 0.8f;
+            float bodyBotY = bodyTopY + bodyH;
+            buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(px - bodyW * 0.5f, bodyTopY, 0).color(r_, g_, b_, a).endVertex();
+            buf.pos(px + bodyW * 0.5f, bodyTopY, 0).color(r_, g_, b_, a).endVertex();
+            buf.pos(px + bodyW * 0.7f, bodyBotY, 0).color(r_, g_, b_, a * 0.5f).endVertex();
+            buf.pos(px - bodyW * 0.7f, bodyBotY, 0).color(r_, g_, b_, a * 0.5f).endVertex();
+            tess.draw();
+
+            // === BRAS : 2 quads fins (gauche + droite) ===
+            float armY = bodyTopY + bodyH * 0.20f;
+            float armW = 5.0f * scale;
+            // Bras gauche (descendant)
+            buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(px - bodyW * 0.5f - armW, armY, 0).color(r_, g_, b_, a * 0.6f).endVertex();
+            buf.pos(px - bodyW * 0.5f, armY, 0).color(r_, g_, b_, a * 0.6f).endVertex();
+            buf.pos(px - bodyW * 0.5f - armW * 0.5f, armY + armLen, 0).color(r_, g_, b_, a * 0.4f).endVertex();
+            buf.pos(px - bodyW * 0.5f - armW * 1.5f, armY + armLen, 0).color(r_, g_, b_, a * 0.4f).endVertex();
+            tess.draw();
+            // Bras droit
+            buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(px + bodyW * 0.5f, armY, 0).color(r_, g_, b_, a * 0.6f).endVertex();
+            buf.pos(px + bodyW * 0.5f + armW, armY, 0).color(r_, g_, b_, a * 0.6f).endVertex();
+            buf.pos(px + bodyW * 0.5f + armW * 1.5f, armY + armLen, 0).color(r_, g_, b_, a * 0.4f).endVertex();
+            buf.pos(px + bodyW * 0.5f + armW * 0.5f, armY + armLen, 0).color(r_, g_, b_, a * 0.4f).endVertex();
+            tess.draw();
+        }
+
+        GlStateManager.enableTexture2D();
     }
 
     /**

@@ -517,7 +517,14 @@ def draw_crystal_palace(img, progress):
 
 
 def draw_past_lives(img, progress):
-    """12 silhouettes humaines en spirale temporelle."""
+    """30 silhouettes humaines en 3 spirales temporelles imbriquees.
+    
+    v1.0.351 : 'infinite vies' - passe de 12 a 30 silhouettes pour ressentir
+    vraiment l'infinite. 3 spirales imbriquees a differentes echelles :
+      - Spirale interieure (ratio 0.0..1.0, radius small)
+      - Spirale moyenne   (ratio 0.0..1.0, radius medium, decalee 120 deg)
+      - Spirale exterieure (ratio 0.0..1.0, radius large, decalee 240 deg)
+    """
     d = ImageDraw.Draw(img, 'RGBA')
     
     # Background violet
@@ -541,72 +548,111 @@ def draw_past_lives(img, progress):
         d.ellipse([x-sz, y-sz, x+sz, y+sz],
                   fill=NDE_PALETTE['white'] + (random.randint(120, 200),))
     
-    # 12 silhouettes en spirale
-    eras = [
-        (0.05, NDE_PALETTE['orange'], 'crouch'),
-        (0.13, NDE_PALETTE['orange'], 'standing'),
-        (0.21, NDE_PALETTE['gold'], 'standing'),
-        (0.29, NDE_PALETTE['gold'], 'arms_up'),
-        (0.37, NDE_PALETTE['rose'], 'standing'),
-        (0.45, NDE_PALETTE['rose'], 'fight'),
-        (0.53, NDE_PALETTE['cyan'], 'standing'),
-        (0.61, NDE_PALETTE['cyan'], 'walking'),
-        (0.69, NDE_PALETTE['green_acid'], 'arms_up'),
-        (0.77, NDE_PALETTE['violet'], 'standing'),
-        (0.85, NDE_PALETTE['magenta'], 'arms_up'),
-        (0.93, NDE_PALETTE['white'], 'arms_up'),
+    # === 3 SPIRALES IMBRIQUEES ===
+    # Chaque spirale a 10 silhouettes = 30 total
+    # Chaque silhouette : (ratio dans la spirale 0..1, couleur, pose, taille_factor)
+    
+    eras_spirale_int = [
+        # Spirale interieure (radius small, plus pres du centre)
+        (0.10, NDE_PALETTE['orange'],     'crouch'),
+        (0.20, NDE_PALETTE['orange'],     'standing'),
+        (0.30, NDE_PALETTE['gold'],       'standing'),
+        (0.40, NDE_PALETTE['gold'],       'arms_up'),
+        (0.50, NDE_PALETTE['rose'],       'standing'),
+        (0.60, NDE_PALETTE['rose'],       'fight'),
+        (0.70, NDE_PALETTE['cyan'],       'standing'),
+        (0.80, NDE_PALETTE['green_acid'], 'arms_up'),
+        (0.90, NDE_PALETTE['violet'],     'standing'),
+        (1.00, NDE_PALETTE['white'],      'arms_up'),
     ]
     
-    for ratio, color, pose in eras:
-        angle = ratio * 4 * math.pi - math.pi/2
-        radius = DRAW * 0.10 + ratio * DRAW * 0.30
-        sx = int(CX + math.cos(angle) * radius)
-        sy = int(CY + math.sin(angle) * radius)
-        sz = int(DRAW * 0.06 * (1 - ratio * 0.4))
-        
-        # Halo
-        halo_l = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
-        hld = ImageDraw.Draw(halo_l, 'RGBA')
-        halo_r = int(sz * 0.45)
-        for j in range(8):
-            t = j / 8
-            r = int(halo_r * (1 - t * 0.6))
-            alpha = int(120 * (1 - t))
-            hld.ellipse([sx-r, sy-r, sx+r, sy+r], fill=color + (alpha,))
-        halo_l = halo_l.filter(ImageFilter.GaussianBlur(radius=8))
-        img.alpha_composite(halo_l)
-        d = ImageDraw.Draw(img, 'RGBA')
-        
-        # Tete
-        head_r = int(sz * 0.14)
-        head_y = sy - int(sz * 0.45)
-        d.ellipse([sx - head_r, head_y - head_r,
-                   sx + head_r, head_y + head_r],
-                  fill=NDE_PALETTE['white'] + (220,),
-                  outline=color + (255,), width=2*SS)
-        
-        # Corps selon pose
-        body_top = head_y + head_r
-        if pose == 'arms_up':
-            d.polygon([
-                (sx - int(sz*0.10), body_top),
-                (sx + int(sz*0.10), body_top),
-                (sx + int(sz*0.15), sy + int(sz*0.40)),
-                (sx - int(sz*0.15), sy + int(sz*0.40)),
-            ], fill=NDE_PALETTE['white'] + (200,), outline=color + (255,))
-            d.line([(sx - int(sz*0.10), body_top),
-                    (sx - int(sz*0.20), head_y - int(sz*0.20))],
-                   fill=NDE_PALETTE['white'] + (200,), width=3*SS)
-            d.line([(sx + int(sz*0.10), body_top),
-                    (sx + int(sz*0.20), head_y - int(sz*0.20))],
-                   fill=NDE_PALETTE['white'] + (200,), width=3*SS)
-        else:
-            d.polygon([
-                (sx - int(sz*0.10), body_top),
-                (sx + int(sz*0.10), body_top),
-                (sx + int(sz*0.15), sy + int(sz*0.40)),
-                (sx - int(sz*0.15), sy + int(sz*0.40)),
-            ], fill=NDE_PALETTE['white'] + (200,), outline=color + (255,))
+    eras_spirale_med = [
+        # Spirale moyenne (radius medium, decalage angulaire 120 deg)
+        (0.05, NDE_PALETTE['orange'],     'standing'),
+        (0.15, NDE_PALETTE['gold'],       'standing'),
+        (0.25, NDE_PALETTE['gold'],       'arms_up'),
+        (0.35, NDE_PALETTE['rose'],       'fight'),
+        (0.45, NDE_PALETTE['rose'],       'standing'),
+        (0.55, NDE_PALETTE['cyan'],       'walking'),
+        (0.65, NDE_PALETTE['cyan'],       'standing'),
+        (0.75, NDE_PALETTE['green_acid'], 'arms_up'),
+        (0.85, NDE_PALETTE['magenta'],    'standing'),
+        (0.95, NDE_PALETTE['violet'],     'arms_up'),
+    ]
+    
+    eras_spirale_ext = [
+        # Spirale exterieure (radius large, decalage angulaire 240 deg)
+        (0.08, NDE_PALETTE['orange'],     'crouch'),
+        (0.18, NDE_PALETTE['gold'],       'arms_up'),
+        (0.28, NDE_PALETTE['rose'],       'standing'),
+        (0.38, NDE_PALETTE['rose'],       'fight'),
+        (0.48, NDE_PALETTE['cyan'],       'walking'),
+        (0.58, NDE_PALETTE['green_acid'], 'standing'),
+        (0.68, NDE_PALETTE['green_acid'], 'arms_up'),
+        (0.78, NDE_PALETTE['magenta'],    'standing'),
+        (0.88, NDE_PALETTE['violet'],     'arms_up'),
+        (0.98, NDE_PALETTE['white'],      'arms_up'),
+    ]
+    
+    # Parametres par spirale : (radius_min, radius_max, angle_offset_rad, scale_factor)
+    spirales = [
+        (eras_spirale_int, DRAW * 0.05, DRAW * 0.20, 0.0,                0.05),
+        (eras_spirale_med, DRAW * 0.18, DRAW * 0.35, 2 * math.pi / 3,    0.06),
+        (eras_spirale_ext, DRAW * 0.32, DRAW * 0.45, 4 * math.pi / 3,    0.055),
+    ]
+    
+    for eras, r_min, r_max, angle_offset, scale_factor in spirales:
+        for ratio, color, pose in eras:
+            # Position en spirale : 4 tours de spirale, rayon croissant
+            angle = ratio * 4 * math.pi - math.pi/2 + angle_offset
+            radius = r_min + ratio * (r_max - r_min)
+            sx = int(CX + math.cos(angle) * radius)
+            sy = int(CY + math.sin(angle) * radius)
+            sz = int(DRAW * scale_factor * (1 - ratio * 0.3))
+            
+            # Halo
+            halo_l = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+            hld = ImageDraw.Draw(halo_l, 'RGBA')
+            halo_r = int(sz * 0.45)
+            for j in range(8):
+                t = j / 8
+                r = int(halo_r * (1 - t * 0.6))
+                alpha = int(120 * (1 - t))
+                hld.ellipse([sx-r, sy-r, sx+r, sy+r], fill=color + (alpha,))
+            halo_l = halo_l.filter(ImageFilter.GaussianBlur(radius=8))
+            img.alpha_composite(halo_l)
+            d = ImageDraw.Draw(img, 'RGBA')
+            
+            # Tete
+            head_r = int(sz * 0.14)
+            head_y = sy - int(sz * 0.45)
+            d.ellipse([sx - head_r, head_y - head_r,
+                       sx + head_r, head_y + head_r],
+                      fill=NDE_PALETTE['white'] + (220,),
+                      outline=color + (255,), width=2*SS)
+            
+            # Corps selon pose
+            body_top = head_y + head_r
+            if pose == 'arms_up':
+                d.polygon([
+                    (sx - int(sz*0.10), body_top),
+                    (sx + int(sz*0.10), body_top),
+                    (sx + int(sz*0.15), sy + int(sz*0.40)),
+                    (sx - int(sz*0.15), sy + int(sz*0.40)),
+                ], fill=NDE_PALETTE['white'] + (200,), outline=color + (255,))
+                d.line([(sx - int(sz*0.10), body_top),
+                        (sx - int(sz*0.20), head_y - int(sz*0.20))],
+                       fill=NDE_PALETTE['white'] + (200,), width=3*SS)
+                d.line([(sx + int(sz*0.10), body_top),
+                        (sx + int(sz*0.20), head_y - int(sz*0.20))],
+                       fill=NDE_PALETTE['white'] + (200,), width=3*SS)
+            else:
+                d.polygon([
+                    (sx - int(sz*0.10), body_top),
+                    (sx + int(sz*0.10), body_top),
+                    (sx + int(sz*0.15), sy + int(sz*0.40)),
+                    (sx - int(sz*0.15), sy + int(sz*0.40)),
+                ], fill=NDE_PALETTE['white'] + (200,), outline=color + (255,))
     
     # Lumiere centrale
     center_glow = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
