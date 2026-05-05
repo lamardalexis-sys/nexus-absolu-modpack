@@ -190,9 +190,9 @@ public class ManifoldOverlayHandler {
             renderPlasma(w, h, now, intensities[1] * (0.7f + 0.3f * beatKick));
         }
 
-        // === COUCHE 3 — Geometric : mandala fractal rotatif ===
+        // === COUCHE 3 — Geometric : mandala fractal MULTI-COUCHE rotatif ===
         if (intensities[2] > 0.01f) {
-            renderMandala(mc, w, h, now, intensities[2] * (0.8f + 0.2f * beatKick));
+            renderMandala(mc, w, h, now, intensities[2], beatKick);
         }
 
         // === COUCHE 4 — Hyperspace : tunnel zoom + pulse central ===
@@ -490,17 +490,32 @@ public class ManifoldOverlayHandler {
     }
 
     /**
-     * Mandala fractal rotatif avec crossfade entre 4 frames.
+    /**
+     * Stage 3 GEOMETRIC : mandala fractal MULTI-COUCHE pour effet impressionnant.
+     *
+     *   Couche XL (2.5x screen)  : mandala lent en arriere, alpha 25%, rotation +
+     *   Couche M  (1.5x screen)  : mandala central principal, alpha 45%, rotation INVERSE
+     *   Couche S  (0.6x screen)  : focal point au centre, alpha 30%, rotation rapide +
+     *
+     * Effet :
+     *   - Rotations contraires entre couches = hypnotique
+     *   - Vitesses differentes = profondeur fractale
+     *   - Pulsation scale beat-sync (zoom in/out 8% au BPM)
+     *   - Glow central au beat fort = focal point qui pulse
+     *
+     * Crossfade preserve sur chaque couche entre frame N et frame N+1.
      */
-    private void renderMandala(Minecraft mc, int w, int h, long t, float intensity) {
+    private void renderMandala(Minecraft mc, int w, int h, long t, float intensity, float beat) {
         int frame = (int)((t / MANDALA_FRAME_DURATION) % MANDALA_TEX.length);
         int nextFrame = (frame + 1) % MANDALA_TEX.length;
         float fadeFrac = (t % MANDALA_FRAME_DURATION) / (float) MANDALA_FRAME_DURATION;
-        float rotation = (t % 600) / 600.0f * 360.0f;
 
-        float mandalaSize = (float) Math.max(w, h) * 1.5f;
+        // Pulsation scale beat-sync (toutes les couches respirent ensemble)
+        float beatScale = 1.0f + beat * 0.08f;
+
         float cx = w / 2.0f;
         float cy = h / 2.0f;
+        float baseSize = (float) Math.max(w, h);
 
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(
@@ -510,12 +525,67 @@ public class ManifoldOverlayHandler {
             GlStateManager.DestFactor.ZERO);
         GlStateManager.enableTexture2D();
 
-        float a1 = (1.0f - fadeFrac) * intensity * 0.55f;
-        float a2 = fadeFrac * intensity * 0.55f;
+        // === COUCHE XL : mandala lent en arriere ===
+        // Rotation : 1 tour en 60s (1200 ticks)
+        float rotXL = (t % 1200) / 1200.0f * 360.0f;
+        float sizeXL = baseSize * 2.5f * beatScale;
+        float aXL = intensity * 0.25f;
+        drawRotatedTexture(mc, MANDALA_TEX[frame], cx, cy, sizeXL, rotXL,
+                           aXL * (1.0f - fadeFrac));
+        drawRotatedTexture(mc, MANDALA_TEX[nextFrame], cx, cy, sizeXL,
+                           rotXL + 12.0f, aXL * fadeFrac);
 
-        drawRotatedTexture(mc, MANDALA_TEX[frame], cx, cy, mandalaSize, rotation, a1);
-        drawRotatedTexture(mc, MANDALA_TEX[nextFrame], cx, cy, mandalaSize, rotation + 12.0f, a2);
+        // === COUCHE M : mandala central principal (rotation INVERSE) ===
+        // Rotation : 1 tour en 30s (600 ticks) DANS L'AUTRE SENS
+        float rotM = -(t % 600) / 600.0f * 360.0f;
+        float sizeM = baseSize * 1.5f * beatScale;
+        float aM = intensity * 0.45f;
+        // Frame offset de +4 pour que la couche M ne soit pas la meme que XL
+        int frameM = (frame + 4) % MANDALA_TEX.length;
+        int nextFrameM = (nextFrame + 4) % MANDALA_TEX.length;
+        drawRotatedTexture(mc, MANDALA_TEX[frameM], cx, cy, sizeM, rotM,
+                           aM * (1.0f - fadeFrac));
+        drawRotatedTexture(mc, MANDALA_TEX[nextFrameM], cx, cy, sizeM,
+                           rotM - 12.0f, aM * fadeFrac);
 
+        // === COUCHE S : focal point au centre (rotation rapide) ===
+        // Rotation : 1 tour en 15s (300 ticks)
+        float rotS = (t % 300) / 300.0f * 360.0f;
+        float sizeS = baseSize * 0.6f * beatScale;
+        float aS = intensity * 0.30f;
+        // Frame offset de +8 pour diversite
+        int frameS = (frame + 8) % MANDALA_TEX.length;
+        int nextFrameS = (nextFrame + 8) % MANDALA_TEX.length;
+        drawRotatedTexture(mc, MANDALA_TEX[frameS], cx, cy, sizeS, rotS,
+                           aS * (1.0f - fadeFrac));
+        drawRotatedTexture(mc, MANDALA_TEX[nextFrameS], cx, cy, sizeS,
+                           rotS + 12.0f, aS * fadeFrac);
+
+        // === GLOW CENTRAL beat-sync (apparait au beat fort) ===
+        if (beat > 0.3f) {
+            GlStateManager.disableTexture2D();
+            float glowAlpha = intensity * beat * 0.35f;
+            float glowRadius = baseSize * 0.08f * (1.0f + beat * 0.3f);
+
+            Tessellator tess = Tessellator.getInstance();
+            BufferBuilder buf = tess.getBuffer();
+            buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+            // Centre brillant : couleur qui cycle dans la palette DMT selon t
+            int paletteIdx = (int)((t / 60) % DMT_PALETTE.length);
+            float[] glowColor = DMT_PALETTE[paletteIdx];
+            buf.pos(cx, cy, 0).color(glowColor[0], glowColor[1], glowColor[2], glowAlpha).endVertex();
+            int segments = 32;
+            for (int i = 0; i <= segments; i++) {
+                float angle = (i / (float) segments) * 2.0f * (float) Math.PI;
+                float ex = cx + (float) Math.cos(angle) * glowRadius;
+                float ey = cy + (float) Math.sin(angle) * glowRadius;
+                buf.pos(ex, ey, 0).color(glowColor[0], glowColor[1], glowColor[2], 0f).endVertex();
+            }
+            tess.draw();
+            GlStateManager.enableTexture2D();
+        }
+
+        // Restore blend mode normal pour les couches suivantes
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
             GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
