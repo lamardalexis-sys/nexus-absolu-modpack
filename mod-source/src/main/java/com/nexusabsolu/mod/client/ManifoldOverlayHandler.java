@@ -450,7 +450,8 @@ public class ManifoldOverlayHandler {
         int rows = 16;
         float cellW = w / (float) cols;
         float cellH = h / (float) rows;
-        float alpha = intensity * 0.4f;
+        // v1.0.352 : plus opaque (etait 0.4) - moins transparence demandee par user
+        float alpha = intensity * 0.65f;
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
@@ -529,7 +530,8 @@ public class ManifoldOverlayHandler {
         // Rotation : 1 tour en 60s (1200 ticks)
         float rotXL = (t % 1200) / 1200.0f * 360.0f;
         float sizeXL = baseSize * 2.5f * beatScale;
-        float aXL = intensity * 0.25f;
+        // v1.0.352 : alpha 0.25 -> 0.40 (moins transparent)
+        float aXL = intensity * 0.40f;
         drawRotatedTexture(mc, MANDALA_TEX[frame], cx, cy, sizeXL, rotXL,
                            aXL * (1.0f - fadeFrac));
         drawRotatedTexture(mc, MANDALA_TEX[nextFrame], cx, cy, sizeXL,
@@ -539,7 +541,8 @@ public class ManifoldOverlayHandler {
         // Rotation : 1 tour en 30s (600 ticks) DANS L'AUTRE SENS
         float rotM = -(t % 600) / 600.0f * 360.0f;
         float sizeM = baseSize * 1.5f * beatScale;
-        float aM = intensity * 0.45f;
+        // v1.0.352 : alpha 0.45 -> 0.70 (mandala principal plus visible)
+        float aM = intensity * 0.70f;
         // Frame offset de +4 pour que la couche M ne soit pas la meme que XL
         int frameM = (frame + 4) % MANDALA_TEX.length;
         int nextFrameM = (nextFrame + 4) % MANDALA_TEX.length;
@@ -552,7 +555,8 @@ public class ManifoldOverlayHandler {
         // Rotation : 1 tour en 15s (300 ticks)
         float rotS = (t % 300) / 300.0f * 360.0f;
         float sizeS = baseSize * 0.6f * beatScale;
-        float aS = intensity * 0.30f;
+        // v1.0.352 : alpha 0.30 -> 0.50
+        float aS = intensity * 0.50f;
         // Frame offset de +8 pour diversite
         int frameS = (frame + 8) % MANDALA_TEX.length;
         int nextFrameS = (nextFrame + 8) % MANDALA_TEX.length;
@@ -671,21 +675,22 @@ public class ManifoldOverlayHandler {
         GlStateManager.enableTexture2D();
 
         // === 3 couches parallax 2D (background, comme avant) ===
+        // v1.0.352 : alphas 0.10/0.15/0.22 -> 0.18/0.25/0.35 (moins transparent)
         // Variante A avec alpha (1 - vFade) + variante B avec alpha vFade
         // Couche fond
-        renderTunnelLayer(mc, w, h, t, intensity * 0.10f * (1f - vFade), 0.30f, 0.5f, 0.5f * accel, vA);
+        renderTunnelLayer(mc, w, h, t, intensity * 0.18f * (1f - vFade), 0.30f, 0.5f, 0.5f * accel, vA);
         if (vFade > 0.01f) {
-            renderTunnelLayer(mc, w, h, t, intensity * 0.10f * vFade, 0.30f, 0.5f, 0.5f * accel, vB);
+            renderTunnelLayer(mc, w, h, t, intensity * 0.18f * vFade, 0.30f, 0.5f, 0.5f * accel, vB);
         }
         // Couche moyenne
-        renderTunnelLayer(mc, w, h, t, intensity * 0.15f * (1f - vFade), 0.60f, 1.0f, 1.0f * accel, vA);
+        renderTunnelLayer(mc, w, h, t, intensity * 0.25f * (1f - vFade), 0.60f, 1.0f, 1.0f * accel, vA);
         if (vFade > 0.01f) {
-            renderTunnelLayer(mc, w, h, t, intensity * 0.15f * vFade, 0.60f, 1.0f, 1.0f * accel, vB);
+            renderTunnelLayer(mc, w, h, t, intensity * 0.25f * vFade, 0.60f, 1.0f, 1.0f * accel, vB);
         }
         // Couche avant
-        renderTunnelLayer(mc, w, h, t, intensity * 0.22f * (1f - vFade), 1.20f, 1.8f, 1.8f * accel, vA);
+        renderTunnelLayer(mc, w, h, t, intensity * 0.35f * (1f - vFade), 1.20f, 1.8f, 1.8f * accel, vA);
         if (vFade > 0.01f) {
-            renderTunnelLayer(mc, w, h, t, intensity * 0.22f * vFade, 1.20f, 1.8f, 1.8f * accel, vB);
+            renderTunnelLayer(mc, w, h, t, intensity * 0.35f * vFade, 1.20f, 1.8f, 1.8f * accel, vB);
         }
 
         // === NOUVEAU : couche 3D quads en perspective ===
@@ -767,8 +772,14 @@ public class ManifoldOverlayHandler {
 
         float tileSize = 256.0f * scale * 0.5f;
         if (tileSize < 8.0f) tileSize = 8.0f;
-        int tilesX = (int)(w / tileSize) + 4;
-        int tilesY = (int)(h / tileSize) + 4;
+        // v1.0.352 FIX : grille doit couvrir la DIAGONALE (pas juste w x h) sinon
+        // apres rotation les coins de l'ecran sortent de la grille -> carres noirs.
+        // Diagonale de 1920x1080 = 2200 pixels, donc on dimensionne la grille
+        // pour couvrir un carre de cote = diagonale.
+        float diagonal = (float)Math.sqrt(w * w + h * h);
+        int tilesPerSide = (int)Math.ceil(diagonal / tileSize) + 4;
+        int tilesX = tilesPerSide;
+        int tilesY = tilesPerSide;
         float scrollOffset = (float)((((double) t) * zoomSpeed) % 240.0 / 240.0 * tileSize);
 
         GlStateManager.color(tint[0], tint[1], tint[2], alpha);
@@ -782,8 +793,9 @@ public class ManifoldOverlayHandler {
         BufferBuilder buf = tess.getBuffer();
         buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
-        float gridOriginX = -tileSize * 2 - scrollOffset;
-        float gridOriginY = -tileSize * 2 - scrollOffset;
+        // Centrer la grille sur le centre de l'ecran (apres rotation = toujours centre)
+        float gridOriginX = w / 2.0f - tilesX * tileSize / 2.0f - scrollOffset;
+        float gridOriginY = h / 2.0f - tilesY * tileSize / 2.0f - scrollOffset;
 
         for (int gy = 0; gy < tilesY; gy++) {
             for (int gx = 0; gx < tilesX; gx++) {
