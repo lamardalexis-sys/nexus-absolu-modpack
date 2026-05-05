@@ -95,15 +95,22 @@ public class ManifoldOverlayHandler {
     //   18-29 (12) : FACES 3 visages superposes puis fusion
     //   30-41 (12) : METAMORPHOSE visage or -> entite humanoide verte
     //   42-49 (8)  : ENTITY_LOOP entite finale + etoile pulse
-    private static final ResourceLocation[] ENTITY_FRAMES = new ResourceLocation[50];
+    //   ENTITY MORPHING - 60 frames sur 5 phases :
+    //   IRIS        : 0-7   (8)   - oeil semi-realiste qui s'ouvre
+    //   CRACK       : 8-21  (14)  - cracks rouge sang autour de l'oeil (realite brisee)
+    //   FACES       : 22-35 (14)  - visages organiques chair sombre apparaissent
+    //   METAMORPHOSE: 36-49 (14)  - tentacules sortent + entite se forme
+    //   ENTITY_LOOP : 50-59 (10)  - entite finale + aureole d'yeux flottants (loop)
+    //   L'oeil au centre reste IDENTIQUE durant les 60 frames (point d'ancrage psychique).
+    private static final ResourceLocation[] ENTITY_FRAMES = new ResourceLocation[60];
     static {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 60; i++) {
             ENTITY_FRAMES[i] = new ResourceLocation(
                 "nexusabsolu", "textures/gui/manifold/entity_" + i + ".png");
         }
     }
-    private static final int N_ENTITY_MORPH_FRAMES = 42; // frames 0..41 = morphing one-shot
-    private static final int N_ENTITY_LOOP_FRAMES = 8;   // frames 42..49 = loop entity
+    private static final int N_ENTITY_MORPH_FRAMES = 50; // frames 0..49 = morphing one-shot
+    private static final int N_ENTITY_LOOP_FRAMES = 10;  // frames 50..59 = loop entity
 
     private static final int MANDALA_FRAME_DURATION = 100;  // 5s per mandala frame
     private static final int ENTITY_FRAME_DURATION = 14;    // ~1 frame per beat (84 BPM)
@@ -904,8 +911,8 @@ public class ManifoldOverlayHandler {
      *
      * Logique :
      *   - PEAK = [0.5, 0.6875] du trip (~90s)
-     *   - 1ere tranche (0.5..0.5625, ~30s) -> 42 frames de morphing one-shot
-     *   - 2eme tranche (0.5625..0.6875, ~60s) -> 8 frames loop entity
+     *   - 1ere tranche (0.5..0.5625, ~30s) -> 50 frames de morphing one-shot
+     *   - 2eme tranche (0.5625..0.6875, ~60s) -> 10 frames loop entity
      *   - Hors PEAK -> N_ENTITY_MORPH_FRAMES (defaut entite statique)
      */
     private float computeEntityFrameFloat(long t) {
