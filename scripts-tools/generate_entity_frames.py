@@ -336,7 +336,7 @@ def draw_tentacles(img, intensity):
 
 
 def draw_floating_eyes(img, intensity, n_max=30, pulse=0.0):
-    """Aureole d'yeux flottants autour (biblical angel)."""
+    """Aureole d'yeux flottants autour (biblical angel) - DEPRECATED, garde pour compat."""
     n_eyes = int(n_max * intensity)
     random.seed(2024)
     for _ in range(n_eyes):
@@ -345,15 +345,169 @@ def draw_floating_eyes(img, intensity, n_max=30, pulse=0.0):
         x = int(CX + math.cos(a) * r)
         y = int(CY + math.sin(a) * r)
         er = random.randint(int(DRAW*0.018), int(DRAW*0.038))
-        # Variation taille avec pulse
         er = int(er * (1 + pulse * 0.2))
-        # Tous regardent vers le centre
         look_to_center = math.atan2(CY - y, CX - x)
-        # Iris rouge sang (horror)
         iris_color = random.choice(['#7B0000', '#5B1010', '#A00020'])
         draw_eye(img, x, y, er, openness=1.0,
                  look_a=look_to_center, look_strength=0.5,
                  iris_color_hex=iris_color)
+
+
+def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0):
+    """
+    Entité humanoide cyclope biblical angel POUR DE VRAI.
+    L'oeil au centre EST l'oeil cyclope de l'entite (englobement).
+    
+    formation : 0 -> 1 progression de la formation des parties dans cet ordre :
+      tete (0..0.25) -> corps (0.20..0.45) -> bras (0.40..0.65)
+      -> etoile (0.60..0.85) -> aura (0.80..1.0)
+    pulse : oscillation 0 -> 1 pour effets pulse (aura, etoile)
+    """
+    d = ImageDraw.Draw(img, 'RGBA')
+    er = DRAW * 0.13  # base de calcul des proportions
+    
+    body_color = (50, 18, 40)
+    body_outline = (10, 0, 15)
+    aura_gold = (220, 170, 30)
+    star_gold = (255, 215, 50)
+    eye_red = '#7B0000'
+    
+    head_t = min(1.0, formation * 4.0)
+    body_t = min(1.0, max(0, formation - 0.20) * 4.0)
+    arms_t = min(1.0, max(0, formation - 0.40) * 4.0)
+    star_t = min(1.0, max(0, formation - 0.60) * 4.0)
+    aura_t = min(1.0, max(0, formation - 0.80) * 5.0)
+    
+    if head_t <= 0:
+        return
+    
+    # 1. AURA DIVINE (background)
+    if aura_t > 0:
+        aura = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+        ad = ImageDraw.Draw(aura, 'RGBA')
+        aura_r = int(DRAW * 0.42 * (1 + pulse * 0.10))
+        for i in range(15):
+            t = i / 15
+            r = int(aura_r * (1 - t * 0.7))
+            alpha = int(70 * (1 - t) * intensity * aura_t)
+            ad.ellipse([CX-r, CY-r, CX+r, CY+r],
+                       fill=aura_gold + (alpha,))
+        n_rays = 16
+        for i in range(n_rays):
+            a = i * 2 * math.pi / n_rays + pulse * 0.2
+            x_in = CX + math.cos(a) * DRAW * 0.20
+            y_in = CY + math.sin(a) * DRAW * 0.20
+            x_out = CX + math.cos(a) * DRAW * 0.48
+            y_out = CY + math.sin(a) * DRAW * 0.48
+            alpha = int(180 * intensity * aura_t)
+            ad.line([(x_in, y_in), (x_out, y_out)],
+                    fill=aura_gold + (alpha,), width=3*SS)
+        aura = aura.filter(ImageFilter.GaussianBlur(radius=15))
+        img.alpha_composite(aura)
+        d = ImageDraw.Draw(img, 'RGBA')
+    
+    # 2. CORPS trapeze
+    if body_t > 0:
+        torso_top_y = int(CY + er * 1.5)
+        torso_bot_y = int(CY + er * 3.0 * body_t)
+        torso_top_w = int(er * 1.6)
+        torso_bot_w = int(er * 1.2)
+        torso_pts = [
+            (CX - torso_top_w, torso_top_y),
+            (CX + torso_top_w, torso_top_y),
+            (CX + torso_bot_w, torso_bot_y),
+            (CX - torso_bot_w, torso_bot_y),
+        ]
+        alpha = int(230 * intensity * body_t)
+        d.polygon(torso_pts, fill=body_color + (alpha,),
+                  outline=body_outline + (255,))
+        # 4 yeux poitrine
+        n_chest_eyes = int(4 * body_t)
+        for i in range(n_chest_eyes):
+            ex_offset = (i - (n_chest_eyes-1)/2) * er * 0.45
+            ex = int(CX + ex_offset)
+            ey = int(torso_top_y + er * 0.4)
+            erad = int(er * 0.16)
+            draw_eye(img, ex, ey, erad, openness=1.0,
+                     look_a=0.5, look_strength=0.3,
+                     iris_color_hex=eye_red)
+        d = ImageDraw.Draw(img, 'RGBA')
+    
+    # 3. TETE CONIQUE
+    if head_t > 0:
+        head_base_y = int(CY + er * 1.4)
+        head_top_y = int(CY - er * 2.2 * head_t)
+        head_w = int(er * 1.5)
+        head_pts = [
+            (CX - head_w, head_base_y),
+            (CX + head_w, head_base_y),
+            (CX, head_top_y),
+        ]
+        alpha = int(230 * intensity * head_t)
+        d.polygon(head_pts, fill=body_color + (alpha,),
+                  outline=body_outline + (255,))
+    
+    # 4. BRAS
+    right_hand_x = right_hand_y = right_hand_r = None
+    if arms_t > 0:
+        torso_top_y = int(CY + er * 1.5)
+        torso_top_w = int(er * 1.6)
+        for side in [-1, 1]:
+            shoulder_x = CX + side * torso_top_w
+            shoulder_y = torso_top_y
+            elbow_x = shoulder_x + side * int(er * 1.0 * arms_t)
+            elbow_y = shoulder_y + int(er * 1.2 * arms_t)
+            hand_x = elbow_x + side * int(er * 0.5 * arms_t)
+            hand_y = elbow_y + int(er * 1.0 * arms_t)
+            arm_w = int(er * 0.30)
+            d.polygon([
+                (shoulder_x - arm_w, shoulder_y),
+                (shoulder_x + arm_w, shoulder_y),
+                (elbow_x + arm_w * side, elbow_y + arm_w),
+                (elbow_x - arm_w * side, elbow_y - arm_w),
+            ], fill=body_color + (int(230 * arms_t),),
+               outline=body_outline + (255,))
+            d.polygon([
+                (elbow_x + arm_w * side, elbow_y + arm_w),
+                (elbow_x - arm_w * side, elbow_y - arm_w),
+                (hand_x - arm_w * 0.7, hand_y - arm_w * 0.7),
+                (hand_x + arm_w * 0.7, hand_y + arm_w * 0.7),
+            ], fill=body_color + (int(230 * arms_t),),
+               outline=body_outline + (255,))
+            hand_r = int(er * 0.28)
+            d.ellipse([hand_x - hand_r, hand_y - hand_r,
+                       hand_x + hand_r, hand_y + hand_r],
+                      fill=body_color + (int(230 * arms_t),),
+                      outline=body_outline + (255,))
+            if side > 0:
+                right_hand_x = hand_x
+                right_hand_y = hand_y
+                right_hand_r = hand_r
+    
+    # 5. ETOILE D'OR dans la main droite
+    if star_t > 0 and right_hand_x is not None:
+        sx = right_hand_x
+        sy = right_hand_y
+        sr = int(right_hand_r * 1.6 * star_t)
+        halo = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+        hd = ImageDraw.Draw(halo, 'RGBA')
+        halo_r = int(sr * 2.5 * (1 + pulse * 0.3))
+        for i in range(10):
+            t = i / 10
+            r = int(halo_r * (1 - t * 0.7))
+            alpha = int(180 * (1 - t) * star_t * intensity)
+            hd.ellipse([sx-r, sy-r, sx+r, sy+r],
+                       fill=star_gold + (alpha,))
+        halo = halo.filter(ImageFilter.GaussianBlur(radius=15))
+        img.alpha_composite(halo)
+        d = ImageDraw.Draw(img, 'RGBA')
+        star_pts = []
+        for i in range(10):
+            a = -math.pi/2 + i * math.pi / 5
+            r = sr if i % 2 == 0 else sr * 0.4
+            star_pts.append((sx + math.cos(a) * r, sy + math.sin(a) * r))
+        d.polygon(star_pts, fill=star_gold + (int(255 * star_t),),
+                  outline=(255, 255, 200, int(255 * star_t)))
 
 
 # ============================================================
@@ -407,19 +561,25 @@ def generate_frame(frame_idx):
         draw_cracks(img, intensity=1.0)
         draw_faces_around(img, intensity=progress)
     elif phase == 'metamorph':
+        # L'entite se forme PROGRESSIVEMENT
+        # Premiere moitie : tentacules + faces qui restent
+        # Deuxieme moitie : entite qui apparait par-dessus
         draw_cracks(img, intensity=1.0)
-        draw_faces_around(img, intensity=1.0)
-        draw_tentacles(img, intensity=progress)
+        draw_faces_around(img, intensity=max(0, 1.0 - progress * 1.5))  # disparaissent
+        draw_tentacles(img, intensity=max(0, 1.0 - progress * 1.5))    # disparaissent
+        # L'entite se forme : formation = progress (0 -> 1)
+        draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=progress)
     elif phase == 'entity_loop':
+        # Entite COMPLETE qui pulse
         draw_cracks(img, intensity=1.0)
-        draw_faces_around(img, intensity=1.0)
-        draw_tentacles(img, intensity=1.0)
-        # Pulse intensity sur les yeux flottants
-        pulse = math.sin(progress * 2 * math.pi)
-        draw_floating_eyes(img, intensity=1.0, n_max=30, pulse=pulse)
+        # Pulse global oscille en sin
+        pulse = (math.sin(progress * 2 * math.pi) + 1) / 2  # 0 -> 1 -> 0
+        draw_powerful_entity(img, intensity=1.0, pulse=pulse, formation=1.0)
     
     # === Oeil principal (par-dessus tout, point d'ancrage) ===
-    draw_eye(img, CX, CY, int(DRAW * 0.18),
+    # Taille reduite a 0.13 (au lieu de 0.18) pour cohérence avec proportions de l'entite
+    eye_size = int(DRAW * 0.13)
+    draw_eye(img, CX, CY, eye_size,
              openness=eye_openness,
              look_a=0.4, look_strength=0.15,
              iris_color_hex=eye_iris,
