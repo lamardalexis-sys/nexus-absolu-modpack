@@ -465,7 +465,9 @@ public class ManifoldOverlayHandler {
         final float S5_START = ManifoldEffectHandler.STAGE_4_HYPERSPACE_END;    // 0.5
         final float S5_END   = ManifoldEffectHandler.STAGE_5_PEAK_END;          // 0.6875
         final float S4R_END  = ManifoldEffectHandler.STAGE_4R_HYPERSPACE_END;   // 0.8125
-        final float CROSSFADE_FRAC = 0.15f; // 15% de chaque segment = crossfade
+        final float CROSSFADE_FRAC = 0.50f; // 50% de chaque segment = crossfade long
+                                            // (etait 0.15f, augmente pour transitions
+                                            // tres douces entre variantes A->B->C->D)
 
         // Hors Stage 4 : variante A pure
         if (progress < S4_START || (progress >= S5_START && progress < S5_END) || progress >= S4R_END) {

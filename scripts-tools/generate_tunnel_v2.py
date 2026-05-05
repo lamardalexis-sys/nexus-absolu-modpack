@@ -137,14 +137,50 @@ def micro_mandalas_central(draw, cx, cy):
                          rotation=r_factor * 10, color_idx=int(r_factor * 30))
 
 
+def draw_giant_geometries(draw, cx, cy, color_offset=0):
+    """
+    Polygones GEANTS qui depassent le cadre = sensation d'espace immense.
+    Lignes ultra-fines (alpha bas) pour pas surcharger les fractales en avant-plan.
+    Donne l'effet 'interieur de cathedrale geometrique infinie'.
+
+    Garde la coherence de palette via color_offset.
+    """
+    # 3 cercles geants concentriques (rayon > canvas)
+    for i, r_factor in enumerate([1.4, 1.8, 2.2]):
+        r = int(DRAW * r_factor / 2)
+        color = VOSS[(i + 3 + color_offset) % 8]
+        alpha = 80 - i * 20
+        draw.ellipse([cx-r, cy-r, cx+r, cy+r],
+                     outline=color + (alpha,), width=2*SS)
+
+    # 2 polygones geants offset (centre decentre, hors cadre)
+    for i, (offset_x, offset_y, r_factor, n_sides) in enumerate([
+        (-0.6, -0.4, 1.5, 6),   # hexagone geant en haut-gauche
+        (0.5, 0.3, 1.7, 8),     # octogone geant en bas-droite
+    ]):
+        ox = int(cx + offset_x * DRAW)
+        oy = int(cy + offset_y * DRAW)
+        r = int(DRAW * r_factor / 2)
+        pts = regular_polygon(ox, oy, r, n_sides, i * math.pi/12)
+        color = VOSS[(i + 1 + color_offset) % 8]
+        draw.polygon(pts, outline=color + (60,), width=2*SS)
+
+    # 1 dodecagone geant centre, presque tout le canvas
+    pts = regular_polygon(cx, cy, int(DRAW * 0.7), 12, math.pi/24)
+    draw.polygon(pts, outline=VOSS[(2 + color_offset) % 8] + (50,), width=2*SS)
+
+
 # ============================================================
 # 4 variantes - MEME style clean recursif que A, formes differentes
 # ============================================================
 
 def make_variant_A():
-    """HEXAGONES (6) - hexagones recursifs purs."""
+    """HEXAGONES (6) - hexagones recursifs purs + espaces geants."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
     d = ImageDraw.Draw(img, 'RGBA')
+    # Espaces geants en background (cathedrale geometrique infinie)
+    draw_giant_geometries(d, CX, CY, color_offset=0)
+    # Fractale recursive en avant-plan
     fractal_polygons(d, CX, CY, DRAW * 0.42, n=6, depth=4,
                      rotation=0, color_idx=1)
     # Centre : cercle simple cyan
@@ -155,9 +191,10 @@ def make_variant_A():
 
 
 def make_variant_B():
-    """PENTAGONES (5) - asymetrie 5x, palette cyan dominante."""
+    """PENTAGONES (5) - asymetrie 5x + espaces geants."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
     d = ImageDraw.Draw(img, 'RGBA')
+    draw_giant_geometries(d, CX, CY, color_offset=2)  # palette decalee
     fractal_polygons(d, CX, CY, DRAW * 0.42, n=5, depth=4,
                      rotation=math.pi/10, color_idx=3)
     # Centre : pentagone or
@@ -168,13 +205,14 @@ def make_variant_B():
 
 
 def make_variant_C():
-    """TRIANGLES (3) - Sierpinski-like, palette or/rose."""
+    """TRIANGLES (3) - Sierpinski/David + espaces geants."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
     d = ImageDraw.Draw(img, 'RGBA')
+    draw_giant_geometries(d, CX, CY, color_offset=4)
     # Triangle principal pointe en haut
     fractal_polygons(d, CX, CY, DRAW * 0.42, n=3, depth=5,
                      rotation=-math.pi/2, color_idx=5)
-    # Triangle inverse superpose pour creer une etoile de David recursive
+    # Triangle inverse (etoile de David recursive)
     fractal_polygons(d, CX, CY, DRAW * 0.42, n=3, depth=5,
                      rotation=math.pi/2, color_idx=6)
     # Centre : petit triangle blanc
@@ -185,10 +223,11 @@ def make_variant_C():
 
 
 def make_variant_D():
-    """OCTOGONES (8) + DODECAGONE CENTRAL - geometrie sacree maximale."""
+    """OCTOGONES (8) + DODECAGONE CENTRAL + espaces geants."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
     d = ImageDraw.Draw(img, 'RGBA')
-    # Octogones recursifs (8 sommets)
+    draw_giant_geometries(d, CX, CY, color_offset=6)
+    # Octogones recursifs
     fractal_polygons(d, CX, CY, DRAW * 0.42, n=8, depth=4,
                      rotation=math.pi/16, color_idx=2)
     # Dodecagone central (12 sommets, plus discret)
