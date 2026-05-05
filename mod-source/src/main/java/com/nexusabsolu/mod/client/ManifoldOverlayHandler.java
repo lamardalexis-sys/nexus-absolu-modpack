@@ -228,39 +228,202 @@ public class ManifoldOverlayHandler {
     }
 
     /**
-     * Stage 1 : tint subtil blanc + leger boost luminosite.
-     * Le monde "s'allege" — vignette interne brillante.
+     * Stage 1 : 2 sous-phases internes pour creer une vraie progression.
+     *
+     *   Sub-phase INTRO    (intensity 0.0..0.7) : presence subtile
+     *     - Vignette sombre rouge sang qui respire au beat
+     *     - Quelques particules eparses qui clignotent
+     *     - Pulse central tres leger
+     *     - But : "le joueur sent qu'il se passe quelque chose"
+     *
+     *   Sub-phase ONSET    (intensity 0.3..1.0) : couleurs apparaissent
+     *     - Vignette coloree (cyan -> magenta progressif)
+     *     - Saturation boost progressive
+     *     - Pulse central colore beat-sync
+     *     - But : "les couleurs deviennent saturees et belles"
+     *
+     *   Cross-fade entre 0.3 et 0.7 pour transition douce.
      */
     private void renderOnsetTint(int w, int h, float intensity, float beat) {
+        // Calcul des intensites des 2 sous-phases (cross-fade)
+        // Intro : visible de 0 a 0.7, max plein de 0 a 0.5, fade 0.5 a 0.7
+        float introI = Math.min(1.0f, Math.max(0f, intensity / 0.5f));
+        if (intensity > 0.5f) {
+            introI *= Math.max(0f, 1.0f - (intensity - 0.5f) / 0.2f);
+        }
+        // Onset color : commence a 0.3, max a 1.0
+        float onsetI = Math.max(0f, (intensity - 0.3f) / 0.7f);
+
+        if (introI > 0.01f) {
+            renderIntroPresence(w, h, introI, beat);
+        }
+        if (onsetI > 0.01f) {
+            renderOnsetColors(w, h, onsetI, beat);
+        }
+    }
+
+    /**
+     * Sub-phase INTRO : presence subtile mais perceptible.
+     * Le joueur ne voit rien d'evident mais ressent que ca commence.
+     */
+    private void renderIntroPresence(int w, int h, float intensity, float beat) {
         GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+
+        float cx = w / 2.0f;
+        float cy = h / 2.0f;
+
+        // === 1. Vignette sombre qui respire (assombrit les bords avec teinte rouge tres faible) ===
+        float vignetteAlpha = intensity * 0.15f * (0.7f + 0.3f * beat);
+        float radius = Math.max(w, h) * 0.55f;
+
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+        // Centre transparent (pas d'assombrissement au centre)
+        buf.pos(cx, cy, 0).color(0.15f, 0.05f, 0.08f, 0f).endVertex();
+        // Bord assombri rouge tres tres sombre
+        int segments = 32;
+        for (int i = 0; i <= segments; i++) {
+            float angle = (i / (float) segments) * 2.0f * (float) Math.PI;
+            float ex = cx + (float) Math.cos(angle) * radius;
+            float ey = cy + (float) Math.sin(angle) * radius;
+            buf.pos(ex, ey, 0).color(0.15f, 0.05f, 0.08f, vignetteAlpha).endVertex();
+        }
+        tess.draw();
+
+        // === 2. Particules eparses qui clignotent (8 points fixes pseudo-aleatoires) ===
+        float[][] particles = {
+            {0.15f, 0.20f}, {0.85f, 0.15f}, {0.10f, 0.75f}, {0.90f, 0.80f},
+            {0.30f, 0.50f}, {0.70f, 0.45f}, {0.50f, 0.10f}, {0.50f, 0.90f}
+        };
+
+        long timeFrames = (System.currentTimeMillis() / 100) % 1000;
+        for (int i = 0; i < particles.length; i++) {
+            // Clignotement pseudo-aleatoire base sur l'index et le temps
+            float blink = (float) Math.sin((timeFrames * 0.05) + i * 1.7) * 0.5f + 0.5f;
+            float pAlpha = intensity * blink * 0.5f * (0.6f + 0.4f * beat);
+            if (pAlpha < 0.02f) continue;
+
+            float px = particles[i][0] * w;
+            float py = particles[i][1] * h;
+            float psize = 4.0f + 2.0f * blink;
+
+            // Cercle simple
+            buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(px, py, 0).color(1.0f, 0.9f, 0.7f, pAlpha).endVertex();
+            for (int k = 0; k <= 16; k++) {
+                float a = (k / 16f) * 2.0f * (float) Math.PI;
+                buf.pos(px + (float) Math.cos(a) * psize,
+                        py + (float) Math.sin(a) * psize, 0)
+                   .color(1.0f, 0.9f, 0.7f, 0f).endVertex();
+            }
+            tess.draw();
+        }
+
+        // === 3. Pulse central tres leger (oscillation luminosite) ===
+        float pulseAlpha = intensity * 0.06f * beat;
+        if (pulseAlpha > 0.005f) {
+            float pulseRadius = Math.min(w, h) * 0.15f;
+            buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(cx, cy, 0).color(1.0f, 0.95f, 0.85f, pulseAlpha).endVertex();
+            for (int k = 0; k <= 24; k++) {
+                float a = (k / 24f) * 2.0f * (float) Math.PI;
+                buf.pos(cx + (float) Math.cos(a) * pulseRadius,
+                        cy + (float) Math.sin(a) * pulseRadius, 0)
+                   .color(1.0f, 0.95f, 0.85f, 0f).endVertex();
+            }
+            tess.draw();
+        }
+
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
+    }
+
+    /**
+     * Sub-phase ONSET coloree : les couleurs apparaissent et se saturent.
+     * Cyan -> magenta progressif, vignette coloree, pulse central colore.
+     */
+    private void renderOnsetColors(int w, int h, float intensity, float beat) {
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        // ADD blend pour que les couleurs s'ajoutent (effet boost luminosite)
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
             GlStateManager.DestFactor.ONE,
             GlStateManager.SourceFactor.ONE,
             GlStateManager.DestFactor.ZERO);
 
-        // Vignette inverse : blanc au centre fade vers bord
-        float alpha = intensity * 0.10f * (0.7f + 0.3f * beat);
         float cx = w / 2.0f;
         float cy = h / 2.0f;
-        float radius = Math.max(w, h) * 0.6f;
+        float radius = Math.max(w, h) * 0.65f;
 
+        // === Couleur centrale : interpolation cyan -> magenta selon intensity ===
+        // intensity 0 = cyan froid, intensity 1 = magenta chaud psychedélique
+        float r_color = 0.0f + intensity * 1.0f;       // 0 -> 1 (rouge)
+        float g_color = 0.7f - intensity * 0.7f;       // 0.7 -> 0 (vert disparait)
+        float b_color = 1.0f - intensity * 0.2f;       // 1 -> 0.8 (bleu reste)
+        float alpha_center = intensity * 0.18f * (0.7f + 0.3f * beat);
+
+        // === 1. Vignette colorée centrale (centre brillant, bords transparents) ===
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
         buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
-        // Centre brillant
-        buf.pos(cx, cy, 0).color(1f, 1f, 1f, alpha).endVertex();
-        // Bord transparent
-        int segments = 32;
+        buf.pos(cx, cy, 0).color(r_color, g_color, b_color, alpha_center).endVertex();
+        int segments = 48;
         for (int i = 0; i <= segments; i++) {
             float angle = (i / (float) segments) * 2.0f * (float) Math.PI;
             float ex = cx + (float) Math.cos(angle) * radius;
             float ey = cy + (float) Math.sin(angle) * radius;
-            buf.pos(ex, ey, 0).color(1f, 1f, 1f, 0f).endVertex();
+            buf.pos(ex, ey, 0).color(r_color, g_color, b_color, 0f).endVertex();
         }
         tess.draw();
 
+        // === 2. Vignette de couleur opposee aux bords (effet contraste) ===
+        // Si centre = magenta, bords = cyan. Effet psychedelique.
+        float r_edge = 1.0f - r_color;
+        float g_edge = 1.0f - g_color;
+        float b_edge = 1.0f - b_color;
+        float alpha_edge = intensity * 0.10f * (0.7f + 0.3f * beat);
+        float edgeRadiusInner = Math.max(w, h) * 0.45f;
+        float edgeRadiusOuter = Math.max(w, h) * 0.75f;
+
+        buf.begin(GL11.GL_TRIANGLE_STRIP, DefaultVertexFormats.POSITION_COLOR);
+        for (int i = 0; i <= segments; i++) {
+            float angle = (i / (float) segments) * 2.0f * (float) Math.PI;
+            float ca = (float) Math.cos(angle);
+            float sa = (float) Math.sin(angle);
+            // Inner ring : transparent
+            buf.pos(cx + ca * edgeRadiusInner, cy + sa * edgeRadiusInner, 0)
+               .color(r_edge, g_edge, b_edge, 0f).endVertex();
+            // Outer ring : colore
+            buf.pos(cx + ca * edgeRadiusOuter, cy + sa * edgeRadiusOuter, 0)
+               .color(r_edge, g_edge, b_edge, alpha_edge).endVertex();
+        }
+        tess.draw();
+
+        // === 3. Pulse central colore beat-sync (gros flash discret) ===
+        float pulseAlpha = intensity * 0.20f * beat;
+        if (pulseAlpha > 0.01f) {
+            float pulseRadius = Math.min(w, h) * (0.20f + 0.05f * beat);
+            buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+            buf.pos(cx, cy, 0).color(r_color, g_color, b_color, pulseAlpha).endVertex();
+            for (int k = 0; k <= 32; k++) {
+                float a = (k / 32f) * 2.0f * (float) Math.PI;
+                buf.pos(cx + (float) Math.cos(a) * pulseRadius,
+                        cy + (float) Math.sin(a) * pulseRadius, 0)
+                   .color(r_color, g_color, b_color, 0f).endVertex();
+            }
+            tess.draw();
+        }
+
+        // Restore blend mode normal
         GlStateManager.tryBlendFuncSeparate(
             GlStateManager.SourceFactor.SRC_ALPHA,
             GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
