@@ -29,13 +29,13 @@ DRAW = SIZE * SS
 CX = CY = DRAW // 2
 OUT_DIR = "mod-source/src/main/resources/assets/nexusabsolu/textures/gui/manifold"
 
-N_FRAMES = 60
+N_FRAMES = 120
 PHASE_RANGES = {
-    'iris':       (0, 7),    # 8 frames
-    'crack':      (8, 21),   # 14 frames
-    'faces':      (22, 35),  # 14 frames
-    'metamorph':  (36, 49),  # 14 frames
-    'entity_loop':(50, 59),  # 10 frames
+    'iris':       (0, 15),    # 16 frames
+    'crack':      (16, 43),   # 28 frames
+    'faces':      (44, 71),   # 28 frames
+    'metamorph':  (72, 99),   # 28 frames
+    'entity_loop':(100, 119), # 20 frames
 }
 
 
@@ -543,23 +543,25 @@ def generate_frame(frame_idx):
     # === ANIMATIONS GLOBALES (basees sur frame_idx pour mouvement vivant) ===
     t = frame_idx * 1.0  # phase de temps
     
-    # Mouvement de l'oeil : balaye dans differentes directions au fil du temps
-    # Coefficients accelere x2.5 pour mouvement plus vivant in-game
-    eye_look_a = math.sin(t * 0.45) * math.pi  # cycle ~14 frames (was 35)
-    eye_look_strength = 0.10 + abs(math.sin(t * 0.60)) * 0.20  # cycle ~10 frames
+    # Avec 120 frames (au lieu de 60), les coefficients sont divises par 2
+    # pour conserver la meme vitesse visible (cycles font 2x plus de frames).
+    # Resultat in-game : meme vitesse de mouvement mais x2 plus fluide.
     
-    # Pupille pulse rapide (battement vivant)
-    pupil_breath = 1.0 + math.sin(t * 1.10) * 0.10  # cycle ~6 frames
+    # Mouvement de l'oeil
+    eye_look_a = math.sin(t * 0.225) * math.pi  # cycle ~28 frames (etait 14)
+    eye_look_strength = 0.10 + abs(math.sin(t * 0.30)) * 0.20  # cycle ~20 frames
     
-    # Clignements PLUS FREQUENTS : tous les ~8 frames apres frame 10
-    # In-game (600ms/frame) ca fait 1 clin toutes les 4-5 secondes (naturel humain)
-    blink_frames = {12, 20, 28, 35, 42, 49, 55}  # 7 clins espaces
+    # Pupille pulse
+    pupil_breath = 1.0 + math.sin(t * 0.55) * 0.10  # cycle ~12 frames
+    
+    # Clignements : DOUBLE de clins (14 au lieu de 7) pour garder meme frequence
+    blink_frames = {24, 36, 48, 60, 72, 84, 95, 102, 108, 114, 119}  # 11 clins espaces
     is_blinking = frame_idx in blink_frames
     
-    # Animations entite (acceleration x2.5 pour mouvement vivant)
-    entity_breath = math.sin(t * 0.75)         # cycle ~8 frames (respiration rapide)
-    entity_head_sway = math.sin(t * 0.55)      # cycle ~11 frames (oscillation)
-    entity_star_twinkle = math.sin(t * 1.30)   # cycle ~5 frames (scintillement rapide)
+    # Animations entite
+    entity_breath = math.sin(t * 0.375)        # cycle ~17 frames (respiration)
+    entity_head_sway = math.sin(t * 0.275)     # cycle ~23 frames (sway)
+    entity_star_twinkle = math.sin(t * 0.65)   # cycle ~10 frames (scintillement)
     
     # === Parametres oeil selon la phase ===
     eye_openness = 1.0

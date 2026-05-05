@@ -95,25 +95,28 @@ public class ManifoldOverlayHandler {
     //   18-29 (12) : FACES 3 visages superposes puis fusion
     //   30-41 (12) : METAMORPHOSE visage or -> entite humanoide verte
     //   42-49 (8)  : ENTITY_LOOP entite finale + etoile pulse
-    //   ENTITY MORPHING - 60 frames sur 5 phases :
-    //   IRIS        : 0-7   (8)   - oeil semi-realiste qui s'ouvre
-    //   CRACK       : 8-21  (14)  - cracks rouge sang autour de l'oeil (realite brisee)
-    //   FACES       : 22-35 (14)  - visages organiques chair sombre apparaissent
-    //   METAMORPHOSE: 36-49 (14)  - tentacules sortent + entite se forme
-    //   ENTITY_LOOP : 50-59 (10)  - entite finale + aureole d'yeux flottants (loop)
-    //   L'oeil au centre reste IDENTIQUE durant les 60 frames (point d'ancrage psychique).
-    private static final ResourceLocation[] ENTITY_FRAMES = new ResourceLocation[60];
+    //   ENTITY MORPHING - 120 frames sur 5 phases (x2 fluidite vs 60 frames) :
+    //   IRIS        : 0-15   (16)  - oeil semi-realiste qui s'ouvre
+    //   CRACK       : 16-43  (28)  - cracks rouge sang autour de l'oeil
+    //   FACES       : 44-71  (28)  - visages organiques chair sombre apparaissent
+    //   METAMORPHOSE: 72-99  (28)  - tentacules sortent + entite se forme
+    //   ENTITY_LOOP : 100-119 (20) - entite finale + aureole d'yeux flottants (loop)
+    //   L'oeil au centre reste IDENTIQUE durant les 120 frames (point d'ancrage psychique).
+    private static final ResourceLocation[] ENTITY_FRAMES = new ResourceLocation[120];
     static {
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 120; i++) {
             ENTITY_FRAMES[i] = new ResourceLocation(
                 "nexusabsolu", "textures/gui/manifold/entity_" + i + ".png");
         }
     }
-    private static final int N_ENTITY_MORPH_FRAMES = 50; // frames 0..49 = morphing one-shot
-    private static final int N_ENTITY_LOOP_FRAMES = 10;  // frames 50..59 = loop entity
+    private static final int N_ENTITY_MORPH_FRAMES = 100; // frames 0..99 = morphing one-shot
+    private static final int N_ENTITY_LOOP_FRAMES = 20;   // frames 100..119 = loop entity
 
     private static final int MANDALA_FRAME_DURATION = 100;  // 5s per mandala frame
-    private static final int ENTITY_FRAME_DURATION = 14;    // ~1 frame per beat (84 BPM)
+    private static final int ENTITY_FRAME_DURATION = 7;    // ~2 frames per beat (84 BPM)
+                                                            // Etait 14 (1 frame/beat) avec 60 frames.
+                                                            // Maintenant 7 (2 frames/beat) avec 120 frames
+                                                            // = meme duree totale, fluidite x2.
 
     // v1.0.334 (Etape 6 visuel ultime) : cosmic dust precompute.
     // 80 etoiles fixes en coordonnees normalisees [0,1] avec couleur DMT.
@@ -911,8 +914,8 @@ public class ManifoldOverlayHandler {
      *
      * Logique :
      *   - PEAK = [0.5, 0.6875] du trip (~90s)
-     *   - 1ere tranche (0.5..0.5625, ~30s) -> 50 frames de morphing one-shot
-     *   - 2eme tranche (0.5625..0.6875, ~60s) -> 10 frames loop entity
+     *   - 1ere tranche (0.5..0.5625, ~30s) -> 100 frames de morphing one-shot
+     *   - 2eme tranche (0.5625..0.6875, ~60s) -> 20 frames loop entity (cycle 7s)
      *   - Hors PEAK -> N_ENTITY_MORPH_FRAMES (defaut entite statique)
      */
     private float computeEntityFrameFloat(long t) {
