@@ -2,21 +2,22 @@
 # -*- coding: utf-8 -*-
 """
 Genere les 4 variantes de textures tunnel pour le Cartouche Manifold
-(Stage 4 Hyperspace) - VERSION FRACTALE PURE.
+(Stage 4 Hyperspace) - VERSION FRACTALE PURE COHERENTE.
 
 Architecture :
-  - 4 variantes crescendo A -> B -> C -> D (du simple a l'ultra complexe)
+  - 4 variantes en MEME style clean recursif, formes geometriques differentes
   - 100% fractales geometriques (zero etoiles/nebuleuses)
   - 1024x1024, fond transparent, palette VOSS SATURATED
 
-Crescendo dramatique :
-  A : HEXAGONES        - hexagones recursifs purs, calme
-  B : + SPIRALES       - + spirales arithmetiques (mouvement)
-  C : + ETOILES DAVID  - + etoiles de David recursives + tessellation hex
-  D : ULTRA COMPLEXE   - TOUT empile (matrice fractale infinie)
+4 variantes (memes principes, formes differentes) :
+  A : HEXAGONES (6)            - hexagones recursifs, palette violet electrique
+  B : PENTAGONES (5)           - pentagones recursifs, palette cyan
+  C : TRIANGLES (3)            - triangles + triangles inverses (Sierpinski/David)
+                                 palette or/rose
+  D : OCTOGONES (8) + DODECA   - octogones + dodecagone central, palette magenta/cyan
 
-Le shader Java existant (renderHyperspace3D + 3 couches parallax 2D) anime
-ces textures avec zoom, rotation vortex, acceleration progressive.
+Le shader Java existant (renderHyperspace3D + 3 couches parallax 2D + crossfade
+A-B-C-D + acceleration progressive) anime ces textures.
 
 Output : assets/nexusabsolu/textures/gui/manifold/tunnel_tile_a.png ... _d.png
          + tunnel_tile.png (legacy = copie de _a)
@@ -137,61 +138,66 @@ def micro_mandalas_central(draw, cx, cy):
 
 
 # ============================================================
-# 4 variantes crescendo
+# 4 variantes - MEME style clean recursif que A, formes differentes
 # ============================================================
 
 def make_variant_A():
-    """HEXAGONES - hexagones recursifs purs, le plus clean."""
+    """HEXAGONES (6) - hexagones recursifs purs."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
     d = ImageDraw.Draw(img, 'RGBA')
-    fractal_polygons(d, CX, CY, DRAW * 0.42, n=6, depth=4, rotation=0, color_idx=1)
+    fractal_polygons(d, CX, CY, DRAW * 0.42, n=6, depth=4,
+                     rotation=0, color_idx=1)
+    # Centre : cercle simple cyan
     r = DRAW * 0.04
-    d.ellipse([CX-r, CY-r, CX+r, CY+r], outline=VOSS[4] + (255,), width=3*SS)
+    d.ellipse([CX-r, CY-r, CX+r, CY+r],
+              outline=VOSS[4] + (255,), width=3*SS)
     return img.resize((SIZE, SIZE), Image.LANCZOS)
 
 
 def make_variant_B():
-    """+ SPIRALES - hexagones recursifs + spirales arithmetiques + octogones."""
+    """PENTAGONES (5) - asymetrie 5x, palette cyan dominante."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
     d = ImageDraw.Draw(img, 'RGBA')
-    fractal_spiral(d, CX, CY, max_r=DRAW * 0.45, n_arms=6, n_steps=80, color_idx=2)
-    fractal_polygons(d, CX, CY, DRAW * 0.42, n=6, depth=4, rotation=0, color_idx=1)
-    fractal_polygons(d, CX, CY, DRAW * 0.35, n=8, depth=3,
-                     rotation=math.pi/8, color_idx=3)
+    fractal_polygons(d, CX, CY, DRAW * 0.42, n=5, depth=4,
+                     rotation=math.pi/10, color_idx=3)
+    # Centre : pentagone or
+    r = DRAW * 0.04
+    pts = regular_polygon(CX, CY, r, 5, 0)
+    d.polygon(pts, outline=VOSS[5] + (255,), width=3*SS)
     return img.resize((SIZE, SIZE), Image.LANCZOS)
 
 
 def make_variant_C():
-    """+ ETOILES DAVID + TESSELLATION - sacred geometry s'intensifie."""
+    """TRIANGLES (3) - Sierpinski-like, palette or/rose."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
     d = ImageDraw.Draw(img, 'RGBA')
-    hex_tessellation_hyperbolic(d, CX, CY, base_radius=80*SS,
-                                max_radius=DRAW*0.45)
-    fractal_spiral(d, CX, CY, max_r=DRAW * 0.45, n_arms=6, n_steps=80, color_idx=2)
-    fractal_polygons(d, CX, CY, DRAW * 0.42, n=6, depth=4,
-                     rotation=0, color_idx=1)
-    fractal_polygons(d, CX, CY, DRAW * 0.35, n=8, depth=3,
-                     rotation=math.pi/8, color_idx=3)
-    star_of_david_recursive(d, CX, CY, DRAW * 0.30, depth=3,
-                            rotation=0, color_idx=5)
+    # Triangle principal pointe en haut
+    fractal_polygons(d, CX, CY, DRAW * 0.42, n=3, depth=5,
+                     rotation=-math.pi/2, color_idx=5)
+    # Triangle inverse superpose pour creer une etoile de David recursive
+    fractal_polygons(d, CX, CY, DRAW * 0.42, n=3, depth=5,
+                     rotation=math.pi/2, color_idx=6)
+    # Centre : petit triangle blanc
+    r = DRAW * 0.04
+    pts = regular_polygon(CX, CY, r, 3, -math.pi/2)
+    d.polygon(pts, outline=VOSS[7] + (255,), width=3*SS)
     return img.resize((SIZE, SIZE), Image.LANCZOS)
 
 
 def make_variant_D():
-    """ULTRA COMPLEXE - tout empile : matrice fractale infinie."""
+    """OCTOGONES (8) + DODECAGONE CENTRAL - geometrie sacree maximale."""
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
     d = ImageDraw.Draw(img, 'RGBA')
-    hex_tessellation_hyperbolic(d, CX, CY, base_radius=80*SS,
-                                max_radius=DRAW*0.45)
-    fractal_spiral(d, CX, CY, max_r=DRAW * 0.45, n_arms=6, n_steps=80, color_idx=2)
-    fractal_polygons(d, CX, CY, DRAW * 0.42, n=6, depth=4,
-                     rotation=0, color_idx=1)
-    fractal_polygons(d, CX, CY, DRAW * 0.35, n=8, depth=3,
-                     rotation=math.pi/8, color_idx=3)
-    star_of_david_recursive(d, CX, CY, DRAW * 0.30, depth=3,
-                            rotation=0, color_idx=5)
-    concentric_subdiv_rings(d, CX, CY, DRAW * 0.45, n_rings=10)
-    micro_mandalas_central(d, CX, CY)
+    # Octogones recursifs (8 sommets)
+    fractal_polygons(d, CX, CY, DRAW * 0.42, n=8, depth=4,
+                     rotation=math.pi/16, color_idx=2)
+    # Dodecagone central (12 sommets, plus discret)
+    fractal_polygons(d, CX, CY, DRAW * 0.18, n=12, depth=2,
+                     rotation=0, color_idx=4)
+    # Centre : cercle blanc
+    r = DRAW * 0.04
+    d.ellipse([CX-r, CY-r, CX+r, CY+r],
+              outline=VOSS[7] + (255,), width=3*SS)
     return img.resize((SIZE, SIZE), Image.LANCZOS)
 
 
@@ -227,13 +233,13 @@ if __name__ == "__main__":
     os.makedirs(OUT_DIR, exist_ok=True)
 
     variants = {
-        "a": ("HEXAGONES", make_variant_A),
-        "b": ("+ SPIRALES", make_variant_B),
-        "c": ("+ ETOILES DAVID + TESSELLATION", make_variant_C),
-        "d": ("ULTRA COMPLEXE", make_variant_D),
+        "a": ("HEXAGONES (6)", make_variant_A),
+        "b": ("PENTAGONES (5)", make_variant_B),
+        "c": ("TRIANGLES (3) - Sierpinski/David", make_variant_C),
+        "d": ("OCTOGONES (8) + DODECAGONE", make_variant_D),
     }
 
-    print("=== Generation 4 textures tunnel FRACTAL crescendo ===\n")
+    print("=== Generation 4 textures tunnel FRACTAL coherent (style A) ===\n")
 
     for letter, (label, fn) in variants.items():
         print(f"  Variant {letter.upper()} - {label}...")
