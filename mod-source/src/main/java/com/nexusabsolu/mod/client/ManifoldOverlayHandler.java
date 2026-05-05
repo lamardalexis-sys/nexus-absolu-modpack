@@ -1086,6 +1086,13 @@ public class ManifoldOverlayHandler {
             tess.draw();
         }
 
+        // === RESTORE GL STATE pour eviter leak vers les methodes suivantes ===
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(1f, 1f, 1f, 1f);
         GlStateManager.enableTexture2D();
     }
 
@@ -1195,6 +1202,13 @@ public class ManifoldOverlayHandler {
             tess.draw();
         }
 
+        // === RESTORE GL STATE pour eviter leak vers les methodes suivantes ===
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(1f, 1f, 1f, 1f);
         GlStateManager.enableTexture2D();
     }
 
