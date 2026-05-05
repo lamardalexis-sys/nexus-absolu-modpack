@@ -353,18 +353,23 @@ def draw_floating_eyes(img, intensity, n_max=30, pulse=0.0):
                  iris_color_hex=iris_color)
 
 
-def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0):
+def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0,
+                          breath=0.0, head_sway=0.0, star_twinkle=0.0):
     """
-    Entité humanoide cyclope biblical angel POUR DE VRAI.
-    L'oeil au centre EST l'oeil cyclope de l'entite (englobement).
+    Entité humanoide cyclope biblical angel POUR DE VRAI - VIVANTE.
     
-    formation : 0 -> 1 progression de la formation des parties dans cet ordre :
-      tete (0..0.25) -> corps (0.20..0.45) -> bras (0.40..0.65)
-      -> etoile (0.60..0.85) -> aura (0.80..1.0)
-    pulse : oscillation 0 -> 1 pour effets pulse (aura, etoile)
+    formation : 0 -> 1 progression de la formation
+    pulse : oscillation 0 -> 1 pour aura/halo etoile
+    breath : -1 -> 1, respiration (corps/tete pulsent en taille)
+    head_sway : -1 -> 1, oscillation laterale tete/epaules
+    star_twinkle : -1 -> 1, scintillement etoile (taille + rotation)
     """
     d = ImageDraw.Draw(img, 'RGBA')
-    er = DRAW * 0.13  # base de calcul des proportions
+    er = DRAW * 0.13
+    
+    # Coefficients de respiration (subtils : ±5%)
+    breath_factor = 1.0 + breath * 0.05
+    sway_offset = head_sway * er * 0.05  # oscillation horizontale +- 5% de er
     
     body_color = (50, 18, 40)
     body_outline = (10, 0, 15)
@@ -406,17 +411,17 @@ def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0):
         img.alpha_composite(aura)
         d = ImageDraw.Draw(img, 'RGBA')
     
-    # 2. CORPS trapeze
+    # 2. CORPS trapeze (avec respiration)
     if body_t > 0:
         torso_top_y = int(CY + er * 1.5)
-        torso_bot_y = int(CY + er * 3.0 * body_t)
-        torso_top_w = int(er * 1.6)
-        torso_bot_w = int(er * 1.2)
+        torso_bot_y = int(CY + er * 3.0 * body_t * breath_factor)
+        torso_top_w = int(er * 1.6 * breath_factor)
+        torso_bot_w = int(er * 1.2 * breath_factor)
         torso_pts = [
-            (CX - torso_top_w, torso_top_y),
-            (CX + torso_top_w, torso_top_y),
-            (CX + torso_bot_w, torso_bot_y),
-            (CX - torso_bot_w, torso_bot_y),
+            (CX - torso_top_w + sway_offset, torso_top_y),
+            (CX + torso_top_w + sway_offset, torso_top_y),
+            (CX + torso_bot_w + sway_offset * 0.5, torso_bot_y),
+            (CX - torso_bot_w + sway_offset * 0.5, torso_bot_y),
         ]
         alpha = int(230 * intensity * body_t)
         d.polygon(torso_pts, fill=body_color + (alpha,),
@@ -425,7 +430,7 @@ def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0):
         n_chest_eyes = int(4 * body_t)
         for i in range(n_chest_eyes):
             ex_offset = (i - (n_chest_eyes-1)/2) * er * 0.45
-            ex = int(CX + ex_offset)
+            ex = int(CX + ex_offset + sway_offset)
             ey = int(torso_top_y + er * 0.4)
             erad = int(er * 0.16)
             draw_eye(img, ex, ey, erad, openness=1.0,
@@ -433,27 +438,27 @@ def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0):
                      iris_color_hex=eye_red)
         d = ImageDraw.Draw(img, 'RGBA')
     
-    # 3. TETE CONIQUE
+    # 3. TETE CONIQUE (avec respiration + sway)
     if head_t > 0:
         head_base_y = int(CY + er * 1.4)
-        head_top_y = int(CY - er * 2.2 * head_t)
-        head_w = int(er * 1.5)
+        head_top_y = int(CY - er * 2.2 * head_t * breath_factor)
+        head_w = int(er * 1.5 * breath_factor)
         head_pts = [
-            (CX - head_w, head_base_y),
-            (CX + head_w, head_base_y),
-            (CX, head_top_y),
+            (CX - head_w + sway_offset, head_base_y),
+            (CX + head_w + sway_offset, head_base_y),
+            (CX + sway_offset * 1.5, head_top_y),  # pointe plus deviee
         ]
         alpha = int(230 * intensity * head_t)
         d.polygon(head_pts, fill=body_color + (alpha,),
                   outline=body_outline + (255,))
     
-    # 4. BRAS
+    # 4. BRAS (avec sway)
     right_hand_x = right_hand_y = right_hand_r = None
     if arms_t > 0:
         torso_top_y = int(CY + er * 1.5)
-        torso_top_w = int(er * 1.6)
+        torso_top_w = int(er * 1.6 * breath_factor)
         for side in [-1, 1]:
-            shoulder_x = CX + side * torso_top_w
+            shoulder_x = CX + side * torso_top_w + int(sway_offset)
             shoulder_y = torso_top_y
             elbow_x = shoulder_x + side * int(er * 1.0 * arms_t)
             elbow_y = shoulder_y + int(er * 1.2 * arms_t)
@@ -484,11 +489,14 @@ def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0):
                 right_hand_y = hand_y
                 right_hand_r = hand_r
     
-    # 5. ETOILE D'OR dans la main droite
+    # 5. ETOILE D'OR avec scintillement (taille + rotation)
     if star_t > 0 and right_hand_x is not None:
         sx = right_hand_x
         sy = right_hand_y
-        sr = int(right_hand_r * 1.6 * star_t)
+        # Scintillement : taille varie ±15%, rotation continue
+        twinkle_scale = 1.0 + star_twinkle * 0.15
+        sr = int(right_hand_r * 1.6 * star_t * twinkle_scale)
+        # Halo dore
         halo = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
         hd = ImageDraw.Draw(halo, 'RGBA')
         halo_r = int(sr * 2.5 * (1 + pulse * 0.3))
@@ -501,9 +509,11 @@ def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0):
         halo = halo.filter(ImageFilter.GaussianBlur(radius=15))
         img.alpha_composite(halo)
         d = ImageDraw.Draw(img, 'RGBA')
+        # Etoile : rotation basée sur star_twinkle
+        star_rot = star_twinkle * math.pi / 6  # ±30 deg
         star_pts = []
         for i in range(10):
-            a = -math.pi/2 + i * math.pi / 5
+            a = -math.pi/2 + i * math.pi / 5 + star_rot
             r = sr if i % 2 == 0 else sr * 0.4
             star_pts.append((sx + math.cos(a) * r, sy + math.sin(a) * r))
         d.polygon(star_pts, fill=star_gold + (int(255 * star_t),),
@@ -515,73 +525,103 @@ def draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=1.0):
 # ============================================================
 
 def generate_frame(frame_idx):
-    """Genere une frame complete a partir de l'index."""
+    """Genere une frame complete a partir de l'index. TOUT EST VIVANT.
+    
+    Animations basees sur frame_idx :
+    - Oeil qui regarde dans differentes directions (look_a varie en sin)
+    - Pupille qui se dilate/contracte (battement organique)
+    - Clignements occasionnels (frames 25, 38, 53)
+    - Entite qui respire (corps/tete pulsent en taille)
+    - Tete qui oscille legerement (head sway)
+    - Etoile d'or qui scintille (taille + rotation continue)
+    - Aura qui pulse (deja en place)
+    """
     phase, progress = get_phase_and_progress(frame_idx)
     
     img = Image.new('RGBA', (DRAW, DRAW), (0, 0, 0, 0))
+    
+    # === ANIMATIONS GLOBALES (basees sur frame_idx pour mouvement vivant) ===
+    t = frame_idx * 1.0  # phase de temps
+    
+    # Mouvement de l'oeil : balaye dans differentes directions au fil du temps
+    # look_a oscille entre -pi et pi en sin lent
+    eye_look_a = math.sin(t * 0.18) * math.pi  # cycle complet ~35 frames
+    eye_look_strength = 0.10 + abs(math.sin(t * 0.24)) * 0.20  # 0.10 -> 0.30
+    
+    # Pupille pulse organique (battement a frequence intermediaire)
+    pupil_breath = 1.0 + math.sin(t * 0.45) * 0.08
+    
+    # Clignements : tres rapides (1 frame) sur frames specifiques
+    # Eviter en phase IRIS (oeil deja en train de s'ouvrir)
+    blink_frames = {25, 38, 53}  # 3 clignements bien espaces
+    is_blinking = frame_idx in blink_frames
+    
+    # Animations entite (toutes en sin pour boucler proprement)
+    entity_breath = math.sin(t * 0.30)         # respiration -1 -> 1
+    entity_head_sway = math.sin(t * 0.22)      # oscillation tete -1 -> 1
+    entity_star_twinkle = math.sin(t * 0.55)   # scintillement etoile -1 -> 1
     
     # === Parametres oeil selon la phase ===
     eye_openness = 1.0
     eye_pupil_dilation = 1.0
     eye_weeping = False
-    eye_iris = '#3F6B4F'  # vert noisette par defaut
+    eye_iris = '#3F6B4F'
     
     if phase == 'iris':
-        # Oeil qui s'ouvre progressivement de 0 a 1
-        eye_openness = progress
+        eye_openness = progress  # ouverture progressive
+        # Pas de mouvement encore (oeil pas encore ouvert)
+        eye_look_a = 0.4
+        eye_look_strength = 0.15
     elif phase == 'crack':
-        # Pupille legerement dilatee (peur)
-        eye_openness = 1.0
-        eye_pupil_dilation = 1.0 + progress * 0.3
+        eye_openness = 0.1 if is_blinking else 1.0
+        eye_pupil_dilation = (1.0 + progress * 0.3) * pupil_breath
     elif phase == 'faces':
-        # Pupille tres dilatee
-        eye_pupil_dilation = 1.3 + progress * 0.2
+        eye_openness = 0.1 if is_blinking else 1.0
+        eye_pupil_dilation = (1.3 + progress * 0.2) * pupil_breath
     elif phase == 'metamorph':
-        # Iris rougit progressivement (horror)
-        eye_pupil_dilation = 1.5
-        # Lerp vert vers rouge
+        eye_openness = 0.1 if is_blinking else 1.0
+        eye_pupil_dilation = 1.5 * pupil_breath
         green = (63, 107, 79)
         red = (107, 30, 30)
         c = lerp_color(green, red, progress)
         eye_iris = '#{:02X}{:02X}{:02X}'.format(*c)
     elif phase == 'entity_loop':
-        # Boucle finale : pulse pupille + larmes noires + iris rouge sang
         eye_iris = '#7B0000'
-        eye_pupil_dilation = 1.5 + math.sin(progress * 2 * math.pi) * 0.2
+        # Pupille pulse plus marque pendant entity_loop
+        eye_pupil_dilation = (1.5 + math.sin(progress * 2 * math.pi) * 0.2) * pupil_breath
         eye_weeping = True
+        eye_openness = 0.1 if is_blinking else 1.0
     
     # === Transformation autour ===
     if phase == 'iris':
-        # Phase 1 : juste l'oeil qui s'ouvre, rien autour
         pass
     elif phase == 'crack':
-        # Cracks intensite 0 -> 1
-        draw_cracks(img, intensity=progress)
+        # Cracks bougent : seed varie subtilement avec frame
+        draw_cracks(img, intensity=progress, seed=99 + (frame_idx // 4))
     elif phase == 'faces':
-        draw_cracks(img, intensity=1.0)
+        draw_cracks(img, intensity=1.0, seed=99 + (frame_idx // 4))
         draw_faces_around(img, intensity=progress)
     elif phase == 'metamorph':
-        # L'entite se forme PROGRESSIVEMENT
-        # Premiere moitie : tentacules + faces qui restent
-        # Deuxieme moitie : entite qui apparait par-dessus
-        draw_cracks(img, intensity=1.0)
-        draw_faces_around(img, intensity=max(0, 1.0 - progress * 1.5))  # disparaissent
-        draw_tentacles(img, intensity=max(0, 1.0 - progress * 1.5))    # disparaissent
-        # L'entite se forme : formation = progress (0 -> 1)
-        draw_powerful_entity(img, intensity=1.0, pulse=0.0, formation=progress)
+        draw_cracks(img, intensity=1.0, seed=99 + (frame_idx // 4))
+        draw_faces_around(img, intensity=max(0, 1.0 - progress * 1.5))
+        draw_tentacles(img, intensity=max(0, 1.0 - progress * 1.5))
+        draw_powerful_entity(img, intensity=1.0, pulse=0.0,
+                             formation=progress,
+                             breath=entity_breath, head_sway=entity_head_sway,
+                             star_twinkle=entity_star_twinkle)
     elif phase == 'entity_loop':
-        # Entite COMPLETE qui pulse
-        draw_cracks(img, intensity=1.0)
-        # Pulse global oscille en sin
-        pulse = (math.sin(progress * 2 * math.pi) + 1) / 2  # 0 -> 1 -> 0
-        draw_powerful_entity(img, intensity=1.0, pulse=pulse, formation=1.0)
+        draw_cracks(img, intensity=1.0, seed=99 + (frame_idx // 4))
+        pulse = (math.sin(progress * 2 * math.pi) + 1) / 2
+        draw_powerful_entity(img, intensity=1.0, pulse=pulse,
+                             formation=1.0,
+                             breath=entity_breath, head_sway=entity_head_sway,
+                             star_twinkle=entity_star_twinkle)
     
-    # === Oeil principal (par-dessus tout, point d'ancrage) ===
-    # Taille reduite a 0.13 (au lieu de 0.18) pour cohérence avec proportions de l'entite
+    # === Oeil principal (par-dessus tout, point d'ancrage VIVANT) ===
     eye_size = int(DRAW * 0.13)
     draw_eye(img, CX, CY, eye_size,
              openness=eye_openness,
-             look_a=0.4, look_strength=0.15,
+             look_a=eye_look_a, look_strength=eye_look_strength,
              iris_color_hex=eye_iris,
              pupil_dilation=eye_pupil_dilation,
              weeping=eye_weeping)
