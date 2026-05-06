@@ -183,6 +183,13 @@ public class ManifoldOverlayHandler {
         int w = res.getScaledWidth();
         int h = res.getScaledHeight();
 
+        // === v1.0.360 NDE : Camera 3eme personne + fade musique ===
+        // S'execute UNE FOIS par frame, avant les couches visuelles.
+        // Force la 3eme personne pendant la NDE (player se voit mourir),
+        // fade la musique progressivement.
+        manageThirdPersonNDE(mc, progress);
+        manageMusicFadeNDE(mc, progress);
+
         // Calcul des intensites par stage [s1, s2, s3, s4, s5]
         float[] intensities = ManifoldClientState.getLayerIntensities(progress);
 
@@ -253,6 +260,23 @@ public class ManifoldOverlayHandler {
             renderWaveformBars(w, h, now, wavIntensity);
         }
 
+        // === COUCHE NDE TUNNEL VISION -- v1.0.360 ===
+        // Pendant la NDE (frames 240-299), une vignette circulaire noire
+        // qui RETRECIT progressivement (effet 'tunnel vision' classique des NDE).
+        // Au debut de la NDE on voit presque tout, a la fin un tout petit cercle
+        // central, puis fade to black.
+        // User : 'bordures de l'ecran qui deviennent de plus en plus noir,
+        //         tunnel vision NDE'
+        if (progress > 0.625f && progress < 0.97f) {
+            float ndeT = (progress - 0.625f) / (0.97f - 0.625f);
+            // Rayon visible : decroissance log (rapide au debut, lent a la fin)
+            // Au debut (t=0) : presque plein ecran (1.0)
+            // A la fin (t=1)  : tout petit (0.05)
+            float radiusFraction = (float) Math.pow(0.05, ndeT);
+            float radiusVisible = (float) Math.sqrt(w * w + h * h) * 0.7f * radiusFraction;
+            renderTunnelVisionNDE(w, h, radiusVisible);
+        }
+
         // === COUCHE FINALE -- v1.0.359 : FADE TO BLACK definitif ===
         // Pendant les 10 dernieres secondes du trip (progress 0.97 -> 1.0),
         // un quad noir fade in EN DERNIER (par-dessus toutes les autres couches)
@@ -298,6 +322,136 @@ public class ManifoldOverlayHandler {
         GlStateManager.color(1f, 1f, 1f, 1f);
         GlStateManager.disableBlend();
         GlStateManager.enableTexture2D();
+    }
+
+    /**
+     * v1.0.360 : Vignette tunnel vision NDE.
+     * Dessine un anneau noir avec gradient (transparent au centre,
+     * noir opaque aux bords) qui retrecit progressivement pendant la NDE.
+     * 
+     * radiusVisible : rayon du cercle CENTRAL visible (transparent).
+     * Tout au-dela = noir opaque.
+     * Gradient smooth de transparent a noir sur 40% du radiusVisible.
+     * 
+     * User feedback : 'bordures de l'ecran qui deviennent de plus en plus
+     * noir, tunnel vision NDE'.
+     */
+    private void renderTunnelVisionNDE(int w, int h, float radiusVisible) {
+        if (radiusVisible < 1f) return;
+        
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        
+        float cx = w / 2.0f;
+        float cy = h / 2.0f;
+        float gradientWidth = radiusVisible * 0.4f;
+        float outerRadius = radiusVisible + gradientWidth;
+        // Far radius : tres loin pour couvrir TOUT l'ecran (meme coins)
+        float farRadius = (float) Math.sqrt(w * w + h * h) * 1.5f;
+        
+        int segments = 64;
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        
+        // 1. Anneau gradient : interieur transparent, exterieur noir opaque
+        // OpenGL interpole automatiquement l'alpha entre les 2 couronnes
+        buf.begin(GL11.GL_TRIANGLE_STRIP, DefaultVertexFormats.POSITION_COLOR);
+        for (int i = 0; i <= segments; i++) {
+            float angle = i * 2 * (float) Math.PI / segments;
+            float ca = (float) Math.cos(angle);
+            float sa = (float) Math.sin(angle);
+            // Inner edge : transparent
+            buf.pos(cx + ca * radiusVisible, cy + sa * radiusVisible, 0)
+               .color(0f, 0f, 0f, 0f).endVertex();
+            // Outer edge : noir opaque
+            buf.pos(cx + ca * outerRadius, cy + sa * outerRadius, 0)
+               .color(0f, 0f, 0f, 1f).endVertex();
+        }
+        tess.draw();
+        
+        // 2. Au-dela : noir opaque jusqu'aux coins
+        buf.begin(GL11.GL_TRIANGLE_STRIP, DefaultVertexFormats.POSITION_COLOR);
+        for (int i = 0; i <= segments; i++) {
+            float angle = i * 2 * (float) Math.PI / segments;
+            float ca = (float) Math.cos(angle);
+            float sa = (float) Math.sin(angle);
+            buf.pos(cx + ca * outerRadius, cy + sa * outerRadius, 0)
+               .color(0f, 0f, 0f, 1f).endVertex();
+            buf.pos(cx + ca * farRadius, cy + sa * farRadius, 0)
+               .color(0f, 0f, 0f, 1f).endVertex();
+        }
+        tess.draw();
+        
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
+    }
+
+    /**
+     * v1.0.360 : Force la camera en 3eme personne pendant la NDE.
+     * 
+     * Au debut de la NDE (progress = 0.625), on sauvegarde la vue actuelle
+     * du joueur et on bascule en 3eme personne (F5 = 1, derriere le joueur).
+     * Le joueur 'se voit mourir' visuellement.
+     * 
+     * A la fin du trip (progress >= 0.99 ou trip termine), on restaure
+     * la vue precedente.
+     * 
+     * User feedback : 'effet a la 3eme personne ou il se voit mourir'.
+     */
+    private static int savedThirdPersonView = -1;  // -1 = pas sauvegarde
+    private void manageThirdPersonNDE(Minecraft mc, float progress) {
+        if (progress >= 0.625f && progress < 0.99f) {
+            // Pendant la NDE : forcer 3eme personne
+            if (savedThirdPersonView == -1) {
+                savedThirdPersonView = mc.gameSettings.thirdPersonView;
+            }
+            if (mc.gameSettings.thirdPersonView != 1) {
+                mc.gameSettings.thirdPersonView = 1;  // 1 = derriere le joueur
+            }
+        } else {
+            // Hors NDE : restaurer la vue d'origine
+            if (savedThirdPersonView != -1) {
+                mc.gameSettings.thirdPersonView = savedThirdPersonView;
+                savedThirdPersonView = -1;
+            }
+        }
+    }
+
+    /**
+     * v1.0.360 : Fade out de la musique pendant la NDE.
+     * 
+     * Reduit progressivement le volume MASTER de 1.0 a 0.0 sur la duree
+     * de la NDE (progress 0.625 -> 0.99). A la fin du trip, restauration
+     * du volume d'origine.
+     * 
+     * User feedback : 'la musique a un fondu qu'on l'entend de moins en moins'.
+     */
+    private static float savedMasterVolume = -1f;
+    private void manageMusicFadeNDE(Minecraft mc, float progress) {
+        if (progress >= 0.625f && progress < 0.99f) {
+            if (savedMasterVolume < 0f) {
+                savedMasterVolume = mc.gameSettings.getSoundLevel(
+                    net.minecraft.util.SoundCategory.MASTER);
+            }
+            // Fade : 1.0 a progress=0.625, 0.0 a progress=0.99
+            float ndeT = (progress - 0.625f) / (0.99f - 0.625f);
+            if (ndeT > 1.0f) ndeT = 1.0f;
+            float fadeOut = 1.0f - (ndeT * ndeT * (3f - 2f * ndeT));  // smoothstep inverse
+            float newVolume = savedMasterVolume * fadeOut;
+            mc.gameSettings.setSoundLevel(
+                net.minecraft.util.SoundCategory.MASTER, newVolume);
+        } else if (savedMasterVolume >= 0f) {
+            // Hors NDE : restaurer volume original
+            mc.gameSettings.setSoundLevel(
+                net.minecraft.util.SoundCategory.MASTER, savedMasterVolume);
+            savedMasterVolume = -1f;
+        }
     }
 
     /**
