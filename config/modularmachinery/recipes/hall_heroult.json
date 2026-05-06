@@ -1,0 +1,36 @@
+{
+    "machine": "hall_heroult_cell",
+    "registryName": "hall_heroult",
+    "recipeTime": 800,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 150000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:alumina",
+            "amount": 4
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:cryolithe_block",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "output",
+            "item": "contenttweaker:aluminum_pure",
+            "amount": 4
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "oxygen",
+            "amount": 200
+        }
+    ]
+}

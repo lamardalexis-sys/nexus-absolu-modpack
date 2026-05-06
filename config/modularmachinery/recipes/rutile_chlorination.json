@@ -1,0 +1,42 @@
+{
+    "machine": "kroll_reactor",
+    "registryName": "rutile_chlorination",
+    "recipeTime": 200,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 20000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "nuclearcraft:gem_dust:8",
+            "amount": 4
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "chlorine_gas",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "minecraft:coal",
+            "amount": 2
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "ticl4",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "carbon_dioxide",
+            "amount": 200
+        }
+    ]
+}

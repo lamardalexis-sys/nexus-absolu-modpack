@@ -1,0 +1,30 @@
+{
+    "machine": "bioreacteur",
+    "registryName": "phosphoric_acid_synthesis",
+    "recipeTime": 100,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 2000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:p2o5_capsule",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "tridistilled_water",
+            "amount": 300
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "h3po4",
+            "amount": 300
+        }
+    ]
+}
