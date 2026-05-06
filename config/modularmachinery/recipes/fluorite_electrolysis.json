@@ -1,0 +1,30 @@
+{
+    "machine": "fluorite_cell",
+    "registryName": "fluorite_electrolysis",
+    "recipeTime": 600,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 80000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:fluorite_dust",
+            "amount": 4
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "fluorine_gas",
+            "amount": 50
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "output",
+            "item": "contenttweaker:slag_silicate",
+            "amount": 2
+        }
+    ]
+}
