@@ -480,8 +480,8 @@ public class ManifoldOverlayHandler {
         int rows = 16;
         float cellW = w / (float) cols;
         float cellH = h / (float) rows;
-        // v1.0.352 : plus opaque (etait 0.4) - moins transparence demandee par user
-        float alpha = intensity * 0.65f;
+        // v1.0.356 : alpha 0.65 -> 0.85 (encore plus opaque)
+        float alpha = intensity * 0.85f;
 
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buf = tess.getBuffer();
@@ -489,8 +489,16 @@ public class ManifoldOverlayHandler {
 
         double tt = t * 0.05;
 
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
+        // v1.0.356 : Pre-compute couleur aux NOEUDS de la grille (cols+1 x rows+1)
+        // pour que chaque cellule ait des couleurs LISSEES aux 4 coins.
+        // OpenGL interpolera automatiquement entre les coins -> plus de
+        // grille rectangulaire visible (cellules carrees disparaissent).
+        float[][] gridR = new float[cols + 1][rows + 1];
+        float[][] gridG = new float[cols + 1][rows + 1];
+        float[][] gridB = new float[cols + 1][rows + 1];
+        
+        for (int col = 0; col <= cols; col++) {
+            for (int row = 0; row <= rows; row++) {
                 double v = Math.sin(col * 0.45 + tt * 1.2)
                          + Math.sin(row * 0.55 + tt * 0.9)
                          + Math.sin((col + row) * 0.3 + tt * 1.5);
@@ -498,19 +506,34 @@ public class ManifoldOverlayHandler {
                 int idxA = ((int) norm) % 8;
                 int idxB = (idxA + 1) % 8;
                 double frac = norm - Math.floor(norm);
-
                 float[] cA = DMT_PALETTE[idxA];
                 float[] cB = DMT_PALETTE[idxB];
-                float r = (float) (cA[0] * (1.0 - frac) + cB[0] * frac);
-                float g = (float) (cA[1] * (1.0 - frac) + cB[1] * frac);
-                float b = (float) (cA[2] * (1.0 - frac) + cB[2] * frac);
+                gridR[col][row] = (float) (cA[0] * (1.0 - frac) + cB[0] * frac);
+                gridG[col][row] = (float) (cA[1] * (1.0 - frac) + cB[1] * frac);
+                gridB[col][row] = (float) (cA[2] * (1.0 - frac) + cB[2] * frac);
+            }
+        }
 
+        // Dessine les cellules avec couleurs interpolees aux 4 coins
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
                 float x0 = col * cellW;
                 float y0 = row * cellH;
-                buf.pos(x0, y0 + cellH, 0).color(r, g, b, alpha).endVertex();
-                buf.pos(x0 + cellW, y0 + cellH, 0).color(r, g, b, alpha).endVertex();
-                buf.pos(x0 + cellW, y0, 0).color(r, g, b, alpha).endVertex();
-                buf.pos(x0, y0, 0).color(r, g, b, alpha).endVertex();
+                // 4 coins : top-left (col,row), top-right (col+1,row),
+                //           bottom-right (col+1,row+1), bottom-left (col,row+1)
+                // OpenGL fait l'interpolation lineaire entre les 4 -> gradient lisse
+                buf.pos(x0, y0 + cellH, 0)
+                   .color(gridR[col][row + 1], gridG[col][row + 1],
+                          gridB[col][row + 1], alpha).endVertex();
+                buf.pos(x0 + cellW, y0 + cellH, 0)
+                   .color(gridR[col + 1][row + 1], gridG[col + 1][row + 1],
+                          gridB[col + 1][row + 1], alpha).endVertex();
+                buf.pos(x0 + cellW, y0, 0)
+                   .color(gridR[col + 1][row], gridG[col + 1][row],
+                          gridB[col + 1][row], alpha).endVertex();
+                buf.pos(x0, y0, 0)
+                   .color(gridR[col][row], gridG[col][row],
+                          gridB[col][row], alpha).endVertex();
             }
         }
         tess.draw();
