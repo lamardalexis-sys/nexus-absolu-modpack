@@ -225,7 +225,7 @@ public class ManifoldOverlayHandler {
         // crossfade entre fresques pour variete sans repetition visible.
         // Effet : on plonge dans une oeuvre d'art DMT infiniment detaillee juste
         // avant l'apparition de l'entite.
-        float progress = ManifoldClientState.getTripProgress(now);
+        // (variable 'progress' deja declaree plus haut dans la methode, on la reutilise)
         float fresqueIntensity = computeFresqueIntensity(progress);
         if (fresqueIntensity > 0.01f) {
             renderInfiniteFresqueTunnel(mc, w, h, now, fresqueIntensity);
