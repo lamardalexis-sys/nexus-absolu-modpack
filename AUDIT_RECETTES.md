@@ -148,65 +148,122 @@ Le script audit Python utilisé peut être ajouté à `scripts-tools/` pour :
 
 → Pas critique mais à nettoyer ou compléter en sprint dédié Age 4.
 
-### 5.2 — Chaîne progression Age 0 → Age 2
+### 5.2 — RÉVISION : compose_b et signalhee_ingot ne sont PAS orphelins
+
+**ERREUR de la phase 1** : mon audit ne lisait que les fichiers `.zs` et configs JSON. **Il a raté les recettes définies en JAVA via Tile Entities et Recipe Registries**.
+
+**Les "orphelins" sont en fait produits par des MACHINES JAVA** :
+
+#### `signalhee_ingot` ✅ produit par TileMachineKRDA
+Source : `mod-source/src/main/java/com/nexusabsolu/mod/tiles/KRDARecipes.java`
+```java
+// Recette 1 : ingotSignalum + 500 mB diarrhee + 50 RF/t pendant 10s
+//          -> 1x signalhee_ingot
+addOredictRecipe("ingotSignalum", "thermalfoundation:material", 165,
+                 500,
+                 "nexusabsolu:signalhee_ingot", 0, 1,
+                 200, 50);
+```
+
+#### `diarrhee_liquide` ✅ produit par TileMachineHumaine
+Source : `mod-source/src/main/java/com/nexusabsolu/mod/tiles/TileMachineHumaine.java`
+- Le bloc `machine_humaine` (a.k.a. **Diarh33**) produit le fluide via `outputTank.fill()`
+
+### 5.3 — VRAI BLOQUEUR : les MACHINES elles-mêmes ne sont pas craftables
+
+🚨 **PROBLÈME CRITIQUE NOUVEAU** :
+
+Les machines existent en Java avec leur Tile Entity, GUI, recettes. Leurs models et blockstates sont fournis. **Mais aucune recette ne permet de les obtenir** :
+
+| Machine | Recette dans `.zs` | Recette dans BQ rewards | Recette JSON Forge | **Status** |
+|---|---|---|---|---|
+| `nexusabsolu:machine_humaine` | ❌ Aucune | ❌ Aucune | ❌ Aucune | 🔴 **NON-CRAFTABLE** |
+| `nexusabsolu:machine_krda` | ❌ Aucune | ❌ Aucune | ❌ Aucune | 🔴 **NON-CRAFTABLE** |
+
+**Conséquence en cascade** :
+- Sans `machine_humaine` → pas de `diarrhee_liquide` → pas de clé 9×9 → bloqué Age 1→2
+- Sans `machine_krda` → pas de `signalhee_ingot` → pas de `compose_c` → pas de vossium III → bloqué Age 1
+
+### 5.4 — Chaîne progression Age 0 → Age 2
 
 | Clé | Recette | Status |
 |---|---|---|
 | `compact_key_5x5` | grits + cobblestone + poop | ✅ OK |
 | `compact_key_7x7` | basic ingots (iron, copper, tin, redstone) | ✅ OK |
-| **`compact_key_9x9`** | vossium_iii + **diarrhee_liquide** + blood_magic + compose_gear_c | 🔴 **CASSÉ** |
+| **`compact_key_9x9`** | vossium_iii + diarrhee_liquide + blood_magic + compose_gear_c | 🔴 **CASSÉ** (cause racine = machine_humaine non-craftable) |
 | `compact_key_11x11` | invar + gearCopper + frame TE | ✅ OK |
 | `compact_key_13x13` | steel + darksteel + electrum | ✅ OK |
 
-🔴 **DOUBLE BLOQUEUR CONFIRMÉ** sur l'Age 1 :
-
-1. **`signalhee_ingot` orphelin** → pas de `compose_c` → pas de **vossium III** (composant clé)
-2. **`diarrhee_liquide` orphelin** → pas de clé 9x9 (même si vossium III existait)
-
-Conséquence : **impossible de passer de la salle 7×7 à la salle 9×9**. Tout joueur sera bloqué à l'Age 1.
-
 ---
 
-## 6. SYNTHÈSE FINALE
+## 6. SYNTHÈSE FINALE CORRIGÉE
 
-### Bilan : 3 vrais problèmes critiques
+### Bilan : 3 vrais problèmes (causes racine)
 
 | # | Item | Niveau impact | Action requise |
 |---|---|---|---|
-| 1 | `signalhee_ingot` | 🔴 BLOQUEUR Age 1 | Ajouter source (recette ZS ou MM KRDA125) |
-| 2 | `diarrhee_liquide` | 🔴 BLOQUEUR Age 1→2 | Ajouter source (recette MM Diarh33) |
-| 3 | `compose_e` | 🟠 BLOQUEUR Age 2 endgame | Ajouter source (drop, recette, ou MM) |
+| 1 | `nexusabsolu:machine_humaine` (Diarh33) | 🔴 BLOQUEUR Age 1→2 | Ajouter recette de craft |
+| 2 | `nexusabsolu:machine_krda` (KRDA125) | 🔴 BLOQUEUR Age 1 | Ajouter recette de craft |
+| 3 | `nexusabsolu:compose_e` | 🟠 BLOQUEUR Age 2 endgame | Ajouter source (drop, recette, ou MM) |
+
+### Recettes proposées (style E2E avec inter-mod)
+
+#### 🛠 `machine_humaine` (Diarh33) — Age 1, post-RF basique
+Concept narratif : convertir matière organique humaine en biocarburant fluide.
+
+```zs
+// scripts/Age1_*.zs (à ajouter, ou nouveau Age1_Machines.zs)
+recipes.addShaped("nexus_machine_humaine",
+    <nexusabsolu:machine_humaine>,
+    [[<minecraft:hopper>,        <minecraft:hopper>,           <minecraft:hopper>],          // top: hoppers (entrée)
+     [<thermalexpansion:frame:0>, <minecraft:dispenser>,         <thermalexpansion:frame:0>], // center: frame TE + dispenser (sortie fluide)
+     [<thermalfoundation:material:128>, <enderio:item_material:5>, <thermalfoundation:material:128>]]); // base: copper + dark steel
+```
+
+#### 🛠 `machine_krda` (KRDA125) — Age 1, post-bronze
+Concept narratif : machine industrielle de fermentation/raffinement avec inputs Signalum.
+
+```zs
+// scripts/Age1_*.zs (à ajouter)
+recipes.addShaped("nexus_machine_krda",
+    <nexusabsolu:machine_krda>,
+    [[<thermalfoundation:material:325>, <thermalexpansion:frame:0>, <thermalfoundation:material:325>],  // top: signalum gear x2 + frame
+     [<thermalfoundation:material:135>, <nexusabsolu:machine_humaine>, <thermalfoundation:material:135>], // center: signalum ingot + machine_humaine (chain)
+     [<ore:ingotInvar>,             <ore:gearCopper>,            <ore:ingotInvar>]]);                   // base: invar + gearCu
+```
+
+#### 🛠 `compose_e` — Tier endgame Age 2
+Plusieurs options possibles selon le concept :
+
+**Option compositoire** : compose_e = fusion des 4 tiers précédents
+```zs
+mods.thermalexpansion.InductionSmelter.addRecipe(
+    <nexusabsolu:compose_e>,
+    <nexusabsolu:compose_d>,
+    <nexusabsolu:compose_a> * 4,
+    20000);
+```
+
+**Option drop endgame** : drop d'un mob Age 2 (Wither boss, Ender Dragon, ...) via EntityLootTables.
 
 ### Décisions à prendre par Alexis
 
-**Option B (rapide, recommandée pour débloquer)** : 
+- [ ] Valider/modifier les recettes proposées des 2 machines
+- [ ] Choisir la source de `compose_e` (composition vs drop endgame)
+- [ ] Une fois validé : implémentation directe en `scripts/Age1_Machines.zs` (nouveau fichier)
+- [ ] Optionnel : nettoyer ou compléter les 72 items CT inutilisés Age 4
 
-```zs
-// Age1_Signalhee.zs (NOUVEAU bloc en haut du fichier, AVANT les utilisations)
-// TEMP : recette ZS direct en attendant MM KRDA125
-mods.thermalexpansion.InductionSmelter.addRecipe(
-    <nexusabsolu:signalhee_ingot>,           // output
-    <thermalfoundation:material:135>,        // signalum dust
-    <minecraft:potion>.withTag({Potion: "minecraft:water"}),  // water = "diarrhee placeholder"
-    8000
-);
+### Garantie de qualité
 
-// Et fluid : utiliser water pour l'instant ou MM Diarh33
-```
-
-**Option A (propre, à faire en sprint séparé)** : 
-- Créer machine `diarh33` Modular Machinery (multiblock)
-- Créer machine `krda125` Modular Machinery (multiblock)
-- Recettes JSON dans `config/modularmachinery/recipes/`
-- Modèles + textures multiblock
-
-### Prochaines actions techniques (en attente validation)
-
-- [ ] **Décision A vs B** par Alexis pour les 3 orphelins
-- [ ] Si B : ajouter recettes temporaires + `// TEMP TODO` markers
-- [ ] Si A : créer 2-3 fichiers MM `.json` + multiblocks (~ sprint dédié)
-- [ ] Compléter ou nettoyer les 72 items CT inutilisés Age 4
+✅ **Aucune modification effectuée pour l'instant** — uniquement documentation.  
+✅ **Ne casse rien d'existant** — les recettes proposées seraient des AJOUTS purs.  
+✅ Les recettes proposées suivent les **règles E2E du `MODPACK_RECIPES_SKILL.md`** :
+- Symétrie gauche-droite
+- Top = fonction (hoppers, signalum gears)
+- Center = composant clé / chaining
+- Bottom = base/power (invar, copper)
+- 2-3 mods forcés par craft (TE + Mekanism + EnderIO + nexusabsolu)
 
 ---
 
-*Audit complet — 3 vrais bloqueurs identifiés, prêt pour validation.*
+*Audit complet — 3 vrais bloqueurs identifiés (machines + endgame), recettes proposées prêtes pour validation Alexis.*
