@@ -29,5 +29,8 @@ public class NexusPacketHandler {
             com.nexusabsolu.mod.commands.CommandNexusTestSound.TestSoundPacket.Handler.class,
             com.nexusabsolu.mod.commands.CommandNexusTestSound.TestSoundPacket.class,
             packetId++, Side.CLIENT);
+        // v1.0.362 -- Sprint 2 etape 2 : sync PlayerMemorySnapshot pour flashbacks NDE
+        INSTANCE.registerMessage(PacketSyncMemorySnapshot.Handler.class,
+            PacketSyncMemorySnapshot.class, packetId++, Side.CLIENT);
     }
 }
