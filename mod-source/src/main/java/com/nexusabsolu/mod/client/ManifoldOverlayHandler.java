@@ -253,8 +253,51 @@ public class ManifoldOverlayHandler {
             renderWaveformBars(w, h, now, wavIntensity);
         }
 
+        // === COUCHE FINALE -- v1.0.359 : FADE TO BLACK definitif ===
+        // Pendant les 10 dernieres secondes du trip (progress 0.97 -> 1.0),
+        // un quad noir fade in EN DERNIER (par-dessus toutes les autres couches)
+        // pour cacher tous les effets et finir vraiment dans le NOIR pur.
+        // User feedback : 'je n'ai pas l'ecran noir a la fin'
+        if (progress > 0.97f) {
+            float blackoutT = (progress - 0.97f) / 0.03f;
+            if (blackoutT > 1.0f) blackoutT = 1.0f;
+            float blackoutAlpha = blackoutT * blackoutT * (3f - 2f * blackoutT);
+            renderFullScreenBlack(w, h, blackoutAlpha);
+        }
+
         // Debug
         renderDebugIndicator(mc.fontRenderer, ManifoldClientState.getCurrentStage(now), progress);
+    }
+
+    /**
+     * v1.0.359 : Quad noir plein ecran avec alpha donne.
+     * Utilise pour le fade to black final du trip pour vraiment finir
+     * dans le noir pur (cache toutes les autres couches restantes).
+     */
+    private void renderFullScreenBlack(int w, int h, float alpha) {
+        if (alpha < 0.01f) return;
+        if (alpha > 1.0f) alpha = 1.0f;
+        
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO);
+        
+        Tessellator tess = Tessellator.getInstance();
+        BufferBuilder buf = tess.getBuffer();
+        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        buf.pos(0, h, 0).color(0f, 0f, 0f, alpha).endVertex();
+        buf.pos(w, h, 0).color(0f, 0f, 0f, alpha).endVertex();
+        buf.pos(w, 0, 0).color(0f, 0f, 0f, alpha).endVertex();
+        buf.pos(0, 0, 0).color(0f, 0f, 0f, alpha).endVertex();
+        tess.draw();
+        
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.disableBlend();
+        GlStateManager.enableTexture2D();
     }
 
     /**
@@ -980,15 +1023,21 @@ public class ManifoldOverlayHandler {
 
     /**
      * v1.0.355 : Tunnel infini avec fresques 4K mandala fractal multi-echelles.
+     * v1.0.359 : Alternance zoom IN / zoom OUT entre fresques pour effet
+     *            'respiration cosmique' (idee user) + crossfade 25% pour
+     *            transitions tres douces avec matching couleurs au centre.
      * 
-     * Concept : 4 fresques DMT 4K, chacune scaled de 1.0 a 16.0 sur 30 secondes
-     * (cycle log : zoom apparent constant). Quand une fresque finit son cycle
-     * (zoom 16x), crossfade vers la suivante. En boucle, donc on ne sait jamais
-     * quelle est la prochaine fresque -> sensation de plongee infinie dans
-     * une oeuvre d'art.
+     * Concept :
+     *   - Cycle pair (0, 2, 4...) : ZOOM IN  (1.0 -> 16.0, on plonge dans la fresque)
+     *   - Cycle impair (1, 3, 5...) : ZOOM OUT (16.0 -> 1.0, on remonte de la fresque)
      * 
-     * Le scale logarithmique fait que le ressenti de zoom est CONSTANT (pas
-     * d'acceleration vers la fin), ce qui est crucial pour l'effet 'tunnel'.
+     * A la transition entre 2 cycles, les DEUX fresques sont au scale 16x
+     * donc on voit le CENTRE des deux. Les couleurs centrales se melent
+     * pendant le crossfade -> transition imperceptible, sensation de
+     * 'tunnel infini avec respiration', alternance plonger/remonter.
+     * 
+     * Crossfade 25% du cycle (au lieu de 5%) = transitions tres lentes
+     * et douces, pas de pop visible.
      */
     private void renderInfiniteFresqueTunnel(Minecraft mc, int w, int h, long t,
                                               float intensity) {
@@ -998,24 +1047,62 @@ public class ManifoldOverlayHandler {
         long inCycle = t % FRESQUE_CYCLE_TICKS;
         float cycleFrac = inCycle / (float) FRESQUE_CYCLE_TICKS;
         
-        // Index fresque courante
-        int currFresque = (int)((t / FRESQUE_CYCLE_TICKS) % N_FRESQUES);
-        int nextFresque = (currFresque + 1) % N_FRESQUES;
+        // Index du cycle courant + fresque correspondante
+        int currCycleIdx = (int)(t / FRESQUE_CYCLE_TICKS);
+        int currFresque = currCycleIdx % N_FRESQUES;
+        int nextFresque = (currCycleIdx + 1) % N_FRESQUES;
         
-        // Crossfade entre fresques sur les 5% derniers du cycle
-        float crossfade = 0f;
-        if (cycleFrac > 0.95f) {
-            float fadeT = (cycleFrac - 0.95f) / 0.05f;
-            crossfade = fadeT * fadeT * (3f - 2f * fadeT);
+        // ALTERNANCE : cycles pairs = ZOOM IN, cycles impairs = ZOOM OUT
+        boolean currZoomIn = (currCycleIdx % 2 == 0);
+        boolean nextZoomIn = !currZoomIn;
+        
+        // Scale courant (logarithmique pour ressenti constant)
+        float scaleCurr;
+        if (currZoomIn) {
+            // 1.0 -> 16.0 (zoom IN, on plonge)
+            scaleCurr = (float) Math.pow(FRESQUE_ZOOM_MAX, cycleFrac);
+        } else {
+            // 16.0 -> 1.0 (zoom OUT, on remonte)
+            scaleCurr = (float) Math.pow(FRESQUE_ZOOM_MAX, 1.0f - cycleFrac);
         }
         
-        // Scale exponentiel : 1.0 -> 16.0 (logaritmique = ressenti constant)
-        // scale(t=0) = 1, scale(t=1) = 16, scale(t=0.5) = 4 (sqrt(16))
-        float scaleCurr = (float) Math.pow(FRESQUE_ZOOM_MAX / FRESQUE_ZOOM_MIN,
-                                            cycleFrac);
-        // Pour la fresque suivante (qui prend la suite quand crossfade > 0),
-        // elle est en debut de cycle (scale = 1.0)
-        float scaleNext = 1.0f;
+        // Crossfade : commence a 75% du cycle, dure 25% (au lieu de 5%)
+        // -> transition tres douce avec matching couleurs au centre
+        float crossfade = 0f;
+        if (cycleFrac > 0.75f) {
+            float fadeT = (cycleFrac - 0.75f) / 0.25f;
+            crossfade = fadeT * fadeT * (3f - 2f * fadeT);  // smoothstep
+        }
+        
+        // Pour la fresque suivante pendant le crossfade :
+        // Elle commence son cycle PENDANT que la courante finit son zoom.
+        // Donc elle est aussi a un scale eleve (proche de 16x ou 1x selon
+        // sa direction). Pour qu'elle rejoigne le 'point de transition'
+        // avec le meme scale que la courante a la fin, on calcule son
+        // cycleFrac local.
+        float nextCycleFrac;
+        if (cycleFrac > 0.75f) {
+            // La fresque suivante commence quand on est a 0.75 du cycle courant.
+            // A 1.0 du cycle courant, elle est a 0.0 de son propre cycle.
+            // Donc nextCycleFrac va de 0.0 (a 0.75 courant) -> -0.25 (a 1.0 courant)
+            // Mais on veut qu'elle SOIT deja en mouvement, donc on la met
+            // a un cycleFrac negatif au demarrage qui est equivalent a (1 - delta).
+            nextCycleFrac = (cycleFrac - 0.75f) / 0.25f * 0.20f;
+            // = 0 a 0.0 du crossfade, 0.20 a la fin du crossfade
+            // Soit : la fresque suivante commence sa vie pendant le crossfade
+        } else {
+            nextCycleFrac = 0f;
+        }
+        
+        float scaleNext;
+        if (nextZoomIn) {
+            // Suivante en zoom IN : commence a scale=1.0 (mais on demarre directement
+            // dans son cycle, scale grandit progressivement)
+            scaleNext = (float) Math.pow(FRESQUE_ZOOM_MAX, nextCycleFrac);
+        } else {
+            // Suivante en zoom OUT : commence a scale=16.0
+            scaleNext = (float) Math.pow(FRESQUE_ZOOM_MAX, 1.0f - nextCycleFrac);
+        }
         
         // Taille de base : couvre toute la diagonale pour eviter coins vides
         float baseSize = (float) Math.sqrt(w * w + h * h) * 1.1f;
@@ -1023,8 +1110,10 @@ public class ManifoldOverlayHandler {
         float cx = w / 2.0f;
         float cy = h / 2.0f;
         
-        // Rotation lente pour effet vortex (1 tour en 4 minutes)
+        // Rotation tres lente pour effet vortex (1 tour en 4 minutes)
+        // Sens de rotation alterne entre cycles pour effet 'respiration'
         float rotation = ((t % 4800) / 4800.0f) * 360.0f;
+        if (!currZoomIn) rotation = -rotation;  // sens inverse en zoom out
         
         // Dessin fresque courante (alpha 1.0 - crossfade)
         if (intensity * (1f - crossfade) > 0.01f) {
@@ -1036,8 +1125,10 @@ public class ManifoldOverlayHandler {
         // Dessin fresque suivante (en crossfade quand on approche de la fin)
         if (intensity * crossfade > 0.01f) {
             float sizeNext = baseSize * scaleNext;
+            // Sens rotation oppose pour la fresque suivante
+            float nextRotation = nextZoomIn ? rotation : -rotation;
             drawRotatedTexture(mc, FRESQUE_TEX[nextFresque], cx, cy, sizeNext,
-                               -rotation * 0.7f, intensity * crossfade);
+                               nextRotation, intensity * crossfade);
         }
     }
 
