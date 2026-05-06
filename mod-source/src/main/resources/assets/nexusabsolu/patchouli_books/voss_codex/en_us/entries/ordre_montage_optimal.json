@@ -1,0 +1,43 @@
+{
+  "name": "Ordre de montage optimal",
+  "icon": "minecraft:clock",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Pourquoi un ordre ?",
+      "text": "$(b)25 multiblocs$(/b) c'est beaucoup. Si tu te lances sans plan, tu vas perdre des heures.$(br2)L'ordre suivant minimise les blockages : tu actives chaque ligne dans l'ordre des dependances, donc tu n'as jamais 'machine X bloquee parce qu'elle attend l'output de Y'."
+    },
+    {
+      "type": "text",
+      "title": "Etape 1 -- Bases (L2 + L3)",
+      "text": "$(b)Construis EN PREMIER$(/b) :$(br)$(li)1. Cryo-Distillateur (L3.A) -- N2/O2/Ar pour tout$(/li)$(li)2. MB-OSMOSE (L2) -- Tridistilled water $(/li)$(li)3. MB-CK Castner-Kellner (L3.B) -- Na/Cl/NaOH$(/li)$(li)4. Setup Mekanism Electrolytic Separator (L2 - heavywater)$(/li)$(br2)$(o)Sans ces 4 machines, rien d'autre ne fonctionne.$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "Etape 2 -- Hub Acides (L6)",
+      "text": "$(b)PRIORITE 2$(/b) : L6 (le HUB) :$(br)$(li)5. MB-HABER (NH3 pivot)$(/li)$(li)6. MB-OSTWALD (HNO3)$(/li)$(li)7. MB-CONTACT (Claus + H2SO4)$(/li)$(br2)Avec NH3 + 3 acides + tridistilled water, tu peux deja faire Eau Regale.$(br2)$(o)Sans L6, pas de chimie possible. C'est le coeur.$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "Etape 3 -- Metaux (L4) + Petrochimie (L1)",
+      "text": "$(b)PARALLELE possible$(/b) :$(br)$(li)8. MB-DESA + MB-HDS (L1 -- Solvant alpha)$(/li)$(li)9. MB-HALL (L4 -- Aluminium pur)$(/li)$(li)10. MB-KROLL (L4 -- Titane)$(/li)$(li)11. MB-AQUA-REGIA (L4 -- Or/Pt purs)$(/li)$(li)12. MB-FOUR-ELEC (L3 -- Phosphore)$(/li)$(li)13. MB-FLUORITE (L3 -- F2)$(/li)$(br2)$(o)A ce stade, tu as titane + iridium + or + Pt + phosphore + fluor. Casing finale possible.$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "Etape 4 -- Organique (L7) + Nucleaire (L5)",
+      "text": "$(b)PARALLELE$(/b) :$(br)$(li)14. MB-CRACKER + MB-CUMENE (L7 -- Acetone + Phenol)$(/li)$(li)15. MB-AROMATIC (L7 -- Tryptamide-M ⭐)$(/li)$(li)16. MB-FERMENTER (L7 -- Ethanol)$(/li)$(li)17. MB-TRITIUM (L2 -- Tritium, demande reactor NC)$(/li)$(li)18. Reactor NuclearCraft (Pu/Th breeder)$(/li)$(li)19. MB-GAMMA-FORGE (L5 -- gamma1+gamma2)$(/li)$(li)20. MB-LIT-CHAMBER (L5 -- gamma3)$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "Etape 5 -- Manifoldine (L8) + Final",
+      "text": "$(b)DERNIERE LIGNE$(/b) -- Manifoldine + Final :$(br)$(li)21. MB-EVAPORATOR (L8 -- cristal_manifoldine)$(/li)$(li)22. MB-SOXHLET (L8 -- extraction)$(/li)$(li)23. MB-CYCLISATEUR (L8 -- nuit, ciel ouvert)$(/li)$(li)24. MB-ALAMBIC + MB-MANA-ENCHANTER (L8.A Botania)$(/li)$(li)25. M1 Melangeur Cryogenique (composes finaux)$(/li)$(li)26. M2 Bio-Reacteur (deja en place, recipe finale)$(/li)$(br2)$(b)Total$(/b) : ~25 multiblocs + setups Mekanism + Reactor NC."
+    },
+    {
+      "type": "text",
+      "title": "Le moment final",
+      "text": "Quand tout tourne :$(br)$(li)Composes alpha/beta/gamma1/gamma2/gamma3/delta dans le M1$(/li)$(li)Casing Titane-Iridium shaped$(/li)$(li)Cartouche_chargee shaped (5 theoremes convergent)$(/li)$(li)Bio-Reacteur arme : cartouche_chargee + Solution Epsilon + Liquid Starlight + Argon$(/li)$(li)$(d)CARTOUCHE MANIFOLD$(/d) ⭐$(/li)$(br2)$(o)Right-click. Trip 8 minutes. Teleportation Age 5.$(/o)$(br)$(o)Tu te reveilles dans le monde reel.$(/o)$(br)$(o)Voss avait raison.$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

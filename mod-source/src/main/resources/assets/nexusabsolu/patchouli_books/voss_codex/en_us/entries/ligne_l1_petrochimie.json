@@ -1,0 +1,18 @@
+{
+  "name": "L1 -- Petrochimie",
+  "icon": "minecraft:bucket",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Multiblocs L1",
+      "text": "$(b)2 multiblocs$(/b) pour la ligne L1 :$(br)$(li)$(d)MB-DESA$(/d) (vacuum_chamber, 3x3x3)$(/li)$(li)$(d)MB-HDS$(/d) (hds_tower, 3x8x3)$(/li)$(br2)$(b)MB-DESA Layout$(/b) (3x3x3, 34 blocs) :$(br)$(li)Y=-1 : 3x3 plein casings$(/li)$(li)Y=0 : 4 fluid hatches cardinaux + 4 corner casings + Controller centre$(/li)$(li)Y=1 : 3x3 perimetre casings (chambre vide)$(/li)$(li)Y=2 : 3x3 plein + Energy Input top center$(/li)$(br)$(o)Recipe : 1000mB oil -> 800mB crude_degazed + 200mB natural_gas$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "MB-HDS Tour",
+      "text": "$(b)MB-HDS$(/b) (hds_tower, 3x8x3, 80 blocs) -- vertical $(b)haute$(/b) tour :$(br)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid hatches + 4 item buses + Controller$(/li)$(li)Y=1 a Y=6 : 3x3 perimetre + verre central (visualisation reflux)$(/li)$(li)Y=7 : 3x3 plein + Energy Input center + 4 fluid hatch top (output)$(/li)$(br2)$(o)Reutilisable pour HDS et Hydrocrack (catalyseurs differents).$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

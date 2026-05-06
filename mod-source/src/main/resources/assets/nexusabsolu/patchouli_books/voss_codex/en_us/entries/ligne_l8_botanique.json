@@ -1,0 +1,23 @@
+{
+  "name": "L8 -- Botanique + Manifoldine",
+  "icon": "minecraft:beetroot",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "text",
+      "title": "5 multiblocs L8 (le plus de machines)",
+      "text": "$(b)5 multiblocs$(/b) sur cette ligne (la plus complexe) :$(br)$(li)$(d)MB-SOXHLET$(/d) (3x5x3) -- extraction Manifoldine$(/li)$(li)$(d)MB-CYCLO$(/d) (5x6x5 nuit ⭐⭐⭐) -- cyclisation stellaire$(/li)$(li)$(d)MB-EVAPORATOR$(/d) (3x3x3) -- cristallisation$(/li)$(li)$(d)MB-ALAMBIC$(/d) (5x4x5) -- mana distillation$(/li)$(li)$(d)MB-MANA-ENCHANTER$(/d) (3x3x3) -- charge manaique$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "MB-CYCLO (5x6x5) ⭐⭐⭐",
+      "text": "$(b)CYCLISATEUR STELLAIRE$(/b) -- 110 blocs, le PLUS gros multibloc :$(br)$(li)Y=-1 : 5x5 plein (25 blocs)$(/li)$(li)Y=0 : fluid hatches cardinaux + item hatches distance 2 + Controller$(/li)$(li)Y=1, Y=2 : 5x5 perimetre + verre intermediate (chambre cyclisation)$(/li)$(li)Y=3 : 3x3 perimetre top (chambre superieure)$(/li)$(li)Y=4 : 4 piliers coins + Energy center (CIEL OUVERT obligatoire !)$(/li)$(br2)$(c)CONDITIONS : Overworld + y>=60 + ciel ouvert + nuit + pas de pluie.$(/c)"
+    },
+    {
+      "type": "text",
+      "title": "MB-ALAMBIC + MB-MANA-ENCHANTER",
+      "text": "$(b)Alambic Manaique$(/b) (5x4x5, 82 blocs) :$(br)Layout : 5x5 plein Y=-1 / fluid+item input Y=0 / 5x5 perimetre Y=1 / 5x5 + Energy Y=2.$(br)Recipe : 16 extracts Botania + 4 Mana Pearl -> Matrix Pigmentary.$(br2)$(b)Mana Enchanter$(/b) (3x3x3, 26 blocs) :$(br)Recipe : cristal_chromatic_raw + Mana Pearl -> 1000mB Essence Chromatique.$(br2)$(o)Les deux integrent Botania mod (besoin Mana Pool/Spreaders pour le mana proxy).$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

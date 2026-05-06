@@ -1,0 +1,23 @@
+{
+  "name": "L7 -- Organique + Acetone",
+  "icon": "minecraft:dye",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "text",
+      "title": "4 multiblocs L7",
+      "text": "$(b)4 multiblocs$(/b) (la ligne avec le plus de machines) :$(br)$(li)$(d)MB-CRACKER$(/d) (thermal_cracker, 3x5x3 tower) - Cracking thermique$(/li)$(li)$(d)MB-CUMENE$(/d) (cumene_reactor, 3x4x3 tower) - Acetone + Phenol$(/li)$(li)$(d)MB-AROMATIC$(/d) (aromatic_reactor, 3x3x3) - $(b)Tryptamide-M$(/b) ⭐$(/li)$(li)$(d)MB-FERMENTER$(/d) (fermenter, 3x3x3) - Ethanol$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "MB-AROMATIC (cle pour Manifoldine)",
+      "text": "$(b)Reacteur Aromatique$(/b) -- celui qui produit le $(d)Tryptamide-M$(/d), input critique du Cyclisateur Stellaire (L8) :$(br)$(li)3x3x3 standard$(/li)$(li)2 recipes : indole_synthesis ET tryptamide_m_synthesis$(/li)$(br2)Tu fais l'indole en premier (naphtha + NH3 + Pt-Al2O3), puis tryptamide-M dans la MEME machine (indole + NH3 + acetone + Pd-C).$(br2)$(o)Sans Tryptamide-M, pas de Manifoldine. Sans Manifoldine, pas de Cartouche.$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "MB-CRACKER multifonction",
+      "text": "$(b)Thermal Cracker$(/b) (3x5x3 tower) est le plus polyvalent de L7 :$(br)$(li)Cracking Naphtha -> Benzene$(/li)$(li)Cracking Natural Gas -> Propylene$(/li)$(li)Methanol synthesis (Syngas + Cu-ZnO)$(/li)$(li)IPA dehydrogenation -> Acetone (voie backup)$(/li)$(br2)Donc 1 seul MB-CRACKER = 4 chains differentes selon l'input. $(b)Investis bien.$(/b)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

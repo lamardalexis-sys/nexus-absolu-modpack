@@ -1,0 +1,23 @@
+{
+  "name": "L4 -- Pyrometallurgie",
+  "icon": "minecraft:iron_ingot",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Multiblocs L4",
+      "text": "$(b)3 multiblocs$(/b) :$(br)$(li)$(d)MB-HALL$(/d) (hall_heroult_cell, 5x4x5) - Aluminium pur$(/li)$(li)$(d)MB-KROLL$(/d) (kroll_reactor, 4x5x4 - haut etroit) - Titane$(/li)$(li)$(d)MB-AQUA-REGIA$(/d) (aqua_regia_cell, 3x3x3) - Or/Pt$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "MB-KROLL etroit",
+      "text": "$(b)Reacteur Kroll$(/b) -- forme inhabituelle 4x5x4 :$(br)$(li)Y=-1 : 4x4 plein (16 blocs)$(/li)$(li)Y=0 : fluid + item inputs (Cl2, Argon, output TiCl4)$(/li)$(li)Y=1, Y=2, Y=3 : perimetre 4x4 + verre interieur (chambre reduction Mg)$(/li)$(li)Y=4 : 4x4 plein + Energy center + item output (Ti sponge)$(/li)$(br)Total 95 blocs.$(br2)$(c)REQUIS : Argon pour atmosphere inerte !$(/c)"
+    },
+    {
+      "type": "text",
+      "title": "MB-AQUA-REGIA",
+      "text": "$(b)Cellule Eau Regale$(/b) 3x3x3, standard. Pour metaux precieux Au/Pt/Ir/Os.$(br2)Tu n'as besoin que d'1 seul AQUA-REGIA pour TOUS les metaux precieux (recette change selon l'input).$(br2)$(o)Recipe pilote : Au + aqua_regia -> gold_chloride_solution -> gold_pure_99$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

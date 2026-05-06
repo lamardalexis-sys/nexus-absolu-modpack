@@ -1,0 +1,18 @@
+{
+  "name": "L5 -- Nucleaire",
+  "icon": "minecraft:redstone",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Multiblocs L5",
+      "text": "$(b)2 multiblocs$(/b) (le reste reutilise L3/L4) :$(br)$(li)$(d)MB-GAMMA-FORGE$(/d) (gamma_forge, 3x3x3) - composes gamma1 + gamma2$(/li)$(li)$(d)MB-LIT-CHAMBER$(/d) (lit_chamber, 3x3x3) - compose gamma3 (LiT)$(/li)$(br2)Reutilise :$(br)$(li)kroll_reactor (Beryllium reduction)$(/li)$(li)fluorite_cell (Boron electrolysis)$(/li)$(br2)L5.9 Mycelium activation = passive (mycelium pres reactor NC actif)."
+    },
+    {
+      "type": "text",
+      "title": "Layout 3x3x3 standard",
+      "text": "Les deux multiblocs L5 utilisent le meme layout 3x3x3 (34 blocs) :$(br)$(li)Y=-1 : 3x3 plein casings$(/li)$(li)Y=0 : 4 fluid + 4 corners item + Controller$(/li)$(li)Y=1 : 3x3 perimetre$(/li)$(li)Y=2 : 3x3 + Energy center$(/li)$(br2)$(o)Differents controllers, meme structure. Tu peux meme demonter+reposer en changeant juste le block central.$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

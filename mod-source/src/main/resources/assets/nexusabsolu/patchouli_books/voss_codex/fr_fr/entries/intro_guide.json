@@ -1,0 +1,28 @@
+{
+  "name": "Comment lire ce guide",
+  "icon": "minecraft:book",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Avant tout",
+      "text": "$(o)Avant de poser le moindre bloc, lis ceci.$(/o)$(br2)Les multiblocs Modular Machinery utilisent un systeme de $(b)casings$(/b) interchangeables :$(br)$(li)$(b)Casing simple$(/b) : structure (decoratif)$(/li)$(li)$(b)Fluid Input/Output Hatch$(/b) : fluides in/out$(/li)$(li)$(b)Item Input/Output Bus$(/b) : items in/out$(/li)$(li)$(b)Energy Input Hatch$(/b) : RF in$(/li)$(li)$(b)Le Controller$(/b) : block custom Nexus (le coeur)$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "Hatches obligatoires",
+      "text": "$(b)IMPORTANT$(/b) : chaque multibloc a besoin d'au moins :$(br)$(li)1 Energy Input (sinon pas de RF)$(/li)$(li)Fluid hatches selon recette (1 in + 1 out minimum)$(/li)$(li)Item buses si la recette demande des items$(/li)$(br2)Si tu vois 'machine ne demarre pas' : verifie que tu as TOUS les hatches connectes ET alimentes."
+    },
+    {
+      "type": "text",
+      "title": "Notation des couches",
+      "text": "Dans ce guide, on note :$(br)$(li)$(b)Y=-1$(/b) = couche sol (sous le controller)$(/li)$(li)$(b)Y=0$(/b) = couche du controller$(/li)$(li)$(b)Y=+N$(/b) = couches au-dessus$(/li)$(br)Symboles :$(br)$(li)C = casing simple$(/li)$(li)D = casing decoratif$(/li)$(li)F = fluid hatch (in OU out)$(/li)$(li)I = item bus$(/li)$(li)E = energy input$(/li)$(li)G = verre$(/li)$(li)* = controller$(/li)$(li). = vide (chambre)$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "Casings reutilisables",
+      "text": "$(b)Bonne nouvelle$(/b) : un casing simple Modular Machinery peut servir pour nimporte quelle position 'C' dans n'importe quel multibloc. Donc tu peux $(l)recycler$(/l) tes casings d'un multibloc a l'autre.$(br2)Tu peux aussi $(l)demonter et reposer$(/l) sans perdre les casings (drop a 100%%).$(br2)Total casings necessaires pour les 25 multiblocs : ~600. Production en masse recommandee."
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

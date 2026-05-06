@@ -1,0 +1,23 @@
+{
+  "name": "L3 -- Electrolyse + Cryo",
+  "icon": "minecraft:snowball",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Multiblocs L3 (3 + cryo existant)",
+      "text": "$(b)3 multiblocs$(/b) +1 (cryo_distillateur deja existant) :$(br)$(li)$(d)MB-CK$(/d) (ck_cell, 5x3x3) Castner-Kellner$(/li)$(li)$(d)MB-FOUR-ELEC$(/d) (electric_furnace, 5x4x5) HT 1500 deg C$(/li)$(li)$(d)MB-FLUORITE$(/d) (fluorite_cell, 3x3x3)$(/li)$(li)$(b)cryo_distillateur$(/b) (3x6x3 - deja en place)$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "MB-CK Layout",
+      "text": "$(b)Castner-Kellner$(/b) horizontal 5x3x3 :$(br)$(li)Y=-1 : 5x3 plein casings (15 blocs)$(/li)$(li)Y=0 : 4 fluid hatches cardinaux + 2x2 item hatches aux extremites X + Controller centre$(/li)$(li)Y=1 : 5x3 plein + Energy center$(/li)$(br)Total ~44 blocs.$(br)$(o)Recipe : 1000mB brine -> 50 Na liquide + 50 Cl2 + 100 NaOH + 100 H2 (bonus).$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "MB-FOUR-ELEC",
+      "text": "$(b)Four electrique HT$(/b) 5x4x5 (122 blocs - le 2eme plus gros !) :$(br)$(li)Y=-1 : 5x5 plein$(/li)$(li)Y=0 : 4 item input + 8 corners + Controller$(/li)$(li)Y=1, Y=2 : 5x5 perimetre + verre interieur (3x3 chambre arc)$(/li)$(li)Y=3 : 5x5 plein + 4 fluid output + 4 item output (slag)$(/li)$(br)$(o)Recipe : Ca3(PO4)2 + sand + coal -> phosphorus_white + slag (1500 deg C).$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

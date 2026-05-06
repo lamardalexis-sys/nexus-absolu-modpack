@@ -1,0 +1,23 @@
+{
+  "name": "M1 + M2 -- Les Machines Finales",
+  "icon": "nexusabsolu:cartouche_manifold",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "title": "M1 Melangeur Cryogenique",
+      "text": "$(b)Melangeur Cryogenique$(/b) (5x4x5, 122 blocs) -- $(d)la machine pivot$(/d) :$(br)Combine les sortants des 7 lignes sous atmosphere Cryotheum (-196 deg C) pour produire les 6 composes $(b)alpha/beta/gamma1/gamma2/gamma3/delta$(/b).$(br2)$(c)RF max : 120k RF/t (le plus cher !).$(/c)$(br)$(o)Style Bio-Reacteur mais plus haut + atmosphere Cryotheum.$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "M1 Layout",
+      "text": "$(li)Y=-1 : 5x5 plein casings$(/li)$(li)Y=0 : 4 fluid in cardinaux + 4 item in coins + 4 corners + Controller$(/li)$(li)Y=1, Y=2 : 5x5 perimetre + verre 3x3 chambre$(/li)$(li)Y=3 : 5x5 plein + 4 fluid out + 4 corners item out + Energy$(/li)$(br2)$(b)6 recipes$(/b) au total :$(br)$(li)compose_alpha (acides + solvant_alpha)$(/li)$(li)compose_beta (Al + Au + benzene + NH3)$(/li)$(li)compose_gamma1 (UF6 capsule + cryotheum)$(/li)$(li)compose_gamma2 (PuBe + Be + argon)$(/li)$(li)compose_gamma3 (LiT + heavywater)$(/li)$(li)compose_delta (mycelium + tryptamide + cristal)$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "M2 Bio-Reacteur (deja en place)",
+      "text": "$(b)Bio-Reacteur$(/b) (5x5x3, ~83 blocs) -- la machine d'armement final :$(br)Existe deja, voir Carnet Vol IV ou tu as deja construit pour les recipes precedentes.$(br2)$(b)2 recipes critiques$(/b) :$(br)$(li)bio_solution_epsilon_synthesis : alpha+beta+gamma3+delta+argon -> Solution Epsilon$(/li)$(li)bio_cartouche_manifold_armement ⭐ : cartouche_chargee + epsilon + starlight + argon -> $(d)CARTOUCHE MANIFOLD$(/d)$(/li)$(br2)$(c)100k RF/t pendant 30s pour l'armement final.$(/c)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

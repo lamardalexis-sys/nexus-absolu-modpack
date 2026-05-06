@@ -1,0 +1,23 @@
+{
+  "name": "L6 -- Acides + Ammoniaque (HUB CENTRAL)",
+  "icon": "minecraft:potion",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "text",
+      "title": "L'importance de L6",
+      "text": "$(c)$(l)L6 EST LE HUB CENTRAL.$(/l)$(/c)$(br2)Si Haber-Bosch s'arrete, $(b)tout$(/b) s'arrete :$(br)$(li)Pas de NH3 -> pas de HNO3$(/li)$(li)Pas de HNO3 -> pas d'Eau Regale$(/li)$(li)Pas d'Eau Regale -> pas de metaux precieux$(/li)$(li)Pas de NH3 -> pas d'Indole/Tryptamide$(/li)$(li)Pas de Tryptamide -> pas de Manifoldine$(/li)$(br2)$(o)Investis dans Haber-Bosch en premier dans L6.$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "MB-HABER (5x5x5 HUB)",
+      "text": "$(b)Haber-Bosch Reactor$(/b) -- LE plus gros multibloc apres cyclisateur (146 blocs) :$(br)$(li)Y=-1 : 5x5 plein (25 blocs)$(/li)$(li)Y=0 : 4 fluid in (N2 + H2) + 4 item in (Fe-K2O catalyst) + Controller$(/li)$(li)Y=1, Y=2, Y=3 : 5x5 perimetre + verre interieur 3x3 (chambre haute pression)$(/li)$(li)Y=4 : 5x5 plein + 4 fluid out (NH3) + Energy$(/li)$(br2)$(c)Pression simulee : 200 bars, 450 deg C.$(/c)"
+    },
+    {
+      "type": "text",
+      "title": "MB-OSTWALD + MB-CONTACT",
+      "text": "$(b)Tour Ostwald$(/b) (ostwald_tower, 3x4x3 = 44 blocs) -- HNO3$(br)$(b)Tour Contact$(/b) (contact_tower, 3x4x3 = 44 blocs) -- H2SO4 + Claus$(br2)Memes layouts (3x4x3 tower) :$(br)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid + 4 items + Controller$(/li)$(li)Y=1, Y=2 : 3x3 perimetre + verre central$(/li)$(li)Y=3 : 3x3 + Energy + 4 fluid output$(/li)$(br)$(o)2 multiblocs identiques structurellement, contenu different.$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}

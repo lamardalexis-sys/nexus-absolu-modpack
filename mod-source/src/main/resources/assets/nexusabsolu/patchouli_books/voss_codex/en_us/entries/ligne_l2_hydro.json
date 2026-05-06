@@ -1,0 +1,18 @@
+{
+  "name": "L2 -- Hydro-Eau",
+  "icon": "minecraft:water_bucket",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "title": "MB-OSMOSE",
+      "text": "$(b)osmose_inverse$(/b) (3x3x3, 34 blocs) :$(br)Standard 3x3x3, juste fluide in/out (pas d'item).$(br2)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid cardinaux + 4 corners + Controller$(/li)$(li)Y=1 : 3x3 perimetre$(/li)$(li)Y=2 : 3x3 + Energy center$(/li)$(br)$(o)Recipe : 1000mB bidistilled -> 1000mB tridistilled (input critique partout).$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "MB-TRITIUM",
+      "text": "$(b)tritium_breeder$(/b) (3x3x3, 34 blocs) :$(br)Meme layout que osmose_inverse mais avec item input pour Li-6.$(br2)$(c)IMPORTANT$(/c) : doit etre $(b)pres d'un Fission Reactor NC actif$(/b) pour fonctionner ! Sinon pas de flux neutronique = pas de tritium.$(br2)$(o)Recipe : 1 lithium6_ingot + 100mB heavywater -> 10mB tritium + helium4_capsule.$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_v"
+}
