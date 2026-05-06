@@ -1,12 +1,12 @@
 {
     "machine": "melangeur_cryogenique",
     "registryName": "compose_gamma3_synthesis",
-    "recipeTime": 600,
+    "recipeTime": 500,
     "requirements": [
         {
             "type": "modularmachinery:energy",
             "io-type": "input",
-            "energyPerTick": 70000
+            "energyPerTick": 50000
         },
         {
             "type": "modularmachinery:item",

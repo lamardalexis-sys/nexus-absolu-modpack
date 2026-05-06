@@ -1,12 +1,12 @@
 {
     "machine": "melangeur_cryogenique",
     "registryName": "compose_delta_synthesis",
-    "recipeTime": 2000,
+    "recipeTime": 1500,
     "requirements": [
         {
             "type": "modularmachinery:energy",
             "io-type": "input",
-            "energyPerTick": 120000
+            "energyPerTick": 80000
         },
         {
             "type": "modularmachinery:item",
