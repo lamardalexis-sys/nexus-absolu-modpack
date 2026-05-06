@@ -1,0 +1,28 @@
+{
+  "name": "Synthese -- La Cartouche",
+  "icon": "nexusabsolu:cartouche_manifold",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "text",
+      "title": "M1 Melangeur Cryogenique",
+      "text": "Sous atmosphere $(d)Cryotheum$(/d) (-196 deg C), le M1 fusionne les sortants des 7 lignes pour produire les composes finaux :$(br)$(li)$(b)alpha$(/b) -- super-acide stabilise$(/li)$(li)$(b)beta$(/b) -- organometallique Au-PR3$(/li)$(li)$(b)gamma1$(/b) -- UF6 stabilise$(/li)$(li)$(b)gamma2$(/b) -- Pu-Be Borate$(/li)$(li)$(b)gamma3$(/b) -- Tritiure de Lithium$(/li)$(li)$(b)delta$(/b) -- bio-actif Manifoldine$(/li)$(br)6 composes. Cinq theoremes dans chaque atome."
+    },
+    {
+      "type": "text",
+      "title": "Le Casing",
+      "text": "L'enveloppe finale s'appelle $(d)Casing Titane-Iridium$(/d). Recette shaped :$(br)$(li)4x Titanium pur (L4 Kroll)$(/li)$(li)4x Iridium pur 99 (L4 Aqua Regia)$(/li)$(li)1x Bloc de Cryolithe (centre, isolation)$(/li)$(li)1x Cartouche Vide (pour le receptacle)$(/li)$(br2)Resistance haute pression. Transparence pour fenetre Quantum Glass. Stabilite chimique sous Manifoldine active."
+    },
+    {
+      "type": "text",
+      "title": "Cartouche Chargee",
+      "text": "Assemblage shaped 3x3 -- les cinq theoremes convergent :$(br)$(li)alpha + Tryptamide-M capsule + beta$(/li)$(li)gamma2 + Casing + gamma3$(/li)$(li)delta + Matrix Pigmentary + gamma1$(/li)$(br2)Resultat : 1 $(d)Cartouche Chargee$(/d) -- objet a moitie inerte. Il manque l'arme."
+    },
+    {
+      "type": "text",
+      "title": "Bio-Reacteur Manifold",
+      "text": "Recette finale dans le $(b)Bio-Reacteur$(/b) (5x5x3) :$(br)$(li)1 Cartouche Chargee$(/li)$(li)1000mB Solution Epsilon$(/li)$(li)4000mB Liquid Starlight$(/li)$(li)500mB Argon$(/li)$(li)100k RF/t pendant 30s$(/li)$(br2)Output : $(d)CARTOUCHE MANIFOLD$(/d). Le serum est vivant. Il pulse.$(br2)$(o)Si tu lis ceci avec la cartouche dans la main, ferme le carnet. Tu n'auras plus besoin de mes notes.$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_iv"
+}

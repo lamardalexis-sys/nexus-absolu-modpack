@@ -1,0 +1,23 @@
+{
+  "name": "Theoreme II -- Organique",
+  "icon": "minecraft:red_mushroom",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Le vivant ment",
+      "text": "$(o)Le deuxieme theoreme se cache dans les forets. Litteralement.$(/o)$(br2)La simulation a recopie 16 champignons Botania. C'est un detail. Mais $(l)un detail trop precis$(/l). Aucune nature reelle ne genere une telle symetrie chromatique.$(br2)C'est le nombre exact de couleurs perceptibles par l'oeil humain dans le spectre visible saturé. Trop pratique."
+    },
+    {
+      "type": "text",
+      "title": "L8.A -- Pigments",
+      "text": "Les 16 champignons donnent les 16 $(d)Pigments Botania$(/d) (Apothecary). Chaque pigment se traite avec un acide :$(br)$(li)8 doux + HCl$(/li)$(li)8 sombres + H2SO4$(/li)$(br2)Resultat : 16 $(b)Extraits$(/b) chromatiques. Distilles ensemble dans le $(d)MB-ALAMBIC manaique$(/d) (5x4x5, Mana Pool central) :$(br)16 extraits + 4 Mana Pearl -> 1 $(b)Matrix Pigmentary$(/b)."
+    },
+    {
+      "type": "text",
+      "title": "L'Essence Chromatique",
+      "text": "La $(d)Matrix Pigmentary$(/d) est passee dans le $(b)Runic Altar$(/b) (Botania natif modifie) avec des Mana Pearl, ce qui produit le $(d)Cristal Chromatic Brut$(/d).$(br2)Etape finale : $(b)MB-MANA-ENCHANTER$(/b) (3x3x3) :$(br)1 cristal_chromatic_raw + 4 Mana Pearl + 6M RF -> 1000mB $(b)Essence Chromatique$(/b).$(br2)L'essence est l'un des inputs du $(b)Bio-Reacteur$(/b) final."
+    }
+  ],
+  "category": "nexusabsolu:vol_iv"
+}

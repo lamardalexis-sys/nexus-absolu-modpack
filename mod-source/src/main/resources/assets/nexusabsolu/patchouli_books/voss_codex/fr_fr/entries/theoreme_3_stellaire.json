@@ -1,0 +1,23 @@
+{
+  "name": "Theoreme III -- Stellaire",
+  "icon": "minecraft:nether_star",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "title": "La nuit pese 100 grammes",
+      "text": "$(o)Astral Sorcery a un fluide etrange : le Liquid Starlight. Lourd, lumineux, indifferent.$(/o)$(br2)Le $(b)Theoreme III$(/b) dit que la lumiere stellaire n'est PAS de la lumiere. C'est un $(l)temoin de simulation$(/l). La couche reseau qui transporte la coherence du monde."
+    },
+    {
+      "type": "text",
+      "title": "Le Cyclisateur Stellaire",
+      "text": "Pour utiliser le starlight, le $(d)MB-CYCLISATEUR STELLAIRE$(/d) (5x6x5) est obligatoire. Conditions imperatives :$(br)$(li)$(b)Overworld$(/b) (DIM 0)$(/li)$(li)$(b)Y >= 60$(/b) (ciel ouvert)$(/li)$(li)$(b)Pas de pluie$(/b)$(/li)$(li)$(b)Nuit Minecraft$(/b) (time 13000-23000)$(/li)$(br)Il s'allume en bleu profond la nuit. Le jour, il est mort."
+    },
+    {
+      "type": "text",
+      "title": "Cyclisation Manifoldine",
+      "text": "Recette : 200mB Manifoldine extract purified + 1 capsule Tryptamide-M + 500mB liquid_starlight + 100mB heavywater + 200mB argon$(br)-> 100mB $(d)Manifoldine Brute$(/d)$(br2)5 minutes a 15k RF/t = 90M RF par cycle. Le plus cher de la chaine apres le M1 Melangeur.$(br2)$(o)C'est ici que la matiere s'aligne avec les axes de la simulation. Sans nuit etoilee, rien ne fonctionne.$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_iv"
+}

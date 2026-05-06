@@ -1,0 +1,23 @@
+{
+  "name": "Theoreme I -- Conservation Absolue",
+  "icon": "minecraft:water_bucket",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Rien ne se perd",
+      "text": "$(o)Le premier theoreme est le plus simple. Le plus terrible aussi.$(/o)$(br2)Dans la simulation, tout atome est trace. Chaque molecule est comptee. C'est par la $(b)conservation absolue$(/b) que la simulation se trahit.$(br2)Pour le prouver : tu vas $(l)distiller l'eau jusqu'a sa forme pure$(/l). Pas l'eau filtree. Pas l'eau bouillie. L'eau $(d)tridistillee$(/d). H2O sans le moindre ion etranger."
+    },
+    {
+      "type": "text",
+      "title": "L1 -- Petrochimie",
+      "text": "Le solvant $(d)Solvant Neutre alpha$(/d) est le sang de l'usine. Il dissout sans corrompre. Pour l'obtenir :$(br)$(li)Aspirer le brut$(/li)$(li)$(b)Desaerer$(/b) sous vide (MB-DESA)$(/li)$(li)Distiller (PCC Refinery)$(/li)$(li)$(b)Hydrodesulfurer$(/b) (MB-HDS, catalyseur Co-Mo)$(/li)$(li)Hydrocraquer (MB-HDS encore, catalyseur zeolite)$(/li)$(li)Mixer avec eau tridistillee + tensioactif$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "L2 -- Hydro-Eau",
+      "text": "L'eau pure ne se trouve pas. Elle se $(b)fabrique$(/b).$(br2)$(li)$(b)Distillation$(/b) thermique (TEP natif)$(/li)$(li)$(b)Filtration ionique$(/b) via resine echangeuse$(/li)$(li)$(b)Osmose inverse$(/b) (MB-OSMOSE) : 1000mB H2O bidistillee -> 1000mB H2O TRIdistillee$(/li)$(br)Sous-ligne : Eau Lourde D2O via Mekanism Electrolytic Separator. Tritium T2 via $(b)MB-TRITIUM$(/b) place a cote d'un reacteur NC actif."
+    }
+  ],
+  "category": "nexusabsolu:vol_iv"
+}

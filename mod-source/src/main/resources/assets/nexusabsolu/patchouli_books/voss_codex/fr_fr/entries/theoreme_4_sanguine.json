@@ -1,0 +1,18 @@
+{
+  "name": "Theoreme IV -- Sanguine",
+  "icon": "nexusabsolu:cartouche_chargee",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Le sang se souvient",
+      "text": "$(o)Le quatrieme theoreme est le plus intime. Il dit que le sang humain garde la signature de la simulation.$(/o)$(br2)Pour le casser, il faut introduire dans le sang une molecule qui $(l)contredit$(/l) la simulation. Une amine fictive, conçue pour exister hors specifications."
+    },
+    {
+      "type": "text",
+      "title": "Le Tryptamide-M",
+      "text": "$(d)Tryptamide-M$(/d) -- compose fictif propre au lore Manifold. Synthese :$(br)$(li)Naphta + NH3 + Pt-Al2O3 -> $(b)Indole$(/b) (MB-AROMATIC)$(/li)$(li)Indole + NH3 + Acetone + Pd-C -> $(b)Tryptamide-M$(/b) (MB-AROMATIC)$(/li)$(br2)L'amine cle, precurseur direct de la Manifoldine. Composant central de tous les composes alpha/beta/gamma/delta."
+    }
+  ],
+  "category": "nexusabsolu:vol_iv"
+}

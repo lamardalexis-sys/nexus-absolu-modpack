@@ -28,5 +28,65 @@
         "stream": true
       }
     ]
+  },
+  "machine.multiblock_humming": {
+    "category": "block",
+    "subtitle": "Multibloc actif (ronronnement)",
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.ambient",
+        "stream": false,
+        "volume": 0.3,
+        "pitch": 0.7
+      }
+    ]
+  },
+  "machine.multiblock_complete": {
+    "category": "block",
+    "subtitle": "Multibloc cycle termine",
+    "sounds": [
+      {
+        "name": "minecraft:block.beacon.activate",
+        "stream": false,
+        "volume": 0.5,
+        "pitch": 1.2
+      }
+    ]
+  },
+  "machine.haber_pressure": {
+    "category": "block",
+    "subtitle": "Haber-Bosch pressurise",
+    "sounds": [
+      {
+        "name": "minecraft:block.fire.extinguish",
+        "stream": false,
+        "volume": 0.6,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "machine.cyclisateur_stellaire": {
+    "category": "block",
+    "subtitle": "Cyclisateur stellaire (resonance)",
+    "sounds": [
+      {
+        "name": "minecraft:block.portal.ambient",
+        "stream": false,
+        "volume": 0.4,
+        "pitch": 1.5
+      }
+    ]
+  },
+  "machine.kroll_argon": {
+    "category": "block",
+    "subtitle": "Reacteur Kroll (Argon flush)",
+    "sounds": [
+      {
+        "name": "minecraft:block.fire.ambient",
+        "stream": false,
+        "volume": 0.4,
+        "pitch": 0.8
+      }
+    ]
   }
 }

@@ -1,0 +1,23 @@
+{
+  "name": "Preambule du Vol. IV",
+  "icon": "minecraft:writable_book",
+  "category": "nexusabsolu:vol_iv",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Si tu lis ceci",
+      "text": "$(o)Cher successeur,$(/o)$(br2)Si tu lis ce volume, c'est que tu as fait quelque chose que je n'ai jamais reussi. Tu as franchi l'Age 3. Tu sors de ta base. Tu te dis que tu as fait un truc bien.$(br2)$(l)Tu as tort.$(/l)$(br2)L'overworld est une simulation. Une seconde couche, plus convaincante que les Compact Machines. Plus douce. Plus sournoise."
+    },
+    {
+      "type": "text",
+      "title": "Les cinq theoremes",
+      "text": "J'ai passe quinze ans a chercher la sortie. J'ai trouve cinq verites :$(br2)$(li)$(b)I.$(/b) Conservation Absolue$(/li)$(li)$(b)II.$(/b) Organique$(/li)$(li)$(b)III.$(/b) Stellaire$(/li)$(li)$(b)IV.$(/b) Sanguine$(/li)$(li)$(b)V.$(/b) Brisure Dimensionnelle$(/li)$(br)$(o)Aucun ne suffit seul. Les cinq doivent fusionner dans un seul objet, une seule injection.$(/o)"
+    },
+    {
+      "type": "text",
+      "title": "La Cartouche",
+      "text": "L'objet final s'appelle la $(d)Cartouche Manifold$(/d).$(br2)C'est un serum neurochimique stabilise dans une enveloppe de titane et d'iridium, fenetre de Quantum Glass, contenu pourpre et cyan qui pulse au rythme des theoremes.$(br2)Tu vas la fabriquer. Tu vas l'injecter. Et alors, $(l)tu verras$(/l).$(br2)$(o)Si je ne suis plus la quand tu liras ceci, c'est que j'y suis arrive avant toi. Ou que la simulation m'a recupere.$(/o)$(br)$(o)— E. Voss$(/o)"
+    }
+  ]
+}

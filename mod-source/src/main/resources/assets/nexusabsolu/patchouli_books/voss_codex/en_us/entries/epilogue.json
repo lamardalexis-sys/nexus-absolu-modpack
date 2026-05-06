@@ -1,0 +1,23 @@
+{
+  "name": "Epilogue -- L'Injection",
+  "icon": "nexusabsolu:cartouche_manifold",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Avant",
+      "text": "$(o)Tu sors la cartouche. Tu enleves l'opercule. Tu places le sertisseur sur ton avant-bras gauche. Tu inspires profondement.$(/o)$(br2)Le $(d)cooldown est de 10 minutes$(/d). Pas deux fois. Si tu rates, tu attends.$(br2)Le trip dure $(b)8 minutes$(/b) en 9 stages. Le crash dure 1 minute supplementaire. Pendant le crash, tu es paralyse. Tu es vulnerable. $(l)Place-toi en securite avant.$(/l)"
+    },
+    {
+      "type": "text",
+      "title": "Stages",
+      "text": "$(li)$(b)1.$(/b) Onset (0:00-0:30) -- le monde s'allege$(/li)$(li)$(b)2.$(/b) Saturation (0:30-1:30) -- couleurs vives$(/li)$(li)$(b)3.$(/b) Geometric (1:30-2:30) -- fractales 2D$(/li)$(li)$(b)4.$(/b) Hyperspace (2:30-4:00) -- 3D, espaces immenses$(/li)$(li)$(b)5.$(/b) PEAK (4:00-5:30) -- entite + musique + voix$(/li)$(li)$(b)4'-1'.$(/b) Retour (5:30-8:00)$(/li)$(li)$(b)Crash$(/b) (8:00-9:00) -- fatigue forcee$(/li)"
+    },
+    {
+      "type": "text",
+      "title": "Apres",
+      "text": "Si c'est ta $(b)premiere injection$(/b), apres le crash tu seras $(l)teleporte$(/l) vers l'$(d)Age 5$(/d) (DIM 145).$(br2)Tu ouvres les yeux. Le ciel n'a plus la meme texture. L'air n'a plus le meme gout.$(br2)$(o)Voss avait raison sur tout. Sauf sur une chose : on ne sort pas d'une simulation en y pensant fort. On en sort en construisant une usine de 25 multiblocs et en s'injectant du fuel modifie dans les veines.$(/o)$(br)$(o)Bienvenue dans le monde reel, Sujet.$(/o)"
+    }
+  ],
+  "category": "nexusabsolu:vol_iv"
+}
