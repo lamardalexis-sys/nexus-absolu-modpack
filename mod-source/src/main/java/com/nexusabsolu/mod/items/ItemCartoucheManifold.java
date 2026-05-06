@@ -102,6 +102,9 @@ public class ItemCartoucheManifold extends ItemBase {
         sendInjectionMessages(player);
         ManifoldEffectHandler.startInjection(mp);
 
+        // Phase 4.2 : Marquer pour teleportation Age 5 si premiere injection
+        com.nexusabsolu.mod.events.ManifoldTeleporter.markFirstInjection(mp);
+
         // Consomme la cartouche
         stack.shrink(1);
         ItemStack used = new ItemStack(ModItems.CARTOUCHE_USED, 1);
