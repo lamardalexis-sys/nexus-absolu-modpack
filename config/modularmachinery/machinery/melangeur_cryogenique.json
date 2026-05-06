@@ -1,0 +1,803 @@
+{
+  "registryname": "melangeur_cryogenique",
+  "localizedname": "Melangeur Cryogenique M1",
+  "requires-blueprint": false,
+  "parts": [
+    {
+      "x": -2,
+      "y": -1,
+      "z": -2,
+      "elements": "casings_all"
+    },
+    {
+      "x": -2,
+      "y": -1,
+      "z": -1,
+      "elements": "casings_all"
+    },
+    {
+      "x": -2,
+      "y": -1,
+      "z": 0,
+      "elements": "casings_all"
+    },
+    {
+      "x": -2,
+      "y": -1,
+      "z": 1,
+      "elements": "casings_all"
+    },
+    {
+      "x": -2,
+      "y": -1,
+      "z": 2,
+      "elements": "casings_all"
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "z": -2,
+      "elements": "casings_all"
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "z": -1,
+      "elements": "casings_all"
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "z": 0,
+      "elements": "casings_all"
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "z": 1,
+      "elements": "casings_all"
+    },
+    {
+      "x": -1,
+      "y": -1,
+      "z": 2,
+      "elements": "casings_all"
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "z": -2,
+      "elements": "casings_all"
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "z": -1,
+      "elements": "casings_all"
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "z": 0,
+      "elements": "casings_all"
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "z": 1,
+      "elements": "casings_all"
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "z": 2,
+      "elements": "casings_all"
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "z": -2,
+      "elements": "casings_all"
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "z": -1,
+      "elements": "casings_all"
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "z": 0,
+      "elements": "casings_all"
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "z": 1,
+      "elements": "casings_all"
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "z": 2,
+      "elements": "casings_all"
+    },
+    {
+      "x": 2,
+      "y": -1,
+      "z": -2,
+      "elements": "casings_all"
+    },
+    {
+      "x": 2,
+      "y": -1,
+      "z": -1,
+      "elements": "casings_all"
+    },
+    {
+      "x": 2,
+      "y": -1,
+      "z": 0,
+      "elements": "casings_all"
+    },
+    {
+      "x": 2,
+      "y": -1,
+      "z": 1,
+      "elements": "casings_all"
+    },
+    {
+      "x": 2,
+      "y": -1,
+      "z": 2,
+      "elements": "casings_all"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 0,
+      "elements": "casings_item"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 0,
+      "elements": "casings_fluid"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -2,
+      "elements": "casings_item"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -1,
+      "elements": "casings_fluid"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 1,
+      "elements": "casings_fluid"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 2,
+      "elements": "casings_item"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 0,
+      "elements": "casings_fluid"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 0,
+      "elements": "casings_item"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 0,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 0,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 0,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 0,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 0,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": -1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 0,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": -1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": 1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 0,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 1,
+      "blocks": [
+        {
+          "name": "minecraft:glass"
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 0,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 0,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": -1,
+      "elements": "casings_item"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": 0,
+      "elements": "casings_fluid"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": 1,
+      "elements": "casings_item"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": -1,
+      "elements": "casings_fluid"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": 0,
+      "elements": "casings_energy"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": 1,
+      "elements": "casings_fluid"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": -1,
+      "elements": "casings_item"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 0,
+      "elements": "casings_fluid"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 1,
+      "elements": "casings_item"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -2,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 0,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 1,
+      "elements": "casings_decorative"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 2,
+      "elements": "casings_decorative"
+    }
+  ]
+}

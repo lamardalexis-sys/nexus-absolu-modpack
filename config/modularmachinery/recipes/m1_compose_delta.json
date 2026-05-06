@@ -1,0 +1,54 @@
+{
+    "machine": "melangeur_cryogenique",
+    "registryName": "compose_delta_synthesis",
+    "recipeTime": 2000,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 120000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:mycelium_active",
+            "amount": 4
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:tryptamide_m",
+            "amount": 2
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:cristal_manifoldine",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "h3po4",
+            "amount": 100
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "cryotheum",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:cartouche_vide",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "output",
+            "item": "contenttweaker:compose_delta",
+            "amount": 1
+        }
+    ]
+}
