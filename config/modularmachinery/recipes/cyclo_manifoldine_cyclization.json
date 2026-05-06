@@ -1,0 +1,67 @@
+{
+    "machine": "cyclisateur_stellaire",
+    "registryName": "cyclo_manifoldine_cyclization",
+    "recipeTime": 6000,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 15000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "manifoldine_extract_purified",
+            "amount": 200
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:tryptamide_m_capsule",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "astralsorcery.liquidstarlight",
+            "amount": 500
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "heavywater",
+            "amount": 100
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "argon",
+            "amount": 200
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "manifoldine_brute",
+            "amount": 100
+        },
+        {
+            "type": "modularmachinery:dimension",
+            "dimension": [
+                0
+            ]
+        },
+        {
+            "type": "modularmachinery:position",
+            "y_min": 60
+        },
+        {
+            "type": "modularmachinery:weather",
+            "weather": "clear"
+        },
+        {
+            "type": "modularmachinery:time",
+            "time_min": 13000,
+            "time_max": 23000
+        }
+    ]
+}

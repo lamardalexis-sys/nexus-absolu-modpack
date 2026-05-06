@@ -1,0 +1,36 @@
+{
+    "machine": "evaporator",
+    "registryName": "evaporator_cristal_manifoldine",
+    "recipeTime": 1200,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 3000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "manifoldine_brute",
+            "amount": 100
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "h3po4",
+            "amount": 50
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "output",
+            "item": "contenttweaker:cristal_manifoldine",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "tridistilled_water",
+            "amount": 100
+        }
+    ]
+}
