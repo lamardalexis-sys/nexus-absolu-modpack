@@ -6,7 +6,7 @@
         {
             "type": "modularmachinery:energy",
             "io-type": "input",
-            "energyPerTick": 3000
+            "energyPerTick": 6500
         },
         {
             "type": "modularmachinery:fluid",
