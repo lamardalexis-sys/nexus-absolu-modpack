@@ -1478,9 +1478,13 @@ public class ManifoldOverlayHandler {
 
         float rotation = (t % 1800) / 1800.0f * 360.0f;
 
-        // v1.0.346 : entite ENORME au PEAK (etait 0.6x, maintenant 1.0x ecran)
-        // -> couvre quasi tout l'ecran, on voit plus le jeu.
-        float baseSize = Math.min(w, h) * 1.0f;
+        // v1.0.357 FIX 16/9 : etait Math.min(w, h) = 1080 sur 1920x1080
+        // -> entite dessinee dans un CARRE 1080x1080 centre, on voyait les
+        // cotes gauche/droit avec plasma/occluder qui depassaient.
+        // FIX : utiliser la DIAGONALE * 1.15 pour couvrir TOUT l'ecran
+        // meme apres rotation (diagonale 1920x1080 = 2200, * 1.15 = 2530).
+        // Resultat : l'entite + son halo couvrent largeur+hauteur+rotation.
+        float baseSize = (float) Math.sqrt(w * w + h * h) * 1.15f;
         float size = baseSize * scale;
 
         float baseAlpha = intensity * 0.95f;
@@ -1531,26 +1535,43 @@ public class ManifoldOverlayHandler {
         int rows = 9;
         float cellW = (float) w / cols;
         float cellH = (float) h / rows;
-        for (int gy = 0; gy < rows; gy++) {
-            for (int gx = 0; gx < cols; gx++) {
-                // Choix de couleur : fonction de la position et du temps
+
+        // v1.0.357 FIX 16/9 : Pre-compute couleur + alpha aux NOEUDS de la grille
+        // (cols+1 x rows+1) pour que chaque cellule ait gradient lisse aux 4 coins.
+        // Plus de "carres rectangulaires" visibles -> gradient continu DMT.
+        float[][] gridR = new float[cols + 1][rows + 1];
+        float[][] gridG = new float[cols + 1][rows + 1];
+        float[][] gridB = new float[cols + 1][rows + 1];
+        float[][] gridA = new float[cols + 1][rows + 1];
+        for (int gx = 0; gx <= cols; gx++) {
+            for (int gy = 0; gy <= rows; gy++) {
                 int colorIdx = (gx + gy + (int)(t / 8)) % DMT_PALETTE.length;
                 float[] c = DMT_PALETTE[colorIdx];
-
-                // Pulsation legere d'alpha par cellule, dephasee
                 float cellPhase = ((gx * 7 + gy * 13) % 16) / 16.0f;
                 float cellPulse = (float) Math.sin((t + cellPhase * 100) * 0.05);
                 float cellAlpha = alpha * (0.7f + 0.3f * cellPulse);
+                gridR[gx][gy] = c[0];
+                gridG[gx][gy] = c[1];
+                gridB[gx][gy] = c[2];
+                gridA[gx][gy] = cellAlpha;
+            }
+        }
 
+        for (int gy = 0; gy < rows; gy++) {
+            for (int gx = 0; gx < cols; gx++) {
                 float x0 = gx * cellW;
                 float y0 = gy * cellH;
                 float x1 = x0 + cellW;
                 float y1 = y0 + cellH;
-
-                buf.pos(x0, y1, 0).color(c[0], c[1], c[2], cellAlpha).endVertex();
-                buf.pos(x1, y1, 0).color(c[0], c[1], c[2], cellAlpha).endVertex();
-                buf.pos(x1, y0, 0).color(c[0], c[1], c[2], cellAlpha).endVertex();
-                buf.pos(x0, y0, 0).color(c[0], c[1], c[2], cellAlpha).endVertex();
+                // 4 coins avec couleurs interpolees -> OpenGL fait gradient
+                buf.pos(x0, y1, 0).color(gridR[gx][gy + 1], gridG[gx][gy + 1],
+                    gridB[gx][gy + 1], gridA[gx][gy + 1]).endVertex();
+                buf.pos(x1, y1, 0).color(gridR[gx + 1][gy + 1], gridG[gx + 1][gy + 1],
+                    gridB[gx + 1][gy + 1], gridA[gx + 1][gy + 1]).endVertex();
+                buf.pos(x1, y0, 0).color(gridR[gx + 1][gy], gridG[gx + 1][gy],
+                    gridB[gx + 1][gy], gridA[gx + 1][gy]).endVertex();
+                buf.pos(x0, y0, 0).color(gridR[gx][gy], gridG[gx][gy],
+                    gridB[gx][gy], gridA[gx][gy]).endVertex();
             }
         }
         tess.draw();
@@ -1570,7 +1591,10 @@ public class ManifoldOverlayHandler {
         float rotation = (t % 600) / 600.0f * 360.0f;  // 1 tour / 30s
         // Pulse zoom synchro beat (taille pulse 1.4x -> 1.55x sur le kick)
         float scale = 1.4f + beat * 0.15f;
-        float size = Math.max(w, h) * scale;
+        // v1.0.357 FIX 16/9 : Math.max(w,h) * 1.4 = 2688 sur 1920x1080,
+        // mais avec rotation les coins peuvent etre vides. Diagonale * scale
+        // garantit couverture totale.
+        float size = (float) Math.sqrt(w * w + h * h) * scale;
 
         // Alpha : se voit derriere l'occluder mais reste vivant
         float alpha = intensity * 0.55f + beat * 0.15f;
