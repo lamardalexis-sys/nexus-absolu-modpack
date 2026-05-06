@@ -1,0 +1,30 @@
+{
+    "machine": "bioreacteur",
+    "registryName": "aqua_regia_mix",
+    "recipeTime": 100,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 500
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "hcl",
+            "amount": 300
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "hno3",
+            "amount": 100
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "aqua_regia",
+            "amount": 400
+        }
+    ]
+}

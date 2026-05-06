@@ -1,0 +1,30 @@
+{
+    "machine": "evaporator",
+    "registryName": "naoh_concentrate",
+    "recipeTime": 200,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 5000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "naoh_solution",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "naoh_concentrated",
+            "amount": 200
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "tridistilled_water",
+            "amount": 800
+        }
+    ]
+}

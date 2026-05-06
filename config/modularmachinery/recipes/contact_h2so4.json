@@ -1,0 +1,42 @@
+{
+    "machine": "contact_tower",
+    "registryName": "contact_h2so4",
+    "recipeTime": 500,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 15000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:sulfur_pure",
+            "amount": 4
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "oxygen",
+            "amount": 600
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "tridistilled_water",
+            "amount": 100
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:v2o5_catalyst",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "h2so4",
+            "amount": 300
+        }
+    ]
+}
