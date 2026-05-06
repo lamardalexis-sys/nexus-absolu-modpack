@@ -1,0 +1,36 @@
+{
+    "machine": "hds_tower",
+    "registryName": "hydrocrack_kerosene",
+    "recipeTime": 400,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 8000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "kerosene_desulfured",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "hydrogen",
+            "amount": 100
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:zeolite_pellet",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "kerosene_premium",
+            "amount": 1000
+        }
+    ]
+}

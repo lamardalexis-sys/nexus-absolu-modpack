@@ -1,0 +1,30 @@
+{
+    "machine": "vacuum_chamber",
+    "registryName": "vacuum_desaeration",
+    "recipeTime": 400,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 5000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "oil",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "crude_degazed",
+            "amount": 800
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "natural_gas",
+            "amount": 200
+        }
+    ]
+}
