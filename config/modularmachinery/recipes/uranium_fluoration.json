@@ -1,0 +1,30 @@
+{
+    "machine": "gamma_forge",
+    "registryName": "uranium_fluoration",
+    "recipeTime": 400,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 20000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:uranyl_dust",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "fluorine_gas",
+            "amount": 600
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "uf6_gas",
+            "amount": 100
+        }
+    ]
+}

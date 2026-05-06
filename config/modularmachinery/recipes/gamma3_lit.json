@@ -1,0 +1,30 @@
+{
+    "machine": "lit_chamber",
+    "registryName": "gamma3_lit",
+    "recipeTime": 600,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 15000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:lithium6_ingot",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "tritium",
+            "amount": 50
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "output",
+            "item": "contenttweaker:gamma3_lit_capsule",
+            "amount": 1
+        }
+    ]
+}
