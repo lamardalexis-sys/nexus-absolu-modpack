@@ -829,8 +829,10 @@ public class ManifoldOverlayHandler {
         // apres rotation les coins de l'ecran sortent de la grille -> carres noirs.
         // Diagonale de 1920x1080 = 2200 pixels, donc on dimensionne la grille
         // pour couvrir un carre de cote = diagonale.
+        // v1.0.358 : marge +4 -> +12 tiles pour eliminer les coins noirs residuels
+        // qui apparaissent avec scroll offset + rotation continue.
         float diagonal = (float)Math.sqrt(w * w + h * h);
-        int tilesPerSide = (int)Math.ceil(diagonal / tileSize) + 4;
+        int tilesPerSide = (int)Math.ceil(diagonal / tileSize) + 12;
         int tilesX = tilesPerSide;
         int tilesY = tilesPerSide;
         float scrollOffset = (float)((((double) t) * zoomSpeed) % 240.0 / 240.0 * tileSize);
@@ -887,9 +889,10 @@ public class ManifoldOverlayHandler {
         }
     }
 
-    // === ANNEAUX STARGATE : 12 anneaux concentriques en perspective ===
-    // Chaque anneau a une position Z et un angle de rotation initial.
-    private static final int N_HYPER_RINGS = 12;
+    // === ANNEAUX STARGATE : 6 anneaux concentriques en perspective ===
+    // v1.0.358 : reduit de 12 a 6 pour moins de scintillement
+    // (user feedback : 'plein de ronds qui pop et depop ca fait mal')
+    private static final int N_HYPER_RINGS = 6;
     private static final float[] RING_Z = new float[N_HYPER_RINGS];
     private static final float[] RING_ROT = new float[N_HYPER_RINGS];
     static {
@@ -902,9 +905,9 @@ public class ManifoldOverlayHandler {
         }
     }
 
-    // === GHOST FIGURES : 12 silhouettes humaines en perspective 3D ===
-    // Representent les "vies infinies" qui defilent dans le tunnel hyperspace.
-    private static final int N_GHOST_FIGURES = 12;
+    // === GHOST FIGURES : 6 silhouettes humaines en perspective 3D ===
+    // v1.0.358 : reduit de 12 a 6 pour moins de scintillement
+    private static final int N_GHOST_FIGURES = 6;
     private static final float[] GHOST_X = new float[N_GHOST_FIGURES];
     private static final float[] GHOST_Y = new float[N_GHOST_FIGURES];
     private static final float[] GHOST_Z = new float[N_GHOST_FIGURES];
@@ -1133,8 +1136,8 @@ public class ManifoldOverlayHandler {
 
             // Alpha fade aux extremites de Z
             float zAlpha = 1.0f;
-            if (zRaw < HYPER_Z_NEAR + 2.0f) {
-                zAlpha = (zRaw - HYPER_Z_NEAR) / 2.0f;
+            if (zRaw < HYPER_Z_NEAR + 6.0f) {
+                zAlpha = (zRaw - HYPER_Z_NEAR) / 6.0f;
             } else if (zRaw > HYPER_Z_FAR - 5.0f) {
                 zAlpha = (HYPER_Z_FAR - zRaw) / 5.0f;
             }
@@ -1237,8 +1240,8 @@ public class ManifoldOverlayHandler {
 
             // Alpha fade aux extremites
             float zAlpha = 1.0f;
-            if (zRaw < HYPER_Z_NEAR + 2.0f) {
-                zAlpha = (zRaw - HYPER_Z_NEAR) / 2.0f;
+            if (zRaw < HYPER_Z_NEAR + 6.0f) {
+                zAlpha = (zRaw - HYPER_Z_NEAR) / 6.0f;
             } else if (zRaw > HYPER_Z_FAR - 10.0f) {
                 zAlpha = (HYPER_Z_FAR - zRaw) / 10.0f;
             }
@@ -1329,8 +1332,8 @@ public class ManifoldOverlayHandler {
 
             // Alpha fade aux extremites Z
             float zAlpha = 1.0f;
-            if (zRaw < HYPER_Z_NEAR + 2.0f) {
-                zAlpha = (zRaw - HYPER_Z_NEAR) / 2.0f;
+            if (zRaw < HYPER_Z_NEAR + 6.0f) {
+                zAlpha = (zRaw - HYPER_Z_NEAR) / 6.0f;
             } else if (zRaw > HYPER_Z_FAR - 10.0f) {
                 zAlpha = (HYPER_Z_FAR - zRaw) / 10.0f;
             }
@@ -1400,12 +1403,13 @@ public class ManifoldOverlayHandler {
 
     /**
      * Pulse central : 1 anneau par BEAT (84 BPM).
+     * v1.0.358 : alpha 0.4 -> 0.18 (-55% scintillement, user feedback)
      */
     private void renderCenterPulse(int w, int h, long t, float intensity, float beat) {
         // L'anneau commence quand beat=0 et grandit jusqu'a beat=1
         float phase = ManifoldClientState.getBeatPhase(t);
         float radius = phase * Math.max(w, h) * 0.7f;
-        float pulseAlpha = (1.0f - phase) * 0.4f * intensity;
+        float pulseAlpha = (1.0f - phase) * 0.18f * intensity;
         if (pulseAlpha < 0.02f) return;
 
         GlStateManager.disableTexture2D();
