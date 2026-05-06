@@ -133,6 +133,16 @@ public class GuiLocalisateurDimensionnel extends GuiScreen {
         this.drawCenteredString(this.fontRenderer, subtitle,
             this.width / 2, panelTop + 28, 0xFFAAAAAA);
 
+        // v1.0.361 : Indicateur de pagination quand scroll actif
+        if (machineIds.length > VISIBLE_ROWS) {
+            int firstShown = scrollOffset + 1;
+            int lastShown = Math.min(machineIds.length, scrollOffset + VISIBLE_ROWS);
+            String paginationInfo = "Salles " + firstShown + "-" + lastShown
+                + " sur " + machineIds.length;
+            this.drawCenteredString(this.fontRenderer, paginationInfo,
+                this.width / 2, panelTop + PANEL_H - 70, 0xFF7090C0);
+        }
+
         // Si vide, message d'aide
         if (machineIds.length == 0) {
             this.drawCenteredString(this.fontRenderer,
