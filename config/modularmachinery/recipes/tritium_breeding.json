@@ -1,0 +1,36 @@
+{
+    "machine": "tritium_breeder",
+    "registryName": "tritium_breeding",
+    "recipeTime": 200,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 5000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:lithium6_ingot",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "heavywater",
+            "amount": 100
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "tritium",
+            "amount": 10
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "output",
+            "item": "contenttweaker:helium4_capsule",
+            "amount": 1
+        }
+    ]
+}

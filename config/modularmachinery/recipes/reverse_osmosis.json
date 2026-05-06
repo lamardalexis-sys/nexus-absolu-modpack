@@ -1,0 +1,24 @@
+{
+    "machine": "osmose_inverse",
+    "registryName": "reverse_osmosis",
+    "recipeTime": 200,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 3000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "bidistilled_water",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "tridistilled_water",
+            "amount": 1000
+        }
+    ]
+}

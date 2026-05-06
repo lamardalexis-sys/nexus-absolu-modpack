@@ -1,0 +1,30 @@
+{
+    "machine": "evaporator",
+    "registryName": "ion_filtration",
+    "recipeTime": 100,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 500
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "distilledwater",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:resin_charge",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "bidistilled_water",
+            "amount": 1000
+        }
+    ]
+}
