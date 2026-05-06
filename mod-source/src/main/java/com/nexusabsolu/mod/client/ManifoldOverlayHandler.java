@@ -123,6 +123,24 @@ public class ManifoldOverlayHandler {
                                                             // adjacentes = effet quasi-video.
                                                             // 240 frames * 150ms = 36s (loop ~6s)
 
+    // v1.0.355 : 4 fresques 4K DMT pour le tunnel infini avant le PEAK.
+    // Chaque fresque = mandala fractal multi-echelles dense, kaleidoscope DMT.
+    // Elles sont scaled de 1.0 a 16.0 (zoom progressif) pour effet 'tunnel infini'.
+    // Crossfade entre fresques en boucle pour variete sans repetition visible.
+    // Generees par scripts-tools/generate_fractal_fresques_v2.py --all
+    private static final int N_FRESQUES = 4;
+    private static final ResourceLocation[] FRESQUE_TEX = new ResourceLocation[N_FRESQUES];
+    static {
+        for (int i = 0; i < N_FRESQUES; i++) {
+            FRESQUE_TEX[i] = new ResourceLocation(
+                "nexusabsolu", "textures/manifold/trip/fresque_" + i + ".png");
+        }
+    }
+    // Cycle de zoom : 1.0 -> 16.0 sur 600 ticks = 30 secondes par fresque
+    private static final int FRESQUE_CYCLE_TICKS = 600;
+    private static final float FRESQUE_ZOOM_MIN = 1.0f;
+    private static final float FRESQUE_ZOOM_MAX = 16.0f;
+
     // v1.0.334 (Etape 6 visuel ultime) : cosmic dust precompute.
     // 80 etoiles fixes en coordonnees normalisees [0,1] avec couleur DMT.
     // Init seede dans static block pour reproductibilite (meme positions a
@@ -199,6 +217,18 @@ public class ManifoldOverlayHandler {
         if (intensities[3] > 0.01f) {
             renderZoomTunnel(mc, w, h, now, intensities[3]);
             renderCenterPulse(w, h, now, intensities[3], beatKick);
+        }
+
+        // === COUCHE 4.5 — TUNNEL INFINI FRESQUE 4K (v1.0.355) ===
+        // 30 dernieres secondes du HYPERSPACE (3:30 -> 4:00 du trip = 0.4375 -> 0.5).
+        // 4 fresques DMT 4K en boucle, zoom progressif 1x -> 16x sur 30s par fresque,
+        // crossfade entre fresques pour variete sans repetition visible.
+        // Effet : on plonge dans une oeuvre d'art DMT infiniment detaillee juste
+        // avant l'apparition de l'entite.
+        float progress = ManifoldClientState.getTripProgress(now);
+        float fresqueIntensity = computeFresqueIntensity(progress);
+        if (fresqueIntensity > 0.01f) {
+            renderInfiniteFresqueTunnel(mc, w, h, now, fresqueIntensity);
         }
 
         // === COUCHE 5 -- PEAK : LE TRIP BOUFFE TOUT L'ECRAN ===
@@ -891,6 +921,100 @@ public class ManifoldOverlayHandler {
      *   - alpha fade aux 2 extremites (apparait en Z_FAR, disparait en Z_NEAR)
      *   - rotation propre par quad + drift global (effet vortex)
      */
+    /**
+     * v1.0.355 : Calcule l'intensite du tunnel infini fresque.
+     * Active sur les 30 dernieres secondes du HYPERSPACE (0.4375 -> 0.5)
+     * + courte transition au debut du PEAK pour fade out doux.
+     * 
+     *   progress < 0.4375           : 0 (pas encore actif)
+     *   0.4375 < progress < 0.4500  : fade in (smoothstep)
+     *   0.4500 < progress < 0.5000  : 1.0 (tunnel infini plein regime)
+     *   0.5000 < progress < 0.5125  : fade out smooth (entree PEAK)
+     *   progress > 0.5125           : 0 (PEAK pur)
+     */
+    private float computeFresqueIntensity(float progress) {
+        float fadeInStart = 0.4375f;   // 3:30 du trip (8 min)
+        float fadeInEnd = 0.4500f;     // 3:36
+        float fadeOutStart = 0.5000f;  // 4:00 (entree PEAK)
+        float fadeOutEnd = 0.5125f;    // 4:06
+        
+        if (progress < fadeInStart || progress > fadeOutEnd) return 0f;
+        
+        if (progress < fadeInEnd) {
+            float t = (progress - fadeInStart) / (fadeInEnd - fadeInStart);
+            return t * t * (3f - 2f * t);  // smoothstep
+        }
+        if (progress < fadeOutStart) return 1f;
+        
+        // Fade out
+        float t = (progress - fadeOutStart) / (fadeOutEnd - fadeOutStart);
+        float s = t * t * (3f - 2f * t);
+        return 1f - s;
+    }
+
+    /**
+     * v1.0.355 : Tunnel infini avec fresques 4K mandala fractal multi-echelles.
+     * 
+     * Concept : 4 fresques DMT 4K, chacune scaled de 1.0 a 16.0 sur 30 secondes
+     * (cycle log : zoom apparent constant). Quand une fresque finit son cycle
+     * (zoom 16x), crossfade vers la suivante. En boucle, donc on ne sait jamais
+     * quelle est la prochaine fresque -> sensation de plongee infinie dans
+     * une oeuvre d'art.
+     * 
+     * Le scale logarithmique fait que le ressenti de zoom est CONSTANT (pas
+     * d'acceleration vers la fin), ce qui est crucial pour l'effet 'tunnel'.
+     */
+    private void renderInfiniteFresqueTunnel(Minecraft mc, int w, int h, long t,
+                                              float intensity) {
+        if (intensity < 0.01f) return;
+        
+        // Cycle courant + fraction dans le cycle
+        long inCycle = t % FRESQUE_CYCLE_TICKS;
+        float cycleFrac = inCycle / (float) FRESQUE_CYCLE_TICKS;
+        
+        // Index fresque courante
+        int currFresque = (int)((t / FRESQUE_CYCLE_TICKS) % N_FRESQUES);
+        int nextFresque = (currFresque + 1) % N_FRESQUES;
+        
+        // Crossfade entre fresques sur les 5% derniers du cycle
+        float crossfade = 0f;
+        if (cycleFrac > 0.95f) {
+            float fadeT = (cycleFrac - 0.95f) / 0.05f;
+            crossfade = fadeT * fadeT * (3f - 2f * fadeT);
+        }
+        
+        // Scale exponentiel : 1.0 -> 16.0 (logaritmique = ressenti constant)
+        // scale(t=0) = 1, scale(t=1) = 16, scale(t=0.5) = 4 (sqrt(16))
+        float scaleCurr = (float) Math.pow(FRESQUE_ZOOM_MAX / FRESQUE_ZOOM_MIN,
+                                            cycleFrac);
+        // Pour la fresque suivante (qui prend la suite quand crossfade > 0),
+        // elle est en debut de cycle (scale = 1.0)
+        float scaleNext = 1.0f;
+        
+        // Taille de base : couvre toute la diagonale pour eviter coins vides
+        float baseSize = (float) Math.sqrt(w * w + h * h) * 1.1f;
+        
+        float cx = w / 2.0f;
+        float cy = h / 2.0f;
+        
+        // Rotation lente pour effet vortex (1 tour en 4 minutes)
+        float rotation = ((t % 4800) / 4800.0f) * 360.0f;
+        
+        // Dessin fresque courante (alpha 1.0 - crossfade)
+        if (intensity * (1f - crossfade) > 0.01f) {
+            float sizeCurr = baseSize * scaleCurr;
+            drawRotatedTexture(mc, FRESQUE_TEX[currFresque], cx, cy, sizeCurr,
+                               rotation, intensity * (1f - crossfade));
+        }
+        
+        // Dessin fresque suivante (en crossfade quand on approche de la fin)
+        if (intensity * crossfade > 0.01f) {
+            float sizeNext = baseSize * scaleNext;
+            drawRotatedTexture(mc, FRESQUE_TEX[nextFresque], cx, cy, sizeNext,
+                               -rotation * 0.7f, intensity * crossfade);
+        }
+    }
+
     private void renderHyperspace3D(Minecraft mc, int w, int h, long t,
                                      float intensity, float accel,
                                      int vA, int vB, float vFade) {
