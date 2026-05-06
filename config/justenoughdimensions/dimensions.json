@@ -29,6 +29,33 @@
                     "doWeatherCycle": "false"
                 }
             }
+        },
+        {
+            "dim": 145,
+            "dimensiontype": {
+                "existing_dimensiontype": "overworld"
+            },
+            "worldinfo_onetime": {
+                "LevelName": "Age 5 - Le Monde Reel",
+                "SpawnX": 0,
+                "SpawnY": 100,
+                "SpawnZ": 0,
+                "raining": false,
+                "thundering": false,
+                "DimensionTime": 6000,
+                "GameRules": {
+                    "spawnRadius": "0",
+                    "doDaylightCycle": "true",
+                    "doWeatherCycle": "true",
+                    "keepInventory": "true",
+                    "naturalRegeneration": "true"
+                }
+            },
+            "worldinfo": {
+                "GameRules": {
+                    "spawnRadius": "0"
+                }
+            }
         }
     ]
 }

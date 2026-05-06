@@ -234,6 +234,9 @@ public class ManifoldEffectHandler {
         player.sendMessage(new TextComponentString(
             TextFormatting.DARK_RED + "" + TextFormatting.ITALIC
             + "\"Repose-toi. Ton corps t'en supplie.\""));
+
+        // Phase 4.2 : Liberation - teleportation vers Age 5 si premiere injection
+        ManifoldTeleporter.onTripEnd(player);
     }
 
     // === Helpers NBT ===
