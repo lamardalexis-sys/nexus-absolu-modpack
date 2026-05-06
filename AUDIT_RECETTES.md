@@ -133,13 +133,80 @@ Le script audit Python utilisé peut être ajouté à `scripts-tools/` pour :
 
 ---
 
-## 5. PROCHAINES ÉTAPES
+## 5. PHASE 2 — CHAÎNE PROGRESSION & CONTENT TWEAKER
 
-- [ ] Vérifier les **items multi-mods en input** non déclarés dans le pack (mods retirés ?)
-- [ ] Vérifier les recettes **ContentTweaker** (`scripts/contenttweaker/`)
-- [ ] Vérifier la **chaîne progression complète** Age 0 → 1 → 2 → 3 → 4
-- [ ] Décider Option A vs B pour les 3 orphelins (validation Alexis requise)
+### 5.1 — ContentTweaker items
+
+- **104 items CT créés** (createItem + createBlock + buildItem) répartis sur :
+  - `scripts/contenttweaker/NexusItems.zs` : 7 items
+  - `scripts/Age4_Manifold_Content.zs` : 97 items + 3 blocs
+- **21 items CT utilisés en `.zs`**
+- **34 items CT utilisés en `.json`** (Modular Machinery + BetterQuesting)
+- **Aucun CT orphelin réel** (les 3 "orphelins" Python étaient des `createBlock` mal détectés)
+
+⚠️ **72 items CT créés mais JAMAIS référencés nulle part**. Ce sont des items Age 4 "manifold" préparés mais sans craft. Liste : `acid_catalyst`, `air_canister`, `alumina`, `aluminum_pure`, `b2o3_dust`, `bef2_dust`, `beryllium_pure`, `beta1_cobalt_phthalocyanine`, `beta2_iridium_hexafluoride`, `boron_pure`, `calcium_phosphate`, `casing_cartouche_*`, `codex_transcendant`, `coeur_de_donnees`, `compose_x77`, etc.
+
+→ Pas critique mais à nettoyer ou compléter en sprint dédié Age 4.
+
+### 5.2 — Chaîne progression Age 0 → Age 2
+
+| Clé | Recette | Status |
+|---|---|---|
+| `compact_key_5x5` | grits + cobblestone + poop | ✅ OK |
+| `compact_key_7x7` | basic ingots (iron, copper, tin, redstone) | ✅ OK |
+| **`compact_key_9x9`** | vossium_iii + **diarrhee_liquide** + blood_magic + compose_gear_c | 🔴 **CASSÉ** |
+| `compact_key_11x11` | invar + gearCopper + frame TE | ✅ OK |
+| `compact_key_13x13` | steel + darksteel + electrum | ✅ OK |
+
+🔴 **DOUBLE BLOQUEUR CONFIRMÉ** sur l'Age 1 :
+
+1. **`signalhee_ingot` orphelin** → pas de `compose_c` → pas de **vossium III** (composant clé)
+2. **`diarrhee_liquide` orphelin** → pas de clé 9x9 (même si vossium III existait)
+
+Conséquence : **impossible de passer de la salle 7×7 à la salle 9×9**. Tout joueur sera bloqué à l'Age 1.
 
 ---
 
-*Audit Phase 1 — Items NA orphelins identifiés.*
+## 6. SYNTHÈSE FINALE
+
+### Bilan : 3 vrais problèmes critiques
+
+| # | Item | Niveau impact | Action requise |
+|---|---|---|---|
+| 1 | `signalhee_ingot` | 🔴 BLOQUEUR Age 1 | Ajouter source (recette ZS ou MM KRDA125) |
+| 2 | `diarrhee_liquide` | 🔴 BLOQUEUR Age 1→2 | Ajouter source (recette MM Diarh33) |
+| 3 | `compose_e` | 🟠 BLOQUEUR Age 2 endgame | Ajouter source (drop, recette, ou MM) |
+
+### Décisions à prendre par Alexis
+
+**Option B (rapide, recommandée pour débloquer)** : 
+
+```zs
+// Age1_Signalhee.zs (NOUVEAU bloc en haut du fichier, AVANT les utilisations)
+// TEMP : recette ZS direct en attendant MM KRDA125
+mods.thermalexpansion.InductionSmelter.addRecipe(
+    <nexusabsolu:signalhee_ingot>,           // output
+    <thermalfoundation:material:135>,        // signalum dust
+    <minecraft:potion>.withTag({Potion: "minecraft:water"}),  // water = "diarrhee placeholder"
+    8000
+);
+
+// Et fluid : utiliser water pour l'instant ou MM Diarh33
+```
+
+**Option A (propre, à faire en sprint séparé)** : 
+- Créer machine `diarh33` Modular Machinery (multiblock)
+- Créer machine `krda125` Modular Machinery (multiblock)
+- Recettes JSON dans `config/modularmachinery/recipes/`
+- Modèles + textures multiblock
+
+### Prochaines actions techniques (en attente validation)
+
+- [ ] **Décision A vs B** par Alexis pour les 3 orphelins
+- [ ] Si B : ajouter recettes temporaires + `// TEMP TODO` markers
+- [ ] Si A : créer 2-3 fichiers MM `.json` + multiblocks (~ sprint dédié)
+- [ ] Compléter ou nettoyer les 72 items CT inutilisés Age 4
+
+---
+
+*Audit complet — 3 vrais bloqueurs identifiés, prêt pour validation.*
