@@ -1,0 +1,43 @@
+{
+  "pattern": [
+    [
+      "CCC",
+      "CCC",
+      "CCC"
+    ],
+    [
+      "DFD",
+      "F0F",
+      "DFD"
+    ],
+    [
+      "DDD",
+      "DGD",
+      "DDD"
+    ],
+    [
+      "DDD",
+      "DGD",
+      "DDD"
+    ],
+    [
+      "DID",
+      "IFI",
+      "DID"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:soxhlet_extractor_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "G": "minecraft:glass",
+    "I": "modularmachinery:blockinputbus"
+  },
+  "symmetrical": false,
+  "offset": [
+    1,
+    1,
+    1
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "pattern": [
+    [
+      "CCCCC",
+      "CCCCC",
+      "CCCCC",
+      "CCCCC",
+      "CCCCC"
+    ],
+    [
+      "IDDDI",
+      "DDFDD",
+      "DF0FD",
+      "DDFDD",
+      "IDDDI"
+    ],
+    [
+      "DDDDD",
+      "DGGGD",
+      "DG_GD",
+      "DGGGD",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "DGGGD",
+      "DG_GD",
+      "DGGGD",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "DGGGD",
+      "DG_GD",
+      "DGGGD",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "DDFDD",
+      "DFEFD",
+      "DDFDD",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:haber_reactor_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "E": "modularmachinery:blockenergyinputhatch",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "G": "minecraft:glass",
+    "I": "modularmachinery:blockinputbus",
+    "_": "minecraft:air"
+  },
+  "symmetrical": false,
+  "offset": [
+    2,
+    1,
+    2
+  ]
+}

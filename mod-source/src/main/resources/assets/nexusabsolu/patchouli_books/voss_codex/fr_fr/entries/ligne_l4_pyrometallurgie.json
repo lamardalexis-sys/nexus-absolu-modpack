@@ -17,6 +17,24 @@
       "type": "text",
       "title": "MB-AQUA-REGIA",
       "text": "$(b)Cellule Eau Regale$(/b) 3x3x3, standard. Pour metaux precieux Au/Pt/Ir/Os.$(br2)Tu n'as besoin que d'1 seul AQUA-REGIA pour TOUS les metaux precieux (recette change selon l'input).$(br2)$(o)Recipe pilote : Au + aqua_regia -> gold_chloride_solution -> gold_pure_99$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-HALL Hall-Heroult (5x4x5)",
+      "multiblock_id": "nexusabsolu:hall_heroult_cell",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-KROLL Reacteur Kroll (4x5x4)",
+      "multiblock_id": "nexusabsolu:kroll_reactor",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-AQUA-REGIA Eau Regale (3x3x3)",
+      "multiblock_id": "nexusabsolu:aqua_regia_cell",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_v"

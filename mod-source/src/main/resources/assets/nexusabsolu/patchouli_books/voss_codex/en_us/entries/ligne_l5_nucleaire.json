@@ -12,6 +12,18 @@
       "type": "text",
       "title": "Layout 3x3x3 standard",
       "text": "Les deux multiblocs L5 utilisent le meme layout 3x3x3 (34 blocs) :$(br)$(li)Y=-1 : 3x3 plein casings$(/li)$(li)Y=0 : 4 fluid + 4 corners item + Controller$(/li)$(li)Y=1 : 3x3 perimetre$(/li)$(li)Y=2 : 3x3 + Energy center$(/li)$(br2)$(o)Differents controllers, meme structure. Tu peux meme demonter+reposer en changeant juste le block central.$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-GAMMA-FORGE (3x3x3)",
+      "multiblock_id": "nexusabsolu:gamma_forge",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-LIT-CHAMBER Tritiure de Lithium (3x3x3)",
+      "multiblock_id": "nexusabsolu:lit_chamber",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_v"

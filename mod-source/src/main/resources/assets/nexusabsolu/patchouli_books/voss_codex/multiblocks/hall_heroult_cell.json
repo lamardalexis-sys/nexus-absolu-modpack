@@ -1,0 +1,55 @@
+{
+  "pattern": [
+    [
+      "CCCCC",
+      "CCCCC",
+      "CCCCC",
+      "CCCCC",
+      "CCCCC"
+    ],
+    [
+      "FDDDF",
+      "DDIDD",
+      "DI0ID",
+      "DDIDD",
+      "FDDDF"
+    ],
+    [
+      "DDDDD",
+      "DGGGD",
+      "DG_GD",
+      "DGGGD",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "DGGGD",
+      "DG_GD",
+      "DGGGD",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "DDIDD",
+      "DIEID",
+      "DDIDD",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:hall_heroult_cell_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "E": "modularmachinery:blockenergyinputhatch",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "G": "minecraft:glass",
+    "I": "modularmachinery:blockinputbus",
+    "_": "minecraft:air"
+  },
+  "symmetrical": false,
+  "offset": [
+    2,
+    1,
+    2
+  ]
+}

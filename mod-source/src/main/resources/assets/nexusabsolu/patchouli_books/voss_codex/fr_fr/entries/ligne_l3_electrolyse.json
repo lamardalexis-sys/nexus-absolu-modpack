@@ -17,6 +17,24 @@
       "type": "text",
       "title": "MB-FOUR-ELEC",
       "text": "$(b)Four electrique HT$(/b) 5x4x5 (122 blocs - le 2eme plus gros !) :$(br)$(li)Y=-1 : 5x5 plein$(/li)$(li)Y=0 : 4 item input + 8 corners + Controller$(/li)$(li)Y=1, Y=2 : 5x5 perimetre + verre interieur (3x3 chambre arc)$(/li)$(li)Y=3 : 5x5 plein + 4 fluid output + 4 item output (slag)$(/li)$(br)$(o)Recipe : Ca3(PO4)2 + sand + coal -> phosphorus_white + slag (1500 deg C).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-CK Castner-Kellner (5x3x3)",
+      "multiblock_id": "nexusabsolu:ck_cell",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-FOUR-ELEC HT 1500C (5x4x5)",
+      "multiblock_id": "nexusabsolu:electric_furnace",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-FLUORITE (3x3x3)",
+      "multiblock_id": "nexusabsolu:fluorite_cell",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_v"

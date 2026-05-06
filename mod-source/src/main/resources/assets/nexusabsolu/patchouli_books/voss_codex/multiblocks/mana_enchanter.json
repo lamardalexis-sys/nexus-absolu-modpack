@@ -1,0 +1,33 @@
+{
+  "pattern": [
+    [
+      "CCC",
+      "CCC",
+      "CCC"
+    ],
+    [
+      "DID",
+      "I0I",
+      "DID"
+    ],
+    [
+      "DFD",
+      "FEF",
+      "DFD"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:mana_enchanter_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "E": "modularmachinery:blockenergyinputhatch",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "I": "modularmachinery:blockinputbus"
+  },
+  "symmetrical": false,
+  "offset": [
+    1,
+    1,
+    1
+  ]
+}

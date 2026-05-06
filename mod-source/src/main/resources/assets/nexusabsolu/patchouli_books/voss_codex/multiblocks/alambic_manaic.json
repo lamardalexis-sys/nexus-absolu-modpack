@@ -1,0 +1,47 @@
+{
+  "pattern": [
+    [
+      "CCCCC",
+      "CCCCC",
+      "CCCCC",
+      "CCCCC",
+      "CCCCC"
+    ],
+    [
+      "DDDDD",
+      "DIFID",
+      "DF0FD",
+      "DIFID",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "D___D",
+      "D___D",
+      "D___D",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "D___D",
+      "D_E_D",
+      "D___D",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:alambic_manaic_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "E": "modularmachinery:blockenergyinputhatch",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "I": "modularmachinery:blockinputbus",
+    "_": "minecraft:air"
+  },
+  "symmetrical": false,
+  "offset": [
+    2,
+    1,
+    2
+  ]
+}

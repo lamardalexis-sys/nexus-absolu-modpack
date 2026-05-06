@@ -1,0 +1,55 @@
+{
+  "pattern": [
+    [
+      "CCCC",
+      "CCCC",
+      "CCCC",
+      "CCCC"
+    ],
+    [
+      "IIII",
+      "I0FI",
+      "IFFI",
+      "IIII"
+    ],
+    [
+      "DDDD",
+      "DGGD",
+      "DGGD",
+      "DDDD"
+    ],
+    [
+      "DDDD",
+      "DGGD",
+      "DGGD",
+      "DDDD"
+    ],
+    [
+      "DDDD",
+      "DGGD",
+      "DGGD",
+      "DDDD"
+    ],
+    [
+      "DIDD",
+      "IEID",
+      "DIDD",
+      "DDDD"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:kroll_reactor_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "E": "modularmachinery:blockenergyinputhatch",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "G": "minecraft:glass",
+    "I": "modularmachinery:blockinputbus"
+  },
+  "symmetrical": false,
+  "offset": [
+    1,
+    1,
+    1
+  ]
+}

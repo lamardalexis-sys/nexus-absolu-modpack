@@ -17,6 +17,36 @@
       "type": "text",
       "title": "MB-ALAMBIC + MB-MANA-ENCHANTER",
       "text": "$(b)Alambic Manaique$(/b) (5x4x5, 82 blocs) :$(br)Layout : 5x5 plein Y=-1 / fluid+item input Y=0 / 5x5 perimetre Y=1 / 5x5 + Energy Y=2.$(br)Recipe : 16 extracts Botania + 4 Mana Pearl -> Matrix Pigmentary.$(br2)$(b)Mana Enchanter$(/b) (3x3x3, 26 blocs) :$(br)Recipe : cristal_chromatic_raw + Mana Pearl -> 1000mB Essence Chromatique.$(br2)$(o)Les deux integrent Botania mod (besoin Mana Pool/Spreaders pour le mana proxy).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-SOXHLET (3x5x3)",
+      "multiblock_id": "nexusabsolu:soxhlet_extractor",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-CYCLO Cyclisateur Stellaire (5x6x5, NUIT)",
+      "multiblock_id": "nexusabsolu:cyclisateur_stellaire",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-EVAPORATOR Cristal Manifoldine (3x3x3)",
+      "multiblock_id": "nexusabsolu:evaporator",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-ALAMBIC Manaique (5x4x5)",
+      "multiblock_id": "nexusabsolu:alambic_manaic",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-MANA-ENCHANTER (3x3x3)",
+      "multiblock_id": "nexusabsolu:mana_enchanter",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_v"

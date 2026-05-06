@@ -17,6 +17,30 @@
       "type": "text",
       "title": "MB-CRACKER multifonction",
       "text": "$(b)Thermal Cracker$(/b) (3x5x3 tower) est le plus polyvalent de L7 :$(br)$(li)Cracking Naphtha -> Benzene$(/li)$(li)Cracking Natural Gas -> Propylene$(/li)$(li)Methanol synthesis (Syngas + Cu-ZnO)$(/li)$(li)IPA dehydrogenation -> Acetone (voie backup)$(/li)$(br2)Donc 1 seul MB-CRACKER = 4 chains differentes selon l'input. $(b)Investis bien.$(/b)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-CRACKER (3x5x3)",
+      "multiblock_id": "nexusabsolu:thermal_cracker",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-CUMENE Acetone+Phenol (3x4x3)",
+      "multiblock_id": "nexusabsolu:cumene_reactor",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-AROMATIC Tryptamide-M (3x3x3)",
+      "multiblock_id": "nexusabsolu:aromatic_reactor",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-FERMENTER Ethanol (3x3x3)",
+      "multiblock_id": "nexusabsolu:fermenter",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_v"

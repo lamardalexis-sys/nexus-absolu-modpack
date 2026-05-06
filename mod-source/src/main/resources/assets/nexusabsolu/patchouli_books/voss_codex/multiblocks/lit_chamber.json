@@ -1,0 +1,39 @@
+{
+  "pattern": [
+    [
+      "CCC",
+      "CCC",
+      "CCC"
+    ],
+    [
+      "IFI",
+      "F0F",
+      "IFI"
+    ],
+    [
+      "DDD",
+      "D_D",
+      "DDD"
+    ],
+    [
+      "DDD",
+      "DED",
+      "DDD"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:lit_chamber_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "E": "modularmachinery:blockenergyinputhatch",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "I": "modularmachinery:blockinputbus",
+    "_": "minecraft:air"
+  },
+  "symmetrical": false,
+  "offset": [
+    1,
+    1,
+    1
+  ]
+}

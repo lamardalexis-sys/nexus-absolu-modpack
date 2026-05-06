@@ -1,0 +1,33 @@
+{
+  "pattern": [
+    [
+      "CCCCC",
+      "CCCCC",
+      "CCCCC"
+    ],
+    [
+      "IDFDI",
+      "IF0FI",
+      "IDFDI"
+    ],
+    [
+      "DDDDD",
+      "DDEDD",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:ck_cell_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "E": "modularmachinery:blockenergyinputhatch",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "I": "modularmachinery:blockinputbus"
+  },
+  "symmetrical": false,
+  "offset": [
+    2,
+    1,
+    1
+  ]
+}

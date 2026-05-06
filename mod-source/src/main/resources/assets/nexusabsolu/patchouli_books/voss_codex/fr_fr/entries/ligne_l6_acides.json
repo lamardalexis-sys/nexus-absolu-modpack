@@ -17,6 +17,24 @@
       "type": "text",
       "title": "MB-OSTWALD + MB-CONTACT",
       "text": "$(b)Tour Ostwald$(/b) (ostwald_tower, 3x4x3 = 44 blocs) -- HNO3$(br)$(b)Tour Contact$(/b) (contact_tower, 3x4x3 = 44 blocs) -- H2SO4 + Claus$(br2)Memes layouts (3x4x3 tower) :$(br)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid + 4 items + Controller$(/li)$(li)Y=1, Y=2 : 3x3 perimetre + verre central$(/li)$(li)Y=3 : 3x3 + Energy + 4 fluid output$(/li)$(br)$(o)2 multiblocs identiques structurellement, contenu different.$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-HABER Hub Central (5x5x5)",
+      "multiblock_id": "nexusabsolu:haber_reactor",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-OSTWALD Tour HNO3 (3x4x3)",
+      "multiblock_id": "nexusabsolu:ostwald_tower",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "MB-CONTACT Tour H2SO4 (3x4x3)",
+      "multiblock_id": "nexusabsolu:contact_tower",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_v"

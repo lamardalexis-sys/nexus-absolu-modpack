@@ -1,0 +1,55 @@
+{
+  "pattern": [
+    [
+      "CCCCC",
+      "CCCCC",
+      "CCCCC",
+      "CCCCC",
+      "CCCCC"
+    ],
+    [
+      "DDIDD",
+      "DDFDD",
+      "IF0FI",
+      "DDFDD",
+      "DDIDD"
+    ],
+    [
+      "DDDDD",
+      "DGGGD",
+      "DG_GD",
+      "DGGGD",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "DGGGD",
+      "DG_GD",
+      "DGGGD",
+      "DDDDD"
+    ],
+    [
+      "DDDDD",
+      "DIFID",
+      "DFEFD",
+      "DIFID",
+      "DDDDD"
+    ]
+  ],
+  "mapping": {
+    "0": "nexusabsolu:melangeur_cryogenique_controller",
+    "C": "modularmachinery:blockcasing",
+    "D": "modularmachinery:blockcasing",
+    "E": "modularmachinery:blockenergyinputhatch",
+    "F": "modularmachinery:blockfluidinputhatch",
+    "G": "minecraft:glass",
+    "I": "modularmachinery:blockinputbus",
+    "_": "minecraft:air"
+  },
+  "symmetrical": false,
+  "offset": [
+    2,
+    1,
+    2
+  ]
+}
