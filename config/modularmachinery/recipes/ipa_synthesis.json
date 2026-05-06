@@ -1,0 +1,36 @@
+{
+    "machine": "bioreacteur",
+    "registryName": "ipa_synthesis",
+    "recipeTime": 200,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 5000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "propylene",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "tridistilled_water",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:acid_catalyst",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "isopropanol",
+            "amount": 400
+        }
+    ]
+}

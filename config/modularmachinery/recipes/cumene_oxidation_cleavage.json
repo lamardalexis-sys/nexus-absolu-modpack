@@ -1,0 +1,48 @@
+{
+    "machine": "cumene_reactor",
+    "registryName": "cumene_oxidation_cleavage",
+    "recipeTime": 500,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 10000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "cumene",
+            "amount": 800
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "oxygen",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "h2so4",
+            "amount": 20
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "phenol",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "acetone",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "h2so4",
+            "amount": 20
+        }
+    ]
+}

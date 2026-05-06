@@ -1,0 +1,36 @@
+{
+    "machine": "thermal_cracker",
+    "registryName": "naphtha_reformage",
+    "recipeTime": 300,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 12000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "naphtha",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "contenttweaker:pt_re_catalyst",
+            "amount": 1
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "benzene",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "hydrogen",
+            "amount": 200
+        }
+    ]
+}

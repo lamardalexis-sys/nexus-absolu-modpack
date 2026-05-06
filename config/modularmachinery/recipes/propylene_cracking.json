@@ -1,0 +1,36 @@
+{
+    "machine": "thermal_cracker",
+    "registryName": "propylene_cracking",
+    "recipeTime": 300,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 15000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "natural_gas",
+            "amount": 1000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "propylene",
+            "amount": 600
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "methane",
+            "amount": 200
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "hydrogen",
+            "amount": 200
+        }
+    ]
+}

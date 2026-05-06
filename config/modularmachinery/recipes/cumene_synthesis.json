@@ -1,0 +1,42 @@
+{
+    "machine": "cumene_reactor",
+    "registryName": "cumene_synthesis",
+    "recipeTime": 200,
+    "requirements": [
+        {
+            "type": "modularmachinery:energy",
+            "io-type": "input",
+            "energyPerTick": 8000
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "benzene",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "propylene",
+            "amount": 400
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "input",
+            "fluid": "h2so4",
+            "amount": 50
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "cumene",
+            "amount": 800
+        },
+        {
+            "type": "modularmachinery:fluid",
+            "io-type": "output",
+            "fluid": "h2so4",
+            "amount": 50
+        }
+    ]
+}
