@@ -123,6 +123,17 @@ public class ItemCleLiberteActivee extends ItemBase {
             return false;
         }
 
+        // v1.0.349 - Sprint 2 : set le worldborder TF a 1000x1000 centre (0,0)
+        // si pas deja set. Idempotent : check getDiameter() > 2000 pour detecter
+        // l'etat initial (vanilla default = 60_000_000).
+        net.minecraft.world.border.WorldBorder tfBorder = twilight.getWorldBorder();
+        if (tfBorder.getDiameter() > 2000.0) {
+            tfBorder.setCenter(0.0, 0.0);
+            tfBorder.setSize(1000.0);
+            net.minecraftforge.fml.common.FMLLog.log.info(
+                "[CleLiberte] Worldborder TF initialise: 1000x1000 centre (0,0)");
+        }
+
         // === STEP 1: Identify the CM room the player is currently in ===
         // Must happen BEFORE teleport, while the player is still inside DIM 144.
         net.minecraftforge.fml.common.FMLLog.log.info(
