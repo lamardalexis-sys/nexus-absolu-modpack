@@ -129,7 +129,7 @@ public class ItemCleLiberteActivee extends ItemBase {
         net.minecraft.world.border.WorldBorder tfBorder = twilight.getWorldBorder();
         if (tfBorder.getDiameter() > 2000.0) {
             tfBorder.setCenter(0.0, 0.0);
-            tfBorder.setSize(1000.0);
+            tfBorder.setSize(1000);
             net.minecraftforge.fml.common.FMLLog.log.info(
                 "[CleLiberte] Worldborder TF initialise: 1000x1000 centre (0,0)");
         }
