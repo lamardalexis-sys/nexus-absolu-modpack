@@ -90,7 +90,7 @@ public class PortailSortieValidator {
         return true;
     }
 
-    /** Fill the 4x3 interior with active portal blocks. */
+    /** Fill the 2x2 interior with active portal blocks. */
     public static void fillInterior(World world, BlockPos bottomLeft,
                                      EnumFacing.Axis axis) {
         IBlockState portalState = ModBlocks.PORTAIL_SORTIE_ACTIF.getDefaultState()
