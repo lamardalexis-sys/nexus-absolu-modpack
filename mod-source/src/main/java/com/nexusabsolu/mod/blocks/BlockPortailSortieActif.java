@@ -42,7 +42,7 @@ import java.util.Random;
  * Portail de Sortie TF - active portal block.
  *
  * Spawned by ItemCatalyseurSortie when activating a valid Obsidienne Voss
- * frame (6x5, interior 4x3). When an entity collides with this block,
+ * frame (4x4, interior 2x2). When an entity collides with this block,
  * it is teleported to DIM 145 (the "overworld simulation" - Age 2 Phase 2).
  *
  * Cannot be obtained or placed directly by players. Drops nothing when

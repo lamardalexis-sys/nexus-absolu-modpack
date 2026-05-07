@@ -24,8 +24,8 @@ import java.util.List;
 /**
  * Catalyseur de Sortie - the consumable portal igniter for Age 2 Phase 1->2.
  *
- * Right-click on any Obsidienne Voss block belonging to a valid 6x5 frame
- * (interior 4x3) -> the interior is filled with Portail Sortie Actif blocks
+ * Right-click on any Obsidienne Voss block belonging to a valid 4x4 frame
+ * (interior 2x2) -> the interior is filled with Portail Sortie Actif blocks
  * and the catalyser is consumed.
  *
  * If the clicked block is not Obsidienne Voss, or no valid frame can be

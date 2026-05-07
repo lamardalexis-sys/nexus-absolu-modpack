@@ -16,7 +16,7 @@ import net.minecraftforge.client.model.ModelLoader;
 /**
  * Obsidienne Voss - frame block for the Age 2 Phase 1 -> Phase 2 portal.
  *
- * Forms the 6x5 vertical frame (interior 4x3) that the player must build
+ * Forms the 4x4 vertical frame (interior 2x2) that the player must build
  * inside the Twilight Forest to escape towards DIM 145 ("the overworld
  * simulation"). When activated by an ItemCatalyseurSortie, the interior
  * is filled with BlockPortailSortieActif blocks.
