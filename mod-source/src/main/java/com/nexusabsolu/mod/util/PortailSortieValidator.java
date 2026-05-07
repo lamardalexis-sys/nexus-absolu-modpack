@@ -12,28 +12,27 @@ import net.minecraft.world.World;
 /**
  * PortailSortieValidator - frame detection for the Age 2 Phase 1->2 portal.
  *
- * Frame shape: 6 wide x 5 tall (interior 4 wide x 3 tall).
+ * Frame shape: 4 wide x 4 tall (interior 2 wide x 2 tall).
  *
- *   X X X X X X       <- top edge (6)
- *   X . . . . X       <- interior row
- *   X . . . . X       <- interior row
- *   X . . . . X       <- interior row
- *   X X X X X X       <- bottom edge (6)
+ *   X X X X       <- top edge (4)
+ *   X . . X       <- interior row
+ *   X . . X       <- interior row
+ *   X X X X       <- bottom edge (4)
  *
- *   X = Obsidienne Voss frame block
- *   . = Air (becomes Portail Sortie Actif when ignited)
+ *   X = Obsidienne Voss frame block (12 total)
+ *   . = Air (becomes Portail Sortie Actif when ignited - 4 blocks)
  *
  * Two orientations supported: AXIS=X (frame extends along world X axis)
  * and AXIS=Z (frame extends along world Z axis). Detection is brute-force
  * across all (dx, dy) offsets in [0, WIDTH) x [0, HEIGHT) which is at most
- * 30 tests per axis = 60 total. Cheap and bulletproof.
+ * 16 tests per axis = 32 total. Cheap and bulletproof.
  *
- * Sprint 3 - v1.0.350+
+ * Sprint 3 - v1.0.352+
  */
 public class PortailSortieValidator {
 
-    public static final int WIDTH = 6;
-    public static final int HEIGHT = 5;
+    public static final int WIDTH = 4;
+    public static final int HEIGHT = 4;
 
     /**
      * Try to find a valid frame anchored such that {@code clickedPos} is

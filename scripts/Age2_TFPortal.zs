@@ -22,6 +22,6 @@ recipes.addShaped("obsidienne_voss_craft",
      [<nexusabsolu:vossium_iv_ingot>,   <nexusabsolu:fragment_mecanique>, <nexusabsolu:vossium_iv_ingot>],
      [<minecraft:obsidian>,             <nexusabsolu:vossium_iv_ingot>, <minecraft:obsidian>]]);
 
-// Le frame complet 6x5 = 18 blocs Obsidienne Voss.
-// Avec cette recipe (4 par craft) il faut ~5 crafts = 20 vossium IV
-// ingot + 20 obsidienne + 5 fragment mecanique.
+// Le frame complet 4x4 = 12 blocs Obsidienne Voss.
+// Avec cette recipe (4 par craft) il faut 3 crafts = 12 vossium IV
+// ingot + 12 obsidienne + 3 fragment mecanique.

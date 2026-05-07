@@ -55,7 +55,7 @@ public class ItemCatalyseurSortie extends ItemBase {
         tooltip.add(TextFormatting.DARK_GRAY + "\"La foret te laisse partir. Voss aussi.\"");
         tooltip.add("");
         tooltip.add(TextFormatting.YELLOW
-            + "Clic droit sur un cadre Obsidienne Voss 6x5 pour allumer.");
+            + "Clic droit sur un cadre Obsidienne Voss 4x4 pour allumer.");
         tooltip.add(TextFormatting.DARK_GRAY + "Usage unique.");
     }
 
@@ -86,7 +86,7 @@ public class ItemCatalyseurSortie extends ItemBase {
         if (result == null) {
             player.sendMessage(new TextComponentString(
                 TextFormatting.RED
-                + "[Catalyseur] Cadre invalide. Verifie la structure 6x5 (interieur 4x3 vide)."));
+                + "[Catalyseur] Cadre invalide. Verifie la structure 4x4 (interieur 2x2 vide)."));
             return EnumActionResult.FAIL;
         }
 
