@@ -4,6 +4,8 @@ import com.nexusabsolu.mod.blocks.BlockCompose;
 import com.nexusabsolu.mod.blocks.BlockNexusOre;
 import com.nexusabsolu.mod.blocks.BlockNexusWall;
 import com.nexusabsolu.mod.blocks.BlockNexusWallT2;
+import com.nexusabsolu.mod.blocks.BlockObsidienneVoss;
+import com.nexusabsolu.mod.blocks.BlockPortailSortieActif;
 import com.nexusabsolu.mod.blocks.BlockTutuosssOre;
 import com.nexusabsolu.mod.blocks.BlockVossiumII;
 import com.nexusabsolu.mod.blocks.BlockVossiumIII;
@@ -70,6 +72,10 @@ public class ModBlocks {
     // === PORTAIL VOSS ===
     public static final BlockNexusWallT2 NEXUS_WALL_T2 = new BlockNexusWallT2();
     public static final BlockEcranControle ECRAN_CONTROLE = new BlockEcranControle();
+
+    // === PORTAIL DE SORTIE TF (Age 2 Phase 1 -> Phase 2) ===
+    public static final BlockObsidienneVoss OBSIDIENNE_VOSS = new BlockObsidienneVoss();
+    public static final BlockPortailSortieActif PORTAIL_SORTIE_ACTIF = new BlockPortailSortieActif();
 
     // === FURNACES NEXUS (T1-T8 implementes ; T9 Infinite reste multiblock a faire) ===
     public static final com.nexusabsolu.mod.blocks.machines.furnaces.BlockFurnaceNexus FURNACE_IRON =

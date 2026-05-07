@@ -178,3 +178,8 @@ item.nexusabsolu.plongeur_voss.name=Plongeur Voss
 
 # === Localisateur Voss (op-only navigation matryoshka) ===
 item.nexusabsolu.localisateur_dimensionnel.name=Localisateur Dimensionnel
+
+# === Sprint 3 - Portail de Sortie TF (Age 2 Phase 1 -> Phase 2) ===
+tile.obsidienne_voss.name=Obsidienne Voss
+tile.portail_sortie_actif.name=Portail de Sortie
+item.nexusabsolu.catalyseur_sortie.name=Catalyseur de Sortie

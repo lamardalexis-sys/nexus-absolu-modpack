@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "axis=x": { "model": "nexusabsolu:portail_sortie_actif" },
+    "axis=z": { "model": "nexusabsolu:portail_sortie_actif", "y": 90 }
+  }
+}

@@ -5,6 +5,7 @@ import com.nexusabsolu.mod.items.ItemCartoucheManifold;
 import com.nexusabsolu.mod.items.ItemCartoucheUsed;
 import com.nexusabsolu.mod.items.ItemCleLiberte;
 import com.nexusabsolu.mod.items.ItemCleLiberteActivee;
+import com.nexusabsolu.mod.items.ItemCatalyseurSortie;
 import com.nexusabsolu.mod.items.ItemCompose;
 import com.nexusabsolu.mod.items.ItemFurnaceUpgrade;
 import com.nexusabsolu.mod.items.ItemGrabberVoss;
@@ -187,6 +188,9 @@ public class ModItems {
     // === PORTAIL VOSS - CLE DE LIBERTE (Age 1 -> Age 2) ===
     public static final Item CLE_LIBERTE = new ItemCleLiberte();
     public static final Item CLE_LIBERTE_ACTIVEE = new ItemCleLiberteActivee();
+
+    // === PORTAIL DE SORTIE TF (Age 2 Phase 1 -> Phase 2, Sprint 3) ===
+    public static final Item CATALYSEUR_SORTIE = new ItemCatalyseurSortie();
 
     // === AGE 2 INTRO (Sprint 1) ===
     // Narrative / progression items for the 9 rewritten intro quests.
