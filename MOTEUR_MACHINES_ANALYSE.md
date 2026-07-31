@@ -113,3 +113,64 @@ A si la revalidation des 25 machines existantes est acceptable — c'est la seul
 route qui donne des contrôleurs réellement custom sans dette de maintenance.
 C en repli immédiat si on veut du visible cette session sans toucher au pack.
 B seulement en dernier recours.
+
+---
+
+# Audit de compatibilité MM 1.11.1 → Community Edition
+
+Fait le 31/07/2026 sur les sources des deux versions.
+
+## Verdict : le pack passe tel quel
+
+**Les 30 fichiers `machinery/*.json`** : aucun ajustement. Le format de CE est un
+sur-ensemble strict de celui de 1.11.1 — aucune clé retirée, renommée ou rendue
+obligatoire. Le pack n'utilise qu'un vocabulaire minimal (`registryname`,
+`localizedname`, `requires-blueprint`, `parts`, et `modifiers` dans un seul
+fichier) ; les 648 valeurs d'`elements` résolvent toutes vers `casings.var.json`.
+`requires-blueprint` et `color` gardent exactement la même sémantique.
+
+**Les 67 fichiers `recipes/*.json`** : le désérialiseur est fonctionnellement
+identique. Les identifiants `modularmachinery:item`, `:fluid`, `:energy` sont
+enregistrés sous les mêmes ResourceLocation dans CE, qui ne fait qu'en ajouter.
+
+**Les scripts CraftTweaker** : rien à migrer. Aucun `.zs` du pack n'appelle
+`mods.modularmachinery.*` — les seules occurrences sont des exemples non
+exécutés dans les docs de conception. `<modularmachinery:blockcontroller>`
+garde son nom d'enregistrement dans CE.
+
+## Deux points à décider avant de basculer
+
+CE charge les machines en deux passes parallèles. Si la seconde échoue, la
+machine reste enregistrée avec une structure vide et l'erreur sort en `warn`
+au lieu de l'écran d'erreur de 1.11.1. Les fautes de syntaxe deviennent plus
+discrètes — à surveiller lors des futures éditions.
+
+CE fait hériter les recettes de `recipeParallelizeEnabledByDefault`, **à `true`
+par défaut**. Les 67 recettes deviendront parallélisables dès qu'un Parallel
+Controller est construit. C'est un changement d'équilibrage à trancher
+consciemment (`parallel-controller` / `recipe-parallelize-enabled-bydefault`).
+
+## Deux bugs préexistants trouvés au passage
+
+Aucun des deux ne vient de la migration : ils cassent déjà le pack sous 1.11.1.
+
+**`cyclo_manifoldine_cyclization.json`** déclarait quatre requirements de types
+`modularmachinery:dimension`, `:position`, `:weather` et `:time`, qui n'existent
+dans aucune des deux versions. `RecipeLoader` attrape l'exception par fichier :
+la recette entière ne se chargeait donc pas. Conséquence en chaîne :
+`manifoldine_brute` n'était produite par rien, donc l'évaporateur ne pouvait
+jamais tourner, donc `cristal_manifoldine` était inatteignable. La ligne L8
+était coupée à l'étape L8.C.3, pas à l'étape que l'on surveillait.
+
+Les quatre requirements sont supprimés pour que la recette se charge. **Le gating
+de design est perdu** : Overworld seul, y ≥ 60, temps clair, nuit (13000–23000).
+Il faudra le réimplémenter — événement de recette CraftTweaker sous CE, ou code
+Java côté `nexusabsolu`.
+
+**`power_transformer_energy_transform.json`** ciblait `"machine":
+"power_transformer"` alors que `machinery/power_transformer.json` déclare
+`"registryname": "transformer"`. La recette était silencieusement écartée.
+Corrigé en `"transformer"`.
+
+Après correction, les 67 recettes passent la validation : aucun type invalide,
+aucun `io-type` manquant, aucune machine inconnue.
