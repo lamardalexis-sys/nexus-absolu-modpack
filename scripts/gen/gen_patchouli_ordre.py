@@ -42,10 +42,12 @@ byd=collections.defaultdict(list)
 for m,d in md.items(): byd[d].append(m)
 waves=[sorted(byd[d]) for d in sorted(byd)]
 
-NAME={}; BLK={}
+NAME={}; BLK={}; DIMS={}
 for p in glob.glob('config/modularmachinery/machinery/*.json'):
     d=json.load(open(p)); n=os.path.basename(p)[:-5]
     NAME[n]=d.get('localizedname',n); BLK[n]=len(d['parts'])+1
+    xs={q['x'] for q in d['parts']}|{0}; ys={q['y'] for q in d['parts']}|{0}; zs={q['z'] for q in d['parts']}|{0}
+    DIMS[n]='%dx%dx%d'%(max(xs)-min(xs)+1,max(ys)-min(ys)+1,max(zs)-min(zs)+1)
 rf=collections.defaultdict(int)
 for n,r in R.items():
     if r['m'] in need: rf[r['m']]+=r['e']*r['t']
@@ -76,9 +78,8 @@ def pages(lang):
             if wi>=len(waves): break
             for m in waves[wi]:
                 items.append(li("$(d)%s$(/d) -- %s, %d blocs%s"%(
-                    NAME[m], "%dx%dx%d"%tuple([3, 1+max(1,BLK[m]//9), 3]) if False else
-                    ("3x1x3" if BLK[m]<=10 else "3x3x3" if BLK[m]<=27 else "3x5x3"),
-                    BLK[m], (", %.0f M RF"%(rf[m]/1e6)) if rf[m]>=1e6 else "")))
+                    NAME[m], DIMS[m], BLK[m],
+                    (", %.0f M RF"%(rf[m]/1e6)) if rf[m]>=1e6 else "")))
         t=("Vagues %d a %d" if fr else "Waves %d to %d")%(a+1,min(b,len(waves)))
         P.append({"type":"text","title":t,"text":"".join(items)})
     P.append({"type":"text","title":"Le moment final" if fr else "The final moment",
