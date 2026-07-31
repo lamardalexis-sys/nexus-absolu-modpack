@@ -37,7 +37,8 @@
         "name": "minecraft:block.beacon.ambient",
         "stream": false,
         "volume": 0.3,
-        "pitch": 0.7
+        "pitch": 0.7,
+        "type": "event"
       }
     ]
   },
@@ -49,7 +50,8 @@
         "name": "minecraft:block.beacon.activate",
         "stream": false,
         "volume": 0.5,
-        "pitch": 1.2
+        "pitch": 1.2,
+        "type": "event"
       }
     ]
   },
@@ -61,7 +63,8 @@
         "name": "minecraft:block.fire.extinguish",
         "stream": false,
         "volume": 0.6,
-        "pitch": 0.6
+        "pitch": 0.6,
+        "type": "event"
       }
     ]
   },
@@ -73,7 +76,8 @@
         "name": "minecraft:block.portal.ambient",
         "stream": false,
         "volume": 0.4,
-        "pitch": 1.5
+        "pitch": 1.5,
+        "type": "event"
       }
     ]
   },
@@ -85,7 +89,8 @@
         "name": "minecraft:block.fire.ambient",
         "stream": false,
         "volume": 0.4,
-        "pitch": 0.8
+        "pitch": 0.8,
+        "type": "event"
       }
     ]
   }
