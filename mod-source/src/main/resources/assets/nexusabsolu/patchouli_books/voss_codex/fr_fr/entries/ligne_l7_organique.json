@@ -20,27 +20,127 @@
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-CRACKER (3x5x3)",
-      "multiblock_id": "nexusabsolu:thermal_cracker",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-CRACKER (3x3x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "CIC",
+            "III",
+            "CIC"
+          ],
+          [
+            "CAC",
+            "A0A",
+            "CAC"
+          ],
+          [
+            "CFC",
+            "FEF",
+            "CFC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing",
+          "E": "modularmachinery:blockenergyinputhatch",
+          "F": "modularmachinery:blockfluidinputhatch",
+          "I": "modularmachinery:blockinputbus"
+        },
+        "symmetrical": false
+      }
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-CUMENE Acetone+Phenol (3x4x3)",
-      "multiblock_id": "nexusabsolu:cumene_reactor",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-CUMENE Acetone+Phenol (3x3x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "CIC",
+            "III",
+            "CIC"
+          ],
+          [
+            "CAC",
+            "A0A",
+            "CAC"
+          ],
+          [
+            "CFC",
+            "FEF",
+            "CFC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing",
+          "E": "modularmachinery:blockenergyinputhatch",
+          "F": "modularmachinery:blockfluidinputhatch",
+          "I": "modularmachinery:blockinputbus"
+        },
+        "symmetrical": false
+      }
     },
     {
       "type": "patchouli:multiblock",
       "name": "MB-AROMATIC Tryptamide-M (3x3x3)",
-      "multiblock_id": "nexusabsolu:aromatic_reactor",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "CIC",
+            "III",
+            "CIC"
+          ],
+          [
+            "CAC",
+            "A0A",
+            "CAC"
+          ],
+          [
+            "CFC",
+            "FEF",
+            "CFC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing",
+          "E": "modularmachinery:blockenergyinputhatch",
+          "F": "modularmachinery:blockfluidinputhatch",
+          "I": "modularmachinery:blockinputbus"
+        },
+        "symmetrical": false
+      }
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-FERMENTER Ethanol (3x3x3)",
-      "multiblock_id": "nexusabsolu:fermenter",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-FERMENTER Ethanol (3x2x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "   ",
+            " 0 ",
+            "   "
+          ],
+          [
+            "CAC",
+            "AAA",
+            "CAC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing"
+        },
+        "symmetrical": false
+      }
     }
   ],
   "category": "nexusabsolu:vol_v"
