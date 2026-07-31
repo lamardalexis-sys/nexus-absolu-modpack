@@ -6,7 +6,7 @@
     {
       "type": "text",
       "title": "Multiblocs L5",
-      "text": "$(b)2 multiblocs$(/b) (le reste reutilise L3/L4) :$(br)$(li)$(d)MB-GAMMA-FORGE$(/d) (gamma_forge, 3x3x3) - composes gamma1 + gamma2$(/li)$(li)$(d)MB-LIT-CHAMBER$(/d) (lit_chamber, 3x3x3) - compose gamma3 (LiT)$(/li)$(br2)Reutilise :$(br)$(li)kroll_reactor (Beryllium reduction)$(/li)$(li)fluorite_cell (Boron electrolysis)$(/li)$(br2)L5.9 Mycelium activation = passive (mycelium pres reactor NC actif)."
+      "text": "$(b)2 multiblocs$(/b) (le reste reutilise L3/L4) :$(br)$(li)$(d)MB-GAMMA-FORGE$(/d) (gamma_forge, 3x3x3) - composes gamma1 + gamma2$(/li)$(li)$(d)MB-LIT-CHAMBER$(/d) (lit_chamber, 3x2x3) - compose gamma3 (LiT)$(/li)$(br2)Reutilise :$(br)$(li)kroll_reactor (Beryllium reduction)$(/li)$(li)fluorite_cell (Boron electrolysis)$(/li)$(br2)L5.9 Mycelium activation = passive (mycelium pres reactor NC actif)."
     },
     {
       "type": "text",

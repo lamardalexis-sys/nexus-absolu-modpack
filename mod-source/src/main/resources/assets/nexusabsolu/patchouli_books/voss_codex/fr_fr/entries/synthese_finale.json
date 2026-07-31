@@ -21,7 +21,7 @@
     {
       "type": "text",
       "title": "Bio-Reacteur Manifold",
-      "text": "Recette finale dans le $(b)Bio-Reacteur$(/b) (5x5x3) :$(br)$(li)1 Cartouche Chargee$(/li)$(li)1000mB Solution Epsilon$(/li)$(li)4000mB Liquid Starlight$(/li)$(li)500mB Argon$(/li)$(li)100k RF/t pendant 30s$(/li)$(br2)Output : $(d)CARTOUCHE MANIFOLD$(/d). Le serum est vivant. Il pulse.$(br2)$(o)Si tu lis ceci avec la cartouche dans la main, ferme le carnet. Tu n'auras plus besoin de mes notes.$(/o)"
+      "text": "Recette finale dans le $(b)Bio-Reacteur$(/b) (3x5x3) :$(br)$(li)1 Cartouche Chargee$(/li)$(li)1000mB Solution Epsilon$(/li)$(li)4000mB Liquid Starlight$(/li)$(li)500mB Argon$(/li)$(li)100k RF/t pendant 30s$(/li)$(br2)Output : $(d)CARTOUCHE MANIFOLD$(/d). Le serum est vivant. Il pulse.$(br2)$(o)Si tu lis ceci avec la cartouche dans la main, ferme le carnet. Tu n'auras plus besoin de mes notes.$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_iv"

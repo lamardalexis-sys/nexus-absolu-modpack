@@ -10,13 +10,13 @@
     },
     {
       "type": "text",
-      "title": "MB-HABER (5x5x5 HUB)",
+      "title": "MB-HABER (3x3x3 HUB)",
       "text": "$(b)Haber-Bosch Reactor$(/b) -- LE plus gros multibloc apres cyclisateur (146 blocs) :$(br)$(li)Y=-1 : 5x5 plein (25 blocs)$(/li)$(li)Y=0 : 4 fluid in (N2 + H2) + 4 item in (Fe-K2O catalyst) + Controller$(/li)$(li)Y=1, Y=2, Y=3 : 5x5 perimetre + verre interieur 3x3 (chambre haute pression)$(/li)$(li)Y=4 : 5x5 plein + 4 fluid out (NH3) + Energy$(/li)$(br2)$(c)Pression simulee : 200 bars, 450 deg C.$(/c)"
     },
     {
       "type": "text",
       "title": "MB-OSTWALD + MB-CONTACT",
-      "text": "$(b)Tour Ostwald$(/b) (ostwald_tower, 3x4x3 = 44 blocs) -- HNO3$(br)$(b)Tour Contact$(/b) (contact_tower, 3x4x3 = 44 blocs) -- H2SO4 + Claus$(br2)Memes layouts (3x4x3 tower) :$(br)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid + 4 items + Controller$(/li)$(li)Y=1, Y=2 : 3x3 perimetre + verre central$(/li)$(li)Y=3 : 3x3 + Energy + 4 fluid output$(/li)$(br)$(o)2 multiblocs identiques structurellement, contenu different.$(/o)"
+      "text": "$(b)Tour Ostwald$(/b) (ostwald_tower, 3x3x3 = 44 blocs) -- HNO3$(br)$(b)Tour Contact$(/b) (contact_tower, 3x3x3 = 44 blocs) -- H2SO4 + Claus$(br2)Memes layouts (3x3x3 tower) :$(br)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid + 4 items + Controller$(/li)$(li)Y=1, Y=2 : 3x3 perimetre + verre central$(/li)$(li)Y=3 : 3x3 + Energy + 4 fluid output$(/li)$(br)$(o)2 multiblocs identiques structurellement, contenu different.$(/o)"
     },
     {
       "type": "patchouli:multiblock",
