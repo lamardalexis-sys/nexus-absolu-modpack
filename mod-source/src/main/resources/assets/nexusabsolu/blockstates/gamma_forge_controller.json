@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:gamma_forge_controller"
+        }
+    }
+}

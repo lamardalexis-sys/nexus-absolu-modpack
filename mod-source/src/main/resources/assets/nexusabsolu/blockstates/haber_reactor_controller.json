@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:haber_reactor_controller"
+        }
+    }
+}

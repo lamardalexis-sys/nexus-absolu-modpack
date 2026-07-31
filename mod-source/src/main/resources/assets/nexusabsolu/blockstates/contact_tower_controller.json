@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:contact_tower_controller"
+        }
+    }
+}

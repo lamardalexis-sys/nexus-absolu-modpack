@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "nexusabsolu:blocks/ck_cell_controller"
+    }
+}

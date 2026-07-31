@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:alambic_manaic_controller"
+        }
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "nexusabsolu:blocks/aqua_regia_cell_controller"
+    }
+}

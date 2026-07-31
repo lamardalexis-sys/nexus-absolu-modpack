@@ -326,14 +326,6 @@ resine_echangeuse_block.register();
 
 // Cryo Distillateur Controller (Q4) -- bloc multibloc 3x6x3
 // Multibloc en game : controller + 11 cryo plates + 8 glass + 4 cryotheum tanks
-val cryo_distillateur_controller = VanillaFactory.createBlock("cryo_distillateur_controller",
-    <blockmaterial:iron>);
-cryo_distillateur_controller.setBlockHardness(4.0);
-cryo_distillateur_controller.setBlockResistance(8.0);
-cryo_distillateur_controller.toolClass = "pickaxe";
-cryo_distillateur_controller.toolLevel = 2;
-cryo_distillateur_controller.register();
-
 // =============================================================================
 // PHASE 2 -- ITEMS POUR LES QUETES Q16-Q30 (Age 4)
 // =============================================================================
@@ -487,15 +479,6 @@ oxygen.luminosity = 1;
 oxygen.register();
 
 // Bio-Reacteur Controller (Q71) -- coeur du multibloc 7x7x7 final
-val bioreacteur_controller = VanillaFactory.createBlock("bioreacteur_controller",
-    <blockmaterial:iron>);
-bioreacteur_controller.setBlockHardness(8.0);
-bioreacteur_controller.setBlockResistance(20.0);
-bioreacteur_controller.toolClass = "pickaxe";
-bioreacteur_controller.toolLevel = 3;
-bioreacteur_controller.lightValue = 8;
-bioreacteur_controller.register();
-
 // Cartouche chargee (Q74) -- etat intermediaire entre cartouche_vide et
 // cartouche_manifold. Le joueur fabrique cartouche_chargee, puis la quete
 // suivante (Q75 test pression) la transforme en cartouche_manifold injectable.

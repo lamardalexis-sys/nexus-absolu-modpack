@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:cryo_distillateur_controller"
+        }
+    }
+}

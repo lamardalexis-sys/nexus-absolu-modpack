@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:kroll_reactor_controller"
+        }
+    }
+}

@@ -29,16 +29,6 @@ import mods.contenttweaker.VanillaFactory;
 //
 // RF max : 120k RF/t (le + cher de Phase 4)
 
-val melangeur_cryogenique_controller = VanillaFactory.createBlock("melangeur_cryogenique_controller",
-    <blockmaterial:iron>);
-melangeur_cryogenique_controller.setBlockHardness(10.0);
-melangeur_cryogenique_controller.setBlockResistance(40.0);
-melangeur_cryogenique_controller.toolClass = "pickaxe";
-melangeur_cryogenique_controller.toolLevel = 3;
-melangeur_cryogenique_controller.lightValue = 4;  // froid (basse luminosite)
-melangeur_cryogenique_controller.register();
-
-
 // ============================================================================
 // 2. casing_titane_iridium (item)
 // ============================================================================

@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:hall_heroult_cell_controller"
+        }
+    }
+}

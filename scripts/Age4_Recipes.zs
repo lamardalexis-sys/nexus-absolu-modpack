@@ -21,7 +21,7 @@ recipes.addShaped("resine_echangeuse_block_recipe",
 // Q4 -- Cryo-Distillateur Controller
 // Materiels chers : iridium, titane, cryotheum (validation Phase 2 + 1)
 recipes.addShaped("cryo_distillateur_controller_recipe",
-    <contenttweaker:cryo_distillateur_controller>,
+    <nexusabsolu:cryo_distillateur_controller>,
     [[<ore:plateIridium>, <minecraft:bucket>.withTag({FluidName: "cryotheum", Amount: 1000}), <ore:plateIridium>],
      [<ore:ingotTitanium>, <modularmachinery:blockcontroller>, <ore:ingotTitanium>],
      [<ore:plateIridium>, <ore:ingotTitanium>, <ore:plateIridium>]]);
@@ -34,7 +34,7 @@ recipes.addShaped("cryo_distillateur_controller_recipe",
 // Q71 -- Bio-Reacteur Controller (le coeur du multibloc final)
 // Tres cher : iridium plates + tungsten + uranium + lead (Phase 2-4)
 recipes.addShaped("bioreacteur_controller_recipe",
-    <contenttweaker:bioreacteur_controller>,
+    <nexusabsolu:bioreacteur_controller>,
     [[<ore:plateIridium>, <ore:plateTungsten>, <ore:plateIridium>],
      [<ore:plateLead>, <modularmachinery:blockcontroller>, <ore:plateLead>],
      [<ore:plateIridium>, <ore:plateUranium>, <ore:plateIridium>]]);

@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:soxhlet_extractor_controller"
+        }
+    }
+}

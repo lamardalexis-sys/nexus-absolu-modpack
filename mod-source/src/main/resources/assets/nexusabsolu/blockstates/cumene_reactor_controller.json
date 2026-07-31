@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:cumene_reactor_controller"
+        }
+    }
+}

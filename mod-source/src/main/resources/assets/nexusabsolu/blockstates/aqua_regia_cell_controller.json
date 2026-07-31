@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:aqua_regia_cell_controller"
+        }
+    }
+}

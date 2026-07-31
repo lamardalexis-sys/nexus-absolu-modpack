@@ -22,6 +22,7 @@ import com.nexusabsolu.mod.blocks.machines.BlockMachineHumaine;
 import com.nexusabsolu.mod.blocks.machines.BlockMachineKRDA;
 import com.nexusabsolu.mod.blocks.machines.BlockEnergyInput;
 import com.nexusabsolu.mod.blocks.machines.BlockFluidInput;
+import com.nexusabsolu.mod.blocks.machines.BlockMachineController;
 import com.nexusabsolu.mod.blocks.machines.BlockItemInput;
 import com.nexusabsolu.mod.blocks.machines.BlockItemOutput;
 import net.minecraft.block.Block;
@@ -106,4 +107,63 @@ public class ModBlocks {
 
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }
+
+    // === CONTROLEURS DE MULTIBLOCS AGE 4 ===
+    // Migres depuis ContentTweaker (Age4_L*_Multiblocs.zs).
+    // Facade visuelle : MM forme ses structures autour de son propre
+    // blockcontroller, aucun machinery JSON ne declare de binding custom.
+    public static final Block ALAMBIC_MANAIC_CONTROLLER = new BlockMachineController(
+        "alambic_manaic_controller", 6.0F, 20.0F, 2, 10);
+    public static final Block AQUA_REGIA_CELL_CONTROLLER = new BlockMachineController(
+        "aqua_regia_cell_controller", 6.0F, 18.0F, 3, 5);
+    public static final Block AROMATIC_REACTOR_CONTROLLER = new BlockMachineController(
+        "aromatic_reactor_controller", 6.0F, 20.0F, 3, 10);
+    public static final Block BIOREACTEUR_CONTROLLER = new BlockMachineController(
+        "bioreacteur_controller", 8.0F, 20.0F, 3, 8);
+    public static final Block CK_CELL_CONTROLLER = new BlockMachineController(
+        "ck_cell_controller", 7.0F, 20.0F, 3, 6);
+    public static final Block CONTACT_TOWER_CONTROLLER = new BlockMachineController(
+        "contact_tower_controller", 7.0F, 22.0F, 3, 6);
+    public static final Block CRYO_DISTILLATEUR_CONTROLLER = new BlockMachineController(
+        "cryo_distillateur_controller", 4.0F, 8.0F, 2, 8);
+    public static final Block CUMENE_REACTOR_CONTROLLER = new BlockMachineController(
+        "cumene_reactor_controller", 6.0F, 18.0F, 3, 8);
+    public static final Block CYCLISATEUR_STELLAIRE_CONTROLLER = new BlockMachineController(
+        "cyclisateur_stellaire_controller", 8.0F, 25.0F, 3, 12);
+    public static final Block ELECTRIC_FURNACE_CONTROLLER = new BlockMachineController(
+        "electric_furnace_controller", 8.0F, 25.0F, 3, 14);
+    public static final Block EVAPORATOR_CONTROLLER = new BlockMachineController(
+        "evaporator_controller", 4.0F, 10.0F, 2, 6);
+    public static final Block FERMENTER_CONTROLLER = new BlockMachineController(
+        "fermenter_controller", 4.0F, 10.0F, 2, 3);
+    public static final Block FLUORITE_CELL_CONTROLLER = new BlockMachineController(
+        "fluorite_cell_controller", 6.0F, 18.0F, 3, 5);
+    public static final Block GAMMA_FORGE_CONTROLLER = new BlockMachineController(
+        "gamma_forge_controller", 8.0F, 30.0F, 3, 10);
+    public static final Block HABER_REACTOR_CONTROLLER = new BlockMachineController(
+        "haber_reactor_controller", 10.0F, 40.0F, 3, 12);
+    public static final Block HALL_HEROULT_CELL_CONTROLLER = new BlockMachineController(
+        "hall_heroult_cell_controller", 8.0F, 25.0F, 3, 14);
+    public static final Block HDS_TOWER_CONTROLLER = new BlockMachineController(
+        "hds_tower_controller", 7.0F, 20.0F, 3, 6);
+    public static final Block KROLL_REACTOR_CONTROLLER = new BlockMachineController(
+        "kroll_reactor_controller", 7.0F, 22.0F, 3, 8);
+    public static final Block LIT_CHAMBER_CONTROLLER = new BlockMachineController(
+        "lit_chamber_controller", 7.0F, 25.0F, 3, 8);
+    public static final Block MANA_ENCHANTER_CONTROLLER = new BlockMachineController(
+        "mana_enchanter_controller", 5.0F, 15.0F, 2, 14);
+    public static final Block MELANGEUR_CRYOGENIQUE_CONTROLLER = new BlockMachineController(
+        "melangeur_cryogenique_controller", 10.0F, 40.0F, 3, 4);
+    public static final Block OSMOSE_INVERSE_CONTROLLER = new BlockMachineController(
+        "osmose_inverse_controller", 5.0F, 15.0F, 2, 4);
+    public static final Block OSTWALD_TOWER_CONTROLLER = new BlockMachineController(
+        "ostwald_tower_controller", 7.0F, 22.0F, 3, 8);
+    public static final Block SOXHLET_EXTRACTOR_CONTROLLER = new BlockMachineController(
+        "soxhlet_extractor_controller", 5.0F, 15.0F, 2, 4);
+    public static final Block THERMAL_CRACKER_CONTROLLER = new BlockMachineController(
+        "thermal_cracker_controller", 7.0F, 20.0F, 3, 12);
+    public static final Block TRITIUM_BREEDER_CONTROLLER = new BlockMachineController(
+        "tritium_breeder_controller", 8.0F, 30.0F, 3, 8);
+    public static final Block VACUUM_CHAMBER_CONTROLLER = new BlockMachineController(
+        "vacuum_chamber_controller", 5.0F, 15.0F, 2, 4);
 }

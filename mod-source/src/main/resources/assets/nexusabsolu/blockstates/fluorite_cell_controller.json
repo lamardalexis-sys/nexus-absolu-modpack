@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:fluorite_cell_controller"
+        }
+    }
+}

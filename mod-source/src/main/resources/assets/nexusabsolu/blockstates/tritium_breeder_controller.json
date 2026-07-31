@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": {
+            "model": "nexusabsolu:tritium_breeder_controller"
+        }
+    }
+}
