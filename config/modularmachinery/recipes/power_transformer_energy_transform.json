@@ -1,5 +1,5 @@
 {
-    "machine": "transformer",
+    "machine": "power_transformer",
     "registryName": "transformer_energy_transform",
     "recipeTime": 1,
     "requirements": [
