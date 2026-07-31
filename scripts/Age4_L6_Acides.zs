@@ -59,16 +59,4 @@ recipes.addShaped("nexus_v2o5_catalyst_fallback",
      [<ore:dustTitanium>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustTitanium>]]);
 
 
-// ============================================================================
-// L6.X - Sulfur Pure fallback recipe
-// ============================================================================
-// La vraie source = Claus process (recipe JSON contact_tower).
-// Fallback shaped si pas de H2S dispo : sulfur dust vanille
-recipes.addShaped("nexus_sulfur_pure_fallback",
-    <contenttweaker:sulfur_pure> * 4,
-    [[<ore:dustSulfur>, <ore:dustSulfur>, <ore:dustSulfur>],
-     [<ore:dustSulfur>, <minecraft:redstone>, <ore:dustSulfur>],
-     [<ore:dustSulfur>, <ore:dustSulfur>, <ore:dustSulfur>]]);
-
-
 print("[Nexus Absolu] Age4_L6_Acides.zs loaded -- 7 recettes catalyseurs L6");

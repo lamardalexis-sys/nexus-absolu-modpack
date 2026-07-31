@@ -62,30 +62,11 @@ recipes.addShaped("bioreacteur_controller_recipe",
 // Cette recette sert de fallback en cas de bug avec mods.mekanism.reaction.
 // Peut etre commentee si la recette PRC plus haut marche.
 
-recipes.addShaped("cartouche_chargee_fallback_recipe",
-    <contenttweaker:cartouche_chargee>,
-    [[null, <minecraft:bucket>.withTag({FluidName: "argon", Amount: 1000}), null],
-     [<contenttweaker:compose_alpha>, <contenttweaker:cartouche_vide>, <contenttweaker:compose_beta>],
-     [null, <minecraft:bucket>.withTag({FluidName: "solution_epsilon", Amount: 1000}), null]]);
-
 
 // =============================================================================
 // PHASE 5 -- Recettes ZS pour items intermediaires
 // =============================================================================
 
-// Q35 -- Compose alpha (Solvant alpha + H2SO4 + HNO3)
-// Shaped : 2x Solvant + 1 H2SO4 bucket + 1 HNO3 bucket -> 1 compose_alpha
-recipes.addShaped("compose_alpha_recipe", <contenttweaker:compose_alpha>,
-    [[null, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), null],
-     [<minecraft:bucket>.withTag({FluidName: "solvant_alpha", Amount: 1000}), <minecraft:bucket>.withTag({FluidName: "solvant_alpha", Amount: 1000}), <minecraft:bucket>.withTag({FluidName: "hno3", Amount: 1000})],
-     [null, null, null]]);
-
-// Q40 -- Compose beta (Eau Regale + benzene + tributylphosphine proxy)
-// Eau Regale : 3 HCl + 1 HNO3 (deja dans le pipeline). On simule via aqua_regia bucket.
-recipes.addShaped("compose_beta_recipe", <contenttweaker:compose_beta>,
-    [[<ore:ingotGold>, <minecraft:bucket>.withTag({FluidName: "aqua_regia", Amount: 1000}), <ore:ingotGold>],
-     [<minecraft:bucket>.withTag({FluidName: "benzene", Amount: 1000}), <contenttweaker:compose_alpha>, <minecraft:bucket>.withTag({FluidName: "benzene", Amount: 1000})],
-     [<ore:ingotGold>, <minecraft:bucket>.withTag({FluidName: "aqua_regia", Amount: 1000}), <ore:ingotGold>]]);
 
 // Q43 -- Phenol substitue (phenol + 2 methanol + H2SO4)
 // Le phenol n'a pas de fluide custom, on utilise un placeholder via crafting
@@ -113,46 +94,11 @@ recipes.addShaped("capsule_pube_recipe", <contenttweaker:capsule_pube>,
      [<ore:ingotBeryllium>, <ore:plateLead>, <ore:ingotBeryllium>],
      [<ore:plateLead>, <ore:ingotPlutonium>, <ore:plateLead>]]);
 
-// Q51 -- Mycelium Active (irradie via capsule Pu-Be)
-recipes.addShapeless("mycelium_active_recipe", <contenttweaker:mycelium_active> * 4,
-    [<minecraft:mycelium>, <minecraft:mycelium>, <minecraft:mycelium>,
-     <minecraft:mycelium>, <contenttweaker:capsule_pube>]);
-
-// Q52 -- Compose gamma1 (Na2B4O7 dope Li -> on utilise borax + lithium)
-// Borax existe peut-etre sous mekanism:dust:7 ? Sinon on utilise nether_quartz comme proxy
-recipes.addShaped("compose_gamma1_recipe", <contenttweaker:compose_gamma1>,
-    [[<ore:ingotLithium>, <minecraft:nether_wart>, <ore:ingotLithium>],
-     [<minecraft:bucket>.withTag({FluidName: "heavywater", Amount: 1000}), <minecraft:nether_wart>, <minecraft:bucket>.withTag({FluidName: "heavywater", Amount: 1000})],
-     [<ore:ingotLithium>, <minecraft:nether_wart>, <ore:ingotLithium>]]);
-
-// Q53 -- Compose gamma2 (Iridium-192 active)
-// 1 Ir + capsule Pu-Be (irradiation)
-recipes.addShapeless("compose_gamma2_recipe", <contenttweaker:compose_gamma2>,
-    [<ore:ingotIridium>, <ore:ingotIridium>, <contenttweaker:capsule_pube>]);
-
-// Q54 -- Compose gamma3 (6LiT)
-recipes.addShaped("compose_gamma3_recipe", <contenttweaker:compose_gamma3>,
-    [[<ore:ingotLithium>, <minecraft:bucket>.withTag({FluidName: "tritium", Amount: 1000}), <ore:ingotLithium>],
-     [<minecraft:bucket>.withTag({FluidName: "tritium", Amount: 1000}), <contenttweaker:capsule_pube>, <minecraft:bucket>.withTag({FluidName: "tritium", Amount: 1000})],
-     [<ore:ingotLithium>, <minecraft:bucket>.withTag({FluidName: "tritium", Amount: 1000}), <ore:ingotLithium>]]);
-
 
 // =============================================================================
 // PHASE 5 -- Tryptamide-M + Cristal Manifoldine
 // =============================================================================
 
-// Q65 -- Tryptamide-M
-recipes.addShaped("tryptamide_m_recipe", <contenttweaker:tryptamide_m>,
-    [[<ore:cropWheat>, <minecraft:bucket>.withTag({FluidName: "ammoniaque", Amount: 1000}), <ore:cropWheat>],
-     [<contenttweaker:compose_alpha>, <minecraft:bucket>.withTag({FluidName: "acetone", Amount: 1000}), <contenttweaker:compose_alpha>],
-     [<ore:cropWheat>, <ore:dustGlowstone>, <ore:cropWheat>]]);
-
-// Q67 -- Compose delta (cristal_manifoldine + Heavy Water + Mycelium Active)
-// cristal_manifoldine existe deja dans le ZS legacy, on peut l'utiliser
-recipes.addShaped("compose_delta_recipe", <contenttweaker:compose_delta>,
-    [[<contenttweaker:mycelium_active>, <minecraft:bucket>.withTag({FluidName: "heavywater", Amount: 1000}), <contenttweaker:mycelium_active>],
-     [<minecraft:bucket>.withTag({FluidName: "heavywater", Amount: 1000}), <contenttweaker:cristal_manifoldine>, <minecraft:bucket>.withTag({FluidName: "heavywater", Amount: 1000})],
-     [<contenttweaker:mycelium_active>, <minecraft:bucket>.withTag({FluidName: "heavywater", Amount: 1000}), <contenttweaker:mycelium_active>]]);
 
 // Q69 -- Cartouche vide (ampoule iridium vide)
 recipes.addShaped("cartouche_vide_recipe", <contenttweaker:cartouche_vide>,

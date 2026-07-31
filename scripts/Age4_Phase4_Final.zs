@@ -66,10 +66,6 @@ recipes.addShaped("nexus_cartouche_chargee_assembly",
 // La recette principale produit tryptamide_m_capsule (L7.D aromatic_reactor).
 // Pour decompresser la capsule en 4x dust brut (tryptamide_m), recette shapeless.
 
-recipes.addShapeless("nexus_tryptamide_m_extract",
-    <contenttweaker:tryptamide_m> * 4,
-    [<contenttweaker:tryptamide_m_capsule>]);
-
 
 // ============================================================================
 // PHASE 4.4 - mycelium_active (TEMP fallback shaped)
@@ -77,12 +73,6 @@ recipes.addShapeless("nexus_tryptamide_m_extract",
 // La vraie methode est : poser mycelium pres d'un breeder NC actif 24000 ticks
 // (KubeJS event - L5.9). En attendant, fallback shaped craft via contraintes
 // pour ne pas bloquer le test.
-
-recipes.addShaped("nexus_mycelium_active_fallback",
-    <contenttweaker:mycelium_active> * 1,
-    [[<contenttweaker:cristal_manifoldine>, <minecraft:mycelium>, <contenttweaker:cristal_manifoldine>],
-     [<minecraft:mycelium>, <contenttweaker:gamma3_lit_capsule>, <minecraft:mycelium>],
-     [<contenttweaker:cristal_manifoldine>, <minecraft:mycelium>, <contenttweaker:cristal_manifoldine>]]);
 
 
 print("[Nexus Absolu] Age4_Phase4_Final.zs loaded -- 4 recettes craft final");
