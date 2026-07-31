@@ -17,9 +17,9 @@
 
 recipes.addShaped("nexus_uranyl_dust",
     <contenttweaker:uranyl_dust> * 1,
-    [[<minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustUranium>, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000})],
-     [<ore:dustUranium>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustUranium>],
-     [<minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustUranium>, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000})]]);
+    [[<forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustUranium>, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000})],
+     [<ore:dustUranium>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustUranium>],
+     [<forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustUranium>, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000})]]);
 
 
 // ============================================================================
@@ -29,9 +29,9 @@ recipes.addShaped("nexus_uranyl_dust",
 
 recipes.addShaped("nexus_bef2_dust",
     <contenttweaker:bef2_dust> * 2,
-    [[<minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <ore:dustBeryllium>, <minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000})],
+    [[<forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <ore:dustBeryllium>, <forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000})],
      [<ore:dustBeryllium>, <ore:dustBeryllium>, <ore:dustBeryllium>],
-     [<minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <ore:dustBeryllium>, <minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000})]]);
+     [<forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <ore:dustBeryllium>, <forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000})]]);
 
 // Fallback : si dustBeryllium indispo, utiliser ingot beryllium
 recipes.addShaped("nexus_bef2_dust_fallback",
@@ -48,16 +48,16 @@ recipes.addShaped("nexus_bef2_dust_fallback",
 
 recipes.addShaped("nexus_b2o3_dust",
     <contenttweaker:b2o3_dust> * 2,
-    [[<ore:dustBorax>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustBorax>],
+    [[<ore:dustBorax>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustBorax>],
      [<ore:dustBorax>, <ore:dustBorax>, <ore:dustBorax>],
-     [<ore:dustBorax>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustBorax>]]);
+     [<ore:dustBorax>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustBorax>]]);
 
 // Fallback : utiliser dustBoron directement
 recipes.addShaped("nexus_b2o3_dust_fallback",
     <contenttweaker:b2o3_dust> * 1,
-    [[<ore:dustBoron>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustBoron>],
+    [[<ore:dustBoron>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustBoron>],
      [<ore:dustBoron>, <ore:dustBoron>, <ore:dustBoron>],
-     [<ore:dustBoron>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustBoron>]]);
+     [<ore:dustBoron>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustBoron>]]);
 
 
 // ============================================================================

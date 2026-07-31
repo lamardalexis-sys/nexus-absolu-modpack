@@ -35,7 +35,7 @@ recipes.addShaped("nexus_resin_charge",
 recipes.addShaped("nexus_lithium6_ingot",
     <contenttweaker:lithium6_ingot> * 1,
     [[<ore:dustLithium>, <ore:dustLithium>, <ore:dustLithium>],
-     [<ore:dustLithium>, <minecraft:bucket>.withTag({FluidName: "heavywater", Amount: 1000}), <ore:dustLithium>],
+     [<ore:dustLithium>, <forge:bucketfilled>.withTag({FluidName: "heavywater", Amount: 1000}), <ore:dustLithium>],
      [<ore:dustLithium>, <ore:dustLithium>, <ore:dustLithium>]]);
 
 // Fallback : si pas de dustLithium en oredict, on utilise nuggetLithium ou
@@ -43,7 +43,7 @@ recipes.addShaped("nexus_lithium6_ingot",
 recipes.addShaped("nexus_lithium6_ingot_fallback",
     <contenttweaker:lithium6_ingot> * 1,
     [[<ore:dustSalt>, <ore:dustSalt>, <ore:dustSalt>],
-     [<ore:dustSalt>, <minecraft:bucket>.withTag({FluidName: "heavywater", Amount: 1000}), <ore:dustSalt>],
+     [<ore:dustSalt>, <forge:bucketfilled>.withTag({FluidName: "heavywater", Amount: 1000}), <ore:dustSalt>],
      [<ore:dustSalt>, <minecraft:diamond>, <ore:dustSalt>]]);
 
 

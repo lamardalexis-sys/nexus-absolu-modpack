@@ -14,15 +14,15 @@ import crafttweaker.item.IItemStack;
 // Recette shaped : pierre + sable encadres avec acide pour symboliser la synthese
 recipes.addShaped("resine_echangeuse_block_recipe",
     <contenttweaker:resine_echangeuse_block>,
-    [[<minecraft:sand>, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), <minecraft:sand>],
+    [[<minecraft:sand>, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), <minecraft:sand>],
      [<minecraft:sand>, <minecraft:stone>, <minecraft:sand>],
-     [<minecraft:sand>, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), <minecraft:sand>]]);
+     [<minecraft:sand>, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), <minecraft:sand>]]);
 
 // Q4 -- Cryo-Distillateur Controller
 // Materiels chers : iridium, titane, cryotheum (validation Phase 2 + 1)
 recipes.addShaped("cryo_distillateur_controller_recipe",
     <nexusabsolu:cryo_distillateur_controller>,
-    [[<ore:plateIridium>, <minecraft:bucket>.withTag({FluidName: "cryotheum", Amount: 1000}), <ore:plateIridium>],
+    [[<ore:plateIridium>, <forge:bucketfilled>.withTag({FluidName: "cryotheum", Amount: 1000}), <ore:plateIridium>],
      [<ore:ingotTitanium>, <modularmachinery:blockcontroller>, <ore:ingotTitanium>],
      [<ore:plateIridium>, <ore:ingotTitanium>, <ore:plateIridium>]]);
 
@@ -72,14 +72,14 @@ recipes.addShaped("bioreacteur_controller_recipe",
 // Le phenol n'a pas de fluide custom, on utilise un placeholder via crafting
 // proxy avec naphtha (fluide existant). A ameliorer en Phase 5 si besoin.
 recipes.addShaped("phenol_substitue_recipe", <contenttweaker:phenol_substitue>,
-    [[null, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), null],
-     [<minecraft:bucket>.withTag({FluidName: "naphtha", Amount: 1000}), <ore:dustCoal>, <minecraft:bucket>.withTag({FluidName: "naphtha", Amount: 1000})],
-     [null, <minecraft:bucket>.withTag({FluidName: "ammoniaque", Amount: 1000}), null]]);
+    [[null, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), null],
+     [<forge:bucketfilled>.withTag({FluidName: "naphtha", Amount: 1000}), <ore:dustCoal>, <forge:bucketfilled>.withTag({FluidName: "naphtha", Amount: 1000})],
+     [null, <forge:bucketfilled>.withTag({FluidName: "ammoniaque", Amount: 1000}), null]]);
 
 // Q44 -- Carbone Actif Au (charbon + or active via Eau Regale)
 recipes.addShaped("carbone_actif_au_recipe", <contenttweaker:carbone_actif_au>,
     [[<ore:dustCoal>, <ore:nuggetGold>, <ore:dustCoal>],
-     [<ore:nuggetGold>, <minecraft:bucket>.withTag({FluidName: "aqua_regia", Amount: 1000}), <ore:nuggetGold>],
+     [<ore:nuggetGold>, <forge:bucketfilled>.withTag({FluidName: "aqua_regia", Amount: 1000}), <ore:nuggetGold>],
      [<ore:dustCoal>, <ore:nuggetGold>, <ore:dustCoal>]]);
 
 
@@ -113,19 +113,19 @@ recipes.addShaped("cartouche_vide_recipe", <contenttweaker:cartouche_vide>,
 
 // Q19 -- Cryolite dust (NaF + Al(OH)3 + O2 -> Na3AlF6)
 recipes.addShapeless("cryolite_dust_recipe", <contenttweaker:cryolite_dust> * 2,
-    [<ore:ingotAluminium>, <minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000}),
-     <minecraft:bucket>.withTag({FluidName: "naoh_solution", Amount: 1000})]);
+    [<ore:ingotAluminium>, <forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000}),
+     <forge:bucketfilled>.withTag({FluidName: "naoh_solution", Amount: 1000})]);
 
 // Q22 -- Catalyseur CoMo
 recipes.addShaped("catalyseur_como_recipe", <contenttweaker:catalyseur_como>,
     [[<ore:ingotCobalt>, <ore:ingotMolybdenum>, <ore:ingotCobalt>],
-     [<ore:ingotMolybdenum>, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:ingotMolybdenum>],
+     [<ore:ingotMolybdenum>, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:ingotMolybdenum>],
      [<ore:ingotCobalt>, <ore:ingotMolybdenum>, <ore:ingotCobalt>]]);
 
 // Q27 -- Yellowcake dust (uranium + acide nitrique = ammonium diuranate proxy)
 // Si t'as deja du dust uranium, on en convertit en yellowcake
 recipes.addShapeless("yellowcake_dust_recipe", <contenttweaker:yellowcake_dust>,
-    [<ore:dustUranium>, <minecraft:bucket>.withTag({FluidName: "hno3", Amount: 1000})]);
+    [<ore:dustUranium>, <forge:bucketfilled>.withTag({FluidName: "hno3", Amount: 1000})]);
 
 
 // =============================================================================

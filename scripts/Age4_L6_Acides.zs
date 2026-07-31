@@ -47,16 +47,16 @@ recipes.addShaped("nexus_platinum_gauze_fallback",
 // Vanadium pentoxide. Durabilite 150 cycles.
 recipes.addShaped("nexus_v2o5_catalyst",
     <contenttweaker:v2o5_catalyst> * 1,
-    [[<ore:dustVanadium>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustVanadium>],
-     [<minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustVanadium>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000})],
-     [<ore:dustVanadium>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustVanadium>]]);
+    [[<ore:dustVanadium>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustVanadium>],
+     [<forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustVanadium>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000})],
+     [<ore:dustVanadium>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustVanadium>]]);
 
 // Fallback : si pas dustVanadium, utiliser titanium dust + oxygen
 recipes.addShaped("nexus_v2o5_catalyst_fallback",
     <contenttweaker:v2o5_catalyst> * 1,
-    [[<ore:dustTitanium>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustTitanium>],
-     [<minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <minecraft:diamond>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000})],
-     [<ore:dustTitanium>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustTitanium>]]);
+    [[<ore:dustTitanium>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustTitanium>],
+     [<forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <minecraft:diamond>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000})],
+     [<ore:dustTitanium>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustTitanium>]]);
 
 
 print("[Nexus Absolu] Age4_L6_Acides.zs loaded -- 7 recettes catalyseurs L6");

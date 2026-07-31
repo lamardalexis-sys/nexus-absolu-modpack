@@ -20,16 +20,16 @@
 
 recipes.addShaped("nexus_alumina",
     <contenttweaker:alumina> * 3,
-    [[<ore:dustBauxite>, <minecraft:bucket>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustBauxite>],
-     [<minecraft:bucket>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustBauxite>, <minecraft:bucket>.withTag({FluidName: "naoh_solution", Amount: 1000})],
-     [<ore:dustBauxite>, <minecraft:bucket>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustBauxite>]]);
+    [[<ore:dustBauxite>, <forge:bucketfilled>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustBauxite>],
+     [<forge:bucketfilled>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustBauxite>, <forge:bucketfilled>.withTag({FluidName: "naoh_solution", Amount: 1000})],
+     [<ore:dustBauxite>, <forge:bucketfilled>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustBauxite>]]);
 
 // Fallback : si pas dustBauxite, utiliser dustAluminum
 recipes.addShaped("nexus_alumina_fallback",
     <contenttweaker:alumina> * 2,
-    [[<ore:dustAluminum>, <minecraft:bucket>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustAluminum>],
+    [[<ore:dustAluminum>, <forge:bucketfilled>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustAluminum>],
      [<ore:dustAluminum>, <ore:dustAluminum>, <ore:dustAluminum>],
-     [<ore:dustAluminum>, <minecraft:bucket>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustAluminum>]]);
+     [<ore:dustAluminum>, <forge:bucketfilled>.withTag({FluidName: "naoh_solution", Amount: 1000}), <ore:dustAluminum>]]);
 
 
 // ============================================================================
@@ -63,9 +63,9 @@ recipes.addShapeless("nexus_titanium_pure",
 
 recipes.addShaped("nexus_p2o5_capsule",
     <contenttweaker:p2o5_capsule> * 1,
-    [[<contenttweaker:phosphorus_white>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <contenttweaker:phosphorus_white>],
+    [[<contenttweaker:phosphorus_white>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <contenttweaker:phosphorus_white>],
      [<contenttweaker:phosphorus_white>, <contenttweaker:cartouche_vide>, <contenttweaker:phosphorus_white>],
-     [<contenttweaker:phosphorus_white>, <minecraft:bucket>.withTag({FluidName: "tridistilled_water", Amount: 1000}), <contenttweaker:phosphorus_white>]]);
+     [<contenttweaker:phosphorus_white>, <forge:bucketfilled>.withTag({FluidName: "tridistilled_water", Amount: 1000}), <contenttweaker:phosphorus_white>]]);
 
 
 // ============================================================================
@@ -75,16 +75,16 @@ recipes.addShaped("nexus_p2o5_capsule",
 // Sodium ingot : compresser sodium_liquid en bucket via 9 buckets ou shaped
 recipes.addShaped("nexus_sodium_ingot",
     <contenttweaker:sodium_ingot> * 4,
-    [[<minecraft:bucket>.withTag({FluidName: "sodium_liquid", Amount: 1000}), <ore:dustSalt>, <minecraft:bucket>.withTag({FluidName: "sodium_liquid", Amount: 1000})],
+    [[<forge:bucketfilled>.withTag({FluidName: "sodium_liquid", Amount: 1000}), <ore:dustSalt>, <forge:bucketfilled>.withTag({FluidName: "sodium_liquid", Amount: 1000})],
      [<ore:dustSalt>, <minecraft:iron_ingot>, <ore:dustSalt>],
-     [<minecraft:bucket>.withTag({FluidName: "sodium_liquid", Amount: 1000}), <ore:dustSalt>, <minecraft:bucket>.withTag({FluidName: "sodium_liquid", Amount: 1000})]]);
+     [<forge:bucketfilled>.withTag({FluidName: "sodium_liquid", Amount: 1000}), <ore:dustSalt>, <forge:bucketfilled>.withTag({FluidName: "sodium_liquid", Amount: 1000})]]);
 
 // Fluorine capsule : compresser fluorine_gas
 recipes.addShaped("nexus_fluorine_capsule",
     <contenttweaker:fluorine_capsule> * 2,
-    [[<contenttweaker:cartouche_vide>, <minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <contenttweaker:cartouche_vide>],
-     [<minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <ore:ingotIron>, <minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000})],
-     [<contenttweaker:cartouche_vide>, <minecraft:bucket>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <contenttweaker:cartouche_vide>]]);
+    [[<contenttweaker:cartouche_vide>, <forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <contenttweaker:cartouche_vide>],
+     [<forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <ore:ingotIron>, <forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000})],
+     [<contenttweaker:cartouche_vide>, <forge:bucketfilled>.withTag({FluidName: "fluorine_gas", Amount: 1000}), <contenttweaker:cartouche_vide>]]);
 
 // Magnesium ingot : Mekanism Mg natif (oredict ingotMagnesium) ou shaped fallback
 recipes.addShaped("nexus_magnesium_ingot_fallback",

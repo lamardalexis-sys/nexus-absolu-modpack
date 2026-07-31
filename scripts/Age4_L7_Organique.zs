@@ -69,9 +69,9 @@ recipes.addShaped("nexus_pd_c_catalyst_fallback",
 // ============================================================================
 recipes.addShaped("nexus_cu_zno_catalyst",
     <contenttweaker:cu_zno_catalyst> * 2,
-    [[<ore:dustCopper>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustCopper>],
+    [[<ore:dustCopper>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustCopper>],
      [<ore:dustZinc>, <ore:ingotCopper>, <ore:dustZinc>],
-     [<ore:dustCopper>, <minecraft:bucket>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustCopper>]]);
+     [<ore:dustCopper>, <forge:bucketfilled>.withTag({FluidName: "oxygen", Amount: 1000}), <ore:dustCopper>]]);
 
 
 // ============================================================================
@@ -80,9 +80,9 @@ recipes.addShaped("nexus_cu_zno_catalyst",
 // Catalyseur acide solide (silice + H2SO4 supporte)
 recipes.addShaped("nexus_acid_catalyst",
     <contenttweaker:acid_catalyst> * 4,
-    [[<ore:dustSilicon>, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustSilicon>],
-     [<minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustSilicon>, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000})],
-     [<ore:dustSilicon>, <minecraft:bucket>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustSilicon>]]);
+    [[<ore:dustSilicon>, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustSilicon>],
+     [<forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustSilicon>, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000})],
+     [<ore:dustSilicon>, <forge:bucketfilled>.withTag({FluidName: "h2so4", Amount: 1000}), <ore:dustSilicon>]]);
 
 
 // ============================================================================
@@ -93,9 +93,9 @@ recipes.addShaped("nexus_acid_catalyst",
 // 1 bucket methane + 1 bucket water -> 2 buckets syngas (proxy)
 
 recipes.addShapeless("nexus_syngas_proxy",
-    <minecraft:bucket>.withTag({FluidName: "syngas", Amount: 1000}) * 2,
-    [<minecraft:bucket>.withTag({FluidName: "methane", Amount: 1000}),
-     <minecraft:bucket>.withTag({FluidName: "tridistilled_water", Amount: 1000})]);
+    <forge:bucketfilled>.withTag({FluidName: "syngas", Amount: 1000}) * 2,
+    [<forge:bucketfilled>.withTag({FluidName: "methane", Amount: 1000}),
+     <forge:bucketfilled>.withTag({FluidName: "tridistilled_water", Amount: 1000})]);
 
 
 print("[Nexus Absolu] Age4_L7_Organique.zs loaded -- 9 recettes L7");
