@@ -6,7 +6,7 @@
     {
       "type": "text",
       "title": "MB-OSMOSE",
-      "text": "$(b)osmose_inverse$(/b) (3x2x3, 34 blocs) :$(br)Standard 3x2x3, juste fluide in/out (pas d'item).$(br2)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid cardinaux + 4 corners + Controller$(/li)$(li)Y=1 : 3x3 perimetre$(/li)$(li)Y=2 : 3x3 + Energy center$(/li)$(br)$(o)Recipe : 1000mB bidistilled -> 1000mB tridistilled (input critique partout).$(/o)"
+      "text": "$(b)Osmose Inverse$(/b) -- 3x2x3, 10 blocks including the controller.$(br)$(li)Y=+0: the Machine Controller at the center$(/li)$(li)Y=-1 : 5 casing or hatch, 4 decorative casing$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "text",

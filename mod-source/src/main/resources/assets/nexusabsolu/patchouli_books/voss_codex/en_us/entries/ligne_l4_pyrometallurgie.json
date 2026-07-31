@@ -11,7 +11,7 @@
     {
       "type": "text",
       "title": "MB-KROLL etroit",
-      "text": "$(b)Reacteur Kroll$(/b) -- forme inhabituelle 3x3x3 :$(br)$(li)Y=-1 : 4x4 plein (16 blocs)$(/li)$(li)Y=0 : fluid + item inputs (Cl2, Argon, output TiCl4)$(/li)$(li)Y=1, Y=2, Y=3 : perimetre 4x4 + verre interieur (chambre reduction Mg)$(/li)$(li)Y=4 : 4x4 plein + Energy center + item output (Ti sponge)$(/li)$(br)Total 95 blocs.$(br2)$(c)REQUIS : Argon pour atmosphere inerte !$(/c)"
+      "text": "$(b)Reacteur Kroll$(/b) -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(/li)$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(/li)$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "text",

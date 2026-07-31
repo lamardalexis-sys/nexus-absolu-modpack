@@ -11,7 +11,7 @@
     {
       "type": "text",
       "title": "M1 Layout",
-      "text": "$(li)Y=-1 : 5x5 plein casings$(/li)$(li)Y=0 : 4 fluid in cardinaux + 4 item in coins + 4 corners + Controller$(/li)$(li)Y=1, Y=2 : 5x5 perimetre + verre 3x3 chambre$(/li)$(li)Y=3 : 5x5 plein + 4 fluid out + 4 corners item out + Energy$(/li)$(br2)$(b)6 recipes$(/b) au total :$(br)$(li)compose_alpha (acides + solvant_alpha)$(/li)$(li)compose_beta (Al + Au + benzene + NH3)$(/li)$(li)compose_gamma1 (UF6 capsule + cryotheum)$(/li)$(li)compose_gamma2 (PuBe + Be + argon)$(/li)$(li)compose_gamma3 (LiT + heavywater)$(/li)$(li)compose_delta (mycelium + tryptamide + cristal)$(/li)"
+      "text": "$(b)Melangeur Cryogenique M1$(/b) -- 3x5x3, 45 blocs controleur compris.$(br)$(li)Y=+3 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+2 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(li)Y=+1 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "text",

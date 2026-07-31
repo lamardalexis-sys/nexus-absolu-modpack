@@ -10,8 +10,8 @@
     },
     {
       "type": "text",
-      "title": "Layout 3x3x3 standard",
-      "text": "Les deux multiblocs L5 utilisent le meme layout 3x3x3 (34 blocs) :$(br)$(li)Y=-1 : 3x3 plein casings$(/li)$(li)Y=0 : 4 fluid + 4 corners item + Controller$(/li)$(li)Y=1 : 3x3 perimetre$(/li)$(li)Y=2 : 3x3 + Energy center$(/li)$(br2)$(o)Differents controllers, meme structure. Tu peux meme demonter+reposer en changeant juste le block central.$(/o)"
+      "title": "Les deux layouts",
+      "text": "$(b)Forge Gamma$(/b) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)$(br2)$(b)Chambre Lithium-Tritium$(/b) -- 3x2x3, 10 blocs controleur compris.$(br)$(li)Y=+0 : le Machine Controller au centre$(/li)$(li)Y=-1 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "patchouli:multiblock",

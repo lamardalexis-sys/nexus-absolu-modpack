@@ -10,13 +10,13 @@
     },
     {
       "type": "text",
-      "title": "MB-CYCLO (3x2x3) ⭐⭐⭐",
-      "text": "$(b)CYCLISATEUR STELLAIRE$(/b) -- 110 blocs, le PLUS gros multibloc :$(br)$(li)Y=-1 : 5x5 plein (25 blocs)$(/li)$(li)Y=0 : fluid hatches cardinaux + item hatches distance 2 + Controller$(/li)$(li)Y=1, Y=2 : 5x5 perimetre + verre intermediate (chambre cyclisation)$(/li)$(li)Y=3 : 3x3 perimetre top (chambre superieure)$(/li)$(li)Y=4 : 4 piliers coins + Energy center (CIEL OUVERT obligatoire !)$(/li)$(br2)$(c)CONDITIONS : Overworld + y>=60 + ciel ouvert + nuit + pas de pluie.$(/c)"
+      "title": "MB-CYCLO (3x5x3) ⭐⭐⭐",
+      "text": "$(b)Cyclisateur Stellaire$(/b) -- 3x5x3, 45 blocks including the controller.$(br)$(li)Y=+3 : 5 item bus, 4 decorative casing$(/li)$(li)Y=+2 : 5 casing or hatch, 4 decorative casing$(/li)$(li)Y=+1 : 5 casing or hatch, 4 decorative casing$(/li)$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(/li)$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-ALAMBIC + MB-MANA-ENCHANTER",
-      "text": "$(b)Alambic Manaique$(/b) (3x2x3, 82 blocs) :$(br)Layout : 5x5 plein Y=-1 / fluid+item input Y=0 / 5x5 perimetre Y=1 / 5x5 + Energy Y=2.$(br)Recipe : 16 extracts Botania + 4 Mana Pearl -> Matrix Pigmentary.$(br2)$(b)Mana Enchanter$(/b) (3x2x3, 26 blocs) :$(br)Recipe : cristal_chromatic_raw + Mana Pearl -> 1000mB Essence Chromatique.$(br2)$(o)Les deux integrent Botania mod (besoin Mana Pool/Spreaders pour le mana proxy).$(/o)"
+      "text": "$(b)Alambic Manaique$(/b) -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(/li)$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(/li)$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "patchouli:multiblock",

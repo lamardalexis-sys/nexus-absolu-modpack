@@ -6,12 +6,12 @@
     {
       "type": "text",
       "title": "Multiblocs L1",
-      "text": "$(b)2 multiblocs$(/b) pour la ligne L1 :$(br)$(li)$(d)MB-DESA$(/d) (vacuum_chamber, 3x2x3)$(/li)$(li)$(d)MB-HDS$(/d) (hds_tower, 3x3x3)$(/li)$(br2)$(b)MB-DESA Layout$(/b) (3x2x3, 34 blocs) :$(br)$(li)Y=-1 : 3x3 plein casings$(/li)$(li)Y=0 : 4 fluid hatches cardinaux + 4 corner casings + Controller centre$(/li)$(li)Y=1 : 3x3 perimetre casings (chambre vide)$(/li)$(li)Y=2 : 3x3 plein + Energy Input top center$(/li)$(br)$(o)Recipe : 1000mB oil -> 800mB crude_degazed + 200mB natural_gas$(/o)"
+      "text": "$(b)Chambre Sous Vide$(/b) -- 3x2x3, 10 blocks including the controller.$(br)$(li)Y=+0: the Machine Controller at the center$(/li)$(li)Y=-1 : 5 casing or hatch, 4 decorative casing$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-HDS Tour",
-      "text": "$(b)MB-HDS$(/b) (hds_tower, 3x3x3, 80 blocs) -- vertical $(b)haute$(/b) tour :$(br)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid hatches + 4 item buses + Controller$(/li)$(li)Y=1 a Y=6 : 3x3 perimetre + verre central (visualisation reflux)$(/li)$(li)Y=7 : 3x3 plein + Energy Input center + 4 fluid hatch top (output)$(/li)$(br2)$(o)Reutilisable pour HDS et Hydrocrack (catalyseurs differents).$(/o)"
+      "text": "$(b)Tour Hydrodesulfuration$(/b) -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(/li)$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(/li)$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "patchouli:multiblock",
