@@ -37,7 +37,8 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         // Fluid registration
-        FluidRegistry.enableUniversalBucket();
+        // NB: enableUniversalBucket() est appele dans le bloc statique de
+        // NexusAbsoluMod. Ici il serait trop tard (FluidRegistry deja gele).
         DIARRHEE_FLUID = new Fluid("diarrhee_liquide",
             new ResourceLocation(Reference.MOD_ID, "blocks/diarrhee_still"),
             new ResourceLocation(Reference.MOD_ID, "blocks/diarrhee_flow"))

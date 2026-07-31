@@ -16,6 +16,15 @@ import org.apache.logging.log4j.Logger;
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS)
 public class NexusAbsoluMod {
 
+    static {
+        // DOIT etre appele avant le preInit de Forge : passe ce point, le
+        // FluidRegistry est gele et l'appel est ignore avec le message
+        // "Trying to activate the universal filled bucket too late".
+        // Sans ca, addBucketForFluid() ne fait rien et le seau de Diarrhee
+        // n'existe pas en jeu.
+        net.minecraftforge.fluids.FluidRegistry.enableUniversalBucket();
+    }
+
     public static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
     public static final CreativeTabs CREATIVE_TAB = new NexusCreativeTab();
 
