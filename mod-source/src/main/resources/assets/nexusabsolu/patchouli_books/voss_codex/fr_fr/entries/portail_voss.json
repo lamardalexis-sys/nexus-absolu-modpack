@@ -11,8 +11,104 @@
     {
       "type": "patchouli:multiblock",
       "name": "Portail Voss",
-      "multiblock_id": "nexusabsolu:portail_voss",
-      "text": "$(l)Tourne la souris$(/l) pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(b)9 couches$(/b) du bas vers le haut. Le bloc clignotant = $(b)Ecran de Controle$(/b) (le poser en dernier)."
+      "text": "$(l)Tourne la souris$(/l) pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(b)9 couches$(/b) du bas vers le haut. Le bloc clignotant = $(b)Ecran de Controle$(/b) (le poser en dernier).",
+      "multiblock": {
+        "pattern": [
+          [
+            "       ",
+            "       ",
+            "       ",
+            "W     W",
+            "       ",
+            "       ",
+            "       "
+          ],
+          [
+            "       ",
+            "       ",
+            "       ",
+            "WW   WW",
+            "       ",
+            "       ",
+            "       "
+          ],
+          [
+            "       ",
+            "       ",
+            "       ",
+            " TWWWT ",
+            "       ",
+            "       ",
+            "       "
+          ],
+          [
+            "       ",
+            "       ",
+            "       ",
+            "  T0T  ",
+            "       ",
+            "       ",
+            "       "
+          ],
+          [
+            "       ",
+            "       ",
+            "       ",
+            "  T T  ",
+            "       ",
+            "       ",
+            "       "
+          ],
+          [
+            "       ",
+            "       ",
+            "       ",
+            "  T T  ",
+            "       ",
+            "       ",
+            "       "
+          ],
+          [
+            "       ",
+            "       ",
+            "  WWW  ",
+            "  WTW  ",
+            "  WWW  ",
+            "       ",
+            "       "
+          ],
+          [
+            "       ",
+            " DWWWD ",
+            " WVVVW ",
+            " WV4VW ",
+            " WVVVW ",
+            " DWWWD ",
+            "       "
+          ],
+          [
+            "TTTETTT",
+            "TT333TT",
+            "T3T3T3T",
+            "T33433L",
+            "T3T3T3T",
+            "TT333TT",
+            "TTTTTTT"
+          ]
+        ],
+        "mapping": {
+          "0": "nexusabsolu:ecran_controle",
+          "3": "nexusabsolu:vossium_iii_block",
+          "4": "nexusabsolu:vossium_iv_block",
+          "D": "nexusabsolu:compose_block_d",
+          "E": "nexusabsolu:energy_input",
+          "L": "nexusabsolu:fluid_input",
+          "T": "nexusabsolu:nexus_wall_t2",
+          "V": "minecraft:lava",
+          "W": "nexusabsolu:nexus_wall"
+        },
+        "symmetrical": false
+      }
     },
     {
       "type": "text",
