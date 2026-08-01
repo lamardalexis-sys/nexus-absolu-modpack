@@ -162,10 +162,8 @@ la recette entière ne se chargeait donc pas. Conséquence en chaîne :
 jamais tourner, donc `cristal_manifoldine` était inatteignable. La ligne L8
 était coupée à l'étape L8.C.3, pas à l'étape que l'on surveillait.
 
-Les quatre requirements sont supprimés pour que la recette se charge. **Le gating
-de design est perdu** : Overworld seul, y ≥ 60, temps clair, nuit (13000–23000).
-Il faudra le réimplémenter — événement de recette CraftTweaker sous CE, ou code
-Java côté `nexusabsolu`.
+Les quatre requirements sont supprimés pour que la recette se charge, et **le
+gating est reporté sur un item**, pas perdu (fait en 1.0.355). Voir plus bas.
 
 **`power_transformer_energy_transform.json`** ciblait `"machine":
 "power_transformer"` alors que `machinery/power_transformer.json` déclare
@@ -219,14 +217,13 @@ grep -i "Couldn't load recipe from file" logs/latest.log
 grep -i "problems while loading recipes" logs/latest.log
 ```
 
-Ligne présente mentionnant `cyclo_manifoldine_cyclization.json` → les
-requirements sont bien rejetés, la suppression est justifiée et le gating est à
-réimplémenter. Aucune des deux lignes → l'analyse ci-dessus est fausse, on
-restaure les quatre requirements.
-
-Dans les deux cas le gating — nuit, ciel ouvert, y ≥ 60, temps clair — doit être
-préservé : c'est la seule mise en scène du pack et la quête 13 de l'Âge 3 est
-écrite autour.
+**Test fait, résultat sans ambiguïté.** Le boot rapportait
+`Encountered 5 problems while loading recipes!` et listait
+`cyclo_manifoldine_cyclization.json` parmi les cinq. Les quatre requirements
+étaient bien rejetés. Trois autres recettes tombaient pour une syntaxe
+`item:meta` sur trois segments (`botania:manaresource:5` — MM attend un champ
+`meta` séparé), et `ion_filtration.json` consommait `distilledwater`, un fluide
+défini nulle part. Les cinq sont corrigées en 1.0.355.
 
 ## Merge : aucun conflit
 
@@ -249,3 +246,34 @@ côtés. Rien à conserver manuellement.
 poser à `false` avant le premier boot préserve l'équilibrage énergétique de
 l'Âge 3. Voir aussi `machine-parallelize-enabled-bydefault` dans la même
 catégorie.
+
+---
+
+# Gating de la Cyclisation Stellaire — état actuel (1.0.355)
+
+Le gating n'est plus à réimplémenter : il l'est. Les quatre conditions de design
+— Overworld, y ≥ 60, ciel dégagé, temps clair, 13000–23000 ticks — sont vérifiées
+dans `ItemAmpouleNuitStellaire.onItemRightClick`, et
+`cyclo_manifoldine_cyclization.json` consomme une `nexusabsolu:ampoule_nuit_stellaire`
+pleine. Même contrainte pour le joueur, exprimée dans un type que MM accepte.
+
+Relu : le garde `world.isRemote` est en place, la conversion de temps utilise bien
+`getWorldTime() % 24000L` (sans le modulo l'item aurait cessé de fonctionner après
+le premier jour), l'ampoule pleine est droppée au sol si l'inventaire est plein,
+et les deux items sont enregistrés dans `ModItems` avec textures, modèles et
+traductions FR/EN.
+
+Deux remarques, aucune bloquante.
+
+`world.isRaining()` est global à la dimension. Un joueur sous un ciel parfaitement
+dégagé dans un désert sera refusé s'il pleut ailleurs dans le monde.
+`world.isRainingAt(pos)` tient compte du biome et de la visibilité du ciel, et
+correspond mieux à « les nuages font écran ».
+
+L'ampoule pleine est stockable et empilable par 16. Le gating devient « faire le
+plein une nuit claire » plutôt que « faire tourner la machine la nuit » : rien
+n'empêche de remplir un coffre d'ampoules puis de cycliser en plein midi. Les
+anciens requirements, eux, étaient réévalués à chaque cycle. C'est peut-être le
+comportement voulu — une ampoule est un consommable — mais l'intention de mise en
+scène n'est pas tout à fait la même. Si la contrainte doit rester continue, la
+piste est de passer le gating dans la boucle du contrôleur une fois sur MMCE.
