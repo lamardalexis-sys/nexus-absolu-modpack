@@ -27,6 +27,13 @@ def render(name, fam, base, accent):
     _px=[(x,y) for y in range(32) for x in range(32) if g[y][x]=='#']
     BX0=min(p[0] for p in _px); BX1=max(p[0] for p in _px)
     BY0=min(p[1] for p in _px); BY1=max(p[1] for p in _px)
+    # bbox PAR FACE : un gradient calcule sur la boite globale ne parcourt
+    # qu'une fraction de sa course sur une face donnee, et s'ecrase.
+    FB={}
+    for _f in ('T','F','R'):
+        pts=[(x,y) for y in range(32) for x in range(32) if f[y][x]==_f]
+        FB[_f]=(min(p[0] for p in pts),max(p[0] for p in pts),
+                min(p[1] for p in pts),max(p[1] for p in pts)) if pts else (0,1,0,1)
 
     for y in range(32):
         for x in range(32):
@@ -36,13 +43,29 @@ def render(name, fam, base, accent):
 
             # --- details par famille (gros, lisibles a 32px) ---
             if fam=='ingot':
-                # Degrade global sur toute la piece (pas par colonne, sinon
-                # la face se coupe en deux). TF eclaire du haut-gauche.
-                u=(x-BX0)/max(1,BX1-BX0)
-                v=(y-BY0)/max(1,BY1-BY0)
-                c=mul(c, 1.16-0.20*u-0.22*v)
-                if face=='T' and rnd.random()<0.09: c=mix(c,accent,0.55)
-                if face=='F' and rnd.random()<0.05: c=mix(c,accent,0.40)
+                # Chez TF le dessus n'est PAS une bande uniforme : il va du
+                # ton 9 pres de l'arete arriere au ton 1 vers l'avant, et
+                # l'ombre suit la diagonale. C'etait le defaut principal.
+                fx0,fx1,fy0,fy1=FB[face]
+                u=(x-fx0)/max(1,fx1-fx0)
+                v=(y-fy0)/max(1,fy1-fy0)
+                if face=='T':
+                    # gradient diagonal marque sur le dessus
+                    d=(u*0.45+v*0.75)
+                    c=mul(c, 1.34-0.62*d)
+                elif face=='F':
+                    c=mul(c, 1.02-0.30*u-0.16*v)
+                else:
+                    c=mul(c, 0.78-0.18*v)
+                # grain metallique : amas 2x2 deterministes, pas du bruit
+                gx,gy=(x//2)*2,(y//2)*2
+                h=(gx*73856093 ^ gy*19349663 ^ SEED)&0xFFFF
+                q=h/65535.0
+                if face=='T':
+                    if q<0.10: c=mix(c,accent,0.60)
+                    elif q<0.17: c=mul(c,0.88)
+                elif q<0.08:
+                    c=mix(c,accent,0.35)
             elif fam=='dust':
                 # TF ne bruite pas pixel par pixel : la poudre est faite de
                 # GRAINS groupes. On pose des amas 2x2 a positions fixes
@@ -117,12 +140,20 @@ def render(name, fam, base, accent):
     # le volume vient des faces. Un contour ferme sur une silhouette en
     # escalier suit chaque marche et decoupe la piece en morceaux.
     if fam=='ingot':
-        # seulement en bas et a droite : c'est l'ombre portee
+        # Ombre portee UNIQUEMENT sur le bord exterieur bas/droit. Tester
+        # solid(x+1,y) attrape aussi l'escalier interne de l'arete du
+        # trapeze et noircit la moitie du dessus.
         for y in range(32):
             for x in range(32):
                 if g[y][x]!='#': continue
-                if not solid(x,y+1) or not solid(x+1,y):
-                    px[x,y]=mul(base,0.55)+(255,)
+                bottom = not solid(x,y+1)
+                right  = not solid(x+1,y)
+                if bottom or right:
+                    # le bord haut-gauche du dessus reste clair (arete eclairee)
+                    if f[y][x]=='T' and not solid(x,y-1):
+                        px[x,y]=mix(px[x,y][:3],(255,255,255),0.30)+(255,)
+                    else:
+                        px[x,y]=mul(px[x,y][:3],0.70)+(255,)
     else:
         for y in range(32):
             for x in range(32):

@@ -8,57 +8,48 @@ def _mk(g):  return [''.join(r) for r in g]
 
 # ---------------------------------------------------------------- LINGOT
 def ingot():
-    """Lingot au format Thermal Foundation : parallelogramme incline, la
-    silhouette est celle de TF (ingot_copper) portee en 32x32.
-    Faces : T = arete superieure biseautee, F = face avant, R = cote droit."""
-    SIL=[
-    "................................",
-    "................................",
-    "................................",
-    "................................",
-    "....................####........",
-    "....................####........",
-    "..............############......",
-    "..............############......",
-    "........####################....",
-    "........####################....",
-    "..############################..",
-    "..############################..",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "##############################..",
-    "##############################..",
-    "..######################........",
-    "..######################........",
-    "....##############..............",
-    "....##############..............",
-    "......######....................",
-    "......######....................",
-    "................................",
-    "................................",
-    "................................",
-    "................................",
-    ]
-    g=[list(r) for r in SIL]; f=blank()
-    cols={}
+    """Lingot trapezoidal vu de 3/4, facon Thermal Foundation.
+    Trois faces avec une vraie surface a ombrer : le dessus (trapeze), la
+    face avant (bande basse) et le cote droit (bande verticale). Une
+    silhouette seule ne suffit pas -- il faut que chaque face existe."""
+    g=blank(); f=blank()
+    TOP_Y0, TOP_Y1 = 5, 16     # trapeze du dessus
+    H = 7                      # hauteur des flancs
+    XR = 25                    # arete verticale droite
+
+    # Trapeze du dessus : recule vers la droite en montant.
+    edges={}
+    for y in range(TOP_Y0, TOP_Y1+1):
+        t=(y-TOP_Y0)/float(TOP_Y1-TOP_Y0)
+        x0=int(round(15-11*t))         # 15 -> 4
+        x1=int(round(XR+3-3*t))        # 28 -> 25
+        edges[y]=(x0,x1)
+        for x in range(x0,x1+1):
+            g[y][x]='#'; f[y][x]='T'
+
+    # Face avant : sous l'arete inferieure gauche du trapeze.
     for x in range(32):
-        ys=[y for y in range(32) if g[y][x]=='#']
-        cols[x]=(min(ys),max(ys)) if ys else None
-    for y in range(32):
-        xs=[x for x in range(32) if g[y][x]=='#']
-        if not xs: continue
-        x1=max(xs)
-        for x in xs:
-            top,bot=cols[x]
-            if y-top<4:        f[y][x]='T'    # arete du dessus
-            elif x>x1-4:       f[y][x]='R'    # cote droit
-            else:              f[y][x]='F'
+        ys=[y for y in range(32) if f[y][x]=='T']
+        if not ys: continue
+        if x>XR: continue                 # au-dela, c'est le cote droit
+        base=max(ys)
+        for k in range(1,H+1):
+            y=base+k
+            if y<32 and g[y][x]!='#': g[y][x]='#'; f[y][x]='F'
+
+    # Cote droit : bande verticale sous l'arete droite, suit sa pente.
+    for y in range(TOP_Y0,TOP_Y1+1):
+        x1=edges[y][1]
+        for x in range(min(x1+1,31), min(x1+1,31)):
+            pass
+    for y in range(TOP_Y0, TOP_Y1+H+1):
+        # l'arete droite descend en biais : on suit son x
+        yy=min(y,TOP_Y1)
+        x1=edges[yy][1]
+        for x in range(XR-2, x1+1):
+            if 0<=x<32 and g[y][x]!='T' and (f[y][x]!='T'):
+                if g[y][x]=='.' or f[y][x]=='F':
+                    g[y][x]='#'; f[y][x]='R'
     return _mk(g),_mk(f)
 
 # ---------------------------------------------------------------- POUDRE
