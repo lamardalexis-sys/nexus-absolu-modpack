@@ -174,3 +174,78 @@ Corrigé en `"transformer"`.
 
 Après correction, les 67 recettes passent la validation : aucun type invalide,
 aucun `io-type` manquant, aucune machine inconnue.
+
+---
+
+# Revue avant merge — vérifications
+
+## `power_transformer` : le fix n'est pas inversé
+
+L'objection portait sur l'absence d'un `transformer.json` dans `machinery/`.
+C'est exact, mais sans effet : Modular Machinery n'identifie jamais une machine
+par son nom de fichier. `DynamicMachine.MachineDeserializer` (ligne 152 et 167)
+lit la clé JSON `registryname` et construit
+`new ResourceLocation(ModularMachinery.MODID, registryName)`. Le nom de fichier
+ne sert qu'à la découverte (`FileType.MACHINE.accepts(f.getName())`) et à
+l'affichage dans les messages d'erreur.
+
+Or `machinery/power_transformer.json` déclare `"registryname": "transformer"`.
+L'identifiant de la machine est donc `modularmachinery:transformer`, quel que
+soit le nom du fichier. Remettre `"machine": "power_transformer"` réintroduirait
+le `MachineRecipe loaded for unknown machine` d'origine.
+
+## Cyclisation : l'absence d'erreur ne prouve rien
+
+MM 1.11.1 n'enregistre que cinq types de requirement — `RegistryRequirementTypes`
+lignes 29 à 34 : `item`, `fluid`, `energy`, `gas`, `duration`. Il n'existe aucun
+fichier `RequirementTypeDimension`, `...Position`, `...Weather` ni `...Time` dans
+l'arbre source. Un type inconnu lève
+`JsonParseException("'X' is not a valid RequirementType!")` (`MachineRecipe`
+ligne 325).
+
+Cette exception est attrapée **par fichier** dans `RecipeLoader.loadRecipes`, puis
+rapportée par `RecipeRegistry` ligne 96–98 avec `ModularMachinery.log.warn` —
+jamais en `error`. Et `crafttweaker.log` ne contient aucun message de Modular
+Machinery, c'est le journal de CraftTweaker.
+
+Un `latest.log` sans erreur MM est donc exactement la signature attendue d'une
+recette silencieusement écartée, pas une preuve que les requirements fonctionnent.
+
+Le test reste utile et il faut le faire, mais avec la bonne chaîne. Sur un boot
+avec la version `main` du fichier :
+
+```
+grep -i "Couldn't load recipe from file" logs/latest.log
+grep -i "problems while loading recipes" logs/latest.log
+```
+
+Ligne présente mentionnant `cyclo_manifoldine_cyclization.json` → les
+requirements sont bien rejetés, la suppression est justifiée et le gating est à
+réimplémenter. Aucune des deux lignes → l'analyse ci-dessus est fausse, on
+restaure les quatre requirements.
+
+Dans les deux cas le gating — nuit, ciel ouvert, y ≥ 60, temps clair — doit être
+préservé : c'est la seule mise en scène du pack et la quête 13 de l'Âge 3 est
+écrite autour.
+
+## Merge : aucun conflit
+
+Merge d'essai `origin/main` → `feature/nexus-machines` : `Automatic merge went
+well`, zéro fichier en conflit. La branche est bien 4 en avance et 7 en retard,
+mais les 7 commits de `main` ne touchent **aucun fichier `.zs`** — uniquement des
+textures, le Carnet Voss Patchouli, les quêtes de l'Âge 3 et les scripts
+`scripts/gen/*.py`.
+
+`main` n'a supprimé aucune recette de table : les 48 seaux NBT de l'Âge 4 y sont
+toujours, dans les six mêmes fichiers. La purge des raccourcis de table est le
+commit `555f18d`, antérieur au point de divergence, donc déjà présente des deux
+côtés. Rien à conserver manuellement.
+
+## MMCE : le point d'équilibrage se règle par config
+
+`recipeParallelizeEnabledByDefault` est bien à `true` par défaut
+(`common/data/Config.java` ligne 39), mais c'est une option lisible :
+`recipe-parallelize-enabled-bydefault`, catégorie `parallel-controller`. La
+poser à `false` avant le premier boot préserve l'équilibrage énergétique de
+l'Âge 3. Voir aussi `machine-parallelize-enabled-bydefault` dans la même
+catégorie.
