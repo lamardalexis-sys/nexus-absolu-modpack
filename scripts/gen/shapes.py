@@ -8,28 +8,59 @@ def _mk(g):  return [''.join(r) for r in g]
 
 # ---------------------------------------------------------------- LINGOT
 def ingot():
-    """Lingot compact vu de 3/4.
-    Un bloc droit, avec un mince lisere de dessus et un cote droit. Pas
-    d'inclinaison : une pente sur 14 lignes produit un escalier disgracieux
-    a 32px. Faces : T dessus, F face avant, R cote droit."""
+    """Lingot Thermal Foundation, releve au pixel puis porte en 32x32.
+
+    La carte ci-dessous EST celle de ingot_copper, classee en 4 niveaux :
+      O = contour et ombre profonde (luminance ~69 sur 219)
+      C = face eclairee            (~195)
+      m = ton moyen                (~125)
+      d = face sombre              (~95)
+
+    Ce que je n'avais pas compris avant : chez TF le volume ne vient pas
+    d'un dessus + une face avant, mais d'un DEGRADE EN BANDES DIAGONALES
+    qui traverse tout le lingot du coin haut-gauche au coin bas-droit. Et
+    le contour est ferme, 1px, sur tout le pourtour -- y compris en haut.
+    """
+    MAP=[
+    "................................",
+    "................................",
+    "................................",
+    "................................",
+    "....................OOOO........",
+    "....................OOOO........",
+    "..............OOOOOOmmmmOO......",
+    "..............OOOOOOmmmmOO......",
+    "........OOOOOOmmCCCCCCCCmmOO....",
+    "........OOOOOOmmCCCCCCCCmmOO....",
+    "..OOOOOOmmCCCCCCCCCCCCCCCCmmOO..",
+    "..OOOOOOmmCCCCCCCCCCCCCCCCmmOO..",
+    "OOmmCCCCCCCCCCCCCCCCCCddddddddOO",
+    "OOmmCCCCCCCCCCCCCCCCCCddddddddOO",
+    "OOCCmmCCCCCCCCCCddddddmmmmmmmmOO",
+    "OOCCmmCCCCCCCCCCddddddmmmmmmmmOO",
+    "OOCCCCmmCCddddddmmmmmmmmmmddddOO",
+    "OOCCCCmmCCddddddmmmmmmmmmmddddOO",
+    "OOCCCCmmmmmmmmmmmmmmddddddddddOO",
+    "OOCCCCmmmmmmmmmmmmmmddddddddddOO",
+    "OOmmmmmmmmmmmmmmddddddddOOOOOO..",
+    "OOmmmmmmmmmmmmmmddddddddOOOOOO..",
+    "..OOmmmmmmddddddddOOOOOO........",
+    "..OOmmmmmmddddddddOOOOOO........",
+    "....OOmmmmddOOOOOO..............",
+    "....OOmmmmddOOOOOO..............",
+    "......OOOOOO....................",
+    "......OOOOOO....................",
+    "................................",
+    "................................",
+    "................................",
+    "................................",
+    ]
     g=blank(); f=blank()
-    X0, X1 = 5, 26
-    Y0, Y1 = 10, 23
-    TOPH   = 4                  # epaisseur du lisere du dessus
-    SIDE   = 4                  # largeur du cote droit
-
-    for y in range(Y0, Y1+1):
-        for x in range(X0, X1+1):
+    for y,row in enumerate(MAP):
+        for x,ch in enumerate(row):
+            if ch=='.': continue
             g[y][x]='#'
-    # coins adoucis
-    for (x,y) in ((X0,Y0),(X1,Y0),(X0,Y1),(X1,Y1)): g[y][x]='.'
-
-    for y in range(32):
-        for x in range(32):
-            if g[y][x]!='#': continue
-            if y-Y0<TOPH:        f[y][x]='T'
-            elif x>X1-SIDE:      f[y][x]='R'
-            else:                f[y][x]='F'
+            f[y][x]=ch          # O / C / m / d : le niveau est la face
     return _mk(g),_mk(f)
 
 # ---------------------------------------------------------------- POUDRE
