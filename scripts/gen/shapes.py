@@ -8,68 +8,95 @@ def _mk(g):  return [''.join(r) for r in g]
 
 # ---------------------------------------------------------------- LINGOT
 def ingot():
-    """Lingot au format Thermal Foundation : parallelogramme incline, la
-    silhouette est celle de TF (ingot_copper) portee en 32x32.
-    Faces : T = arete superieure biseautee, F = face avant, R = cote droit."""
+    """Lingot trapezoidal vu de 3/4, facon Thermal Foundation.
+    Trois faces avec une vraie surface a ombrer : le dessus (trapeze), la
+    face avant (bande basse) et le cote droit (bande verticale). Une
+    silhouette seule ne suffit pas -- il faut que chaque face existe."""
+    g=blank(); f=blank()
+    TOP_Y0, TOP_Y1 = 5, 16     # trapeze du dessus
+    H = 7                      # hauteur des flancs
+    XR = 25                    # arete verticale droite
+
+    # Trapeze du dessus : recule vers la droite en montant.
+    edges={}
+    for y in range(TOP_Y0, TOP_Y1+1):
+        t=(y-TOP_Y0)/float(TOP_Y1-TOP_Y0)
+        x0=int(round(15-11*t))         # 15 -> 4
+        x1=int(round(XR+3-3*t))        # 28 -> 25
+        edges[y]=(x0,x1)
+        for x in range(x0,x1+1):
+            g[y][x]='#'; f[y][x]='T'
+
+    # Face avant : sous l'arete inferieure gauche du trapeze.
+    for x in range(32):
+        ys=[y for y in range(32) if f[y][x]=='T']
+        if not ys: continue
+        if x>XR: continue                 # au-dela, c'est le cote droit
+        base=max(ys)
+        for k in range(1,H+1):
+            y=base+k
+            if y<32 and g[y][x]!='#': g[y][x]='#'; f[y][x]='F'
+
+    # Cote droit : bande verticale sous l'arete droite, suit sa pente.
+    for y in range(TOP_Y0,TOP_Y1+1):
+        x1=edges[y][1]
+        for x in range(min(x1+1,31), min(x1+1,31)):
+            pass
+    for y in range(TOP_Y0, TOP_Y1+H+1):
+        # l'arete droite descend en biais : on suit son x
+        yy=min(y,TOP_Y1)
+        x1=edges[yy][1]
+        for x in range(XR-2, x1+1):
+            if 0<=x<32 and g[y][x]!='T' and (f[y][x]!='T'):
+                if g[y][x]=='.' or f[y][x]=='F':
+                    g[y][x]='#'; f[y][x]='R'
+    return _mk(g),_mk(f)
+
+# ---------------------------------------------------------------- POUDRE
+def dust():
+    """Tas de poudre : silhouette de ThermalFoundation dust_copper portee en
+    32x32. TF n'eclaire pas au hasard -- un noyau clair legerement decale en
+    haut a gauche, des grains groupes autour. Faces : T noyau, F bord."""
     SIL=[
     "................................",
     "................................",
     "................................",
     "................................",
-    "....................####........",
-    "....................####........",
-    "..............############......",
-    "..............############......",
-    "........####################....",
-    "........####################....",
-    "..############################..",
-    "..############################..",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "################################",
-    "##############################..",
-    "##############################..",
-    "..######################........",
-    "..######################........",
-    "....##############..............",
-    "....##############..............",
-    "......######....................",
-    "......######....................",
+    "................................",
+    "................................",
+    "................................",
+    "................................",
+    "..............####..............",
+    "..............####..............",
+    "............########............",
+    "............########............",
+    "..........############..........",
+    "..........############..........",
+    "........################........",
+    "........################........",
+    "......####################......",
+    "......####################......",
+    "....########################....",
+    "....########################....",
+    "....########################....",
+    "....########################....",
+    "......####################......",
+    "......####################......",
+    "........################........",
+    "........################........",
+    "............########............",
+    "............########............",
     "................................",
     "................................",
     "................................",
     "................................",
     ]
     g=[list(r) for r in SIL]; f=blank()
-    cols={}
-    for x in range(32):
-        ys=[y for y in range(32) if g[y][x]=='#']
-        cols[x]=(min(ys),max(ys)) if ys else None
-    for y in range(32):
-        xs=[x for x in range(32) if g[y][x]=='#']
-        if not xs: continue
-        x1=max(xs)
-        for x in xs:
-            top,bot=cols[x]
-            if y-top<4:        f[y][x]='T'    # arete du dessus
-            elif x>x1-4:       f[y][x]='R'    # cote droit
-            else:              f[y][x]='F'
-    return _mk(g),_mk(f)
-
-# ---------------------------------------------------------------- POUDRE
-def dust():
-    g=blank(); f=blank()
     for y in range(32):
         for x in range(32):
-            dx=(x-16)/12.5; dy=(y-20)/8.5
-            if dx*dx+dy*dy<=1.0 and y<=27:
-                g[y][x]='#'; f[y][x]='T' if y<17 else 'F'
-    for x in range(7,25): g[27][x]='#'; f[27][x]='F'
+            if g[y][x]!='#': continue
+            dx=(x-14)/9.0; dy=(y-17)/8.0
+            f[y][x]='T' if dx*dx+dy*dy<=1.0 else 'F'
     return _mk(g),_mk(f)
 
 # --------------------------------------------------------------- CAPSULE
@@ -86,12 +113,22 @@ def capsule():
 
 # ------------------------------------------------------------- CATALYSEUR
 def catalyst():
-    """Coupelle avec 6 grosses pastilles."""
+    """Coupelle de catalyseur vue de 3/4 : plateau ovale incline avec un
+    rebord. Les pastilles sont dessinees dans render.py. Faces : T plateau,
+    F rebord avant."""
     g=blank(); f=blank()
-    for y in range(9,25):
-        for x in range(4,28): g[y][x]='#'; f[y][x]='F'
-    for x in range(6,26): g[8][x]='#'; f[8][x]='T'
-    for (x,y) in ((4,9),(27,9),(4,24),(27,24)): g[y][x]='.'; f[y][x]='.'
+    # plateau ovale
+    for y in range(32):
+        for x in range(32):
+            dx=(x-16)/12.0; dy=(y-15)/7.0
+            if dx*dx+dy*dy<=1.0: g[y][x]='#'; f[y][x]='T'
+    # rebord avant, epaisseur du recipient
+    for x in range(32):
+        ys=[y for y in range(32) if g[y][x]=='#']
+        if not ys: continue
+        for k in range(1,5):
+            y=ys[-1]+k
+            if y<32: g[y][x]='#'; f[y][x]='F'
     return _mk(g),_mk(f)
 
 def gauze():
@@ -102,18 +139,52 @@ def gauze():
 
 # --------------------------------------------------------------- CRISTAL
 def crystal():
-    """Gemme a facettes nettes : pointe haute, corps hexagonal."""
-    g=blank(); f=blank()
-    seg=[(4,15,16),(5,14,17),(6,13,18),(7,12,19),(8,11,20),(9,10,21),
-         (10,9,22),(11,9,22),(12,8,23),(13,8,23),(14,8,23),(15,8,23),
-         (16,8,23),(17,9,22),(18,9,22),(19,10,21),(20,11,20),(21,12,19),
-         (22,13,18),(23,14,17),(24,15,16)]
-    for (y,x0,x1) in seg:
-        for x in range(x0,x1+1):
-            g[y][x]='#'
-            # facette gauche / centre / droite
-            m=(x0+x1)/2.0
-            f[y][x]='T' if x<m-2 else ('R' if x>m+2 else 'F')
+    """Gemme : silhouette de ThermalFoundation crystal_cinnabar portee en
+    32x32. Trois facettes nettes -- pointe claire, flanc gauche moyen,
+    flanc droit sombre."""
+    SIL=[
+    "................................",
+    "................................",
+    "................................",
+    "................................",
+    "................####............",
+    "................####............",
+    "..............########..........",
+    "..............########..........",
+    "............##########..........",
+    "............##########..........",
+    "..........##############........",
+    "..........##############........",
+    "........################........",
+    "........################........",
+    "......####################......",
+    "......####################......",
+    "....######################......",
+    "....######################......",
+    "....######################......",
+    "....######################......",
+    "....######################......",
+    "....######################......",
+    "......##################........",
+    "......##################........",
+    "........##############..........",
+    "........##############..........",
+    "..........##########............",
+    "..........##########............",
+    "................................",
+    "................................",
+    "................................",
+    "................................",
+    ]
+    g=[list(r) for r in SIL]; f=blank()
+    for y in range(32):
+        xs=[x for x in range(32) if g[y][x]=='#']
+        if not xs: continue
+        x0,x1=xs[0],xs[-1]; m=(x0+x1)/2.0
+        for x in xs:
+            if y<14:        f[y][x]='T'
+            elif x<m-1:     f[y][x]='F'
+            else:           f[y][x]='R'
     return _mk(g),_mk(f)
 
 # ------------------------------------------------------------------ BLOC
@@ -136,11 +207,29 @@ def block():
 
 # ----------------------------------------------------------------- COQUE
 def casing():
+    """Coque de cartouche : cylindre couche vu de 3/4, avec un embout conique
+    a droite et une collerette a gauche. Faces : T dessus du cylindre,
+    F flanc, R embout."""
     g=blank(); f=blank()
-    for y in range(10,22):
-        for x in range(4,28): g[y][x]='#'; f[y][x]='F'
-    for x in range(6,26): g[10][x]='#'; f[10][x]='T'
-    for (x,y) in ((4,10),(4,21),(27,10),(27,21)): g[y][x]='.'; f[y][x]='.'
+    # corps cylindrique, y de 9 a 22
+    for y in range(9,23):
+        for x in range(5,24):
+            g[y][x]='#'
+            f[y][x]='T' if y<13 else 'F'
+    # collerette gauche, plus haute
+    for y in range(7,25):
+        for x in range(3,6):
+            g[y][x]='#'; f[y][x]='T' if y<13 else 'F'
+    # embout conique droit
+    for i in range(6):
+        y0,y1=9+i,22-i
+        x=24+i
+        if x>29: break
+        for y in range(y0,y1+1):
+            g[y][x]='#'; f[y][x]='R'
+    # arrondi du corps
+    for (x,y) in ((5,9),(5,22),(23,9),(23,22),(3,7),(5,7),(3,24),(5,24)):
+        if 0<=x<32 and 0<=y<32: g[y][x]='.'; f[y][x]='.'
     return _mk(g),_mk(f)
 
 def pool():
