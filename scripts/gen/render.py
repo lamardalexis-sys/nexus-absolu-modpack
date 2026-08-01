@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys, random, os
-sys.path.insert(0,'/home/claude/gen')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from PIL import Image
 import shapes
 from palettes import P
@@ -43,29 +43,31 @@ def render(name, fam, base, accent):
 
             # --- details par famille (gros, lisibles a 32px) ---
             if fam=='ingot':
-                # Chez TF le dessus n'est PAS une bande uniforme : il va du
-                # ton 9 pres de l'arete arriere au ton 1 vers l'avant, et
-                # l'ombre suit la diagonale. C'etait le defaut principal.
                 fx0,fx1,fy0,fy1=FB[face]
                 u=(x-fx0)/max(1,fx1-fx0)
                 v=(y-fy0)/max(1,fy1-fy0)
                 if face=='T':
-                    # gradient diagonal marque sur le dessus
-                    d=(u*0.45+v*0.75)
-                    c=mul(c, 1.34-0.62*d)
+                    c=mul(c, 1.30-0.30*v-0.12*u)      # lisere du dessus
                 elif face=='F':
-                    c=mul(c, 1.02-0.30*u-0.16*v)
+                    c=mul(c, 1.06-0.24*v-0.14*u)      # face avant
                 else:
-                    c=mul(c, 0.78-0.18*v)
-                # grain metallique : amas 2x2 deterministes, pas du bruit
+                    c=mul(c, 0.66-0.10*v)             # cote droit
+                # ECLAT : une bande diagonale claire qui traverse la face
+                # avant. C'est elle qui distingue les metaux entre eux --
+                # sa largeur et son intensite suivent la couleur d'accent.
+                if face=='F':
+                    d=(x-fx0)-(y-fy0)*0.55
+                    band=(fx1-fx0)*0.30
+                    if abs(d-band)<2.2:
+                        c=mix(c,shine,0.55)
+                    elif abs(d-band)<3.6:
+                        c=mix(c,accent,0.35)
+                # grain metallique en amas 2x2, deterministe
                 gx,gy=(x//2)*2,(y//2)*2
                 h=(gx*73856093 ^ gy*19349663 ^ SEED)&0xFFFF
                 q=h/65535.0
-                if face=='T':
-                    if q<0.10: c=mix(c,accent,0.60)
-                    elif q<0.17: c=mul(c,0.88)
-                elif q<0.08:
-                    c=mix(c,accent,0.35)
+                if face=='T' and q<0.12: c=mix(c,accent,0.50)
+                elif face=='F' and q<0.07: c=mix(c,accent,0.30)
             elif fam=='dust':
                 # TF ne bruite pas pixel par pixel : la poudre est faite de
                 # GRAINS groupes. On pose des amas 2x2 a positions fixes

@@ -8,48 +8,28 @@ def _mk(g):  return [''.join(r) for r in g]
 
 # ---------------------------------------------------------------- LINGOT
 def ingot():
-    """Lingot trapezoidal vu de 3/4, facon Thermal Foundation.
-    Trois faces avec une vraie surface a ombrer : le dessus (trapeze), la
-    face avant (bande basse) et le cote droit (bande verticale). Une
-    silhouette seule ne suffit pas -- il faut que chaque face existe."""
+    """Lingot compact vu de 3/4.
+    Un bloc droit, avec un mince lisere de dessus et un cote droit. Pas
+    d'inclinaison : une pente sur 14 lignes produit un escalier disgracieux
+    a 32px. Faces : T dessus, F face avant, R cote droit."""
     g=blank(); f=blank()
-    TOP_Y0, TOP_Y1 = 5, 16     # trapeze du dessus
-    H = 7                      # hauteur des flancs
-    XR = 25                    # arete verticale droite
+    X0, X1 = 5, 26
+    Y0, Y1 = 10, 23
+    TOPH   = 4                  # epaisseur du lisere du dessus
+    SIDE   = 4                  # largeur du cote droit
 
-    # Trapeze du dessus : recule vers la droite en montant.
-    edges={}
-    for y in range(TOP_Y0, TOP_Y1+1):
-        t=(y-TOP_Y0)/float(TOP_Y1-TOP_Y0)
-        x0=int(round(15-11*t))         # 15 -> 4
-        x1=int(round(XR+3-3*t))        # 28 -> 25
-        edges[y]=(x0,x1)
-        for x in range(x0,x1+1):
-            g[y][x]='#'; f[y][x]='T'
+    for y in range(Y0, Y1+1):
+        for x in range(X0, X1+1):
+            g[y][x]='#'
+    # coins adoucis
+    for (x,y) in ((X0,Y0),(X1,Y0),(X0,Y1),(X1,Y1)): g[y][x]='.'
 
-    # Face avant : sous l'arete inferieure gauche du trapeze.
-    for x in range(32):
-        ys=[y for y in range(32) if f[y][x]=='T']
-        if not ys: continue
-        if x>XR: continue                 # au-dela, c'est le cote droit
-        base=max(ys)
-        for k in range(1,H+1):
-            y=base+k
-            if y<32 and g[y][x]!='#': g[y][x]='#'; f[y][x]='F'
-
-    # Cote droit : bande verticale sous l'arete droite, suit sa pente.
-    for y in range(TOP_Y0,TOP_Y1+1):
-        x1=edges[y][1]
-        for x in range(min(x1+1,31), min(x1+1,31)):
-            pass
-    for y in range(TOP_Y0, TOP_Y1+H+1):
-        # l'arete droite descend en biais : on suit son x
-        yy=min(y,TOP_Y1)
-        x1=edges[yy][1]
-        for x in range(XR-2, x1+1):
-            if 0<=x<32 and g[y][x]!='T' and (f[y][x]!='T'):
-                if g[y][x]=='.' or f[y][x]=='F':
-                    g[y][x]='#'; f[y][x]='R'
+    for y in range(32):
+        for x in range(32):
+            if g[y][x]!='#': continue
+            if y-Y0<TOPH:        f[y][x]='T'
+            elif x>X1-SIDE:      f[y][x]='R'
+            else:                f[y][x]='F'
     return _mk(g),_mk(f)
 
 # ---------------------------------------------------------------- POUDRE
