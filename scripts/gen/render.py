@@ -15,7 +15,8 @@ def mix(a,b,t): return tuple(cl(a[i]+(b[i]-a[i])*t) for i in range(3))
 FACE = {'T':1.58, 'F':1.00, 'R':0.60}
 
 def render(name, fam, base, accent):
-    rnd=random.Random(sum(ord(c)*(i+7) for i,c in enumerate(name)))
+    SEED=sum(ord(c)*(i+7) for i,c in enumerate(name))
+    rnd=random.Random(SEED)
     g,f = shapes.SHAPES[fam if fam in shapes.SHAPES else 'dust']()
     img=Image.new('RGBA',(32,32),(0,0,0,0)); px=img.load()
     outline = mul(base,0.45)
@@ -43,9 +44,15 @@ def render(name, fam, base, accent):
                 if face=='T' and rnd.random()<0.09: c=mix(c,accent,0.55)
                 if face=='F' and rnd.random()<0.05: c=mix(c,accent,0.40)
             elif fam=='dust':
-                r=rnd.random()
-                if r<0.20:   c=mix(c,accent,0.75)
-                elif r<0.34: c=mul(c,0.72)
+                # TF ne bruite pas pixel par pixel : la poudre est faite de
+                # GRAINS groupes. On pose des amas 2x2 a positions fixes
+                # (deterministe par item), pas un mouchetis aleatoire.
+                gx,gy=(x//2)*2,(y//2)*2
+                h=(gx*73856093 ^ gy*19349663 ^ SEED) & 0xFFFF
+                q=h/65535.0
+                if q<0.22:   c=mix(c,accent,0.80)     # grain clair
+                elif q<0.38: c=mul(c,0.68)            # creux entre grains
+                elif q<0.48: c=mul(c,1.12)            # facette exposee
             elif fam=='capsule':
                 if 12<=x<=19 and 10<=y<=25:          # fenetre du contenu
                     t=(y-10)/15.0
@@ -54,27 +61,49 @@ def render(name, fam, base, accent):
                 elif y<8 or y>=26: c=mul(mix(base,(150,156,166),0.5),0.88)
                 else: c=mix(c,(186,192,202),0.45)
             elif fam=='catalyst':
-                # 6 grosses pastilles 6x6
+                # Pastilles EN CREUX dans la coupelle : chaque pastille a un
+                # bord haut sombre (l'ombre du creux) et un corps clair.
+                # 5 pastilles en quinconce, lisibles a 32px.
                 inp=False
-                for (px0,py0) in ((6,10),(13,10),(20,10),(6,17),(13,17),(20,17)):
-                    if px0<=x<px0+6 and py0<=y<py0+6:
-                        dx=x-(px0+2.5); dy=y-(py0+2.5)
-                        if dx*dx+dy*dy<=7.5:
-                            inp=True
-                            c=mix(accent,base,0.30) if (dx<0 and dy<0) else mix(base,accent,0.45)
-                if not inp: c=mul(base,0.60)
+                for (cx,cy) in ((11,12),(21,12),(16,17),(11,22),(21,22)):
+                    dx,dy=x-cx,y-cy
+                    d2=dx*dx+dy*dy
+                    if d2<=10:
+                        inp=True
+                        if dy<-1 and d2>4:  c=mul(base,0.48)          # ombre du creux
+                        elif dy>1 and d2>4: c=mix(base,accent,0.75)   # eclat bas
+                        else:               c=mix(base,accent,0.42)
+                if not inp:
+                    c=mul(c, 0.82 if face=='T' else 0.58)
             elif fam=='gauze':
-                c = mix(base,accent,0.55) if (x+y)%2==0 else mul(base,0.62)
-                if x%4==0 or y%4==0: c=mul(c,0.80)
+                # Vraie trame tissee : des fils de 2px qui passent dessus /
+                # dessous. Un damier 1px se lit comme du bruit a l'ecran.
+                over = ((x//2) % 2) == ((y//2) % 2)
+                if over:
+                    c=mix(base,accent,0.55)                    # fil au-dessus
+                    if y%2==0: c=mul(c,1.14)                   # arrondi du fil
+                else:
+                    c=mul(base,0.55)                           # fil en dessous
+                    if x%2==0: c=mul(c,1.10)
+                # ombre a chaque croisement
+                if x%4==3 and y%4==3: c=mul(c,0.72)
             elif fam=='crystal':
-                if face=='T': c=mix(c,accent,0.55)
-                elif face=='F': c=mix(c,accent,0.28)
-                if 14<=x<=17 and 10<=y<=20: c=mix(c,shine,0.45)   # coeur
+                # trois facettes a bords durs, comme crystal_cinnabar
+                if face=='T':   c=mix(mul(c,1.30),accent,0.45)
+                elif face=='F': c=mix(c,accent,0.20)
+                else:           c=mul(c,0.62)
+                # arete verticale de separation des deux flancs
+                xs=[i for i in range(32) if g[y][i]=='#']
+                if xs and abs(x-((xs[0]+xs[-1])//2))<=1 and y>=14:
+                    c=mix(c,shine,0.35)
             elif fam=='block':
                 if rnd.random()<0.10: c=mul(c,0.86)
             elif fam=='casing':
-                if y in (13,14,18,19): c=mul(c,0.66)              # cannelures
-                if 6<=x<=8: c=mix(c,accent,0.55)                  # bague
+                # cannelures verticales regulieres le long du cylindre
+                if face!='R' and x%4==1: c=mul(c,0.70)
+                if 3<=x<=5:  c=mix(c,accent,0.60)                 # collerette
+                if face=='R': c=mul(c, 1.0 - 0.02*(x-23))         # embout qui fuit
+                if face=='T' and y==10: c=mix(c,shine,0.40)       # arete du dessus
             elif fam=='pool':
                 if face=='T' and 6<=x<=15 and 15<=y<=19: c=mix(c,shine,0.55)
                 if rnd.random()<0.05: c=mix(c,accent,0.7)
