@@ -10,16 +10,22 @@ def mul(c,k): return tuple(cl(v*k) for v in c)
 def mix(a,b,t): return tuple(cl(a[i]+(b[i]-a[i])*t) for i in range(3))
 
 # multiplicateurs par face -- bords durs, pas de degrade continu
-FACE = {'T':1.24, 'F':0.94, 'R':0.68}
+# ratios mesures sur ThermalFoundation ingot_copper :
+# shine 1.83 / top 1.58 / front 1.00 / side 0.60 / outline 0.45
+FACE = {'T':1.58, 'F':1.00, 'R':0.60}
 
 def render(name, fam, base, accent):
     rnd=random.Random(sum(ord(c)*(i+7) for i,c in enumerate(name)))
     g,f = shapes.SHAPES[fam if fam in shapes.SHAPES else 'dust']()
     img=Image.new('RGBA',(32,32),(0,0,0,0)); px=img.load()
-    outline = mul(base,0.42)
+    outline = mul(base,0.45)
     shine   = mix(base,(255,255,255),0.62)
 
     def solid(x,y): return 0<=x<32 and 0<=y<32 and g[y][x]=='#'
+
+    _px=[(x,y) for y in range(32) for x in range(32) if g[y][x]=='#']
+    BX0=min(p[0] for p in _px); BX1=max(p[0] for p in _px)
+    BY0=min(p[1] for p in _px); BY1=max(p[1] for p in _px)
 
     for y in range(32):
         for x in range(32):
@@ -29,8 +35,13 @@ def render(name, fam, base, accent):
 
             # --- details par famille (gros, lisibles a 32px) ---
             if fam=='ingot':
-                if face=='T' and rnd.random()<0.10: c=mix(c,accent,0.6)
-                if face=='F' and rnd.random()<0.07: c=mix(c,accent,0.45)
+                # Degrade global sur toute la piece (pas par colonne, sinon
+                # la face se coupe en deux). TF eclaire du haut-gauche.
+                u=(x-BX0)/max(1,BX1-BX0)
+                v=(y-BY0)/max(1,BY1-BY0)
+                c=mul(c, 1.16-0.20*u-0.22*v)
+                if face=='T' and rnd.random()<0.09: c=mix(c,accent,0.55)
+                if face=='F' and rnd.random()<0.05: c=mix(c,accent,0.40)
             elif fam=='dust':
                 r=rnd.random()
                 if r<0.20:   c=mix(c,accent,0.75)
@@ -72,18 +83,31 @@ def render(name, fam, base, accent):
 
             px[x,y]=c+(255,)
 
-    # --- contour fin, uniquement sur le bord exterieur ---
-    for y in range(32):
-        for x in range(32):
-            if g[y][x]!='#': continue
-            if not(solid(x-1,y) and solid(x+1,y) and solid(x,y-1) and solid(x,y+1)):
-                px[x,y]=outline+(255,)
+    # --- contour ---
+    # Thermal Foundation n'entoure PAS ses lingots d'une ligne uniforme :
+    # le volume vient des faces. Un contour ferme sur une silhouette en
+    # escalier suit chaque marche et decoupe la piece en morceaux.
+    if fam=='ingot':
+        # seulement en bas et a droite : c'est l'ombre portee
+        for y in range(32):
+            for x in range(32):
+                if g[y][x]!='#': continue
+                if not solid(x,y+1) or not solid(x+1,y):
+                    px[x,y]=mul(base,0.55)+(255,)
+    else:
+        for y in range(32):
+            for x in range(32):
+                if g[y][x]!='#': continue
+                if not(solid(x-1,y) and solid(x+1,y) and solid(x,y-1) and solid(x,y+1)):
+                    px[x,y]=outline+(255,)
 
-    # --- eclat en haut a gauche ---
+    # --- eclat le long de l'arete superieure ---
     for y in range(32):
         for x in range(32):
-            if g[y][x]=='#' and f[y][x]=='T' and solid(x,y-1) and not solid(x-1,y-1):
-                px[x,y]=shine+(255,); break
+            if g[y][x]!='#' or f[y][x]!='T': continue
+            if not solid(x,y-1) and solid(x,y+1):
+                px[x,y]=shine+(255,)
+            break
     return img
 
 def main(outdir='/tmp/tex'):
