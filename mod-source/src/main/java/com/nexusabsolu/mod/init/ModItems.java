@@ -1,5 +1,6 @@
 package com.nexusabsolu.mod.init;
 
+import com.nexusabsolu.mod.items.ItemAmpouleNuitStellaire;
 import com.nexusabsolu.mod.items.ItemBase;
 import com.nexusabsolu.mod.items.ItemCartoucheManifold;
 import com.nexusabsolu.mod.items.ItemCartoucheUsed;
@@ -238,4 +239,11 @@ public class ModItems {
     // CARTOUCHE_USED (casing recyclable).
     public static final Item CARTOUCHE_MANIFOLD = new ItemCartoucheManifold();
     public static final Item CARTOUCHE_USED = new ItemCartoucheUsed();
+
+    // === GATING DE LA CYCLISATION STELLAIRE (L8.C.3) ===
+    // MM 1.11.1 n'a pas de requirement d'environnement : les conditions
+    // (Overworld, y>=60, ciel degage, temps clair, nuit) sont portees par
+    // l'ampoule, que le Cyclisateur consomme.
+    public static final Item AMPOULE_NUIT_STELLAIRE_VIDE = new ItemAmpouleNuitStellaire();
+    public static final Item AMPOULE_NUIT_STELLAIRE = new ItemBase("ampoule_nuit_stellaire");
 }

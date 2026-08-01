@@ -45,23 +45,10 @@
             "amount": 100
         },
         {
-            "type": "modularmachinery:dimension",
-            "dimension": [
-                0
-            ]
-        },
-        {
-            "type": "modularmachinery:position",
-            "y_min": 60
-        },
-        {
-            "type": "modularmachinery:weather",
-            "weather": "clear"
-        },
-        {
-            "type": "modularmachinery:time",
-            "time_min": 13000,
-            "time_max": 23000
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "nexusabsolu:ampoule_nuit_stellaire",
+            "amount": 1
         }
     ]
 }
