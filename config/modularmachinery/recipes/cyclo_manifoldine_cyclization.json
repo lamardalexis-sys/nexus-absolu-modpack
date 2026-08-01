@@ -43,6 +43,12 @@
             "io-type": "output",
             "fluid": "manifoldine_brute",
             "amount": 100
+        },
+        {
+            "type": "modularmachinery:item",
+            "io-type": "input",
+            "item": "nexusabsolu:ampoule_nuit_stellaire",
+            "amount": 1
         }
     ]
 }

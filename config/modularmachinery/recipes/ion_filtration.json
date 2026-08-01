@@ -11,7 +11,7 @@
         {
             "type": "modularmachinery:fluid",
             "io-type": "input",
-            "fluid": "distilledwater",
+            "fluid": "water",
             "amount": 1000
         },
         {

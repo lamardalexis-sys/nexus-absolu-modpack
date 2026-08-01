@@ -212,3 +212,5 @@ tile.nexusabsolu.soxhlet_extractor_controller.name=Extracteur Soxhlet
 tile.nexusabsolu.thermal_cracker_controller.name=Thermal Cracker
 tile.nexusabsolu.tritium_breeder_controller.name=Tritium Breeder
 tile.nexusabsolu.vacuum_chamber_controller.name=Chambre Sous Vide
+item.nexusabsolu.ampoule_nuit_stellaire_vide.name=Ampoule Stellaire Vide
+item.nexusabsolu.ampoule_nuit_stellaire.name=Ampoule de Nuit Stellaire

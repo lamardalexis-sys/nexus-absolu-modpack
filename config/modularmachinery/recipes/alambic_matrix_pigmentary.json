@@ -77,8 +77,9 @@
         {
             "type": "modularmachinery:item",
             "io-type": "input",
-            "item": "botania:manaresource:5",
-            "amount": 4
+            "item": "botania:manaresource",
+            "amount": 4,
+            "meta": 5
         },
         {
             "type": "modularmachinery:item",

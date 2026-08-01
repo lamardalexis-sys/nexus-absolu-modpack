@@ -36,3 +36,24 @@ mods.mekanism.crusher.addRecipe(
 
 
 print("[Nexus Absolu] Age4_L8_Manifoldine.zs loaded -- broyage spores (chaine L8 en Modular Machinery)");
+
+
+// ----------------------------------------------------------------------------
+// L8.C.3 -- Gating de la Cyclisation Stellaire
+// ----------------------------------------------------------------------------
+// Le design imposait quatre conditions d'environnement a la cyclisation :
+// Overworld, y >= 60, ciel degage, temps clair, nuit (13000-23000 ticks).
+// Elles etaient ecrites comme requirements "dimension"/"position"/"weather"/
+// "time" dans cyclo_manifoldine_cyclization.json -- des types que Modular
+// Machinery 1.11.1 ne connait pas. La recette entiere etait rejetee au
+// chargement, donc la manifoldine_brute n'etait produite par rien.
+//
+// Le gating vit desormais dans l'Ampoule de Nuit Stellaire : elle ne se
+// remplit que si les cinq conditions sont reunies (voir
+// ItemAmpouleNuitStellaire.java), et le Cyclisateur en consomme une.
+
+recipes.addShaped("nexus_ampoule_nuit_stellaire_vide",
+    <nexusabsolu:ampoule_nuit_stellaire_vide> * 2,
+    [[null, <minecraft:glass_pane>, null],
+     [<minecraft:glass_pane>, <ore:dustGlowstone>, <minecraft:glass_pane>],
+     [null, <ore:ingotIron>, null]]);

@@ -10,31 +10,112 @@
     },
     {
       "type": "text",
-      "title": "MB-HABER (5x5x5 HUB)",
-      "text": "$(b)Haber-Bosch Reactor$(/b) -- LE plus gros multibloc apres cyclisateur (146 blocs) :$(br)$(li)Y=-1 : 5x5 plein (25 blocs)$(/li)$(li)Y=0 : 4 fluid in (N2 + H2) + 4 item in (Fe-K2O catalyst) + Controller$(/li)$(li)Y=1, Y=2, Y=3 : 5x5 perimetre + verre interieur 3x3 (chambre haute pression)$(/li)$(li)Y=4 : 5x5 plein + 4 fluid out (NH3) + Energy$(/li)$(br2)$(c)Pression simulee : 200 bars, 450 deg C.$(/c)"
+      "title": "MB-HABER (3x3x3 HUB)",
+      "text": "$(b)Reacteur Haber-Bosch$(/b) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-OSTWALD + MB-CONTACT",
-      "text": "$(b)Tour Ostwald$(/b) (ostwald_tower, 3x4x3 = 44 blocs) -- HNO3$(br)$(b)Tour Contact$(/b) (contact_tower, 3x4x3 = 44 blocs) -- H2SO4 + Claus$(br2)Memes layouts (3x4x3 tower) :$(br)$(li)Y=-1 : 3x3 plein$(/li)$(li)Y=0 : 4 fluid + 4 items + Controller$(/li)$(li)Y=1, Y=2 : 3x3 perimetre + verre central$(/li)$(li)Y=3 : 3x3 + Energy + 4 fluid output$(/li)$(br)$(o)2 multiblocs identiques structurellement, contenu different.$(/o)"
+      "text": "$(b)Tour Ostwald$(/b) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-HABER Hub Central (5x5x5)",
-      "multiblock_id": "nexusabsolu:haber_reactor",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-HABER Hub Central (3x3x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "CIC",
+            "III",
+            "CIC"
+          ],
+          [
+            "CAC",
+            "A0A",
+            "CAC"
+          ],
+          [
+            "CFC",
+            "FEF",
+            "CFC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing",
+          "E": "modularmachinery:blockenergyinputhatch",
+          "F": "modularmachinery:blockfluidinputhatch",
+          "I": "modularmachinery:blockinputbus"
+        },
+        "symmetrical": false
+      }
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-OSTWALD Tour HNO3 (3x4x3)",
-      "multiblock_id": "nexusabsolu:ostwald_tower",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-OSTWALD Tour HNO3 (3x3x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "CIC",
+            "III",
+            "CIC"
+          ],
+          [
+            "CAC",
+            "A0A",
+            "CAC"
+          ],
+          [
+            "CFC",
+            "FEF",
+            "CFC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing",
+          "E": "modularmachinery:blockenergyinputhatch",
+          "F": "modularmachinery:blockfluidinputhatch",
+          "I": "modularmachinery:blockinputbus"
+        },
+        "symmetrical": false
+      }
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-CONTACT Tour H2SO4 (3x4x3)",
-      "multiblock_id": "nexusabsolu:contact_tower",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-CONTACT Tour H2SO4 (3x3x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "CIC",
+            "III",
+            "CIC"
+          ],
+          [
+            "CAC",
+            "A0A",
+            "CAC"
+          ],
+          [
+            "CFC",
+            "FEF",
+            "CFC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing",
+          "E": "modularmachinery:blockenergyinputhatch",
+          "F": "modularmachinery:blockfluidinputhatch",
+          "I": "modularmachinery:blockinputbus"
+        },
+        "symmetrical": false
+      }
     }
   ],
   "category": "nexusabsolu:vol_v"

@@ -6,12 +6,12 @@
     {
       "type": "text",
       "title": "La fissure",
-      "text": "$(o)Le cinquieme theoreme est l'echappee. La fissure dans le mur du monde.$(/o)$(br2)Voss l'a decouvert en exposant du mycelium ordinaire au flux neutronique d'un reacteur NC. Le mycelium $(l)se transforme$(/l). Devient sensible. Devient $(d)mycelium_active$(/d).$(br2)Ce mycelium peut etre seche en $(b)spores_active$(/b), input du Soxhlet pour la Manifoldine."
+      "text": "$(o)The fifth theorem is the escape. The crack in the wall of the world.$(/o)$(br2)Voss found it by exposing ordinary mycelium to an intense neutron flux. The mycelium $(l)changes$(/l). Becomes sensitive. Becomes $(d)mycelium_active$(/d).$(br2)It can then be ground into $(b)spores_active$(/b), the Soxhlet's input for Manifoldine."
     },
     {
       "type": "text",
       "title": "Activation",
-      "text": "Procedure :$(br)$(li)Construire un Fission Reactor NuclearCraft (fuel MOX-239 ou Th-232)$(/li)$(li)Garder le reacteur ACTIF (1 nuit Minecraft = 24000 ticks)$(/li)$(li)Placer du mycelium dans un rayon de 5 blocs$(/li)$(li)Attendre$(/li)$(br2)Le bloc se transforme automatiquement en $(d)nexusabsolu:mycelium_active$(/d). Particules vertes legeres. Pas de radiation player-damaging si shielding correct.$(br2)$(o)C'est le seul moment ou tu vois la simulation cligner.$(/o)"
+      "text": "Procedure:$(br)$(li)Build the $(b)Gamma Forge$(/b) (3x3x3, line L5)$(/li)$(li)Feed $(b)tritium$(/b) from the Tritium Breeder$(/li)$(li)Load 8 ordinary mycelium blocks$(/li)$(li)8000 RF/t for 1200 ticks$(/li)$(br2)Output: 8x $(d)mycelium_active$(/d). Then grind it in the $(b)Mekanism Crusher$(/b) for 8x $(b)spores_active$(/b) per block.$(br2)$(o)The nuclear line is not decorative: no tritium, no mycelium, no Manifoldine.$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_iv"

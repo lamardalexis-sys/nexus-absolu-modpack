@@ -11,7 +11,7 @@
     {
       "type": "text",
       "title": "Le Cyclisateur Stellaire",
-      "text": "Pour utiliser le starlight, le $(d)MB-CYCLISATEUR STELLAIRE$(/d) (5x6x5) est obligatoire. Conditions imperatives :$(br)$(li)$(b)Overworld$(/b) (DIM 0)$(/li)$(li)$(b)Y >= 60$(/b) (ciel ouvert)$(/li)$(li)$(b)Pas de pluie$(/b)$(/li)$(li)$(b)Nuit Minecraft$(/b) (time 13000-23000)$(/li)$(br)Il s'allume en bleu profond la nuit. Le jour, il est mort."
+      "text": "Pour utiliser le starlight, le $(d)MB-CYCLISATEUR STELLAIRE$(/d) (3x5x3) est obligatoire. Conditions imperatives :$(br)$(li)$(b)Overworld$(/b) (DIM 0)$(/li)$(li)$(b)Y >= 60$(/b) (ciel ouvert)$(/li)$(li)$(b)Pas de pluie$(/b)$(/li)$(li)$(b)Nuit Minecraft$(/b) (time 13000-23000)$(/li)$(br)Il s'allume en bleu profond la nuit. Le jour, il est mort."
     },
     {
       "type": "text",

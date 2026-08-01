@@ -6,35 +6,108 @@
     {
       "type": "text",
       "title": "Multiblocs L4",
-      "text": "$(b)3 multiblocs$(/b) :$(br)$(li)$(d)MB-HALL$(/d) (hall_heroult_cell, 5x4x5) - Aluminium pur$(/li)$(li)$(d)MB-KROLL$(/d) (kroll_reactor, 4x5x4 - haut etroit) - Titane$(/li)$(li)$(d)MB-AQUA-REGIA$(/d) (aqua_regia_cell, 3x3x3) - Or/Pt$(/li)"
+      "text": "$(b)3 multiblocs$(/b) :$(br)$(li)$(d)MB-HALL$(/d) (hall_heroult_cell, 3x3x3) - Aluminium pur$(/li)$(li)$(d)MB-KROLL$(/d) (kroll_reactor, 3x3x3 - haut etroit) - Titane$(/li)$(li)$(d)MB-AQUA-REGIA$(/d) (aqua_regia_cell, 3x2x3) - Or/Pt$(/li)"
     },
     {
       "type": "text",
       "title": "MB-KROLL etroit",
-      "text": "$(b)Reacteur Kroll$(/b) -- forme inhabituelle 4x5x4 :$(br)$(li)Y=-1 : 4x4 plein (16 blocs)$(/li)$(li)Y=0 : fluid + item inputs (Cl2, Argon, output TiCl4)$(/li)$(li)Y=1, Y=2, Y=3 : perimetre 4x4 + verre interieur (chambre reduction Mg)$(/li)$(li)Y=4 : 4x4 plein + Energy center + item output (Ti sponge)$(/li)$(br)Total 95 blocs.$(br2)$(c)REQUIS : Argon pour atmosphere inerte !$(/c)"
+      "text": "$(b)Reacteur Kroll$(/b) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-AQUA-REGIA",
-      "text": "$(b)Cellule Eau Regale$(/b) 3x3x3, standard. Pour metaux precieux Au/Pt/Ir/Os.$(br2)Tu n'as besoin que d'1 seul AQUA-REGIA pour TOUS les metaux precieux (recette change selon l'input).$(br2)$(o)Recipe pilote : Au + aqua_regia -> gold_chloride_solution -> gold_pure_99$(/o)"
+      "text": "$(b)Cellule Eau Regale$(/b) 3x2x3, standard. Pour metaux precieux Au/Pt/Ir/Os.$(br2)Tu n'as besoin que d'1 seul AQUA-REGIA pour TOUS les metaux precieux (recette change selon l'input).$(br2)$(o)Recipe pilote : Au + aqua_regia -> gold_chloride_solution -> gold_pure_99$(/o)"
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-HALL Hall-Heroult (5x4x5)",
-      "multiblock_id": "nexusabsolu:hall_heroult_cell",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-HALL Hall-Heroult (3x3x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "CIC",
+            "III",
+            "CIC"
+          ],
+          [
+            "CAC",
+            "A0A",
+            "CAC"
+          ],
+          [
+            "CFC",
+            "FEF",
+            "CFC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing",
+          "E": "modularmachinery:blockenergyinputhatch",
+          "F": "modularmachinery:blockfluidinputhatch",
+          "I": "modularmachinery:blockinputbus"
+        },
+        "symmetrical": false
+      }
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-KROLL Reacteur Kroll (4x5x4)",
-      "multiblock_id": "nexusabsolu:kroll_reactor",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-KROLL Reacteur Kroll (3x3x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "CIC",
+            "III",
+            "CIC"
+          ],
+          [
+            "CAC",
+            "A0A",
+            "CAC"
+          ],
+          [
+            "CFC",
+            "FEF",
+            "CFC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing",
+          "E": "modularmachinery:blockenergyinputhatch",
+          "F": "modularmachinery:blockfluidinputhatch",
+          "I": "modularmachinery:blockinputbus"
+        },
+        "symmetrical": false
+      }
     },
     {
       "type": "patchouli:multiblock",
-      "name": "MB-AQUA-REGIA Eau Regale (3x3x3)",
-      "multiblock_id": "nexusabsolu:aqua_regia_cell",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)"
+      "name": "MB-AQUA-REGIA Eau Regale (3x2x3)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "multiblock": {
+        "pattern": [
+          [
+            "   ",
+            " 0 ",
+            "   "
+          ],
+          [
+            "CAC",
+            "AAA",
+            "CAC"
+          ]
+        ],
+        "mapping": {
+          "0": "modularmachinery:blockcontroller",
+          "A": "modularmachinery:blockcasing",
+          "C": "modularmachinery:blockcasing"
+        },
+        "symmetrical": false
+      }
     }
   ],
   "category": "nexusabsolu:vol_v"
