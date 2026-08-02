@@ -11,12 +11,12 @@
     {
       "type": "text",
       "title": "L8.A -- Pigments",
-      "text": "Les 16 champignons donnent les 16 $(d)Pigments Botania$(/d) (Apothecary). Chaque pigment se traite avec un acide :$(br)$(li)8 doux + HCl$(/li)$(li)8 sombres + H2SO4$(/li)$(br2)Resultat : 16 $(b)Extraits$(/b) chromatiques. Distilles ensemble dans le $(d)MB-ALAMBIC manaique$(/d) (3x3x3, Mana Pool central) :$(br)16 extraits + 4 Mana Pearl -> 1 $(b)Matrix Pigmentary$(/b)."
+      "text": "Les 16 champignons donnent les 16 $(#248)Pigments Botania$() (Apothecary). Chaque pigment se traite avec un acide :$(br)$(li)8 doux + HCl$(/li)$(li)8 sombres + H2SO4$(/li)$(br2)Resultat : 16 $(l)Extraits$(/l) chromatiques. Distilles ensemble dans le $(#248)MB-ALAMBIC manaique$() (3x3x3, Mana Pool central) :$(br)16 extraits + 4 Mana Pearl -> 1 $(l)Matrix Pigmentary$(/l)."
     },
     {
       "type": "text",
       "title": "L'Essence Chromatique",
-      "text": "La $(d)Matrix Pigmentary$(/d) est passee dans le $(b)Runic Altar$(/b) (Botania natif modifie) avec des Mana Pearl, ce qui produit le $(d)Cristal Chromatic Brut$(/d).$(br2)Etape finale : $(b)MB-MANA-ENCHANTER$(/b) (3x2x3) :$(br)1 cristal_chromatic_raw + 4 Mana Pearl + 6M RF -> 1000mB $(b)Essence Chromatique$(/b).$(br2)L'essence est l'un des inputs du $(b)Bio-Reacteur$(/b) final."
+      "text": "La $(#248)Matrix Pigmentary$() est passee dans le $(l)Runic Altar$(/l) (Botania natif modifie) avec des Mana Pearl, ce qui produit le $(#248)Cristal Chromatic Brut$().$(br2)Etape finale : $(l)MB-MANA-ENCHANTER$(/l) (3x2x3) :$(br)1 cristal_chromatic_raw + 4 Mana Pearl + 6M RF -> 1000mB $(l)Essence Chromatique$(/l).$(br2)L'essence est l'un des inputs du $(l)Bio-Reacteur$(/l) final."
     }
   ],
   "category": "nexusabsolu:vol_iv"

@@ -11,7 +11,7 @@
     {
       "type": "multiblock",
       "name": "Portail Voss",
-      "text": "$(l)Tourne la souris$(/l) pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(b)9 couches$(/b) du bas vers le haut. Le bloc clignotant = $(b)Ecran de Controle$(/b) (le poser en dernier).",
+      "text": "$(l)Tourne la souris$(/l) pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(l)9 couches$(/l) du bas vers le haut. Le bloc clignotant = $(l)Ecran de Controle$(/l) (le poser en dernier).",
       "multiblock": {
         "pattern": [
           [
@@ -118,7 +118,7 @@
     {
       "type": "text",
       "title": "Activation",
-      "text": "Une fois la structure assemblee :$(br2)$(b)1.$(/b) Branche un cable RF a l'$(b)Energy Input$(/b) et charge $(6)1 000 000 RF$(/6).$(br)$(b)2.$(/b) Branche une pompe a fluide au $(b)Fluid Input$(/b) et remplis-le avec $(d)10 buckets de Diarrhee Liquide$(/d).$(br)$(b)3.$(/b) Tiens la $(d)Cle de Liberte$(/d) en main.$(br)$(b)4.$(/b) Clic-droit sur l'$(b)Ecran$(/b).$(br2)$(o)Si tu lis ceci, c'est que tu as reussi la ou j'ai echoue. — E. Voss$(/o)"
+      "text": "Une fois la structure assemblee :$(br2)$(l)1.$(/l) Branche un cable RF a l'$(l)Energy Input$(/l) et charge $(#a00)1 000 000 RF$().$(br)$(l)2.$(/l) Branche une pompe a fluide au $(l)Fluid Input$(/l) et remplis-le avec $(#248)10 buckets de Diarrhee Liquide$().$(br)$(l)3.$(/l) Tiens la $(#248)Cle de Liberte$() en main.$(br)$(l)4.$(/l) Clic-droit sur l'$(l)Ecran$(/l).$(br2)$(o)Si tu lis ceci, c'est que tu as reussi la ou j'ai echoue. — E. Voss$(/o)"
     }
   ]
 }

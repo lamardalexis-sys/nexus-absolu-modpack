@@ -77,7 +77,7 @@ def pages(lang):
         for wi in range(a,b):
             if wi>=len(waves): break
             for m in waves[wi]:
-                items.append(li("$(d)%s$(/d) -- %s, %d blocs%s"%(
+                items.append(li("$(#248)%s$() -- %s, %d blocs%s"%(
                     NAME[m], DIMS[m], BLK[m],
                     (", %.0f M RF"%(rf[m]/1e6)) if rf[m]>=1e6 else "")))
         t=("Vagues %d a %d" if fr else "Waves %d to %d")%(a+1,min(b,len(waves)))

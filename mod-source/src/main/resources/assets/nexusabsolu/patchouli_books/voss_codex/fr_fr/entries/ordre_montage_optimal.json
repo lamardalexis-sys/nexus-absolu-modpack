@@ -11,22 +11,22 @@
     {
       "type": "text",
       "title": "Vagues 1 a 4",
-      "text": "$(li)$(d)Cellule Castner-Kellner$(/d) -- 3x2x3, 10 blocs, 15 M RF$(/li)$(li)$(d)Cellule Fluorite$(/d) -- 3x3x3, 27 blocs, 84 M RF$(/li)$(li)$(d)Cellule Hall-Heroult$(/d) -- 3x3x3, 27 blocs, 120 M RF$(/li)$(li)$(d)Tritium Breeder$(/d) -- 3x2x3, 10 blocs, 1 M RF$(/li)$(li)$(d)Chambre Sous Vide$(/d) -- 3x2x3, 10 blocs, 2 M RF$(/li)$(li)$(d)Chambre Lithium-Tritium$(/d) -- 3x2x3, 10 blocs, 9 M RF$(/li)$(li)$(d)Tour Hydrodesulfuration$(/d) -- 3x3x3, 27 blocs, 9 M RF$(/li)$(li)$(d)Tour Contact$(/d) -- 3x3x3, 27 blocs, 8 M RF$(/li)"
+      "text": "$(li)$(#248)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs, 15 M RF$(/li)$(li)$(#248)Cellule Fluorite$() -- 3x3x3, 27 blocs, 84 M RF$(/li)$(li)$(#248)Cellule Hall-Heroult$() -- 3x3x3, 27 blocs, 120 M RF$(/li)$(li)$(#248)Tritium Breeder$() -- 3x2x3, 10 blocs, 1 M RF$(/li)$(li)$(#248)Chambre Sous Vide$() -- 3x2x3, 10 blocs, 2 M RF$(/li)$(li)$(#248)Chambre Lithium-Tritium$() -- 3x2x3, 10 blocs, 9 M RF$(/li)$(li)$(#248)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocs, 9 M RF$(/li)$(li)$(#248)Tour Contact$() -- 3x3x3, 27 blocs, 8 M RF$(/li)"
     },
     {
       "type": "text",
       "title": "Vagues 5 a 8",
-      "text": "$(li)$(d)Thermal Cracker$(/d) -- 3x3x3, 27 blocs, 13 M RF$(/li)$(li)$(d)Alloy Smelter$(/d) -- 3x2x3, 10 blocs$(/li)$(li)$(d)Reacteur Cumene$(/d) -- 3x3x3, 27 blocs, 7 M RF$(/li)$(li)$(d)Cryo-Distillateur Atmospherique$(/d) -- 3x3x3, 27 blocs, 4 M RF$(/li)$(li)$(d)Reacteur Haber-Bosch$(/d) -- 3x3x3, 27 blocs, 18 M RF$(/li)"
+      "text": "$(li)$(#248)Thermal Cracker$() -- 3x3x3, 27 blocs, 13 M RF$(/li)$(li)$(#248)Alloy Smelter$() -- 3x2x3, 10 blocs$(/li)$(li)$(#248)Reacteur Cumene$() -- 3x3x3, 27 blocs, 7 M RF$(/li)$(li)$(#248)Cryo-Distillateur Atmospherique$() -- 3x3x3, 27 blocs, 4 M RF$(/li)$(li)$(#248)Reacteur Haber-Bosch$() -- 3x3x3, 27 blocs, 18 M RF$(/li)"
     },
     {
       "type": "text",
       "title": "Vagues 9 a 11",
-      "text": "$(li)$(d)Forge Gamma$(/d) -- 3x3x3, 27 blocs, 60 M RF$(/li)$(li)$(d)Tour Ostwald$(/d) -- 3x3x3, 27 blocs, 8 M RF$(/li)$(li)$(d)Extracteur Soxhlet$(/d) -- 3x5x3, 45 blocs, 29 M RF$(/li)$(li)$(d)Reacteur Aromatique$(/d) -- 3x3x3, 27 blocs, 39 M RF$(/li)$(li)$(d)Cyclisateur Stellaire$(/d) -- 3x5x3, 45 blocs, 60 M RF$(/li)"
+      "text": "$(li)$(#248)Forge Gamma$() -- 3x3x3, 27 blocs, 60 M RF$(/li)$(li)$(#248)Tour Ostwald$() -- 3x3x3, 27 blocs, 8 M RF$(/li)$(li)$(#248)Extracteur Soxhlet$() -- 3x5x3, 45 blocs, 29 M RF$(/li)$(li)$(#248)Reacteur Aromatique$() -- 3x3x3, 27 blocs, 39 M RF$(/li)$(li)$(#248)Cyclisateur Stellaire$() -- 3x5x3, 45 blocs, 60 M RF$(/li)"
     },
     {
       "type": "text",
       "title": "Vagues 12 a 14",
-      "text": "$(li)$(d)Cellule Eau Regale$(/d) -- 3x2x3, 10 blocs$(/li)$(li)$(d)Evaporateur Cristallisation$(/d) -- 3x3x3, 27 blocs, 9 M RF$(/li)$(li)$(d)Melangeur Cryogenique M1$(/d) -- 3x5x3, 45 blocs, 367 M RF$(/li)$(li)$(d)Bio-Reacteur Manifold$(/d) -- 3x5x3, 45 blocs, 122 M RF$(/li)"
+      "text": "$(li)$(#248)Cellule Eau Regale$() -- 3x2x3, 10 blocs$(/li)$(li)$(#248)Evaporateur Cristallisation$() -- 3x3x3, 27 blocs, 9 M RF$(/li)$(li)$(#248)Melangeur Cryogenique M1$() -- 3x5x3, 45 blocs, 367 M RF$(/li)$(li)$(#248)Bio-Reacteur Manifold$() -- 3x5x3, 45 blocs, 122 M RF$(/li)"
     },
     {
       "type": "text",

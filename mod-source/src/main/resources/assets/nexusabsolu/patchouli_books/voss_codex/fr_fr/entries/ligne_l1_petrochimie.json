@@ -6,17 +6,17 @@
     {
       "type": "text",
       "title": "Multiblocs L1",
-      "text": "$(b)Chambre Sous Vide$(/b) -- 3x2x3, 10 blocs controleur compris.$(br)$(li)Y=+0 : le Machine Controller au centre$(/li)$(li)Y=-1 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
+      "text": "$(l)Chambre Sous Vide$(/l) -- 3x2x3, 10 blocs controleur compris.$(br)$(li)Y=+0 : le Machine Controller au centre$(/li)$(li)Y=-1 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-HDS Tour",
-      "text": "$(b)Tour Hydrodesulfuration$(/b) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
+      "text": "$(l)Tour Hydrodesulfuration$(/l) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "multiblock",
       "name": "MB-DESA Chambre Sous Vide (3x2x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [
@@ -41,7 +41,7 @@
     {
       "type": "multiblock",
       "name": "MB-HDS Tour Hydrodesulfuration (3x3x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [

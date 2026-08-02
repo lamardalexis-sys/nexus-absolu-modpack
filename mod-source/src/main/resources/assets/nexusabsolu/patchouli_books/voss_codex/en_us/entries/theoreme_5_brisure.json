@@ -6,12 +6,12 @@
     {
       "type": "text",
       "title": "La fissure",
-      "text": "$(o)The fifth theorem is the escape. The crack in the wall of the world.$(/o)$(br2)Voss found it by exposing ordinary mycelium to an intense neutron flux. The mycelium $(l)changes$(/l). Becomes sensitive. Becomes $(d)mycelium_active$(/d).$(br2)It can then be ground into $(b)spores_active$(/b), the Soxhlet's input for Manifoldine."
+      "text": "$(o)The fifth theorem is the escape. The crack in the wall of the world.$(/o)$(br2)Voss found it by exposing ordinary mycelium to an intense neutron flux. The mycelium $(l)changes$(/l). Becomes sensitive. Becomes $(#248)mycelium_active$().$(br2)It can then be ground into $(l)spores_active$(/l), the Soxhlet's input for Manifoldine."
     },
     {
       "type": "text",
       "title": "Activation",
-      "text": "Procedure:$(br)$(li)Build the $(b)Gamma Forge$(/b) (3x3x3, line L5)$(/li)$(li)Feed $(b)tritium$(/b) from the Tritium Breeder$(/li)$(li)Load 8 ordinary mycelium blocks$(/li)$(li)8000 RF/t for 1200 ticks$(/li)$(br2)Output: 8x $(d)mycelium_active$(/d). Then grind it in the $(b)Mekanism Crusher$(/b) for 8x $(b)spores_active$(/b) per block.$(br2)$(o)The nuclear line is not decorative: no tritium, no mycelium, no Manifoldine.$(/o)"
+      "text": "Procedure:$(br)$(li)Build the $(l)Gamma Forge$(/l) (3x3x3, line L5)$(/li)$(li)Feed $(l)tritium$(/l) from the Tritium Breeder$(/li)$(li)Load 8 ordinary mycelium blocks$(/li)$(li)8000 RF/t for 1200 ticks$(/li)$(br2)Output: 8x $(#248)mycelium_active$(). Then grind it in the $(l)Mekanism Crusher$(/l) for 8x $(l)spores_active$(/l) per block.$(br2)$(o)The nuclear line is not decorative: no tritium, no mycelium, no Manifoldine.$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_iv"

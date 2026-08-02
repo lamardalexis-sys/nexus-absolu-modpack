@@ -6,17 +6,17 @@
     {
       "type": "text",
       "title": "Avant",
-      "text": "$(o)Tu sors la cartouche. Tu enleves l'opercule. Tu places le sertisseur sur ton avant-bras gauche. Tu inspires profondement.$(/o)$(br2)Le $(d)cooldown est de 10 minutes$(/d). Pas deux fois. Si tu rates, tu attends.$(br2)Le trip dure $(b)8 minutes$(/b) en 9 stages. Le crash dure 1 minute supplementaire. Pendant le crash, tu es paralyse. Tu es vulnerable. $(l)Place-toi en securite avant.$(/l)"
+      "text": "$(o)Tu sors la cartouche. Tu enleves l'opercule. Tu places le sertisseur sur ton avant-bras gauche. Tu inspires profondement.$(/o)$(br2)Le $(#248)cooldown est de 10 minutes$(). Pas deux fois. Si tu rates, tu attends.$(br2)Le trip dure $(l)8 minutes$(/l) en 9 stages. Le crash dure 1 minute supplementaire. Pendant le crash, tu es paralyse. Tu es vulnerable. $(l)Place-toi en securite avant.$(/l)"
     },
     {
       "type": "text",
       "title": "Stages",
-      "text": "$(li)$(b)1.$(/b) Onset (0:00-0:30) -- le monde s'allege$(/li)$(li)$(b)2.$(/b) Saturation (0:30-1:30) -- couleurs vives$(/li)$(li)$(b)3.$(/b) Geometric (1:30-2:30) -- fractales 2D$(/li)$(li)$(b)4.$(/b) Hyperspace (2:30-4:00) -- 3D, espaces immenses$(/li)$(li)$(b)5.$(/b) PEAK (4:00-5:30) -- entite + musique + voix$(/li)$(li)$(b)4'-1'.$(/b) Retour (5:30-8:00)$(/li)$(li)$(b)Crash$(/b) (8:00-9:00) -- fatigue forcee$(/li)"
+      "text": "$(li)$(l)1.$(/l) Onset (0:00-0:30) -- le monde s'allege$(/li)$(li)$(l)2.$(/l) Saturation (0:30-1:30) -- couleurs vives$(/li)$(li)$(l)3.$(/l) Geometric (1:30-2:30) -- fractales 2D$(/li)$(li)$(l)4.$(/l) Hyperspace (2:30-4:00) -- 3D, espaces immenses$(/li)$(li)$(l)5.$(/l) PEAK (4:00-5:30) -- entite + musique + voix$(/li)$(li)$(l)4'-1'.$(/l) Retour (5:30-8:00)$(/li)$(li)$(l)Crash$(/l) (8:00-9:00) -- fatigue forcee$(/li)"
     },
     {
       "type": "text",
       "title": "Apres",
-      "text": "Si c'est ta $(b)premiere injection$(/b), apres le crash tu seras $(l)teleporte$(/l) vers l'$(d)Age 5$(/d) (DIM 145).$(br2)Tu ouvres les yeux. Le ciel n'a plus la meme texture. L'air n'a plus le meme gout.$(br2)$(o)Voss avait raison sur tout. Sauf sur une chose : on ne sort pas d'une simulation en y pensant fort. On en sort en construisant une usine de 25 multiblocs et en s'injectant du fuel modifie dans les veines.$(/o)$(br)$(o)Bienvenue dans le monde reel, Sujet.$(/o)"
+      "text": "Si c'est ta $(l)premiere injection$(/l), apres le crash tu seras $(l)teleporte$(/l) vers l'$(#248)Age 5$() (DIM 145).$(br2)Tu ouvres les yeux. Le ciel n'a plus la meme texture. L'air n'a plus le meme gout.$(br2)$(o)Voss avait raison sur tout. Sauf sur une chose : on ne sort pas d'une simulation en y pensant fort. On en sort en construisant une usine de 25 multiblocs et en s'injectant du fuel modifie dans les veines.$(/o)$(br)$(o)Bienvenue dans le monde reel, Sujet.$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_iv"

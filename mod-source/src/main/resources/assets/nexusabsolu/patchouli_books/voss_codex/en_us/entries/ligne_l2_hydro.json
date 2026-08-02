@@ -6,17 +6,17 @@
     {
       "type": "text",
       "title": "MB-OSMOSE",
-      "text": "$(b)Osmose Inverse$(/b) -- 3x2x3, 10 blocks including the controller.$(br)$(li)Y=+0: the Machine Controller at the center$(/li)$(li)Y=-1 : 5 casing or hatch, 4 decorative casing$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
+      "text": "$(l)Osmose Inverse$(/l) -- 3x2x3, 10 blocks including the controller.$(br)$(li)Y=+0: the Machine Controller at the center$(/li)$(li)Y=-1 : 5 casing or hatch, 4 decorative casing$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-TRITIUM",
-      "text": "$(b)tritium_breeder$(/b) (3x2x3, 34 blocs) :$(br)Meme layout que osmose_inverse mais avec item input pour Li-6.$(br2)$(c)IMPORTANT$(/c) : doit etre $(b)pres d'un Fission Reactor NC actif$(/b) pour fonctionner ! Sinon pas de flux neutronique = pas de tritium.$(br2)$(o)Recipe : 1 lithium6_ingot + 100mB heavywater -> 10mB tritium + helium4_capsule.$(/o)"
+      "text": "$(l)tritium_breeder$(/l) (3x2x3, 34 blocs) :$(br)Meme layout que osmose_inverse mais avec item input pour Li-6.$(br2)$(#a00)IMPORTANT$() : doit etre $(l)pres d'un Fission Reactor NC actif$(/l) pour fonctionner ! Sinon pas de flux neutronique = pas de tritium.$(br2)$(o)Recipe : 1 lithium6_ingot + 100mB heavywater -> 10mB tritium + helium4_capsule.$(/o)"
     },
     {
       "type": "multiblock",
       "name": "MB-OSMOSE (3x2x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [
@@ -41,7 +41,7 @@
     {
       "type": "multiblock",
       "name": "MB-TRITIUM (3x3x3, pres reactor NC)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [

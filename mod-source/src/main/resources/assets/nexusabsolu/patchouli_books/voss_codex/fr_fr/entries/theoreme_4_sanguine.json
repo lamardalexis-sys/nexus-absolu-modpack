@@ -11,7 +11,7 @@
     {
       "type": "text",
       "title": "Le Tryptamide-M",
-      "text": "$(d)Tryptamide-M$(/d) -- compose fictif propre au lore Manifold. Synthese :$(br)$(li)Naphta + NH3 + Pt-Al2O3 -> $(b)Indole$(/b) (MB-AROMATIC)$(/li)$(li)Indole + NH3 + Acetone + Pd-C -> $(b)Tryptamide-M$(/b) (MB-AROMATIC)$(/li)$(br2)L'amine cle, precurseur direct de la Manifoldine. Composant central de tous les composes alpha/beta/gamma/delta."
+      "text": "$(#248)Tryptamide-M$() -- compose fictif propre au lore Manifold. Synthese :$(br)$(li)Naphta + NH3 + Pt-Al2O3 -> $(l)Indole$(/l) (MB-AROMATIC)$(/li)$(li)Indole + NH3 + Acetone + Pd-C -> $(l)Tryptamide-M$(/l) (MB-AROMATIC)$(/li)$(br2)L'amine cle, precurseur direct de la Manifoldine. Composant central de tous les composes alpha/beta/gamma/delta."
     }
   ],
   "category": "nexusabsolu:vol_iv"

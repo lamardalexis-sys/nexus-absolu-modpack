@@ -6,12 +6,12 @@
     {
       "type": "text",
       "title": "La fissure",
-      "text": "$(o)Le cinquieme theoreme est l'echappee. La fissure dans le mur du monde.$(/o)$(br2)Voss l'a decouvert en exposant du mycelium ordinaire a un flux neutronique intense. Le mycelium $(l)se transforme$(/l). Devient sensible. Devient $(d)mycelium_active$(/d).$(br2)Ce mycelium peut etre broye en $(b)spores_active$(/b), entree du Soxhlet pour la Manifoldine."
+      "text": "$(o)Le cinquieme theoreme est l'echappee. La fissure dans le mur du monde.$(/o)$(br2)Voss l'a decouvert en exposant du mycelium ordinaire a un flux neutronique intense. Le mycelium $(l)se transforme$(/l). Devient sensible. Devient $(#248)mycelium_active$().$(br2)Ce mycelium peut etre broye en $(l)spores_active$(/l), entree du Soxhlet pour la Manifoldine."
     },
     {
       "type": "text",
       "title": "Activation",
-      "text": "Procedure :$(br)$(li)Monter la $(b)Forge Gamma$(/b) (3x3x3, ligne L5)$(/li)$(li)Alimenter en $(b)tritium$(/b) depuis le Tritium Breeder$(/li)$(li)Charger 8 blocs de mycelium ordinaire$(/li)$(li)8000 RF/t pendant 1200 ticks$(/li)$(br2)Sortie : 8x $(d)mycelium_active$(/d). Le broyer ensuite au $(b)Crusher Mekanism$(/b) pour obtenir 8x $(b)spores_active$(/b) par bloc.$(br2)$(o)Le passage par la ligne nucleaire n'est pas decoratif : sans tritium, pas de mycelium, pas de Manifoldine.$(/o)"
+      "text": "Procedure :$(br)$(li)Monter la $(l)Forge Gamma$(/l) (3x3x3, ligne L5)$(/li)$(li)Alimenter en $(l)tritium$(/l) depuis le Tritium Breeder$(/li)$(li)Charger 8 blocs de mycelium ordinaire$(/li)$(li)8000 RF/t pendant 1200 ticks$(/li)$(br2)Sortie : 8x $(#248)mycelium_active$(). Le broyer ensuite au $(l)Crusher Mekanism$(/l) pour obtenir 8x $(l)spores_active$(/l) par bloc.$(br2)$(o)Le passage par la ligne nucleaire n'est pas decoratif : sans tritium, pas de mycelium, pas de Manifoldine.$(/o)"
     }
   ],
   "category": "nexusabsolu:vol_iv"

@@ -6,22 +6,22 @@
     {
       "type": "text",
       "title": "5 multiblocs L8 (le plus de machines)",
-      "text": "$(b)5 multiblocs$(/b) sur cette ligne (la plus complexe) :$(br)$(li)$(d)MB-SOXHLET$(/d) (3x5x3) -- extraction Manifoldine$(/li)$(li)$(d)MB-CYCLO$(/d) (3x5x3 nuit ⭐⭐⭐) -- cyclisation stellaire$(/li)$(li)$(d)MB-EVAPORATOR$(/d) (3x3x3) -- cristallisation$(/li)$(li)$(d)MB-ALAMBIC$(/d) (3x3x3) -- mana distillation$(/li)$(li)$(d)MB-MANA-ENCHANTER$(/d) (3x2x3) -- charge manaique$(/li)"
+      "text": "$(l)5 multiblocs$(/l) sur cette ligne (la plus complexe) :$(br)$(li)$(#248)MB-SOXHLET$() (3x5x3) -- extraction Manifoldine$(/li)$(li)$(#248)MB-CYCLO$() (3x5x3 nuit ⭐⭐⭐) -- cyclisation stellaire$(/li)$(li)$(#248)MB-EVAPORATOR$() (3x3x3) -- cristallisation$(/li)$(li)$(#248)MB-ALAMBIC$() (3x3x3) -- mana distillation$(/li)$(li)$(#248)MB-MANA-ENCHANTER$() (3x2x3) -- charge manaique$(/li)"
     },
     {
       "type": "text",
       "title": "MB-CYCLO (3x5x3) ⭐⭐⭐",
-      "text": "$(b)Cyclisateur Stellaire$(/b) -- 3x5x3, 45 blocs controleur compris.$(br)$(li)Y=+3 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+2 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(li)Y=+1 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
+      "text": "$(l)Cyclisateur Stellaire$(/l) -- 3x5x3, 45 blocs controleur compris.$(br)$(li)Y=+3 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+2 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(li)Y=+1 : 5 casing ou hatch au choix, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-ALAMBIC + MB-MANA-ENCHANTER",
-      "text": "$(b)Alambic Manaique$(/b) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
+      "text": "$(l)Alambic Manaique$(/l) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
       "type": "multiblock",
       "name": "MB-SOXHLET (3x5x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [
@@ -64,7 +64,7 @@
     {
       "type": "multiblock",
       "name": "MB-CYCLO Cyclisateur Stellaire (3x5x3, NUIT)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [
@@ -107,7 +107,7 @@
     {
       "type": "multiblock",
       "name": "MB-EVAPORATOR Cristal Manifoldine (3x3x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [
@@ -140,7 +140,7 @@
     {
       "type": "multiblock",
       "name": "MB-ALAMBIC Manaique (3x3x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [
@@ -173,7 +173,7 @@
     {
       "type": "multiblock",
       "name": "MB-MANA-ENCHANTER (3x2x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [

@@ -6,22 +6,22 @@
     {
       "type": "text",
       "title": "L'importance de L6",
-      "text": "$(c)$(l)L6 EST LE HUB CENTRAL.$(/l)$(/c)$(br2)Si Haber-Bosch s'arrete, $(b)tout$(/b) s'arrete :$(br)$(li)Pas de NH3 -> pas de HNO3$(/li)$(li)Pas de HNO3 -> pas d'Eau Regale$(/li)$(li)Pas d'Eau Regale -> pas de metaux precieux$(/li)$(li)Pas de NH3 -> pas d'Indole/Tryptamide$(/li)$(li)Pas de Tryptamide -> pas de Manifoldine$(/li)$(br2)$(o)Investis dans Haber-Bosch en premier dans L6.$(/o)"
+      "text": "$(#a00)$(l)L6 EST LE HUB CENTRAL.$(/l)$()$(br2)Si Haber-Bosch s'arrete, $(l)tout$(/l) s'arrete :$(br)$(li)Pas de NH3 -> pas de HNO3$(/li)$(li)Pas de HNO3 -> pas d'Eau Regale$(/li)$(li)Pas d'Eau Regale -> pas de metaux precieux$(/li)$(li)Pas de NH3 -> pas d'Indole/Tryptamide$(/li)$(li)Pas de Tryptamide -> pas de Manifoldine$(/li)$(br2)$(o)Investis dans Haber-Bosch en premier dans L6.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-HABER (3x3x3 HUB)",
-      "text": "$(b)Reacteur Haber-Bosch$(/b) -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(/li)$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(/li)$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
+      "text": "$(l)Reacteur Haber-Bosch$(/l) -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(/li)$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(/li)$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "text",
       "title": "MB-OSTWALD + MB-CONTACT",
-      "text": "$(b)Tour Ostwald$(/b) -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(/li)$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(/li)$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
+      "text": "$(l)Tour Ostwald$(/l) -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(/li)$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(/li)$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(/li)$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer.$(/o)"
     },
     {
       "type": "multiblock",
       "name": "MB-HABER Hub Central (3x3x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [
@@ -54,7 +54,7 @@
     {
       "type": "multiblock",
       "name": "MB-OSTWALD Tour HNO3 (3x3x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [
@@ -87,7 +87,7 @@
     {
       "type": "multiblock",
       "name": "MB-CONTACT Tour H2SO4 (3x3x3)",
-      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
+      "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$(/l) (le poser en dernier).$(/o)",
       "multiblock": {
         "pattern": [
           [

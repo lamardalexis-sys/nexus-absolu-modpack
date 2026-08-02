@@ -17,8 +17,8 @@ def describe(m,lang='fr_fr'):
     xs={p['x'] for p in d['parts']}|{0}; ys={p['y'] for p in d['parts']}|{0}; zs={p['z'] for p in d['parts']}|{0}
     dims="%dx%dx%d"%(max(xs)-min(xs)+1,max(ys)-min(ys)+1,max(zs)-min(zs)+1)
     n=len(d['parts'])+1
-    head=(("$(b)%s$(/b) -- %s, %d blocs controleur compris." if lang=='fr_fr'
-           else "$(b)%s$(/b) -- %s, %d blocks including the controller.")
+    head=(("$(l)%s$(/l) -- %s, %d blocs controleur compris." if lang=='fr_fr'
+           else "$(l)%s$(/l) -- %s, %d blocks including the controller.")
           %(d.get('localizedname',m),dims,n))
     lines=[]
     for y in sorted(per,reverse=True):
