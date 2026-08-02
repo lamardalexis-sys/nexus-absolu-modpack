@@ -8,48 +8,59 @@ def _mk(g):  return [''.join(r) for r in g]
 
 # ---------------------------------------------------------------- LINGOT
 def ingot():
-    """Lingot trapezoidal vu de 3/4, facon Thermal Foundation.
-    Trois faces avec une vraie surface a ombrer : le dessus (trapeze), la
-    face avant (bande basse) et le cote droit (bande verticale). Une
-    silhouette seule ne suffit pas -- il faut que chaque face existe."""
+    """Lingot Thermal Foundation, releve au pixel puis porte en 32x32.
+
+    La carte ci-dessous EST celle de ingot_copper, classee en 4 niveaux :
+      O = contour et ombre profonde (luminance ~69 sur 219)
+      C = face eclairee            (~195)
+      m = ton moyen                (~125)
+      d = face sombre              (~95)
+
+    Ce que je n'avais pas compris avant : chez TF le volume ne vient pas
+    d'un dessus + une face avant, mais d'un DEGRADE EN BANDES DIAGONALES
+    qui traverse tout le lingot du coin haut-gauche au coin bas-droit. Et
+    le contour est ferme, 1px, sur tout le pourtour -- y compris en haut.
+    """
+    MAP=[
+    "................................",
+    "................................",
+    "................................",
+    "................................",
+    "....................OOOO........",
+    "....................OOOO........",
+    "..............OOOOOOmmmmOO......",
+    "..............OOOOOOmmmmOO......",
+    "........OOOOOOmmCCCCCCCCmmOO....",
+    "........OOOOOOmmCCCCCCCCmmOO....",
+    "..OOOOOOmmCCCCCCCCCCCCCCCCmmOO..",
+    "..OOOOOOmmCCCCCCCCCCCCCCCCmmOO..",
+    "OOmmCCCCCCCCCCCCCCCCCCddddddddOO",
+    "OOmmCCCCCCCCCCCCCCCCCCddddddddOO",
+    "OOCCmmCCCCCCCCCCddddddmmmmmmmmOO",
+    "OOCCmmCCCCCCCCCCddddddmmmmmmmmOO",
+    "OOCCCCmmCCddddddmmmmmmmmmmddddOO",
+    "OOCCCCmmCCddddddmmmmmmmmmmddddOO",
+    "OOCCCCmmmmmmmmmmmmmmddddddddddOO",
+    "OOCCCCmmmmmmmmmmmmmmddddddddddOO",
+    "OOmmmmmmmmmmmmmmddddddddOOOOOO..",
+    "OOmmmmmmmmmmmmmmddddddddOOOOOO..",
+    "..OOmmmmmmddddddddOOOOOO........",
+    "..OOmmmmmmddddddddOOOOOO........",
+    "....OOmmmmddOOOOOO..............",
+    "....OOmmmmddOOOOOO..............",
+    "......OOOOOO....................",
+    "......OOOOOO....................",
+    "................................",
+    "................................",
+    "................................",
+    "................................",
+    ]
     g=blank(); f=blank()
-    TOP_Y0, TOP_Y1 = 5, 16     # trapeze du dessus
-    H = 7                      # hauteur des flancs
-    XR = 25                    # arete verticale droite
-
-    # Trapeze du dessus : recule vers la droite en montant.
-    edges={}
-    for y in range(TOP_Y0, TOP_Y1+1):
-        t=(y-TOP_Y0)/float(TOP_Y1-TOP_Y0)
-        x0=int(round(15-11*t))         # 15 -> 4
-        x1=int(round(XR+3-3*t))        # 28 -> 25
-        edges[y]=(x0,x1)
-        for x in range(x0,x1+1):
-            g[y][x]='#'; f[y][x]='T'
-
-    # Face avant : sous l'arete inferieure gauche du trapeze.
-    for x in range(32):
-        ys=[y for y in range(32) if f[y][x]=='T']
-        if not ys: continue
-        if x>XR: continue                 # au-dela, c'est le cote droit
-        base=max(ys)
-        for k in range(1,H+1):
-            y=base+k
-            if y<32 and g[y][x]!='#': g[y][x]='#'; f[y][x]='F'
-
-    # Cote droit : bande verticale sous l'arete droite, suit sa pente.
-    for y in range(TOP_Y0,TOP_Y1+1):
-        x1=edges[y][1]
-        for x in range(min(x1+1,31), min(x1+1,31)):
-            pass
-    for y in range(TOP_Y0, TOP_Y1+H+1):
-        # l'arete droite descend en biais : on suit son x
-        yy=min(y,TOP_Y1)
-        x1=edges[yy][1]
-        for x in range(XR-2, x1+1):
-            if 0<=x<32 and g[y][x]!='T' and (f[y][x]!='T'):
-                if g[y][x]=='.' or f[y][x]=='F':
-                    g[y][x]='#'; f[y][x]='R'
+    for y,row in enumerate(MAP):
+        for x,ch in enumerate(row):
+            if ch=='.': continue
+            g[y][x]='#'
+            f[y][x]=ch          # O / C / m / d : le niveau est la face
     return _mk(g),_mk(f)
 
 # ---------------------------------------------------------------- POUDRE

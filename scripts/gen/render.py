@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys, random, os
-sys.path.insert(0,'/home/claude/gen')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from PIL import Image
 import shapes
 from palettes import P
@@ -34,38 +34,36 @@ def render(name, fam, base, accent):
         pts=[(x,y) for y in range(32) for x in range(32) if f[y][x]==_f]
         FB[_f]=(min(p[0] for p in pts),max(p[0] for p in pts),
                 min(p[1] for p in pts),max(p[1] for p in pts)) if pts else (0,1,0,1)
+    del _f
 
     for y in range(32):
         for x in range(32):
             if g[y][x]!='#': continue
-            face=f[y][x] if f[y][x] in FACE else 'F'
-            c=mul(base,FACE[face])
+            raw=f[y][x]
+            # Le lingot porte ses propres niveaux (O/C/m/d releves sur TF),
+            # les autres familles utilisent T/F/R.
+            face = raw if raw in FACE or raw in 'OCmd' else 'F'
+            c = mul(base, FACE[face]) if face in FACE else base
 
             # --- details par famille (gros, lisibles a 32px) ---
             if fam=='ingot':
-                # Chez TF le dessus n'est PAS une bande uniforme : il va du
-                # ton 9 pres de l'arete arriere au ton 1 vers l'avant, et
-                # l'ombre suit la diagonale. C'etait le defaut principal.
-                fx0,fx1,fy0,fy1=FB[face]
-                u=(x-fx0)/max(1,fx1-fx0)
-                v=(y-fy0)/max(1,fy1-fy0)
-                if face=='T':
-                    # gradient diagonal marque sur le dessus
-                    d=(u*0.45+v*0.75)
-                    c=mul(c, 1.34-0.62*d)
-                elif face=='F':
-                    c=mul(c, 1.02-0.30*u-0.16*v)
-                else:
-                    c=mul(c, 0.78-0.18*v)
-                # grain metallique : amas 2x2 deterministes, pas du bruit
+                # Les 4 niveaux releves sur TF ingot_copper. Rapports de
+                # luminance mesures : contour 0.35, sombre 0.49, moyen 0.64,
+                # clair 1.00 (219 = le plus clair de leur texture).
+                if   face=='O': c=mul(base,0.35)
+                elif face=='d': c=mul(base,0.62)
+                elif face=='m': c=mul(base,0.82)
+                else:           c=mul(base,1.20)   # C
+                # L'accent marque le metal : quelques pixels sur la zone
+                # claire, la ou l'oeil se pose.
                 gx,gy=(x//2)*2,(y//2)*2
                 h=(gx*73856093 ^ gy*19349663 ^ SEED)&0xFFFF
                 q=h/65535.0
-                if face=='T':
-                    if q<0.10: c=mix(c,accent,0.60)
-                    elif q<0.17: c=mul(c,0.88)
-                elif q<0.08:
-                    c=mix(c,accent,0.35)
+                if face=='C':
+                    if q<0.16: c=mix(c,shine,0.55)
+                    elif q<0.26: c=mix(c,accent,0.45)
+                elif face=='m' and q<0.10:
+                    c=mix(c,accent,0.30)
             elif fam=='dust':
                 # TF ne bruite pas pixel par pixel : la poudre est faite de
                 # GRAINS groupes. On pose des amas 2x2 a positions fixes
@@ -140,20 +138,9 @@ def render(name, fam, base, accent):
     # le volume vient des faces. Un contour ferme sur une silhouette en
     # escalier suit chaque marche et decoupe la piece en morceaux.
     if fam=='ingot':
-        # Ombre portee UNIQUEMENT sur le bord exterieur bas/droit. Tester
-        # solid(x+1,y) attrape aussi l'escalier interne de l'arete du
-        # trapeze et noircit la moitie du dessus.
-        for y in range(32):
-            for x in range(32):
-                if g[y][x]!='#': continue
-                bottom = not solid(x,y+1)
-                right  = not solid(x+1,y)
-                if bottom or right:
-                    # le bord haut-gauche du dessus reste clair (arete eclairee)
-                    if f[y][x]=='T' and not solid(x,y-1):
-                        px[x,y]=mix(px[x,y][:3],(255,255,255),0.30)+(255,)
-                    else:
-                        px[x,y]=mul(px[x,y][:3],0.70)+(255,)
+        # Rien a faire : le contour fait partie de la carte TF (niveau 'O'),
+        # il est deja pose au bon endroit avec la bonne valeur.
+        pass
     else:
         for y in range(32):
             for x in range(32):
