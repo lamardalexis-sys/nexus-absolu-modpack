@@ -9,7 +9,7 @@
       "text": "$(l)Notes du Dr. Elias Voss$(/l)$(br)$(o)Si tu lis ceci, c'est que tu as franchi le Condenseur Tier 2. Bravo. Le reste sera plus difficile.$(/o)$(br2)Le Portail n'est pas une porte. C'est une autorisation. Une convergence de matiere, d'energie et de volonte. Il s'ouvre — ou il ne s'ouvre pas.$(br2)Tourne la page pour voir la structure complete."
     },
     {
-      "type": "patchouli:multiblock",
+      "type": "multiblock",
       "name": "Portail Voss",
       "text": "$(l)Tourne la souris$(/l) pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(b)9 couches$(/b) du bas vers le haut. Le bloc clignotant = $(b)Ecran de Controle$(/b) (le poser en dernier).",
       "multiblock": {

@@ -19,7 +19,7 @@
       "text": "$(b)Alambic Manaique$(/b) -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(/li)$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(/li)$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(/li)$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche.$(/o)"
     },
     {
-      "type": "patchouli:multiblock",
+      "type": "multiblock",
       "name": "MB-SOXHLET (3x5x3)",
       "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
       "multiblock": {
@@ -62,7 +62,7 @@
       }
     },
     {
-      "type": "patchouli:multiblock",
+      "type": "multiblock",
       "name": "MB-CYCLO Cyclisateur Stellaire (3x5x3, NUIT)",
       "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
       "multiblock": {
@@ -105,7 +105,7 @@
       }
     },
     {
-      "type": "patchouli:multiblock",
+      "type": "multiblock",
       "name": "MB-EVAPORATOR Cristal Manifoldine (3x3x3)",
       "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
       "multiblock": {
@@ -138,7 +138,7 @@
       }
     },
     {
-      "type": "patchouli:multiblock",
+      "type": "multiblock",
       "name": "MB-ALAMBIC Manaique (3x3x3)",
       "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
       "multiblock": {
@@ -171,7 +171,7 @@
       }
     },
     {
-      "type": "patchouli:multiblock",
+      "type": "multiblock",
       "name": "MB-MANA-ENCHANTER (3x2x3)",
       "text": "$(l)Tourne la souris$(/l) pour voir tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(b)Controller$(/b) (le poser en dernier).$(/o)",
       "multiblock": {

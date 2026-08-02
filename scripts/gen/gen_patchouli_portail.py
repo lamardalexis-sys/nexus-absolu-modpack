@@ -32,7 +32,7 @@ n=0
 for p in glob.glob('mod-source/src/main/resources/assets/nexusabsolu/patchouli_books/voss_codex/*/entries/portail_voss.json'):
     d=json.load(open(p,encoding='utf-8')); ch=False
     for pg in d.get('pages',[]):
-        if pg.get('type')=='patchouli:multiblock':
+        if pg.get('type')=='multiblock':
             pg.pop('multiblock_id',None); pg['multiblock']=mb; ch=True
     if ch:
         json.dump(d,open(p,'w',encoding='utf-8'),ensure_ascii=False,indent=2); n+=1
