@@ -1,0 +1,31 @@
+{
+  "_comment": [
+    "Definition canonique de l'Evaporateur de Cristallisation.",
+    "Source de verite unique : lue par le moteur Java (MachineRegistry) et par",
+    "les scripts Python du wiki et du Carnet Voss. Ne jamais dupliquer ces",
+    "donnees ailleurs.",
+    "",
+    "Convention de coordonnees, valable pour toutes les machines :",
+    "  - layers est ordonne du bas vers le haut, y croissant.",
+    "  - dans une couche, rows[0] est la rangee a z = -1, rows[1] a z = 0, etc.",
+    "  - dans une rangee, le caractere 0 est a x = -1, le suivant a x = 0, etc.",
+    "  - le symbole C marque le controleur ; il definit l'origine (0,0,0).",
+    "    Il doit apparaitre exactement une fois dans tout le pattern.",
+    "  - les coordonnees stockees sont LOCALES ; le moteur essaie les quatre",
+    "    rotations autour de l'axe Y a la validation.",
+    "",
+    "Pattern repris a l'identique de config/modularmachinery/machinery/",
+    "evaporator.json, pour que les 52 pages du Carnet Voss restent vraies."
+  ],
+  "id": "evaporator",
+  "archetype": "standard",
+  "name_fr": "Evaporateur Cristallisation",
+  "name_en": "Crystallization Evaporator",
+  "color": "5FD3E0",
+  "controller": "nexusabsolu:evaporator_controller",
+  "layers": [
+    { "y": -1, "rows": ["DFD", "FEF", "DFD"] },
+    { "y":  0, "rows": ["DAD", "ACA", "DAD"] },
+    { "y":  1, "rows": ["DID", "III", "DID"] }
+  ]
+}

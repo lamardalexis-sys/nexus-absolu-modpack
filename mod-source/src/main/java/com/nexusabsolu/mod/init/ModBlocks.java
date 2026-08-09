@@ -25,6 +25,7 @@ import com.nexusabsolu.mod.blocks.machines.BlockFluidInput;
 import com.nexusabsolu.mod.blocks.machines.BlockMachineController;
 import com.nexusabsolu.mod.blocks.machines.BlockItemInput;
 import com.nexusabsolu.mod.blocks.machines.BlockItemOutput;
+import com.nexusabsolu.mod.machines.block.BlockMachineCasing;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 
@@ -107,6 +108,11 @@ public class ModBlocks {
 
     public static void registerItemBlocks(RegistryEvent.Register<Block> event) {
     }
+
+    // === MOTEUR DE MACHINES NEXUS ===
+    // Casing structurel commun aux trente multiblocs. Un seul bloc : c'est le
+    // controleur qui porte l'identite visuelle de la machine.
+    public static final Block MACHINE_CASING = new BlockMachineCasing();
 
     // === CONTROLEURS DE MULTIBLOCS AGE 4 ===
     // Migres depuis ContentTweaker (Age4_L*_Multiblocs.zs).

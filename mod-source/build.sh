@@ -10,6 +10,16 @@ LOG4J_CORE="C:/Users/lamar/.gradle/caches/modules-2/files-2.1/org.apache.logging
 JSR="C:/Users/lamar/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar"
 LWJGL="C:/Users/lamar/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl/2.9.4-nightly-20150209/697517568c68e78ae0b4544145af031c81082dfe/lwjgl-2.9.4-nightly-20150209.jar"
 GUAVA="C:/Users/lamar/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/21.0/3a3d111be1be1b745edfa7d91678a12d7ed38709/guava-21.0.jar"
+# Gson : necessaire pour compiler le moteur de machines, qui lit ses
+# definitions depuis les resources du mod. Minecraft embarque deja gson au
+# runtime, il ne manque qu'a la compilation. Detecte par glob comme netty,
+# pour survivre a un bump de version.
+GSON=$(find "C:/Users/lamar/.gradle/caches" -name "gson-*.jar" -path "*com.google.code.gson*" 2>/dev/null | grep -v sources | head -1)
+if [ -z "$GSON" ]; then
+    echo "ERROR: gson jar introuvable dans les caches gradle"
+    echo "Try: find C:/Users/lamar/.gradle/caches -name 'gson-*.jar'"
+    exit 1
+fi
 MODS_DIR="C:/Users/lamar/curseforge/minecraft/Instances/Nexus Absolu/mods"
 JEI="$MODS_DIR/jei_1.12.2-4.16.1.1013.jar"
 NETTY=$(find "C:/Users/lamar/.gradle/caches" -name "netty-all-*.jar" -path "*/io.netty/*" 2>/dev/null | head -1)
@@ -32,7 +42,7 @@ echo "Modular Machinery : $(basename "$MODULARMACHINERY")"
 SPECIALSOURCE="C:/Users/lamar/.gradle/caches/forge_gradle/maven_downloader/net/md-5/SpecialSource/1.8.3/SpecialSource-1.8.3-shaded.jar"
 SRG="C:/Users/lamar/.gradle/caches/minecraft/de/oceanlabs/mcp/mcp_snapshot/20171003/1.12.2/srgs/mcp-srg.srg"
 
-CP="$FORGE;$LOG4J_API;$LOG4J_CORE;$JSR;$LWJGL;$GUAVA;$JEI;$NETTY;$MODULARMACHINERY"
+CP="$FORGE;$LOG4J_API;$LOG4J_CORE;$JSR;$LWJGL;$GUAVA;$GSON;$JEI;$NETTY;$MODULARMACHINERY"
 
 echo "=== Nexus Absolu Build ==="
 

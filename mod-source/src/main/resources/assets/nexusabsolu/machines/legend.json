@@ -1,0 +1,79 @@
+{
+  "_comment": [
+    "Legende partagee par toutes les definitions de machines Nexus.",
+    "Chaque symbole utilise dans un pattern DOIT figurer ici.",
+    "role : sens fonctionnel du bloc, utilise par le moteur pour classer les ports.",
+    "blocks : identifiants acceptes. Un pattern est valide si le bloc pose",
+    "         appartient a la liste du symbole attendu.",
+    "Les blocs modularmachinery: sont acceptes pendant la periode de bascule,",
+    "afin que les structures deja montees et le Carnet Voss restent valides.",
+    "Ils seront retires de cette liste quand MM sortira du pack."
+  ],
+  "symbols": {
+    "C": {
+      "role": "controller",
+      "name_fr": "controleur de la machine",
+      "name_en": "machine controller",
+      "blocks": []
+    },
+    "D": {
+      "role": "casing",
+      "name_fr": "casing decoratif",
+      "name_en": "decorative casing",
+      "blocks": [
+        "nexusabsolu:machine_casing",
+        "modularmachinery:blockcasing"
+      ]
+    },
+    "A": {
+      "role": "any",
+      "name_fr": "casing ou port au choix",
+      "name_en": "casing or port",
+      "blocks": [
+        "nexusabsolu:machine_casing",
+        "nexusabsolu:item_input",
+        "nexusabsolu:item_output",
+        "nexusabsolu:fluid_input",
+        "nexusabsolu:energy_input",
+        "modularmachinery:blockcasing",
+        "modularmachinery:blockinputbus",
+        "modularmachinery:blockoutputbus",
+        "modularmachinery:blockfluidinputhatch",
+        "modularmachinery:blockfluidoutputhatch",
+        "modularmachinery:blockenergyinputhatch",
+        "modularmachinery:blockenergyoutputhatch"
+      ]
+    },
+    "I": {
+      "role": "port_item",
+      "name_fr": "bus a items",
+      "name_en": "item bus",
+      "blocks": [
+        "nexusabsolu:item_input",
+        "nexusabsolu:item_output",
+        "modularmachinery:blockinputbus",
+        "modularmachinery:blockoutputbus"
+      ]
+    },
+    "F": {
+      "role": "port_fluid",
+      "name_fr": "hatch a fluide",
+      "name_en": "fluid hatch",
+      "blocks": [
+        "nexusabsolu:fluid_input",
+        "modularmachinery:blockfluidinputhatch",
+        "modularmachinery:blockfluidoutputhatch"
+      ]
+    },
+    "E": {
+      "role": "port_energy",
+      "name_fr": "hatch energie",
+      "name_en": "energy hatch",
+      "blocks": [
+        "nexusabsolu:energy_input",
+        "modularmachinery:blockenergyinputhatch",
+        "modularmachinery:blockenergyoutputhatch"
+      ]
+    }
+  }
+}

@@ -36,6 +36,11 @@ public class CommonProxy {
     public static net.minecraft.block.Block DIARRHEE_FLUID_BLOCK;
 
     public void preInit(FMLPreInitializationEvent event) {
+        // Moteur de machines : charge les definitions avant tout le reste.
+        // Les blocs controleurs interrogent ce registre pour savoir s'ils
+        // doivent porter une TileEntity.
+        com.nexusabsolu.mod.machines.MachineRegistry.load();
+
         // Fluid registration
         // NB: enableUniversalBucket() est appele dans le bloc statique de
         // NexusAbsoluMod. Ici il serait trop tard (FluidRegistry deja gele).
@@ -74,11 +79,11 @@ public class CommonProxy {
         // dedie ItemPlongeurVoss en v1.0.325.
         // MinecraftForge.EVENT_BUS.register(
         //     new com.nexusabsolu.mod.events.PSDDescentHandler());
-        // v1.0.329 : MachineVisitTracker — enregistre les CMs visitees par
+        // v1.0.329 : MachineVisitTracker -- enregistre les CMs visitees par
         // le joueur pour alimenter le Localisateur Dimensionnel.
         MinecraftForge.EVENT_BUS.register(
             new com.nexusabsolu.mod.events.MachineVisitTracker());
-        // v1.0.325 (Age 4) : Cartouche Manifold — gestion phases + particules
+        // v1.0.325 (Age 4) : Cartouche Manifold -- gestion phases + particules
         MinecraftForge.EVENT_BUS.register(
             new com.nexusabsolu.mod.events.ManifoldEffectHandler());
         GameRegistry.registerTileEntity(TileCondenseur.class,
@@ -109,6 +114,8 @@ public class CommonProxy {
             new ResourceLocation(Reference.MOD_ID, "machine_krda"));
         GameRegistry.registerTileEntity(com.nexusabsolu.mod.tiles.furnaces.TileFurnaceNexus.class,
             new ResourceLocation(Reference.MOD_ID, "furnace_nexus"));
+        GameRegistry.registerTileEntity(com.nexusabsolu.mod.machines.tile.TileMachineBase.class,
+            new ResourceLocation(Reference.MOD_ID, "machine_base"));
     }
 
     public void init(FMLInitializationEvent event) {

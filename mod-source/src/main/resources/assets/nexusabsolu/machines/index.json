@@ -1,0 +1,13 @@
+{
+  "_comment": [
+    "Liste des definitions de machines a charger. Un jar ne permet pas de",
+    "lister le contenu d'un dossier de facon fiable : cet index est la seule",
+    "source d'enumeration. Toute machine ajoutee dans ce dossier doit y etre",
+    "declaree, sinon elle n'existe pas pour le moteur.",
+    "scripts/check/check_machines.py verifie que l'index et le dossier",
+    "coincident exactement."
+  ],
+  "machines": [
+    "evaporator"
+  ]
+}
