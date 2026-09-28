@@ -6,12 +6,12 @@
     {
       "type": "text",
       "title": "Plans du Portail",
-      "text": "$(l)Notes du Dr. Elias Voss$(/l)$(br)$(o)Si tu lis ceci, c'est que tu as franchi le Condenseur Tier 2. Bravo. Le reste sera plus difficile.$(/o)$(br2)Le Portail n'est pas une porte. C'est une autorisation. Une convergence de matiere, d'energie et de volonte. Il s'ouvre — ou il ne s'ouvre pas.$(br2)Tourne la page pour voir la structure complete."
+      "text": "$(l)Notes du Dr. Elias Voss$()$(br)$(o)Si tu lis ceci, c'est que tu as franchi le Condenseur Tier 2. Bravo. Le reste sera plus difficile.$()$(br2)Le Portail n'est pas une porte. C'est une autorisation. Une convergence de matiere, d'energie et de volonte. Il s'ouvre — ou il ne s'ouvre pas.$(br2)Tourne la page pour voir la structure complete."
     },
     {
       "type": "multiblock",
       "name": "Portail Voss",
-      "text": "$(l)Tourne la souris$(/l) pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$(/l) pour voir une couche a la fois.$(br2)$(l)9 couches$(/l) du bas vers le haut. Le bloc clignotant = $(l)Ecran de Controle$(/l) (le poser en dernier).",
+      "text": "$(l)Tourne la souris$() pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$() pour voir une couche a la fois.$(br2)$(l)9 couches$() du bas vers le haut. Le bloc clignotant = $(l)Ecran de Controle$() (le poser en dernier).",
       "multiblock": {
         "pattern": [
           [
@@ -113,12 +113,12 @@
     {
       "type": "text",
       "title": "Liste de courses",
-      "text": "$(li)29x Nexus Wall$(/li)$(li)39x Nexus Wall T2$(/li)$(li)16x Bloc de Vossium III$(/li)$(li)2x Bloc de Vossium IV$(/li)$(li)1x Energy Input$(/li)$(li)1x Fluid Input$(/li)$(li)4x Bloc de Compose D$(/li)$(li)8x Seau de Lave$(/li)$(li)1x Ecran de Controle (le maitre)$(/li)$(br)$(o)101 blocs au total. La precision est obligatoire.$(/o)"
+      "text": "$(li)29x Nexus Wall$(li)39x Nexus Wall T2$(li)16x Bloc de Vossium III$(li)2x Bloc de Vossium IV$(li)1x Energy Input$(li)1x Fluid Input$(li)4x Bloc de Compose D$(li)8x Seau de Lave$(li)1x Ecran de Controle (le maitre)$(br)$(o)101 blocs au total. La precision est obligatoire."
     },
     {
       "type": "text",
       "title": "Activation",
-      "text": "Une fois la structure assemblee :$(br2)$(l)1.$(/l) Branche un cable RF a l'$(l)Energy Input$(/l) et charge $(#a00)1 000 000 RF$().$(br)$(l)2.$(/l) Branche une pompe a fluide au $(l)Fluid Input$(/l) et remplis-le avec $(#248)10 buckets de Diarrhee Liquide$().$(br)$(l)3.$(/l) Tiens la $(#248)Cle de Liberte$() en main.$(br)$(l)4.$(/l) Clic-droit sur l'$(l)Ecran$(/l).$(br2)$(o)Si tu lis ceci, c'est que tu as reussi la ou j'ai echoue. — E. Voss$(/o)"
+      "text": "Une fois la structure assemblee :$(br2)$(l)1.$() Branche un cable RF a l'$(l)Energy Input$() et charge $(#a00)1 000 000 RF$().$(br)$(l)2.$() Branche une pompe a fluide au $(l)Fluid Input$() et remplis-le avec $(#248)10 buckets de Diarrhee Liquide$().$(br)$(l)3.$() Tiens la $(#248)Cle de Liberte$() en main.$(br)$(l)4.$() Clic-droit sur l'$(l)Ecran$().$(br2)$(o)Si tu lis ceci, c'est que tu as reussi la ou j'ai echoue. — E. Voss"
     }
   ]
 }

@@ -17,20 +17,20 @@ def describe(m,lang='fr_fr'):
     xs={p['x'] for p in d['parts']}|{0}; ys={p['y'] for p in d['parts']}|{0}; zs={p['z'] for p in d['parts']}|{0}
     dims="%dx%dx%d"%(max(xs)-min(xs)+1,max(ys)-min(ys)+1,max(zs)-min(zs)+1)
     n=len(d['parts'])+1
-    head=(("$(l)%s$(/l) -- %s, %d blocs controleur compris." if lang=='fr_fr'
-           else "$(l)%s$(/l) -- %s, %d blocks including the controller.")
+    head=(("$(l)%s$() -- %s, %d blocs controleur compris." if lang=='fr_fr'
+           else "$(l)%s$() -- %s, %d blocks including the controller.")
           %(d.get('localizedname',m),dims,n))
     lines=[]
     for y in sorted(per,reverse=True):
         parts=", ".join("%d %s"%(c,L[k]) for k,c in sorted(per[y].items(),key=lambda x:-x[1]))
-        lines.append("$(li)Y=%+d : %s$(/li)"%(y,parts))
-    ctrl=("$(li)Y=+0 : le Machine Controller au centre$(/li)" if lang=='fr_fr'
-          else "$(li)Y=+0: the Machine Controller at the center$(/li)")
+        lines.append("$(li)Y=%+d : %s"%(y,parts))
+    ctrl=("$(li)Y=+0 : le Machine Controller au centre" if lang=='fr_fr'
+          else "$(li)Y=+0: the Machine Controller at the center")
     if 0 not in per: lines.insert(len(lines)-1 if len(lines)>1 else 0, ctrl)
     tail=("$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, "
-          "maintiens shift pour isoler une couche.$(/o)" if lang=='fr_fr' else
+          "maintiens shift pour isoler une couche." if lang=='fr_fr' else
           "$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold "
-          "shift to isolate one layer.$(/o)")
+          "shift to isolate one layer.")
     return head+"$(br)"+"".join(lines)+tail
 
 ALIAS={'MB-DESA':'vacuum_chamber','MB-HDS':'hds_tower','MB-OSMOSE':'osmose_inverse',

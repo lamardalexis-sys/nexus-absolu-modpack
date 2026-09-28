@@ -17,7 +17,7 @@ import glob,re
 
 REPL = [
     # $(b)...$(/b) : mise en evidence -> gras
-    (re.compile(r'\$\(b\)(.*?)\$\(/b\)', re.S), r'$(l)\1$(/l)'),
+    (re.compile(r'\$\(b\)(.*?)\$\(/b\)', re.S), r'$(l)\1$()'),
     # $(d)...$(/d) : items importants -> bleu sombre
     (re.compile(r'\$\(d\)(.*?)\$\(/d\)', re.S), r'$(#248)\1$()'),
     # $(c)...$(/c)
@@ -26,7 +26,7 @@ REPL = [
     (re.compile(r'\$\(6\)(.*?)\$\(/6\)', re.S), r'$(#a00)\1$()'),
 ]
 # balises orphelines restantes
-ORPHAN = [(re.compile(r'\$\(b\)'), '$(l)'), (re.compile(r'\$\(/b\)'), '$(/l)'),
+ORPHAN = [(re.compile(r'\$\(b\)'), '$(l)'), (re.compile(r'\$\(/b\)'), '$()'),
           (re.compile(r'\$\(d\)'), '$(#248)'), (re.compile(r'\$\(/d\)'), '$()'),
           (re.compile(r'\$\(c\)'), '$(#a00)'), (re.compile(r'\$\(/c\)'), '$()'),
           (re.compile(r'\$\(6\)'), '$(#a00)'), (re.compile(r'\$\(/6\)'), '$()')]

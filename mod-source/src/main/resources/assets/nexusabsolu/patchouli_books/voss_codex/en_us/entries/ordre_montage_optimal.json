@@ -6,32 +6,32 @@
     {
       "type": "text",
       "title": "Why an order",
-      "text": "Twenty-two machines, 564 blocks to place. Start without a plan and you will build a machine that waits forever on something another one has not made yet.$(br2)This order is not an opinion: it comes from the recipe dependency graph. A machine in one wave cannot run until every machine in the previous waves does.$(br2)$(o)Wave 1 is the only entry point. Its inputs come from the crafting table and other mods, not from your machines.$(/o)"
+      "text": "Twenty-two machines, 564 blocks to place. Start without a plan and you will build a machine that waits forever on something another one has not made yet.$(br2)This order is not an opinion: it comes from the recipe dependency graph. A machine in one wave cannot run until every machine in the previous waves does.$(br2)$(o)Wave 1 is the only entry point. Its inputs come from the crafting table and other mods, not from your machines."
     },
     {
       "type": "text",
       "title": "Waves 1 to 4",
-      "text": "$(li)$(#248)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs, 15 M RF$(/li)$(li)$(#248)Cellule Fluorite$() -- 3x3x3, 27 blocs, 84 M RF$(/li)$(li)$(#248)Cellule Hall-Heroult$() -- 3x3x3, 27 blocs, 120 M RF$(/li)$(li)$(#248)Tritium Breeder$() -- 3x2x3, 10 blocs, 1 M RF$(/li)$(li)$(#248)Chambre Sous Vide$() -- 3x2x3, 10 blocs, 2 M RF$(/li)$(li)$(#248)Chambre Lithium-Tritium$() -- 3x2x3, 10 blocs, 9 M RF$(/li)$(li)$(#248)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocs, 9 M RF$(/li)$(li)$(#248)Tour Contact$() -- 3x3x3, 27 blocs, 8 M RF$(/li)"
+      "text": "$(li)$(#248)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs, 15 M RF$(li)$(#248)Cellule Fluorite$() -- 3x3x3, 27 blocs, 84 M RF$(li)$(#248)Cellule Hall-Heroult$() -- 3x3x3, 27 blocs, 120 M RF$(li)$(#248)Tritium Breeder$() -- 3x2x3, 10 blocs, 1 M RF$(li)$(#248)Chambre Sous Vide$() -- 3x2x3, 10 blocs, 2 M RF$(li)$(#248)Chambre Lithium-Tritium$() -- 3x2x3, 10 blocs, 9 M RF$(li)$(#248)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocs, 9 M RF$(li)$(#248)Tour Contact$() -- 3x3x3, 27 blocs, 8 M RF"
     },
     {
       "type": "text",
       "title": "Waves 5 to 8",
-      "text": "$(li)$(#248)Thermal Cracker$() -- 3x3x3, 27 blocs, 13 M RF$(/li)$(li)$(#248)Alloy Smelter$() -- 3x2x3, 10 blocs$(/li)$(li)$(#248)Reacteur Cumene$() -- 3x3x3, 27 blocs, 7 M RF$(/li)$(li)$(#248)Cryo-Distillateur Atmospherique$() -- 3x3x3, 27 blocs, 4 M RF$(/li)$(li)$(#248)Reacteur Haber-Bosch$() -- 3x3x3, 27 blocs, 18 M RF$(/li)"
+      "text": "$(li)$(#248)Thermal Cracker$() -- 3x3x3, 27 blocs, 13 M RF$(li)$(#248)Alloy Smelter$() -- 3x2x3, 10 blocs$(li)$(#248)Reacteur Cumene$() -- 3x3x3, 27 blocs, 7 M RF$(li)$(#248)Cryo-Distillateur Atmospherique$() -- 3x3x3, 27 blocs, 4 M RF$(li)$(#248)Reacteur Haber-Bosch$() -- 3x3x3, 27 blocs, 18 M RF"
     },
     {
       "type": "text",
       "title": "Waves 9 to 11",
-      "text": "$(li)$(#248)Forge Gamma$() -- 3x3x3, 27 blocs, 60 M RF$(/li)$(li)$(#248)Tour Ostwald$() -- 3x3x3, 27 blocs, 8 M RF$(/li)$(li)$(#248)Extracteur Soxhlet$() -- 3x5x3, 45 blocs, 29 M RF$(/li)$(li)$(#248)Reacteur Aromatique$() -- 3x3x3, 27 blocs, 39 M RF$(/li)$(li)$(#248)Cyclisateur Stellaire$() -- 3x5x3, 45 blocs, 60 M RF$(/li)"
+      "text": "$(li)$(#248)Forge Gamma$() -- 3x3x3, 27 blocs, 60 M RF$(li)$(#248)Tour Ostwald$() -- 3x3x3, 27 blocs, 8 M RF$(li)$(#248)Extracteur Soxhlet$() -- 3x5x3, 45 blocs, 29 M RF$(li)$(#248)Reacteur Aromatique$() -- 3x3x3, 27 blocs, 39 M RF$(li)$(#248)Cyclisateur Stellaire$() -- 3x5x3, 45 blocs, 60 M RF"
     },
     {
       "type": "text",
       "title": "Waves 12 to 14",
-      "text": "$(li)$(#248)Cellule Eau Regale$() -- 3x2x3, 10 blocs$(/li)$(li)$(#248)Evaporateur Cristallisation$() -- 3x3x3, 27 blocs, 9 M RF$(/li)$(li)$(#248)Melangeur Cryogenique M1$() -- 3x5x3, 45 blocs, 367 M RF$(/li)$(li)$(#248)Bio-Reacteur Manifold$() -- 3x5x3, 45 blocs, 122 M RF$(/li)"
+      "text": "$(li)$(#248)Cellule Eau Regale$() -- 3x2x3, 10 blocs$(li)$(#248)Evaporateur Cristallisation$() -- 3x3x3, 27 blocs, 9 M RF$(li)$(#248)Melangeur Cryogenique M1$() -- 3x5x3, 45 blocs, 367 M RF$(li)$(#248)Bio-Reacteur Manifold$() -- 3x5x3, 45 blocs, 122 M RF"
     },
     {
       "type": "text",
       "title": "The final moment",
-      "text": "The six compounds come out of M1. The Charged Cartridge is assembled on a crafting table -- the only legitimate table craft at the top of the chain. Then the Bio-Reactor: charged cartridge, Epsilon Solution, 4000 mB of Liquid Starlight, 500 mB of argon, 60 million RF.$(br2)$(o)None of what you built was necessary to produce this object. The factory was not the means. The factory was the measurement.$(/o)"
+      "text": "The six compounds come out of M1. The Charged Cartridge is assembled on a crafting table -- the only legitimate table craft at the top of the chain. Then the Bio-Reactor: charged cartridge, Epsilon Solution, 4000 mB of Liquid Starlight, 500 mB of argon, 60 million RF.$(br2)$(o)None of what you built was necessary to produce this object. The factory was not the means. The factory was the measurement."
     }
   ],
   "category": "nexusabsolu:vol_v"

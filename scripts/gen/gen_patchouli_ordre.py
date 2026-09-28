@@ -52,7 +52,7 @@ rf=collections.defaultdict(int)
 for n,r in R.items():
     if r['m'] in need: rf[r['m']]+=r['e']*r['t']
 
-def li(s): return "$(li)%s$(/li)"%s
+def li(s): return "$(li)%s"%s
 def pages(lang):
     fr = lang=='fr_fr'
     P=[]
@@ -64,13 +64,13 @@ def pages(lang):
         "dependances des recettes. Une machine d'une vague ne peut pas tourner tant que "
         "toutes celles des vagues precedentes ne tournent pas.$(br2)$(o)La vague 1 est le "
         "seul point d'entree. Ses intrants viennent de la table de craft et des autres "
-        "mods, pas d'une de vos machines.$(/o)")%tot) if fr else
+        "mods, pas d'une de vos machines.")%tot) if fr else
         (("Twenty-two machines, %d blocks to place. Start without a plan and you will "
         "build a machine that waits forever on something another one has not made yet."
         "$(br2)This order is not an opinion: it comes from the recipe dependency graph. "
         "A machine in one wave cannot run until every machine in the previous waves does."
         "$(br2)$(o)Wave 1 is the only entry point. Its inputs come from the crafting "
-        "table and other mods, not from your machines.$(/o)")%tot)})
+        "table and other mods, not from your machines.")%tot)})
     grp=[(0,4),(4,8),(8,11),(11,14)]
     for gi,(a,b) in enumerate(grp,1):
         items=[]
@@ -88,13 +88,13 @@ def pages(lang):
         "Bio-Reacteur : cartouche chargee, Solution Epsilon, 4000 mB de Liquid Starlight, "
         "500 mB d'argon, 60 millions de RF.$(br2)$(o)Rien de ce que vous avez construit "
         "n'etait necessaire a la production de cet objet. L'usine n'etait pas le moyen. "
-        "L'usine etait la mesure.$(/o)") if fr else
+        "L'usine etait la mesure.") if fr else
         ("The six compounds come out of M1. The Charged Cartridge is assembled on a "
         "crafting table -- the only legitimate table craft at the top of the chain. Then "
         "the Bio-Reactor: charged cartridge, Epsilon Solution, 4000 mB of Liquid "
         "Starlight, 500 mB of argon, 60 million RF.$(br2)$(o)None of what you built was "
         "necessary to produce this object. The factory was not the means. The factory "
-        "was the measurement.$(/o)")})
+        "was the measurement.")})
     return P
 
 n=0

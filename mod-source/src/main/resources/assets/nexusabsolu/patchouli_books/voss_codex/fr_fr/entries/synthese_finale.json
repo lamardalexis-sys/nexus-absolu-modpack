@@ -6,22 +6,22 @@
     {
       "type": "text",
       "title": "M1 Melangeur Cryogenique",
-      "text": "Sous atmosphere $(#248)Cryotheum$() (-196 deg C), le M1 fusionne les sortants des 7 lignes pour produire les composes finaux :$(br)$(li)$(l)alpha$(/l) -- super-acide stabilise$(/li)$(li)$(l)beta$(/l) -- organometallique Au-PR3$(/li)$(li)$(l)gamma1$(/l) -- UF6 stabilise$(/li)$(li)$(l)gamma2$(/l) -- Pu-Be Borate$(/li)$(li)$(l)gamma3$(/l) -- Tritiure de Lithium$(/li)$(li)$(l)delta$(/l) -- bio-actif Manifoldine$(/li)$(br)6 composes. Cinq theoremes dans chaque atome."
+      "text": "Sous atmosphere $(#248)Cryotheum$() (-196 deg C), le M1 fusionne les sortants des 7 lignes pour produire les composes finaux :$(br)$(li)$(l)alpha$() -- super-acide stabilise$(li)$(l)beta$() -- organometallique Au-PR3$(li)$(l)gamma1$() -- UF6 stabilise$(li)$(l)gamma2$() -- Pu-Be Borate$(li)$(l)gamma3$() -- Tritiure de Lithium$(li)$(l)delta$() -- bio-actif Manifoldine$(br)6 composes. Cinq theoremes dans chaque atome."
     },
     {
       "type": "text",
       "title": "Le Casing",
-      "text": "L'enveloppe finale s'appelle $(#248)Casing Titane-Iridium$(). Recette shaped :$(br)$(li)4x Titanium pur (L4 Kroll)$(/li)$(li)4x Iridium pur 99 (L4 Aqua Regia)$(/li)$(li)1x Bloc de Cryolithe (centre, isolation)$(/li)$(li)1x Cartouche Vide (pour le receptacle)$(/li)$(br2)Resistance haute pression. Transparence pour fenetre Quantum Glass. Stabilite chimique sous Manifoldine active."
+      "text": "L'enveloppe finale s'appelle $(#248)Casing Titane-Iridium$(). Recette shaped :$(br)$(li)4x Titanium pur (L4 Kroll)$(li)4x Iridium pur 99 (L4 Aqua Regia)$(li)1x Bloc de Cryolithe (centre, isolation)$(li)1x Cartouche Vide (pour le receptacle)$(br2)Resistance haute pression. Transparence pour fenetre Quantum Glass. Stabilite chimique sous Manifoldine active."
     },
     {
       "type": "text",
       "title": "Cartouche Chargee",
-      "text": "Assemblage shaped 3x3 -- les cinq theoremes convergent :$(br)$(li)alpha + Tryptamide-M capsule + beta$(/li)$(li)gamma2 + Casing + gamma3$(/li)$(li)delta + Matrix Pigmentary + gamma1$(/li)$(br2)Resultat : 1 $(#248)Cartouche Chargee$() -- objet a moitie inerte. Il manque l'arme."
+      "text": "Assemblage shaped 3x3 -- les cinq theoremes convergent :$(br)$(li)alpha + Tryptamide-M capsule + beta$(li)gamma2 + Casing + gamma3$(li)delta + Matrix Pigmentary + gamma1$(br2)Resultat : 1 $(#248)Cartouche Chargee$() -- objet a moitie inerte. Il manque l'arme."
     },
     {
       "type": "text",
       "title": "Bio-Reacteur Manifold",
-      "text": "Recette finale dans le $(l)Bio-Reacteur$(/l) (3x5x3) :$(br)$(li)1 Cartouche Chargee$(/li)$(li)1000mB Solution Epsilon$(/li)$(li)4000mB Liquid Starlight$(/li)$(li)500mB Argon$(/li)$(li)100k RF/t pendant 30s$(/li)$(br2)Output : $(#248)CARTOUCHE MANIFOLD$(). Le serum est vivant. Il pulse.$(br2)$(o)Si tu lis ceci avec la cartouche dans la main, ferme le carnet. Tu n'auras plus besoin de mes notes.$(/o)"
+      "text": "Recette finale dans le $(l)Bio-Reacteur$() (3x5x3) :$(br)$(li)1 Cartouche Chargee$(li)1000mB Solution Epsilon$(li)4000mB Liquid Starlight$(li)500mB Argon$(li)100k RF/t pendant 30s$(br2)Output : $(#248)CARTOUCHE MANIFOLD$(). Le serum est vivant. Il pulse.$(br2)$(o)Si tu lis ceci avec la cartouche dans la main, ferme le carnet. Tu n'auras plus besoin de mes notes."
     }
   ],
   "category": "nexusabsolu:vol_iv"
