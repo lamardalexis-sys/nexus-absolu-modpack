@@ -24,6 +24,7 @@ Idempotent : sur un texte deja corrige il ne trouve plus rien a faire.
 """
 import glob
 import json
+import os
 import re
 import sys
 
@@ -77,21 +78,34 @@ def fix_text(text):
     return ''.join(out), n
 
 
+def texts_of(data, path):
+    """Champs de texte Patchouli d'un fichier du livre : (objet, cle)."""
+    name = os.path.basename(path)
+    if name == 'book.json':
+        return [(data, 'landing_text')] if 'landing_text' in data else []
+    if os.sep + 'categories' + os.sep in path or '/categories/' in path:
+        return [(data, 'description')] if 'description' in data else []
+    return [(p, 'text') for p in data.get('pages', []) if 'text' in p]
+
+
+def book_files():
+    return ([BOOK + '/book.json'] + sorted(glob.glob(BOOK + '/*/categories/*.json'))
+            + sorted(glob.glob(BOOK + '/*/entries/*.json')))
+
+
 def main(check):
     total = 0
     files = 0
-    for path in sorted(glob.glob(BOOK + '/*/entries/*.json')):
+    for path in book_files():
         with open(path, encoding='utf-8') as f:
             raw = f.read()
         data = json.loads(raw)
         changed = False
-        for page in data.get('pages', []):
-            if 'text' not in page:
-                continue
-            fixed, n = fix_text(page['text'])
+        for obj, key in texts_of(data, path):
+            fixed, n = fix_text(obj[key])
             if n:
                 total += n
-                page['text'] = fixed
+                obj[key] = fixed
                 changed = True
         if changed:
             files += 1
