@@ -11,7 +11,7 @@
     {
       "type": "text",
       "title": "MB-KROLL etroit",
-      "text": "$(l)Reacteur Kroll$() -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche."
+      "text": "$(l)Reacteur Kroll$() -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(br2)$(o)La structure en 3D suit, plus loin dans cette entree."
     },
     {
       "type": "text",

@@ -11,12 +11,12 @@
     {
       "type": "text",
       "title": "MB-CK Layout",
-      "text": "$(l)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs controleur compris.$(br)$(li)Y=+0 : le Machine Controller au centre$(li)Y=-1 : 5 casing ou hatch au choix, 4 casing decoratif$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche."
+      "text": "$(l)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs controleur compris.$(br)$(li)Y=+0 : le Machine Controller au centre$(li)Y=-1 : 5 casing ou hatch au choix, 4 casing decoratif$(br2)$(o)La structure en 3D suit, plus loin dans cette entree."
     },
     {
       "type": "text",
       "title": "MB-FOUR-ELEC",
-      "text": "$(l)Four Electrique HT$() -- 3x2x3, 10 blocs controleur compris.$(br)$(li)Y=+0 : le Machine Controller au centre$(li)Y=-1 : 5 casing ou hatch au choix, 4 casing decoratif$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, maintiens shift pour isoler une couche."
+      "text": "$(l)Four Electrique HT$() -- 3x2x3, 10 blocs controleur compris.$(br)$(li)Y=+0 : le Machine Controller au centre$(li)Y=-1 : 5 casing ou hatch au choix, 4 casing decoratif$(br2)$(o)La structure en 3D suit, plus loin dans cette entree."
     },
     {
       "type": "multiblock",

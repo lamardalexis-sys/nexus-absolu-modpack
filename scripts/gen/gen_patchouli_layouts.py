@@ -27,10 +27,10 @@ def describe(m,lang='fr_fr'):
     ctrl=("$(li)Y=+0 : le Machine Controller au centre" if lang=='fr_fr'
           else "$(li)Y=+0: the Machine Controller at the center")
     if 0 not in per: lines.insert(len(lines)-1 if len(lines)>1 else 0, ctrl)
-    tail=("$(br2)$(o)La page suivante montre la structure en 3D. Tourne la souris, "
-          "maintiens shift pour isoler une couche." if lang=='fr_fr' else
-          "$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold "
-          "shift to isolate one layer.")
+    # Pas de "page suivante" : le decoupage des pages trop longues deplace les
+    # multiblocs. La souris et shift sont expliques dans la legende du rendu.
+    tail=("$(br2)$(o)La structure en 3D suit, plus loin dans cette entree." if lang=='fr_fr' else
+          "$(br2)$(o)The 3D view of the structure follows later in this entry.")
     return head+"$(br)"+"".join(lines)+tail
 
 ALIAS={'MB-DESA':'vacuum_chamber','MB-HDS':'hds_tower','MB-OSMOSE':'osmose_inverse',
@@ -42,6 +42,15 @@ ALIAS={'MB-DESA':'vacuum_chamber','MB-HDS':'hds_tower','MB-OSMOSE':'osmose_inver
 'MB-SOXHLET':'soxhlet_extractor','MB-CYCLO':'cyclisateur_stellaire',
 'MB-CYCLISATEUR':'cyclisateur_stellaire','MB-EVAPORATOR':'evaporator',
 'MB-ALAMBIC':'alambic_manaic','MB-MANA-ENCHANTER':'mana_enchanter','M1':'melangeur_cryogenique'}
+
+# Le texte genere commence par "$(l)<nom de la machine>$()" : c'est l'ancre
+# la plus sure pour retrouver une page deja generee, les alias MB-... ne
+# survivent pas a une premiere regeneration.
+HEAD={}
+for _p in glob.glob('config/modularmachinery/machinery/*.json'):
+    _d=json.load(open(_p))
+    if _d.get('localizedname'):
+        HEAD['$(l)%s$()'%_d['localizedname']]=os.path.basename(_p)[:-5]
 
 Y=re.compile(r'Y=[-+]?\d')
 tot=0; files=0
@@ -55,6 +64,8 @@ for lang in ('fr_fr','en_us'):
             if len(Y.findall(t))<2: continue
             hay=(pg.get('title') or '')+' '+t
             best=None
+            for k,v in HEAD.items():
+                if t.startswith(k): best=(-1,v)
             for k,v in ALIAS.items():
                 i=hay.find(k)
                 if i>=0 and (best is None or i<best[0]): best=(i,v)

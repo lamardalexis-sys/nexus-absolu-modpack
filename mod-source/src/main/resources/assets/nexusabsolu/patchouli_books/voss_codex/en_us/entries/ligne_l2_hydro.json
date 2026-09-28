@@ -6,7 +6,7 @@
     {
       "type": "text",
       "title": "MB-OSMOSE",
-      "text": "$(l)Osmose Inverse$() -- 3x2x3, 10 blocks including the controller.$(br)$(li)Y=+0: the Machine Controller at the center$(li)Y=-1 : 5 casing or hatch, 4 decorative casing$(br2)$(o)The next page shows the structure in 3D. Drag to rotate, hold shift to isolate one layer."
+      "text": "$(l)Osmose Inverse$() -- 3x2x3, 10 blocks including the controller.$(br)$(li)Y=+0: the Machine Controller at the center$(li)Y=-1 : 5 casing or hatch, 4 decorative casing$(br2)$(o)The 3D view of the structure follows later in this entry."
     },
     {
       "type": "text",
