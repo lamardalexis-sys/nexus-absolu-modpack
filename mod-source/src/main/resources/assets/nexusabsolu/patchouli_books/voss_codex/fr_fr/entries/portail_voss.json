@@ -118,7 +118,15 @@
     {
       "type": "text",
       "title": "Activation",
-      "text": "Une fois la structure assemblee :$(br2)$(l)1.$() Branche un cable RF a l'$(l)Energy Input$() et charge $(#a00)1 000 000 RF$().$(br)$(l)2.$() Branche une pompe a fluide au $(l)Fluid Input$() et remplis-le avec $(#248)10 buckets de Diarrhee Liquide$().$(br)$(l)3.$() Tiens la $(#248)Cle de Liberte$() en main.$(br)$(l)4.$() Clic-droit sur l'$(l)Ecran$().$(br2)$(o)Si tu lis ceci, c'est que tu as reussi la ou j'ai echoue. — E. Voss"
+      "text": "Une fois la structure assemblee :$(br2)$(l)1.$() Branche un cable RF a l'$(l)Energy Input$() et charge $(#a00)1 000 000 RF$().$(br)$(l)2.$() Branche une pompe a fluide au $(l)Fluid Input$() et remplis-le avec $(#248)10 buckets de Diarrhee Liquide$().$(br)$(l)3.$() Tiens la $(#248)Cle de Liberte$() en main.$(br)$(l)4.$() Clic-droit sur l'$(l)Ecran$()."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Si tu lis ceci, c'est que tu as reussi la ou j'ai echoue. — E. Voss",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     }
   ]
 }

@@ -32,3 +32,42 @@ Une nouvelle famille = une fonction dans `shapes.py` qui rend une grille
 Repris de `LINGOT-TEXTURE.md` : les faces se distinguent par des bords
 **durs**, pas par un degrade continu — c'est ce qui fait lire le volume a
 32 pixels. Le contour reste fin (1px) sinon il mange la forme.
+
+---
+
+# Carnet Voss (Patchouli) — mise en page
+
+Patchouli 1.12.2 ne pagine pas et ne tronque pas : un texte trop long est
+dessiné sous la page, hors du parchemin. Ces scripts le mesurent hors jeu.
+
+- `patchouli_layout.py` — portage de `BookTextParser` et `TextLayouter`.
+  Source unique du découpage et du contrôle.
+- `font_widths.json` — largeurs de la police **unicode** (le Carnet n'a pas
+  `use_blocky_font`), extraites par `extract_font_widths.py`.
+- `BreakPoints.java` — coupures de ligne du vrai `java.text.BreakIterator`.
+  Il faut un JDK : `PATH`, `JAVA_HOME` ou `NEXUS_JAVA_HOME`. Java 8 de
+  préférence, celui du jeu.
+- `split_patchouli_pages.py` — coupe les pages trop longues. Les pages de
+  suite n'ont pas de titre et portent `"nexus_suite": {sep, reprise}`, que
+  Patchouli ignore et qui sert à recoller exactement.
+- `fix_patchouli_closers.py` — Patchouli n'a **pas** de balises fermantes de
+  style : `$(/l)` ferme un lien, `$(/o)` et `$(/li)` n'existent pas. Seul
+  `$()` remet le style à zéro.
+- `../check/check_patchouli_overflow.py` — le contrôle.
+
+Budgets : 14 lignes en page 0 d'une entrée (le nom de l'entrée est dessiné,
+pas le `title` de la page), 16 avec titre, 17 sans, 4 sous un multibloc.
+
+## Quand on régénère des pages
+
+    python3 scripts/gen/split_patchouli_pages.py --merge-only
+    python3 scripts/gen/gen_patchouli_layouts.py      # ou tout autre générateur
+    python3 scripts/gen/split_patchouli_pages.py
+    python3 scripts/check/check_patchouli_overflow.py
+
+Le `--merge-only` n'est pas optionnel : les générateurs repèrent leurs pages
+à leur contenu, et sur une page coupée ils n'en trouveraient qu'une moitié.
+
+Vérifier une fois la table de police contre le vrai jar :
+
+    python3 scripts/gen/extract_font_widths.py --verify <minecraft-1.12.2.jar>

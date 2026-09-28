@@ -11,7 +11,15 @@
     {
       "type": "text",
       "title": "Activation",
-      "text": "Procedure :$(br)$(li)Monter la $(l)Forge Gamma$() (3x3x3, ligne L5)$(li)Alimenter en $(l)tritium$() depuis le Tritium Breeder$(li)Charger 8 blocs de mycelium ordinaire$(li)8000 RF/t pendant 1200 ticks$(br2)Sortie : 8x $(#248)mycelium_active$(). Le broyer ensuite au $(l)Crusher Mekanism$() pour obtenir 8x $(l)spores_active$() par bloc.$(br2)$(o)Le passage par la ligne nucleaire n'est pas decoratif : sans tritium, pas de mycelium, pas de Manifoldine."
+      "text": "Procedure :$(br)$(li)Monter la $(l)Forge Gamma$() (3x3x3, ligne L5)$(li)Alimenter en $(l)tritium$() depuis le Tritium Breeder$(li)Charger 8 blocs de mycelium ordinaire$(li)8000 RF/t pendant 1200 ticks$(br2)Sortie : 8x $(#248)mycelium_active$(). Le broyer ensuite au $(l)Crusher Mekanism$() pour obtenir 8x $(l)spores_active$() par bloc."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Le passage par la ligne nucleaire n'est pas decoratif : sans tritium, pas de mycelium, pas de Manifoldine.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     }
   ],
   "category": "nexusabsolu:vol_iv"

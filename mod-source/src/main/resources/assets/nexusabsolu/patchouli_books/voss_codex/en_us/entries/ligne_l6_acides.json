@@ -6,7 +6,15 @@
     {
       "type": "text",
       "title": "L'importance de L6",
-      "text": "$(#a00)$(l)L6 EST LE HUB CENTRAL.$()$(br2)Si Haber-Bosch s'arrete, $(l)tout$() s'arrete :$(br)$(li)Pas de NH3 -> pas de HNO3$(li)Pas de HNO3 -> pas d'Eau Regale$(li)Pas d'Eau Regale -> pas de metaux precieux$(li)Pas de NH3 -> pas d'Indole/Tryptamide$(li)Pas de Tryptamide -> pas de Manifoldine$(br2)$(o)Investis dans Haber-Bosch en premier dans L6."
+      "text": "$(#a00)$(l)L6 EST LE HUB CENTRAL.$()$(br2)Si Haber-Bosch s'arrete, $(l)tout$() s'arrete :$(br)$(li)Pas de NH3 -> pas de HNO3$(li)Pas de HNO3 -> pas d'Eau Regale$(li)Pas d'Eau Regale -> pas de metaux precieux$(li)Pas de NH3 -> pas d'Indole/Tryptamide$(li)Pas de Tryptamide -> pas de Manifoldine"
+    },
+    {
+      "type": "text",
+      "text": "$(o)Investis dans Haber-Bosch en premier dans L6.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",

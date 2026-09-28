@@ -6,7 +6,15 @@
     {
       "type": "text",
       "title": "Avant",
-      "text": "$(o)Tu sors la cartouche. Tu enleves l'opercule. Tu places le sertisseur sur ton avant-bras gauche. Tu inspires profondement.$()$(br2)Le $(#248)cooldown est de 10 minutes$(). Pas deux fois. Si tu rates, tu attends.$(br2)Le trip dure $(l)8 minutes$() en 9 stages. Le crash dure 1 minute supplementaire. Pendant le crash, tu es paralyse. Tu es vulnerable. $(l)Place-toi en securite avant."
+      "text": "$(o)Tu sors la cartouche. Tu enleves l'opercule. Tu places le sertisseur sur ton avant-bras gauche. Tu inspires profondement.$()$(br2)Le $(#248)cooldown est de 10 minutes$(). Pas deux fois. Si tu rates, tu attends."
+    },
+    {
+      "type": "text",
+      "text": "Le trip dure $(l)8 minutes$() en 9 stages. Le crash dure 1 minute supplementaire. Pendant le crash, tu es paralyse. Tu es vulnerable. $(l)Place-toi en securite avant.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
@@ -16,7 +24,15 @@
     {
       "type": "text",
       "title": "Apres",
-      "text": "Si c'est ta $(l)premiere injection$(), apres le crash tu seras $(l)teleporte$() vers l'$(#248)Age 5$() (DIM 145).$(br2)Tu ouvres les yeux. Le ciel n'a plus la meme texture. L'air n'a plus le meme gout.$(br2)$(o)Voss avait raison sur tout. Sauf sur une chose : on ne sort pas d'une simulation en y pensant fort. On en sort en construisant une usine de 25 multiblocs et en s'injectant du fuel modifie dans les veines.$()$(br)$(o)Bienvenue dans le monde reel, Sujet."
+      "text": "Si c'est ta $(l)premiere injection$(), apres le crash tu seras $(l)teleporte$() vers l'$(#248)Age 5$() (DIM 145).$(br2)Tu ouvres les yeux. Le ciel n'a plus la meme texture. L'air n'a plus le meme gout."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Voss avait raison sur tout. Sauf sur une chose : on ne sort pas d'une simulation en y pensant fort. On en sort en construisant une usine de 25 multiblocs et en s'injectant du fuel modifie dans les veines.$()$(br)$(o)Bienvenue dans le monde reel, Sujet.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     }
   ],
   "category": "nexusabsolu:vol_iv"

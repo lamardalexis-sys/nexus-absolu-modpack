@@ -16,7 +16,15 @@
     {
       "type": "text",
       "title": "M2 Bio-Reacteur (deja en place)",
-      "text": "$(l)Bio-Reacteur$() (3x5x3, ~83 blocs) -- la machine d'armement final :$(br)Existe deja, voir Carnet Vol IV ou tu as deja construit pour les recipes precedentes.$(br2)$(l)2 recipes critiques$() :$(br)$(li)bio_solution_epsilon_synthesis : alpha+beta+gamma3+delta+argon -> Solution Epsilon$(li)bio_cartouche_manifold_armement ⭐ : cartouche_chargee + epsilon + starlight + argon -> $(#248)CARTOUCHE MANIFOLD$()$(br2)$(#a00)100k RF/t pendant 30s pour l'armement final.$()"
+      "text": "$(l)Bio-Reacteur$() (3x5x3, ~83 blocs) -- la machine d'armement final :$(br)Existe deja, voir Carnet Vol IV ou tu as deja construit pour les recipes precedentes.$(br2)$(l)2 recipes critiques$() :$(br)$(li)bio_solution_epsilon_synthesis : alpha+beta+gamma3+delta+argon -> Solution Epsilon$(li)bio_cartouche_manifold_armement ⭐ : cartouche_chargee + epsilon + starlight + argon -> $(#248)CARTOUCHE MANIFOLD$()"
+    },
+    {
+      "type": "text",
+      "text": "$(#a00)100k RF/t pendant 30s pour l'armement final.$()",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "multiblock",

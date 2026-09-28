@@ -6,7 +6,15 @@
     {
       "type": "text",
       "title": "Rien ne se perd",
-      "text": "$(o)Le premier theoreme est le plus simple. Le plus terrible aussi.$()$(br2)Dans la simulation, tout atome est trace. Chaque molecule est comptee. C'est par la $(l)conservation absolue$() que la simulation se trahit.$(br2)Pour le prouver : tu vas $(l)distiller l'eau jusqu'a sa forme pure$(). Pas l'eau filtree. Pas l'eau bouillie. L'eau $(#248)tridistillee$(). H2O sans le moindre ion etranger."
+      "text": "$(o)Le premier theoreme est le plus simple. Le plus terrible aussi.$()$(br2)Dans la simulation, tout atome est trace. Chaque molecule est comptee. C'est par la $(l)conservation absolue$() que la simulation se trahit."
+    },
+    {
+      "type": "text",
+      "text": "Pour le prouver : tu vas $(l)distiller l'eau jusqu'a sa forme pure$(). Pas l'eau filtree. Pas l'eau bouillie. L'eau $(#248)tridistillee$(). H2O sans le moindre ion etranger.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",

@@ -6,12 +6,28 @@
     {
       "type": "text",
       "title": "Why an order",
-      "text": "Twenty-two machines, 564 blocks to place. Start without a plan and you will build a machine that waits forever on something another one has not made yet.$(br2)This order is not an opinion: it comes from the recipe dependency graph. A machine in one wave cannot run until every machine in the previous waves does.$(br2)$(o)Wave 1 is the only entry point. Its inputs come from the crafting table and other mods, not from your machines."
+      "text": "Twenty-two machines, 564 blocks to place. Start without a plan and you will build a machine that waits forever on something another one has not made yet.$(br2)This order is not an opinion: it comes from the recipe dependency graph. A machine in one wave cannot run until every machine in the previous waves does."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Wave 1 is the only entry point. Its inputs come from the crafting table and other mods, not from your machines.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
       "title": "Waves 1 to 4",
-      "text": "$(li)$(#248)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs, 15 M RF$(li)$(#248)Cellule Fluorite$() -- 3x3x3, 27 blocs, 84 M RF$(li)$(#248)Cellule Hall-Heroult$() -- 3x3x3, 27 blocs, 120 M RF$(li)$(#248)Tritium Breeder$() -- 3x2x3, 10 blocs, 1 M RF$(li)$(#248)Chambre Sous Vide$() -- 3x2x3, 10 blocs, 2 M RF$(li)$(#248)Chambre Lithium-Tritium$() -- 3x2x3, 10 blocs, 9 M RF$(li)$(#248)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocs, 9 M RF$(li)$(#248)Tour Contact$() -- 3x3x3, 27 blocs, 8 M RF"
+      "text": "$(li)$(#248)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs, 15 M RF$(li)$(#248)Cellule Fluorite$() -- 3x3x3, 27 blocs, 84 M RF$(li)$(#248)Cellule Hall-Heroult$() -- 3x3x3, 27 blocs, 120 M RF$(li)$(#248)Tritium Breeder$() -- 3x2x3, 10 blocs, 1 M RF$(li)$(#248)Chambre Sous Vide$() -- 3x2x3, 10 blocs, 2 M RF$(li)$(#248)Chambre Lithium-Tritium$() -- 3x2x3, 10 blocs, 9 M RF$(li)$(#248)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocs, 9 M RF"
+    },
+    {
+      "type": "text",
+      "text": "$(li)$(#248)Tour Contact$() -- 3x3x3, 27 blocs, 8 M RF",
+      "nexus_suite": {
+        "sep": "",
+        "reprise": ""
+      }
     },
     {
       "type": "text",

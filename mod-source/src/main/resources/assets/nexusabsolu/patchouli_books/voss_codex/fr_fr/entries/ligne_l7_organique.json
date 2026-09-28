@@ -11,7 +11,15 @@
     {
       "type": "text",
       "title": "MB-AROMATIC (cle pour Manifoldine)",
-      "text": "$(l)Reacteur Aromatique$() -- celui qui produit le $(#248)Tryptamide-M$(), input critique du Cyclisateur Stellaire (L8) :$(br)$(li)3x5x3 standard$(li)2 recipes : indole_synthesis ET tryptamide_m_synthesis$(br2)Tu fais l'indole en premier (naphtha + NH3 + Pt-Al2O3), puis tryptamide-M dans la MEME machine (indole + NH3 + acetone + Pd-C).$(br2)$(o)Sans Tryptamide-M, pas de Manifoldine. Sans Manifoldine, pas de Cartouche."
+      "text": "$(l)Reacteur Aromatique$() -- celui qui produit le $(#248)Tryptamide-M$(), input critique du Cyclisateur Stellaire (L8) :$(br)$(li)3x5x3 standard$(li)2 recipes : indole_synthesis ET tryptamide_m_synthesis$(br2)Tu fais l'indole en premier (naphtha + NH3 + Pt-Al2O3), puis tryptamide-M dans la MEME machine (indole + NH3 + acetone + Pd-C)."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Sans Tryptamide-M, pas de Manifoldine. Sans Manifoldine, pas de Cartouche.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",

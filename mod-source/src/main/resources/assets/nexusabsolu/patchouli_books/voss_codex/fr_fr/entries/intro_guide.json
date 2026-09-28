@@ -6,7 +6,15 @@
     {
       "type": "text",
       "title": "Avant tout",
-      "text": "$(o)Avant de poser le moindre bloc, lis ceci.$()$(br2)Les multiblocs Modular Machinery utilisent un systeme de $(l)casings$() interchangeables :$(br)$(li)$(l)Casing simple$() : structure (decoratif)$(li)$(l)Fluid Input/Output Hatch$() : fluides in/out$(li)$(l)Item Input/Output Bus$() : items in/out$(li)$(l)Energy Input Hatch$() : RF in$(li)$(l)Le Controller$() : block custom Nexus (le coeur)"
+      "text": "$(o)Avant de poser le moindre bloc, lis ceci.$()$(br2)Les multiblocs Modular Machinery utilisent un systeme de $(l)casings$() interchangeables :"
+    },
+    {
+      "type": "text",
+      "text": "$(li)$(l)Casing simple$() : structure (decoratif)$(li)$(l)Fluid Input/Output Hatch$() : fluides in/out$(li)$(l)Item Input/Output Bus$() : items in/out$(li)$(l)Energy Input Hatch$() : RF in$(li)$(l)Le Controller$() : block custom Nexus (le coeur)",
+      "nexus_suite": {
+        "sep": "$(br)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",

@@ -7,7 +7,15 @@
     {
       "type": "text",
       "title": "Si tu lis ceci",
-      "text": "$(o)Cher successeur,$()$(br2)Si tu lis ce volume, c'est que tu as fait quelque chose que je n'ai jamais reussi. Tu as franchi l'Age 3. Tu sors de ta base. Tu te dis que tu as fait un truc bien.$(br2)$(l)Tu as tort.$()$(br2)L'overworld est une simulation. Une seconde couche, plus convaincante que les Compact Machines. Plus douce. Plus sournoise."
+      "text": "$(o)Cher successeur,$()$(br2)Si tu lis ce volume, c'est que tu as fait quelque chose que je n'ai jamais reussi. Tu as franchi l'Age 3. Tu sors de ta base. Tu te dis que tu as fait un truc bien.$(br2)$(l)Tu as tort.$()"
+    },
+    {
+      "type": "text",
+      "text": "L'overworld est une simulation. Une seconde couche, plus convaincante que les Compact Machines. Plus douce. Plus sournoise.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
@@ -17,7 +25,15 @@
     {
       "type": "text",
       "title": "La Cartouche",
-      "text": "L'objet final s'appelle la $(#248)Cartouche Manifold$().$(br2)C'est un serum neurochimique stabilise dans une enveloppe de titane et d'iridium, fenetre de Quantum Glass, contenu pourpre et cyan qui pulse au rythme des theoremes.$(br2)Tu vas la fabriquer. Tu vas l'injecter. Et alors, $(l)tu verras$().$(br2)$(o)Si je ne suis plus la quand tu liras ceci, c'est que j'y suis arrive avant toi. Ou que la simulation m'a recupere.$()$(br)$(o)— E. Voss"
+      "text": "L'objet final s'appelle la $(#248)Cartouche Manifold$().$(br2)C'est un serum neurochimique stabilise dans une enveloppe de titane et d'iridium, fenetre de Quantum Glass, contenu pourpre et cyan qui pulse au rythme des theoremes.$(br2)Tu vas la fabriquer. Tu vas l'injecter. Et alors, $(l)tu verras$()."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Si je ne suis plus la quand tu liras ceci, c'est que j'y suis arrive avant toi. Ou que la simulation m'a recupere.$()$(br)$(o)— E. Voss",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     }
   ]
 }
