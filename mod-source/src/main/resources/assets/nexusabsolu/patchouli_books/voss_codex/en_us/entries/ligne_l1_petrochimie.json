@@ -16,7 +16,7 @@
     {
       "type": "multiblock",
       "name": "MB-DESA Chambre Sous Vide (3x2x3)",
-      "text": "$(l)Tourne la souris$() pour voir tous les angles.$(br)$(l)Maintiens shift$() pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$()$(o) (le poser en dernier).",
+      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
       "multiblock": {
         "pattern": [
           [
@@ -41,7 +41,7 @@
     {
       "type": "multiblock",
       "name": "MB-HDS Tour Hydrodesulfuration (3x3x3)",
-      "text": "$(l)Tourne la souris$() pour voir tous les angles.$(br)$(l)Maintiens shift$() pour voir une couche a la fois.$(br2)$(o)Le bloc clignotant = $(l)Controller$()$(o) (le poser en dernier).",
+      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
       "multiblock": {
         "pattern": [
           [

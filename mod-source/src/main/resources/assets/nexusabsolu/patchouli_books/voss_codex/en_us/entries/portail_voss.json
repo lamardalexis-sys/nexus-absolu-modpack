@@ -11,7 +11,7 @@
     {
       "type": "multiblock",
       "name": "Portail Voss",
-      "text": "$(l)Tourne la souris$() pour voir la structure sous tous les angles.$(br)$(l)Maintiens shift$() pour voir une couche a la fois.$(br2)$(l)9 couches$() du bas vers le haut. Le bloc clignotant = $(l)Ecran de Controle$() (le poser en dernier).",
+      "text": "$(l)9 layers$(), bottom to top. $(l)Shift$(): one layer. The blinking block is the $(l)Control Screen$(): place it last.",
       "multiblock": {
         "pattern": [
           [
