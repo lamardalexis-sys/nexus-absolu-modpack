@@ -3688,7 +3688,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -3760,7 +3760,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -4738,7 +4738,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -4810,7 +4810,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -5273,7 +5273,8 @@
             }
           },
           "consume:1": 0,
-          "autoConsume:1": 0
+          "autoConsume:1": 0,
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -5335,7 +5336,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -5424,7 +5425,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -5478,7 +5479,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -5565,7 +5566,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -5637,7 +5638,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -5708,7 +5709,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -5785,7 +5786,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -5866,7 +5867,7 @@
           "partialMatch:1": 1,
           "autoConsume:1": 0,
           "groupDetect:1": 0,
-          "ignoreNBT:1": 0,
+          "ignoreNBT:1": 1,
           "index:3": 0,
           "consume:1": 0,
           "requiredItems:9": {
@@ -5943,7 +5944,8 @@
             }
           },
           "consume:1": 0,
-          "autoConsume:1": 0
+          "autoConsume:1": 0,
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {}
@@ -5980,7 +5982,8 @@
             }
           },
           "consume:1": 0,
-          "autoConsume:1": 0
+          "autoConsume:1": 0,
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {}
@@ -6312,7 +6315,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -6378,7 +6381,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -6444,7 +6447,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -6465,7 +6468,7 @@
     "149:10": {
       "questID:3": 97,
       "preRequisites:11": [
-        149
+        1118
       ],
       "properties:10": {
         "betterquesting:10": {
@@ -6795,9 +6798,9 @@
                 "OreDict:8": ""
               },
               "2:10": {
-                "id:8": "appliedenergistics2:quartz_fiber",
+                "id:8": "appliedenergistics2:part",
                 "Count:3": 16,
-                "Damage:2": 0,
+                "Damage:2": 140,
                 "OreDict:8": ""
               }
             }
@@ -6828,9 +6831,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:smart_cable",
+            "id:8": "appliedenergistics2:part",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 56,
             "OreDict:8": ""
           },
           "name:8": "§l§bCanaux Etendus",
@@ -6843,9 +6846,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:smart_cable",
+              "id:8": "appliedenergistics2:part",
               "Count:3": 8,
-              "Damage:2": 0,
+              "Damage:2": 56,
               "OreDict:8": ""
             }
           },
@@ -6869,9 +6872,9 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:smart_cable",
+                "id:8": "appliedenergistics2:part",
                 "Count:3": 16,
-                "Damage:2": 0,
+                "Damage:2": 56,
                 "OreDict:8": ""
               }
             }
@@ -6902,9 +6905,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:terminal",
+            "id:8": "appliedenergistics2:part",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 380,
             "OreDict:8": ""
           },
           "name:8": "§l§bLe Terminal",
@@ -6917,9 +6920,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:terminal",
+              "id:8": "appliedenergistics2:part",
               "Count:3": 1,
-              "Damage:2": 0,
+              "Damage:2": 380,
               "OreDict:8": ""
             }
           },
@@ -6943,9 +6946,9 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:terminal",
+                "id:8": "appliedenergistics2:part",
                 "Count:3": 1,
-                "Damage:2": 0,
+                "Damage:2": 380,
                 "OreDict:8": ""
               }
             }
@@ -6976,9 +6979,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:crafting_terminal",
+            "id:8": "appliedenergistics2:part",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 360,
             "OreDict:8": ""
           },
           "name:8": "§l§bLe Crafting Terminal",
@@ -6991,9 +6994,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:crafting_terminal",
+              "id:8": "appliedenergistics2:part",
               "Count:3": 1,
-              "Damage:2": 0,
+              "Damage:2": 360,
               "OreDict:8": ""
             }
           },
@@ -7044,9 +7047,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:quartz_fiber",
+            "id:8": "appliedenergistics2:part",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 140,
             "OreDict:8": ""
           },
           "name:8": "§l§bLa Fibre",
@@ -7059,9 +7062,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:quartz_fiber",
+              "id:8": "appliedenergistics2:part",
               "Count:3": 16,
-              "Damage:2": 0,
+              "Damage:2": 140,
               "OreDict:8": ""
             }
           },
@@ -7085,9 +7088,9 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:quartz_fiber",
+                "id:8": "appliedenergistics2:part",
                 "Count:3": 32,
-                "Damage:2": 0,
+                "Damage:2": 140,
                 "OreDict:8": ""
               }
             }
@@ -7192,9 +7195,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:import_bus",
+            "id:8": "appliedenergistics2:part",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 240,
             "OreDict:8": ""
           },
           "name:8": "§l§bL'Import Bus",
@@ -7207,9 +7210,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:import_bus",
+              "id:8": "appliedenergistics2:part",
               "Count:3": 4,
-              "Damage:2": 0,
+              "Damage:2": 240,
               "OreDict:8": ""
             }
           },
@@ -7233,9 +7236,9 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:import_bus",
+                "id:8": "appliedenergistics2:part",
                 "Count:3": 4,
-                "Damage:2": 0,
+                "Damage:2": 240,
                 "OreDict:8": ""
               }
             }
@@ -7266,9 +7269,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:export_bus",
+            "id:8": "appliedenergistics2:part",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 260,
             "OreDict:8": ""
           },
           "name:8": "§l§bL'Export Bus",
@@ -7281,9 +7284,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:export_bus",
+              "id:8": "appliedenergistics2:part",
               "Count:3": 4,
-              "Damage:2": 0,
+              "Damage:2": 260,
               "OreDict:8": ""
             }
           },
@@ -7307,9 +7310,9 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:export_bus",
+                "id:8": "appliedenergistics2:part",
                 "Count:3": 4,
-                "Damage:2": 0,
+                "Damage:2": 260,
                 "OreDict:8": ""
               }
             }
@@ -7414,9 +7417,9 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:me_p2_p_tunnel",
+            "id:8": "appliedenergistics2:part",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 460,
             "OreDict:8": ""
           },
           "name:8": "§l§dP2P : L'Eclateur Spatial",
@@ -7429,9 +7432,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:me_p2_p_tunnel",
+              "id:8": "appliedenergistics2:part",
               "Count:3": 2,
-              "Damage:2": 0,
+              "Damage:2": 460,
               "OreDict:8": ""
             }
           },
@@ -7455,9 +7458,9 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:me_p2_p_tunnel",
+                "id:8": "appliedenergistics2:part",
                 "Count:3": 4,
-                "Damage:2": 0,
+                "Damage:2": 460,
                 "OreDict:8": ""
               }
             }
@@ -7815,7 +7818,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -7864,7 +7867,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "mysticalagriculture:inferium_seeds",
+            "id:8": "mysticalagriculture:tier1_inferium_seeds",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -7879,7 +7882,7 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "mysticalagriculture:inferium_seeds",
+              "id:8": "mysticalagriculture:tier1_inferium_seeds",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -7905,7 +7908,7 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "mysticalagriculture:inferium_essence",
+                "id:8": "mysticalagriculture:crafting",
                 "Count:3": 32,
                 "Damage:2": 0,
                 "OreDict:8": ""
@@ -8006,7 +8009,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "environmentaltech:void_ore_miner_controller1",
+            "id:8": "environmentaltech:void_ore_miner_cont_1",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8021,7 +8024,7 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "environmentaltech:void_ore_miner_controller1",
+              "id:8": "environmentaltech:void_ore_miner_cont_1",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -8047,7 +8050,7 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "environmentaltech:structure_frame1",
+                "id:8": "environmentaltech:structure_frame_1",
                 "Count:3": 8,
                 "Damage:2": 0,
                 "OreDict:8": ""
@@ -8080,7 +8083,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "environmentaltech:void_ore_miner_controller2",
+            "id:8": "environmentaltech:void_ore_miner_cont_2",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -8095,7 +8098,7 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "environmentaltech:void_ore_miner_controller2",
+              "id:8": "environmentaltech:void_ore_miner_cont_2",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -8121,7 +8124,7 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "environmentaltech:structure_frame2",
+                "id:8": "environmentaltech:structure_frame_2",
                 "Count:3": 8,
                 "Damage:2": 0,
                 "OreDict:8": ""
@@ -8253,7 +8256,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8327,7 +8330,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8401,7 +8404,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8469,7 +8472,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8543,7 +8546,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8617,7 +8620,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8685,7 +8688,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8753,7 +8756,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8827,7 +8830,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8907,7 +8910,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -8975,7 +8978,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -9086,9 +9089,9 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:storage_bus",
+            "id:8": "appliedenergistics2:part",
             "Count:3": 1,
-            "Damage:2": 0,
+            "Damage:2": 220,
             "OreDict:8": ""
           },
           "name:8": "§l§2Auto-Storage",
@@ -9101,9 +9104,9 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:storage_bus",
+              "id:8": "appliedenergistics2:part",
               "Count:3": 1,
-              "Damage:2": 0,
+              "Damage:2": 220,
               "OreDict:8": ""
             }
           },
@@ -9127,9 +9130,9 @@
                 "OreDict:8": ""
               },
               "1:10": {
-                "id:8": "appliedenergistics2:storage_bus",
+                "id:8": "appliedenergistics2:part",
                 "Count:3": 4,
-                "Damage:2": 0,
+                "Damage:2": 220,
                 "OreDict:8": ""
               }
             }
@@ -9185,7 +9188,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -9672,7 +9675,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -10823,7 +10826,7 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "appliedenergistics2:quartz_grindstone",
+            "id:8": "appliedenergistics2:grindstone",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
@@ -10844,7 +10847,7 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "appliedenergistics2:quartz_grindstone",
+              "id:8": "appliedenergistics2:grindstone",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -11432,7 +11435,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -11499,7 +11502,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -11571,7 +11574,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -11694,7 +11697,7 @@
           "groupDetect:1": 0,
           "autoConsume:1": 0,
           "ignoreDamage:1": 0,
-          "ignoreNBT:1": 0
+          "ignoreNBT:1": 1
         }
       },
       "rewards:9": {
@@ -12668,6 +12671,23 @@
   },
   "questLines:9": {
     "0:10": {
+      "lineID:3": 0,
+      "order:3": 0,
+      "properties:10": {
+        "betterquesting:10": {
+          "name:8": "§l§5Age 0 — L'Eveil",
+          "desc:8": "§7§oProgramme de test Voss-7 — Phase initiale§r\n\n§7Tu te reveilles dans une §dCompact Machine 3x3x3§7.\n§7Les murs contiennent des ressources.\n§7Le Dr. Voss a laisse des traces.\n\n§eObjectif : §fConstruire le Condenseur et s'echapper vers la CM 5x5.\n\n§8Mods : Ex Nihilo, Tinkers, Bonsai Trees, Pam's, Crop Dusting\n§846 quetes — Duree estimee : 3-4h",
+          "visibility:8": "NORMAL",
+          "bg_image:8": "",
+          "bg_size:3": 256,
+          "icon:10": {
+            "id:8": "nexusabsolu:compose_a",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          }
+        }
+      },
       "quests:9": {
         "0:10": {
           "id:3": 0,
@@ -13083,24 +13103,26 @@
           "posX:3": 0,
           "posY:3": 800
         }
-      },
-      "properties:10": {
-        "betterquesting:10": {
-          "name:8": "§l§5Age 0 — L'Eveil",
-          "desc:8": "§7§oProgramme de test Voss-7 — Phase initiale§r\n\n§7Tu te reveilles dans une §dCompact Machine 3x3x3§7.\n§7Les murs contiennent des ressources.\n§7Le Dr. Voss a laisse des traces.\n\n§eObjectif : §fConstruire le Condenseur et s'echapper vers la CM 5x5.\n\n§8Mods : Ex Nihilo, Tinkers, Bonsai Trees, Pam's, Crop Dusting\n§846 quetes — Duree estimee : 3-4h",
-          "visibility:8": "NORMAL",
-          "bg_image:8": "",
-          "bg_size:3": 256,
-          "icon:10": {
-            "id:8": "nexusabsolu:compose_a",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          }
-        }
       }
     },
     "1:10": {
+      "lineID:3": 1,
+      "order:3": 1,
+      "properties:10": {
+        "betterquesting:10": {
+          "visibility:8": "NORMAL",
+          "name:8": "§l§6Age 1 — La Mecanique Brute",
+          "icon:10": {
+            "id:8": "nexusabsolu:fragment_mecanique",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "bg_image:8": "",
+          "bg_size:3": 256,
+          "desc:8": "§7§oProgramme Voss-7 — Phase energetique§r\n\n§7L'espace s'ouvre. §eL'energie RF§7 est la premiere liberte.\n§7Thermal, EnderIO et Immersive Engineering\n§7transforment les murs en machines.\n\n§eObjectif : §fForger le Fragment Mecanique et acceder a la CM 7x7.\n\n§8Mods : Thermal, EnderIO, IE, Actually Additions, Simply Jetpacks\n§853 quetes — Duree estimee : 5-7h"
+        }
+      },
       "quests:9": {
         "0:10": {
           "id:3": 47,
@@ -13436,26 +13458,11 @@
           "x:3": 140,
           "y:3": 1065
         }
-      },
-      "lineID:3": 1,
-      "properties:10": {
-        "betterquesting:10": {
-          "visibility:8": "NORMAL",
-          "name:8": "§l§6Age 1 — La Mecanique Brute",
-          "icon:10": {
-            "id:8": "nexusabsolu:fragment_mecanique",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "bg_image:8": "",
-          "bg_size:3": 256,
-          "desc:8": "§7§oProgramme Voss-7 — Phase energetique§r\n\n§7L'espace s'ouvre. §eL'energie RF§7 est la premiere liberte.\n§7Thermal, EnderIO et Immersive Engineering\n§7transforment les murs en machines.\n\n§eObjectif : §fForger le Fragment Mecanique et acceder a la CM 7x7.\n\n§8Mods : Thermal, EnderIO, IE, Actually Additions, Simply Jetpacks\n§853 quetes — Duree estimee : 5-7h"
-        }
-      },
-      "order:3": 1
+      }
     },
     "2:10": {
+      "lineID:3": 2,
+      "order:3": 2,
       "properties:10": {
         "betterquesting:10": {
           "name:8": "§l§bAge 2 — Le Paradoxe Organique",
@@ -13884,6 +13891,23 @@
       }
     },
     "3:10": {
+      "lineID:3": 3,
+      "order:3": 4,
+      "properties:10": {
+        "betterquesting:10": {
+          "visibility:8": "NORMAL",
+          "name:8": "§l§aCoding — OC & CC:T",
+          "icon:10": {
+            "id:8": "computercraft:computer",
+            "Count:3": 1,
+            "Damage:2": 0,
+            "OreDict:8": ""
+          },
+          "bg_image:8": "",
+          "bg_size:3": 256,
+          "desc:8": "§7§oPage parallele - apprends Lua de zero§r\n\n§7Tutoriel complet base sur les wikis officiels :\n§7- §bComputerCraft:Tweaked§r§7 (gauche)\n§7- §eOpenComputers§r§7 (droite)\n\n§7Du §a>>> print(\"Hello\")§r§7 jusqu'aux dashboards\nAE2 connectes en temps reel.\n\n§e20 lecons - non-bloquant - rythme libre."
+        }
+      },
       "quests:9": {
         "7:10": {
           "id:3": 150,
@@ -13976,26 +14000,11 @@
           "x:3": 0,
           "y:3": 740
         }
-      },
-      "lineID:3": 3,
-      "properties:10": {
-        "betterquesting:10": {
-          "visibility:8": "NORMAL",
-          "name:8": "§l§aCoding — OC & CC:T",
-          "icon:10": {
-            "id:8": "computercraft:computer",
-            "Count:3": 1,
-            "Damage:2": 0,
-            "OreDict:8": ""
-          },
-          "bg_image:8": "",
-          "bg_size:3": 256,
-          "desc:8": "§7§oPage parallele - apprends Lua de zero§r\n\n§7Tutoriel complet base sur les wikis officiels :\n§7- §bComputerCraft:Tweaked§r§7 (gauche)\n§7- §eOpenComputers§r§7 (droite)\n\n§7Du §a>>> print(\"Hello\")§r§7 jusqu'aux dashboards\nAE2 connectes en temps reel.\n\n§e20 lecons - non-bloquant - rythme libre."
-        }
-      },
-      "order:3": 3
+      }
     },
     "4:10": {
+      "lineID:3": 4,
+      "order:3": 3,
       "properties:10": {
         "betterquesting:10": {
           "name:8": "§l§5Age 3 — La Chimie du Chaos",
