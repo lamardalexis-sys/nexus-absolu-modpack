@@ -19,10 +19,12 @@ Ce que ca corrige :
     BQ. Ordre fixe : Age 0, Age 1, Age 2, Age 3, Coding. Les lineID donnes sont
     ceux que BQ attribuait deja (0, 2, 4) : aucune progression ne bouge.
 
-Ce que ca NE corrige PAS (decision de design) :
-  - Q141 Thermal Tesseract : l'item n'existe pas dans Thermal Expansion 5.5.7,
-    et Q142 "L'Infrastructure" l'exige.
-  - Q2005 Signal Sculk : le mod stacked_dimensions_warden n'est pas installe.
+Decisions de design (28/09) :
+  - Q141 : le Tesseract n'existe pas en Thermal Expansion 5.5.7 et Q142 l'exige.
+    Remplace par le Quantum Entangloporter de Mekanism, meme role.
+  - Q2005 : le Sculk Tendril vient d'un mod absent, et le Grabber Voss exige
+    par Q2006 n'a aucune recette. Q2005 devient une etape narrative (case a
+    cocher) qui donne le Grabber.
 
 Idempotent.   python3 scripts/gen/fix_quests_registre.py
 """
@@ -54,6 +56,58 @@ RENAME = {
 }
 
 PREREQ = {97: (149, 1118)}   # quete : (prerequis mort, remplacant)
+
+# ---- Decisions du 28/09 (Alexis) ----------------------------------------
+# Q141 : le Tesseract n'existe pas en TE 5.5.7 -> Quantum Entangloporter de
+#        Mekanism (mekanism:machineblock3:0, verifie dans items.csv), meme role.
+RENAME['thermalexpansion:tesseract'] = ('mekanism:machineblock3', 0)
+Q141_NAME = '§l§3Quantum Entangloporter'
+Q141_DESC = ("§7§oBonus : teleportation de ressources§r\n\n"
+             "§7L'§6Entangloporter§r§7 de Mekanism envoie items,\n"
+             "§7energie et fluides a travers les dimensions,\n"
+             "§7SANS cable. Deux blocs, une meme frequence.\n\n"
+             "§7Indispensable pour relier tes bases lointaines.\n\n"
+             "§e§lObjectif : §7Craft 1x Quantum Entangloporter")
+
+# Q2005 : le Sculk Tendril vient d'un mod absent, et le Grabber Voss n'a aucune
+#         recette. La quete devient une etape narrative (case a cocher) qui
+#         donne le Grabber : Q2006 se valide en le recevant. La commande
+#         gamestage d'origine est gardee pour une future recette.
+Q2005_NAME = '§l§6Le Signal'
+Q2005_ICON = {'id:8': 'minecraft:noteblock', 'Count:3': 1, 'Damage:2': 0, 'OreDict:8': ''}
+Q2005_DESC = ("§7Pour retrouver le §dSac du Sujet 46§r§7, il faut\n"
+              "§7d'abord capter son signal.\n\n"
+              "§7Descends sous la couche 20, ton carnet en main.\n"
+              "§7Le signal y est plus net. Note ce que tu\n"
+              "§7entends, puis remonte tout de suite.\n\n"
+              "§8§o\"46 emettait encore. Je n'ai jamais su\n"
+              "§8quoi.\"§r\n\n"
+              "§e§lObjectif : §7Coche quand tu as capte le signal\n"
+              "§e§lRecompense : §7Le Grabber Voss")
+GRABBER = collections.OrderedDict([('id:8', 'nexusabsolu:grabber_voss'), ('Count:3', 1),
+                                   ('Damage:2', 0), ('OreDict:8', '')])
+Q2006_OLD = ("§7Avec ton tendril de sculk, tu peux assembler\n"
+             "§7une replique du §dSac du Sujet 46§r§7.")
+Q2006_NEW = ("§7Le signal t'a mene au §dGrabber§r§7 de Voss :\n"
+             "§7une replique du §dSac du Sujet 46§r§7.")
+
+
+def apply_decisions(byid):
+    q = byid[141]['properties:10']['betterquesting:10']
+    q['name:8'], q['desc:8'] = Q141_NAME, Q141_DESC
+
+    q2005 = byid[2005]
+    p = q2005['properties:10']['betterquesting:10']
+    p['name:8'], p['desc:8'], p['icon:10'] = Q2005_NAME, Q2005_DESC, collections.OrderedDict(Q2005_ICON)
+    q2005['tasks:9'] = collections.OrderedDict(
+        [('0:10', collections.OrderedDict([('index:3', 0), ('taskID:8', 'bq_standard:checkbox')]))])
+    items = q2005['rewards:9']['0:10']['rewards:9']
+    block = items[0] if isinstance(items, list) else items
+    if not any(v.get('id:8') == 'nexusabsolu:grabber_voss' for v in block.values()):
+        block['%d:10' % len(block)] = GRABBER
+
+    p = byid[2006]['properties:10']['betterquesting:10']
+    p['desc:8'] = p['desc:8'].replace(Q2006_OLD, Q2006_NEW)
 
 # nom de ligne (debut) : (lineID, order)
 LINES = [('§l§5Age 0', 0, 0), ('§l§6Age 1', 1, 1), ('§l§bAge 2', 2, 2),
@@ -102,6 +156,7 @@ def main():
             if t.get('ignoreNBT:1', 0) == 0 and not any('tag:10' in it for it in items):
                 t['ignoreNBT:1'] = 1
                 n_nbt += 1
+    apply_decisions({q['questID:3']: q for q in d['questDatabase:9'].values()})
     for l in d['questLines:9'].values():
         name = l['properties:10']['betterquesting:10']['name:8']
         match = [x for x in LINES if name.startswith(x[0])]

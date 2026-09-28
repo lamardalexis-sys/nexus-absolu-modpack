@@ -9299,13 +9299,13 @@
           "ismain:1": 0,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "thermalexpansion:tesseract",
+            "id:8": "mekanism:machineblock3",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§l§3Thermal Tesseract",
-          "desc:8": "§7§oBonus : teleportation de ressources§r\n\n§7Le §6Tesseract§r§7 Thermal envoie items/energie/\nfluides a travers les dimensions SANS cable.\n\n§7Indispensable pour relier tes bases lointaines.\n\n§e§lObjectif : §7Craft 1x Tesseract"
+          "name:8": "§l§3Quantum Entangloporter",
+          "desc:8": "§7§oBonus : teleportation de ressources§r\n\n§7L'§6Entangloporter§r§7 de Mekanism envoie items,\n§7energie et fluides a travers les dimensions,\n§7SANS cable. Deux blocs, une meme frequence.\n\n§7Indispensable pour relier tes bases lointaines.\n\n§e§lObjectif : §7Craft 1x Quantum Entangloporter"
         }
       },
       "tasks:9": {
@@ -9314,7 +9314,7 @@
           "taskID:8": "bq_standard:retrieval",
           "requiredItems:9": {
             "0:10": {
-              "id:8": "thermalexpansion:tesseract",
+              "id:8": "mekanism:machineblock3",
               "Count:3": 1,
               "Damage:2": 0,
               "OreDict:8": ""
@@ -10243,33 +10243,19 @@
           "ismain:1": 1,
           "repeat_relative:1": 1,
           "icon:10": {
-            "id:8": "stacked_dimensions_warden:sculk_tendril",
+            "id:8": "minecraft:noteblock",
             "Count:3": 1,
             "Damage:2": 0,
             "OreDict:8": ""
           },
-          "name:8": "§l§6Signal Sculk",
-          "desc:8": "§7Pour crafter le §dSac du Sujet 46§r§7, il te faut\n§7§6un§r§7 seul §bSculk Tendril§r§7 du Deep Dark.\n\n§cPas besoin de tuer le Warden.§r §7Descends juste\n§7assez profond pour en trouver un. Retourne en\n§7haut tout de suite apres.\n\n§e§lObjectif : §71x Sculk Tendril\n§e§lRecompense : §7Debloque la recette du Sac"
+          "name:8": "§l§6Le Signal",
+          "desc:8": "§7Pour retrouver le §dSac du Sujet 46§r§7, il faut\n§7d'abord capter son signal.\n\n§7Descends sous la couche 20, ton carnet en main.\n§7Le signal y est plus net. Note ce que tu\n§7entends, puis remonte tout de suite.\n\n§8§o\"46 emettait encore. Je n'ai jamais su\n§8quoi.\"§r\n\n§e§lObjectif : §7Coche quand tu as capte le signal\n§e§lRecompense : §7Le Grabber Voss"
         }
       },
       "tasks:9": {
         "0:10": {
-          "partialMatch:1": 1,
-          "autoConsume:1": 0,
-          "groupDetect:1": 0,
-          "ignoreNBT:1": 1,
           "index:3": 0,
-          "consume:1": 0,
-          "ignoreDamage:1": 0,
-          "taskID:8": "bq_standard:retrieval",
-          "requiredItems:9": {
-            "0:10": {
-              "id:8": "stacked_dimensions_warden:sculk_tendril",
-              "Count:3": 1,
-              "Damage:2": 0,
-              "OreDict:8": ""
-            }
-          }
+          "taskID:8": "bq_standard:checkbox"
         }
       },
       "rewards:9": {
@@ -10287,6 +10273,12 @@
               "1:10": {
                 "id:8": "minecraft:experience_bottle",
                 "Count:3": 4,
+                "Damage:2": 0,
+                "OreDict:8": ""
+              },
+              "2:10": {
+                "id:8": "nexusabsolu:grabber_voss",
+                "Count:3": 1,
                 "Damage:2": 0,
                 "OreDict:8": ""
               }
@@ -10334,7 +10326,7 @@
             "OreDict:8": ""
           },
           "name:8": "§l§6Le Sac du Sujet 46",
-          "desc:8": "§7Avec ton tendril de sculk, tu peux assembler\n§7une replique du §dSac du Sujet 46§r§7.\n\n§8§o\"Le sac de 46 contient ses affaires,\n§8mais aussi ses souvenirs.\"\n§8— Carnet Voss Vol. II, p.7§r\n\n§e§lObjectif : §71x Grabber Voss\n§e§lRecompense : §7Nourriture + golden apples + XP"
+          "desc:8": "§7Le signal t'a mene au §dGrabber§r§7 de Voss :\n§7une replique du §dSac du Sujet 46§r§7.\n\n§8§o\"Le sac de 46 contient ses affaires,\n§8mais aussi ses souvenirs.\"\n§8— Carnet Voss Vol. II, p.7§r\n\n§e§lObjectif : §71x Grabber Voss\n§e§lRecompense : §7Nourriture + golden apples + XP"
         }
       },
       "tasks:9": {
