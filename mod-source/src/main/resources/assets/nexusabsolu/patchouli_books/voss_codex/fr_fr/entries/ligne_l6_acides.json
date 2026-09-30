@@ -1,18 +1,18 @@
 {
-  "name": "L6 -- Acides + Ammoniaque (HUB CENTRAL)",
+  "name": "L6 Acides (hub)",
   "icon": "minecraft:potion",
   "sortnum": 7,
   "pages": [
     {
       "type": "text",
       "title": "L'importance de L6",
-      "text": "$(#a00)$(l)L6 EST LE HUB CENTRAL.$()$(br2)Si Haber-Bosch s'arrete, $(l)tout$() s'arrete :$(br)$(li)Pas de NH3 -> pas de HNO3$(li)Pas de HNO3 -> pas d'Eau Regale$(li)Pas d'Eau Regale -> pas de metaux precieux$(li)Pas de NH3 -> pas d'Indole/Tryptamide$(li)Pas de Tryptamide -> pas de Manifoldine"
+      "text": "$(#a00)$(l)L6 EST LE HUB CENTRAL.$()$(br2)Si Haber-Bosch s'arrete, $(l)tout$() s'arrete :$(br)$(li)Pas de NH3 -> pas de HNO3$(li)Pas de HNO3 -> pas d'Eau Regale$(li)Pas d'Eau Regale -> pas de metaux precieux"
     },
     {
       "type": "text",
-      "text": "$(o)Investis dans Haber-Bosch en premier dans L6.",
+      "text": "$(li)Pas de NH3 -> pas d'Indole/Tryptamide$(li)Pas de Tryptamide -> pas de Manifoldine$(br2)$(o)Investis dans Haber-Bosch en premier dans L6.",
       "nexus_suite": {
-        "sep": "$(br2)",
+        "sep": "",
         "reprise": ""
       }
     },
@@ -23,13 +23,13 @@
     },
     {
       "type": "text",
-      "title": "MB-OSTWALD + MB-CONTACT",
+      "title": "OSTWALD + CONTACT",
       "text": "$(l)Tour Ostwald$() -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(br2)$(o)La structure en 3D suit, plus loin dans cette entree."
     },
     {
       "type": "multiblock",
-      "name": "MB-HABER Hub Central (3x3x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Reacteur Haber-Bosch",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -61,8 +61,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-OSTWALD Tour HNO3 (3x3x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Tour Ostwald",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -94,8 +94,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-CONTACT Tour H2SO4 (3x3x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Tour Contact",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [

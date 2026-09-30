@@ -1,16 +1,16 @@
 {
-  "name": "Ordre de montage optimal",
+  "name": "Ordre de montage",
   "icon": "minecraft:clock",
   "sortnum": 11,
   "pages": [
     {
       "type": "text",
       "title": "Pourquoi un ordre",
-      "text": "Vingt-deux machines, 564 blocs a poser. Si vous vous lancez sans plan, vous construirez une machine qui attend indefiniment ce qu'une autre n'a pas encore produit.$(br2)L'ordre qui suit n'est pas un avis : il sort du graphe de dependances des recettes. Une machine d'une vague ne peut pas tourner tant que toutes celles des vagues precedentes ne tournent pas."
+      "text": "Vingt-deux machines, 564 blocs a poser. Si vous vous lancez sans plan, vous construirez une machine qui attend indefiniment ce qu'une autre n'a pas encore produit."
     },
     {
       "type": "text",
-      "text": "$(o)La vague 1 est le seul point d'entree. Ses intrants viennent de la table de craft et des autres mods, pas d'une de vos machines.",
+      "text": "L'ordre qui suit n'est pas un avis : il sort du graphe de dependances des recettes. Une machine d'une vague ne peut pas tourner tant que toutes celles des vagues precedentes ne tournent pas.$(br2)$(o)La vague 1 est le seul point d'entree. Ses intrants viennent de la table de craft et des autres mods, pas d'une de vos machines.",
       "nexus_suite": {
         "sep": "$(br2)",
         "reprise": ""
@@ -19,11 +19,11 @@
     {
       "type": "text",
       "title": "Vagues 1 a 4",
-      "text": "$(li)$(#248)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs, 15 M RF$(li)$(#248)Cellule Fluorite$() -- 3x3x3, 27 blocs, 84 M RF$(li)$(#248)Cellule Hall-Heroult$() -- 3x3x3, 27 blocs, 120 M RF$(li)$(#248)Tritium Breeder$() -- 3x2x3, 10 blocs, 1 M RF$(li)$(#248)Chambre Sous Vide$() -- 3x2x3, 10 blocs, 2 M RF$(li)$(#248)Chambre Lithium-Tritium$() -- 3x2x3, 10 blocs, 9 M RF$(li)$(#248)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocs, 9 M RF"
+      "text": "$(li)$(#248)Cellule Castner-Kellner$() -- 3x2x3, 10 blocs, 15 M RF$(li)$(#248)Cellule Fluorite$() -- 3x3x3, 27 blocs, 84 M RF$(li)$(#248)Cellule Hall-Heroult$() -- 3x3x3, 27 blocs, 120 M RF$(li)$(#248)Tritium Breeder$() -- 3x2x3, 10 blocs, 1 M RF$(li)$(#248)Chambre Sous Vide$() -- 3x2x3, 10 blocs, 2 M RF"
     },
     {
       "type": "text",
-      "text": "$(li)$(#248)Tour Contact$() -- 3x3x3, 27 blocs, 8 M RF",
+      "text": "$(li)$(#248)Chambre Lithium-Tritium$() -- 3x2x3, 10 blocs, 9 M RF$(li)$(#248)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocs, 9 M RF$(li)$(#248)Tour Contact$() -- 3x3x3, 27 blocs, 8 M RF",
       "nexus_suite": {
         "sep": "",
         "reprise": ""
@@ -47,7 +47,15 @@
     {
       "type": "text",
       "title": "Le moment final",
-      "text": "Les six composes sortent du M1. La Cartouche Chargee s'assemble a la table -- c'est le seul craft de table legitime au sommet de la chaine. Puis le Bio-Reacteur : cartouche chargee, Solution Epsilon, 4000 mB de Liquid Starlight, 500 mB d'argon, 60 millions de RF.$(br2)$(o)Rien de ce que vous avez construit n'etait necessaire a la production de cet objet. L'usine n'etait pas le moyen. L'usine etait la mesure."
+      "text": "Les six composes sortent du M1. La Cartouche Chargee s'assemble a la table -- c'est le seul craft de table legitime au sommet de la chaine. Puis le Bio-Reacteur : cartouche chargee, Solution Epsilon, 4000 mB de Liquid Starlight, 500 mB d'argon, 60 millions de RF."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Rien de ce que vous avez construit n'etait necessaire a la production de cet objet. L'usine n'etait pas le moyen. L'usine etait la mesure.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     }
   ],
   "category": "nexusabsolu:vol_v"

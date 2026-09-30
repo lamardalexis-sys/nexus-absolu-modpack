@@ -1,11 +1,11 @@
 {
-  "name": "L3 -- Electrolyse + Cryo",
+  "name": "L3 Electrolyse",
   "icon": "minecraft:snowball",
   "sortnum": 4,
   "pages": [
     {
       "type": "text",
-      "title": "Multiblocs L3 (3 + cryo existant)",
+      "title": "Multiblocs L3",
       "text": "$(l)3 multiblocs$() +1 (cryo_distillateur deja existant) :$(br)$(li)$(#248)MB-CK$() (ck_cell, 3x2x3) Castner-Kellner$(li)$(#248)MB-FOUR-ELEC$() (electric_furnace, 3x2x3) HT 1500 deg C$(li)$(#248)MB-FLUORITE$() (fluorite_cell, 3x3x3)$(li)$(l)cryo_distillateur$() (3x3x3 - deja en place)"
     },
     {
@@ -20,8 +20,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-CK Castner-Kellner (3x2x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Castner-Kellner",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -45,8 +45,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-FOUR-ELEC HT 1500C (3x2x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Four Electrique HT",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -70,8 +70,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-FLUORITE (3x3x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Cellule Fluorite",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [

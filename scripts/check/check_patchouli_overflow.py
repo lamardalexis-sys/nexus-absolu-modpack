@@ -2,7 +2,8 @@
 """Controle : aucune page du Carnet Voss ne sort du parchemin.
 
 Meme moteur de mise en page que le decoupage (scripts/gen/patchouli_layout.py),
-portage de Patchouli 1.12.2 avec les largeurs de la police unicode.
+portage de Patchouli 1.12.2, avec la police du livre (book_font : unicode,
+ou normale si book.json a use_blocky_font).
 
 Controle :
   - texte des pages "text" (14 lignes en page 0, 16 avec titre, 17 sans)
@@ -35,7 +36,7 @@ FAKE_CLOSER = re.compile(r'\$\(/(l|o|li)\)')
 def main(argv):
     verbose = '-v' in argv
     try:
-        font = P.Font()
+        font = P.book_font()
     except P.LayoutError as e:
         print('ERREUR', e)
         return 1

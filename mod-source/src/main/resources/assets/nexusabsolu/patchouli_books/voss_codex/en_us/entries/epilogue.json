@@ -1,5 +1,5 @@
 {
-  "name": "Epilogue -- L'Injection",
+  "name": "Epilogue",
   "icon": "nexusabsolu:cartouche_manifold",
   "sortnum": 8,
   "pages": [
@@ -19,7 +19,15 @@
     {
       "type": "text",
       "title": "Stages",
-      "text": "$(li)$(l)1.$() Onset (0:00-0:30) -- le monde s'allege$(li)$(l)2.$() Saturation (0:30-1:30) -- couleurs vives$(li)$(l)3.$() Geometric (1:30-2:30) -- fractales 2D$(li)$(l)4.$() Hyperspace (2:30-4:00) -- 3D, espaces immenses$(li)$(l)5.$() PEAK (4:00-5:30) -- entite + musique + voix$(li)$(l)4'-1'.$() Retour (5:30-8:00)$(li)$(l)Crash$() (8:00-9:00) -- fatigue forcee"
+      "text": "$(li)$(l)1.$() Onset (0:00-0:30) -- le monde s'allege$(li)$(l)2.$() Saturation (0:30-1:30) -- couleurs vives$(li)$(l)3.$() Geometric (1:30-2:30) -- fractales 2D$(li)$(l)4.$() Hyperspace (2:30-4:00) -- 3D, espaces immenses$(li)$(l)5.$() PEAK (4:00-5:30) -- entite + musique + voix$(li)$(l)4'-1'.$() Retour (5:30-8:00)"
+    },
+    {
+      "type": "text",
+      "text": "$(li)$(l)Crash$() (8:00-9:00) -- fatigue forcee",
+      "nexus_suite": {
+        "sep": "",
+        "reprise": ""
+      }
     },
     {
       "type": "text",

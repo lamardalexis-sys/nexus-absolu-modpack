@@ -1,21 +1,29 @@
 {
-  "name": "L7 -- Organique + Acetone",
+  "name": "L7 Organique",
   "icon": "minecraft:dye",
   "sortnum": 8,
   "pages": [
     {
       "type": "text",
       "title": "4 multiblocs L7",
-      "text": "$(l)4 multiblocs$() (la ligne avec le plus de machines) :$(br)$(li)$(#248)MB-CRACKER$() (thermal_cracker, 3x3x3 tower) - Cracking thermique$(li)$(#248)MB-CUMENE$() (cumene_reactor, 3x3x3 tower) - Acetone + Phenol$(li)$(#248)MB-AROMATIC$() (aromatic_reactor, 3x3x3) - $(l)Tryptamide-M$() ⭐$(li)$(#248)MB-FERMENTER$() (fermenter, 3x2x3) - Ethanol"
+      "text": "$(l)4 multiblocs$() (la ligne avec le plus de machines) :$(br)$(li)$(#248)MB-CRACKER$() (thermal_cracker, 3x3x3 tower) - Cracking thermique$(li)$(#248)MB-CUMENE$() (cumene_reactor, 3x3x3 tower) - Acetone + Phenol"
     },
     {
       "type": "text",
-      "title": "MB-AROMATIC (cle pour Manifoldine)",
-      "text": "$(l)Reacteur Aromatique$() -- celui qui produit le $(#248)Tryptamide-M$(), input critique du Cyclisateur Stellaire (L8) :$(br)$(li)3x5x3 standard$(li)2 recipes : indole_synthesis ET tryptamide_m_synthesis$(br2)Tu fais l'indole en premier (naphtha + NH3 + Pt-Al2O3), puis tryptamide-M dans la MEME machine (indole + NH3 + acetone + Pd-C)."
+      "text": "$(li)$(#248)MB-AROMATIC$() (aromatic_reactor, 3x3x3) - $(l)Tryptamide-M$() ⭐$(li)$(#248)MB-FERMENTER$() (fermenter, 3x2x3) - Ethanol",
+      "nexus_suite": {
+        "sep": "",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
-      "text": "$(o)Sans Tryptamide-M, pas de Manifoldine. Sans Manifoldine, pas de Cartouche.",
+      "title": "MB-AROMATIC",
+      "text": "$(l)Reacteur Aromatique$() -- celui qui produit le $(#248)Tryptamide-M$(), input critique du Cyclisateur Stellaire (L8) :$(br)$(li)3x5x3 standard$(li)2 recipes : indole_synthesis ET tryptamide_m_synthesis"
+    },
+    {
+      "type": "text",
+      "text": "Tu fais l'indole en premier (naphtha + NH3 + Pt-Al2O3), puis tryptamide-M dans la MEME machine (indole + NH3 + acetone + Pd-C).$(br2)$(o)Sans Tryptamide-M, pas de Manifoldine. Sans Manifoldine, pas de Cartouche.",
       "nexus_suite": {
         "sep": "$(br2)",
         "reprise": ""
@@ -23,13 +31,21 @@
     },
     {
       "type": "text",
-      "title": "MB-CRACKER multifonction",
-      "text": "$(l)Thermal Cracker$() (3x3x3 tower) est le plus polyvalent de L7 :$(br)$(li)Cracking Naphtha -> Benzene$(li)Cracking Natural Gas -> Propylene$(li)Methanol synthesis (Syngas + Cu-ZnO)$(li)IPA dehydrogenation -> Acetone (voie backup)$(br2)Donc 1 seul MB-CRACKER = 4 chains differentes selon l'input. $(l)Investis bien."
+      "title": "MB-CRACKER",
+      "text": "$(l)Thermal Cracker$() (3x3x3 tower) est le plus polyvalent de L7 :$(br)$(li)Cracking Naphtha -> Benzene$(li)Cracking Natural Gas -> Propylene$(li)Methanol synthesis (Syngas + Cu-ZnO)$(li)IPA dehydrogenation -> Acetone (voie backup)"
+    },
+    {
+      "type": "text",
+      "text": "Donc 1 seul MB-CRACKER = 4 chains differentes selon l'input. $(l)Investis bien.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "multiblock",
-      "name": "MB-CRACKER (3x3x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Thermal Cracker",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -61,8 +77,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-CUMENE Acetone+Phenol (3x3x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Reacteur Cumene",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -94,8 +110,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-AROMATIC Tryptamide-M (3x3x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Reacteur Aromatique",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -127,8 +143,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-FERMENTER Ethanol (3x2x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Fermenteur Ethanol",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [

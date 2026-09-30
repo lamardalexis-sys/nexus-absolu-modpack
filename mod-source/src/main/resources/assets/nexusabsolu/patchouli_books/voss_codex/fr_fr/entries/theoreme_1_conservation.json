@@ -1,5 +1,5 @@
 {
-  "name": "Theoreme I -- Conservation Absolue",
+  "name": "I. Conservation",
   "icon": "minecraft:water_bucket",
   "sortnum": 2,
   "pages": [
@@ -19,12 +19,28 @@
     {
       "type": "text",
       "title": "L1 -- Petrochimie",
-      "text": "Le solvant $(#248)Solvant Neutre alpha$() est le sang de l'usine. Il dissout sans corrompre. Pour l'obtenir :$(br)$(li)Aspirer le brut$(li)$(l)Desaerer$() sous vide (MB-DESA)$(li)Distiller (PCC Refinery)$(li)$(l)Hydrodesulfurer$() (MB-HDS, catalyseur Co-Mo)$(li)Hydrocraquer (MB-HDS encore, catalyseur zeolite)$(li)Mixer avec eau tridistillee + tensioactif"
+      "text": "Le solvant $(#248)Solvant Neutre alpha$() est le sang de l'usine. Il dissout sans corrompre. Pour l'obtenir :$(br)$(li)Aspirer le brut$(li)$(l)Desaerer$() sous vide (MB-DESA)$(li)Distiller (PCC Refinery)$(li)$(l)Hydrodesulfurer$() (MB-HDS, catalyseur Co-Mo)"
+    },
+    {
+      "type": "text",
+      "text": "$(li)Hydrocraquer (MB-HDS encore, catalyseur zeolite)$(li)Mixer avec eau tridistillee + tensioactif",
+      "nexus_suite": {
+        "sep": "",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
       "title": "L2 -- Hydro-Eau",
-      "text": "L'eau pure ne se trouve pas. Elle se $(l)fabrique$().$(br2)$(li)$(l)Distillation$() thermique (TEP natif)$(li)$(l)Filtration ionique$() via resine echangeuse$(li)$(l)Osmose inverse$() (MB-OSMOSE) : 1000mB H2O bidistillee -> 1000mB H2O TRIdistillee$(br)Sous-ligne : Eau Lourde D2O via Mekanism Electrolytic Separator. Tritium T2 via $(l)MB-TRITIUM$() place a cote d'un reacteur NC actif."
+      "text": "L'eau pure ne se trouve pas. Elle se $(l)fabrique$().$(br2)$(li)$(l)Distillation$() thermique (TEP natif)$(li)$(l)Filtration ionique$() via resine echangeuse$(li)$(l)Osmose inverse$() (MB-OSMOSE) : 1000mB H2O bidistillee -> 1000mB H2O TRIdistillee"
+    },
+    {
+      "type": "text",
+      "text": "Sous-ligne : Eau Lourde D2O via Mekanism Electrolytic Separator. Tritium T2 via $(l)MB-TRITIUM$() place a cote d'un reacteur NC actif.",
+      "nexus_suite": {
+        "sep": "$(br)",
+        "reprise": ""
+      }
     }
   ],
   "category": "nexusabsolu:vol_iv"

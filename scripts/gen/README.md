@@ -42,8 +42,11 @@ dessiné sous la page, hors du parchemin. Ces scripts le mesurent hors jeu.
 
 - `patchouli_layout.py` — portage de `BookTextParser` et `TextLayouter`.
   Source unique du découpage et du contrôle.
-- `font_widths.json` — largeurs de la police **unicode** (le Carnet n'a pas
-  `use_blocky_font`), extraites par `extract_font_widths.py`.
+- `font_widths.json` et `font_widths_ascii.json` — largeurs des deux polices
+  de Minecraft, extraites par `extract_font_widths.py` (`--ascii` pour la
+  seconde). Le Carnet a `use_blocky_font` depuis le 30/09 : texte en police
+  normale, plus lisible que la petite police unicode. `book_font()` suit
+  `book.json`, découpage et contrôles s'adaptent seuls si on le change.
 - `BreakPoints.java` — coupures de ligne du vrai `java.text.BreakIterator`.
   Il faut un JDK : `PATH`, `JAVA_HOME` ou `NEXUS_JAVA_HOME`. Java 8 de
   préférence, celui du jeu.
@@ -53,7 +56,13 @@ dessiné sous la page, hors du parchemin. Ces scripts le mesurent hors jeu.
 - `fix_patchouli_closers.py` — Patchouli n'a **pas** de balises fermantes de
   style : `$(/l)` ferme un lien, `$(/o)` et `$(/li)` n'existent pas. Seul
   `$()` remet le style à zéro.
-- `../check/check_patchouli_overflow.py` — le contrôle.
+- `fix_patchouli_titres.py` — raccourcit noms d'entrée, titres de page, noms
+  de multibloc et légendes. Patchouli les dessine d'un bloc, centrés, sans
+  jamais les couper : trop larges, ils débordent sur la page d'en face.
+- `../check/check_patchouli_overflow.py` — le contrôle de hauteur.
+- `../check/check_patchouli_titres.py` — le contrôle de largeur : 116 px
+  pour un en-tête (police normale, sauf si le joueur force l'unicode), 99 px pour un nom dans la
+  liste des entrées (après l'icône).
 
 Budgets : 14 lignes en page 0 d'une entrée (le nom de l'entrée est dessiné,
 pas le `title` de la page), 16 avec titre, 17 sans, 4 sous un multibloc.
@@ -64,6 +73,7 @@ pas le `title` de la page), 16 avec titre, 17 sans, 4 sous un multibloc.
     python3 scripts/gen/gen_patchouli_layouts.py      # ou tout autre générateur
     python3 scripts/gen/split_patchouli_pages.py
     python3 scripts/check/check_patchouli_overflow.py
+    python3 scripts/check/check_patchouli_titres.py
 
 Le `--merge-only` n'est pas optionnel : les générateurs repèrent leurs pages
 à leur contenu, et sur une page coupée ils n'en trouveraient qu'une moitié.
@@ -71,3 +81,4 @@ Le `--merge-only` n'est pas optionnel : les générateurs repèrent leurs pages
 Vérifier une fois la table de police contre le vrai jar :
 
     python3 scripts/gen/extract_font_widths.py --verify <minecraft-1.12.2.jar>
+    python3 scripts/gen/extract_font_widths.py --ascii <minecraft-1.12.2.jar>   # réécrit, comparer au diff

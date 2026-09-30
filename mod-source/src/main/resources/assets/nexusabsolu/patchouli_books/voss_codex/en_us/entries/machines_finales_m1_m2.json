@@ -1,26 +1,42 @@
 {
-  "name": "M1 + M2 -- Les Machines Finales",
+  "name": "Machines M1 + M2",
   "icon": "nexusabsolu:cartouche_manifold",
   "sortnum": 10,
   "pages": [
     {
       "type": "text",
-      "title": "M1 Melangeur Cryogenique",
-      "text": "$(l)Melangeur Cryogenique$() (3x5x3, 122 blocs) -- $(#248)la machine pivot$() :$(br)Combine les sortants des 7 lignes sous atmosphere Cryotheum (-196 deg C) pour produire les 6 composes $(l)alpha/beta/gamma1/gamma2/gamma3/delta$().$(br2)$(#a00)RF max : 120k RF/t (le plus cher !).$()$(br)$(o)Style Bio-Reacteur mais plus haut + atmosphere Cryotheum."
+      "title": "M1 Melangeur Cryo",
+      "text": "$(l)Melangeur Cryogenique$() (3x5x3, 122 blocs) -- $(#248)la machine pivot$() :$(br)Combine les sortants des 7 lignes sous atmosphere Cryotheum (-196 deg C) pour produire les 6 composes $(l)alpha/beta/gamma1/gamma2/gamma3/delta$()."
+    },
+    {
+      "type": "text",
+      "text": "$(#a00)RF max : 120k RF/t (le plus cher !).$()$(br)$(o)Style Bio-Reacteur mais plus haut + atmosphere Cryotheum.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
       "title": "M1 Layout",
-      "text": "$(l)Melangeur Cryogenique M1$() -- 3x5x3, 45 blocks including the controller.$(br)$(li)Y=+3 : 5 item bus, 4 decorative casing$(li)Y=+2 : 5 casing or hatch, 4 decorative casing$(li)Y=+1 : 5 casing or hatch, 4 decorative casing$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(br2)$(o)The 3D view of the structure follows later in this entry."
+      "text": "$(l)Melangeur Cryogenique M1$() -- 3x5x3, 45 blocks including the controller.$(br)$(li)Y=+3 : 5 item bus, 4 decorative casing$(li)Y=+2 : 5 casing or hatch, 4 decorative casing$(li)Y=+1 : 5 casing or hatch, 4 decorative casing$(li)Y=+0 : 4 decorative casing, 4 casing or hatch"
     },
     {
       "type": "text",
-      "title": "M2 Bio-Reacteur (deja en place)",
-      "text": "$(l)Bio-Reacteur$() (3x5x3, ~83 blocs) -- la machine d'armement final :$(br)Existe deja, voir Carnet Vol IV ou tu as deja construit pour les recipes precedentes.$(br2)$(l)2 recipes critiques$() :$(br)$(li)bio_solution_epsilon_synthesis : alpha+beta+gamma3+delta+argon -> Solution Epsilon$(li)bio_cartouche_manifold_armement ⭐ : cartouche_chargee + epsilon + starlight + argon -> $(#248)CARTOUCHE MANIFOLD$()"
+      "text": "$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(br2)$(o)The 3D view of the structure follows later in this entry.",
+      "nexus_suite": {
+        "sep": "",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
-      "text": "$(#a00)100k RF/t pendant 30s pour l'armement final.$()",
+      "title": "M2 Bio-Reacteur",
+      "text": "$(l)Bio-Reacteur$() (3x5x3, ~83 blocs) -- la machine d'armement final :$(br)Existe deja, voir Carnet Vol IV ou tu as deja construit pour les recipes precedentes."
+    },
+    {
+      "type": "text",
+      "text": "$(l)2 recipes critiques$() :$(br)$(li)bio_solution_epsilon_synthesis : alpha+beta+gamma3+delta+argon -> Solution Epsilon$(li)bio_cartouche_manifold_armement ⭐ : cartouche_chargee + epsilon + starlight + argon -> $(#248)CARTOUCHE MANIFOLD$()$(br2)$(#a00)100k RF/t pendant 30s pour l'armement final.$()",
       "nexus_suite": {
         "sep": "$(br2)",
         "reprise": ""
@@ -28,8 +44,8 @@
     },
     {
       "type": "multiblock",
-      "name": "M1 Melangeur Cryogenique (3x5x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Melangeur M1",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [

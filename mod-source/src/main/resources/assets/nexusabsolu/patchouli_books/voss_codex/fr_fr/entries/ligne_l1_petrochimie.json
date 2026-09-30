@@ -1,5 +1,5 @@
 {
-  "name": "L1 -- Petrochimie",
+  "name": "L1 Petrochimie",
   "icon": "minecraft:bucket",
   "sortnum": 2,
   "pages": [
@@ -15,8 +15,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-DESA Chambre Sous Vide (3x2x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Chambre Sous Vide",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -40,8 +40,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-HDS Tour Hydrodesulfuration (3x3x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Tour HDS",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [

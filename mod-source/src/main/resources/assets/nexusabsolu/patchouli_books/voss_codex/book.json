@@ -5,9 +5,10 @@
   "model": "patchouli:book_brown",
   "creative_tab": "nexusabsolu",
   "version": 1,
-  "subtitle": "Plans et notes du Dr. Elias Voss",
+  "subtitle": "Notes du Dr. Voss",
   "use_resource_pack": true,
   "i18n": true,
   "show_progress": false,
-  "namespaced_signatures": true
+  "namespaced_signatures": true,
+  "use_blocky_font": true
 }

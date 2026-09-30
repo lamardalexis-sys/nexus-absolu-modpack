@@ -16,9 +16,12 @@ branche 1.12.2-final de github.com/VazkiiMods/Patchouli.
 Patchouli ne pagine pas et ne tronque pas : il dessine, et ce qui depasse
 la hauteur de la page sort du parchemin.
 
-Largeurs : police UNICODE (voir extract_font_widths.py), lues dans
-font_widths.json. Si le fichier manque, on s'arrete : mesurer avec la
-police ASCII sous-estimerait certaines lignes et surestimerait d'autres.
+Largeurs : la police que le livre utilise, via book_font(). Sans
+"use_blocky_font" dans book.json, Patchouli ecrit en police UNICODE
+(font_widths.json) ; avec, en police normale (font_widths_ascii.json, repli
+unicode hors de la table de FontRenderer). Voir extract_font_widths.py.
+Si un fichier manque, on s'arrete : mesurer avec la mauvaise police
+sous-estimerait certaines lignes et surestimerait d'autres.
 
 Coupure de ligne : TextLayouter coupe avec java.text.BreakIterator. Ses
 regles (tirets, ponctuation, chiffres) ne se reimitent pas fidelement en
@@ -42,6 +45,9 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+BOOK_JSON = os.path.join(os.path.dirname(os.path.dirname(HERE)), 'mod-source', 'src', 'main',
+                         'resources', 'assets', 'nexusabsolu', 'patchouli_books',
+                         'voss_codex', 'book.json')
 
 PAGE_WIDTH = 116
 PAGE_HEIGHT = 156
@@ -111,6 +117,36 @@ class Font(object):
                 width += 1
             j += 1
         return width
+
+
+class BlockyFont(Font):
+    """FontRenderer 1.12.2 hors mode unicode : ascii.png pour les caracteres
+    de sa table CHARSET, police unicode pour les autres (getCharWidth)."""
+
+    def __init__(self, path=None, ascii_path=None):
+        Font.__init__(self, path)
+        ascii_path = ascii_path or os.path.join(HERE, 'font_widths_ascii.json')
+        if not os.path.exists(ascii_path):
+            raise LayoutError(
+                "%s absent. Lancer une fois :\n"
+                "  python3 scripts/gen/extract_font_widths.py --ascii <minecraft-1.12.2.jar>"
+                % os.path.relpath(ascii_path))
+        with open(ascii_path, encoding='utf-8') as f:
+            data = json.load(f)
+        self.ascii = data['widths']
+        self.sha1 = 'ascii ' + data.get('sha1', '?')
+
+    def char_width(self, c):
+        if c != '\u00a7' and c in self.ascii:
+            return self.ascii[c]
+        return Font.char_width(self, c)
+
+
+def book_font(book_json=None):
+    """La police du texte des pages, selon "use_blocky_font" de book.json."""
+    with open(book_json or BOOK_JSON, encoding='utf-8') as f:
+        blocky = json.load(f).get('use_blocky_font', False)
+    return BlockyFont() if blocky else Font()
 
 
 # ---------------------------------------------------------------- analyse

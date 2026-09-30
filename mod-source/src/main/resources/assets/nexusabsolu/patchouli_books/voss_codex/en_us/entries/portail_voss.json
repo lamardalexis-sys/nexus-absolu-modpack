@@ -6,12 +6,20 @@
     {
       "type": "text",
       "title": "Plans du Portail",
-      "text": "$(l)Notes du Dr. Elias Voss$()$(br)$(o)Si tu lis ceci, c'est que tu as franchi le Condenseur Tier 2. Bravo. Le reste sera plus difficile.$()$(br2)Le Portail n'est pas une porte. C'est une autorisation. Une convergence de matiere, d'energie et de volonte. Il s'ouvre — ou il ne s'ouvre pas.$(br2)Tourne la page pour voir la structure complete."
+      "text": "$(l)Notes du Dr. Elias Voss$()$(br)$(o)Si tu lis ceci, c'est que tu as franchi le Condenseur Tier 2. Bravo. Le reste sera plus difficile.$()"
+    },
+    {
+      "type": "text",
+      "text": "Le Portail n'est pas une porte. C'est une autorisation. Une convergence de matiere, d'energie et de volonte. Il s'ouvre — ou il ne s'ouvre pas.$(br2)Tourne la page pour voir la structure complete.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "multiblock",
       "name": "Portail Voss",
-      "text": "$(l)9 layers$(), bottom to top. $(l)Shift$(): one layer. The blinking block is the $(l)Control Screen$(): place it last.",
+      "text": "$(l)9 layers$(). $(l)Shift$(): one layer. The blinking $(l)Control Screen$() goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -113,7 +121,15 @@
     {
       "type": "text",
       "title": "Liste de courses",
-      "text": "$(li)29x Nexus Wall$(li)39x Nexus Wall T2$(li)16x Bloc de Vossium III$(li)2x Bloc de Vossium IV$(li)1x Energy Input$(li)1x Fluid Input$(li)4x Bloc de Compose D$(li)8x Seau de Lave$(li)1x Ecran de Controle (le maitre)$(br)$(o)101 blocs au total. La precision est obligatoire."
+      "text": "$(li)29x Nexus Wall$(li)39x Nexus Wall T2$(li)16x Bloc de Vossium III$(li)2x Bloc de Vossium IV$(li)1x Energy Input$(li)1x Fluid Input$(li)4x Bloc de Compose D$(li)8x Seau de Lave$(li)1x Ecran de Controle (le maitre)"
+    },
+    {
+      "type": "text",
+      "text": "$(o)101 blocs au total. La precision est obligatoire.",
+      "nexus_suite": {
+        "sep": "$(br)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",

@@ -197,7 +197,7 @@ def dump(data, raw):
 def main(argv):
     merge_only = '--merge-only' in argv
     dry = '--dry-run' in argv
-    font = None if merge_only else P.Font()
+    font = None if merge_only else P.book_font()
     changed = 0
     added = 0
     for path in entry_files():

@@ -1,5 +1,5 @@
 {
-  "name": "L1 -- Petrochimie",
+  "name": "L1 Petrochimie",
   "icon": "minecraft:bucket",
   "sortnum": 2,
   "pages": [
@@ -11,12 +11,20 @@
     {
       "type": "text",
       "title": "MB-HDS Tour",
-      "text": "$(l)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch$(br2)$(o)The 3D view of the structure follows later in this entry."
+      "text": "$(l)Tour Hydrodesulfuration$() -- 3x3x3, 27 blocks including the controller.$(br)$(li)Y=+1 : 5 item bus, 4 decorative casing$(li)Y=+0 : 4 decorative casing, 4 casing or hatch$(li)Y=-1 : 4 decorative casing, 4 fluid hatch, 1 energy hatch"
+    },
+    {
+      "type": "text",
+      "text": "$(o)The 3D view of the structure follows later in this entry.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "multiblock",
-      "name": "MB-DESA Chambre Sous Vide (3x2x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Chambre Sous Vide",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -40,8 +48,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-HDS Tour Hydrodesulfuration (3x3x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Tour HDS",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [

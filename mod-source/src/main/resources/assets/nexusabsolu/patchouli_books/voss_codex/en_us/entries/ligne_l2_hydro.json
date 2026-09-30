@@ -1,5 +1,5 @@
 {
-  "name": "L2 -- Hydro-Eau",
+  "name": "L2 Hydro-Eau",
   "icon": "minecraft:water_bucket",
   "sortnum": 3,
   "pages": [
@@ -11,12 +11,20 @@
     {
       "type": "text",
       "title": "MB-TRITIUM",
-      "text": "$(l)tritium_breeder$() (3x2x3, 34 blocs) :$(br)Meme layout que osmose_inverse mais avec item input pour Li-6.$(br2)$(#a00)IMPORTANT$() : doit etre $(l)pres d'un Fission Reactor NC actif$() pour fonctionner ! Sinon pas de flux neutronique = pas de tritium.$(br2)$(o)Recipe : 1 lithium6_ingot + 100mB heavywater -> 10mB tritium + helium4_capsule."
+      "text": "$(l)tritium_breeder$() (3x2x3, 34 blocs) :$(br)Meme layout que osmose_inverse mais avec item input pour Li-6.$(br2)$(#a00)IMPORTANT$() : doit etre $(l)pres d'un Fission Reactor NC actif$() pour fonctionner ! Sinon pas de flux neutronique = pas de tritium."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Recipe : 1 lithium6_ingot + 100mB heavywater -> 10mB tritium + helium4_capsule.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "multiblock",
-      "name": "MB-OSMOSE (3x2x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Osmose Inverse",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -40,8 +48,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-TRITIUM (3x3x3, pres reactor NC)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Tritium Breeder",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [

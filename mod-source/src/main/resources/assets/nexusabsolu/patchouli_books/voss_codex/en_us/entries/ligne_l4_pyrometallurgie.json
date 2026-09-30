@@ -1,5 +1,5 @@
 {
-  "name": "L4 -- Pyrometallurgie",
+  "name": "L4 Pyrometallurgie",
   "icon": "minecraft:iron_ingot",
   "sortnum": 5,
   "pages": [
@@ -20,8 +20,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-HALL Hall-Heroult (3x3x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Cellule Hall-Heroult",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -53,8 +53,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-KROLL Reacteur Kroll (3x3x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Reacteur Kroll",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -86,8 +86,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-AQUA-REGIA Eau Regale (3x2x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Cellule Eau Regale",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [

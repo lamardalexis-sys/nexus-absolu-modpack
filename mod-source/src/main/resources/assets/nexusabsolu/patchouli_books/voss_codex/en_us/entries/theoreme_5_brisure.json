@@ -1,21 +1,29 @@
 {
-  "name": "Theoreme V -- Brisure Dimensionnelle",
+  "name": "V. Brisure",
   "icon": "minecraft:mycelium",
   "sortnum": 6,
   "pages": [
     {
       "type": "text",
       "title": "La fissure",
-      "text": "$(o)The fifth theorem is the escape. The crack in the wall of the world.$()$(br2)Voss found it by exposing ordinary mycelium to an intense neutron flux. The mycelium $(l)changes$(). Becomes sensitive. Becomes $(#248)mycelium_active$().$(br2)It can then be ground into $(l)spores_active$(), the Soxhlet's input for Manifoldine."
+      "text": "$(o)The fifth theorem is the escape. The crack in the wall of the world.$()$(br2)Voss found it by exposing ordinary mycelium to an intense neutron flux. The mycelium $(l)changes$(). Becomes sensitive. Becomes $(#248)mycelium_active$()."
+    },
+    {
+      "type": "text",
+      "text": "It can then be ground into $(l)spores_active$(), the Soxhlet's input for Manifoldine.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
       "title": "Activation",
-      "text": "Procedure:$(br)$(li)Build the $(l)Gamma Forge$() (3x3x3, line L5)$(li)Feed $(l)tritium$() from the Tritium Breeder$(li)Load 8 ordinary mycelium blocks$(li)8000 RF/t for 1200 ticks$(br2)Output: 8x $(#248)mycelium_active$(). Then grind it in the $(l)Mekanism Crusher$() for 8x $(l)spores_active$() per block."
+      "text": "Procedure:$(br)$(li)Build the $(l)Gamma Forge$() (3x3x3, line L5)$(li)Feed $(l)tritium$() from the Tritium Breeder$(li)Load 8 ordinary mycelium blocks$(li)8000 RF/t for 1200 ticks"
     },
     {
       "type": "text",
-      "text": "$(o)The nuclear line is not decorative: no tritium, no mycelium, no Manifoldine.",
+      "text": "Output: 8x $(#248)mycelium_active$(). Then grind it in the $(l)Mekanism Crusher$() for 8x $(l)spores_active$() per block.$(br2)$(o)The nuclear line is not decorative: no tritium, no mycelium, no Manifoldine.",
       "nexus_suite": {
         "sep": "$(br2)",
         "reprise": ""

@@ -1,25 +1,33 @@
 {
-  "name": "Synthese -- La Cartouche",
+  "name": "La Cartouche",
   "icon": "nexusabsolu:cartouche_manifold",
   "sortnum": 7,
   "pages": [
     {
       "type": "text",
-      "title": "M1 Melangeur Cryogenique",
-      "text": "Sous atmosphere $(#248)Cryotheum$() (-196 deg C), le M1 fusionne les sortants des 7 lignes pour produire les composes finaux :$(br)$(li)$(l)alpha$() -- super-acide stabilise$(li)$(l)beta$() -- organometallique Au-PR3$(li)$(l)gamma1$() -- UF6 stabilise$(li)$(l)gamma2$() -- Pu-Be Borate$(li)$(l)gamma3$() -- Tritiure de Lithium$(li)$(l)delta$() -- bio-actif Manifoldine"
+      "title": "M1 Melangeur Cryo",
+      "text": "Sous atmosphere $(#248)Cryotheum$() (-196 deg C), le M1 fusionne les sortants des 7 lignes pour produire les composes finaux :$(br)$(li)$(l)alpha$() -- super-acide stabilise$(li)$(l)beta$() -- organometallique Au-PR3$(li)$(l)gamma1$() -- UF6 stabilise"
     },
     {
       "type": "text",
-      "text": "6 composes. Cinq theoremes dans chaque atome.",
+      "text": "$(li)$(l)gamma2$() -- Pu-Be Borate$(li)$(l)gamma3$() -- Tritiure de Lithium$(li)$(l)delta$() -- bio-actif Manifoldine$(br)6 composes. Cinq theoremes dans chaque atome.",
       "nexus_suite": {
-        "sep": "$(br)",
+        "sep": "",
         "reprise": ""
       }
     },
     {
       "type": "text",
       "title": "Le Casing",
-      "text": "L'enveloppe finale s'appelle $(#248)Casing Titane-Iridium$(). Recette shaped :$(br)$(li)4x Titanium pur (L4 Kroll)$(li)4x Iridium pur 99 (L4 Aqua Regia)$(li)1x Bloc de Cryolithe (centre, isolation)$(li)1x Cartouche Vide (pour le receptacle)$(br2)Resistance haute pression. Transparence pour fenetre Quantum Glass. Stabilite chimique sous Manifoldine active."
+      "text": "L'enveloppe finale s'appelle $(#248)Casing Titane-Iridium$(). Recette shaped :$(br)$(li)4x Titanium pur (L4 Kroll)$(li)4x Iridium pur 99 (L4 Aqua Regia)$(li)1x Bloc de Cryolithe (centre, isolation)$(li)1x Cartouche Vide (pour le receptacle)"
+    },
+    {
+      "type": "text",
+      "text": "Resistance haute pression. Transparence pour fenetre Quantum Glass. Stabilite chimique sous Manifoldine active.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
@@ -29,7 +37,15 @@
     {
       "type": "text",
       "title": "Bio-Reacteur Manifold",
-      "text": "Recette finale dans le $(l)Bio-Reacteur$() (3x5x3) :$(br)$(li)1 Cartouche Chargee$(li)1000mB Solution Epsilon$(li)4000mB Liquid Starlight$(li)500mB Argon$(li)100k RF/t pendant 30s$(br2)Output : $(#248)CARTOUCHE MANIFOLD$(). Le serum est vivant. Il pulse.$(br2)$(o)Si tu lis ceci avec la cartouche dans la main, ferme le carnet. Tu n'auras plus besoin de mes notes."
+      "text": "Recette finale dans le $(l)Bio-Reacteur$() (3x5x3) :$(br)$(li)1 Cartouche Chargee$(li)1000mB Solution Epsilon$(li)4000mB Liquid Starlight$(li)500mB Argon$(li)100k RF/t pendant 30s$(br2)Output : $(#248)CARTOUCHE MANIFOLD$(). Le serum est vivant. Il pulse."
+    },
+    {
+      "type": "text",
+      "text": "$(o)Si tu lis ceci avec la cartouche dans la main, ferme le carnet. Tu n'auras plus besoin de mes notes.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     }
   ],
   "category": "nexusabsolu:vol_iv"

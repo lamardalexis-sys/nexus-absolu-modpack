@@ -1,27 +1,43 @@
 {
-  "name": "L8 -- Botanique + Manifoldine",
+  "name": "L8 Botanique",
   "icon": "minecraft:beetroot",
   "sortnum": 9,
   "pages": [
     {
       "type": "text",
-      "title": "5 multiblocs L8 (le plus de machines)",
-      "text": "$(l)5 multiblocs$() sur cette ligne (la plus complexe) :$(br)$(li)$(#248)MB-SOXHLET$() (3x5x3) -- extraction Manifoldine$(li)$(#248)MB-CYCLO$() (3x5x3 nuit ⭐⭐⭐) -- cyclisation stellaire$(li)$(#248)MB-EVAPORATOR$() (3x3x3) -- cristallisation$(li)$(#248)MB-ALAMBIC$() (3x3x3) -- mana distillation$(li)$(#248)MB-MANA-ENCHANTER$() (3x2x3) -- charge manaique"
+      "title": "5 multiblocs L8",
+      "text": "$(l)5 multiblocs$() sur cette ligne (la plus complexe) :$(br)$(li)$(#248)MB-SOXHLET$() (3x5x3) -- extraction Manifoldine$(li)$(#248)MB-CYCLO$() (3x5x3 nuit ⭐⭐⭐) -- cyclisation stellaire$(li)$(#248)MB-EVAPORATOR$() (3x3x3) -- cristallisation$(li)$(#248)MB-ALAMBIC$() (3x3x3) -- mana distillation"
     },
     {
       "type": "text",
-      "title": "MB-CYCLO (3x5x3) ⭐⭐⭐",
-      "text": "$(l)Cyclisateur Stellaire$() -- 3x5x3, 45 blocs controleur compris.$(br)$(li)Y=+3 : 5 bus a items, 4 casing decoratif$(li)Y=+2 : 5 casing ou hatch au choix, 4 casing decoratif$(li)Y=+1 : 5 casing ou hatch au choix, 4 casing decoratif$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(br2)$(o)La structure en 3D suit, plus loin dans cette entree."
+      "text": "$(li)$(#248)MB-MANA-ENCHANTER$() (3x2x3) -- charge manaique",
+      "nexus_suite": {
+        "sep": "",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
-      "title": "MB-ALAMBIC + MB-MANA-ENCHANTER",
+      "title": "MB-CYCLO ⭐⭐⭐",
+      "text": "$(l)Cyclisateur Stellaire$() -- 3x5x3, 45 blocs controleur compris.$(br)$(li)Y=+3 : 5 bus a items, 4 casing decoratif$(li)Y=+2 : 5 casing ou hatch au choix, 4 casing decoratif$(li)Y=+1 : 5 casing ou hatch au choix, 4 casing decoratif$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix"
+    },
+    {
+      "type": "text",
+      "text": "$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(br2)$(o)La structure en 3D suit, plus loin dans cette entree.",
+      "nexus_suite": {
+        "sep": "",
+        "reprise": ""
+      }
+    },
+    {
+      "type": "text",
+      "title": "ALAMBIC + ENCHANTER",
       "text": "$(l)Alambic Manaique$() -- 3x3x3, 27 blocs controleur compris.$(br)$(li)Y=+1 : 5 bus a items, 4 casing decoratif$(li)Y=+0 : 4 casing decoratif, 4 casing ou hatch au choix$(li)Y=-1 : 4 casing decoratif, 4 hatch a fluide, 1 hatch energie$(br2)$(o)La structure en 3D suit, plus loin dans cette entree."
     },
     {
       "type": "multiblock",
-      "name": "MB-SOXHLET (3x5x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Extracteur Soxhlet",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -63,8 +79,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-CYCLO Cyclisateur Stellaire (3x5x3, NUIT)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Cyclisateur Stellaire",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -106,8 +122,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-EVAPORATOR Cristal Manifoldine (3x3x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Evaporateur",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -139,8 +155,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-ALAMBIC Manaique (3x3x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Alambic Manaique",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -172,8 +188,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-MANA-ENCHANTER (3x2x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Mana Enchanter",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [

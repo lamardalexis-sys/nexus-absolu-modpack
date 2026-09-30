@@ -1,5 +1,5 @@
 {
-  "name": "Comment lire ce guide",
+  "name": "Lire ce guide",
   "icon": "minecraft:book",
   "sortnum": 1,
   "pages": [
@@ -19,17 +19,41 @@
     {
       "type": "text",
       "title": "Hatches obligatoires",
-      "text": "$(l)IMPORTANT$() : chaque multibloc a besoin d'au moins :$(br)$(li)1 Energy Input (sinon pas de RF)$(li)Fluid hatches selon recette (1 in + 1 out minimum)$(li)Item buses si la recette demande des items$(br2)Si tu vois 'machine ne demarre pas' : verifie que tu as TOUS les hatches connectes ET alimentes."
+      "text": "$(l)IMPORTANT$() : chaque multibloc a besoin d'au moins :$(br)$(li)1 Energy Input (sinon pas de RF)$(li)Fluid hatches selon recette (1 in + 1 out minimum)$(li)Item buses si la recette demande des items"
+    },
+    {
+      "type": "text",
+      "text": "Si tu vois 'machine ne demarre pas' : verifie que tu as TOUS les hatches connectes ET alimentes.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
       "title": "Notation des couches",
-      "text": "Dans ce guide, on note :$(br)$(li)$(l)Y=-1$() = couche sol (sous le controller)$(li)$(l)Y=0$() = couche du controller$(li)$(l)Y=+N$() = couches au-dessus$(br)Symboles :$(br)$(li)C = casing simple$(li)D = casing decoratif$(li)F = fluid hatch (in OU out)$(li)I = item bus$(li)E = energy input$(li)G = verre$(li)* = controller$(li). = vide (chambre)"
+      "text": "Dans ce guide, on note :$(br)$(li)$(l)Y=-1$() = couche sol (sous le controller)$(li)$(l)Y=0$() = couche du controller$(li)$(l)Y=+N$() = couches au-dessus$(br)Symboles :"
+    },
+    {
+      "type": "text",
+      "text": "$(li)C = casing simple$(li)D = casing decoratif$(li)F = fluid hatch (in OU out)$(li)I = item bus$(li)E = energy input$(li)G = verre$(li)* = controller$(li). = vide (chambre)",
+      "nexus_suite": {
+        "sep": "$(br)",
+        "reprise": ""
+      }
     },
     {
       "type": "text",
       "title": "Casings reutilisables",
-      "text": "$(l)Bonne nouvelle$() : un casing simple Modular Machinery peut servir pour nimporte quelle position 'C' dans n'importe quel multibloc. Donc tu peux $(l)recycler$() tes casings d'un multibloc a l'autre.$(br2)Tu peux aussi $(l)demonter et reposer$() sans perdre les casings (drop a 100%%).$(br2)Total casings necessaires pour les 25 multiblocs : ~600. Production en masse recommandee."
+      "text": "$(l)Bonne nouvelle$() : un casing simple Modular Machinery peut servir pour nimporte quelle position 'C' dans n'importe quel multibloc. Donc tu peux $(l)recycler$() tes casings d'un multibloc a l'autre.$(br2)Tu peux aussi $(l)demonter et reposer$() sans perdre les casings (drop a 100%%)."
+    },
+    {
+      "type": "text",
+      "text": "Total casings necessaires pour les 25 multiblocs : ~600. Production en masse recommandee.",
+      "nexus_suite": {
+        "sep": "$(br2)",
+        "reprise": ""
+      }
     }
   ],
   "category": "nexusabsolu:vol_v"

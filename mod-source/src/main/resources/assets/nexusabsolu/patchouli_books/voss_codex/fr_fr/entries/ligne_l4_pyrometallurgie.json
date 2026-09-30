@@ -1,5 +1,5 @@
 {
-  "name": "L4 -- Pyrometallurgie",
+  "name": "L4 Pyrometallurgie",
   "icon": "minecraft:iron_ingot",
   "sortnum": 5,
   "pages": [
@@ -20,8 +20,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-HALL Hall-Heroult (3x3x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Cellule Hall-Heroult",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -53,8 +53,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-KROLL Reacteur Kroll (3x3x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Reacteur Kroll",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [
@@ -86,8 +86,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-AQUA-REGIA Eau Regale (3x2x3)",
-      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche a la fois. Le bloc qui clignote est le $(l)Controller$() : pose-le en dernier.",
+      "name": "Cellule Eau Regale",
+      "text": "$(l)Souris$() : tourner. $(l)Shift$() : une couche. Le $(l)Controller$() clignote : en dernier.",
       "multiblock": {
         "pattern": [
           [

@@ -1,16 +1,16 @@
 {
-  "name": "L5 -- Nucleaire",
+  "name": "L5 Nucleaire",
   "icon": "minecraft:redstone",
   "sortnum": 6,
   "pages": [
     {
       "type": "text",
       "title": "Multiblocs L5",
-      "text": "$(l)2 multiblocs$() (le reste reutilise L3/L4) :$(br)$(li)$(#248)MB-GAMMA-FORGE$() (gamma_forge, 3x3x3) - composes gamma1 + gamma2$(li)$(#248)MB-LIT-CHAMBER$() (lit_chamber, 3x2x3) - compose gamma3 (LiT)$(br2)Reutilise :$(br)$(li)kroll_reactor (Beryllium reduction)$(li)fluorite_cell (Boron electrolysis)"
+      "text": "$(l)2 multiblocs$() (le reste reutilise L3/L4) :$(br)$(li)$(#248)MB-GAMMA-FORGE$() (gamma_forge, 3x3x3) - composes gamma1 + gamma2$(li)$(#248)MB-LIT-CHAMBER$() (lit_chamber, 3x2x3) - compose gamma3 (LiT)"
     },
     {
       "type": "text",
-      "text": "L5.9 Mycelium activation = passive (mycelium pres reactor NC actif).",
+      "text": "Reutilise :$(br)$(li)kroll_reactor (Beryllium reduction)$(li)fluorite_cell (Boron electrolysis)$(br2)L5.9 Mycelium activation = passive (mycelium pres reactor NC actif).",
       "nexus_suite": {
         "sep": "$(br2)",
         "reprise": ""
@@ -23,8 +23,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-GAMMA-FORGE (3x3x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Forge Gamma",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
@@ -56,8 +56,8 @@
     },
     {
       "type": "multiblock",
-      "name": "MB-LIT-CHAMBER Tritiure de Lithium (3x2x3)",
-      "text": "$(l)Drag$() to rotate, hold $(l)shift$() for one layer at a time. The blinking block is the $(l)Controller$(): place it last.",
+      "name": "Chambre Lithium-Tritium",
+      "text": "$(l)Drag$(): rotate. $(l)Shift$(): one layer. The blinking block ($(l)Controller$()) goes last.",
       "multiblock": {
         "pattern": [
           [
